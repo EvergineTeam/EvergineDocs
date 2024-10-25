@@ -34,7 +34,6 @@ The following methods allow us to fully control the animation.
 | Property | Description |
 |------|-------------|
 | **PlayAnimation** | Starts the playback of an animation. The new animation can be defined by the **AnimationTrackClip** name from the **Model** asset, or directly providing the **AnimationBlendClip** if we want more specific animation, like a blend tree (see next chapters).|
-Pause(): Temporarily halts the animation, allowing it to be resumed later.
 | **StopAnimation** |  Stops the animation entirely and it keeps there. |
 | **ResumeAnimation** | Resumes the animation playback from the moment it time it got stopped. |
 
