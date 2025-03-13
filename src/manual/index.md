@@ -20,5 +20,6 @@ These pages contain information about how to use Evergine. This manual helps you
 - [Audio](audio/index.md)
 - [Physics](physics/index.md)
 - [XR](xr/index.md)
+- [Runtimes](runtimes/index.md)
 - [Extensions](extensions/index.md)
 - [Addons](addons/index.md)
