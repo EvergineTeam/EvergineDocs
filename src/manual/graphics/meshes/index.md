@@ -221,7 +221,7 @@ return new Mesh(new VertexBuffer[] { vertexBufferPos, vertexBufferColor }, index
 ```
 
 ### What we've got
-If you've had a look, you will realize that the  previous code has created a mesh with a **LayoutDescription** containing the following elements.:
+If you've had a look, you will realize that the  previous code has created a mesh with a **LayoutDescription** containing the following elements:
 
 | Element |  Semantic | Semantic Index | Format | Offset |
 |----------|------|-------------|---|---|
@@ -233,7 +233,7 @@ If you've had a look, you will realize that the  previous code has created a mes
 > For simplicity, this mesh uses **Color per vertex** to define its color instead of a texture or a solid color. It also lacks normal information. Consequently, any **StandardMaterial** applied to this mesh must have the **VertexColor** property enabled and cannot have **Lighting** or **IBL** enabled to ensure correct rendering.
 
 ### What's next
-The next step would be to use this recently created mesh into a **Model**. Then you can use that **Model** into your **Scene**. This is explained in **[this article](../models/create_model_from_code.md)**. 
+The next step would be to use this recently created mesh into a **Model**. Then you can use that **Model** into your **Scene**. This is explained in **[this page](../models/create_model_from_code.md)**. 
 
 At the end this mesh should look like this:
 
