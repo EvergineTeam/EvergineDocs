@@ -9,7 +9,7 @@ The _ComboBox_ user control allows users to select an option from a dropdown lis
 | Property               | Description                                                                                   |
 |-----------------------|-----------------------------------------------------------------------------------------------|
 | IsPopupOpen           | Indicates if the item selection popup is open.                                              |
-| DataSource            | This is the data adapter used to populate data. [Learn more about data adapters](#data-adapters). |
+| DataSource            | This is the data adapter used to populate data. [Learn more about data adapters](listview.md#populate-data). |
 | SelectedItem          | Gets or sets the selected item.                                                              |
 | PlaceholderText       | Gets or sets the placeholder text to be displayed when no element has been selected.         |
 | ArrowMaterial         | Material for the drop-down arrow.                                                            |

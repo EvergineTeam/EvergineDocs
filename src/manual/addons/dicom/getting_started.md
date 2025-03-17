@@ -55,7 +55,7 @@ The `DicomComponent` has the `DitheringEnabled` property to enable this feature.
 
 To visualize Dicoms in 3D, you need:
 
-1. [Add the Dicom.CustomRenderPath](#add-the-dicom.customrenderpath)
+1. [Add the Dicom.CustomRenderPath](#add-the-dicomcustomrenderpath)
 2. Create an entity with these components:
    - Transform3D: which will be the transform of our Dicom model
    - DicomComponent

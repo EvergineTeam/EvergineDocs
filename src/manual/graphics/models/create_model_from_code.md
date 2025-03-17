@@ -8,7 +8,7 @@ This article exemplifies the creation of a new model by code.
 # Single mesh model
 
 >[!NOTE]
-> The creation of custom meshes (With their vertex and index information) is covered in [this article](../meshes/index.md#Create-Mesh-from-Code).
+> The creation of custom meshes (With their vertex and index information) is covered in [this article](../meshes/index.md#create-mesh-from-code).
 
 For a single mesh Model, **Evergine** offers an easy way creating it, just passing it as a parameter in its constructor:
 

@@ -18,7 +18,7 @@ Evergine Studio has the following editors that allow you to manage the associate
 | [**Effect Editor**](../graphics/effects/effect_editor.md) | Double-clicking an [Effect](../graphics/effects/index.md) asset opens a dedicated editor. |
 | [**Material Editor**](../graphics/materials/material_editor.md) | Double-clicking a [Material](../graphics/materials/material_editor.md) asset opens a dedicated editor. |
 | [**Model Editor**](../graphics/models/model_editor.md) | Double-clicking a [Model](../graphics/models/index.md) asset opens a dedicated editor. |
-| [**Render Layer Editor**](../graphics/render_layers.md) | Double-clicking a [RenderLayer](../graphics/render_layers.md) asset opens a dedicated editor. |
+| [**Render Layer Editor**](../graphics/renderlayers/index.md) | Double-clicking a [RenderLayer](../graphics/renderlayers/index.md) asset opens a dedicated editor. |
 | [**Sampler Editor**](../graphics/samplers.md) | Double-clicking a [Sampler](../graphics/samplers.md) asset opens a dedicated editor. |
 | [**Sound Editor**](../audio/audio_editor.md) | Double-clicking a [Sound](../audio/index.md) asset opens a dedicated editor. |
 | [**Post-Processing Graph Editor**](../graphics/postprocessing_graph/postprocessing_graph_editor.md) | Double-clicking a [Post-Processing graph](../graphics/postprocessing_graph/index.md) asset opens a dedicated editor. |
