@@ -40,6 +40,7 @@ However, some assets represent just abstract elements that can only be created b
 
 ## In This Section
 * [Create Assets](create.md)
+* [Generate AI-Driven Assets](generate.md)
 * [Edit Assets](edit.md)
 * [Export Assets](export.md)
 * [Use Assets](use.md)
