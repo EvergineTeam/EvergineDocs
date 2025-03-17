@@ -1,19 +1,24 @@
 # Pointers and Control
 ---
-The MRTK changes the way we interact with controls. Instead of using a mouse pointer to click on buttons, the hand-tracking feature available in some devices can be used to interact with controls.
-There are two main ways of interaction:
-1. **Near interaction**: When near a control, the user can touch it with their index finger to interact with it. The mechanism that enables this is called a *near pointer*.
-2. **Far interaction**: If the user is far away but wants to interact with a control, they can use the *far pointer*. Using hand tracking, this appears as a light ray coming out of their hand, which can be used to point and click. The click gesture is known as *air-tap*.
+MRTK introduces new ways to interact with controls beyond the traditional mouse pointer, using hand-tracking features available on supported devices.
+
+There are two main interaction methods:
+
+1. **Near Interaction**: When a user is close to a control, they can interact by touching it with their index finger. This is enabled by the _near pointer_ mechanism.
+
+2. **Far Interaction**: When the user is farther away but still wants to interact, they can use the _far pointer_. Through hand tracking, this appears as a light ray extending from their hand, which they can use to point and click. The gesture for clicking at a distance is known as an _air-tap_.
+
 
 |<img alt="Near pointer" src="images/near_pointer.png" height="200">|<img alt="Far pointer" src="images/far_pointer.png" height="200">|
 |:--:|:--:|
-| **Example of *near pointer* usage** | **Example of *far pointer* usage** |
+| **Near Pointer Interaction Example** | **Far Pointer Interaction Example usage** |
 
-The default pointers for hand-tracking-enabled devices are created automatically in the *XRScene*.
+In devices that support hand-tracking, MRTK automatically creates the necessary pointers in the _XRScene_.
 
 ## Desktop Development
-These mechanisms can also be used in the desktop solution in an Evergine project. The pointers can be controlled using the keyboard.
-- Press and hold either the *left shift* or *space* key to enable either pointer (right and left hand, respectively). This enables moving the pointer using the mouse.
-- Use the *mouse wheel* to move the enabled pointer closer to or further away from the camera.
-- Use the *left mouse button* to perform the *air-tap* gesture and interact with controls placed far from the cursor.
-- Press and hold the *left control* key to rotate the enabled pointer using the mouse.
+These interaction methods are also available in desktop-based Evergine projects. The pointers can be controlled via the keyboard and mouse.
+
+- Press and hold the **left shift** key to activate the right-hand pointer or the **space** key to activate the left-hand pointer. You can then move the pointer using the mouse.
+- Use the **mouse wheel** to move the pointer closer to or farther from the camera.
+- Use the **left mouse** button to perform the _air-tap_ gesture, allowing interaction with distant controls.
+- Press and hold the **left control** key to rotate the selected pointer using the mouse.

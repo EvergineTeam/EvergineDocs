@@ -1,10 +1,10 @@
 # Hand Menu
 
-One of the main features that XRV offers is the hand menu. This is an element that shows a set of buttons that can be added or removed programmatically, and its container is attached to the user's wrist. When the user turns their palm, the menu will be displayed or hidden depending on the palm's orientation. It works for both the left and right hands.
+The hand menu is one of XRV’s primary features, enabling interactive buttons on the user's wrist. It appears when the user turns their palm and is accessible for both left and right hands.
 
 ![Hand menu](images/hand_menu.jpg)
 
-Each one of the configured modules for an XRV application has the possibility to add a new button to this menu. To do this, in the module definition class, just create an instance for the _HandMenuButton_ property.
+Each configured module in an XRV application can add a button to the hand menu by defining a _HandMenuButton_ property in the module’s definition class.
 
 ```csharp
 public class MyModule : Module 
@@ -20,32 +20,29 @@ public class MyModule : Module
     }
 }
 ```
+If _HandMenuButton_ is set to _null_, no button will be added to the menu for that module.
 
-If you set a _null_ value to this property, no button will be automatically added to the hand menu.
-
-### Hand Menu Button Configuration
-Here you will find a table with elements that can be configured for each one of the hand menu buttons using _MenuButtonDescription_.
+### Configuring Hand Menu Buttons
+The following table details configurable elements for each button using _MenuButtonDescription_:
 
 | Property | Description |
 | ------ | ------------------- |
-| **IconOn** | Material identifier to be used when the button is in the _on_ state for a toggle button, or just the button icon for a non-toggle button. |
-| **IconOff** | Material identifier to be used when the button is in the _off_ state (for toggle buttons only). |
-| **IsToggle** | Indicates if the button should be a toggle button or not. |
-| **TextOn** | Button text to be used when the button is in the _on_ state for a toggle button, or just the button icon for a non-toggle button. This property is a _Func\<string>_ to let the user define different values depending on the application's display language. |
-| **TextOff** | Button text to be used when the button is in the _off_ state (for toggle buttons only). This property is a _Func\<string>_ to let the user define different values depending on the application's display language. |
-| **VoiceCommandOn** | Voice command to activate the button when it is in the _on_ state for a toggle button, or just the button icon for a non-toggle button. |
-| **VoiceCommandOff** | Voice command to activate the button when it is in the _off_ state (for toggle buttons only). |
+| **IconOn** | Material identifier when the button is _on_ for toggle buttons or the standard icon for non-toggle buttons. |
+| **IconOff** | Material identifier when the button is _off_ (toggle buttons only). |
+| **IsToggle** | Defines whether the button functions as a toggle. |
+| **TextOn** | Text shown when the button is _on_ for toggle buttons, or standard text for non-toggle buttons. Supports localization via _Func\<string>_. |
+| **TextOff** | Text when the button is _off_ (toggle buttons only), also supporting localization. |
+| **VoiceCommandOn** | Voice command to activate the button in its _on_ state (toggle buttons only). Note: it was only supported on UWP - it's not applied in last version |
+| **VoiceCommandOff** | Voice command to activate the button in its _off_ state (toggle buttons only). Note: it was only supported on UWP - it's not applied in last version |
 
 ### Attaching/Detaching the Hand Menu
-The user has the option to detach the menu from their hand using the _Detach_ button located at the top of the menu. When doing this, the menu will change its layout and behave like a standard window. The user can choose to make it follow them or stay pinned wherever they want.
+The menu can be detached from the wrist by selecting the _Detach_ button at the top, transforming it into a floating window. Users can pin the detached menu in place or have it follow them. To reattach the menu to the wrist, press the detached menu's _Close_ button.
 
 ![Detached hand menu](images/hand_menu_detached.jpg)
 
-To bring the menu back to the wrist, the user just has to press the detached menu's _Close_ button.
-
 ### Adding Buttons Programmatically
 
-You can also add or remove buttons programmatically, apart from the buttons that you may have added (or not) from your own application module definitions. Note that _XrvService_ exposes a _HandMenu_ property that allows you to apply some custom configurations to the menu. The menu buttons collection can be modified at runtime.
+In addition to module-defined buttons, buttons can be added or removed dynamically using _XrvService’s HandMenu_ property.
 
 ```csharp
 var xrv = Application.Current.Container.Resolve<XrvService>();
@@ -62,22 +59,21 @@ handMenu.ButtonDescriptors.Add(buttonDefinition);
 handMenu.ButtonDescriptors.Remove(buttonDefinition);
 ```
 
-### Hand Menu Layout
+### Hand Menu Layout Customization
 
-We don't support modifying the built-in hand menu shape or layout. You can only modify the number of buttons per column. This property has a minimum size of 4 buttons per column, as this is necessary for the detached menu state.
-
-To modify the number of buttons per column, use the following code snippet:
+The hand menu layout cannot be modified directly. However, the number of buttons per column can be adjusted, with a minimum of 4 buttons per column to maintain functionality in detached mode.
 
 ```csharp
 handMenu.ButtonsPerColumn = 5;
 ```
 
-### Hand Menu Starting Tutorial
-A tutorial animation can be displayed every time the application is started, to let users know that they should turn their hand if they want to display the menu and interact with the application.
+### Hand Menu Tutorial
+
+A startup tutorial animation demonstrates how to display the menu by turning the hand, helping new users interact effectively.
 
 ![Hand menu tutorial](images/hand_menu_tutorial.jpg)
 
-To hide this animation on application start, you can use this code snippet. Note that you should deactivate the flag after XRV initialization (the hand menu will not be available before that).
+To disable this animation at startup, deactivate the flag after initializing XRV:
 
 ```csharp
 var xrv = Application.Current.Container.Resolve<XrvService>();

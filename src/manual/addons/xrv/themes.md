@@ -1,6 +1,6 @@
 # Themes System
 
-If you need to customize the colors used by your application, you should know that _XRV_ uses a system for application theming. A palette of colors is defined by generic color names.
+The themes system in _XRV_ provides a flexible way to control the look and feel of your application by modifying colors, fonts, and text styles. If you need to customize the colors used by your application, you should know that _XRV_ uses a system for application theming. A palette of colors is defined by generic color names.
 
 | Color | Description |
 | ------ | ------------------- |

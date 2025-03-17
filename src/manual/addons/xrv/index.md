@@ -2,17 +2,18 @@
 
 ---
 
-XRV is a library we use internally while developing custom XR experiences for our customers. It aims to gather in one place various functionalities and features commonly required by the applications we build, such as floating windows, hand menus, voice commands, and more.
+The Extended Reality Viewer (XRV) is an internal library we developed to streamline the creation of custom XR experiences for our clients. XRV consolidates essential XR functionality—such as floating windows, hand menus, voice commands, and more—into a single toolkit, enhancing productivity and ease of development.
 
 ![XRV main image](images/main.jpg)
 
-It is based on our own [MRTK add-on](../mrtk/index.md), which means it uses the same input pointers, user controls like buttons or sliders, configuration components, etc. Leveraging this foundation, we have built the entire XRV infrastructure.
+Built upon our proprietary [MRTK add-on](../mrtk/index.md), XRV leverages shared resources like input pointers, user controls (e.g., buttons, sliders), and configuration components, providing a robust, extensible foundation for XR applications.
 
-Most of the features are supported on many platforms, but some features may not be available on all platforms. You can run XRV on devices like:
-- Meta Quest and Meta Quest 2
+XRV supports multiple platforms, though some features may vary by device. Compatible devices include:
+- Meta Quest
+- Meta Quest 2
+- Meta Quest 3
 - Meta Quest Pro
 - Pico XR headsets
-- Microsoft HoloLens 2
 
 ## In this section
 

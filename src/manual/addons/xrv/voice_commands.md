@@ -3,7 +3,7 @@
 This service allows us to register keywords that the speech recognition service will detect, enabling us to take actions when this occurs. It is based on [MRTK](../mrtk/index.md), so you should work with _SpeechHandler_ if you want to create handlers for your custom controls. If you are only interested in buttons and toggle buttons, you can use _PressableButtonSpeechHandler_ defined in _MRTK_ or _ToggleButtonSpeechHandler_ defined in _XRV_ to activate a button when the associated voice command is recognized.
 
 > [!NOTE]
-> The current implementation supports voice commands for _HoloLens 2 (UWP)_ only. The speech recognition service must be enabled, or command recognition will not occur. Please note that you should add an explicit reference to the _Evergine.Xrv.Core_ NuGet package for your UWP Mixed Reality project. This is necessary to ensure the correct implementation of the speech service for the UWP platform.
+> Voice command functionality is maintained in abstraction but not in implementation. It was originally available only for UWP (HoloLens) applications, but Evergine no longer supports this platform, so current implementations lack direct voice command support.
 
 Users can also activate or deactivate voice command recognition in the _Configuration -> General_ section.
 

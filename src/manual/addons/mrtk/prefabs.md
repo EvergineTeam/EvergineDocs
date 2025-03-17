@@ -1,13 +1,13 @@
 # Using Prefabs and Customization
 ---
-The MRTK contains some controls in the form of *prefabs* that are useful when developing applications, the most basic ones being the *button* and the *slider*. They can be found in the *Prefabs* folder in the MRTK dependency.
+MRTK provides ready-made controls in the form of _prefabs_ to simplify application development, including fundamental components like _buttons_ and _sliders_. These prefabs are available in the _Prefabs_ folder within the MRTK dependency.
 
 |<img alt="Buttons" src="images/buttons.png" height="200">|<img alt="Sliders" src="images/sliders.png" height="200">|
 |:--:|:--:|
 | **Buttons** | **Sliders** |
 
 ## Customization
-When a control prefab is instantiated in Evergine, its hierarchy will be shown in Evergine Studio. This is one way to customize the look of a particular instance.
+When a prefab control is instantiated in Evergine, its component hierarchy becomes visible in Evergine Studio. This allows you to customize the look and feel of individual instances directly within the editor.
 
 |<img alt="Button hierarchy" src="images/button_hierarchy.png" height="200">|<img alt="Button customization" src="images/button_customization.png" height="200">|
 |:--:|:--:|

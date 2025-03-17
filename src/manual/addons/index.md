@@ -8,8 +8,9 @@ They may contain assets, prefabs, behaviors, components, and NuGet packages that
 ## Available Add-ons
 
 * [MRTK](mrtk/index.md)
-* [ARR](arr/index.md)
 * [XRV](xrv/index.md)
+* [Gaussian Splatting](gaussiansplatting/index.md)
+* [Dicom](dicom/index.md)
 
 ## Add-ons in Evergine Studio
 
@@ -60,13 +61,3 @@ Automatically, a new copy of the asset will be created in your local folder proj
 ## Develop new Add-ons
 
 The ability to include new add-ons to external companies will be available in future releases. For now, only add-ons created by **Evergine Team** can be installed through **Evergine Studio**.
-
-### Upcoming packages
-
-Evergine is under continuous development, and more upcoming packages are on the way:
-
-| Package | Description |
-| --- | --- |
-| **Noesis GUI** | Using [NoesisGUI](https://www.noesisengine.com/) with Evergine allows you to create appealing User Interfaces using powerful XAML tools like Microsoft Expression Blend. |
-| **CAD Formats** | Take your industrial CAD/3D model and bring it into your Evergine application. |
-| **Bing Maps** | Provides [Bing Maps](https://www.bingmapsportal.com/) integration with Evergine, allowing you to utilize Bing Maps 3D mapping data in your application. |

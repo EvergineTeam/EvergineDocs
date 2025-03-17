@@ -1,11 +1,12 @@
 # Settings System
 
-_XRV_ provides a default window where you can include specific settings for your application or modules. It also includes a section for general settings provided by the core library, such as turning voice commands on or off. To open the _Configuration_ window, just press the ![settings hand menu](images/settings.png) button that you can find in the hand menu.
+_XRV_ provides a default window where you can include specific settings for your application or modules. It also includes a section for general settings provided by the core library, such as enabling or disabling voice commands. To open the _Configuration_ window, simply press the ![settings hand menu](images/settings.png) button found in the hand menu.
 
 ![settings hand menu](images/settings_system_panel.png)
 
-This window is a _TabbedWindow_, and you have two ways of adding new elements:
-- Adding a configuration section to your custom module
+This window is a _TabbedWindow_, and you have two ways to add new elements:
+
+- **Adding a configuration section to your custom module**
 
 ```csharp
 public class MyModule : Module
@@ -23,7 +24,7 @@ public class MyModule : Module
 }
 ```
 
-- Using the _SettingsSystem_ API
+- **Using the _SettingsSystem_ API**
 
 ```csharp
 var settings = this.xrvService.SettingsSystem;

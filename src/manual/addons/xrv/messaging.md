@@ -1,10 +1,8 @@
-Here is the improved version of your text with correct grammar:
-
 # Messaging
 
-_XRV_ includes a simple implementation of the publisher-subscriber pattern, enabling you to communicate between two separate parts of code using messages. You can use it in components, services, or any other elements as needed. You can emit any type of message through this channel; however, it is recommended to create specific message types that can contain any information you consider useful.
+_XRV_ provides a straightforward implementation of the publisher-subscriber pattern, allowing different parts of your application to communicate via messages. This system can be used in components, services, or any other elements as needed. You can emit any type of message; however, it's recommended to create specific message types that contain any relevant information.
 
-To emit a message, just create a custom message class and use the _Publish_ method.
+To send a message, create a custom message class and use the _Publish_ method.
 
 ```csharp
 public class MyMessage 
@@ -25,7 +23,7 @@ var message = new MyMessage("my-data", 1234);
 pubSub.Publish(message);
 ```
 \
-To receive messages of a given type, you should use the _Subscribe_ method. It returns a subscription token, which you must save to be able to unsubscribe, depending on how your code behaves. For example, if you want to use it in a _Component_, the most common pattern will be to subscribe in _OnAttach/OnActivated_ and unsubscribe in _OnDetach/OnDeactivated_.
+To receive messages of a specific type, use the _Subscribe_ method. It returns a subscription token, which you should save to enable unsubscribing when necessary. For example, if you want to use it in a _Component_, the standard approach is to subscribe in _OnAttach/OnActivated_ and unsubscribe in _OnDetach/OnDeactivated_.
 
 ```csharp
 public class MyComponent : Component 

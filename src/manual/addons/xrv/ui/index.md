@@ -1,7 +1,7 @@
 # UI
 
 ---
-XRV provides some built-in components and artifacts that make life easier for developers by creating uniform and consistent user interfaces.
+XRV includes several built-in components that simplify creating uniform, consistent user interfaces. These components ensure that developers can deliver a cohesive user experience across various modules.
 
 ## In this section
 

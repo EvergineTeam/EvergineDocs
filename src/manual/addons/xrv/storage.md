@@ -1,10 +1,10 @@
 # Storage
 
-If you need an external repository to load your models, images, or other types of files required by your application, you can take a look at what _XRV_ offers regarding file storage. The base class for storage systems is the _FileAccess_ class, which can be extended to create specific implementations for full CRUD access to files in a repository or folder.
+If your application requires an external repository for models, images, or other files, _XRV_ offers a flexible file storage system. The base class, _FileAccess_, can be extended to create custom implementations with full CRUD capabilities for files in various storage repositories.
 
 ## File Access
 
-We provide a set of implementations for _FileAccess_ that we will enumerate. The following set of methods will be available when using any file access instance from code.
+The following methods are available in any _FileAccess_ implementation and provide core functionalities for file and directory operations.
 
 | Method | Description |
 | ------ | ------------------- |
@@ -22,7 +22,7 @@ We provide a set of implementations for _FileAccess_ that we will enumerate. The
 
 ### Local Application Data Folder Storage
 
-This is implemented by _ApplicationDataFileAccess_, which sets the base path to the value of _System.Environment.SpecialFolder.LocalApplicationData_, which can change depending on the target platform. If you create a new file access instance of this type, just set the _BaseDirectory_ value to a name for a base directory for that instance. You can use this file access as a data cache or to create temporary files needed by your application. However, these files may not be externally available depending on the target platform.
+The _ApplicationDataFileAccess_ implementation sets the base path to _System.Environment.SpecialFolder.LocalApplicationData_, which varies depending on the platform. To use this storage, set the _BaseDirectory_ to the desired folder name. This option is ideal for data caching or temporary file storage, but note that files may not be accessible outside of the application depending on the platform.
 
 ```csharp
 var fileAccess = new ApplicationDataFileAccess()
@@ -31,13 +31,11 @@ var fileAccess = new ApplicationDataFileAccess()
 };
 ```
 > [!NOTE]
-> We use some folders internally, so be careful and do not use _"cache"_ as the base directory name.
+> Some folders are used internally. Avoid using _"cache"_ as the base directory name.
 
 ### Azure Blob Data Storage
 
-You can also use _Azure Blob Storage_ as a data source to download files required by your application. The only thing you need to do is add some storage account configuration settings when instantiating a file access of this type. You may find different static methods to create instances, depending on the set of configuration data you want to provide.
-
-Please note that some directory methods may not work for this file access, as _Azure Blob Storage_ does not have the concept of _directories_. When using SAS, remember that you should add appropriate permissions to the token if you want full CRUD access to blobs.
+_Azure Blob Storage_ can also be used for storing and retrieving files needed by your application. To set up an Azure Blob instance, provide storage account configuration details. Note that directory methods may not work here, as Azure Blob Storage does not support traditional directories. When using SAS (Shared Access Signature), ensure it includes permissions for full CRUD access if needed.
 
 ```csharp
 var fileAccess = AzureBlobFileAccess.CreateFromConnectionString("Storage account connection string", "Container name"); //or
@@ -47,7 +45,7 @@ var fileAccess = AzureBlobFileAccess.CreateFromConnectionString("https://<ACCOUN
 
 ### Azure Files Data Storage
 
-We also support another service, _Azure Files_, that you can use. Similarly, you need to specify connection configuration data. You may find different static methods to create instances, depending on the set of configuration data you want to provide.
+_Azure Files_ is another supported storage option that uses similar configuration parameters. You can set up Azure Files using the connection configuration data provided.
 
 ```csharp
 var fileAccess = AzureFileShareFileAccess.CreateFromConnectionString("Storage account connection string", "Share name"); //or
@@ -57,14 +55,14 @@ var fileAccess = AzureFileShareFileAccess.CreateFromConnectionString("https://<A
 
 ## Disk Cache
 
-Any _FileAccess_ can use an optional cache, which will check for files locally instead of downloading them again. To activate caching for a file access, just create an instance of _DiskCache_ and assign it.
+Any _FileAccess_ instance can use an optional disk cache, which will check for and retrieve files locally before attempting to download them again. To enable caching, create a _DiskCache_ instance and assign it to the _FileAccess_ instance.
 
 ```csharp
 var fileAccess = AzureFileShareFileAccess.CreateFromUri(...);
 fileAccess.Cache = new DiskCache("images"); // indicate a unique cache name for your needs
 ```
 
-For caching, you can specify the following settings.
+Cache settings include the following options:
 
 | Property | Description |
 | ------ | ------------------- |

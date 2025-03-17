@@ -1,13 +1,14 @@
 # Getting Started
 ---
-Here are the initial steps to follow to get started with our Mixed Reality Toolkit:
+Follow these steps to begin working with Evergine’s Mixed Reality Toolkit (MRTK):
 
-1. Create a new Evergine project or open an existing one.
-2. Install the Evergine.MRTK add-on using the add-on management option in Evergine Studio.
+1. **Create or Open a Project**: Start by creating a new Evergine project or open an existing one.
+2. **Install MRTK Add-On**: Use the Add-on Management option in Evergine Studio to install the _Evergine.MRTK_ add-on.
 
 ![Add-on installation](images/addon_installation.png)
 
-3. Update all scenes that will use MRTK functionality so they extend MRTK's XRScene class instead of Evergine's Scene class. There are some material properties that the scene uses, which need to be filled in.
+3. **Update Scene Classes**: For any scenes that will use MRTK functionality, ensure they inherit from MRTK's _XRScene_ class rather than Evergine's default _Scene_ class. Some material properties specific to MRTK will need to be assigned in these scenes.
+
 ```csharp
 using System;
 using Evergine.MRTK.Scenes;
@@ -27,16 +28,16 @@ namespace Evergine.MRTK.Demo.Scenes
         protected override Guid HandRayTexture => EvergineContent.MRTK.Textures.line_dots_png;
 
         protected override Guid HandRaySampler => EvergineContent.MRTK.Samplers.LinearWrapSampler;
+
+        protected override Guid LeftControllerModelPrefab => EvergineContent.MRTK.Prefabs.DefaultLeftController_weprefab;
+
+        protected override Guid RightControllerModelPrefab => EvergineContent.MRTK.Prefabs.DefaultRightController_weprefab;
+
+        protected override float MaxFarCursorLength => 0.5f;
     }
 }
 ```
 > [!Note]
-> There will probably be an error related to the CreateScene method, which is sealed in the XRScene class. If the scene needs to be modified via code, this can be done by overriding the OnPostCreateXRScene method instead.
+> If you encounter an error related to the _CreateScene_ method, it’s because the method is sealed in the _XRScene_ class. If scene modifications are needed, override the _OnPostCreateXRScene_ method instead.
 
-4. Register an instance of the NoesisService class in the Application class.
-```csharp
-var noesisService = new NoesisService();
-this.Container.RegisterInstance(noesisService);
-```
-
-And that's it! The project should be ready to use MRTK components.
+That’s it! Your project is now set up to use MRTK components.

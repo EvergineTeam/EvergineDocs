@@ -1,29 +1,25 @@
 # Creating Custom Controls
 ---
-All MRTK controls use custom interfaces to receive user interaction events. Most components need to be added to an entity that has a *BoxCollider* component and a *StaticBody* component to properly manage them within the physics engine.
+MRTK controls utilize custom interfaces to handle user interaction events. Most controls should be added to an entity equipped with a _BoxCollider_ component and a _StaticBody_ component to ensure correct behavior within the physics engine.
 
 ## Focus Events
-Components that implement the *IMixedRealityFocusHandler* interface will receive focus events. A control gains focus in the following scenarios:
+Controls implementing the _IMixedRealityFocusHandler_ interface receive focus events under the following conditions:
 - When a *near pointer* is close to the entity.
-- When a *far pointer* is pointing to the entity using a ray.
-- When the user is looking at the entity (using the GazeProvider).
+- When a *far pointer* targets the entity using a ray.
+- The user gazes at the entity (via the _GazeProvider_).
 
-The default button style leverages the focus event by raising the icon and text when acquiring focus.
+In the default button style, focus events visually raise the icon and text, indicating focus.
 
 ## Touch Events
-Components that implement the *IMixedRealityTouchHandler* interface will receive events when the *near pointer* makes contact with the entity's collider.
-
-These events are used in the *PressableButton* component, which is part of the standard button and enables the button's main feature.
+Controls implementing the _IMixedRealityTouchHandler_ interface receive events when the near pointer touches the entity’s collider. This interaction is central to the _PressableButton_ component, which is used in the standard button to enable its primary functionality.
 
 ## Pointer Events
-Components that implement the *IMixedRealityPointerHandler* interface will receive pointer events:
-- Pointer Down: when the user grabs an object, either through near interaction or far interaction using the air-tap gesture.
-- Pointer Dragged: when the user has already grabbed the object and is still interacting with it, allowing the object to receive position updates.
-- Pointer Up: when the user stops interacting with the object.
+Controls implementing the _IMixedRealityPointerHandler_ interface receive the following pointer events:
+- **Pointer Down**: Triggered when the user grabs an object via near or far interaction (e.g., an air-tap).
+- **Pointer Dragged**: Occurs while the user is holding the object, enabling position updates.
+- **Pointer Up**: Triggered when the user releases the object.
 
-These events are used, for example, in the manipulation handlers, which allow the user to grab an object and move, rotate, or scale it arbitrarily.
+Pointer events are useful in manipulation handlers, enabling users to grab and freely move, rotate, or scale objects.
 
 ## Speech Events
-Components that implement the *IMixedRealitySpeechHandler* interface will receive events whenever the user performs voice commands. These can be used to remotely activate buttons or perform global actions within the application.
-
-These components do not need to be attached to an entity with a collider, as they do not rely on the physics engine.
+Controls implementing the _IMixedRealitySpeechHandler_ interface receive events for voice commands, allowing users to activate buttons or execute global actions through speech. These components don’t need a collider, as they operate independently of the physics engine.

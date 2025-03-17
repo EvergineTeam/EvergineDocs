@@ -1,31 +1,31 @@
 # Demo Project
 ---
-There is a demo scene in the project's repository that showcases all currently implemented features.
+The demo scene in the MRTK repository showcases the toolkit's currently implemented features and their practical applications.
 
 ![MRTK Demo scene](images/MRTK_Examples.png)
 
 ## Press Interaction
-This area contains some examples using the *PressableButton* class. This includes:
-- Standard buttons
-- Toggle buttons
-- Some piano keys
+This area demonstrates interactions using the _PressableButton_ class, including:
+- Standard buttons.
+- Toggle buttons.
+- Piano keys for musical interaction.
 
 ## Touch Interaction
-This area contains some simple examples using the *HandInteractionTouch*, which implements simple touch behavior. These work only with *near interaction*.
+Here, you’ll find examples using _HandInteractionTouch_ to demonstrate touch behavior, specifically for _near interaction_.
 
 ## Slider Interaction
-This area includes some sliders that use the *PinchSlider* class. They are connected to another object and allow the user to change its color.
+This section features sliders that utilize the _PinchSlider_ class. These sliders allow users to modify the color of a connected object, offering an example of real-time customization.
 
 ## Manipulation Interaction
-These examples showcase the *SimpleManipulationHandler* component. Some of the examples are configured in such a way that manipulation is restricted in certain ways. In addition, some objects interact with the physics engine, so they can be thrown around. If they get too far away, they will be placed back in their starting position.
+Examples here use the _SimpleManipulationHandler_ component, configured to explore varied interaction styles:
+- Objects with constrained manipulation settings.
+- Objects that interact with the physics engine and can be thrown around, returning to their starting position if they move too far.
 
 ## Bounding Box
-The examples in this group use the *BoundingBox* component, which adds handles to an object to aid with rotation and uniform and non-uniform scaling. These handles can be hidden if that kind of manipulation is not needed.
-
-This component can be combined with the *SimpleManipulationHandler* component for more flexible manipulation options.
+This group demonstrates the _BoundingBox_ component, which enables rotation, scaling, and handle-based manipulation. Handles can be hidden for simplified interactions, and the component can be combined with _SimpleManipulationHandler_ for more versatility.
 
 ## Axis Manipulation Handler
-There is an example of the *AxisManipulationHandler* component. With it, the user will see a 3-axis handle that can be moved along any axis or combination of axes independently, without affecting the rest.
+This section includes an example of the _AxisManipulationHandler_ component, featuring a 3-axis handle that allows movement along specific or combined axes without altering other properties.
 
 ## Pan and Zoom Control
-The *HandInteractionPanZoom* example shows this component in action. The user can pan and zoom its contents using both *near* and *far interaction*.
+The _HandInteractionPanZoom_ example enables users to pan and zoom content using both _near_ and _far interaction_, providing flexibility for adjusting the view in mixed reality.

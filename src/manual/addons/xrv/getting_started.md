@@ -2,36 +2,49 @@
 
 ---
 
-In this section, we present step-by-step instructions to get ready to execute XRV on your device.
+Follow these steps to prepare your environment for running XRV on your target device.
 
 ## Project Setup
 
-1. Create a new project using [Evergine Launcher](../../evergine_launcher/create_project.md). You should include an extra template project, apart from Windows, for your target device. For example, with a Meta Quest headset, you can choose between _Xamarin_ and/or _.NET 6_ project templates.
+**1. Create a new project**
 
-2. Once Evergine Studio is opened, add an MRTK add-on. You can check [how to add add-ons to an existing project](../../addons/index.md).
+Use [Evergine Launcher](../../evergine_launcher/create_project.md) to start a new project. Along with Windows, select an additional template for your target device. For Meta Quest or Pico headsets, you can choose from two different templates.
+
+**2. Add the MRTK Add-on** 
+
+Open Evergine Studio and add the MRTK add-on to your project. Refer to [this guide](../../addons/index.md) for instructions on adding add-ons.
+
 ![Installing MRTK add-on](images/getting-started-mrtk.png)
 
-3. With the MRTK add-on installed, you need to add the _Evergine.XRV.Core_ add-on using the project management dialog again.
+**3. Add the Evergine.XRV.Core Add-on**
+
+With MRTK installed, add the _Evergine.XRV.Core_ add-on via the project management dialog.
+
 ![Installing XRV add-on](images/getting-started-xrv.png)
 
 > [!NOTE]
-> All XRV add-ons have an associated NuGet package. Like Evergine packages, nightly builds of XRV are available on a public NuGet feed. Preview packages will be published on NuGet.org. So, for nightly builds, you should update your nuget.config file to include the Evergine nightly feed:
-```xml
-<?xml version="1.0" encoding="utf-8"?>
-<configuration>
-  <packageSources>
-    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
-    <add key="Evergine Nightly" value="https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json" />
-  </packageSources>
-</configuration>
-```
+> XRV add-ons are available as NuGet packages. For nightly builds, update `nuget.config` to include the Evergine nightly feed:
+>```xml
+><?xml version="1.0" encoding="utf-8"?>
+><configuration>
+>  <packageSources>
+>    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+>    <add key="Evergine Nightly" value="https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/>Evergine.NightlyBuilds/nuget/v3/index.json" />
+>  </packageSources>
+></configuration>
+>```
 
-4. Change the default scene SunLight entity value for Illuminance to a value of 1.
+**4. Adjust SunLight Illuminance**
+
+In your default scene, set the SunLight entity’s Illuminance value to 1.
+
 ![Configuring scene settings](images/getting-started-scene-settings.png)
 
 ## Code Setup
 
-1. Register the background scheduler in your Application constructor.
+**1. Configure the Application Constructor**
+
+Register the background scheduler in your `Application` constructor.
 
 ```csharp
 public MyApplication()
@@ -52,7 +65,10 @@ public MyApplication()
 }
 ```
 
-2. Change your scene class to implement XRScene.
+**2. Implement XRScene in Your Scene Class**
+
+Modify your scene class to inherit from `XRScene`.
+
 ```csharp
 public class MyScene : XRScene
 {
@@ -78,14 +94,20 @@ public class MyScene : XRScene
 }
 ```
 
-3. Add Microsoft.Bcl.AsyncInterfaces to the shared project.
+**3. Add Microsoft.Bcl.AsyncInterfaces Package**
+
+Include `Microsoft.Bcl.AsyncInterfaces` in your shared project:
+
 ```xml
 <PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
 ```
 
-4. Finally, create an XrvService instance and initialize it under OnPostCreateXRScene.
+**4. Initialize XrvService**
 
-MyApplication.cs
+Set up an `XrvService` instance within `OnPostCreateXRScene`.
+
+**MyApplication.cs**
+
 ```csharp
 public override void Initialize()
 {
@@ -102,7 +124,8 @@ private void InitializeXrv()
 }
 ```
 
-MyScene.cs
+**MyScene.cs**
+
 ```csharp
 protected override void OnPostCreateXRScene()
 {
@@ -116,27 +139,20 @@ protected override void OnPostCreateXRScene()
 
 ### Android
 
-On some platforms like Android, you may encounter build errors like this:
+If you encounter build errors like the following:
+
 ```
 error XA2002: Cannot resolve reference: `Evergine.Editor.Extension`, referenced by `Evergine.MRTK.Editor`. Please add a NuGet package or assembly reference for `Evergine.Editor.Extension`, or remove the reference to `Evergine.MRTK.Editor`.
 ```
-Simply add Evergine.Editor.Extension to your project, and it should work.
+
+Add `Evergine.Editor.Extension` to your project. For passthrough capabilities, uncomment related code in `MainActivity.cs` and in the Android manifest.
 
 Also, to make use of the passthrough capability, remember to uncomment the related parts of your code in MainActivity.cs and in the Android manifest file.
 
-### UWP (Mixed Reality)
-
-In UWP, you may encounter some PRI generation errors that you can fix by editing your project file and adding the following:
-```xml
-<AppxGeneratePrisForPortableLibrariesEnabled>false</AppxGeneratePrisForPortableLibrariesEnabled>
-```
-
-Also, if you add modules that require internet access or want to use voice commands, ensure that you enable Internet Client and Microphone capabilities. For voice commands, you should also add an explicit reference in the Mixed Reality project to the _Evergine.Xrv.Core_ NuGet package.
-
 ## Add More Modules
 
-With all this, you can run the application, but the only thing you can do is open the hand menu and its two default buttons to open Settings and Help windows. To add more functionalities, you can add any of the existing [XRV modules](modules/index.md), [create your own module](modules/customModule/index.md), or just add new elements using the XRV API.
+At this point, you can open the hand menu with default buttons for Settings and Help. To extend functionality, consider adding any [XRV modules](modules/index.md), [creating your own module](modules/customModule/index.md), or using the XRV API to add new elements.
 
 ![Hand menu example](images/getting-started-menu.JPG)
 
-You can also take a look at our [XRV sample](https://github.com/EvergineTeam/XRVSample) that includes all our public modules.
+You can also take a look at our [XRV sample](https://github.com/EvergineTeam/XRV/tree/develop/samples) that includes all our public modules.

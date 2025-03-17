@@ -111,7 +111,7 @@ jobs:
           Copy-Item -r ./build/dist/* ./${{ github.event.inputs.version }}
           Copy-Item ./build/index.html . -Force
           Copy-Item ./build/versions.json . -Force
-          $AllVersions = Get-ChildItem -Directory -Name -Exclude build | Sort-Object -Descending | Foreach-Object {"""$_""" }
+          $AllVersions = Get-ChildItem -Directory -Name -Exclude build | Sort-Object { [version]$_ } -Descending | ForEach-Object { """$_""" }
           $AllVersions = $AllVersions -Join ", "
           ((Get-Content -path .\index.html -Raw) -replace "dist", "${{ github.event.inputs.version }}") | Set-Content -Path ./index.html
           ((Get-Content -path .\versions.json -Raw) -replace '"dist"', "$AllVersions") | Set-Content -Path ./versions.json

@@ -72,6 +72,8 @@ When you build the SPA (react.spa) project, all required code and dependencies w
 
 In Evergine, communication between the single-page application (SPA) and the engine is facilitated through function invocations in both directions: from the SPA to Evergine and from Evergine to the SPA. This process enables dynamic interactions, such as triggering engine events from the UI or responding to engine updates in real-time.
 
+Evergine also includes [built-in JSON serializers](serialization.md) to manage the serialization and deserialization of objects exchanged across the JavaScript and .NET boundary via the JS bridge. These serializers ensure that data structures are accurately converted, making it straightforward to pass complex objects between JavaScript and .NET in both directions.
+
 In the following steps, we will demonstrate how to set up these function invocations, starting with calls from the SPA to Evergine and then covering calls from Evergine back to the SPA. Each step is accompanied by code examples to illustrate the process.
 
 #### Step 1: Adding a Custom Scene Manager for Communication

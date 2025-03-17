@@ -13,3 +13,4 @@ Welcome to the official **Evergine** documentation website. Here you will find e
 * [Open Your Project in Visual Studio](open_in_vs.md)
 * [Manage Evergine Versions](../evergine_launcher/manage_versions.md)
 * [Samples, Learning, and Support](../evergine_launcher/samples_learning_support.md)
+* [Upgrade My Project to the Latest Evergine Release](migrations/index.html)

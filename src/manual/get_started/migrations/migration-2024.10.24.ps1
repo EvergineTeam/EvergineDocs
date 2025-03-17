@@ -19,33 +19,32 @@ Get-ChildItem -Recurse -Filter *.csproj | ForEach-Object {
 
 # Remove Evergine.Platform "PackageReference" and rename Android and iOS packages
 Get-ChildItem -Recurse -Filter *.csproj | ForEach-Object {
-    $content = Get-Content -Raw $_.FullName
-    $newContent = $content -replace '(?ms)<PackageReference Include="Evergine.Platform" Version="[\w\d\.-]+" \/>\s*', ''
-    $newContent = $content -replace 'Include="Evergine.AndroidView"', 'Include="Evergine.Android"'
-    $newContent = $content -replace 'Include="Evergine.iOSView"', 'Include="Evergine.iOS"'
+    $newContent = (Get-Content -Raw $_.FullName) -replace '(?ms)<PackageReference Include="Evergine.Platform" Version="[\w\d\.-]+" \/>\s*', ''
+    $newContent = $newContent -replace 'Include="Evergine.AndroidView"', 'Include="Evergine.Android"'
+    $newContent = $newContent -replace 'Include="Evergine.iOSView"', 'Include="Evergine.iOS"'
     [io.file]::WriteAllText($_.FullName, $newContent)
 }
 
 # Change using statements and code in .cs files
 Get-ChildItem -Recurse -Filter *.cs | ForEach-Object {
-    $newContent = (Get-Content -Raw $_.FullName) -replace 'using Evergine.AndroidView;', 'using Evergine.Android;' |
-    ForEach-Object { $_ -replace 'using Evergine.IOSView;', 'using Evergine.iOS;' } | 
-    ForEach-Object { $_ -replace 'using Evergine.Platform;', 'using Evergine.Common.IO;' } | 
-    ForEach-Object { $_ -replace 'Win32API.GetConsoleWindow();', 'Evergine.Forms.Win32Native.GetConsoleWindow();' } | 
-    ForEach-Object { $_ -replace 'Win32API.ShowWindow(handle, 0); ', 'Evergine.Forms.Win32Native.ShowWindow(handle, false);' }
+    $newContent = (Get-Content -Raw $_.FullName) -replace 'using Evergine.AndroidView;', 'using Evergine.Android;'
+    $newContent = $newContent -replace 'using Evergine.IOSView;', 'using Evergine.iOS;'
+    $newContent = $newContent -replace 'using Evergine.Platform;', 'using Evergine.Common.IO;'
+    $newContent = $newContent -replace 'Win32API.GetConsoleWindow\(\);', 'Evergine.Forms.Win32Native.GetConsoleWindow();'
+    $newContent = $newContent -replace 'Win32API.ShowWindow\(handle, 0\);', 'Evergine.Forms.Win32Native.ShowWindow(handle, false);'
     [io.file]::WriteAllText($_.FullName, $newContent)
 }
 
 # Update WinUI project files
 Get-ChildItem -Recurse -Filter *.wapproj | ForEach-Object {
-    $newContent = (Get-Content -Raw $_.FullName) -replace '<TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>', '<TargetPlatformVersion>10.0.22621.0</TargetPlatformVersion>' |
-    ForEach-Object { $_ -replace '<PackageReference Include="Microsoft.WindowsAppSDK" Version="\[1.4.230822000\]">', '<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240627000">' } | 
-    ForEach-Object { $_ -replace '<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="\[10.0.22621.756\]">', '<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1">' }
+    $newContent = (Get-Content -Raw $_.FullName) -replace '<TargetPlatformVersion>10.0.19041.0</TargetPlatformVersion>', '<TargetPlatformVersion>10.0.22621.0</TargetPlatformVersion>'
+    $newContent = $newContent -replace '<PackageReference Include="Microsoft.WindowsAppSDK" Version="\[1.4.230822000\]">', '<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240627000">'
+    $newContent = $newContent -replace '<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="\[10.0.22621.756\]">', '<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1">'
     [io.file]::WriteAllText($_.FullName, $newContent)
 }
 Get-ChildItem -Recurse -Filter *.WinUI.csproj | ForEach-Object {
-    $newContent = (Get-Content -Raw $_.FullName) -replace '<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230822000" />', '<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240627000" />' |
-    ForEach-Object { $_ -replace '<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />', '<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />' }
+    $newContent = (Get-Content -Raw $_.FullName) -replace '<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.4.230822000" />', '<PackageReference Include="Microsoft.WindowsAppSDK" Version="1.5.240627000" />'
+    $newContent = $newContent -replace '<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.22621.756" />', '<PackageReference Include="Microsoft.Windows.SDK.BuildTools" Version="10.0.26100.1" />'
     [io.file]::WriteAllText($_.FullName, $newContent)
 }
 
@@ -60,8 +59,8 @@ if ($linkerFile) {
 
 # Change MouseSensibility and TouchSensibility in .wescene and .weprefab files
 Get-ChildItem -Recurse -Include *.wescene, *.weprefab | ForEach-Object {
-    $newContent = (Get-Content -Raw $_.FullName) -replace 'MouseSensibility', 'MouseSensitivity' |
-    ForEach-Object { $_ -replace 'TouchSensibility', 'TouchSensitivity' }
+    $newContent = (Get-Content -Raw $_.FullName) -replace 'MouseSensibility', 'MouseSensitivity'
+    $newContent = $newContent -replace 'TouchSensibility', 'TouchSensitivity'
     [io.file]::WriteAllText($_.FullName, $newContent)
 }
 

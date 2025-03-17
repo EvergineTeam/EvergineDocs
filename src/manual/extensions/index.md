@@ -6,6 +6,5 @@ In addition to this, Evergine offers several Extensions that provide integration
 
 ## In this section
 
-* [ARMobile](armobile/index.md)
 * [Networking](networking.md)
 * [ImGUI](imgui/index.md)
