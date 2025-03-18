@@ -85,7 +85,7 @@ For the skinned mesh to work properly, the **Vertex Buffer** of the skinned mesh
 
 ## Animations
 
-In **Evergine**, model animation is achieved by animating nodes. If those nodes are part of skinning bones, it will also animate the skinned mesh accordingly.
+In **Evergine**, model animation is achieved by animating nodes. If those nodes are part of skinning bones, it will also animate the skinned mesh accordingly. More information in the **[Animation section](../../animation/index.md)** of the documentation.
 
 ## In this section
 * [Import Models](import_model.md)

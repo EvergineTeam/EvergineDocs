@@ -33,28 +33,34 @@ The following methods allow us to fully control the animation.
 
 | Property | Description |
 |------|-------------|
-| **PlayAnimation** | Starts the playback of an animation. The new animation can be defined by the **AnimationTrackClip** name from the **Model** asset, or directly providing the **AnimationBlendClip** if we want more specific animation, like a blend tree (see next chapters).|
+| **PlayAnimation** | Starts the playback of an animation. The new animation can be defined by the **AnimationTrackClip** name from the **Model** asset, or directly providing the **AnimationBlendClip** if we want more specific animation, like a blend tree (more information in **[this section](animation_blend_tree.md))**.|
 | **StopAnimation** |  Stops the animation entirely and it keeps there. |
 | **ResumeAnimation** | Resumes the animation playback from the moment it time it got stopped. |
 
 ## Sample Code
 
-The following code starts an animation with some specific behaviors and then it stops it.
+The following code explores some of the methods.
 ```csharp
 
 Animation3D  animation3D; // this object can be acquired through [BindComponent] aswell.
 
-// We plays the walking animation, in loop mode, at double speed and transitioning over 1 second.
+// We plays the 'walking' animation, in loop mode, at double speed and transitioning over 1 second.
 animation3D.PlayAnimation("walking", loop: true, transitionTime: 1, playbackRate: 2);
 
-// Stops the animation
+// We plays only a window slice of the 'full_track' animation (from seconds 1 to 5), in loop mode.
+animation3D.PlayAnimation("full_track", loop: true, startTime: 1, endTime: 5);
+
+// We can also play directly an AnimationBlendClip.
+animation3D.PlayAnimation(animationBlendClip);
+
+// Stops the animation.
 animation3D.StopAnimation();
 
 ```
 
 ## Working with Animation node hierarchies
 
-When dealing with skeletal animations, the creating a hierarchy of **AnimationBlendClips** becomes particularly useful. This feature ensures that complex models with multiple moving parts (such as characters with arms, legs, and head movement) behave correctly as the animation plays. Each node in the model’s hierarchy is mapped to a corresponding bone or joint in the animation, ensuring proper deformation and movement of the model. In [this article](animation_blend_tree.md) we explain in detail how to create your own animation blend tree.
+When dealing with skeletal animations, creating a hierarchy of **AnimationBlendClips** becomes particularly useful. This feature ensures that complex models with multiple moving parts (such as characters with arms, legs, and head movement) behave correctly as the animation plays. Each node in the model’s hierarchy is mapped to a corresponding bone or joint in the animation, ensuring proper deformation and movement of the model. In [this article](animation_blend_tree.md) we explain in detail how to create your own animation blend tree.
 
 ## Conclusions
 
