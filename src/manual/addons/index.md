@@ -10,7 +10,7 @@ They may contain assets, prefabs, behaviors, components, and NuGet packages that
 * [MRTK](mrtk/index.md)
 * [XRV](xrv/index.md)
 * [Gaussian Splatting](gaussiansplatting/index.md)
-* [Dicom](dicom/index.md)
+* [DICOM](dicom/index.md)
 
 ## Add-ons in Evergine Studio
 

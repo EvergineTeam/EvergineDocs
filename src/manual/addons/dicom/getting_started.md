@@ -4,13 +4,21 @@
 
 ## Demo
 
-We highly recommend checking out the [Dicom-Demo](https://github.com/EvergineTeam/Dicom-Demo). It's very simple and it illustrates the basic usage of the addon.
+We highly recommend checking out the [DICOM-Demo](https://github.com/EvergineTeam/Dicom-Demo). It's very simple and it illustrates the basic usage of the addon.
 
 ![dicom_gif](images/density_range.gif)
 
-## Add the Dicom.CustomRenderPath
+## Project Setup
 
-The rendering of Dicoms in 3D is complex; therefore, it needs a custom RenderPath.
+### 1. Add the Evergine.Dicom Add-on
+
+Open Evergine Studio and add the Evergine.Dicom add-on to your project. Refer to [this guide](../../addons/index.md) for instructions on adding add-ons.
+
+![DICOM Add-on](images/dicom_addon.jpg)
+
+### 2. Add the Dicom.CustomRenderPath
+
+The rendering of DICOM in 3D is complex; therefore, it needs a custom RenderPath.
 
 We provide the `Dicom.CustomRenderPath` that you can set up in two different ways:
 
@@ -42,20 +50,17 @@ The DicomComponent is essential for both loading and rendering Dicom files.
 To load a Dicom file, call the `DicomComponent.LoadFromFile` method. The `DicomComponent` acts as a holder for a Dicom file.
 The parameter of `DicomComponent.LoadFromFile` is a `string` with the path to a `.zip` file. Our loader will scan for DCM files inside the `.zip`. You can have any folder hierarchy inside the ZIP, and the files can have any extension (no need for the .dcm extension), but **all the files inside the zip must be valid DCMs**.
 
-### WindowRange
 
-The `DicomComponent` has the `WindowRange` property for configuring the density window range. This allows users to control what density range they want to visualize.
-
-### Dithering
-
-Dithering is a visualization technique that reduces the [banding](https://en.wikipedia.org/wiki/Colour_banding) of the 3D visualization.
-The `DicomComponent` has the `DitheringEnabled` property to enable this feature.
+| Property | Description |
+| --- | --- |
+| **WindowRange** | The `DicomComponent` has the `WindowRange` property for configuring the density window range. This allows users to control what density range they want to visualize. |
+| **Dithering** | Dithering is a visualization technique that reduces the [banding](https://en.wikipedia.org/wiki/Colour_banding) of the 3D visualization. The `DicomComponent` has the `DitheringEnabled` property to enable this feature. |
 
 ## 3D Visualization
 
 To visualize Dicoms in 3D, you need:
 
-1. [Add the Dicom.CustomRenderPath](#add-the-dicomcustomrenderpath)
+1. [Add the Dicom.CustomRenderPath](#2-add-the-dicomcustomrenderpath)
 2. Create an entity with these components:
    - Transform3D: which will be the transform of our Dicom model
    - DicomComponent
