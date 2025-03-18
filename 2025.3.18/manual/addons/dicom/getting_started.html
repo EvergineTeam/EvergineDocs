@@ -85,10 +85,14 @@
 
 <hr>
 <h2 id="demo">Demo</h2>
-<p>We highly recommend checking out the <a href="https://github.com/EvergineTeam/Dicom-Demo">Dicom-Demo</a>. It's very simple and it illustrates the basic usage of the addon.</p>
+<p>We highly recommend checking out the <a href="https://github.com/EvergineTeam/Dicom-Demo">DICOM-Demo</a>. It's very simple and it illustrates the basic usage of the addon.</p>
 <p><img src="images/density_range.gif" alt="dicom_gif"></p>
-<h2 id="add-the-dicomcustomrenderpath">Add the Dicom.CustomRenderPath</h2>
-<p>The rendering of Dicoms in 3D is complex; therefore, it needs a custom RenderPath.</p>
+<h2 id="project-setup">Project Setup</h2>
+<h3 id="1-add-the-everginedicom-add-on">1. Add the Evergine.Dicom Add-on</h3>
+<p>Open Evergine Studio and add the Evergine.Dicom add-on to your project. Refer to <a href="../index.html">this guide</a> for instructions on adding add-ons.</p>
+<p><img src="images/dicom_addon.jpg" alt="DICOM Add-on"></p>
+<h3 id="2-add-the-dicomcustomrenderpath">2. Add the Dicom.CustomRenderPath</h3>
+<p>The rendering of DICOM in 3D is complex; therefore, it needs a custom RenderPath.</p>
 <p>We provide the <code>Dicom.CustomRenderPath</code> that you can set up in two different ways:</p>
 <ol>
 <li>Set the RenderPath in the specific <code>Camera</code> that you want.</li>
@@ -112,15 +116,28 @@ renderPipeline.AddRenderPath(new CustomRenderPath((RenderManager)this.Managers.R
 <p>The DicomComponent is essential for both loading and rendering Dicom files.</p>
 <p>To load a Dicom file, call the <code>DicomComponent.LoadFromFile</code> method. The <code>DicomComponent</code> acts as a holder for a Dicom file.
 The parameter of <code>DicomComponent.LoadFromFile</code> is a <code>string</code> with the path to a <code>.zip</code> file. Our loader will scan for DCM files inside the <code>.zip</code>. You can have any folder hierarchy inside the ZIP, and the files can have any extension (no need for the .dcm extension), but <strong>all the files inside the zip must be valid DCMs</strong>.</p>
-<h3 id="windowrange">WindowRange</h3>
-<p>The <code>DicomComponent</code> has the <code>WindowRange</code> property for configuring the density window range. This allows users to control what density range they want to visualize.</p>
-<h3 id="dithering">Dithering</h3>
-<p>Dithering is a visualization technique that reduces the <a href="https://en.wikipedia.org/wiki/Colour_banding">banding</a> of the 3D visualization.
-The <code>DicomComponent</code> has the <code>DitheringEnabled</code> property to enable this feature.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WindowRange</strong></td>
+<td>The <code>DicomComponent</code> has the <code>WindowRange</code> property for configuring the density window range. This allows users to control what density range they want to visualize.</td>
+</tr>
+<tr>
+<td><strong>Dithering</strong></td>
+<td>Dithering is a visualization technique that reduces the <a href="https://en.wikipedia.org/wiki/Colour_banding">banding</a> of the 3D visualization. The <code>DicomComponent</code> has the <code>DitheringEnabled</code> property to enable this feature.</td>
+</tr>
+</tbody>
+</table>
 <h2 id="3d-visualization">3D Visualization</h2>
 <p>To visualize Dicoms in 3D, you need:</p>
 <ol>
-<li><a href="#add-the-dicomcustomrenderpath">Add the Dicom.CustomRenderPath</a></li>
+<li><a href="#2-add-the-dicomcustomrenderpath">Add the Dicom.CustomRenderPath</a></li>
 <li>Create an entity with these components:
 <ul>
 <li>Transform3D: which will be the transform of our Dicom model</li>
