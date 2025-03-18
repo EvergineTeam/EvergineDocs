@@ -1,0 +1,211 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Evergine.Runtimes.Videos | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Evergine.Runtimes.Videos | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="evergineruntimesvideos">Evergine.Runtimes.Videos</h1>
+
+<hr>
+<p><img src="images/video-header.png" alt="Evergine Runtimes Videos"></p>
+<p>The <strong>Evergine.Runtimes.Videos</strong> NuGet package provides a powerful and efficient solution for loading and playing videos at runtime in your projects.</p>
+<h2 id="built-on-ffmpeg">Built on FFmpeg</h2>
+<p><a href="https://www.ffmpeg.org/">FFmpeg</a> is an industry-leading multimedia framework capable of <strong>decoding, encoding, transcoding, muxing, demuxing, streaming, filtering, and playing</strong> virtually any multimedia format. Recognized for its efficiency and versatility, FFmpeg delivers <strong>robust, optimized performance</strong> across various hardware and software environments.</p>
+<p>Built upon FFmpeg, the <strong>Evergine.Runtimes.Videos</strong> library has been rigorously tested with common video formats such as:</p>
+<ul>
+<li><strong>MP4 (H.264)</strong></li>
+<li><strong>WMV</strong></li>
+<li><strong>MOV</strong></li>
+<li><strong>FLV</strong></li>
+</ul>
+<p>Additionally, this runtime supports both <strong>CPU-based and GPU-accelerated decoding</strong>, significantly reducing <strong>decoding time</strong> and enabling <strong>simultaneous playback</strong> of multiple high-resolution videos without performance degradation.</p>
+<h2 id="gpu-accelerated-decoding">GPU-Accelerated Decoding</h2>
+<p>The following illustration demonstrates Evergine’s video runtime operating on a <strong>Windows platform</strong> configured with <strong>GPU-accelerated decoding</strong> via the DXVA2 standard:</p>
+<p><img src="images/decode-video-gpu.png" alt="Decode video using GPU"></p>
+<blockquote>
+<p><strong>Note:</strong> Video example provided by OpenAI's Sora.</p>
+</blockquote>
+<p>While video support in this release is currently <strong>limited to Windows x64</strong>, this functionality will be extended to support additional platforms in future updates.</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>To integrate this powerful runtime into your project, install the <strong>Evergine.Runtimes.Videos</strong> NuGet package and utilize the new <strong>VideoPlayer</strong> component available within Evergine Studio:</p>
+<p><img src="images/new-videoplayer-component.png" alt="VideoPlayer component"></p>
+<h2 id="videoplayer-component">VideoPlayer Component</h2>
+<p>The <strong>VideoPlayer</strong> component includes various properties that allow flexible control over video playback.</p>
+<h3 id="component-properties"><strong>Component Properties</strong></h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HWDevice</strong></td>
+<td>Determines the decoding system used. <strong>None</strong> means CPU decoding, while other options enable GPU decoding. <em>(Default GPU system on Windows platforms: DXVA2)</em></td>
+</tr>
+<tr>
+<td><strong>VideoPath</strong></td>
+<td>Specifies the file path within the <strong>Content</strong> folder of your project.</td>
+</tr>
+<tr>
+<td><strong>AutoPlay</strong></td>
+<td>Automatically starts video playback when the application launches.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>Enables infinite video looping.</td>
+</tr>
+</tbody>
+</table>
+<p>The <strong>VideoPlayer</strong> component automatically retrieves the <strong>Material</strong> from the <strong>MaterialComponent</strong> of your entity and sets the video texture as the <code>baseColorTexture</code> in the <strong>Standard Effect shader</strong>.</p>
+<p>If your entity <strong>does not have a MaterialComponent</strong> or you are using a <strong>custom shader</strong>, you can directly access the <strong><code>VideoTexture</code></strong> public property to handle it as needed.</p>
+<h3 id="runtime-properties"><strong>Runtime Properties</strong></h3>
+<p>The following properties of the <strong>VideoPlayer</strong> component can be accessed via code:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VideoTexture</strong></td>
+<td>The GPU texture where the video will be rendered.</td>
+</tr>
+<tr>
+<td><strong>VideoWidth</strong></td>
+<td>The width of the video texture.</td>
+</tr>
+<tr>
+<td><strong>VideoHeight</strong></td>
+<td>The height of the video texture.</td>
+</tr>
+<tr>
+<td><strong>VideoState</strong></td>
+<td>Indicates the current video playback state. Available values: <strong>Stopped, Playing, Paused</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="events"><strong>Events</strong></h3>
+<p>Additionally, the <strong>VideoPlayer</strong> component includes three events that can be subscribed to:</p>
+<ul>
+<li><strong>Playing</strong> → Triggered when video playback starts.</li>
+<li><strong>Paused</strong> → Triggered when video playback is paused.</li>
+<li><strong>Stopped</strong> → Triggered when the video stops playing.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

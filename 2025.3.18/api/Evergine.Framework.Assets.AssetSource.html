@@ -1,0 +1,553 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AssetSource | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AssetSource | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Assets.AssetSource">
+
+
+
+  <h1 id="Evergine_Framework_Assets_AssetSource" data-uid="Evergine.Framework.Assets.AssetSource" class="text-break">Class AssetSource</h1>
+  <div class="markdown level0 summary"><p>This class contains all information about an asset metafile.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">AssetSource</span></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.AssetSources.EffectSource.html">EffectSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.AssetSources.FrameBufferSource.html">FrameBufferSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.AssetSources.MaterialSource.html">MaterialSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.AssetSources.ParticleSystemSource.html">ParticleSystemSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.AssetSources.PostProcessingGraphSource.html">PostProcessingGraphSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.AssetSources.RenderLayerSource.html">RenderLayerSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.AssetSources.SamplerSource.html">SamplerSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.FileSource.html">FileSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.FontSource.html">FontSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.ModelSource.html">ModelSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.PrefabSource.html">PrefabSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.ReflectionProbeSource.html">ReflectionProbeSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.SceneSource.html">SceneSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.SoundSource.html">SoundSource</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Framework.Assets.TextureSource.html">TextureSource</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Framework.Assets.IAssetSource.html">IAssetSource</a></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Assets.html">Assets</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Assets_AssetSource_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AssetSource : IAssetSource</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Framework_Assets_AssetSource__ctor_" data-uid="Evergine.Framework.Assets.AssetSource.#ctor*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource__ctor" data-uid="Evergine.Framework.Assets.AssetSource.#ctor">AssetSource()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Framework.Assets.AssetSource.html">AssetSource</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AssetSource()</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_Assets_AssetSource_ImporterContext" data-uid="Evergine.Framework.Assets.AssetSource.ImporterContext">ImporterContext</h4>
+  <div class="markdown level1 summary"><p>The importer context.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public object ImporterContext</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Assets_AssetSource_AssetParts_" data-uid="Evergine.Framework.Assets.AssetSource.AssetParts*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_AssetParts" data-uid="Evergine.Framework.Assets.AssetSource.AssetParts">AssetParts</h4>
+  <div class="markdown level1 summary"><p>Gets the asset parts from the asset source.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract List&lt;AssetPart&gt; AssetParts { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Framework.Assets.AssetPart.html">AssetPart</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Assets_AssetSource_Header_" data-uid="Evergine.Framework.Assets.AssetSource.Header*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_Header" data-uid="Evergine.Framework.Assets.AssetSource.Header">Header</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the asset header.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AssetHeader Header { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Assets.AssetParts.AssetHeader.html">AssetHeader</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Assets_AssetSource_Id_" data-uid="Evergine.Framework.Assets.AssetSource.Id*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_Id" data-uid="Evergine.Framework.Assets.AssetSource.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the asset source ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid Id { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Assets_AssetSource_Importer_" data-uid="Evergine.Framework.Assets.AssetSource.Importer*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_Importer" data-uid="Evergine.Framework.Assets.AssetSource.Importer">Importer</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the asset importer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IAssetImporter Importer { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Assets.Importers.IAssetImporter.html">IAssetImporter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Assets_AssetSource_IsPreprocessed_" data-uid="Evergine.Framework.Assets.AssetSource.IsPreprocessed*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_IsPreprocessed" data-uid="Evergine.Framework.Assets.AssetSource.IsPreprocessed">IsPreprocessed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the resource has been preprocessed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsPreprocessed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Assets_AssetSource_LastModified_" data-uid="Evergine.Framework.Assets.AssetSource.LastModified*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_LastModified" data-uid="Evergine.Framework.Assets.AssetSource.LastModified">LastModified</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the last modified time.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DateTime LastModified { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.datetime">DateTime</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Assets_AssetSource_FindAssetPart_" data-uid="Evergine.Framework.Assets.AssetSource.FindAssetPart*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_FindAssetPart__1_System_Int32_" data-uid="Evergine.Framework.Assets.AssetSource.FindAssetPart``1(System.Int32)">FindAssetPart&lt;TPart&gt;(int)</h4>
+  <div class="markdown level1 summary"><p>Finds an asset part by the specified type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TPart FindAssetPart&lt;TPart&gt;(int index = 0) where TPart : AssetPart</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The index in case multiple asset parts exist.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TPart</span></td>
+        <td><p>The asset part.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TPart</span></td>
+        <td><p>The asset part type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Assets_AssetSource_FindAssetParts_" data-uid="Evergine.Framework.Assets.AssetSource.FindAssetParts*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_FindAssetParts__1" data-uid="Evergine.Framework.Assets.AssetSource.FindAssetParts``1">FindAssetParts&lt;TPart&gt;()</h4>
+  <div class="markdown level1 summary"><p>Finds all asset parts of the specified type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;TPart&gt; FindAssetParts&lt;TPart&gt;() where TPart : AssetPart</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;TPart&gt;</td>
+        <td><p>The list of asset parts.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TPart</span></td>
+        <td><p>The asset part type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Assets_AssetSource_Free_" data-uid="Evergine.Framework.Assets.AssetSource.Free*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_Free" data-uid="Evergine.Framework.Assets.AssetSource.Free">Free()</h4>
+  <div class="markdown level1 summary"><p>Frees all resources of this asset source.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Free()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Assets_AssetSource_GetImporter_" data-uid="Evergine.Framework.Assets.AssetSource.GetImporter*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_GetImporter_System_String_" data-uid="Evergine.Framework.Assets.AssetSource.GetImporter(System.String)">GetImporter(string)</h4>
+  <div class="markdown level1 summary"><p>Sets the asset importer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IAssetImporter GetImporter(string fileName)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">fileName</span></td>
+        <td><p>The asset file name.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Assets.Importers.IAssetImporter.html">IAssetImporter</a></td>
+        <td><p>The asset importer.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Assets_AssetSource_UpdateAssetPart_" data-uid="Evergine.Framework.Assets.AssetSource.UpdateAssetPart*"></a>
+  <h4 id="Evergine_Framework_Assets_AssetSource_UpdateAssetPart__1___0_System_Int32_" data-uid="Evergine.Framework.Assets.AssetSource.UpdateAssetPart``1(``0,System.Int32)">UpdateAssetPart&lt;TPart&gt;(TPart, int)</h4>
+  <div class="markdown level1 summary"><p>Updates an asset part.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateAssetPart&lt;TPart&gt;(TPart newPart, int index = 0) where TPart : AssetPart</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">TPart</span></td>
+        <td><span class="parametername">newPart</span></td>
+        <td><p>The asset part to update.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">index</span></td>
+        <td><p>The index of the asset part.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TPart</span></td>
+        <td><p>The asset part type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Framework.Assets.IAssetSource.html">IAssetSource</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

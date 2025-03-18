@@ -1,0 +1,1685 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class BulletPhysicManager3D | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class BulletPhysicManager3D | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Bullet.BulletPhysicManager3D">
+
+
+
+  <h1 id="Evergine_Bullet_BulletPhysicManager3D" data-uid="Evergine.Bullet.BulletPhysicManager3D" class="text-break">Class BulletPhysicManager3D</h1>
+  <div class="markdown level0 summary"><p>The Simulation3D class manages all 3D physics entities.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.Managers.SceneManager.html">SceneManager</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Managers.UpdatableSceneManager.html">UpdatableSceneManager</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html">PhysicManager3D</a></div>
+    <div class="level7"><span class="xref">BulletPhysicManager3D</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RenderManager">PhysicManager3D.RenderManager</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_PhysicComponentList">PhysicManager3D.PhysicComponentList</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_PerformPhysicSteps">PhysicManager3D.PerformPhysicSteps</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_OnLoaded">PhysicManager3D.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_OnDetach">PhysicManager3D.OnDetach()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_ContactTest_Evergine_Framework_Physics3D_IPhysicBody3D_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_ContactPoint3D__">PhysicManager3D.ContactTest(IPhysicBody3D, ICollection&lt;ContactPoint3D&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_ContactPairTest_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Framework_Physics3D_IPhysicBody3D_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_ContactPoint3D__">PhysicManager3D.ContactPairTest(IPhysicBody3D, IPhysicBody3D, ICollection&lt;ContactPoint3D&gt;)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_AddPhysicComponent_Evergine_Framework_Behavior_">PhysicManager3D.AddPhysicComponent(Behavior)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RemovePhysicComponent_Evergine_Framework_Behavior_">PhysicManager3D.RemovePhysicComponent(Behavior)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_OnCameraRender_System_Object_Evergine_Framework_Graphics_DrawContext_">PhysicManager3D.OnCameraRender(object, DrawContext)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_Managers">SceneManager.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_Scene">SceneManager.Scene</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnActivated">SceneManager.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_Start">SceneManager.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnDeactivated">SceneManager.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnDestroy">SceneManager.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_ShouldBeActivated">AttachableObject.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Bullet.html">Bullet</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Bullet.dll</h6>
+  <h5 id="Evergine_Bullet_BulletPhysicManager3D_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BulletPhysicManager3D : PhysicManager3D, IDependencyObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Bullet_BulletPhysicManager3D__ctor_" data-uid="Evergine.Bullet.BulletPhysicManager3D.#ctor*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D__ctor" data-uid="Evergine.Bullet.BulletPhysicManager3D.#ctor">BulletPhysicManager3D()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Bullet.BulletPhysicManager3D.html">BulletPhysicManager3D</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BulletPhysicManager3D()</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_ExecutionState" data-uid="Evergine.Bullet.BulletPhysicManager3D.ExecutionState">ExecutionState</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the execution state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ExecutionState ExecutionState</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Helpers.ExecutionState.html">ExecutionState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_ApplySpeculativeContactRestitution_" data-uid="Evergine.Bullet.BulletPhysicManager3D.ApplySpeculativeContactRestitution*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_ApplySpeculativeContactRestitution" data-uid="Evergine.Bullet.BulletPhysicManager3D.ApplySpeculativeContactRestitution">ApplySpeculativeContactRestitution</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether to apply speculative contact restitution.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool ApplySpeculativeContactRestitution { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_ApplySpeculativeContactRestitution">PhysicManager3D.ApplySpeculativeContactRestitution</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_BulletDebugDraw_" data-uid="Evergine.Bullet.BulletPhysicManager3D.BulletDebugDraw*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_BulletDebugDraw" data-uid="Evergine.Bullet.BulletPhysicManager3D.BulletDebugDraw">BulletDebugDraw</h4>
+  <div class="markdown level1 summary"><p>Gets the instance that is responsible to draw debug physic lines.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BulletDebugDraw3D BulletDebugDraw { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Bullet.BulletDebugDraw3D.html">BulletDebugDraw3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_DrawFlags_" data-uid="Evergine.Bullet.BulletPhysicManager3D.DrawFlags*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_DrawFlags" data-uid="Evergine.Bullet.BulletPhysicManager3D.DrawFlags">DrawFlags</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the debug draw flags.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override DebugDrawFlags DrawFlags { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.DebugDrawFlags.html">DebugDrawFlags</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_DrawFlags">PhysicManager3D.DrawFlags</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_FixedTimeStep_" data-uid="Evergine.Bullet.BulletPhysicManager3D.FixedTimeStep*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_FixedTimeStep" data-uid="Evergine.Bullet.BulletPhysicManager3D.FixedTimeStep">FixedTimeStep</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the resolution of the physics simulation. The default value is 1/60, or 60fps.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override float FixedTimeStep { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_FixedTimeStep">PhysicManager3D.FixedTimeStep</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_Gravity_" data-uid="Evergine.Bullet.BulletPhysicManager3D.Gravity*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_Gravity" data-uid="Evergine.Bullet.BulletPhysicManager3D.Gravity">Gravity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the global gravity vector.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Vector3 Gravity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_Gravity">PhysicManager3D.Gravity</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_InternalWorld_" data-uid="Evergine.Bullet.BulletPhysicManager3D.InternalWorld*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_InternalWorld" data-uid="Evergine.Bullet.BulletPhysicManager3D.InternalWorld">InternalWorld</h4>
+  <div class="markdown level1 summary"><p>Gets the internal native world instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override object InternalWorld { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_InternalWorld">PhysicManager3D.InternalWorld</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_MaxSubSteps_" data-uid="Evergine.Bullet.BulletPhysicManager3D.MaxSubSteps*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_MaxSubSteps" data-uid="Evergine.Bullet.BulletPhysicManager3D.MaxSubSteps">MaxSubSteps</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the maximum number of substeps that Physics3D is allowed to perform each step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int MaxSubSteps { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_MaxSubSteps">PhysicManager3D.MaxSubSteps</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_PhysicWorldResolution_" data-uid="Evergine.Bullet.BulletPhysicManager3D.PhysicWorldResolution*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_PhysicWorldResolution" data-uid="Evergine.Bullet.BulletPhysicManager3D.PhysicWorldResolution">PhysicWorldResolution</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the resolution of the physics world. Changing this value does not affect the size or positions of Evergine entities. It only affects the internal physics world.
+<remarks>
+By default, the resolution of the world is 1. This means that 1 unit in Evergine is equal to 1 unit in the physics world.
+Changing it to 10 indicates that 1 unit in Evergine is equivalent to 10 units in the physics world. We recommend increasing this value up to 10 if your physics bodies usually have sizes of centimeters.
+</remarks></p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override float PhysicWorldResolution { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_PhysicWorldResolution">PhysicManager3D.PhysicWorldResolution</a></div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_AddPhysicBody_" data-uid="Evergine.Bullet.BulletPhysicManager3D.AddPhysicBody*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_AddPhysicBody_Evergine_Framework_Physics3D_IPhysicBody3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.AddPhysicBody(Evergine.Framework.Physics3D.IPhysicBody3D)">AddPhysicBody(IPhysicBody3D)</h4>
+  <div class="markdown level1 summary"><p>Adds the physics body to the simulation world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void AddPhysicBody(IPhysicBody3D body)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IPhysicBody3D.html">IPhysicBody3D</a></td>
+        <td><span class="parametername">body</span></td>
+        <td><p>The body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_AddPhysicBody_Evergine_Framework_Physics3D_IPhysicBody3D_">PhysicManager3D.AddPhysicBody(IPhysicBody3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_ContactPairTest_" data-uid="Evergine.Bullet.BulletPhysicManager3D.ContactPairTest*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_ContactPairTest_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Framework_Physics3D_IColliderShape3D_Evergine_Framework_Physics3D_IColliderShape3D_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_ContactPoint3D__" data-uid="Evergine.Bullet.BulletPhysicManager3D.ContactPairTest(Evergine.Framework.Physics3D.IPhysicBody3D,Evergine.Framework.Physics3D.IPhysicBody3D,Evergine.Framework.Physics3D.IColliderShape3D,Evergine.Framework.Physics3D.IColliderShape3D,System.Collections.Generic.ICollection{Evergine.Framework.Physics3D.ContactPoint3D})">ContactPairTest(IPhysicBody3D, IPhysicBody3D, IColliderShape3D, IColliderShape3D, ICollection&lt;ContactPoint3D&gt;)</h4>
+  <div class="markdown level1 summary"><p>The contact test query performs a collision test against the specified physics object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int ContactPairTest(IPhysicBody3D physicBodyA, IPhysicBody3D physicBodyB, IColliderShape3D colliderShapeA, IColliderShape3D colliderShapeB, ICollection&lt;ContactPoint3D&gt; contactPointCollection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IPhysicBody3D.html">IPhysicBody3D</a></td>
+        <td><span class="parametername">physicBodyA</span></td>
+        <td><p>The first physics body to detect contact.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IPhysicBody3D.html">IPhysicBody3D</a></td>
+        <td><span class="parametername">physicBodyB</span></td>
+        <td><p>The second physics body to detect contact.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IColliderShape3D.html">IColliderShape3D</a></td>
+        <td><span class="parametername">colliderShapeA</span></td>
+        <td><p>The collider on body A to test.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IColliderShape3D.html">IColliderShape3D</a></td>
+        <td><span class="parametername">colliderShapeB</span></td>
+        <td><p>The collider on body B to test.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Evergine.Framework.Physics3D.ContactPoint3D.html">ContactPoint3D</a>&gt;</td>
+        <td><span class="parametername">contactPointCollection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of contacts detected.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_ContactPairTest_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Framework_Physics3D_IColliderShape3D_Evergine_Framework_Physics3D_IColliderShape3D_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_ContactPoint3D__">PhysicManager3D.ContactPairTest(IPhysicBody3D, IPhysicBody3D, IColliderShape3D, IColliderShape3D, ICollection&lt;ContactPoint3D&gt;)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_ContactTest_" data-uid="Evergine.Bullet.BulletPhysicManager3D.ContactTest*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_ContactTest_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Framework_Physics3D_IColliderShape3D_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_ContactPoint3D__" data-uid="Evergine.Bullet.BulletPhysicManager3D.ContactTest(Evergine.Framework.Physics3D.IPhysicBody3D,Evergine.Framework.Physics3D.IColliderShape3D,System.Collections.Generic.ICollection{Evergine.Framework.Physics3D.ContactPoint3D})">ContactTest(IPhysicBody3D, IColliderShape3D, ICollection&lt;ContactPoint3D&gt;)</h4>
+  <div class="markdown level1 summary"><p>The contact test query performs a collision test against all overlapping objects in the physics world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int ContactTest(IPhysicBody3D physicBody, IColliderShape3D colliderShape, ICollection&lt;ContactPoint3D&gt; contactPointCollection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IPhysicBody3D.html">IPhysicBody3D</a></td>
+        <td><span class="parametername">physicBody</span></td>
+        <td><p>The physics body to detect contact.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IColliderShape3D.html">IColliderShape3D</a></td>
+        <td><span class="parametername">colliderShape</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Evergine.Framework.Physics3D.ContactPoint3D.html">ContactPoint3D</a>&gt;</td>
+        <td><span class="parametername">contactPointCollection</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of contacts detected.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_ContactTest_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Framework_Physics3D_IColliderShape3D_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_ContactPoint3D__">PhysicManager3D.ContactTest(IPhysicBody3D, IColliderShape3D, ICollection&lt;ContactPoint3D&gt;)</a></div>
+  <h5 id="Evergine_Bullet_BulletPhysicManager3D_ContactTest_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Framework_Physics3D_IColliderShape3D_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_ContactPoint3D___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p><code class="paramref">resultsOutput</code> is not cleared.</p>
+</div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_ConvexSweepTest_" data-uid="Evergine.Bullet.BulletPhysicManager3D.ConvexSweepTest*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_ConvexSweepTest_Evergine_Framework_Physics3D_IColliderShape3D_Evergine_Mathematics_Matrix4x4__Evergine_Mathematics_Matrix4x4__Evergine_Framework_Physics3D_CollisionCategory3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.ConvexSweepTest(Evergine.Framework.Physics3D.IColliderShape3D,Evergine.Mathematics.Matrix4x4@,Evergine.Mathematics.Matrix4x4@,Evergine.Framework.Physics3D.CollisionCategory3D)">ConvexSweepTest(IColliderShape3D, ref Matrix4x4, ref Matrix4x4, CollisionCategory3D)</h4>
+  <div class="markdown level1 summary"><p>Performs a sweep test using a collider shape and stops at the first hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override HitResult3D ConvexSweepTest(IColliderShape3D colliderShape, ref Matrix4x4 from, ref Matrix4x4 to, CollisionCategory3D filterMask = CollisionCategory3D.All)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IColliderShape3D.html">IColliderShape3D</a></td>
+        <td><span class="parametername">colliderShape</span></td>
+        <td><p>The collider shape.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>The starting matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>The ending matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.CollisionCategory3D.html">CollisionCategory3D</a></td>
+        <td><span class="parametername">filterMask</span></td>
+        <td><p>The collision category filter for the ray.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.HitResult3D.html">HitResult3D</a></td>
+        <td><p>The result of the hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_ConvexSweepTest_Evergine_Framework_Physics3D_IColliderShape3D_Evergine_Mathematics_Matrix4x4__Evergine_Mathematics_Matrix4x4__Evergine_Framework_Physics3D_CollisionCategory3D_">PhysicManager3D.ConvexSweepTest(IColliderShape3D, ref Matrix4x4, ref Matrix4x4, CollisionCategory3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_ConvexSweepTestAll_" data-uid="Evergine.Bullet.BulletPhysicManager3D.ConvexSweepTestAll*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_ConvexSweepTestAll_Evergine_Framework_Physics3D_IColliderShape3D_Evergine_Mathematics_Matrix4x4__Evergine_Mathematics_Matrix4x4__System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_HitResult3D__Evergine_Framework_Physics3D_CollisionCategory3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.ConvexSweepTestAll(Evergine.Framework.Physics3D.IColliderShape3D,Evergine.Mathematics.Matrix4x4@,Evergine.Mathematics.Matrix4x4@,System.Collections.Generic.ICollection{Evergine.Framework.Physics3D.HitResult3D},Evergine.Framework.Physics3D.CollisionCategory3D)">ConvexSweepTestAll(IColliderShape3D, ref Matrix4x4, ref Matrix4x4, ICollection&lt;HitResult3D&gt;, CollisionCategory3D)</h4>
+  <div class="markdown level1 summary"><p>Sweep test using a collider shape that stops at the first hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void ConvexSweepTestAll(IColliderShape3D colliderShape, ref Matrix4x4 from, ref Matrix4x4 to, ICollection&lt;HitResult3D&gt; resultsOutput, CollisionCategory3D filterMask = CollisionCategory3D.All)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IColliderShape3D.html">IColliderShape3D</a></td>
+        <td><span class="parametername">colliderShape</span></td>
+        <td><p>The collider shape.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>The initial matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>The target matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Evergine.Framework.Physics3D.HitResult3D.html">HitResult3D</a>&gt;</td>
+        <td><span class="parametername">resultsOutput</span></td>
+        <td><p>The collection where the contact results will be included.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.CollisionCategory3D.html">CollisionCategory3D</a></td>
+        <td><span class="parametername">filterMask</span></td>
+        <td><p>The collision category that the ray will hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_ConvexSweepTestAll_Evergine_Framework_Physics3D_IColliderShape3D_Evergine_Mathematics_Matrix4x4__Evergine_Mathematics_Matrix4x4__System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_HitResult3D__Evergine_Framework_Physics3D_CollisionCategory3D_">PhysicManager3D.ConvexSweepTestAll(IColliderShape3D, ref Matrix4x4, ref Matrix4x4, ICollection&lt;HitResult3D&gt;, CollisionCategory3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_CreateColliderShape_" data-uid="Evergine.Bullet.BulletPhysicManager3D.CreateColliderShape*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_CreateColliderShape__1_System_Object___" data-uid="Evergine.Bullet.BulletPhysicManager3D.CreateColliderShape``1(System.Object[])">CreateColliderShape&lt;T&gt;(params object[])</h4>
+  <div class="markdown level1 summary"><p>Instantiates a new Collider shape.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override T CreateColliderShape&lt;T&gt;(params object[] param) where T : IColliderShape3D</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</td>
+        <td><span class="parametername">param</span></td>
+        <td><p>Collider parameters.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The new collider shape.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The ColliderShape type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_CreateColliderShape__1_System_Object___">PhysicManager3D.CreateColliderShape&lt;T&gt;(params object[])</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_CreateJoint_" data-uid="Evergine.Bullet.BulletPhysicManager3D.CreateJoint*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_CreateJoint__2___1_" data-uid="Evergine.Bullet.BulletPhysicManager3D.CreateJoint``2(``1)">CreateJoint&lt;T, J&gt;(J)</h4>
+  <div class="markdown level1 summary"><p>Creates a joint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override T CreateJoint&lt;T, J&gt;(J jointDef) where T : IJoint3D where J : JointDef3D&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">J</span></td>
+        <td><span class="parametername">jointDef</span></td>
+        <td><p>The joint definition instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The new joint instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The joint type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">J</span></td>
+        <td><p>The joint definition type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Evergine.Framework.Managers.PhysicManager3D.CreateJoint&lt;T, J&gt;(J)</span></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_CreatePhysicAction_" data-uid="Evergine.Bullet.BulletPhysicManager3D.CreatePhysicAction*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_CreatePhysicAction__1_System_Object___" data-uid="Evergine.Bullet.BulletPhysicManager3D.CreatePhysicAction``1(System.Object[])">CreatePhysicAction&lt;T&gt;(params object[])</h4>
+  <div class="markdown level1 summary"><p>Creates a physics action instance (character, vehicle controllers, etc.)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override T CreatePhysicAction&lt;T&gt;(params object[] param) where T : IPhysicAction3D</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a>[]</td>
+        <td><span class="parametername">param</span></td>
+        <td><p>The initialization parameters.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The created instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The type of the physics action.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_CreatePhysicAction__1_System_Object___">PhysicManager3D.CreatePhysicAction&lt;T&gt;(params object[])</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_CreatePhysicBody_" data-uid="Evergine.Bullet.BulletPhysicManager3D.CreatePhysicBody*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_CreatePhysicBody__2___1_" data-uid="Evergine.Bullet.BulletPhysicManager3D.CreatePhysicBody``2(``1)">CreatePhysicBody&lt;T, J&gt;(J)</h4>
+  <div class="markdown level1 summary"><p>Creates a StaticBody 3D.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override T CreatePhysicBody&lt;T, J&gt;(J bodyDef) where T : IPhysicBody3D where J : PhysicBodyDef3D&lt;T&gt;</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">J</span></td>
+        <td><span class="parametername">bodyDef</span></td>
+        <td><p>Body definition.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><p>The static body instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The physics body interface.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">J</span></td>
+        <td><p>The body definition class.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><span class="xref">Evergine.Framework.Managers.PhysicManager3D.CreatePhysicBody&lt;T, J&gt;(J)</span></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_DebugDraw_" data-uid="Evergine.Bullet.BulletPhysicManager3D.DebugDraw*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_DebugDraw" data-uid="Evergine.Bullet.BulletPhysicManager3D.DebugDraw">DebugDraw()</h4>
+  <div class="markdown level1 summary"><p>Draws the debug information.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void DebugDraw()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_DebugDraw">PhysicManager3D.DebugDraw()</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_Destroy_" data-uid="Evergine.Bullet.BulletPhysicManager3D.Destroy*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_Destroy" data-uid="Evergine.Bullet.BulletPhysicManager3D.Destroy">Destroy()</h4>
+  <div class="markdown level1 summary"><p>Destroys this object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Destroy()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_Dispose_" data-uid="Evergine.Bullet.BulletPhysicManager3D.Dispose*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_Dispose" data-uid="Evergine.Bullet.BulletPhysicManager3D.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Dispose the bullet world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_Initialize_" data-uid="Evergine.Bullet.BulletPhysicManager3D.Initialize*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_Initialize" data-uid="Evergine.Bullet.BulletPhysicManager3D.Initialize">Initialize()</h4>
+  <div class="markdown level1 summary"><p>Initialize the bullet simulation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Initialize()</code></pre>
+  </div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_OnAttached_" data-uid="Evergine.Bullet.BulletPhysicManager3D.OnAttached*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_OnAttached" data-uid="Evergine.Bullet.BulletPhysicManager3D.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_OnAttached">PhysicManager3D.OnAttached()</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_Pause_" data-uid="Evergine.Bullet.BulletPhysicManager3D.Pause*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_Pause" data-uid="Evergine.Bullet.BulletPhysicManager3D.Pause">Pause()</h4>
+  <div class="markdown level1 summary"><p>Pause the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Pause()</code></pre>
+  </div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_PointTest_" data-uid="Evergine.Bullet.BulletPhysicManager3D.PointTest*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_PointTest_Evergine_Framework_Physics3D_IColliderShape3D_Evergine_Mathematics_Vector3__" data-uid="Evergine.Bullet.BulletPhysicManager3D.PointTest(Evergine.Framework.Physics3D.IColliderShape3D,Evergine.Mathematics.Vector3@)">PointTest(IColliderShape3D, ref Vector3)</h4>
+  <div class="markdown level1 summary"><p>Tests if a point is inside a physics body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool PointTest(IColliderShape3D shape, ref Vector3 position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IColliderShape3D.html">IColliderShape3D</a></td>
+        <td><span class="parametername">shape</span></td>
+        <td></td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The position to test in world coordinates.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if the position is inside the body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_PointTest_Evergine_Framework_Physics3D_IColliderShape3D_Evergine_Mathematics_Vector3__">PhysicManager3D.PointTest(IColliderShape3D, ref Vector3)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_PointTest_" data-uid="Evergine.Bullet.BulletPhysicManager3D.PointTest*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_PointTest_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Mathematics_Vector3__" data-uid="Evergine.Bullet.BulletPhysicManager3D.PointTest(Evergine.Framework.Physics3D.IPhysicBody3D,Evergine.Mathematics.Vector3@)">PointTest(IPhysicBody3D, ref Vector3)</h4>
+  <div class="markdown level1 summary"><p>Tests if a point is inside a physical body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool PointTest(IPhysicBody3D physicBody, ref Vector3 position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IPhysicBody3D.html">IPhysicBody3D</a></td>
+        <td><span class="parametername">physicBody</span></td>
+        <td><p>The physical body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The position to test in world coordinates.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>Whether this position is inside this body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_PointTest_Evergine_Framework_Physics3D_IPhysicBody3D_Evergine_Mathematics_Vector3__">PhysicManager3D.PointTest(IPhysicBody3D, ref Vector3)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RayCast_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCast*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RayCast_Evergine_Mathematics_Ray__System_Single_Evergine_Framework_Physics3D_CollisionCategory3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCast(Evergine.Mathematics.Ray@,System.Single,Evergine.Framework.Physics3D.CollisionCategory3D)">RayCast(ref Ray, float, CollisionCategory3D)</h4>
+  <div class="markdown level1 summary"><p>Raycasts and stops at the first hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override HitResult3D RayCast(ref Ray ray, float rayDistance, CollisionCategory3D filterMask = CollisionCategory3D.All)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td><span class="parametername">ray</span></td>
+        <td><p>The ray.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">rayDistance</span></td>
+        <td><p>The distance to test.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.CollisionCategory3D.html">CollisionCategory3D</a></td>
+        <td><span class="parametername">filterMask</span></td>
+        <td><p>The collision category that the ray should hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.HitResult3D.html">HitResult3D</a></td>
+        <td><p>The closest hit result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RayCast_Evergine_Mathematics_Ray__System_Single_Evergine_Framework_Physics3D_CollisionCategory3D_">PhysicManager3D.RayCast(ref Ray, float, CollisionCategory3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RayCast_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCast*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RayCast_Evergine_Mathematics_RayStep__Evergine_Framework_Physics3D_CollisionCategory3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCast(Evergine.Mathematics.RayStep@,Evergine.Framework.Physics3D.CollisionCategory3D)">RayCast(ref RayStep, CollisionCategory3D)</h4>
+  <div class="markdown level1 summary"><p>Performs a raycast and stops at the first hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override HitResult3D RayCast(ref RayStep rayStep, CollisionCategory3D filterMask = CollisionCategory3D.All)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.RayStep.html">RayStep</a></td>
+        <td><span class="parametername">rayStep</span></td>
+        <td><p>The ray step.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.CollisionCategory3D.html">CollisionCategory3D</a></td>
+        <td><span class="parametername">filterMask</span></td>
+        <td><p>The collision category used to filter hits.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.HitResult3D.html">HitResult3D</a></td>
+        <td><p>The closest hit result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RayCast_Evergine_Mathematics_RayStep__Evergine_Framework_Physics3D_CollisionCategory3D_">PhysicManager3D.RayCast(ref RayStep, CollisionCategory3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RayCast_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCast*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RayCast_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__Evergine_Framework_Physics3D_CollisionCategory3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCast(Evergine.Mathematics.Vector3@,Evergine.Mathematics.Vector3@,Evergine.Framework.Physics3D.CollisionCategory3D)">RayCast(ref Vector3, ref Vector3, CollisionCategory3D)</h4>
+  <div class="markdown level1 summary"><p>Casts a ray and stops at the first hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override HitResult3D RayCast(ref Vector3 from, ref Vector3 to, CollisionCategory3D filterMask = CollisionCategory3D.All)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>The starting ray position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>The ray's endpoint.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.CollisionCategory3D.html">CollisionCategory3D</a></td>
+        <td><span class="parametername">filterMask</span></td>
+        <td><p>The collision category to be used for the raycast.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.HitResult3D.html">HitResult3D</a></td>
+        <td><p>The result of the closest hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RayCast_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__Evergine_Framework_Physics3D_CollisionCategory3D_">PhysicManager3D.RayCast(ref Vector3, ref Vector3, CollisionCategory3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RayCastAll_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCastAll*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RayCastAll_Evergine_Mathematics_Ray__System_Single_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_HitResult3D__Evergine_Framework_Physics3D_CollisionCategory3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCastAll(Evergine.Mathematics.Ray@,System.Single,System.Collections.Generic.ICollection{Evergine.Framework.Physics3D.HitResult3D},Evergine.Framework.Physics3D.CollisionCategory3D)">RayCastAll(ref Ray, float, ICollection&lt;HitResult3D&gt;, CollisionCategory3D)</h4>
+  <div class="markdown level1 summary"><p>Raycasts and gets all the hits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RayCastAll(ref Ray ray, float rayDistance, ICollection&lt;HitResult3D&gt; resultsOutput, CollisionCategory3D filterMask = CollisionCategory3D.All)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td><span class="parametername">ray</span></td>
+        <td><p>The ray.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">rayDistance</span></td>
+        <td><p>The distance to test.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Evergine.Framework.Physics3D.HitResult3D.html">HitResult3D</a>&gt;</td>
+        <td><span class="parametername">resultsOutput</span></td>
+        <td><p>The collection where the results will be included.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.CollisionCategory3D.html">CollisionCategory3D</a></td>
+        <td><span class="parametername">filterMask</span></td>
+        <td><p>The collision category to be hit by the ray.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RayCastAll_Evergine_Mathematics_Ray__System_Single_System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_HitResult3D__Evergine_Framework_Physics3D_CollisionCategory3D_">PhysicManager3D.RayCastAll(ref Ray, float, ICollection&lt;HitResult3D&gt;, CollisionCategory3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RayCastAll_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCastAll*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RayCastAll_Evergine_Mathematics_RayStep__System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_HitResult3D__Evergine_Framework_Physics3D_CollisionCategory3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCastAll(Evergine.Mathematics.RayStep@,System.Collections.Generic.ICollection{Evergine.Framework.Physics3D.HitResult3D},Evergine.Framework.Physics3D.CollisionCategory3D)">RayCastAll(ref RayStep, ICollection&lt;HitResult3D&gt;, CollisionCategory3D)</h4>
+  <div class="markdown level1 summary"><p>Raycasts and gets all the hits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RayCastAll(ref RayStep rayStep, ICollection&lt;HitResult3D&gt; resultsOutput, CollisionCategory3D filterMask = CollisionCategory3D.All)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.RayStep.html">RayStep</a></td>
+        <td><span class="parametername">rayStep</span></td>
+        <td><p>The ray step.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Evergine.Framework.Physics3D.HitResult3D.html">HitResult3D</a>&gt;</td>
+        <td><span class="parametername">resultsOutput</span></td>
+        <td><p>The collection where the results will be included.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.CollisionCategory3D.html">CollisionCategory3D</a></td>
+        <td><span class="parametername">filterMask</span></td>
+        <td><p>The collision category to hit with the ray.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RayCastAll_Evergine_Mathematics_RayStep__System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_HitResult3D__Evergine_Framework_Physics3D_CollisionCategory3D_">PhysicManager3D.RayCastAll(ref RayStep, ICollection&lt;HitResult3D&gt;, CollisionCategory3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RayCastAll_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCastAll*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RayCastAll_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_HitResult3D__Evergine_Framework_Physics3D_CollisionCategory3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RayCastAll(Evergine.Mathematics.Vector3@,Evergine.Mathematics.Vector3@,System.Collections.Generic.ICollection{Evergine.Framework.Physics3D.HitResult3D},Evergine.Framework.Physics3D.CollisionCategory3D)">RayCastAll(ref Vector3, ref Vector3, ICollection&lt;HitResult3D&gt;, CollisionCategory3D)</h4>
+  <div class="markdown level1 summary"><p>Raycasts and gets all the hits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RayCastAll(ref Vector3 from, ref Vector3 to, ICollection&lt;HitResult3D&gt; resultsOutput, CollisionCategory3D filterMask = CollisionCategory3D.All)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>The starting ray position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>The ray endpoint.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;<a class="xref" href="Evergine.Framework.Physics3D.HitResult3D.html">HitResult3D</a>&gt;</td>
+        <td><span class="parametername">resultsOutput</span></td>
+        <td><p>The collection where the results will be stored.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.CollisionCategory3D.html">CollisionCategory3D</a></td>
+        <td><span class="parametername">filterMask</span></td>
+        <td><p>The collision category for the ray to hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RayCastAll_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__System_Collections_Generic_ICollection_Evergine_Framework_Physics3D_HitResult3D__Evergine_Framework_Physics3D_CollisionCategory3D_">PhysicManager3D.RayCastAll(ref Vector3, ref Vector3, ICollection&lt;HitResult3D&gt;, CollisionCategory3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RemoveJoint_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RemoveJoint*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RemoveJoint_Evergine_Framework_Physics3D_IJoint3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RemoveJoint(Evergine.Framework.Physics3D.IJoint3D)">RemoveJoint(IJoint3D)</h4>
+  <div class="markdown level1 summary"><p>Removes the joint from the physics world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RemoveJoint(IJoint3D joint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html">IJoint3D</a></td>
+        <td><span class="parametername">joint</span></td>
+        <td><p>The joint to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RemoveJoint_Evergine_Framework_Physics3D_IJoint3D_">PhysicManager3D.RemoveJoint(IJoint3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RemovePhysicAction_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RemovePhysicAction*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RemovePhysicAction_Evergine_Framework_Physics3D_IPhysicAction3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RemovePhysicAction(Evergine.Framework.Physics3D.IPhysicAction3D)">RemovePhysicAction(IPhysicAction3D)</h4>
+  <div class="markdown level1 summary"><p>Removes the physical action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RemovePhysicAction(IPhysicAction3D physicAction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IPhysicAction3D.html">IPhysicAction3D</a></td>
+        <td><span class="parametername">physicAction</span></td>
+        <td><p>The physical action to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RemovePhysicAction_Evergine_Framework_Physics3D_IPhysicAction3D_">PhysicManager3D.RemovePhysicAction(IPhysicAction3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_RemovePhysicBody_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RemovePhysicBody*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_RemovePhysicBody_Evergine_Framework_Physics3D_IPhysicBody3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.RemovePhysicBody(Evergine.Framework.Physics3D.IPhysicBody3D)">RemovePhysicBody(IPhysicBody3D)</h4>
+  <div class="markdown level1 summary"><p>Removes a Rigidbody 3D from the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void RemovePhysicBody(IPhysicBody3D body)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.IPhysicBody3D.html">IPhysicBody3D</a></td>
+        <td><span class="parametername">body</span></td>
+        <td><p>The body to remove.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_RemovePhysicBody_Evergine_Framework_Physics3D_IPhysicBody3D_">PhysicManager3D.RemovePhysicBody(IPhysicBody3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_Resume_" data-uid="Evergine.Bullet.BulletPhysicManager3D.Resume*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_Resume" data-uid="Evergine.Bullet.BulletPhysicManager3D.Resume">Resume()</h4>
+  <div class="markdown level1 summary"><p>Resume the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Resume()</code></pre>
+  </div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_SetDebugDraw_" data-uid="Evergine.Bullet.BulletPhysicManager3D.SetDebugDraw*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_SetDebugDraw_Evergine_Framework_Physics3D_ISimulationDebugDraw3D_" data-uid="Evergine.Bullet.BulletPhysicManager3D.SetDebugDraw(Evergine.Framework.Physics3D.ISimulationDebugDraw3D)">SetDebugDraw(ISimulationDebugDraw3D)</h4>
+  <div class="markdown level1 summary"><p>Sets the debug drawing of Simulation 2D.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void SetDebugDraw(ISimulationDebugDraw3D debugDraw)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.ISimulationDebugDraw3D.html">ISimulationDebugDraw3D</a></td>
+        <td><span class="parametername">debugDraw</span></td>
+        <td><p>The debug draw instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_SetDebugDraw_Evergine_Framework_Physics3D_ISimulationDebugDraw3D_">PhysicManager3D.SetDebugDraw(ISimulationDebugDraw3D)</a></div>
+  <a id="Evergine_Bullet_BulletPhysicManager3D_Update_" data-uid="Evergine.Bullet.BulletPhysicManager3D.Update*"></a>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_Update_System_TimeSpan_" data-uid="Evergine.Bullet.BulletPhysicManager3D.Update(System.TimeSpan)">Update(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Updates this manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Update(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The game time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.UpdatableSceneManager.html#Evergine_Framework_Managers_UpdatableSceneManager_Update_System_TimeSpan_">UpdatableSceneManager.Update(TimeSpan)</a></div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Bullet_BulletPhysicManager3D_OnPhysicStep" data-uid="Evergine.Bullet.BulletPhysicManager3D.OnPhysicStep">OnPhysicStep</h4>
+  <div class="markdown level1 summary"><p>Event fired when the physics will take a step</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override event EventHandler OnPhysicStep</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.PhysicManager3D.html#Evergine_Framework_Managers_PhysicManager3D_OnPhysicStep">PhysicManager3D.OnPhysicStep</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,715 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class LineMeshBase | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class LineMeshBase | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Components.Primitives.LineMeshBase">
+
+
+
+  <h1 id="Evergine_Components_Primitives_LineMeshBase" data-uid="Evergine.Components.Primitives.LineMeshBase" class="text-break">Class LineMeshBase</h1>
+  <div class="markdown level0 summary"><p>Line primitive mesh base component. To render this mesh, use the <a class="xref" href="Evergine.Components.Graphics3D.LineMeshRenderer3D.html">LineMeshRenderer3D</a> class.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Graphics.BaseModel.html">BaseModel</a></div>
+    <div class="level7"><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html">MeshComponent</a></div>
+    <div class="level8"><span class="xref">LineMeshBase</span></div>
+      <div class="level9"><a class="xref" href="Evergine.Components.Primitives.LineArcMeshBase.html">LineArcMeshBase</a></div>
+      <div class="level9"><a class="xref" href="Evergine.Components.Primitives.LineBezierMesh.html">LineBezierMesh</a></div>
+      <div class="level9"><a class="xref" href="Evergine.Components.Primitives.LineCubeMesh.html">LineCubeMesh</a></div>
+      <div class="level9"><a class="xref" href="Evergine.Components.Primitives.LineMesh.html">LineMesh</a></div>
+      <div class="level9"><a class="xref" href="Evergine.Components.Primitives.LineRectangleMesh.html">LineRectangleMesh</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_modelLink">MeshComponent.modelLink</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_meshContainer">MeshComponent.meshContainer</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_ChangedMesh">MeshComponent.ChangedMesh</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_modelMeshName">MeshComponent.modelMeshName</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_MeshCount">MeshComponent.MeshCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_MeshContainer">MeshComponent.MeshContainer</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_MeshNames">MeshComponent.MeshNames</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_Meshes">MeshComponent.Meshes</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_UnloadModel">MeshComponent.UnloadModel()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_ThrowRefreshEvent">MeshComponent.ThrowRefreshEvent()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_RefreshMesh">MeshComponent.RefreshMesh()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseModel.html#Evergine_Framework_Graphics_BaseModel_customBoundingBoxSet">BaseModel.customBoundingBoxSet</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseModel.html#Evergine_Framework_Graphics_BaseModel_Refreshed">BaseModel.Refreshed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseModel.html#Evergine_Framework_Graphics_BaseModel_BoundingBoxRefreshed">BaseModel.BoundingBoxRefreshed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseModel.html#Evergine_Framework_Graphics_BaseModel_GetBoneByMeshIndex_System_Int32_">BaseModel.GetBoneByMeshIndex(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Components.html">Components</a>.<a class="xref" href="Evergine.Components.Primitives.html">Primitives</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Components.dll</h6>
+  <h5 id="Evergine_Components_Primitives_LineMeshBase_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class LineMeshBase : MeshComponent, IDependencyObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Components_Primitives_LineMeshBase__ctor_" data-uid="Evergine.Components.Primitives.LineMeshBase.#ctor*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase__ctor" data-uid="Evergine.Components.Primitives.LineMeshBase.#ctor">LineMeshBase()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Components.Primitives.LineMeshBase.html">LineMeshBase</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LineMeshBase()</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_graphicsContext" data-uid="Evergine.Components.Primitives.LineMeshBase.graphicsContext">graphicsContext</h4>
+  <div class="markdown level1 summary"><p>Graphics context.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindService(true)]
+protected GraphicsContext graphicsContext</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html">GraphicsContext</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_isLoop" data-uid="Evergine.Components.Primitives.LineMeshBase.isLoop">isLoop</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the first point of the list is appended to the last one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool isLoop</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_linePoints" data-uid="Evergine.Components.Primitives.LineMeshBase.linePoints">linePoints</h4>
+  <div class="markdown level1 summary"><p>The list of points for the line.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;LinePointInfo&gt; linePoints</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Components.Primitives.LinePointInfo.html">LinePointInfo</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_lineType" data-uid="Evergine.Components.Primitives.LineMeshBase.lineType">lineType</h4>
+  <div class="markdown level1 summary"><p>The line type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LineType lineType</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.Primitives.LineType.html">LineType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Components_Primitives_LineMeshBase_BoundingBox_" data-uid="Evergine.Components.Primitives.LineMeshBase.BoundingBox*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_BoundingBox" data-uid="Evergine.Components.Primitives.LineMeshBase.BoundingBox">BoundingBox</h4>
+  <div class="markdown level1 summary"><p>Gets the mesh bounding box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override BoundingBox? BoundingBox { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a>?</td>
+        <td><p>The bounding box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_BoundingBox">MeshComponent.BoundingBox</a></div>
+  <a id="Evergine_Components_Primitives_LineMeshBase_DiffuseSampler_" data-uid="Evergine.Components.Primitives.LineMeshBase.DiffuseSampler*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_DiffuseSampler" data-uid="Evergine.Components.Primitives.LineMeshBase.DiffuseSampler">DiffuseSampler</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the line diffuse texture.
+This is the in-memory representation for the given asset.
+See <a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a> for more information.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SamplerState DiffuseSampler { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SamplerState.html">SamplerState</a></td>
+        <td><p>The line diffuse texture.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Primitives_LineMeshBase_DiffuseTexture_" data-uid="Evergine.Components.Primitives.LineMeshBase.DiffuseTexture*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_DiffuseTexture" data-uid="Evergine.Components.Primitives.LineMeshBase.DiffuseTexture">DiffuseTexture</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the line diffuse texture.
+This is the in-memory representation for the given asset.
+See <a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a> for more information.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Texture DiffuseTexture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td><p>The line diffuse texture.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Primitives_LineMeshBase_IsCameraAligned_" data-uid="Evergine.Components.Primitives.LineMeshBase.IsCameraAligned*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_IsCameraAligned" data-uid="Evergine.Components.Primitives.LineMeshBase.IsCameraAligned">IsCameraAligned</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the line will be oriented to the camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Is Camera Aligned&quot;, Tooltip = &quot;Indicates whether the line will be oriented to the camera&quot;)]
+public bool IsCameraAligned { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Primitives_LineMeshBase_Model_" data-uid="Evergine.Components.Primitives.LineMeshBase.Model*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_Model" data-uid="Evergine.Components.Primitives.LineMeshBase.Model">Model</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the model data.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override Model Model { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Model.html">Model</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_Model">MeshComponent.Model</a></div>
+  <a id="Evergine_Components_Primitives_LineMeshBase_ModelMeshName_" data-uid="Evergine.Components.Primitives.LineMeshBase.ModelMeshName*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_ModelMeshName" data-uid="Evergine.Components.Primitives.LineMeshBase.ModelMeshName">ModelMeshName</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the specified mesh name to render.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ModelMeshName { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_ModelMeshName">MeshComponent.ModelMeshName</a></div>
+  <a id="Evergine_Components_Primitives_LineMeshBase_TexcoordOffset_" data-uid="Evergine.Components.Primitives.LineMeshBase.TexcoordOffset*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_TexcoordOffset" data-uid="Evergine.Components.Primitives.LineMeshBase.TexcoordOffset">TexcoordOffset</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the texture coordinate offset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Texture Coordinate Offset&quot;, Tooltip = &quot;Texture coordinate offset&quot;)]
+public Vector2 TexcoordOffset { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Primitives_LineMeshBase_TextureTiling_" data-uid="Evergine.Components.Primitives.LineMeshBase.TextureTiling*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_TextureTiling" data-uid="Evergine.Components.Primitives.LineMeshBase.TextureTiling">TextureTiling</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating texture tiling (U,V).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Texture Tiling&quot;, Tooltip = &quot;Sets the tiling for the texture [U,V] coordinates&quot;)]
+public Vector2 TextureTiling { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Primitives_LineMeshBase_UseWorldSpace_" data-uid="Evergine.Components.Primitives.LineMeshBase.UseWorldSpace*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_UseWorldSpace" data-uid="Evergine.Components.Primitives.LineMeshBase.UseWorldSpace">UseWorldSpace</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the points are considered as world space coordinates, instead of being subject to
+the <a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a> of the owner <a class="xref" href="Evergine.Framework.Entity.html">Entity</a> of this component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Use World Space&quot;, Tooltip = &quot;Indicates whether the points are considered as world space coordinates&quot;)]
+public bool UseWorldSpace { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Components_Primitives_LineMeshBase_OnActivated_" data-uid="Evergine.Components.Primitives.LineMeshBase.OnActivated*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_OnActivated" data-uid="Evergine.Components.Primitives.LineMeshBase.OnActivated">OnActivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is activated once it is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnActivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a></div>
+  <a id="Evergine_Components_Primitives_LineMeshBase_OnAttached_" data-uid="Evergine.Components.Primitives.LineMeshBase.OnAttached*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_OnAttached" data-uid="Evergine.Components.Primitives.LineMeshBase.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_OnAttached">MeshComponent.OnAttached()</a></div>
+  <a id="Evergine_Components_Primitives_LineMeshBase_OnDeactivated_" data-uid="Evergine.Components.Primitives.LineMeshBase.OnDeactivated*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_OnDeactivated" data-uid="Evergine.Components.Primitives.LineMeshBase.OnDeactivated">OnDeactivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is deactivated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDeactivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a></div>
+  <a id="Evergine_Components_Primitives_LineMeshBase_OnDestroy_" data-uid="Evergine.Components.Primitives.LineMeshBase.OnDestroy*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_OnDestroy" data-uid="Evergine.Components.Primitives.LineMeshBase.OnDestroy">OnDestroy()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is about to be disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDestroy()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_OnDestroy">MeshComponent.OnDestroy()</a></div>
+  <a id="Evergine_Components_Primitives_LineMeshBase_OnDetach_" data-uid="Evergine.Components.Primitives.LineMeshBase.OnDetach*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_OnDetach" data-uid="Evergine.Components.Primitives.LineMeshBase.OnDetach">OnDetach()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetach()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetach">Component.OnDetach()</a></div>
+  <a id="Evergine_Components_Primitives_LineMeshBase_RefreshMeshes_" data-uid="Evergine.Components.Primitives.LineMeshBase.RefreshMeshes*"></a>
+  <h4 id="Evergine_Components_Primitives_LineMeshBase_RefreshMeshes" data-uid="Evergine.Components.Primitives.LineMeshBase.RefreshMeshes">RefreshMeshes()</h4>
+  <div class="markdown level1 summary"><p>Refreshes meshes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void RefreshMeshes()</code></pre>
+  </div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

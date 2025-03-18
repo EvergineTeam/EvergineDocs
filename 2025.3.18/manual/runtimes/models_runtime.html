@@ -1,0 +1,239 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Runtimes Models | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Runtimes Models | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="runtimes-models">Runtimes Models</h1>
+
+<hr>
+<p><img src="images/glb-header.png" alt="Evergine Runtimes Models"></p>
+<p>The <strong>Evergine.Runtimes.GLB</strong> and <strong>Evergine.Runtimes.STL</strong> NuGet packages provide a <strong>powerful and efficient solution</strong> for loading 3D models dynamically at runtime.</p>
+<h2 id="dynamic-model-loading">Dynamic Model Loading</h2>
+<p>Loading dynamic models has always been a challenge. To address this, Evergine introduces <strong>runtime packages</strong> that support the <em>GLB</em> and <em>STL</em> formats. These packages allow you to manage scenarios where your models:</p>
+<p>✔️ Are <strong>not</strong> included in the initial application bundle.<br>
+✔️ Are <strong>not</strong> static application assets.<br>
+✔️ Are marked as <strong>raw assets</strong>.</p>
+<p>With the <strong>Evergine.Runtimes</strong> libraries, you can now <strong>download models dynamically</strong> from the internet and display them seamlessly to users. This feature is particularly useful for applications requiring <strong>real-time model updates</strong> or <strong>user-generated content integration</strong>.</p>
+<p>These advancements empower developers to build <strong>more dynamic and interactive applications</strong>, ensuring users have access to the latest content <strong>without</strong> frequent updates or large initial downloads.</p>
+<p>🚀 <strong>More industrial formats will be supported</strong> in future updates as part of this new approach!</p>
+<h2 id="getting-started">Getting Started</h2>
+<p>To start using the <strong>Evergine.Runtimes.GLB</strong> or <strong>Evergine.Runtimes.STL</strong> libraries, simply install the NuGet package and use the following code to load your assets:</p>
+<pre><code class="lang-csharp">protected async override void CreateScene()
+{    
+    var model = await GLBRuntime.Instance.Read(&quot;MyModel.glb&quot;);
+    // or
+    var model = await GLBRuntime.Instance.Read(&quot;MyModel.stl&quot;);
+
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+    var entity = model.InstantiateModelHierarchy(assetsService);
+    this.manager.EntityManager.Add(entity);
+}
+</code></pre>
+<br>
+<h3 id="custom-shader-support">Custom Shader Support</h3>
+<p>By default, models are loaded using the Standard Effect (Evergine’s built-in shader). However, if you want to load models using your custom shader, you must pass an additional <strong>CustomMaterialAssigner</strong> function to the Read method:</p>
+<pre><code class="lang-csharp">protected async override void CreateScene()
+{
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+    var model = await GLBRuntime.Instance.Read(&quot;Scenes/DamagedHelmet.glb&quot;, this.CustomMaterialAssigner);
+    //var model = await STLRuntime.Instance.Read(&quot;Scenes/Star_Destroyer_Fixed.stl&quot;);
+
+    var entity = model.InstantiateModelHierarchy(assetsService);
+    this.Managers.EntityManager.Add(entity);
+}
+</code></pre>
+<p>To use a custom shader, define a CustomMaterialAssigner function that assigns the correct textures, materials, and properties:</p>
+<pre><code class="lang-csharp">private async Task&lt;Material&gt; CustomMaterialAssigner(MaterialData data)
+{
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+    // Get textures            
+    var baseColor = await data.GetBaseColorTextureAndSampler();
+    var metallicRoughness = await data.GetMetallicRoughnessTextureAndSampler();
+    var normalTex = await data.GetNormalTextureAndSampler();  
+    var emissive = await data.GetEmissiveTextureAndSampler();
+    var occlussion = await data.GetOcclusionTextureAndSampler();            
+
+    // Get Layer
+    var opaqueLayer = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID);
+    var alphaLayer = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.AlphaRenderLayerID);
+    RenderLayerDescription layer;
+    float alpha = data.BaseColor.A / 255.0f;
+    switch (data.AlphaMode)
+    {
+        default:
+        case Evergine.Framework.Runtimes.AlphaMode.Mask:
+        case Evergine.Framework.Runtimes.AlphaMode.Opaque:
+            layer = opaqueLayer;
+            break;
+        case Evergine.Framework.Runtimes.AlphaMode.Blend:
+            layer = alphaLayer;
+            break;
+    }
+
+    // Create standard material            
+    var effect = assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID);            
+    StandardMaterial standard = new StandardMaterial(effect)
+    {
+        LightingEnabled = data.HasVertexNormal,
+        IBLEnabled = data.HasVertexNormal,
+        BaseColor = data.BaseColor,
+        Alpha = alpha,
+        BaseColorTexture = baseColor.Texture,
+        BaseColorSampler = baseColor.Sampler,
+        Metallic = data.MetallicFactor,
+        Roughness = data.RoughnessFactor,
+        MetallicRoughnessTexture = metallicRoughness.Texture,
+        MetallicRoughnessSampler = metallicRoughness.Sampler,
+        EmissiveColor = data.EmissiveColor.ToColor(),
+        EmissiveTexture = emissive.Texture,
+        EmissiveSampler = emissive.Sampler,
+        OcclusionTexture = occlussion.Texture,
+        OcclusionSampler = occlussion.Sampler,
+        LayerDescription = layer,                
+    };
+
+    // Normal textures
+    if (data.HasVertexTangent)
+    {
+        standard.NormalTexture = normalTex.Texture;
+        standard.NormalSampler = normalTex.Sampler;
+    }
+
+    // Alpha test
+    if (data.AlphaMode == Evergine.Framework.Runtimes.AlphaMode.Mask)
+    {
+        standard.AlphaCutout = data.AlphaCutoff;
+    }
+
+    // Vertex Color
+    if (data.HasVertexColor)
+    {
+        if (standard.ActiveDirectivesNames.Contains(&quot;VCOLOR&quot;))
+        {
+            var directivesArray = standard.ActiveDirectivesNames;
+            Array.Resize(ref directivesArray, directivesArray.Length + 1);
+            directivesArray[directivesArray.Length - 1] = &quot;VCOLOR&quot;;
+            standard.ActiveDirectivesNames = directivesArray;
+        }
+    }
+
+    return standard.Material;
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

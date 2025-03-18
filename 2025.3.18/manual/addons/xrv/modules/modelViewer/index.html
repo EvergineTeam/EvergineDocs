@@ -1,0 +1,210 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Model Viewer Module | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Model Viewer Module | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../../index.html">
+                <img id="logo" class="svg" src="../../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="model-viewer-module">Model Viewer Module</h1>
+
+<p>One of the most common tasks while developing an XR experience is loading 3D models. With this module, you have a way to load models from a remote location into your application. When loaded, a model can be moved, rotated, and scaled thanks to its bounding box. Transformations can be performed by near or far interaction, indiscriminately.</p>
+<p><img src="images/snapshot2.png" alt="Dragon"></p>
+<p>This module allows you to define an unlimited number of model repositories; each repository can contain an unlimited number of 3D models.</p>
+<table>
+<thead>
+<tr>
+<th>Properties</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NormalizedModelEnabled</code></td>
+<td>If true, it will override the original scale of the model and set the same for all models.</td>
+</tr>
+<tr>
+<td><code>NormalizedModelSize</code></td>
+<td>Size in meters for models when loaded</td>
+</tr>
+<tr>
+<td><code>Repositories</code></td>
+<td>Array of model repositories.</td>
+</tr>
+</tbody>
+</table>
+<p>A repository has the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Properties</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td>This name will be displayed on the model load list.</td>
+</tr>
+<tr>
+<td><code>FileAccess</code></td>
+<td>Models data source. Please refer to the <a href="../../storage.html">Storage</a> section for more information.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="installation">Installation</h2>
+<p>This module is packaged as an <a href="../../../index.html">Evergine add-on</a>. To use it in your project, just install it from the <em>Project Settings &gt; Add-Ons</em> window.</p>
+<p><img src="images/installation.png" alt="Module installation"></p>
+<p>Then, register the module programmatically within your XRV service instance.</p>
+<pre><code class="lang-csharp">FileAccess modelsDataSource = &lt;Create FileAccess instance&gt;;
+var xrv = new XrvService()
+    .AddModule(new ModelViewerModule
+    {
+        Repositories = new Repository[]
+                       {
+                            new Repository()
+                            {
+                                Name = &quot;Remote Sample Models&quot;,
+                                FileAccess = loadModelFileAccess,
+                            }
+                       },
+        NormalizedModelEnabled = true,
+        NormalizedModelSize = 0.2f,
+    });
+</code></pre>
+<h2 id="usage">Usage</h2>
+<ul>
+<li>To open the model selection window, just tap on <img src="images/addModel.png" alt="hand menu icon"> hand menu button.</li>
+<li>Select a model from the <em>Models</em> list. Each repository can have a different set of models. Once you know which model you want to load, just press the <em>Load</em> button.</li>
+</ul>
+<p><img src="images/snapshot.png" alt="Model list"></p>
+<h3 id="manipulation">Manipulation</h3>
+<p>Using manipulators, you can move, scale, and rotate models. Manipulators are shown over the bounding box.</p>
+<p><img src="images/manipulators.png" alt="Manipulators"></p>
+<p>We have marked interaction areas with colors, depending on their manipulation possibilities.</p>
+<ul>
+<li><strong>Red</strong>: Scale, pinch on corners and drag to scale the model.</li>
+<li><strong>Green</strong>: Roll, pinch on the upper middle manipulator and drag for roll rotation.</li>
+<li><strong>Blue</strong>: Pitch, pinch on the side middle manipulator and drag for pitch rotation.</li>
+<li><strong>Pink</strong>: Stretch, pinch on the center manipulator and drag for stretch scale.</li>
+</ul>
+<h3 id="actions">Actions</h3>
+<p>Each model has a submenu with a set of options. Tap on the <img src="images/hamburger.png" alt="Menu icon"> button to expand the list of available actions.</p>
+<ul>
+<li><img src="images/locked.png" alt="lock">: Manipulation is disabled for the model. It cannot be moved, rotated, or scaled until it is unlocked again.</li>
+<li><img src="images/reset.png" alt="reset">: Reset model to original scale and orientation. Position won't be modified.</li>
+<li><img src="images/delete.png" alt="remove">: Removes the model from virtual space.</li>
+</ul>
+<p><img src="images/menuOpen.png" alt="Menu open"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../../styles/main.js"></script>
+  </body>
+</html>

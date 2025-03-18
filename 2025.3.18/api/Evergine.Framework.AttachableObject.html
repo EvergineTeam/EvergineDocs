@@ -1,0 +1,544 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AttachableObject | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AttachableObject | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.AttachableObject">
+
+
+
+  <h1 id="Evergine_Framework_AttachableObject" data-uid="Evergine.Framework.AttachableObject" class="text-break">Class AttachableObject</h1>
+  <div class="markdown level0 summary"><p>Abstract class that represents an object that can be attached to the system.
+It implements the default life cycle Detached-Deactivated-Activated-Destroyed.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><span class="xref">AttachableObject</span></div>
+      <div class="level4"><a class="xref" href="Evergine.Framework.Managers.SceneManager.html">SceneManager</a></div>
+      <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+      <div class="level4"><a class="xref" href="Evergine.Framework.Services.Service.html">Service</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_AttachableObject_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class AttachableObject : DependencyObject, IDependencyObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Framework_AttachableObject__ctor_" data-uid="Evergine.Framework.AttachableObject.#ctor*"></a>
+  <h4 id="Evergine_Framework_AttachableObject__ctor" data-uid="Evergine.Framework.AttachableObject.#ctor">AttachableObject()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AttachableObject()</code></pre>
+  </div>
+  <a id="Evergine_Framework_AttachableObject__ctor_" data-uid="Evergine.Framework.AttachableObject.#ctor*"></a>
+  <h4 id="Evergine_Framework_AttachableObject__ctor_Evergine_Framework_AttachableObjectState_System_Boolean_System_Boolean_" data-uid="Evergine.Framework.AttachableObject.#ctor(Evergine.Framework.AttachableObjectState,System.Boolean,System.Boolean)">AttachableObject(AttachableObjectState, bool, bool)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AttachableObject(AttachableObjectState initialState, bool isLoaded, bool isStarted)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.AttachableObjectState.html">AttachableObjectState</a></td>
+        <td><span class="parametername">initialState</span></td>
+        <td><p>The initial state.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isLoaded</span></td>
+        <td><p>The value indicating whether it is loaded.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isStarted</span></td>
+        <td><p>The value indicating whether it is started.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_AttachableObject_IsActivated_" data-uid="Evergine.Framework.AttachableObject.IsActivated*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_IsActivated" data-uid="Evergine.Framework.AttachableObject.IsActivated">IsActivated</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this object has started.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsActivated { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_AttachableObject_IsAttached_" data-uid="Evergine.Framework.AttachableObject.IsAttached*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_IsAttached" data-uid="Evergine.Framework.AttachableObject.IsAttached">IsAttached</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this object is active.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsAttached { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_AttachableObject_IsDestroyed_" data-uid="Evergine.Framework.AttachableObject.IsDestroyed*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_IsDestroyed" data-uid="Evergine.Framework.AttachableObject.IsDestroyed">IsDestroyed</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this object has been destroyed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsDestroyed { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_AttachableObject_IsEnabled_" data-uid="Evergine.Framework.AttachableObject.IsEnabled*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_IsEnabled" data-uid="Evergine.Framework.AttachableObject.IsEnabled">IsEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this entity is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_AttachableObject_IsLoaded_" data-uid="Evergine.Framework.AttachableObject.IsLoaded*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_IsLoaded" data-uid="Evergine.Framework.AttachableObject.IsLoaded">IsLoaded</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this object is loaded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsLoaded { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_AttachableObject_IsStarted_" data-uid="Evergine.Framework.AttachableObject.IsStarted*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_IsStarted" data-uid="Evergine.Framework.AttachableObject.IsStarted">IsStarted</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this object has started.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool IsStarted { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_AttachableObject_ShouldBeActivated_" data-uid="Evergine.Framework.AttachableObject.ShouldBeActivated*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_ShouldBeActivated" data-uid="Evergine.Framework.AttachableObject.ShouldBeActivated">ShouldBeActivated</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this object should be activated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual bool ShouldBeActivated { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_AttachableObject_State_" data-uid="Evergine.Framework.AttachableObject.State*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_State" data-uid="Evergine.Framework.AttachableObject.State">State</h4>
+  <div class="markdown level1 summary"><p>Gets the current state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AttachableObjectState State { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.AttachableObjectState.html">AttachableObjectState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_AttachableObject_DependencyBroken_" data-uid="Evergine.Framework.AttachableObject.DependencyBroken*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_DependencyBroken" data-uid="Evergine.Framework.AttachableObject.DependencyBroken">DependencyBroken()</h4>
+  <div class="markdown level1 summary"><p>A required dependency for this object is broken.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void DependencyBroken()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_DependencyBroken">DependencyObject.DependencyBroken()</a></div>
+  <a id="Evergine_Framework_AttachableObject_Destroy_" data-uid="Evergine.Framework.AttachableObject.Destroy*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_Destroy" data-uid="Evergine.Framework.AttachableObject.Destroy">Destroy()</h4>
+  <div class="markdown level1 summary"><p>Destroys this object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void Destroy()</code></pre>
+  </div>
+  <a id="Evergine_Framework_AttachableObject_OnActivated_" data-uid="Evergine.Framework.AttachableObject.OnActivated*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_OnActivated" data-uid="Evergine.Framework.AttachableObject.OnActivated">OnActivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is activated once it is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void OnActivated()</code></pre>
+  </div>
+  <a id="Evergine_Framework_AttachableObject_OnAttached_" data-uid="Evergine.Framework.AttachableObject.OnAttached*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_OnAttached" data-uid="Evergine.Framework.AttachableObject.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_AttachableObject_OnDeactivated_" data-uid="Evergine.Framework.AttachableObject.OnDeactivated*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_OnDeactivated" data-uid="Evergine.Framework.AttachableObject.OnDeactivated">OnDeactivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is deactivated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void OnDeactivated()</code></pre>
+  </div>
+  <a id="Evergine_Framework_AttachableObject_OnDestroy_" data-uid="Evergine.Framework.AttachableObject.OnDestroy*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_OnDestroy" data-uid="Evergine.Framework.AttachableObject.OnDestroy">OnDestroy()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is about to be disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void OnDestroy()</code></pre>
+  </div>
+  <a id="Evergine_Framework_AttachableObject_OnDetach_" data-uid="Evergine.Framework.AttachableObject.OnDetach*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_OnDetach" data-uid="Evergine.Framework.AttachableObject.OnDetach">OnDetach()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void OnDetach()</code></pre>
+  </div>
+  <a id="Evergine_Framework_AttachableObject_OnLoaded_" data-uid="Evergine.Framework.AttachableObject.OnLoaded*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_OnLoaded" data-uid="Evergine.Framework.AttachableObject.OnLoaded">OnLoaded()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is loaded.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void OnLoaded()</code></pre>
+  </div>
+  <a id="Evergine_Framework_AttachableObject_Start_" data-uid="Evergine.Framework.AttachableObject.Start*"></a>
+  <h4 id="Evergine_Framework_AttachableObject_Start" data-uid="Evergine.Framework.AttachableObject.Start">Start()</h4>
+  <div class="markdown level1 summary"><p>Invoked to start the object.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void Start()</code></pre>
+  </div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_AttachableObject_AttachableStateChanged" data-uid="Evergine.Framework.AttachableObject.AttachableStateChanged">AttachableStateChanged</h4>
+  <div class="markdown level1 summary"><p>Event raised when the attachable object changes its state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;AttachableObjectState&gt; AttachableStateChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.AttachableObjectState.html">AttachableObjectState</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

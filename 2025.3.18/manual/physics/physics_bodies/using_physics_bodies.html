@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Physics Bodies | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Physics Bodies | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-physics-bodies">Using Physics Bodies</h1>
+
+<p>This is a small step-by-step guide to cover a variety of physics bodies. This is easy to replicate in Evergine Studio.</p>
+<h2 id="1-create-a-pile-of-rigid-bodies">1. Create a Pile of Rigid Bodies</h2>
+<p>In the following example, we will create a simple pile of 10 rigid bodies and a static body as a floor:</p>
+<p><img src="images/create_rigid_body.gif" alt="Sample"></p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    // Load your material
+    var cubeMaterial = this.Managers.AssetSceneManager.Load&lt;Material&gt;(EvergineContent.Materials.CubeMaterial);
+    var floorMaterial = this.Managers.AssetSceneManager.Load&lt;Material&gt;(DefaultResourcesIDs.DefaultMaterialID);
+
+    // Create the floor
+    this.CreateFloor(floorMaterial);
+
+    // Create 10 cubes
+    for (int i = 0; i &lt; 10; i++)
+    {
+        this.SpawnCube(cubeMaterial, new Vector3(0, 1 + i, 0), 0.5f);
+    }
+}
+
+private void CreateFloor(Material material)
+{
+    Entity cube = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new MaterialComponent() { Material = material })
+        .AddComponent(new PlaneMesh() { Width = 10, Height = 10 }) // Create a 10x10 floor plane
+        .AddComponent(new MeshRenderer())
+        .AddComponent(new StaticBody3D())        // Add a StaticBody component...
+        .AddComponent(new BoxCollider3D());     // Add a BoxCollider3D to the physics body...
+
+    this.Managers.EntityManager.Add(cube);
+}
+
+private void SpawnCube(Material material, Vector3 position, float size)
+{
+    Entity cube = new Entity()
+        .AddComponent(new Transform3D()
+        {
+            Position = position
+        })
+        .AddComponent(new MaterialComponent() { Material = material })
+        .AddComponent(new CubeMesh() { Size = size })
+        .AddComponent(new MeshRenderer())
+        .AddComponent(new RigidBody3D())        // Add a RigidBody3D component...
+        .AddComponent(new BoxCollider3D());     // Add a BoxCollider3D to the physics body...
+
+    this.Managers.EntityManager.Add(cube);
+}
+</code></pre>
+<h2 id="2-adding-a-kinematic-body">2. Adding a Kinematic Body</h2>
+<p>In this step, we will add a kinematic body to the scene and add a simple shake movement:</p>
+<p><img src="images/kinematic_rigid_body.gif" alt="Sample2"></p>
+<p>Add the following code to your scene:</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    // Previous code of step 1...    
+
+    // Create a kinematic body
+    this.CreateKinematic();
+}
+
+private void CreateKinematic()
+{
+    // Load your material
+    var material = this.Managers.AssetSceneManager.Load&lt;Material&gt;(EvergineContent.Materials.Kinematic);
+
+    Entity cube = new Entity()
+        .AddComponent(new Transform3D()
+        {
+            Position = new Vector3(0, 0.5f, 0)
+        })
+        .AddComponent(new MaterialComponent() { Material = material })
+        .AddComponent(new CubeMesh() { Size = 1 })
+        .AddComponent(new MeshRenderer())
+        .AddComponent(new RigidBody3D()         // Add a RigidBody3D component...
+        {
+            PhysicBodyType = RigidBodyType3D.Kinematic  // Kinematic rigid body...
+        })
+        .AddComponent(new BoxCollider3D())     // Add a BoxCollider3D to the physics body...        
+        .AddComponent(new ShakeKinematic());   // Add a behavior that moves this entity...
+
+    this.Managers.EntityManager.Add(cube);
+}
+</code></pre>
+<p>This is the <code>ShakeKinematic</code> component, which moves the entity:</p>
+<pre><code class="lang-csharp">public class ShakeKinematic : Behavior
+{
+    [BindComponent]
+    public Transform3D transform;
+
+    [BindService]
+    public Clock clock;
+
+    private Vector3 initPosition;
+
+    protected override void Start()
+    {
+        base.Start();
+        this.initPosition = this.transform.Position;
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        this.transform.Position = initPosition + new Vector3((float)Math.Cos(5 * clock.TotalTime.TotalSeconds), 0, 0);
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

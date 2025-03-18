@@ -1,0 +1,201 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Create Postprocessing Graph from Code | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create Postprocessing Graph from Code | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="create-postprocessing-graph-from-code">Create Postprocessing Graph from Code</h1>
+
+<hr>
+<p>Although we recommend creating PostProcessing using Evergine Studio, it is possible to achieve this task through code. The following sample code can be used to create a new postprocessing graph and apply it to an entity in your scene.</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    var graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();      
+
+    // Create compute effect
+    var shaderSource = @&quot;
+                [Begin_ResourceLayout]
+
+                    Texture2D input : register(t0);
+                    RWTexture2D&lt;float4&gt; Output : register(u0);
+
+                    SamplerState Sampler : register(s0);
+
+                [End_ResourceLayout]
+
+                [Begin_Pass:Default]
+
+                    [Profile 11_0]
+                    [Entrypoints CS = CS]
+
+                    [numthreads(8, 8, 1)]
+                    void CS(uint3 threadID : SV_DispatchThreadID)
+                    {
+                        float2 outputSize;
+                        Output.GetDimensions(outputSize.x, outputSize.y);
+                        float2 uv = (threadID.xy + 0.5) / outputSize;        
+
+                        float4 color = input.SampleLevel(Sampler, uv, 0);
+
+                        Output[threadID.xy] = float4(color.x, 0, 0, 1);    
+                    }
+
+                [End_Pass]
+                &quot;;
+
+    Effect computeEffect = new EffectFromCode(graphicsContext, shaderSource);
+
+    // Create Postprocessing Graph
+    PostProcessingGraphDescription graphDescription = new PostProcessingGraphDescription();
+
+    // Create start node
+    PostProcessingNode render = new PostProcessingNode();
+    var renderColorTextureOPort = new PostProcessingOutputNodePort(&quot;ColorTexture&quot;, new PostProcessingNodePortLoadableType&lt;Texture&gt;());
+    var renderDepthTextureOPort = new PostProcessingOutputNodePort(&quot;DepthTexture&quot;, new PostProcessingNodePortLoadableType&lt;Texture&gt;());
+    render.AddOutputPort(renderColorTextureOPort);
+    render.AddOutputPort(renderDepthTextureOPort);
+    graphDescription.StartNode = render;
+    render.IntegrityNodeCheck(graphDescription);
+
+    // Create end node
+    PostProcessingNode screen = new PostProcessingNode();
+    var screenColorTextureIPort = new PostProcessingInputNodePort(&quot;ColorTexture&quot;, new PostProcessingNodePortLoadableType&lt;Texture&gt;());
+    screen.AddInputPort(screenColorTextureIPort);
+    graphDescription.EndNode = screen;
+    screen.IntegrityNodeCheck(graphDescription);
+
+    // Create my custom node
+    PostProcessingNode myNode = new PostProcessingNode(computeEffect);
+    myNode.ThreadGroupDivisorX = 8;
+    myNode.ThreadGroupDivisorY = 8;
+    myNode.ThreadGroupDivisorZ = 1;
+    graphDescription.AddNode(myNode);
+
+    // Connect nodes
+    myNode.GetInputPortByName(&quot;input&quot;).AddConnection(new PostProcessingPortConnection(renderColorTextureOPort));
+    myNode.GetOutputPortByName(&quot;Output&quot;).AddConnection(new PostProcessingPortConnection(screenColorTextureIPort));
+
+    PostProcessingGraph graph = new PostProcessingGraph(graphDescription);
+
+    // Add postprocessing graph to scene
+    Entity postprocessingVolume = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new PostProcessingGraphRenderer() { ppGraph = graph });
+
+    this.Managers.EntityManager.Add(postprocessingVolume);
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

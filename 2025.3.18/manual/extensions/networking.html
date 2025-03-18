@@ -1,0 +1,383 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Networking | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Networking | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="networking">Networking</h1>
+
+<p>With the networking extension, you will be able to establish a client-server communication channel across any processes running Evergine. These processes could run on the same computer or on different devices connected to a local network.</p>
+<p>This extension relies on <a href="https://github.com/EvergineTeam/lidgren-network-gen3">a fork of the Lidgren.Network</a> library, which handles in-process communication using sockets with <em>server-client</em> and <em>client-client</em> message delivery.</p>
+<h2 id="install-everginenetworking-extension">Install Evergine.Networking Extension</h2>
+<p>To start using this extension, just add the Evergine.Networking package to your project using the NuGet package manager from Visual Studio.</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Evergine.Networking&quot; Version=&quot;2021.11.17.2-preview&quot; /&gt;
+</code></pre>
+<h2 id="server-configuration">Server Configuration</h2>
+<p>To create a networking server, you should use the built-in service named <em>MatchmakingServerService</em>. This service is part of the extension and manages server rooms, and players, and provides different events that notify you when a player (client) connects or disconnects from the server, joins or leaves a room, etc. For a complete list of events, see the <a class="xref" href="../../api/Evergine.Networking.Server.MatchmakingServerService.html"><em>MatchmakingServerService</em> API documentation</a>.</p>
+<p>Register <em>MatchmakingServerService</em> in Evergine's dependencies container to start using it.</p>
+<pre><code class="lang-csharp">this.Container.RegisterInstance(new MatchmakingServerService());
+</code></pre>
+<p><em>MatchmakingServerService</em> has a set of properties that you should use to configure your server settings. Some considerations include:</p>
+<ul>
+<li>It's recommended not to use large values for <em>PingInterval</em> and <em>ConnectionTimeout</em>. Also, <em>ConnectionTimeout</em> should be a multiple of <em>PingInterval</em>. Values of 4 and 8 seconds, respectively, would be suitable, depending on your requirements.</li>
+<li>Set a value for <em>ApplicationIdentifier</em> that you can easily identify, such as your application name.</li>
+<li>Set a version value for <em>ClientApplicationVersion</em>.</li>
+</ul>
+<pre><code class="lang-csharp">this.matchmakingServerService.PingInterval = 4;
+this.matchmakingServerService.ConnectionTimeout = 8;
+this.matchmakingServerService.ApplicationIdentifier = &quot;MyApp&quot;;
+this.matchmakingServerService.ClientApplicationVersion = &quot;1.0.0&quot;;
+this.matchmakingServerService.ServerName = &quot;MyServer&quot;;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>An exception for setting larger values for <em>ConnectionTimeout</em> would be debugging. When a breakpoint is hit, time will still be running, and you might find clients getting disconnected. To avoid problems while developing, you can set <em>ConnectionTimeout</em> to a temporary value of TimeSpan.FromHours(1), for example, to have enough time while debugging.</p>
+</div>
+<h3 id="start-a-server">Start a Server</h3>
+<p>Once you have your server configured, it's time to start it to enable it to receive incoming client connections.</p>
+<pre><code class="lang-csharp">int port = 12345;
+await this.matchmakingServerService.StartAsync(port);
+</code></pre>
+<p>We recommend creating a custom <a class="xref" href="../../api/Evergine.Framework.Services.Service.html">Service</a> or component to contain all server initialization code and to use <em>MatchmakingServerService</em> to log events, which is very useful for debugging purposes.</p>
+<pre><code class="lang-csharp">this.matchmakingServerService.PlayerConnected += this.MatchmakingServerService_PlayerConnected;
+this.matchmakingServerService.PlayerDisconnected += this.MatchmakingServerService_PlayerDisconnected;
+this.matchmakingServerService.PlayerJoining += this.MatchmakingServerService_PlayerJoining;
+this.matchmakingServerService.PlayerJoined += this.MatchmakingServerService_PlayerJoined;
+this.matchmakingServerService.PlayerLeaving += this.MatchmakingServerService_PlayerLeaving;
+this.matchmakingServerService.PlayerLeft += this.MatchmakingServerService_PlayerLeft;
+this.matchmakingServerService.RoomCreated += this.MatchmakingServerService_RoomCreated;
+this.matchmakingServerService.RoomDestroyed += this.MatchmakingServerService_RoomDestroyed;
+
+// ...
+
+private async void MatchmakingServerService_PlayerJoined(object sender, ServerPlayer e)
+{
+    var numberOfClients = this.matchmakingServerService.AllConnectedPlayers.Count();
+    Debug.WriteLine($&quot;A client just joined: {e.Nickname}. There are {numberOfClients} clients.&quot;);
+}
+</code></pre>
+<h2 id="client-configuration">Client Configuration</h2>
+<p>For clients, the built-in service is <em>MatchmakingClientService</em>. As we did for the server side, you should register this service in the dependencies container. For client settings, ensure that you apply the same values that were provided for the server side.</p>
+<pre><code class="lang-csharp">this.Container.RegisterInstance(new MatchmakingClientService());
+
+// ...
+
+this.matchmakingClientService.PingInterval = 4;
+this.matchmakingClientService.ConnectionTimeout = 8;
+this.matchmakingClientService.ApplicationIdentifier = &quot;MyApp&quot;;
+this.matchmakingClientService.ClientApplicationVersion = &quot;1.0.0&quot;;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>When creating a server, you might also want to register your own process as a client of that server. This means using <em>MatchmakingClientService</em> to connect to the server you have created, as in a common scenario where one of the clients also acts as the server.</p>
+</div>
+<h3 id="server-discovery">Server Discovery</h3>
+<p>The networking extension provides a way of automatic discovery of servers, given that the local network infrastructure allows broadcast traffic. To discover a server, use the following line, using the same port you configured for your server. Once a server is discovered, the <em>ServerDiscovered</em> event will be raised.</p>
+<pre><code class="lang-csharp">this.matchmakingClientService.ServerDiscovered += this.MatchmakingClientService_ServerDiscovered;
+
+// ...
+int port = 12345;
+this.matchmakingClientService.DiscoverServers(port);
+
+// ...
+private async void MatchmakingClientService_ServerDiscovered(object sender, HostDiscoveredEventArgs e)
+{
+    var connected = await this.matchmakingClientService.ConnectAsync(e.Host);
+    Debug.WriteLine($&quot;Connected to server {e.ServerName}.&quot;);
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You must ensure your server can be reached by clients in the network. Some platforms, like <em>UWP</em>, require extra configuration at the application level for security reasons. On this platform, review <a href="https://docs.microsoft.com/en-us/windows/uwp/packaging/app-capability-declarations">capabilities</a> and, depending on your scenario, even the <a href="https://docs.microsoft.com/en-us/windows/uwp/communication/interprocess-communication">application isolation</a>.</p>
+</div>
+<h2 id="joining-a-server-room">Joining a Server Room</h2>
+<p>After connecting to a server, the next step is joining a room. Clients in the same room can share information to update their states, depending on your application requirements.</p>
+<pre><code class="lang-csharp">var roomOptions = new RoomOptions
+{
+    RoomName = &quot;MyRoom&quot;,
+};
+var joinResult = await this.matchmakingClientService.JoinOrCreateRoomAsync(roomOptions);
+</code></pre>
+<p>Once you have joined a room, <em>MatchmakingClientService</em> will update its <em>CurrentRoom</em> property with room information, including the list of connected clients (players). You can use this information, for example, to display the list of room participants in your client application.</p>
+<h2 id="message-delivery">Message Delivery</h2>
+<p>With an existing client-server connection, you can now send information in both directions, or even to other client applications within the network. There are two mechanisms to do this. With the first one, <em>messages</em>, you can create a network message by yourself, writing scalar fields in a buffer. The second one is <em>network properties</em>, which are very useful as their values are automatically synchronized for all connected clients.</p>
+<h3 id="messages">Messages</h3>
+<p>Both <em>MatchmakingServerService</em> and <em>MatchmakingClientService</em> provide methods to send messages to different peers in the network.</p>
+<p>For <em>MatchmakingServerService</em>, you have:</p>
+<ul>
+<li><em>SendToClient</em>: sends a message to a destination client.</li>
+</ul>
+<p>For <em>MatchmakingClientService</em>, you have:</p>
+<ul>
+<li><em>SendToCurrentRoom</em>: sends a message to all clients connected to the room.</li>
+<li><em>SendToPlayer</em>: sends a message to a single player in the room.</li>
+<li><em>SendToServer</em>: sends a message from a client to the server.</li>
+</ul>
+<p>For example, we can send a <em>&quot;hello&quot;</em> message from one client to another with something like the following:</p>
+<pre><code class="lang-csharp">// Client A sends hello message
+var message = this.matchmakingClientService.CreateMessage();
+message.Write(&quot;hello!&quot;);
+this.matchmakingClientService.SendToPlayer(message, player, DeliveryMethod.ReliableOrdered);
+
+// Client B listens for incoming messages
+this.matchmakingClientService.MessageReceivedFromPlayer += this.Client_MessageReceivedFromPlayer;
+
+private void Client_MessageReceivedFromPlayer(object sender, MessageFromPlayerEventArgs e)
+{
+    var message = e.ReceivedMessage.ReadString();
+    Debug.WriteLine($&quot;Received '{message}'&quot;);
+}
+</code></pre>
+<h3 id="network-properties">Network Properties</h3>
+<p>Network properties are a set of components provided by the <em>Evergine.Networking</em> extension. There are two ways properties can be stored and shared among members inside a room: <em>room</em> properties, which are shared at the room level, and <em>player</em> (client) properties, which are attached to clients connected to a room.</p>
+<p>As they are components, you can add them to any of the entities in your scene. Network properties require the existence of a properties provider for the component owner or its ascendants. Depending on the type of property you want to use, you need to ensure that a component of type <em>NetworkRoomProvider</em> or <em>NetworkPlayerProvider</em> is placed somewhere in the entity hierarchical path. This can be done manually using Evergine Studio and adding the component manually, or programmatically.</p>
+<p>Network properties maintain an internal table of key-values to store information. There is also a size limitation for these tables: the table key type is byte, so you can't have more than 256 properties for a room or for each single client (player). In the <em>Evergine.Networking.Components</em> namespace, you can find a set of built-in components to work with network properties of more common scalar data types and structs like numbers, strings, vectors, etc.</p>
+<h4 id="property-synchronization">Property Synchronization</h4>
+<p>For example, imagine that we want to have an object in our scene that can be manipulated by one of the clients (move, scale, and rotate it). We also want all the clients connected to the room to see those transformations. In this case, the best option is to use a network property to synchronize the entity transform.</p>
+<p>Below, you will find a code block showing how it works, but let's see a few notes before:</p>
+<ul>
+<li>It's recommended to have a centralized enum to easily control which room properties are already in use and avoid using the same key for different synchronization properties.</li>
+<li>We have used a <em>NetworkMatrix4x4PropertySync</em> component because we want to synchronize transform information, but there are many other built-in properties.</li>
+<li>In this case, we are using a <em>room</em> provider, but remember that you could also have specific properties for clients connected to the room. In that case, you should use <em>NetworkPropertyProviderFilter.Player</em>.</li>
+<li>The method <em>OnPropertyReadyToSet</em> is invoked once the internal key-value table is ready to be synchronized. This also changes the <em>IsReady</em> property to <em>true</em>. You should always check this property before trying to set a network property value.</li>
+<li>The method <em>OnPropertyRemoved</em> is invoked if the property is removed from the shared table.</li>
+<li>The method <em>OnPropertyAddedOrChanged</em> is invoked once the property is ready or someone within the room has changed its value.</li>
+<li>To update a property value, you just need to set the <em>PropertyValue</em>, as stated in the <em>UpdatePropertyValue</em> method.</li>
+</ul>
+<pre><code class="lang-csharp">public enum RoomProperties : byte
+{
+    MyObjectTransform = 0x00,
+}
+
+public class SyncLocalTransform : NetworkMatrix4x4PropertySync&lt;RoomProperties&gt;
+{
+    [BindComponent(source: BindComponentSource.Owner)]
+    private Transform3D transform3d = null;
+
+    public SyncLocalTransform()
+    {
+        this.ProviderFilter = NetworkPropertyProviderFilter.Room;
+        this.PropertyKey = RoomProperties.MyObjectTransform;
+    }
+
+    // We should determine somehow if the current client can manipulate the object or
+    // not, as only one at a time should do it.
+    public bool CanManipulate { get; set; }
+
+    protected override bool OnAttached()
+    {
+        this.transform3d = this.Owner.FindComponent&lt;Transform3D&gt;();
+        this.transform3d.LocalTransformChanged += this.Transform3D_LocalTransformChanged;
+
+        return base.OnAttached();
+    }
+
+    protected override void OnDetach()
+    {
+        this.transform3d.LocalTransformChanged -= this.Transform3D_LocalTransformChanged;
+        base.OnDetach();
+    }
+
+    protected override void OnPropertyAddedOrChanged()
+    {
+        if (!this.CanManipulate)
+        {
+            this.transform3d.LocalPosition = this.PropertyValue.Translation;
+            this.transform3d.LocalScale = this.PropertyValue.Scale;
+            this.transform3d.LocalRotation = this.PropertyValue.Rotation;
+        }
+    }
+
+    protected override void OnPropertyRemoved()
+    {
+    }
+
+    protected override void OnPropertyReadyToSet()
+    {
+        base.OnPropertyReadyToSet();
+        this.UpdatePropertyValue();
+    }
+
+    private void Transform3D_LocalTransformChanged(object sender, EventArgs e) =&gt;
+        this.UpdatePropertyValue();
+
+    private void UpdatePropertyValue()
+    {
+        if (this.IsReady &amp;&amp; this.CanManipulate)
+        {
+            this.PropertyValue = this.transform3d.LocalTransform;
+        }
+    }
+}
+</code></pre>
+<h4 id="synchronization-of-complex-properties">Synchronization of Complex Properties</h4>
+<p>The <em>Evergine.Networking</em> extension provides properties for more common scalars and structs, but what if we want to synchronize the data of a custom class? We can do it, but always keep in mind that it's not advisable to have large objects saved in internal key-value tables, as this affects memory consumption and network traffic bandwidth. In any case, we should implement some methods of <em>INetworkSerializable</em> to achieve this.</p>
+<p>For this example, imagine that our application has a map and we want to control the center and zoom level of that map. <em>INetworkSerializable</em> requires you to implement two methods: one for data serialization and another for data deserialization. The only thing you need to remember is that you should read data in the same order as you wrote it.</p>
+<pre><code class="lang-csharp">public class MapInfo : INetworkSerializable
+{
+    public Coordinates Center { get; set; }
+
+    public short ZoomLevel { get; set; }
+
+    public void Write(NetBuffer buffer)
+    {
+        buffer.Write(this.Center.Latitude);
+        buffer.Write(this.Center.Longitude);
+        buffer.Write(this.ZoomLevel);
+    }
+
+    public void Read(NetBuffer buffer)
+    {
+        var lat = buffer.ReadDouble();
+        var lng = buffer.ReadDouble();
+        this.Center = new Coordinates(lat, lng);
+        this.ZoomLevel = buffer.ReadInt16();
+    }
+
+    public struct Coordinates
+    {
+        public Coordinates(double latitude, double longitude)
+        {
+            this.Latitude = latitude;
+            this.Longitude = longitude;
+        }
+
+        public double Latitude { get; }
+
+        public double Longitude { get; }
+    }
+}
+
+public class SyncMapInfo : NetworkSerializablePropertySync&lt;RoomProperties, MapInfo&gt; 
+{
+    public SyncMapInfo()
+    {
+        this.ProviderFilter = NetworkPropertyProviderFilter.Room;
+        this.PropertyKey = RoomProperties.MapInfo;
+    }
+
+    // ...
+    protected override void OnPropertyAddedOrChanged() 
+    {
+        if (this.IsReady) 
+        {
+            MapInfo info = this.PropertyValue;
+            // Do something with this, like updating the map
+        }
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

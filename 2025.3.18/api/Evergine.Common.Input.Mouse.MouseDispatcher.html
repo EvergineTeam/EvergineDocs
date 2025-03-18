@@ -1,0 +1,886 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MouseDispatcher | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MouseDispatcher | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher">
+
+
+
+  <h1 id="Evergine_Common_Input_Mouse_MouseDispatcher" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher" class="text-break">Class MouseDispatcher</h1>
+  <div class="markdown level0 summary"><p>Dispatches mouse events associated with a <a class="xref" href="Evergine.Common.Graphics.Surface.html">Surface</a> or a <a class="xref" href="Evergine.Common.Graphics.Window.html">Window</a>.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html">PointerDispatcher</a></div>
+    <div class="level2"><span class="xref">MouseDispatcher</span></div>
+      <div class="level3"><a class="xref" href="Evergine.Android.AndroidMouseDispatcher.html">AndroidMouseDispatcher</a></div>
+      <div class="level3"><a class="xref" href="Evergine.Forms.FormsMouseDispatcher.html">FormsMouseDispatcher</a></div>
+      <div class="level3"><a class="xref" href="Evergine.SDL.SDLMouseDispatcher.html">SDLMouseDispatcher</a></div>
+      <div class="level3"><a class="xref" href="Evergine.WPF.WPFMouseDispatcher.html">WPFMouseDispatcher</a></div>
+      <div class="level3"><a class="xref" href="Evergine.Web.WebMouseDispatcher.html">WebMouseDispatcher</a></div>
+      <div class="level3"><a class="xref" href="Evergine.WinUI.WinUICoreWindowMouseDispatcher.html">WinUICoreWindowMouseDispatcher</a></div>
+      <div class="level3"><a class="xref" href="Evergine.iOS.IOSMouseDispatcher.html">IOSMouseDispatcher</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_Points">PointerDispatcher.Points</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_PointerDown">PointerDispatcher.PointerDown</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_PointerUp">PointerDispatcher.PointerUp</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_PointerMove">PointerDispatcher.PointerMove</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_HandlePointerDown_System_Int64_Evergine_Mathematics_Point_">PointerDispatcher.HandlePointerDown(long, Point)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_HandlePointerUp_System_Int64_Evergine_Mathematics_Point_">PointerDispatcher.HandlePointerUp(long, Point)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_HandlePointerMove_System_Int64_Evergine_Mathematics_Point_">PointerDispatcher.HandlePointerMove(long, Point)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Common.html">Common</a>.<a class="xref" href="Evergine.Common.Input.html">Input</a>.<a class="xref" href="Evergine.Common.Input.Mouse.html">Mouse</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Common.dll</h6>
+  <h5 id="Evergine_Common_Input_Mouse_MouseDispatcher_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class MouseDispatcher : PointerDispatcher</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher__ctor_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.#ctor*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher__ctor" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.#ctor">MouseDispatcher()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Common.Input.Mouse.MouseDispatcher.html">MouseDispatcher</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MouseDispatcher()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_CursorType_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.CursorType*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_CursorType" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.CursorType">CursorType</h4>
+  <div class="markdown level1 summary"><p>Gets the active cursor type. It can be changed by calling the method <a class="xref" href="Evergine.Common.Input.Mouse.MouseDispatcher.html#Evergine_Common_Input_Mouse_MouseDispatcher_TrySetCursorType_Evergine_Common_Input_Mouse_CursorTypes_">TrySetCursorType(CursorTypes)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract CursorTypes CursorType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.Mouse.CursorTypes.html">CursorTypes</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_IsMouseOver_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.IsMouseOver*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_IsMouseOver" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.IsMouseOver">IsMouseOver</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the mouse is inside the <a class="xref" href="Evergine.Common.Graphics.Surface.html">Surface</a> or
+<a class="xref" href="Evergine.Common.Graphics.Window.html">Window</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsMouseOver { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_Position_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.Position*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_Position" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.Position">Position</h4>
+  <div class="markdown level1 summary"><p>Gets the mouse position. It can be changed programmatically by calling the method
+<a class="xref" href="Evergine.Common.Input.Mouse.MouseDispatcher.html#Evergine_Common_Input_Mouse_MouseDispatcher_TrySetCursorPosition_Evergine_Mathematics_Point_">TrySetCursorPosition(Point)</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Point Position { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Point.html">Point</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_PositionDelta_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.PositionDelta*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_PositionDelta" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.PositionDelta">PositionDelta</h4>
+  <div class="markdown level1 summary"><p>Gets the mouse position delta since the last frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Point PositionDelta { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Point.html">Point</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_ScrollDelta_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.ScrollDelta*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_ScrollDelta" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.ScrollDelta">ScrollDelta</h4>
+  <div class="markdown level1 summary"><p>Gets the mouse scroll increment since the last frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Point ScrollDelta { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Point.html">Point</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Common_Input_Mouse_MouseDispatcher_ScrollDelta_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The value of <a class="xref" href="Evergine.Mathematics.Point.html#Evergine_Mathematics_Point_X">X</a> indicates the horizontal scroll increment. This value is positive if
+the mouse wheel is rotated to the right or negative if the mouse wheel is rotated to the left.
+The value of <a class="xref" href="Evergine.Mathematics.Point.html#Evergine_Mathematics_Point_Y">Y</a> indicates the vertical scroll increment. This value is positive if
+the mouse wheel is rotated upward (away from the user) or negative if the mouse wheel is
+rotated downward (toward the user).</p>
+</div>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_State_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.State*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_State" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.State">State</h4>
+  <div class="markdown level1 summary"><p>Gets the mouse button's state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MouseButtons State { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.Mouse.MouseButtons.html">MouseButtons</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_DispatchEvents_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.DispatchEvents*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_DispatchEvents" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.DispatchEvents">DispatchEvents()</h4>
+  <div class="markdown level1 summary"><p>Dispatches accumulated events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void DispatchEvents()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_DispatchEvents">PointerDispatcher.DispatchEvents()</a></div>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseButtonDown_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseButtonDown*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseButtonDown_Evergine_Common_Input_Mouse_MouseButtons_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseButtonDown(Evergine.Common.Input.Mouse.MouseButtons)">HandleMouseButtonDown(MouseButtons)</h4>
+  <div class="markdown level1 summary"><p>Handles the mouse button down event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleMouseButtonDown(MouseButtons button)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.Mouse.MouseButtons.html">MouseButtons</a></td>
+        <td><span class="parametername">button</span></td>
+        <td><p>The pressed button.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseButtonUp_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseButtonUp*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseButtonUp_Evergine_Common_Input_Mouse_MouseButtons_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseButtonUp(Evergine.Common.Input.Mouse.MouseButtons)">HandleMouseButtonUp(MouseButtons)</h4>
+  <div class="markdown level1 summary"><p>Handles the mouse button up event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleMouseButtonUp(MouseButtons button)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.Mouse.MouseButtons.html">MouseButtons</a></td>
+        <td><span class="parametername">button</span></td>
+        <td><p>The button released.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseEnter_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseEnter*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseEnter_Evergine_Mathematics_Point_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseEnter(Evergine.Mathematics.Point)">HandleMouseEnter(Point)</h4>
+  <div class="markdown level1 summary"><p>Handles the mouse enter event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleMouseEnter(Point position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Point.html">Point</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The mouse's position.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseLeave_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseLeave*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseLeave_Evergine_Mathematics_Point_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseLeave(Evergine.Mathematics.Point)">HandleMouseLeave(Point)</h4>
+  <div class="markdown level1 summary"><p>Handles the mouse leave event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleMouseLeave(Point position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Point.html">Point</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The position of the mouse.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseMove_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseMove*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseMove_Evergine_Mathematics_Point_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseMove(Evergine.Mathematics.Point)">HandleMouseMove(Point)</h4>
+  <div class="markdown level1 summary"><p>Handles the mouse movement event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleMouseMove(Point position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Point.html">Point</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The mouse position.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseScroll_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseScroll*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_HandleMouseScroll_Evergine_Common_Input_Mouse_MouseScrollDirections_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.HandleMouseScroll(Evergine.Common.Input.Mouse.MouseScrollDirections)">HandleMouseScroll(MouseScrollDirections)</h4>
+  <div class="markdown level1 summary"><p>Handles the mouse button scroll event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void HandleMouseScroll(MouseScrollDirections direction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.Mouse.MouseScrollDirections.html">MouseScrollDirections</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>The direction of the scroll.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_IsButtonDown_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.IsButtonDown*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_IsButtonDown_Evergine_Common_Input_Mouse_MouseButtons_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.IsButtonDown(Evergine.Common.Input.Mouse.MouseButtons)">IsButtonDown(MouseButtons)</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the current state of a mouse button is <a class="xref" href="Evergine.Common.Input.ButtonState.html#Evergine_Common_Input_ButtonState_Pressing">Pressing</a>
+or <a class="xref" href="Evergine.Common.Input.ButtonState.html#Evergine_Common_Input_ButtonState_Pressed">Pressed</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsButtonDown(MouseButtons button)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.Mouse.MouseButtons.html">MouseButtons</a></td>
+        <td><span class="parametername">button</span></td>
+        <td><p>The button to check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the button is down; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_NativeSetCursorPosition_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.NativeSetCursorPosition*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_NativeSetCursorPosition_Evergine_Mathematics_Point_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.NativeSetCursorPosition(Evergine.Mathematics.Point)">NativeSetCursorPosition(Point)</h4>
+  <div class="markdown level1 summary"><p>Sets the cursor position natively.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract bool NativeSetCursorPosition(Point position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Point.html">Point</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The new position.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if the operation was successful; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_ReadButtonState_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.ReadButtonState*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_ReadButtonState_Evergine_Common_Input_Mouse_MouseButtons_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.ReadButtonState(Evergine.Common.Input.Mouse.MouseButtons)">ReadButtonState(MouseButtons)</h4>
+  <div class="markdown level1 summary"><p>Gets the current state of a mouse button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ButtonState ReadButtonState(MouseButtons button)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.Mouse.MouseButtons.html">MouseButtons</a></td>
+        <td><span class="parametername">button</span></td>
+        <td><p>The button to check.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.ButtonState.html">ButtonState</a></td>
+        <td><p>The state of the specified button.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_ResetPointersStatus_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.ResetPointersStatus*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_ResetPointersStatus" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.ResetPointersStatus">ResetPointersStatus()</h4>
+  <div class="markdown level1 summary"><p>Resets the current button status for the dispatcher.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void ResetPointersStatus()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Common.Input.Pointer.PointerDispatcher.html#Evergine_Common_Input_Pointer_PointerDispatcher_ResetPointersStatus">PointerDispatcher.ResetPointersStatus()</a></div>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_TrySetCursorPosition_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.TrySetCursorPosition*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_TrySetCursorPosition_Evergine_Mathematics_Point_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.TrySetCursorPosition(Evergine.Mathematics.Point)">TrySetCursorPosition(Point)</h4>
+  <div class="markdown level1 summary"><p>Attempts to move the mouse cursor to the specified position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TrySetCursorPosition(Point position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Point.html">Point</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The new position for the cursor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if successful; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Input_Mouse_MouseDispatcher_TrySetCursorType_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.TrySetCursorType*"></a>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_TrySetCursorType_Evergine_Common_Input_Mouse_CursorTypes_" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.TrySetCursorType(Evergine.Common.Input.Mouse.CursorTypes)">TrySetCursorType(CursorTypes)</h4>
+  <div class="markdown level1 summary"><p>Tries to change the mouse cursor type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool TrySetCursorType(CursorTypes cursorType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.Mouse.CursorTypes.html">CursorTypes</a></td>
+        <td><span class="parametername">cursorType</span></td>
+        <td><p>The new cursor type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if successful; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_MouseButtonDown" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.MouseButtonDown">MouseButtonDown</h4>
+  <div class="markdown level1 summary"><p>Occurs when a mouse button is pressed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;MouseButtonEventArgs&gt; MouseButtonDown</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Common.Input.Mouse.MouseButtonEventArgs.html">MouseButtonEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_MouseButtonUp" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.MouseButtonUp">MouseButtonUp</h4>
+  <div class="markdown level1 summary"><p>Occurs when a mouse button is released.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;MouseButtonEventArgs&gt; MouseButtonUp</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Common.Input.Mouse.MouseButtonEventArgs.html">MouseButtonEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_MouseEnter" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.MouseEnter">MouseEnter</h4>
+  <div class="markdown level1 summary"><p>Occurs when the mouse pointer enters the <a class="xref" href="Evergine.Common.Graphics.Surface.html">Surface</a> or <a class="xref" href="Evergine.Common.Graphics.Window.html">Window</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;MouseEventArgs&gt; MouseEnter</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Common.Input.Mouse.MouseEventArgs.html">MouseEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_MouseLeave" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.MouseLeave">MouseLeave</h4>
+  <div class="markdown level1 summary"><p>Occurs when the mouse pointer leaves the <a class="xref" href="Evergine.Common.Graphics.Surface.html">Surface</a> or <a class="xref" href="Evergine.Common.Graphics.Window.html">Window</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;MouseEventArgs&gt; MouseLeave</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Common.Input.Mouse.MouseEventArgs.html">MouseEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_MouseMove" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.MouseMove">MouseMove</h4>
+  <div class="markdown level1 summary"><p>Occurs when the mouse pointer moves over the <a class="xref" href="Evergine.Common.Graphics.Surface.html">Surface</a> or
+<a class="xref" href="Evergine.Common.Graphics.Window.html">Window</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;MouseEventArgs&gt; MouseMove</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Common.Input.Mouse.MouseEventArgs.html">MouseEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Common_Input_Mouse_MouseDispatcher_MouseScroll" data-uid="Evergine.Common.Input.Mouse.MouseDispatcher.MouseScroll">MouseScroll</h4>
+  <div class="markdown level1 summary"><p>Occurs when the mouse wheel (vertical or horizontal) moves.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;MouseScrollEventArgs&gt; MouseScroll</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Common.Input.Mouse.MouseScrollEventArgs.html">MouseScrollEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

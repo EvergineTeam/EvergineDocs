@@ -1,0 +1,700 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CheckDictionary&lt;K, V&gt; | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CheckDictionary&lt;K, V&gt; | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Common.Collections.CheckDictionary`2">
+
+
+
+  <h1 id="Evergine_Common_Collections_CheckDictionary_2" data-uid="Evergine.Common.Collections.CheckDictionary`2" class="text-break">Class CheckDictionary&lt;K, V&gt;</h1>
+  <div class="markdown level0 summary"><p>Dictionary implementation to detect when the collection is modified.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">CheckDictionary&lt;K, V&gt;</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Common.html">Common</a>.<a class="xref" href="Evergine.Common.Collections.html">Collections</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Common.dll</h6>
+  <h5 id="Evergine_Common_Collections_CheckDictionary_2_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CheckDictionary&lt;K, V&gt;</code></pre>
+  </div>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">K</span></td>
+        <td><p>The key type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="parametername">V</span></td>
+        <td><p>The value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Common_Collections_CheckDictionary_2__ctor_" data-uid="Evergine.Common.Collections.CheckDictionary`2.#ctor*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2__ctor" data-uid="Evergine.Common.Collections.CheckDictionary`2.#ctor">CheckDictionary()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Common.Collections.CheckDictionary-2.html">CheckDictionary&lt;K, V&gt;</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CheckDictionary()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Changed_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Changed*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Changed" data-uid="Evergine.Common.Collections.CheckDictionary`2.Changed">Changed</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this <a class="xref" href="Evergine.Common.Collections.CheckDictionary-2.html">CheckDictionary&lt;K, V&gt;</a> has changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Changed { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if changed; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Count_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Count*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Count" data-uid="Evergine.Common.Collections.CheckDictionary`2.Count">Count</h4>
+  <div class="markdown level1 summary"><p>Gets the count.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Count { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The count.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_IsReadOnly_" data-uid="Evergine.Common.Collections.CheckDictionary`2.IsReadOnly*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_IsReadOnly" data-uid="Evergine.Common.Collections.CheckDictionary`2.IsReadOnly">IsReadOnly</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this instance is read-only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsReadOnly { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if this instance is read-only; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Item_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Item*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Item__0_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Item(`0)">this[K]</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the value with the specified key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public V this[K key] { get; set; }</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">V</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Keys_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Keys*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Keys" data-uid="Evergine.Common.Collections.CheckDictionary`2.Keys">Keys</h4>
+  <div class="markdown level1 summary"><p>Gets the keys.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;K&gt; Keys { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;K&gt;</td>
+        <td><p>The keys.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Values_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Values*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Values" data-uid="Evergine.Common.Collections.CheckDictionary`2.Values">Values</h4>
+  <div class="markdown level1 summary"><p>Gets the values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ICollection&lt;V&gt; Values { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.icollection-1">ICollection</a>&lt;V&gt;</td>
+        <td><p>The values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Add_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Add*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Add_System_Collections_Generic_KeyValuePair__0__1__" data-uid="Evergine.Common.Collections.CheckDictionary`2.Add(System.Collections.Generic.KeyValuePair{`0,`1})">Add(KeyValuePair&lt;K, V&gt;)</h4>
+  <div class="markdown level1 summary"><p>Adds the specified item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(KeyValuePair&lt;K, V&gt; item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;K, V&gt;</td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The specified item to be added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Add_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Add*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Add__0__1_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Add(`0,`1)">Add(K, V)</h4>
+  <div class="markdown level1 summary"><p>Adds the specified key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Add(K key, V value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">V</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Clear_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Clear*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Clear" data-uid="Evergine.Common.Collections.CheckDictionary`2.Clear">Clear()</h4>
+  <div class="markdown level1 summary"><p>Clears the instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Clear()</code></pre>
+  </div>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Contains_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Contains*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Contains_System_Collections_Generic_KeyValuePair__0__1__" data-uid="Evergine.Common.Collections.CheckDictionary`2.Contains(System.Collections.Generic.KeyValuePair{`0,`1})">Contains(KeyValuePair&lt;K, V&gt;)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified item is contained.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Contains(KeyValuePair&lt;K, V&gt; item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;K, V&gt;</td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the specified item is contained; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_ContainsKey_" data-uid="Evergine.Common.Collections.CheckDictionary`2.ContainsKey*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_ContainsKey__0_" data-uid="Evergine.Common.Collections.CheckDictionary`2.ContainsKey(`0)">ContainsKey(K)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified key contains the key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ContainsKey(K key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the specified key contains the key; false otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_CopyTo_" data-uid="Evergine.Common.Collections.CheckDictionary`2.CopyTo*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_CopyTo_System_Collections_Generic_KeyValuePair__0__1____System_Int32_" data-uid="Evergine.Common.Collections.CheckDictionary`2.CopyTo(System.Collections.Generic.KeyValuePair{`0,`1}[],System.Int32)">CopyTo(KeyValuePair&lt;K, V&gt;[], int)</h4>
+  <div class="markdown level1 summary"><p>Copies to the specified array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CopyTo(KeyValuePair&lt;K, V&gt;[] array, int arrayIndex)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;K, V&gt;[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The destination array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">arrayIndex</span></td>
+        <td><p>The starting index in the array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_GetEnumerator_" data-uid="Evergine.Common.Collections.CheckDictionary`2.GetEnumerator*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_GetEnumerator" data-uid="Evergine.Common.Collections.CheckDictionary`2.GetEnumerator">GetEnumerator()</h4>
+  <div class="markdown level1 summary"><p>Gets the enumerator.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerator&lt;KeyValuePair&lt;K, V&gt;&gt; GetEnumerator()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerator-1">IEnumerator</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;K, V&gt;&gt;</td>
+        <td><p>The enumerator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Remove_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Remove*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Remove_System_Collections_Generic_KeyValuePair__0__1__" data-uid="Evergine.Common.Collections.CheckDictionary`2.Remove(System.Collections.Generic.KeyValuePair{`0,`1})">Remove(KeyValuePair&lt;K, V&gt;)</h4>
+  <div class="markdown level1 summary"><p>Removes the specified item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Remove(KeyValuePair&lt;K, V&gt; item)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.keyvaluepair-2">KeyValuePair</a>&lt;K, V&gt;</td>
+        <td><span class="parametername">item</span></td>
+        <td><p>The item.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>Item was removed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_Remove_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Remove*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_Remove__0_" data-uid="Evergine.Common.Collections.CheckDictionary`2.Remove(`0)">Remove(K)</h4>
+  <div class="markdown level1 summary"><p>Removes the specified key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Remove(K key)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>true if successfully removed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Collections_CheckDictionary_2_TryGetValue_" data-uid="Evergine.Common.Collections.CheckDictionary`2.TryGetValue*"></a>
+  <h4 id="Evergine_Common_Collections_CheckDictionary_2_TryGetValue__0__1__" data-uid="Evergine.Common.Collections.CheckDictionary`2.TryGetValue(`0,`1@)">TryGetValue(K, out V)</h4>
+  <div class="markdown level1 summary"><p>Tries to get the value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetValue(K key, out V value)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">K</span></td>
+        <td><span class="parametername">key</span></td>
+        <td><p>The key.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">V</span></td>
+        <td><span class="parametername">value</span></td>
+        <td><p>The value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>true if the value was returned.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Framework.Graphics.Effects.Analyzer.ReferenceExtensions.html#Evergine_Framework_Graphics_Effects_Analyzer_ReferenceExtensions_ValueOrDefault__2_System_Collections_Generic_IDictionary___0___1____0___1_">ReferenceExtensions.ValueOrDefault&lt;TKey, TValue&gt;(IDictionary&lt;TKey, TValue&gt;, TKey, TValue)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

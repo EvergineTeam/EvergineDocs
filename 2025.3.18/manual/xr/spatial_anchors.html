@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>XR Spatial Anchors | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="XR Spatial Anchors | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="xr-spatial-anchors">XR Spatial Anchors</h1>
+
+<p>A <strong>spatial anchor</strong> represents an important point in the real world that the system tracks over time. Each anchor has an adjustable coordinate system based on other anchors or frames of reference, ensuring that anchored holograms stay precisely in place.</p>
+<p>Rendering a hologram in an anchor's coordinate system gives you the most precise positioning for that hologram at any given time. This comes at the cost of small adjustments over time to the hologram's position as the system continually moves it back into place based on the real world.</p>
+<p>By <strong>saving local spatial anchors</strong> to disk and loading them back later, your application <strong>can calculate the same location in the real world</strong> across multiple application sessions on a single HoloLens.</p>
+<p>While spatial anchors are great for holograms that should remain fixed in the world, once an anchor is placed, it can't be moved.</p>
+<h2 id="supported-devices">Supported Devices</h2>
+<p>Currently, in Evergine, the following devices have <strong>Spatial Anchors</strong> support:</p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>XR Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HoloLens 2</strong></td>
+<td>Windows Mixed Reality. You can find useful information <a href="https://learn.microsoft.com/en-us/windows/mixed-reality/design/spatial-anchors">here</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="trackspatialanchor-component">TrackSpatialAnchor Component</h2>
+<p><img src="images/spatialanchor_componment.png" alt="Spatial Anchors"></p>
+<p>In Evergine, you can create Spatial Anchors on your device using the <code>TrackSpatialAnchor</code> component. This component allows you to:</p>
+<ul>
+<li>Detect a Spatial Anchor and place the owner entity in the tracked pose (position and orientation).</li>
+<li>Create a Spatial Anchor in a desired position and orientation.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>During the application's runtime, the position is usually updated to adapt the anchor position to the best predicted pose.</p>
+</div>
+<h3 id="properties-and-methods">Properties and Methods</h3>
+<p>The following properties provide you with the means to set up a Spatial Anchor:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AnchorId</strong></td>
+<td>The Anchor Identifier. This is the ID used to find the anchor in the XR Platform. If the XR Platform finds a stored anchor with the given ID, it will track and update the position of the owner entity.</td>
+</tr>
+<tr>
+<td><strong>StoreAnchor()</strong></td>
+<td>Stores the current entity's position and orientation as a spatial anchor with the current AnchorId.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="using-trackspatialanchor-from-code">Using TrackSpatialAnchor from code</h4>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    base.CreateScene();
+
+    // Spatial Anchor entity
+    var anchor = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new TrackSpatialAnchor() 
+        { 
+            AnchorId = &quot;AwesomeAnchor&quot; // The anchor ID.
+        });
+
+    this.Managers.EntityManager.Add(anchor);
+}
+</code></pre>
+<h2 id="low-level-spatial-anchors">Low-Level Spatial Anchors</h2>
+<p>While the most usual way to access Spatial Anchors is by using the <code>TrackSpatialAnchor</code> component, you can access a low-level method that provides more functionality.</p>
+<p>The <code>XRPlatform.SpatialAnchorStore</code> gives access to all low-level functionality implemented by the XR Platform. If this property is <code>null</code>, the XR device doesn't support Spatial Anchors.</p>
+<p>Another useful class is the <code>SpatialAnchor</code>. This class represents a Spatial Anchor in your XR System. With the <code>XRPlatform.SpatialAnchorStore</code> class, you can create, delete, and update instances of <code>SpatialAnchor</code>.</p>
+<h3 id="spatialanchor-properties">SpatialAnchor properties</h3>
+<p>This class represents a spatial anchor that can be persisted or updated in your XR Platform.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transform</strong> (only gets)</td>
+<td>Gets the detected transform (Matrix4x4?) of the Spatial Anchor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="xrplatformspatialanchorstore-properties-and-methods">XRPlatform.SpatialAnchorStore properties and methods</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SavedAnchors</strong></td>
+<td>Read-only dictionary &lt;string, SpatialAnchor&gt; that returns all stored anchors on this device.</td>
+</tr>
+<tr>
+<td><strong>CreateSpatialAnchor()</strong></td>
+<td>Creates a Spatial Anchor instance in the specified position and orientation. This method only creates the Spatial Anchor instance but does not persist this anchor on the device.</td>
+</tr>
+<tr>
+<td><strong>StoreAnchor(id, anchor)</strong></td>
+<td>Stores the specified Spatial Anchor instance with the given identifier. After this method, this anchor will be persisted and can be accessed every time the application runs.</td>
+</tr>
+<tr>
+<td><strong>RemoveAnchor(id)</strong></td>
+<td>Removes a stored anchor with the given identifier.</td>
+</tr>
+<tr>
+<td><strong>RemoveAllAnchors()</strong></td>
+<td>Removes all persisted anchors on this device.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>There can only be one Spatial Anchor for each identifier.</p>
+</div>
+<h4 id="store-a-spatial-anchor-from-code">Store a Spatial Anchor from code</h4>
+<pre><code class="lang-csharp">[BindService]
+private XRPlatform xrPlatform;
+
+[BindComponent]
+private Transform3D transform;
+
+public void StoreAnchor(string id)
+{
+    if (this.xrPlatform.SpatialAnchorStore == null)
+    {
+        throw new InvalidOperationException(&quot;XRPlatform doesn't support Spatial Anchors&quot;);
+    }
+
+    // Create the spatial anchor...
+    var anchor = this.xrPlatform.SpatialAnchorStore.CreateSpatialAnchor(this.transform.Position, this.transform.Orientation);
+    if(anchor != null)
+    {
+        // Store the spatial anchor...
+        this.xrPlatform.SpatialAnchorStore.StoreAnchor(id, anchor);
+    }    
+}
+</code></pre>
+<h4 id="debug-all-stored-anchors-from-code">Debug all stored anchors from code</h4>
+<pre><code class="lang-csharp">[BindService]
+private XRPlatform xrPlatform;
+
+protected override void Start()
+{
+    if (this.xrPlatform.SpatialAnchorStore == null)
+    {
+        throw new InvalidOperationException(&quot;XRPlatform doesn't support Spatial Anchors&quot;);
+    }
+
+    var material = this.Managers.AssetSceneManager
+        .Load&lt;Material&gt;(EvergineContent.DefaultMaterialID);
+
+    foreach (var anchorId in this.xrPlatform.SpatialAnchorStore.SavedAnchors.Keys)
+    {
+        Entity anchorEntity = new Entity()
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new CubeMesh() { Size = 0.1f } )
+            .AddComponent(new MeshRenderer())
+            .AddComponent(new TrackSpatialAnchor(){
+                AnchorId = anchorId // The anchor ID.
+            });
+
+        this.Managers.EntityManager.Add(anchorEntity);
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

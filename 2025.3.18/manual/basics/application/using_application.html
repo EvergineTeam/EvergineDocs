@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Application | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Application | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-application">Using Application</h1>
+
+<p>In this document, you will learn the common usages and tips for dealing with the Evergine Application class.</p>
+<h2 id="default-application">Default Application</h2>
+<p>After creating a new Evergine project (check the <a href="../project_structure.html">Project Structure</a> document for further details), you will find a <code>MyApplication</code> class that inherits from <code>Application</code>:</p>
+<pre><code class="lang-csharp">public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        // Register services into application container...
+        this.Container.RegisterType&lt;Clock&gt;();
+        this.Container.RegisterType&lt;TimerFactory&gt;();
+        this.Container.RegisterType&lt;Random&gt;();
+        this.Container.RegisterType&lt;ErrorHandler&gt;();
+        this.Container.RegisterType&lt;ScreenContextManager&gt;();
+        this.Container.RegisterType&lt;GraphicsPresenter&gt;();
+        this.Container.RegisterType&lt;AssetsDirectory&gt;();
+        this.Container.RegisterType&lt;AssetsService&gt;();
+        this.Container.RegisterType&lt;ForegroundTaskSchedulerService&gt;();            
+        this.Container.RegisterType&lt;WorkActionScheduler&gt;();
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        // Get ScreenContextManager...
+        var screenContextManager = this.Container.Resolve&lt;ScreenContextManager&gt;();
+        var assetsService = this.Container.Resolve&lt;AssetsService&gt;();
+
+        // Load the scene asset and instantiate it into a MyScene class instance...
+        var scene = assetsService.Load&lt;MyScene&gt;(EvergineContent.Scenes.MyScene_wescene);
+                
+        // Use ScreenContextManager service to navigate to the main scene (MyScene)...
+        ScreenContext screenContext = new ScreenContext(scene);
+        screenContextManager.To(screenContext);
+    }
+}
+</code></pre>
+<p>Interesting points:</p>
+<ul>
+<li>The <code>MyApplication</code> constructor is used to register all available services. While you can register services elsewhere in your code, it is a good practice to register them here.</li>
+<li>The <code>Initialize()</code> method is invoked to initialize your application. In this method, the <code>ScreenContextManager</code> is notified of the scene that is going to be played.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You can register services in any part of your code. For example, if you want to register the <code>GraphicsContext</code>, we suggest registering it in the Profile Project. (I recommend again checking the <a href="../project_structure.html"><strong>Project Structure</strong></a> document). For example, you will register the <code>DX11GraphicsContext</code> in the Windows profile project, or <code>VulkanGraphicsContext</code> in the Android profile.</p>
+</div>
+<h2 id="application-lifecycle-methods">Application Lifecycle Methods</h2>
+<p>The application class will invoke several methods to maintain its lifecycle and helps developers to keep things running smoothly.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Initialize()</strong></td>
+<td>Initializes all aspects needed to start your application. Here, you will usually navigate to the Scene to be played, and set up initial functionality or services to be consumed during execution.</td>
+</tr>
+<tr>
+<td><strong>UpdateFrame()</strong></td>
+<td>This method executes the Update cycle of your application. It will notify all <code>UpdatableServices</code> to be updated, including the <code>ScreenContextManager</code>, which will propagate this invocation to the Scene and finally your Components. You can override this method to customize the Update loop.</td>
+</tr>
+<tr>
+<td><strong>DrawFrame()</strong></td>
+<td>This method is triggered to draw your application. All Scenes will be rendered, and the <code>GraphicsPresenter</code> service will present the rendering results in all displays (windows, XR headsets, off-screen rendering, etc.). You can override this method to customize the Draw loop.</td>
+</tr>
+<tr>
+<td><strong>Destroy()</strong></td>
+<td>Use this method to dispose of all resources of your application.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="check-if-the-application-is-running-inside-evergine-studio">Check if the Application Is Running Inside Evergine Studio</h2>
+<p>When you are developing components or functionality, you may need to check if your code is running inside Evergine Studio or outside.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsEditor</strong></td>
+<td>Application property that indicates if the application is running in <strong>Evergine Studio</strong>.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">public class MyBehavior : Behavior
+{
+   [BindComponent]
+   private Transform3D transform;
+
+   protected override void Start()
+   {    
+       // Reset the position to Zero only if it is not Evergine Studio...        
+       if (!Application.Current.IsEditor)
+       {
+           this.transform.Position = Vector3.Zero;
+       }
+   }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

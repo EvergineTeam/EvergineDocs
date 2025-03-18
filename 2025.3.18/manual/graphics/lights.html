@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Lights | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lights | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lights">Lights</h1>
+
+<p><img src="images/lights.jpg" alt="Lights"></p>
+<p><strong>Evergine</strong> uses an advanced lighting model to simulate how light affects geometries. It also supports multiple lights in the scene, allowing a wide range of environments and possibilities.</p>
+<p>Every type of light is modeled in Evergine using a <strong>Light</strong> component.</p>
+<h2 id="create-a-light-in-evergine-studio">Create a Light in Evergine Studio</h2>
+<p>In the Entities Hierarchy panel of your Scene Editor, click &quot;Add Entity,&quot; select <strong>Light</strong>, and then choose the kind of light you want to create:</p>
+<ul>
+<li>Point Light</li>
+<li>Directional Light</li>
+<li>Sphere Area Light</li>
+<li>Spot Light</li>
+<li>Disc Area Light</li>
+<li>Rectangle Area Light</li>
+<li>Tube Area Light</li>
+</ul>
+<p>We discuss the light types later in this article.</p>
+<p><img src="images/addLight.png" alt="Create Light"></p>
+<p>Additionally, we can create <strong>photometric lights</strong> from the same panel with these options:</p>
+<ul>
+<li>Photometric Point Light</li>
+<li>Photometric Directional Light</li>
+<li>Photometric Sphere Area Light</li>
+<li>Photometric Spot Light</li>
+<li>Photometric Disc Area Light</li>
+<li>Photometric Rectangle Area Light</li>
+<li>Photometric Tube Area Light</li>
+</ul>
+<p><img src="images/addPhotometricLight.png" alt="Create Light"></p>
+<h2 id="create-light-from-code">Create Light from Code</h2>
+<p>The following sample code can be used to instantiate a new basic point light entity in a scene.</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    // Create a new light entity.
+    Entity pointLightEntity = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new PointLight()
+        {
+            Color = Color.Red,
+            Intensity = 3,
+            LightRange = 10
+        });
+
+    // Add the light entity to the entity manager.
+    this.Managers.EntityManager.Add(pointLightEntity);
+}
+</code></pre>
+<h2 id="basic-light-properties">Basic Light Properties</h2>
+<p>These are the basic properties that almost all lights have.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.Light.IsEnabled">Is Enabled</a></td>
+<td>If the light is on/off.</td>
+</tr>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.Light.ShadowEnabled">Shadow Enabled</a></td>
+<td>Enable/disable shadow mapping for this light.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="photometric--non-photometric-lights">Photometric / Non-Photometric Lights</h2>
+<p><strong>Photometric lights</strong> use photometric (<strong>lighting units</strong>) allowing you to define lights as they would be in the real world. They are configured using physical parameters. <strong>Evergine</strong> supports both <strong>photometric</strong> and <strong>non-photometric</strong> lights, and it offers the same light types duplicated based on this choice.</p>
+<h4 id="common-photometric-properties">Common Photometric Properties</h4>
+<p>Every photometric light (no matter what type it is) defines these parameters. Additionally, each specific type of light defines its own intensity unit properties.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.PhotometricPointLight.html#Evergine_Framework_Graphics_PhotometricPointLight_ColorByTemperature">Color By Temperature</a></td>
+<td>Indicates if the light color will be overridden using the light temperature.</td>
+</tr>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.PhotometricPointLight.html#Evergine_Framework_Graphics_PhotometricPointLight_Temperature">Temperature</a></td>
+<td>The <a href="https://en.wikipedia.org/wiki/Color_temperature">light temperature</a> in <strong>Kelvin</strong> (K). When <em>ColorByTemperature</em> is true, the light color is overridden by the light temperature.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Light intensity unit depends on the light type (for example, PointLights are measured in Lumens, whereas DirectionalLights are measured in Lux).</p>
+</div>
+<h4 id="non-photometric-light-properties">Non-Photometric Light Properties</h4>
+<p>On the contrary, if you create regular lights, you can use the basic light properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.Light.html#Evergine_Framework_Graphics_Light_Color">Color</a></td>
+<td>The RGB color tint of the light.</td>
+</tr>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.Light.html#Evergine_Framework_Graphics_Light_Intensity">Intensity</a></td>
+<td>The light intensity value in a non-standard unit. Greater values will produce brighter illumination.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-of-lights">Types of Lights</h2>
+<p>There are different types of lights, each useful for a different scenario. In general terms, lights are divided into two general categories:</p>
+<ul>
+<li><strong>Directional Lights:</strong> These lights have unlimited boundaries, and every object is affected by this light type.</li>
+<li><strong>Volume Lights:</strong> The light influence is delimited by a range.</li>
+<li><strong>Area Lights:</strong> A subtype of volume lights that emulate lights coming from an area instead of a point in space.</li>
+</ul>
+<h3 id="directional-lights--photometric-directional-light">Directional Lights / Photometric Directional Light</h3>
+<p><img src="images/directionalLight.jpg" alt="Directional Light"></p>
+<p><strong>Directional lights</strong> are lights that come uniformly from one direction and at an infinite distance. They're used to simulate distant light sources like the sun. They use the <strong>forward</strong> vector of their entity's <strong>Transform3D</strong> for calculating the light direction.</p>
+<p>In the case of using a Photometric Directional Light, the intensity is measured using the following property:</p>
+<table>
+<thead>
+<tr>
+<th>Photometric Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.PhotometricDirectionalLight.html#Evergine_Framework_Graphics_PhotometricDirectionalLight_Illuminance">Illuminance (Lux)</a></td>
+<td>The light <a href="https://en.wikipedia.org/wiki/Illuminance">illuminance</a> measured in <strong>Lux</strong>. Indicates the total luminous flux incident on a surface, per unit area.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="volume-lights">Volume Lights</h3>
+<p>Volume lights are a common type of light in which the light source comes from a specific point in space, and its intensity decays with distance.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.VolumeLight.LightRange">Light Range</a></td>
+<td>The light range in meters.</td>
+</tr>
+</tbody>
+</table>
+<p>In the case of using Volume Photometric Lights, the intensity is measured using the following property:</p>
+<table>
+<thead>
+<tr>
+<th>Photometric Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.PhotometricPointLight.html#Evergine_Framework_Graphics_PhotometricPointLight_LuminousPower">Luminous Power (Lumen)</a></td>
+<td>The light <a href="https://en.wikipedia.org/wiki/Luminous_flux">luminous flux</a> in <strong>Lumen</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="point-light--photometric-point-light">Point Light / Photometric Point Light</h4>
+<p><img src="images/pointLight.jpg" alt="Point Light"></p>
+<p>A <strong>point light</strong> is located at a point in space and emits light equally in all directions within its sphere range. Its intensity decays with distance from the light, reaching zero at its maximum range. It's useful for local lights like lamps.</p>
+<h4 id="spot-light--photometric-spot-light">Spot Light / Photometric Spot Light</h4>
+<p><img src="images/spotLight.jpg" alt="Spot Light"></p>
+<p>A <strong>spot light</strong> is also placed in a specific location and has a range over which the light decays. However, spot lights are constrained by an angle, defining a cone-shaped light.</p>
+<h5 id="specific-properties">Specific Properties</h5>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.SpotLight.html#Evergine_Framework_Graphics_SpotLight_InnerConeAngle">InnerConeAngle</a></td>
+<td>The inner angle of the spotlight cone.</td>
+</tr>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.SpotLight.html#Evergine_Framework_Graphics_SpotLight_InnerConeAngle">OuterConeAngle</a></td>
+<td>The outer angle of the spotlight cone.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="tube-area-lights--photometric-tube-area-light">Tube Area Lights / Photometric Tube Area Light</h4>
+<p><img src="images/tubeAreaLight.jpg" alt="Tube Area Light"></p>
+<p><strong>Tube Area Lights</strong> are lights that come from a line segment and have a range and emission thickness. They are useful for simulating neon lights.</p>
+<h5 id="specific-properties-1">Specific Properties</h5>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.TubeAreaLight.Length">Length</a></td>
+<td>The length of the tube light volume.</td>
+</tr>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.TubeAreaLight.Radius">Radius</a></td>
+<td>The radius of the tube light volume.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="sphere-area-lights--photometric-sphere-area-light">Sphere Area Lights / Photometric Sphere Area Light</h4>
+<p><img src="images/sphereAreaLight.jpg" alt="Sphere Area Light"></p>
+<p><strong>Sphere Area Lights</strong> behave like a physical sphere emitting light rather than a point light. They create much softer lighting and can be used for creating dynamic environments.</p>
+<h5 id="specific-properties-2">Specific Properties</h5>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.SphereAreaLight.Radius">Radius</a></td>
+<td>The radius of the sphere light volume.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="disc-area-lights--photometric-disc-area-light">Disc Area Lights / Photometric Disc Area Light</h4>
+<p><img src="images/discAreaLight.jpg" alt="Disc Area Light"></p>
+<p><strong>Disc Area Lights</strong> emit their light from a disc with a specified radius and a maximum range. Useful for creating artificial soft lights.</p>
+<h5 id="specific-properties-3">Specific Properties</h5>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.DiscAreaLight.Radius">Radius</a></td>
+<td>The radius of the disc area light.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="rectangle-area-lights--photometric-rectangle-area-light">Rectangle Area Lights / Photometric Rectangle Area Light</h4>
+<p><img src="images/rectangleAreaLight.jpg" alt="Rectangle Area Light"></p>
+<p><strong>Rectangle Area Lights</strong> emit their light from a rectangle with a specified width and height, at a maximum range. Useful for creating indoor window lighting, for example.</p>
+<h5 id="specific-properties-4">Specific Properties</h5>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.RectangleAreaLight.Width">Width</a></td>
+<td>The width of the rectangle area light.</td>
+</tr>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.RectangleAreaLight.Height">Height</a></td>
+<td>The height of the rectangle area light.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Area lights need to make complex calculations to properly simulate their shape. Therefore, they are significantly more performance-heavy than their punctual counterparts (Point, Spot, and Directional).</p>
+</div>
+<h2 id="shadows">Shadows</h2>
+<p>To enable light cast shadows, the following properties have been added:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="xref:Evergine.Framework.Graphics.Light.ShadowEnabled">Shadow Enabled</a></td>
+<td>Enable/disable shadow mapping for this light.</td>
+</tr>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.CubemapLight.html#Evergine_Framework_Graphics_CubemapLight_DebugMode">Debug Mode</a></td>
+<td>Debug ShadowMap cascades used to generate this light shadow.</td>
+</tr>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.Light.html#Evergine_Framework_Graphics_Light_ShadowOpacity">Shadow Opacity</a></td>
+<td>Value [0-1] that represents the total opacity of the shadow. 1 by default.</td>
+</tr>
+<tr>
+<td><a class="xref" href="../../api/Evergine.Framework.Graphics.Light.html#Evergine_Framework_Graphics_Light_ShadowBias">Shadow Bias</a></td>
+<td>Shadow bias for this specific light. Choosing the correct bias value allows control over shadows artifacts like a Moiré-like pattern or Peter panning.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

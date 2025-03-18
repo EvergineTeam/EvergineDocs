@@ -1,0 +1,1625 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Transform3D | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Transform3D | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Graphics.Transform3D">
+
+
+
+  <h1 id="Evergine_Framework_Graphics_Transform3D" data-uid="Evergine.Framework.Graphics.Transform3D" class="text-break">Class Transform3D</h1>
+  <div class="markdown level0 summary"><p>Every entity must be a transform-derived component.
+It is used to store and manipulate the position, rotation, and scale of the entity.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><span class="xref">Transform3D</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Graphics.html">Graphics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Graphics_Transform3D_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Transform3D : Component, IDependencyObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Framework_Graphics_Transform3D__ctor_" data-uid="Evergine.Framework.Graphics.Transform3D.#ctor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D__ctor" data-uid="Evergine.Framework.Graphics.Transform3D.#ctor">Transform3D()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Transform3D()</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_UpdateCounter" data-uid="Evergine.Framework.Graphics.Transform3D.UpdateCounter">UpdateCounter</h4>
+  <div class="markdown level1 summary"><p>The update counter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int UpdateCounter</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_childrenTransform" data-uid="Evergine.Framework.Graphics.Transform3D.childrenTransform">childrenTransform</h4>
+  <div class="markdown level1 summary"><p>Transforms the child entities.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected List&lt;Transform3D&gt; childrenTransform</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_localOrientation" data-uid="Evergine.Framework.Graphics.Transform3D.localOrientation">localOrientation</h4>
+  <div class="markdown level1 summary"><p>The entity's rotation in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Quaternion localOrientation</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_localPosition" data-uid="Evergine.Framework.Graphics.Transform3D.localPosition">localPosition</h4>
+  <div class="markdown level1 summary"><p>The entity's position in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector3 localPosition</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_localScale" data-uid="Evergine.Framework.Graphics.Transform3D.localScale">localScale</h4>
+  <div class="markdown level1 summary"><p>The entity's scale in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector3 localScale</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_parentTransform" data-uid="Evergine.Framework.Graphics.Transform3D.parentTransform">parentTransform</h4>
+  <div class="markdown level1 summary"><p>Gets the transform of the parent entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(false, false, BindComponentSource.ParentsSkipOwner, null, true)]
+protected Transform3D parentTransform</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Graphics_Transform3D_Backward_" data-uid="Evergine.Framework.Graphics.Transform3D.Backward*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Backward" data-uid="Evergine.Framework.Graphics.Transform3D.Backward">Backward</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's backward vector in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Backward { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_ChildrenTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.ChildrenTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_ChildrenTransform" data-uid="Evergine.Framework.Graphics.Transform3D.ChildrenTransform">ChildrenTransform</h4>
+  <div class="markdown level1 summary"><p>Gets the transforms of the child entities.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;Transform3D&gt; ChildrenTransform { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Down_" data-uid="Evergine.Framework.Graphics.Transform3D.Down*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Down" data-uid="Evergine.Framework.Graphics.Transform3D.Down">Down</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's down vector in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Down { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Forward_" data-uid="Evergine.Framework.Graphics.Transform3D.Forward*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Forward" data-uid="Evergine.Framework.Graphics.Transform3D.Forward">Forward</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's forward vector in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Forward { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Left_" data-uid="Evergine.Framework.Graphics.Transform3D.Left*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Left" data-uid="Evergine.Framework.Graphics.Transform3D.Left">Left</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's left vector in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Left { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalBackward_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalBackward*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalBackward" data-uid="Evergine.Framework.Graphics.Transform3D.LocalBackward">LocalBackward</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's backward vector in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LocalBackward { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalDown_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalDown*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalDown" data-uid="Evergine.Framework.Graphics.Transform3D.LocalDown">LocalDown</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's down vector in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LocalDown { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalForward_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalForward*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalForward" data-uid="Evergine.Framework.Graphics.Transform3D.LocalForward">LocalForward</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's forward vector in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LocalForward { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalLeft_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalLeft*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalLeft" data-uid="Evergine.Framework.Graphics.Transform3D.LocalLeft">LocalLeft</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's left vector in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LocalLeft { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalOrientation_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalOrientation*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalOrientation" data-uid="Evergine.Framework.Graphics.Transform3D.LocalOrientation">LocalOrientation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the entity's rotation in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion LocalOrientation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalPosition_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalPosition*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalPosition" data-uid="Evergine.Framework.Graphics.Transform3D.LocalPosition">LocalPosition</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the entity's position in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Local Position&quot;, Tooltip = &quot;The entity position in local space&quot;)]
+public Vector3 LocalPosition { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalRight_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalRight*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalRight" data-uid="Evergine.Framework.Graphics.Transform3D.LocalRight">LocalRight</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's right vector in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LocalRight { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalRotation_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalRotation*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalRotation" data-uid="Evergine.Framework.Graphics.Transform3D.LocalRotation">LocalRotation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the global rotation expressed in Euler angles (yaw, pitch, and roll).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(Vector3RadianToDegreeConverter), CustomPropertyName = &quot;Local Rotation&quot;, Tooltip = &quot;The global rotation expressed in Euler angles (yaw, pitch, roll)&quot;)]
+public Vector3 LocalRotation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalScale_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalScale*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalScale" data-uid="Evergine.Framework.Graphics.Transform3D.LocalScale">LocalScale</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the entity's scale in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Local Scale&quot;, Tooltip = &quot;The entity scale in local space&quot;)]
+public Vector3 LocalScale { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalTransform" data-uid="Evergine.Framework.Graphics.Transform3D.LocalTransform">LocalTransform</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the matrix transformation relative to the parent transformation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 LocalTransform { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalUp_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalUp*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalUp" data-uid="Evergine.Framework.Graphics.Transform3D.LocalUp">LocalUp</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's up vector in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LocalUp { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Orientation_" data-uid="Evergine.Framework.Graphics.Transform3D.Orientation*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Orientation" data-uid="Evergine.Framework.Graphics.Transform3D.Orientation">Orientation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the entity's rotation in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion Orientation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_ParentTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.ParentTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_ParentTransform" data-uid="Evergine.Framework.Graphics.Transform3D.ParentTransform">ParentTransform</h4>
+  <div class="markdown level1 summary"><p>Gets the transform of the parent entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Transform3D ParentTransform { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Position_" data-uid="Evergine.Framework.Graphics.Transform3D.Position*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Position" data-uid="Evergine.Framework.Graphics.Transform3D.Position">Position</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the entity's position in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Position { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_PreWorldTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.PreWorldTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_PreWorldTransform" data-uid="Evergine.Framework.Graphics.Transform3D.PreWorldTransform">PreWorldTransform</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the pre-world matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 PreWorldTransform { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Right_" data-uid="Evergine.Framework.Graphics.Transform3D.Right*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Right" data-uid="Evergine.Framework.Graphics.Transform3D.Right">Right</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's right vector in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Right { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Rotation_" data-uid="Evergine.Framework.Graphics.Transform3D.Rotation*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Rotation" data-uid="Evergine.Framework.Graphics.Transform3D.Rotation">Rotation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the global rotation expressed in Euler angles (yaw, pitch, roll).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Rotation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Scale_" data-uid="Evergine.Framework.Graphics.Transform3D.Scale*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Scale" data-uid="Evergine.Framework.Graphics.Transform3D.Scale">Scale</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the entity's scale in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Scale { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_Up_" data-uid="Evergine.Framework.Graphics.Transform3D.Up*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_Up" data-uid="Evergine.Framework.Graphics.Transform3D.Up">Up</h4>
+  <div class="markdown level1 summary"><p>Gets the entity's up vector in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Up { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_WorldInverseTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.WorldInverseTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_WorldInverseTransform" data-uid="Evergine.Framework.Graphics.Transform3D.WorldInverseTransform">WorldInverseTransform</h4>
+  <div class="markdown level1 summary"><p>Gets the inverse of the matrix that transforms from local space to world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 WorldInverseTransform { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_WorldToLocalTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.WorldToLocalTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_WorldToLocalTransform" data-uid="Evergine.Framework.Graphics.Transform3D.WorldToLocalTransform">WorldToLocalTransform</h4>
+  <div class="markdown level1 summary"><p>Gets the matrix that transforms from world space to local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 WorldToLocalTransform { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_WorldTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.WorldTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_WorldTransform" data-uid="Evergine.Framework.Graphics.Transform3D.WorldTransform">WorldTransform</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the matrix that transforms from local space to world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 WorldTransform { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Graphics_Transform3D_LocalLookAt_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalLookAt*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalLookAt_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Boolean_" data-uid="Evergine.Framework.Graphics.Transform3D.LocalLookAt(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,System.Boolean)">LocalLookAt(Vector3, Vector3, bool)</h4>
+  <div class="markdown level1 summary"><p>Rotates the entity to point to the specified position and up vector (in local space).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LocalLookAt(Vector3 targetPosition, Vector3 up, bool forward = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">targetPosition</span></td>
+        <td><p>The world position to look at.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">up</span></td>
+        <td><p>The up vector.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">forward</span></td>
+        <td><p>If set to <code>true</code>, the entity points its forward to the target position. If <code>false</code>, it points its backward.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LookAt_" data-uid="Evergine.Framework.Graphics.Transform3D.LookAt*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LookAt_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Graphics.Transform3D.LookAt(Evergine.Mathematics.Vector3)">LookAt(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Rotates the entity to point to the specified position and up vector.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LookAt(Vector3 targetPosition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">targetPosition</span></td>
+        <td><p>The world position to look towards.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_LookAt_" data-uid="Evergine.Framework.Graphics.Transform3D.LookAt*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LookAt_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Boolean_" data-uid="Evergine.Framework.Graphics.Transform3D.LookAt(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,System.Boolean)">LookAt(Vector3, Vector3, bool)</h4>
+  <div class="markdown level1 summary"><p>Rotates the entity to point to the specified position and up vector (in World space).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LookAt(Vector3 targetPosition, Vector3 up, bool forward = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">targetPosition</span></td>
+        <td><p>The world position to look at.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">up</span></td>
+        <td><p>The up vector.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">forward</span></td>
+        <td><p>If set to <code>true</code> the entity points its forward to the target position. If <code>false</code> it points backward.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_OnAttached_" data-uid="Evergine.Framework.Graphics.Transform3D.OnAttached*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_OnAttached" data-uid="Evergine.Framework.Graphics.Transform3D.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a></div>
+  <a id="Evergine_Framework_Graphics_Transform3D_OnDetach_" data-uid="Evergine.Framework.Graphics.Transform3D.OnDetach*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_OnDetach" data-uid="Evergine.Framework.Graphics.Transform3D.OnDetach">OnDetach()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetach()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetach">Component.OnDetach()</a></div>
+  <a id="Evergine_Framework_Graphics_Transform3D_ResetDirtyFlags_" data-uid="Evergine.Framework.Graphics.Transform3D.ResetDirtyFlags*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_ResetDirtyFlags" data-uid="Evergine.Framework.Graphics.Transform3D.ResetDirtyFlags">ResetDirtyFlags()</h4>
+  <div class="markdown level1 summary"><p>Resets the dirty flags.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void ResetDirtyFlags()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Transform3D_RotateAround_" data-uid="Evergine.Framework.Graphics.Transform3D.RotateAround*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_RotateAround_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_" data-uid="Evergine.Framework.Graphics.Transform3D.RotateAround(Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion)">RotateAround(Vector3, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Rotates the entity with respect to the point using the quaternion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RotateAround(Vector3 point, Quaternion quaternion)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The center of rotation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">quaternion</span></td>
+        <td><p>The rotation specified as a quaternion.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_RotateAround_" data-uid="Evergine.Framework.Graphics.Transform3D.RotateAround*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_RotateAround_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Single_" data-uid="Evergine.Framework.Graphics.Transform3D.RotateAround(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,System.Single)">RotateAround(Vector3, Vector3, float)</h4>
+  <div class="markdown level1 summary"><p>Rotates the entity with respect to the point using an axis and angle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RotateAround(Vector3 point, Vector3 axis, float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The center of rotation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis of rotation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The angle of rotation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_RotateAround_" data-uid="Evergine.Framework.Graphics.Transform3D.RotateAround*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_RotateAround_Evergine_Mathematics_Vector3__Evergine_Mathematics_Quaternion__" data-uid="Evergine.Framework.Graphics.Transform3D.RotateAround(Evergine.Mathematics.Vector3@,Evergine.Mathematics.Quaternion@)">RotateAround(ref Vector3, ref Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Rotates the entity with respect to the point using the quaternion.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RotateAround(ref Vector3 point, ref Quaternion quaternion)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The center of rotation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">quaternion</span></td>
+        <td><p>The rotation specified as a quaternion.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_RotateAround_" data-uid="Evergine.Framework.Graphics.Transform3D.RotateAround*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_RotateAround_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__System_Single_" data-uid="Evergine.Framework.Graphics.Transform3D.RotateAround(Evergine.Mathematics.Vector3@,Evergine.Mathematics.Vector3@,System.Single)">RotateAround(ref Vector3, ref Vector3, float)</h4>
+  <div class="markdown level1 summary"><p>Rotates the entity with respect to the point using an axis and angle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RotateAround(ref Vector3 point, ref Vector3 axis, float angle)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The center of rotation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis of rotation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">angle</span></td>
+        <td><p>The angle of rotation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_SetLocalTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.SetLocalTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_SetLocalTransform_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Graphics.Transform3D.SetLocalTransform(Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Vector3)">SetLocalTransform(Vector3, Quaternion, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Sets the local transform.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLocalTransform(Vector3 localPosition, Quaternion localOrientation, Vector3 localScale)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">localPosition</span></td>
+        <td><p>The local position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">localOrientation</span></td>
+        <td><p>The local orientation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">localScale</span></td>
+        <td><p>The local scale.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_SetLocalTransform_" data-uid="Evergine.Framework.Graphics.Transform3D.SetLocalTransform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_SetLocalTransform_Evergine_Mathematics_Vector3__Evergine_Mathematics_Quaternion__Evergine_Mathematics_Vector3__" data-uid="Evergine.Framework.Graphics.Transform3D.SetLocalTransform(Evergine.Mathematics.Vector3@,Evergine.Mathematics.Quaternion@,Evergine.Mathematics.Vector3@)">SetLocalTransform(ref Vector3, ref Quaternion, ref Vector3)</h4>
+  <div class="markdown level1 summary"><p>Sets the local transform.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLocalTransform(ref Vector3 localPosition, ref Quaternion localOrientation, ref Vector3 localScale)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">localPosition</span></td>
+        <td><p>The local position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">localOrientation</span></td>
+        <td><p>The local orientation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">localScale</span></td>
+        <td><p>The local scale.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Transform3D_UpdatedPreWorldMatrix_" data-uid="Evergine.Framework.Graphics.Transform3D.UpdatedPreWorldMatrix*"></a>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_UpdatedPreWorldMatrix" data-uid="Evergine.Framework.Graphics.Transform3D.UpdatedPreWorldMatrix">UpdatedPreWorldMatrix()</h4>
+  <div class="markdown level1 summary"><p>Updates the Pre World Matrix with the World Matrix value. This operation must happen at the end of each frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdatedPreWorldMatrix()</code></pre>
+  </div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalOrientationChanged" data-uid="Evergine.Framework.Graphics.Transform3D.LocalOrientationChanged">LocalOrientationChanged</h4>
+  <div class="markdown level1 summary"><p>Event fires when this transform's local rotation is changed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler LocalOrientationChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalPositionChanged" data-uid="Evergine.Framework.Graphics.Transform3D.LocalPositionChanged">LocalPositionChanged</h4>
+  <div class="markdown level1 summary"><p>Event fired when this transform's local position is changed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler LocalPositionChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalScaleChanged" data-uid="Evergine.Framework.Graphics.Transform3D.LocalScaleChanged">LocalScaleChanged</h4>
+  <div class="markdown level1 summary"><p>Event fired when this transform's local scale is changed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler LocalScaleChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_LocalTransformChanged" data-uid="Evergine.Framework.Graphics.Transform3D.LocalTransformChanged">LocalTransformChanged</h4>
+  <div class="markdown level1 summary"><p>Event fired when this local transform is changed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler LocalTransformChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_OrientationChanged" data-uid="Evergine.Framework.Graphics.Transform3D.OrientationChanged">OrientationChanged</h4>
+  <div class="markdown level1 summary"><p>Event fired when this transform's rotation is changed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler OrientationChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_PositionChanged" data-uid="Evergine.Framework.Graphics.Transform3D.PositionChanged">PositionChanged</h4>
+  <div class="markdown level1 summary"><p>Event fired when this transform's position is changed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler PositionChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_ScaleChanged" data-uid="Evergine.Framework.Graphics.Transform3D.ScaleChanged">ScaleChanged</h4>
+  <div class="markdown level1 summary"><p>Event fired when this transform's scale is changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler ScaleChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Transform3D_TransformChanged" data-uid="Evergine.Framework.Graphics.Transform3D.TransformChanged">TransformChanged</h4>
+  <div class="markdown level1 summary"><p>Event fired when this transformer is changed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler TransformChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

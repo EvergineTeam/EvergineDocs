@@ -1,0 +1,1054 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SpringJoint3D | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SpringJoint3D | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics3D.SpringJoint3D">
+
+
+
+  <h1 id="Evergine_Framework_Physics3D_SpringJoint3D" data-uid="Evergine.Framework.Physics3D.SpringJoint3D" class="text-break">Class SpringJoint3D</h1>
+  <div class="markdown level0 summary"><p>This class represents a 3D physics joint and connects two entities together.
+All joints restrict some degrees of freedom, seeking a specific configuration.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html">Joint3D</a>&lt;<a class="xref" href="Evergine.Framework.Physics3D.IGeneric6DofSpringJoint3D.html">IGeneric6DofSpringJoint3D</a>, <a class="xref" href="Evergine.Framework.Physics3D.Generic6DofSpringJointDef3D.html">Generic6DofSpringJointDef3D</a>&gt;</div>
+    <div class="level7"><a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html">GenericAbstract6DofJoint3D</a>&lt;<a class="xref" href="Evergine.Framework.Physics3D.IGeneric6DofSpringJoint3D.html">IGeneric6DofSpringJoint3D</a>, <a class="xref" href="Evergine.Framework.Physics3D.Generic6DofSpringJointDef3D.html">Generic6DofSpringJointDef3D</a>&gt;</div>
+    <div class="level8"><span class="xref">SpringJoint3D</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_Axis">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.Axis</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_Anchor">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.Anchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_AutoConfigureConnected">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.AutoConfigureConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_ConnectedAxis">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.ConnectedAxis</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_ConnectedAnchor">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.ConnectedAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_UseAngularLimit">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.UseAngularLimit</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_LowerAngularLimit">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.LowerAngularLimit</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_UpperAngularLimit">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.UpperAngularLimit</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_UseLinearLimit">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.UseLinearLimit</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_LowerLinearLimit">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.LowerLinearLimit</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_UpperLinearLimit">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.UpperLinearLimit</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_InitJoint">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.InitJoint()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_BodyAChanged">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.BodyAChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_BodyBChanged">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.BodyBChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_FillJointDef__1_">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.FillJointDef(Generic6DofSpringJointDef3D)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_breakpoint">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.breakpoint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_joint">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.joint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_OnBroke">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.OnBroke</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_rigidBody">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.rigidBody</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_transform3D">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.transform3D</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_connectedBody">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.connectedBody</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_isActive">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.isActive</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_BreakPoint">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.BreakPoint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_DebugDrawSize">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.DebugDrawSize</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_ConnectedEntityPath">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.ConnectedEntityPath</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_CollideConnected">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.CollideConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_AppliedImpulse">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.AppliedImpulse</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_NeedsFeedback">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.NeedsFeedback</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_JointFeedback">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.JointFeedback</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_OverrideNumSolverIterations">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.OverrideNumSolverIterations</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_OnActivated">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_Start">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_OnDeactivated">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_OnDetach">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.OnDetach()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_Dispose">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_RefreshJointValue__1___0____0_">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.RefreshJointValue&lt;V&gt;(ref V, V)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_CreateJoint__1_">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.CreateJoint(Generic6DofSpringJointDef3D)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_RefreshJoint">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.RefreshJoint()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_RemoveConnectedEntity">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.RemoveConnectedEntity()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_CreateConnectedEntity">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.CreateConnectedEntity()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_GetFrameZ_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__Evergine_Mathematics_Matrix4x4__">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.GetFrameZ(ref Vector3, ref Vector3, out Matrix4x4)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.Joint3D-2.html#Evergine_Framework_Physics3D_Joint3D_2_GetFrameX_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__Evergine_Mathematics_Matrix4x4__">Joint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.GetFrameX(ref Vector3, ref Vector3, out Matrix4x4)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetach">Component.OnDetach()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics3D.html">Physics3D</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics3D_SpringJoint3D_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SpringJoint3D : GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;, IDependencyObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D__ctor_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.#ctor*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D__ctor" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.#ctor">SpringJoint3D()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Framework.Physics3D.SpringJoint3D.html">SpringJoint3D</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpringJoint3D()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointRotationX_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointRotationX*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointRotationX" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointRotationX">EquilibriumPointRotationX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the equilibrium point for rotation along the X axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 8, AttachToValue = true)]
+public float EquilibriumPointRotationX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointRotationY_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointRotationY*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointRotationY" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointRotationY">EquilibriumPointRotationY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the equilibrium point for rotation Y.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 9, AttachToValue = true)]
+public float EquilibriumPointRotationY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointRotationZ_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointRotationZ*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointRotationZ" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointRotationZ">EquilibriumPointRotationZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the equilibrium point for the Z rotation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 10, AttachToValue = true)]
+public float EquilibriumPointRotationZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointTranslationX_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointTranslationX*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointTranslationX" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointTranslationX">EquilibriumPointTranslationX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the equilibrium point for translation along the X-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 5, AttachToValue = true)]
+public float EquilibriumPointTranslationX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointTranslationY_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointTranslationY*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointTranslationY" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointTranslationY">EquilibriumPointTranslationY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the equilibrium point for translation along the Y-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 6, AttachToValue = true)]
+public float EquilibriumPointTranslationY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointTranslationZ_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointTranslationZ*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_EquilibriumPointTranslationZ" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.EquilibriumPointTranslationZ">EquilibriumPointTranslationZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the equilibrium point for translation along the Z-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 7, AttachToValue = true)]
+public float EquilibriumPointTranslationZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingRotationX_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingRotationX*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingRotationX" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingRotationX">SpringDampingRotationX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for rotation around the X axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 8, AttachToValue = true)]
+public float SpringDampingRotationX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingRotationY_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingRotationY*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingRotationY" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingRotationY">SpringDampingRotationY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for rotation around the Y axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 9, AttachToValue = true)]
+public float SpringDampingRotationY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingRotationZ_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingRotationZ*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingRotationZ" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingRotationZ">SpringDampingRotationZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for rotation around the Z axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 10, AttachToValue = true)]
+public float SpringDampingRotationZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingTranslationX_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingTranslationX*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingTranslationX" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingTranslationX">SpringDampingTranslationX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for translation along the X axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 5, AttachToValue = true)]
+public float SpringDampingTranslationX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingTranslationY_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingTranslationY*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingTranslationY" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingTranslationY">SpringDampingTranslationY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for translation Y.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 6, AttachToValue = true)]
+public float SpringDampingTranslationY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingTranslationZ_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingTranslationZ*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringDampingTranslationZ" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringDampingTranslationZ">SpringDampingTranslationZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for translation along the Z-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 7, AttachToValue = true)]
+public float SpringDampingTranslationZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessRotationX_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessRotationX*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessRotationX" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessRotationX">SpringStiffnessRotationX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for rotation on the X axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 8, AttachToValue = true)]
+public float SpringStiffnessRotationX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessRotationY_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessRotationY*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessRotationY" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessRotationY">SpringStiffnessRotationY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for Y-axis rotation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 9, AttachToValue = true)]
+public float SpringStiffnessRotationY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessRotationZ_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessRotationZ*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessRotationZ" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessRotationZ">SpringStiffnessRotationZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for rotation around the Z-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 10, AttachToValue = true)]
+public float SpringStiffnessRotationZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessTranslationX_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessTranslationX*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessTranslationX" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessTranslationX">SpringStiffnessTranslationX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for translation along the X-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 5, AttachToValue = true)]
+public float SpringStiffnessTranslationX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessTranslationY_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessTranslationY*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessTranslationY" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessTranslationY">SpringStiffnessTranslationY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for translation along the Y-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 6, AttachToValue = true)]
+public float SpringStiffnessTranslationY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessTranslationZ_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessTranslationZ*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_SpringStiffnessTranslationZ" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.SpringStiffnessTranslationZ">SpringStiffnessTranslationZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring stiffness for translation in the Z-axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 7, AttachToValue = true)]
+public float SpringStiffnessTranslationZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringRotationX_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringRotationX*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringRotationX" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringRotationX">UseSpringRotationX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the rotational spring on the X-axis is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 8)]
+public bool UseSpringRotationX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringRotationY_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringRotationY*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringRotationY" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringRotationY">UseSpringRotationY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the spring for Rotation Y is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 9)]
+public bool UseSpringRotationY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringRotationZ_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringRotationZ*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringRotationZ" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringRotationZ">UseSpringRotationZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the rotation Z spring is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 10)]
+public bool UseSpringRotationZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringTranslationX_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringTranslationX*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringTranslationX" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringTranslationX">UseSpringTranslationX</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the Translation X spring is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 5)]
+public bool UseSpringTranslationX { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringTranslationY_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringTranslationY*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringTranslationY" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringTranslationY">UseSpringTranslationY</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the Translation Y spring is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 6)]
+public bool UseSpringTranslationY { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringTranslationZ_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringTranslationZ*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_UseSpringTranslationZ" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.UseSpringTranslationZ">UseSpringTranslationZ</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the translation Z spring is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 7)]
+public bool UseSpringTranslationZ { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_FillJointDef_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.FillJointDef*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_FillJointDef_Evergine_Framework_Physics3D_Generic6DofSpringJointDef3D_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.FillJointDef(Evergine.Framework.Physics3D.Generic6DofSpringJointDef3D)">FillJointDef(Generic6DofSpringJointDef3D)</h4>
+  <div class="markdown level1 summary"><p>Fills joint definition values.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool FillJointDef(Generic6DofSpringJointDef3D jointDef)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.Generic6DofSpringJointDef3D.html">Generic6DofSpringJointDef3D</a></td>
+        <td><span class="parametername">jointDef</span></td>
+        <td><p>The generated joint values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_FillJointDef__1_">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.FillJointDef(Generic6DofSpringJointDef3D)</a></div>
+  <a id="Evergine_Framework_Physics3D_SpringJoint3D_InitJoint_" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.InitJoint*"></a>
+  <h4 id="Evergine_Framework_Physics3D_SpringJoint3D_InitJoint" data-uid="Evergine.Framework.Physics3D.SpringJoint3D.InitJoint">InitJoint()</h4>
+  <div class="markdown level1 summary"><p>Initializes the joint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void InitJoint()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics3D.GenericAbstract6DofJoint3D-2.html#Evergine_Framework_Physics3D_GenericAbstract6DofJoint3D_2_InitJoint">GenericAbstract6DofJoint3D&lt;IGeneric6DofSpringJoint3D, Generic6DofSpringJointDef3D&gt;.InitJoint()</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

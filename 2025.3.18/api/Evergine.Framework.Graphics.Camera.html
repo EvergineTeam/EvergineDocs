@@ -1,0 +1,3836 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Camera | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Camera | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Graphics.Camera">
+
+
+
+  <h1 id="Evergine_Framework_Graphics_Camera" data-uid="Evergine.Framework.Graphics.Camera" class="text-break">Class Camera</h1>
+  <div class="markdown level0 summary"><p>This class represents a camera in a 3D world.
+Cameras are the devices that capture and display the world to the player.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><span class="xref">Camera</span></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Graphics.Camera3D.html">Camera3D</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Graphics.html">Graphics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Graphics_Camera_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class Camera : Component, IDependencyObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Framework_Graphics_Camera__ctor_" data-uid="Evergine.Framework.Graphics.Camera.#ctor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera__ctor" data-uid="Evergine.Framework.Graphics.Camera.#ctor">Camera()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Framework.Graphics.Camera.html">Camera</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Camera()</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_Graphics_Camera_DisplayTagDirty" data-uid="Evergine.Framework.Graphics.Camera.DisplayTagDirty">DisplayTagDirty</h4>
+  <div class="markdown level1 summary"><p>Indicates if the display tag is dirty.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool DisplayTagDirty</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_FrameBufferUpdateCounter" data-uid="Evergine.Framework.Graphics.Camera.FrameBufferUpdateCounter">FrameBufferUpdateCounter</h4>
+  <div class="markdown level1 summary"><p>The update counter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int FrameBufferUpdateCounter</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_HaltonSequence" data-uid="Evergine.Framework.Graphics.Camera.HaltonSequence">HaltonSequence</h4>
+  <div class="markdown level1 summary"><p>Halton sequence to generate the camera jitter effect (TemporalAA).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected static readonly Vector2[] HaltonSequence</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_RenderManager" data-uid="Evergine.Framework.Graphics.Camera.RenderManager">RenderManager</h4>
+  <div class="markdown level1 summary"><p>The rendering manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindSceneManager(false, true)]
+protected RenderManager RenderManager</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Managers.RenderManager.html">RenderManager</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_ScreenViewport" data-uid="Evergine.Framework.Graphics.Camera.ScreenViewport">ScreenViewport</h4>
+  <div class="markdown level1 summary"><p>Represents the camera viewport.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Viewport ScreenViewport</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Viewport.html">Viewport</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_TagFilter" data-uid="Evergine.Framework.Graphics.Camera.TagFilter">TagFilter</h4>
+  <div class="markdown level1 summary"><p>Tag filter. If it has a value, render only objects with this tag.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string TagFilter</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_TargetFrameBuffer" data-uid="Evergine.Framework.Graphics.Camera.TargetFrameBuffer">TargetFrameBuffer</h4>
+  <div class="markdown level1 summary"><p>The resolved frameBuffer. The camera will render in this framebuffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected FrameBuffer TargetFrameBuffer</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.FrameBuffer.html">FrameBuffer</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Graphics_Camera_TargetFrameBuffer_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>If the FrameBuffer property has a value, ResolvedFrameBuffer is equal to this.
+In the other case, the ResolvedFrameBuffer is obtained from the Display.</p>
+</div>
+  <h4 id="Evergine_Framework_Graphics_Camera_aperture" data-uid="Evergine.Framework.Graphics.Camera.aperture">aperture</h4>
+  <div class="markdown level1 summary"><p>The aperture advancement parameter used to calculate exposure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float aperture</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_aspectRatio" data-uid="Evergine.Framework.Graphics.Camera.aspectRatio">aspectRatio</h4>
+  <div class="markdown level1 summary"><p>Represents the aspect ratio.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float aspectRatio</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_backgroundColor" data-uid="Evergine.Framework.Graphics.Camera.backgroundColor">backgroundColor</h4>
+  <div class="markdown level1 summary"><p><a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a> used to clear the background.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected LinearColor backgroundColor</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.LinearColor.html">LinearColor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_boundingFrustum" data-uid="Evergine.Framework.Graphics.Camera.boundingFrustum">boundingFrustum</h4>
+  <div class="markdown level1 summary"><p>The bounding frustum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected BoundingFrustum boundingFrustum</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingFrustum.html">BoundingFrustum</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_cachedPosition" data-uid="Evergine.Framework.Graphics.Camera.cachedPosition">cachedPosition</h4>
+  <div class="markdown level1 summary"><p>Cached position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector3 cachedPosition</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_clearDepth" data-uid="Evergine.Framework.Graphics.Camera.clearDepth">clearDepth</h4>
+  <div class="markdown level1 summary"><p>Clears the depth buffer with this value. This value will be clamped between 0 and 1.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float clearDepth</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_clearFlags" data-uid="Evergine.Framework.Graphics.Camera.clearFlags">clearFlags</h4>
+  <div class="markdown level1 summary"><p>The clear flags.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ClearFlags clearFlags</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.ClearFlags.html">ClearFlags</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_clearStencil" data-uid="Evergine.Framework.Graphics.Camera.clearStencil">clearStencil</h4>
+  <div class="markdown level1 summary"><p>Clears the stencil buffer with this value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected byte clearStencil</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_compensation" data-uid="Evergine.Framework.Graphics.Camera.compensation">compensation</h4>
+  <div class="markdown level1 summary"><p>Compensation advance parameter to calculate the exposure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float compensation</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_customProjection" data-uid="Evergine.Framework.Graphics.Camera.customProjection">customProjection</h4>
+  <div class="markdown level1 summary"><p>Custom projection specified by the user.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4? customProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_dirtyMultiview" data-uid="Evergine.Framework.Graphics.Camera.dirtyMultiview">dirtyMultiview</h4>
+  <div class="markdown level1 summary"><p>Flag that indicates that the multiview properties have been changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool dirtyMultiview</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_dirtyPosition" data-uid="Evergine.Framework.Graphics.Camera.dirtyPosition">dirtyPosition</h4>
+  <div class="markdown level1 summary"><p>Flag that indicates if the position must be refreshed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool dirtyPosition</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_dirtyPreviousViewProjection" data-uid="Evergine.Framework.Graphics.Camera.dirtyPreviousViewProjection">dirtyPreviousViewProjection</h4>
+  <div class="markdown level1 summary"><p>Flag that indicates the viewProj was modified in the previous frame, so previousViewProjection must be refreshed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool dirtyPreviousViewProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_dirtyProjection" data-uid="Evergine.Framework.Graphics.Camera.dirtyProjection">dirtyProjection</h4>
+  <div class="markdown level1 summary"><p>Flag that indicates if the projection matrix must be refreshed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool dirtyProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_dirtyView" data-uid="Evergine.Framework.Graphics.Camera.dirtyView">dirtyView</h4>
+  <div class="markdown level1 summary"><p>Flag that indicates if the view matrix must be refreshed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool dirtyView</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_dirtyViewProjection" data-uid="Evergine.Framework.Graphics.Camera.dirtyViewProjection">dirtyViewProjection</h4>
+  <div class="markdown level1 summary"><p>Flag that indicates if the viewProj matrix must be refreshed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool dirtyViewProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_ev100" data-uid="Evergine.Framework.Graphics.Camera.ev100">ev100</h4>
+  <div class="markdown level1 summary"><p>The exposure value for ISO 100.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float ev100</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_exposure" data-uid="Evergine.Framework.Graphics.Camera.exposure">exposure</h4>
+  <div class="markdown level1 summary"><p>The exposure of this camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float exposure</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_farPlane" data-uid="Evergine.Framework.Graphics.Camera.farPlane">farPlane</h4>
+  <div class="markdown level1 summary"><p>The far plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float farPlane</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_fieldOfView" data-uid="Evergine.Framework.Graphics.Camera.fieldOfView">fieldOfView</h4>
+  <div class="markdown level1 summary"><p>The field of view.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float fieldOfView</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_fieldOfViewAxis" data-uid="Evergine.Framework.Graphics.Camera.fieldOfViewAxis">fieldOfViewAxis</h4>
+  <div class="markdown level1 summary"><p>The FOV axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected FieldOfViewAxis fieldOfViewAxis</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.FieldOfViewAxis.html">FieldOfViewAxis</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_focalLength" data-uid="Evergine.Framework.Graphics.Camera.focalLength">focalLength</h4>
+  <div class="markdown level1 summary"><p>The focal length (Default: 50).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float focalLength</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_frameBuffer" data-uid="Evergine.Framework.Graphics.Camera.frameBuffer">frameBuffer</h4>
+  <div class="markdown level1 summary"><p>The framebuffer instance associated with this camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected FrameBuffer frameBuffer</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.FrameBuffer.html">FrameBuffer</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_graphicsPresenter" data-uid="Evergine.Framework.Graphics.Camera.graphicsPresenter">graphicsPresenter</h4>
+  <div class="markdown level1 summary"><p>The graphics presenter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindService(true)]
+protected GraphicsPresenter graphicsPresenter</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Services.GraphicsPresenter.html">GraphicsPresenter</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_height" data-uid="Evergine.Framework.Graphics.Camera.height">height</h4>
+  <div class="markdown level1 summary"><p>Represents the height.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float height</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_jitter" data-uid="Evergine.Framework.Graphics.Camera.jitter">jitter</h4>
+  <div class="markdown level1 summary"><p>Current camera jitter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector2 jitter</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_jitteringEnabled" data-uid="Evergine.Framework.Graphics.Camera.jitteringEnabled">jitteringEnabled</h4>
+  <div class="markdown level1 summary"><p>Indicates whether the camera has jittering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool jitteringEnabled</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_maxZ" data-uid="Evergine.Framework.Graphics.Camera.maxZ">maxZ</h4>
+  <div class="markdown level1 summary"><p>The maximum Z value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float maxZ</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_minZ" data-uid="Evergine.Framework.Graphics.Camera.minZ">minZ</h4>
+  <div class="markdown level1 summary"><p>The minimum Z.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float minZ</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_multiviewProperties" data-uid="Evergine.Framework.Graphics.Camera.multiviewProperties">multiviewProperties</h4>
+  <div class="markdown level1 summary"><p>Multi-view properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ViewProperties[] multiviewProperties</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.ViewProperties.html">ViewProperties</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_nearPlane" data-uid="Evergine.Framework.Graphics.Camera.nearPlane">nearPlane</h4>
+  <div class="markdown level1 summary"><p>The near plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float nearPlane</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_previousJitter" data-uid="Evergine.Framework.Graphics.Camera.previousJitter">previousJitter</h4>
+  <div class="markdown level1 summary"><p>Previous frame camera jitter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector2 previousJitter</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_previousViewProjectionFlipped" data-uid="Evergine.Framework.Graphics.Camera.previousViewProjectionFlipped">previousViewProjectionFlipped</h4>
+  <div class="markdown level1 summary"><p>The inverse of the view projection in the previous frame when the device is in a RenderTarget.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 previousViewProjectionFlipped</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_projection" data-uid="Evergine.Framework.Graphics.Camera.projection">projection</h4>
+  <div class="markdown level1 summary"><p>The projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 projection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_projectionInverse" data-uid="Evergine.Framework.Graphics.Camera.projectionInverse">projectionInverse</h4>
+  <div class="markdown level1 summary"><p>The inverse of the projection matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 projectionInverse</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_renderProjection" data-uid="Evergine.Framework.Graphics.Camera.renderProjection">renderProjection</h4>
+  <div class="markdown level1 summary"><p>The projection transform when the camera is rendering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 renderProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_renderViewProjection" data-uid="Evergine.Framework.Graphics.Camera.renderViewProjection">renderViewProjection</h4>
+  <div class="markdown level1 summary"><p>The view projection transform when the camera is about to render.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 renderViewProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_sensitivity" data-uid="Evergine.Framework.Graphics.Camera.sensitivity">sensitivity</h4>
+  <div class="markdown level1 summary"><p>Sensitivity advance parameter to calculate exposure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float sensitivity</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_sensorSize" data-uid="Evergine.Framework.Graphics.Camera.sensorSize">sensorSize</h4>
+  <div class="markdown level1 summary"><p>The sensor size (default: 36x24 mm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector2 sensorSize</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_shutterSpeed" data-uid="Evergine.Framework.Graphics.Camera.shutterSpeed">shutterSpeed</h4>
+  <div class="markdown level1 summary"><p>Shutter speed advance parameter used to calculate exposure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float shutterSpeed</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_unjitteredDirtyViewProjection" data-uid="Evergine.Framework.Graphics.Camera.unjitteredDirtyViewProjection">unjitteredDirtyViewProjection</h4>
+  <div class="markdown level1 summary"><p>Flag that indicates whether the viewProj unjittered matrix must be refreshed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool unjitteredDirtyViewProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_unjitteredProjection" data-uid="Evergine.Framework.Graphics.Camera.unjitteredProjection">unjitteredProjection</h4>
+  <div class="markdown level1 summary"><p>The unjittered projection (TAA).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 unjitteredProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_unjitteredViewProjection" data-uid="Evergine.Framework.Graphics.Camera.unjitteredViewProjection">unjitteredViewProjection</h4>
+  <div class="markdown level1 summary"><p>The unjittered view projection (TAA).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 unjitteredViewProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_view" data-uid="Evergine.Framework.Graphics.Camera.view">view</h4>
+  <div class="markdown level1 summary"><p>The view.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 view</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_viewInverse" data-uid="Evergine.Framework.Graphics.Camera.viewInverse">viewInverse</h4>
+  <div class="markdown level1 summary"><p>The inverse matrix view.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 viewInverse</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_viewProjection" data-uid="Evergine.Framework.Graphics.Camera.viewProjection">viewProjection</h4>
+  <div class="markdown level1 summary"><p>The view projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 viewProjection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_viewProjectionInverse" data-uid="Evergine.Framework.Graphics.Camera.viewProjectionInverse">viewProjectionInverse</h4>
+  <div class="markdown level1 summary"><p>The inverse of the view projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Matrix4x4 viewProjectionInverse</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_viewport" data-uid="Evergine.Framework.Graphics.Camera.viewport">viewport</h4>
+  <div class="markdown level1 summary"><p>The camera's viewport.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Viewport viewport</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Viewport.html">Viewport</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_viewportFactor" data-uid="Evergine.Framework.Graphics.Camera.viewportFactor">viewportFactor</h4>
+  <div class="markdown level1 summary"><p>The viewport/physical scale factor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector2 viewportFactor</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_viewportHeight" data-uid="Evergine.Framework.Graphics.Camera.viewportHeight">viewportHeight</h4>
+  <div class="markdown level1 summary"><p>The height of the viewport.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float viewportHeight</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_viewportWidth" data-uid="Evergine.Framework.Graphics.Camera.viewportWidth">viewportWidth</h4>
+  <div class="markdown level1 summary"><p>The width of the viewport.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float viewportWidth</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_width" data-uid="Evergine.Framework.Graphics.Camera.width">width</h4>
+  <div class="markdown level1 summary"><p>The width.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float width</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Graphics_Camera_Aperture_" data-uid="Evergine.Framework.Graphics.Camera.Aperture*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Aperture" data-uid="Evergine.Framework.Graphics.Camera.Aperture">Aperture</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the aperture of the camera in f-stops (Default f/16).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 1, AttachToValue = true, CustomPropertyName = &quot;Aperture&quot;, Tooltip = &quot;The aperture of the camera in f-stops (Default f/16)&quot;)]
+public float Aperture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Graphics_Camera_Aperture_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This setting controls how open or closed the camera system's aperture is.
+Since an f-stop indicates the ratio of the lens' focal length to the diameter of the entrance pupil,
+high values (ƒ/16) indicate a small aperture and small values (ƒ/1.4) indicate a wide aperture.
+In addition to the exposure, the aperture setting controls the depth of field.</p>
+</div>
+  <a id="Evergine_Framework_Graphics_Camera_AutoDepthBounds_" data-uid="Evergine.Framework.Graphics.Camera.AutoDepthBounds*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_AutoDepthBounds" data-uid="Evergine.Framework.Graphics.Camera.AutoDepthBounds">AutoDepthBounds</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the auto depth bound is computed or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AutoDepthBounds { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_AutoExposureEnabled_" data-uid="Evergine.Framework.Graphics.Camera.AutoExposureEnabled*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_AutoExposureEnabled" data-uid="Evergine.Framework.Graphics.Camera.AutoExposureEnabled">AutoExposureEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether auto exposure is enabled or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AutoExposureEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_BackgroundColor_" data-uid="Evergine.Framework.Graphics.Camera.BackgroundColor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_BackgroundColor" data-uid="Evergine.Framework.Graphics.Camera.BackgroundColor">BackgroundColor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the color of the background.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color BackgroundColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a></td>
+        <td><p>The background color of the camera if set, or the RenderManager default background color.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_BoundingFrustum_" data-uid="Evergine.Framework.Graphics.Camera.BoundingFrustum*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_BoundingFrustum" data-uid="Evergine.Framework.Graphics.Camera.BoundingFrustum">BoundingFrustum</h4>
+  <div class="markdown level1 summary"><p>Gets the camera bounding frustum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BoundingFrustum BoundingFrustum { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingFrustum.html">BoundingFrustum</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_CameraOrder_" data-uid="Evergine.Framework.Graphics.Camera.CameraOrder*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_CameraOrder" data-uid="Evergine.Framework.Graphics.Camera.CameraOrder">CameraOrder</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the camera order. Cameras with a higher value will be drawn on top of cameras with a lower value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float CameraOrder { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_CameraShouldRender_" data-uid="Evergine.Framework.Graphics.Camera.CameraShouldRender*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_CameraShouldRender" data-uid="Evergine.Framework.Graphics.Camera.CameraShouldRender">CameraShouldRender</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this camera should be rendered.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool CameraShouldRender { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ClearDepth_" data-uid="Evergine.Framework.Graphics.Camera.ClearDepth*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ClearDepth" data-uid="Evergine.Framework.Graphics.Camera.ClearDepth">ClearDepth</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the clear depth buffer value. This value will be clamped between 0 and 1.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, MaxLimit = 1)]
+public float ClearDepth { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ClearFlags_" data-uid="Evergine.Framework.Graphics.Camera.ClearFlags*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ClearFlags" data-uid="Evergine.Framework.Graphics.Camera.ClearFlags">ClearFlags</h4>
+  <div class="markdown level1 summary"><p>Gets or sets clear flags used for cleaning the FrameBuffer, stencilBuffer, and ZBuffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ClearFlags ClearFlags { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.ClearFlags.html">ClearFlags</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ClearStencil_" data-uid="Evergine.Framework.Graphics.Camera.ClearStencil*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ClearStencil" data-uid="Evergine.Framework.Graphics.Camera.ClearStencil">ClearStencil</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the clear stencil buffer value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public byte ClearStencil { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Compensation_" data-uid="Evergine.Framework.Graphics.Camera.Compensation*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Compensation" data-uid="Evergine.Framework.Graphics.Camera.Compensation">Compensation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the camera exposure compensation, allowing you to override the exposure to experiment with overexposure or underexposure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 1, AttachToValue = true, CustomPropertyName = &quot;Compensation&quot;, Tooltip = &quot;&quot;)]
+public float Compensation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Graphics_Camera_Compensation_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Even though an exposure value actually indicates combinations of camera settings, it is often used by photographers to describe
+light intensity. This is why cameras let photographers apply exposure compensation to over or under-expose an image. This setting
+can be used for artistic control but also to achieve proper exposure (snow, for instance, will be exposed as 18% middle-gray).
+Applying exposure compensation EC is as simple as adding an offset to the exposure value, as shown in the equation
+EV′100=EV100−EC(108)
+This equation uses a negative sign because we are using EC in f-stops to adjust the final exposure. Increasing the EV is akin to
+closing down the aperture of the lens (or reducing shutter speed or reducing sensitivity). A higher EV will produce darker images.</p>
+</div>
+  <a id="Evergine_Framework_Graphics_Camera_CullingSystem_" data-uid="Evergine.Framework.Graphics.Camera.CullingSystem*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_CullingSystem" data-uid="Evergine.Framework.Graphics.Camera.CullingSystem">CullingSystem</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Culling System used for this camera. If null, then the default Culling System of the RenderManager is used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CullingSystem CullingSystem { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.CullingSystem.html">CullingSystem</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_CustomProjection_" data-uid="Evergine.Framework.Graphics.Camera.CustomProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_CustomProjection" data-uid="Evergine.Framework.Graphics.Camera.CustomProjection">CustomProjection</h4>
+  <div class="markdown level1 summary"><p>Gets the custom camera projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4? CustomProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a>?</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Display_" data-uid="Evergine.Framework.Graphics.Camera.Display*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Display" data-uid="Evergine.Framework.Graphics.Camera.Display">Display</h4>
+  <div class="markdown level1 summary"><p>Gets the camera display.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Display Display { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Display.html">Display</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_DisplayTag_" data-uid="Evergine.Framework.Graphics.Camera.DisplayTag*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_DisplayTag" data-uid="Evergine.Framework.Graphics.Camera.DisplayTag">DisplayTag</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the display index to draw associated with the camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string DisplayTag { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_DrawContext_" data-uid="Evergine.Framework.Graphics.Camera.DrawContext*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_DrawContext" data-uid="Evergine.Framework.Graphics.Camera.DrawContext">DrawContext</h4>
+  <div class="markdown level1 summary"><p>Gets the draw context associated with this camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CameraDrawContext DrawContext { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.CameraDrawContext.html">CameraDrawContext</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_EV100_" data-uid="Evergine.Framework.Graphics.Camera.EV100*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_EV100" data-uid="Evergine.Framework.Graphics.Camera.EV100">EV100</h4>
+  <div class="markdown level1 summary"><p>Gets the exposure value for ISO 100.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float EV100 { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Exposure_" data-uid="Evergine.Framework.Graphics.Camera.Exposure*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Exposure" data-uid="Evergine.Framework.Graphics.Camera.Exposure">Exposure</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the exposure for this camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Exposure { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_EyeCount_" data-uid="Evergine.Framework.Graphics.Camera.EyeCount*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_EyeCount" data-uid="Evergine.Framework.Graphics.Camera.EyeCount">EyeCount</h4>
+  <div class="markdown level1 summary"><p>Gets the stereo eye count.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int EyeCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_FarPlane_" data-uid="Evergine.Framework.Graphics.Camera.FarPlane*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_FarPlane" data-uid="Evergine.Framework.Graphics.Camera.FarPlane">FarPlane</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the far plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float FarPlane { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The far plane.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_FieldOfView_" data-uid="Evergine.Framework.Graphics.Camera.FieldOfView*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_FieldOfView" data-uid="Evergine.Framework.Graphics.Camera.FieldOfView">FieldOfView</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the field of view.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(FloatRadianToDegreeConverter), CustomPropertyName = &quot;Field of View&quot;, Tooltip = &quot;The field of view of the camera in radians.&quot;)]
+public virtual float FieldOfView { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The field of view.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_FieldOfViewAxis_" data-uid="Evergine.Framework.Graphics.Camera.FieldOfViewAxis*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_FieldOfViewAxis" data-uid="Evergine.Framework.Graphics.Camera.FieldOfViewAxis">FieldOfViewAxis</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the field-of-view axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FieldOfViewAxis FieldOfViewAxis { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.FieldOfViewAxis.html">FieldOfViewAxis</a></td>
+        <td><p>The field-of-view axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_FlipYProjection_" data-uid="Evergine.Framework.Graphics.Camera.FlipYProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_FlipYProjection" data-uid="Evergine.Framework.Graphics.Camera.FlipYProjection">FlipYProjection</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the Y-axis should be flipped.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool FlipYProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_FocalDistance_" data-uid="Evergine.Framework.Graphics.Camera.FocalDistance*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_FocalDistance" data-uid="Evergine.Framework.Graphics.Camera.FocalDistance">FocalDistance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the focal distance used with the Depth of Field effect to choose the focus distance from the camera (m).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float FocalDistance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_FocalLength_" data-uid="Evergine.Framework.Graphics.Camera.FocalLength*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_FocalLength" data-uid="Evergine.Framework.Graphics.Camera.FocalLength">FocalLength</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the focal length. This represents the simulated distance between the lens and the sensor of the camera.
+Larger values result in a narrower field of view.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 1, AttachToValue = true, CustomPropertyName = &quot;Focal Length&quot;, Tooltip = &quot;The simulated distance between the lens and the sensor of the camera. Larger values give a narrower field of view&quot;)]
+public float FocalLength { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_FrameBuffer_" data-uid="Evergine.Framework.Graphics.Camera.FrameBuffer*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_FrameBuffer" data-uid="Evergine.Framework.Graphics.Camera.FrameBuffer">FrameBuffer</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the render target associated with the camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual FrameBuffer FrameBuffer { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.FrameBuffer.html">FrameBuffer</a></td>
+        <td><p>The render target.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_FrustumCullingEnabled_" data-uid="Evergine.Framework.Graphics.Camera.FrustumCullingEnabled*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_FrustumCullingEnabled" data-uid="Evergine.Framework.Graphics.Camera.FrustumCullingEnabled">FrustumCullingEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether frustum culling is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool FrustumCullingEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if frustum culling is enabled; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_HDREnabled_" data-uid="Evergine.Framework.Graphics.Camera.HDREnabled*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_HDREnabled" data-uid="Evergine.Framework.Graphics.Camera.HDREnabled">HDREnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the camera uses High Dynamic Range or not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool HDREnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_IsClipDepthZeroToOne_" data-uid="Evergine.Framework.Graphics.Camera.IsClipDepthZeroToOne*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_IsClipDepthZeroToOne" data-uid="Evergine.Framework.Graphics.Camera.IsClipDepthZeroToOne">IsClipDepthZeroToOne</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the clip depth is in the [0, 1] range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsClipDepthZeroToOne { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_IsStereoEnabled_" data-uid="Evergine.Framework.Graphics.Camera.IsStereoEnabled*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_IsStereoEnabled" data-uid="Evergine.Framework.Graphics.Camera.IsStereoEnabled">IsStereoEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this camera has stereo enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsStereoEnabled { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Jitter_" data-uid="Evergine.Framework.Graphics.Camera.Jitter*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Jitter" data-uid="Evergine.Framework.Graphics.Camera.Jitter">Jitter</h4>
+  <div class="markdown level1 summary"><p>Gets the current frame's camera jittering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 Jitter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_JitteringEnabled_" data-uid="Evergine.Framework.Graphics.Camera.JitteringEnabled*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_JitteringEnabled" data-uid="Evergine.Framework.Graphics.Camera.JitteringEnabled">JitteringEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the camera has jitter (Temporal AA).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool JitteringEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_LayerMask_" data-uid="Evergine.Framework.Graphics.Camera.LayerMask*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_LayerMask" data-uid="Evergine.Framework.Graphics.Camera.LayerMask">LayerMask</h4>
+  <div class="markdown level1 summary"><p>Gets visible layers dictionary. This dictionary indicates whether a layer is visible for that camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IDictionary&lt;int, bool&gt; LayerMask { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.idictionary-2">IDictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td><p>The layers dictionary.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_LayerMaskDefaultValue_" data-uid="Evergine.Framework.Graphics.Camera.LayerMaskDefaultValue*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_LayerMaskDefaultValue" data-uid="Evergine.Framework.Graphics.Camera.LayerMaskDefaultValue">LayerMaskDefaultValue</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the layers are drawn by the camera by default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool LayerMaskDefaultValue { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_LinearBackgroundColor_" data-uid="Evergine.Framework.Graphics.Camera.LinearBackgroundColor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_LinearBackgroundColor" data-uid="Evergine.Framework.Graphics.Camera.LinearBackgroundColor">LinearBackgroundColor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the color of the background in linear space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LinearColor LinearBackgroundColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.LinearColor.html">LinearColor</a></td>
+        <td><p>The background color of the camera if it is set in linear space, or the RenderManager default background color.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_LogLuminanceRange_" data-uid="Evergine.Framework.Graphics.Camera.LogLuminanceRange*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_LogLuminanceRange" data-uid="Evergine.Framework.Graphics.Camera.LogLuminanceRange">LogLuminanceRange</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the logarithmic luminance range.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float LogLuminanceRange { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_MinLogLuminance_" data-uid="Evergine.Framework.Graphics.Camera.MinLogLuminance*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_MinLogLuminance" data-uid="Evergine.Framework.Graphics.Camera.MinLogLuminance">MinLogLuminance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the minimum logarithmic luminance value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float MinLogLuminance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_MultiviewPosition_" data-uid="Evergine.Framework.Graphics.Camera.MultiviewPosition*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_MultiviewPosition" data-uid="Evergine.Framework.Graphics.Camera.MultiviewPosition">MultiviewPosition</h4>
+  <div class="markdown level1 summary"><p>Gets the stereo camera positions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector4[] MultiviewPosition { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector4.html">Vector4</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_MultiviewProjection_" data-uid="Evergine.Framework.Graphics.Camera.MultiviewProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_MultiviewProjection" data-uid="Evergine.Framework.Graphics.Camera.MultiviewProjection">MultiviewProjection</h4>
+  <div class="markdown level1 summary"><p>Gets the stereo camera projection matrices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4[] MultiviewProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_MultiviewProjectionInverse_" data-uid="Evergine.Framework.Graphics.Camera.MultiviewProjectionInverse*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_MultiviewProjectionInverse" data-uid="Evergine.Framework.Graphics.Camera.MultiviewProjectionInverse">MultiviewProjectionInverse</h4>
+  <div class="markdown level1 summary"><p>Gets the stereo camera's inverse view projection matrices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4[] MultiviewProjectionInverse { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_MultiviewView_" data-uid="Evergine.Framework.Graphics.Camera.MultiviewView*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_MultiviewView" data-uid="Evergine.Framework.Graphics.Camera.MultiviewView">MultiviewView</h4>
+  <div class="markdown level1 summary"><p>Gets the stereo camera view matrices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4[] MultiviewView { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_MultiviewViewProjection_" data-uid="Evergine.Framework.Graphics.Camera.MultiviewViewProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_MultiviewViewProjection" data-uid="Evergine.Framework.Graphics.Camera.MultiviewViewProjection">MultiviewViewProjection</h4>
+  <div class="markdown level1 summary"><p>Gets the stereo camera view projection matrices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4[] MultiviewViewProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_NearPlane_" data-uid="Evergine.Framework.Graphics.Camera.NearPlane*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_NearPlane" data-uid="Evergine.Framework.Graphics.Camera.NearPlane">NearPlane</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the near plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual float NearPlane { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The near plane.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Position_" data-uid="Evergine.Framework.Graphics.Camera.Position*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Position" data-uid="Evergine.Framework.Graphics.Camera.Position">Position</h4>
+  <div class="markdown level1 summary"><p>Gets the camera's position in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Position { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_PreviousJitter_" data-uid="Evergine.Framework.Graphics.Camera.PreviousJitter*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_PreviousJitter" data-uid="Evergine.Framework.Graphics.Camera.PreviousJitter">PreviousJitter</h4>
+  <div class="markdown level1 summary"><p>Gets the previous frame's camera jittering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector2 PreviousJitter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_PreviousViewProjection_" data-uid="Evergine.Framework.Graphics.Camera.PreviousViewProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_PreviousViewProjection" data-uid="Evergine.Framework.Graphics.Camera.PreviousViewProjection">PreviousViewProjection</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the view projection in the previous frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 PreviousViewProjection { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Projection_" data-uid="Evergine.Framework.Graphics.Camera.Projection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Projection" data-uid="Evergine.Framework.Graphics.Camera.Projection">Projection</h4>
+  <div class="markdown level1 summary"><p>Gets the projection matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 Projection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><p>The projection matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ProjectionInverse_" data-uid="Evergine.Framework.Graphics.Camera.ProjectionInverse*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ProjectionInverse" data-uid="Evergine.Framework.Graphics.Camera.ProjectionInverse">ProjectionInverse</h4>
+  <div class="markdown level1 summary"><p>Gets the inverse of the projection matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 ProjectionInverse { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_RenderPath_" data-uid="Evergine.Framework.Graphics.Camera.RenderPath*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RenderPath" data-uid="Evergine.Framework.Graphics.Camera.RenderPath">RenderPath</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the render path used for this camera. If null, then the default RenderPath of the RenderManager is used.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CameraRenderPath RenderPath { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.CameraRenderPath.html">CameraRenderPath</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_RenderProjection_" data-uid="Evergine.Framework.Graphics.Camera.RenderProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RenderProjection" data-uid="Evergine.Framework.Graphics.Camera.RenderProjection">RenderProjection</h4>
+  <div class="markdown level1 summary"><p>Gets the projection matrix used to render this camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 RenderProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><p>The rendering projection matrix.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_RenderViewProjection_" data-uid="Evergine.Framework.Graphics.Camera.RenderViewProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RenderViewProjection" data-uid="Evergine.Framework.Graphics.Camera.RenderViewProjection">RenderViewProjection</h4>
+  <div class="markdown level1 summary"><p>Gets the view projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 RenderViewProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_RenderViewProjectionInverse_" data-uid="Evergine.Framework.Graphics.Camera.RenderViewProjectionInverse*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RenderViewProjectionInverse" data-uid="Evergine.Framework.Graphics.Camera.RenderViewProjectionInverse">RenderViewProjectionInverse</h4>
+  <div class="markdown level1 summary"><p>Gets the inverse transform of the view projection used when there is one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 RenderViewProjectionInverse { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Sensitivity_" data-uid="Evergine.Framework.Graphics.Camera.Sensitivity*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Sensitivity" data-uid="Evergine.Framework.Graphics.Camera.Sensitivity">Sensitivity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the camera sensitivity, expressed in ISO (Default 100).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 1, AttachToValue = true, CustomPropertyName = &quot;Sensitivity&quot;, Tooltip = &quot;The camera sensitivity, expressed in ISO (Default 100)&quot;)]
+public float Sensitivity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Graphics_Camera_Sensitivity_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This setting controls how the light reaching the sensor is quantized.
+Because of its unit, this setting is often referred to simply as the “ISO” or “ISO setting”.
+In addition to the exposure, the sensitivity setting controls the amount of noise.</p>
+</div>
+  <a id="Evergine_Framework_Graphics_Camera_SensorSize_" data-uid="Evergine.Framework.Graphics.Camera.SensorSize*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_SensorSize" data-uid="Evergine.Framework.Graphics.Camera.SensorSize">SensorSize</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the size of the camera sensor in millimeters (Default: 36x24 mm).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 1, AttachToValue = true, CustomPropertyName = &quot;Sensor Size&quot;, Tooltip = &quot;The size of the camera sensor in milimeters (Default: 36x24 mm)&quot;)]
+public Vector2 SensorSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ShutterSpeed_" data-uid="Evergine.Framework.Graphics.Camera.ShutterSpeed*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ShutterSpeed" data-uid="Evergine.Framework.Graphics.Camera.ShutterSpeed">ShutterSpeed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the shutter speed of the camera in seconds (Default 1/125 seconds).</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 1, AttachToValue = true, CustomPropertyName = &quot;Shutter Speed&quot;, Tooltip = &quot;The shutter speed of the camera in seconds (Default 1/125 seconds)&quot;)]
+public float ShutterSpeed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Graphics_Camera_ShutterSpeed_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This setting controls how long the aperture remains open (it also controls the timing of the sensor shutter(s),
+whether electronic or mechanical). In addition to the exposure, the shutter speed controls motion blur.</p>
+</div>
+  <a id="Evergine_Framework_Graphics_Camera_TAU_" data-uid="Evergine.Framework.Graphics.Camera.TAU*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_TAU" data-uid="Evergine.Framework.Graphics.Camera.TAU">TAU</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the TAU (Exponential time constant).
+Indicates the speed of exposure adaptation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float TAU { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Transform_" data-uid="Evergine.Framework.Graphics.Camera.Transform*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Transform" data-uid="Evergine.Framework.Graphics.Camera.Transform">Transform</h4>
+  <div class="markdown level1 summary"><p>Gets the camera's Transform3D.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Transform3D Transform { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_UnjitteredProjection_" data-uid="Evergine.Framework.Graphics.Camera.UnjitteredProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_UnjitteredProjection" data-uid="Evergine.Framework.Graphics.Camera.UnjitteredProjection">UnjitteredProjection</h4>
+  <div class="markdown level1 summary"><p>Gets the unjittered projection matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 UnjitteredProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_UnjitteredViewProjection_" data-uid="Evergine.Framework.Graphics.Camera.UnjitteredViewProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_UnjitteredViewProjection" data-uid="Evergine.Framework.Graphics.Camera.UnjitteredViewProjection">UnjitteredViewProjection</h4>
+  <div class="markdown level1 summary"><p>Gets the view's unjittered projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 UnjitteredViewProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_UsePhysicalParameters_" data-uid="Evergine.Framework.Graphics.Camera.UsePhysicalParameters*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_UsePhysicalParameters" data-uid="Evergine.Framework.Graphics.Camera.UsePhysicalParameters">UsePhysicalParameters</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the FOV and Exposure will be calculated with physical camera parameters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 1, CustomPropertyName = &quot;Use Physical Parameters&quot;, Tooltip = &quot;Indicating whether the FOV and Exposure will be calculate with physical camera parameters&quot;)]
+public bool UsePhysicalParameters { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_View_" data-uid="Evergine.Framework.Graphics.Camera.View*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_View" data-uid="Evergine.Framework.Graphics.Camera.View">View</h4>
+  <div class="markdown level1 summary"><p>Gets the camera view matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 View { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ViewInverse_" data-uid="Evergine.Framework.Graphics.Camera.ViewInverse*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ViewInverse" data-uid="Evergine.Framework.Graphics.Camera.ViewInverse">ViewInverse</h4>
+  <div class="markdown level1 summary"><p>Gets the Camera Inverse View Matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 ViewInverse { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ViewProjection_" data-uid="Evergine.Framework.Graphics.Camera.ViewProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ViewProjection" data-uid="Evergine.Framework.Graphics.Camera.ViewProjection">ViewProjection</h4>
+  <div class="markdown level1 summary"><p>Gets the view projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 ViewProjection { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ViewProjectionInverse_" data-uid="Evergine.Framework.Graphics.Camera.ViewProjectionInverse*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ViewProjectionInverse" data-uid="Evergine.Framework.Graphics.Camera.ViewProjectionInverse">ViewProjectionInverse</h4>
+  <div class="markdown level1 summary"><p>Gets the inverse transform of the view projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 ViewProjectionInverse { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_Viewport_" data-uid="Evergine.Framework.Graphics.Camera.Viewport*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_Viewport" data-uid="Evergine.Framework.Graphics.Camera.Viewport">Viewport</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the camera viewport.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Viewport Viewport { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Viewport.html">Viewport</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Graphics_Camera_AddAdditionalDirectives_" data-uid="Evergine.Framework.Graphics.Camera.AddAdditionalDirectives*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_AddAdditionalDirectives_System_Collections_Generic_List_System_String__" data-uid="Evergine.Framework.Graphics.Camera.AddAdditionalDirectives(System.Collections.Generic.List{System.String})">AddAdditionalDirectives(List&lt;string&gt;)</h4>
+  <div class="markdown level1 summary"><p>Sets additional directives.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void AddAdditionalDirectives(List&lt;string&gt; directiveList)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">directiveList</span></td>
+        <td><p>The directive list.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_CalculateRay_" data-uid="Evergine.Framework.Graphics.Camera.CalculateRay*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_CalculateRay_Evergine_Mathematics_Vector2__Evergine_Mathematics_Ray__" data-uid="Evergine.Framework.Graphics.Camera.CalculateRay(Evergine.Mathematics.Vector2@,Evergine.Mathematics.Ray@)">CalculateRay(ref Vector2, out Ray)</h4>
+  <div class="markdown level1 summary"><p>Calculates a ray from the camera using the given 2D screen position.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CalculateRay(ref Vector2 screenPosition, out Ray ray)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td><span class="parametername">screenPosition</span></td>
+        <td><p>The 2D screen position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td><span class="parametername">ray</span></td>
+        <td><p>The resulting ray.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_OnAttached_" data-uid="Evergine.Framework.Graphics.Camera.OnAttached*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_OnAttached" data-uid="Evergine.Framework.Graphics.Camera.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Attaches the camera to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a></div>
+  <a id="Evergine_Framework_Graphics_Camera_OnDetach_" data-uid="Evergine.Framework.Graphics.Camera.OnDetach*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_OnDetach" data-uid="Evergine.Framework.Graphics.Camera.OnDetach">OnDetach()</h4>
+  <div class="markdown level1 summary"><p>Detaches the camera from the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetach()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetach">Component.OnDetach()</a></div>
+  <a id="Evergine_Framework_Graphics_Camera_OnPositionChanged_" data-uid="Evergine.Framework.Graphics.Camera.OnPositionChanged*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_OnPositionChanged" data-uid="Evergine.Framework.Graphics.Camera.OnPositionChanged">OnPositionChanged()</h4>
+  <div class="markdown level1 summary"><p>The transform position has been changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void OnPositionChanged()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_PostRender_" data-uid="Evergine.Framework.Graphics.Camera.PostRender*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_PostRender" data-uid="Evergine.Framework.Graphics.Camera.PostRender">PostRender()</h4>
+  <div class="markdown level1 summary"><p>Called when the rendering of the current frame is finished.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PostRender()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_PreRender_" data-uid="Evergine.Framework.Graphics.Camera.PreRender*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_PreRender" data-uid="Evergine.Framework.Graphics.Camera.PreRender">PreRender()</h4>
+  <div class="markdown level1 summary"><p>Called when the current frame starts rendering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PreRender()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshAspectRatio_" data-uid="Evergine.Framework.Graphics.Camera.RefreshAspectRatio*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshAspectRatio" data-uid="Evergine.Framework.Graphics.Camera.RefreshAspectRatio">RefreshAspectRatio()</h4>
+  <div class="markdown level1 summary"><p>Refreshes the aspect ratio.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void RefreshAspectRatio()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshDimensions_" data-uid="Evergine.Framework.Graphics.Camera.RefreshDimensions*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshDimensions" data-uid="Evergine.Framework.Graphics.Camera.RefreshDimensions">RefreshDimensions()</h4>
+  <div class="markdown level1 summary"><p>Refresh the width and height of the camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void RefreshDimensions()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshFrameBuffer_" data-uid="Evergine.Framework.Graphics.Camera.RefreshFrameBuffer*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshFrameBuffer" data-uid="Evergine.Framework.Graphics.Camera.RefreshFrameBuffer">RefreshFrameBuffer()</h4>
+  <div class="markdown level1 summary"><p>Refreshes the framebuffer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void RefreshFrameBuffer()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshPhysicalFieldOfView_" data-uid="Evergine.Framework.Graphics.Camera.RefreshPhysicalFieldOfView*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshPhysicalFieldOfView" data-uid="Evergine.Framework.Graphics.Camera.RefreshPhysicalFieldOfView">RefreshPhysicalFieldOfView()</h4>
+  <div class="markdown level1 summary"><p>Refreshes the FoV with the physical camera parameters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void RefreshPhysicalFieldOfView()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshProjection_" data-uid="Evergine.Framework.Graphics.Camera.RefreshProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshProjection" data-uid="Evergine.Framework.Graphics.Camera.RefreshProjection">RefreshProjection()</h4>
+  <div class="markdown level1 summary"><p>Refreshes the projection matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void RefreshProjection()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshStereoProperties_" data-uid="Evergine.Framework.Graphics.Camera.RefreshStereoProperties*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshStereoProperties" data-uid="Evergine.Framework.Graphics.Camera.RefreshStereoProperties">RefreshStereoProperties()</h4>
+  <div class="markdown level1 summary"><p>Sets the camera's stereo properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void RefreshStereoProperties()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshUnjitteredViewProjection_" data-uid="Evergine.Framework.Graphics.Camera.RefreshUnjitteredViewProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshUnjitteredViewProjection" data-uid="Evergine.Framework.Graphics.Camera.RefreshUnjitteredViewProjection">RefreshUnjitteredViewProjection()</h4>
+  <div class="markdown level1 summary"><p>Refreshes the ViewProjection unjittered matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void RefreshUnjitteredViewProjection()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshView_" data-uid="Evergine.Framework.Graphics.Camera.RefreshView*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshView" data-uid="Evergine.Framework.Graphics.Camera.RefreshView">RefreshView()</h4>
+  <div class="markdown level1 summary"><p>Refreshes the view matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void RefreshView()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_RefreshViewProjection_" data-uid="Evergine.Framework.Graphics.Camera.RefreshViewProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_RefreshViewProjection" data-uid="Evergine.Framework.Graphics.Camera.RefreshViewProjection">RefreshViewProjection()</h4>
+  <div class="markdown level1 summary"><p>Refreshes the ViewProjection matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void RefreshViewProjection()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_ResetCustomProjection_" data-uid="Evergine.Framework.Graphics.Camera.ResetCustomProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ResetCustomProjection" data-uid="Evergine.Framework.Graphics.Camera.ResetCustomProjection">ResetCustomProjection()</h4>
+  <div class="markdown level1 summary"><p>Resets the custom projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResetCustomProjection()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_ScreenToWorld_" data-uid="Evergine.Framework.Graphics.Camera.ScreenToWorld*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ScreenToWorld_Evergine_Mathematics_Vector3__" data-uid="Evergine.Framework.Graphics.Camera.ScreenToWorld(Evergine.Mathematics.Vector3@)">ScreenToWorld(ref Vector3)</h4>
+  <div class="markdown level1 summary"><p>Transforms a point from screen space into world space. World space coordinates can still be calculated even when
+provided as an off-screen coordinate, for example, for instantiating an off-screen object near a specific corner of the screen.
+Screen space is defined in pixels. The top-left of the screen is (0,0); the bottom-right is (pixelWidth, pixelHeight).
+The z position is in world units from the camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 ScreenToWorld(ref Vector3 position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>A screen space position in pixels (often mouse x, y), plus a z position for depth in world space (for example, a camera clipping plane).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><p>The world space <a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a> created by converting the screen space point at the provided distance z from the camera plane.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_ScreenToWorld_" data-uid="Evergine.Framework.Graphics.Camera.ScreenToWorld*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_ScreenToWorld_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__" data-uid="Evergine.Framework.Graphics.Camera.ScreenToWorld(Evergine.Mathematics.Vector3@,Evergine.Mathematics.Vector3@)">ScreenToWorld(ref Vector3, out Vector3)</h4>
+  <div class="markdown level1 summary"><p>Transforms a point from screen space into world space. World space coordinates can still be calculated even when
+provided as an off-screen coordinate, for example, for instantiating an off-screen object near a specific corner of the screen.
+Screen space is defined in pixels. The top-left of the screen is (0,0); the bottom-right is (pixelWidth, pixelHeight).
+The z position is in world units from the camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ScreenToWorld(ref Vector3 position, out Vector3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>A screen space position in pixels (often mouse x, y), plus a z position for depth in world space (for example, a camera clipping plane).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The world space <a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a> created by converting the screen space point at the provided distance z from the camera plane.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_SetCustomProjection_" data-uid="Evergine.Framework.Graphics.Camera.SetCustomProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_SetCustomProjection_Evergine_Mathematics_Matrix4x4_" data-uid="Evergine.Framework.Graphics.Camera.SetCustomProjection(Evergine.Mathematics.Matrix4x4)">SetCustomProjection(Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Specifies a custom projection for that camera. This method overrides the default projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetCustomProjection(Matrix4x4 customProjection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">customProjection</span></td>
+        <td><p>The new custom projection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_SetCustomProjection_" data-uid="Evergine.Framework.Graphics.Camera.SetCustomProjection*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_SetCustomProjection_Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.Framework.Graphics.Camera.SetCustomProjection(Evergine.Mathematics.Matrix4x4@)">SetCustomProjection(ref Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Specifies a custom projection for that camera. This method overrides the default projection.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetCustomProjection(ref Matrix4x4 customProjection)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">customProjection</span></td>
+        <td><p>The new custom projection.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_SetStereoProperties_" data-uid="Evergine.Framework.Graphics.Camera.SetStereoProperties*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_SetStereoProperties_Evergine_Framework_Graphics_ViewProperties___" data-uid="Evergine.Framework.Graphics.Camera.SetStereoProperties(Evergine.Framework.Graphics.ViewProperties[])">SetStereoProperties(ViewProperties[])</h4>
+  <div class="markdown level1 summary"><p>Sets camera stereo properties.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetStereoProperties(ViewProperties[] viewProperties)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.ViewProperties.html">ViewProperties</a>[]</td>
+        <td><span class="parametername">viewProperties</span></td>
+        <td><p>Eye properties.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_SuscribeDisplayEvents_" data-uid="Evergine.Framework.Graphics.Camera.SuscribeDisplayEvents*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_SuscribeDisplayEvents" data-uid="Evergine.Framework.Graphics.Camera.SuscribeDisplayEvents">SuscribeDisplayEvents()</h4>
+  <div class="markdown level1 summary"><p>Subscribes to display events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void SuscribeDisplayEvents()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_UnsuscribeDisplayEvents_" data-uid="Evergine.Framework.Graphics.Camera.UnsuscribeDisplayEvents*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_UnsuscribeDisplayEvents" data-uid="Evergine.Framework.Graphics.Camera.UnsuscribeDisplayEvents">UnsuscribeDisplayEvents()</h4>
+  <div class="markdown level1 summary"><p>Unsubscribes from display events.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void UnsuscribeDisplayEvents()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_Camera_UpdateJittering_" data-uid="Evergine.Framework.Graphics.Camera.UpdateJittering*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_UpdateJittering_Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.Framework.Graphics.Camera.UpdateJittering(Evergine.Mathematics.Matrix4x4@)">UpdateJittering(ref Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>If temporal Anti-aliasing is enabled in <a class="xref" href="Evergine.Framework.Graphics.Camera.html#Evergine_Framework_Graphics_Camera_DrawContext">DrawContext</a>, update the camera projection matrix and remove the jittering if not.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void UpdateJittering(ref Matrix4x4 projectionMatrix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">projectionMatrix</span></td>
+        <td><p>Camera projection matrix (Stereo or Simple).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_WithinEpsilon_" data-uid="Evergine.Framework.Graphics.Camera.WithinEpsilon*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_WithinEpsilon_System_Single_System_Single_" data-uid="Evergine.Framework.Graphics.Camera.WithinEpsilon(System.Single,System.Single)">WithinEpsilon(float, float)</h4>
+  <div class="markdown level1 summary"><p>Within the epsilon.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool WithinEpsilon(float a, float b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">a</span></td>
+        <td><p>First value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Second value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>Operation result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_WorldToScreen_" data-uid="Evergine.Framework.Graphics.Camera.WorldToScreen*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_WorldToScreen_Evergine_Mathematics_Vector3__" data-uid="Evergine.Framework.Graphics.Camera.WorldToScreen(Evergine.Mathematics.Vector3@)">WorldToScreen(ref Vector3)</h4>
+  <div class="markdown level1 summary"><p>Transforms position from world space into screen space.
+Screen space is defined in pixels. The top-left of the screen is (0,0); the bottom-right is (pixelWidth, pixelHeight).
+The z position is in world units from the camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 WorldToScreen(ref Vector3 position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>A world space position.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><p>The screen space point <a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a> created by converting the world space position.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Camera_WorldToScreen_" data-uid="Evergine.Framework.Graphics.Camera.WorldToScreen*"></a>
+  <h4 id="Evergine_Framework_Graphics_Camera_WorldToScreen_Evergine_Mathematics_Vector3__Evergine_Mathematics_Vector3__" data-uid="Evergine.Framework.Graphics.Camera.WorldToScreen(Evergine.Mathematics.Vector3@,Evergine.Mathematics.Vector3@)">WorldToScreen(ref Vector3, out Vector3)</h4>
+  <div class="markdown level1 summary"><p>Transforms position from world space into screen space.
+Screen space is defined in pixels. The top-left of the screen is (0,0); the bottom-right is (pixelWidth, pixelHeight).
+The z position is in world units from the camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WorldToScreen(ref Vector3 position, out Vector3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>A world space position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The screen space point <a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a> created by converting the world space position.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Graphics_Camera_OnCameraOrderChanged" data-uid="Evergine.Framework.Graphics.Camera.OnCameraOrderChanged">OnCameraOrderChanged</h4>
+  <div class="markdown level1 summary"><p>OnCameraOrderChanged is called when the order of the cameras is changed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;float&gt; OnCameraOrderChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_Camera_OnRenderPathChanged" data-uid="Evergine.Framework.Graphics.Camera.OnRenderPathChanged">OnRenderPathChanged</h4>
+  <div class="markdown level1 summary"><p>OnRenderPathChanged is called when the camera sets a new RenderPath.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;RenderPath&gt; OnRenderPathChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.Graphics.RenderPath.html">RenderPath</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

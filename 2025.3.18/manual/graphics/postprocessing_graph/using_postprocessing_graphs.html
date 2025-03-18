@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Postprocessing Graph | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Postprocessing Graph | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-postprocessing-graph">Using Postprocessing Graph</h1>
+
+<p><img src="images/PostProcessingGraph.jpg" alt="Postprocessing Graph header"></p>
+<p>In this document, you will learn how to load and use the <strong>Postprocessing Graph</strong> in your applications.</p>
+<h2 id="load-postprocessing-graph-from-code">Load Postprocessing Graph from Code</h2>
+<p>The following sample code can be used to instantiate an existing postprocessing graph asset and apply it in your scene.</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+    var graph = assetsService.Load&lt;PostProcessingGraph&gt;(EvergineContent.PostprocessingGraph.MyPostProcessingGraph);
+
+    // Add postprocessing graph to the scene
+    Entity postprocessingVolume = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new PostProcessingGraphRenderer() { ppGraph = graph });
+
+    this.Managers.EntityManager.Add(postprocessingVolume);
+}
+</code></pre>
+<h2 id="how-to-apply-postprocessing-graph-to-a-scene-from-evergine-studio">How to Apply Postprocessing Graph to a Scene from Evergine Studio</h2>
+<p>You can apply a postprocessing graph to your scene by clicking on the <img src="../images/plusIcon.jpg" alt="Plus Icon"> button from the <a href="../../evergine_studio/interface.html">Entities Hierarchy</a> panel and selecting <em>Post-processing Volume</em>.</p>
+<p><img src="images/CreatePostprocessingGraph.jpg" alt="Create Postprocessing Volume"></p>
+<p>A Postprocessing Volume is an entity in your scene composed of 3 components:</p>
+<ul>
+<li><code>Transform3D</code></li>
+<li><code>PostProcessingGraphRenderer</code></li>
+<li><code>BoxCollider3D</code></li>
+</ul>
+<p>With the <code>PostProcessingGraphRenderer</code> component, you can configure it to work in two modes.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Global</strong></td>
+<td>All cameras in your scene will be affected by the postprocessing graph.</td>
+</tr>
+<tr>
+<td><strong>Volume</strong></td>
+<td>The cameras that enter into the volume defined by a BoxCollider will be affected by the postprocessing graph.</td>
+</tr>
+</tbody>
+</table>
+<p>In addition, you can configure the <em>LayerOrder</em> to execute the postprocessing in your scene. For example, you can execute the postprocessing after drawing all entities in your scene but before the UI entities.</p>
+<p>Finally, the PostProcessingGraphRenderer allows you to load a Postprocessing Graph asset and displays all its nodes or its associated <a href="custom_postprocessing_graph.html">decorator</a>.</p>
+<p><img src="images/PostprocessingGraphRenderer.jpg" alt="Postprocessing Renderer"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

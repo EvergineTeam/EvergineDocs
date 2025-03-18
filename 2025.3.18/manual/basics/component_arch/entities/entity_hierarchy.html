@@ -1,0 +1,238 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Entity Hierarchy | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Entity Hierarchy | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="entity-hierarchy">Entity Hierarchy</h1>
+
+<p>You can establish an Entity as a child of another Entity. Using these relationships, it is possible to define an entity tree, where root entities have several children, and those children could have other children too.</p>
+<h2 id="hierarchy-transformations">Hierarchy Transformations</h2>
+<p>If an Entity has a <code>Transform3D</code> component (or <code>Transform2D</code> for 2D entities), the Child Entity will move, rotate and scale in the same way as its Parent does. You can think of the parent/child hierarchy as being like the relationship between your arms and your body; whenever your body moves, your arms also move along with it. Child objects can also have children. Your hands can be considered as children of your arms, and your fingers are children of your hands.</p>
+<p><img src="images/entity_hierarchy.png" alt="Entity Hierarchy"></p>
+<h2 id="hierarchy-properties-and-methods">Hierarchy Properties and Methods</h2>
+<p>The Entity has the following properties and methods to maintain and inspect the hierarchy:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parent</strong></td>
+<td><code>Entity</code></td>
+<td>Points to the immediate ascendant of this entity. If the entity has no parents, this property is <code>null</code></td>
+</tr>
+<tr>
+<td><strong>ChildEntities</strong></td>
+<td><code>IEnumerable&lt;Entity&gt;</code></td>
+<td>A collection of the immediate descendants.</td>
+</tr>
+</tbody>
+</table>
+<p>To add and remove entities, an Entity instance has the following methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Entity.AddChild(Entity)</code></td>
+<td>Adds a child entity to the current entity.</td>
+</tr>
+<tr>
+<td><code>Entity.RemoveChild(...)</code></td>
+<td>Removes a child entity from the current entity. You can specify the entity to remove by giving the following options: <ul><li>The <strong>Entity</strong> instance.</li><li>The child <strong>Name</strong></li><li>The child <strong>ID</strong></li></ul></td>
+</tr>
+</tbody>
+</table>
+<h2 id="entity-paths">Entity Paths</h2>
+<p><img src="images/entity_path.png" alt="Entity Path"></p>
+<p>Like in a normal file system, Evergine implements a simple <strong>Entity Path</strong> system to allow the identification of entities in the Scene entity tree.</p>
+<p>An Entity Path can be accessed by the <code>EntityPath</code> property and is represented by the sequence of ascendant entity names (including the current entity) separated by the <code>.</code> symbol. For example, in the hierarchy described above, the EntityPath of the <code>Tire2</code> entity is <code>Car.Wheel2.Tire2</code>.</p>
+<h3 id="path-representation">Path Representation</h3>
+<p>These are the path representation elements:</p>
+<ul>
+<li>Entity separator: <code>.</code></li>
+<li>Current entity: <code>[this]</code></li>
+<li>Parent entity: <code>[parent]</code></li>
+</ul>
+<h4 id="sample-uses">Sample Uses</h4>
+<p>Using the example described above...</p>
+<ul>
+<li>The <em>relative</em> path from <strong>Wheel1</strong> to <strong>Tire2</strong> would be: <code>[parent].Wheel2.Tire2</code></li>
+<li>The <em>relative</em> path from <strong>Car</strong> to <strong>Tire1</strong> would be:
+<ul>
+<li><code>.Wheel1.Tire1</code></li>
+<li>Or: <code>[this].Wheel1.Tire1</code>, Notice that <code>[this]</code> is optional.</li>
+</ul>
+</li>
+<li>The <em>absolute</em> path of the <strong>Wheel1</strong> entity would be exactly the one we've been using until now: <code>Car.Wheel1</code></li>
+<li>When you want to get an entity that doesn't belong to the source's root entity, simply specify the target's absolute path. For example, the relative path from <strong>Tire1</strong> to <strong>Ground</strong> is just <code>Ground</code>, instead of <code>[parent].[parent].[parent].Ground</code> (Incorrect path)</li>
+<li>To determine if a specific path is absolute or relative, we just have to check the first element. If it's one of the special elements (<code>.</code>, <code>[this]</code> or <code>[parent]</code>):</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Path</th>
+<th>Type</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[parent].Wheel1</code></td>
+<td>Relative</td>
+</tr>
+<tr>
+<td><code>.Tire2</code></td>
+<td>Relative</td>
+</tr>
+<tr>
+<td><code>[this]</code></td>
+<td>Relative</td>
+</tr>
+<tr>
+<td><code>Car.Wheel2</code></td>
+<td>Absolute</td>
+</tr>
+<tr>
+<td><code>Road</code></td>
+<td>Absolute</td>
+</tr>
+</tbody>
+</table>
+<h2 id="additional-methods">Additional Methods</h2>
+<p>To make it easier to search for entities in code, we’ve added the <code>Find()</code> method in the Entity class.</p>
+<pre><code class="lang-csharp">public Entity Find(string path)
+</code></pre>
+<p>This method finds an entity with the desired <strong>relative</strong> path with respect to the caller entity. If the relative path is not correct, it returns <code>null</code>.</p>
+<p>We have also added an additional parameter in the <strong>Find</strong> method in the <strong>EntityManager</strong> class, allowing you to set the source entity and directly search there.</p>
+<pre><code class="lang-csharp">public Entity Find(string path, Entity sourceEntity = null)
+</code></pre>
+<p>For example (following the above-mentioned hierarchy), if we want to search for the tire1 entity from the car we can call one of the following:</p>
+<pre><code class="lang-csharp">Entity tire;
+
+// We can find the entity either of these ways
+tire = car.Find(&quot;.Wheel1.Tire1&quot;);
+tire = entityManager.Find(&quot;.Wheel1.Tire1&quot;, car);
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

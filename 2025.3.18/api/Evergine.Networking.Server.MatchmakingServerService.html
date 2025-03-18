@@ -1,0 +1,942 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class MatchmakingServerService | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class MatchmakingServerService | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Networking.Server.MatchmakingServerService">
+
+
+
+  <h1 id="Evergine_Networking_Server_MatchmakingServerService" data-uid="Evergine.Networking.Server.MatchmakingServerService" class="text-break">Class MatchmakingServerService</h1>
+  <div class="markdown level0 summary"><p>Service on the server for matchmaking.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.Services.Service.html">Service</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Services.UpdatableService.html">UpdatableService</a></div>
+    <div class="level6"><span class="xref">MatchmakingServerService</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Services.Service.html#Evergine_Framework_Services_Service_OnLoaded">Service.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Services.Service.html#Evergine_Framework_Services_Service_OnAttached">Service.OnAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Services.Service.html#Evergine_Framework_Services_Service_OnActivated">Service.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Services.Service.html#Evergine_Framework_Services_Service_Start">Service.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Services.Service.html#Evergine_Framework_Services_Service_OnDeactivated">Service.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Services.Service.html#Evergine_Framework_Services_Service_OnDetach">Service.OnDetach()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Services.Service.html#Evergine_Framework_Services_Service_OnDestroy">Service.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_ShouldBeActivated">AttachableObject.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Networking.html">Networking</a>.<a class="xref" href="Evergine.Networking.Server.html">Server</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Networking.dll</h6>
+  <h5 id="Evergine_Networking_Server_MatchmakingServerService_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class MatchmakingServerService : UpdatableService, IDependencyObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Networking_Server_MatchmakingServerService__ctor_" data-uid="Evergine.Networking.Server.MatchmakingServerService.#ctor*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService__ctor" data-uid="Evergine.Networking.Server.MatchmakingServerService.#ctor">MatchmakingServerService()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Networking.Server.MatchmakingServerService.html">MatchmakingServerService</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MatchmakingServerService()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_AllConnectedPlayers_" data-uid="Evergine.Networking.Server.MatchmakingServerService.AllConnectedPlayers*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_AllConnectedPlayers" data-uid="Evergine.Networking.Server.MatchmakingServerService.AllConnectedPlayers">AllConnectedPlayers</h4>
+  <div class="markdown level1 summary"><p>Gets all players connected to the matchmaking service.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;ServerPlayer&gt; AllConnectedPlayers { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_AllRooms_" data-uid="Evergine.Networking.Server.MatchmakingServerService.AllRooms*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_AllRooms" data-uid="Evergine.Networking.Server.MatchmakingServerService.AllRooms">AllRooms</h4>
+  <div class="markdown level1 summary"><p>Gets all the players who are in the lobby.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;ServerRoom&gt; AllRooms { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Evergine.Networking.Server.Rooms.ServerRoom.html">ServerRoom</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_ApplicationIdentifier_" data-uid="Evergine.Networking.Server.MatchmakingServerService.ApplicationIdentifier*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_ApplicationIdentifier" data-uid="Evergine.Networking.Server.MatchmakingServerService.ApplicationIdentifier">ApplicationIdentifier</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the application Identifier. Used by the matchmaking server to separate players by different games.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ApplicationIdentifier { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_ClientApplicationVersion_" data-uid="Evergine.Networking.Server.MatchmakingServerService.ClientApplicationVersion*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_ClientApplicationVersion" data-uid="Evergine.Networking.Server.MatchmakingServerService.ClientApplicationVersion">ClientApplicationVersion</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the version of your client. A new version also creates a new &quot;virtual app&quot; to separate players from older
+client versions.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ClientApplicationVersion { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_ConnectionTimeout_" data-uid="Evergine.Networking.Server.MatchmakingServerService.ConnectionTimeout*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_ConnectionTimeout" data-uid="Evergine.Networking.Server.MatchmakingServerService.ConnectionTimeout">ConnectionTimeout</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the connection timeout. The default value is 25 seconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimeSpan ConnectionTimeout { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_NetworkFactory_" data-uid="Evergine.Networking.Server.MatchmakingServerService.NetworkFactory*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_NetworkFactory" data-uid="Evergine.Networking.Server.MatchmakingServerService.NetworkFactory">NetworkFactory</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the factory used to create the <a class="xref" href="Evergine.Networking.Connection.INetworkServer.html">INetworkServer</a> peer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public INetworkFactory NetworkFactory { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Networking.Connection.INetworkFactory.html">INetworkFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_PingInterval_" data-uid="Evergine.Networking.Server.MatchmakingServerService.PingInterval*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PingInterval" data-uid="Evergine.Networking.Server.MatchmakingServerService.PingInterval">PingInterval</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the ping interval. The default value is 4 seconds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public TimeSpan PingInterval { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_PlayersInLobby_" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayersInLobby*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PlayersInLobby" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayersInLobby">PlayersInLobby</h4>
+  <div class="markdown level1 summary"><p>Gets all the players who are in the lobby.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;ServerPlayer&gt; PlayersInLobby { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_ServerName_" data-uid="Evergine.Networking.Server.MatchmakingServerService.ServerName*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_ServerName" data-uid="Evergine.Networking.Server.MatchmakingServerService.ServerName">ServerName</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the server name, which is sent in every discovery response.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string ServerName { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_CreateMessage_" data-uid="Evergine.Networking.Server.MatchmakingServerService.CreateMessage*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_CreateMessage" data-uid="Evergine.Networking.Server.MatchmakingServerService.CreateMessage">CreateMessage()</h4>
+  <div class="markdown level1 summary"><p>Creates a new outgoing message.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public OutgoingMessage CreateMessage()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Networking.Connection.Messages.OutgoingMessage.html">OutgoingMessage</a></td>
+        <td><p>The created outgoing message.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_FindPlayer_" data-uid="Evergine.Networking.Server.MatchmakingServerService.FindPlayer*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_FindPlayer_Evergine_Networking_NetworkEndpoint_" data-uid="Evergine.Networking.Server.MatchmakingServerService.FindPlayer(Evergine.Networking.NetworkEndpoint)">FindPlayer(NetworkEndpoint)</h4>
+  <div class="markdown level1 summary"><p>Searches for a player with the specified endpoint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ServerPlayer FindPlayer(NetworkEndpoint playerEndpoint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Networking.NetworkEndpoint.html">NetworkEndpoint</a></td>
+        <td><span class="parametername">playerEndpoint</span></td>
+        <td><p>The player's endpoint.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a></td>
+        <td><p>The <a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a> if the player is found; otherwise, null.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_SendToClient_" data-uid="Evergine.Networking.Server.MatchmakingServerService.SendToClient*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_SendToClient_Evergine_Networking_Connection_Messages_OutgoingMessage_Evergine_Networking_NetworkEndpoint_Evergine_Networking_Messages_DeliveryMethod_" data-uid="Evergine.Networking.Server.MatchmakingServerService.SendToClient(Evergine.Networking.Connection.Messages.OutgoingMessage,Evergine.Networking.NetworkEndpoint,Evergine.Networking.Messages.DeliveryMethod)">SendToClient(OutgoingMessage, NetworkEndpoint, DeliveryMethod)</h4>
+  <div class="markdown level1 summary"><p>Sends user data to the matchmaking server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SendToClient(OutgoingMessage messageToSend, NetworkEndpoint destinationClient, DeliveryMethod deliveryMethod)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Networking.Connection.Messages.OutgoingMessage.html">OutgoingMessage</a></td>
+        <td><span class="parametername">messageToSend</span></td>
+        <td><p>The message to be sent.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Networking.NetworkEndpoint.html">NetworkEndpoint</a></td>
+        <td><span class="parametername">destinationClient</span></td>
+        <td><p>The destination client endpoint.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Networking.Messages.DeliveryMethod.html">DeliveryMethod</a></td>
+        <td><span class="parametername">deliveryMethod</span></td>
+        <td><p>The delivery method.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_ShutdownAsync_" data-uid="Evergine.Networking.Server.MatchmakingServerService.ShutdownAsync*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_ShutdownAsync" data-uid="Evergine.Networking.Server.MatchmakingServerService.ShutdownAsync">ShutdownAsync()</h4>
+  <div class="markdown level1 summary"><p>Shuts down the matchmaking server on the specified port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task ShutdownAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a> representing the asynchronous operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_StartAsync_" data-uid="Evergine.Networking.Server.MatchmakingServerService.StartAsync*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_StartAsync_System_Int32_" data-uid="Evergine.Networking.Server.MatchmakingServerService.StartAsync(System.Int32)">StartAsync(int)</h4>
+  <div class="markdown level1 summary"><p>Starts the matchmaking server on the specified port.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task StartAsync(int port)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">port</span></td>
+        <td><p>The port to bind to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a> representing the asynchronous operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentexception">ArgumentException</a></td>
+        <td><p>Application identifier parameter cannot be null or empty.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.invalidoperationexception">InvalidOperationException</a></td>
+        <td><p><a class="xref" href="Evergine.Networking.Server.MatchmakingServerService.html#Evergine_Networking_Server_MatchmakingServerService_ApplicationIdentifier">ApplicationIdentifier</a> must have a valid value before initialization.
+or
+You cannot call the Start method multiple times.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Networking_Server_MatchmakingServerService_Update_" data-uid="Evergine.Networking.Server.MatchmakingServerService.Update*"></a>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_Update_System_TimeSpan_" data-uid="Evergine.Networking.Server.MatchmakingServerService.Update(System.TimeSpan)">Update(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Updates this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Update(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The elapsed game time since the last update.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Services.UpdatableService.html#Evergine_Framework_Services_UpdatableService_Update_System_TimeSpan_">UpdatableService.Update(TimeSpan)</a></div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_MessageReceivedFromClient" data-uid="Evergine.Networking.Server.MatchmakingServerService.MessageReceivedFromClient">MessageReceivedFromClient</h4>
+  <div class="markdown level1 summary"><p>Occurs when a user data message from a client is received by the host.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;MessageReceivedEventArgs&gt; MessageReceivedFromClient</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Connection.MessageReceivedEventArgs.html">MessageReceivedEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PlayerConnected" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayerConnected">PlayerConnected</h4>
+  <div class="markdown level1 summary"><p>Occurs when a new player connects to the server</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerPlayer&gt; PlayerConnected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PlayerDisconnected" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayerDisconnected">PlayerDisconnected</h4>
+  <div class="markdown level1 summary"><p>Occurs when a player disconnects from the server.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerPlayer&gt; PlayerDisconnected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PlayerJoined" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayerJoined">PlayerJoined</h4>
+  <div class="markdown level1 summary"><p>Occurs when a connected player joins an existing room</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerPlayer&gt; PlayerJoined</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PlayerJoining" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayerJoining">PlayerJoining</h4>
+  <div class="markdown level1 summary"><p>Occurs when a connected player joins an existing room.
+This event is not fired when the first player creates the room.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;PlayerJoiningEventArgs&gt; PlayerJoining</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.PlayerJoiningEventArgs.html">PlayerJoiningEventArgs</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PlayerLeaving" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayerLeaving">PlayerLeaving</h4>
+  <div class="markdown level1 summary"><p>Occurs when a connected player leaves an existing room</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerPlayer&gt; PlayerLeaving</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PlayerLeft" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayerLeft">PlayerLeft</h4>
+  <div class="markdown level1 summary"><p>Occurs when a connected player leaves an existing room</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerPlayer&gt; PlayerLeft</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_PlayerSynchronized" data-uid="Evergine.Networking.Server.MatchmakingServerService.PlayerSynchronized">PlayerSynchronized</h4>
+  <div class="markdown level1 summary"><p>Occurs when the server receives changes to the properties of a player</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerPlayer&gt; PlayerSynchronized</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Players.ServerPlayer.html">ServerPlayer</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_RoomCreated" data-uid="Evergine.Networking.Server.MatchmakingServerService.RoomCreated">RoomCreated</h4>
+  <div class="markdown level1 summary"><p>Occurs when the server creates a new room in the lobby.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerRoom&gt; RoomCreated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Rooms.ServerRoom.html">ServerRoom</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_RoomDestroyed" data-uid="Evergine.Networking.Server.MatchmakingServerService.RoomDestroyed">RoomDestroyed</h4>
+  <div class="markdown level1 summary"><p>Occurs when the server destroys an existing room in the lobby.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerRoom&gt; RoomDestroyed</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Rooms.ServerRoom.html">ServerRoom</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Networking_Server_MatchmakingServerService_RoomSynchronized" data-uid="Evergine.Networking.Server.MatchmakingServerService.RoomSynchronized">RoomSynchronized</h4>
+  <div class="markdown level1 summary"><p>Occurs when the server receives changes to the properties of a room</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;ServerRoom&gt; RoomSynchronized</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Networking.Server.Rooms.ServerRoom.html">ServerRoom</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

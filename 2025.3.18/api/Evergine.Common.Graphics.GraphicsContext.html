@@ -1,0 +1,1344 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GraphicsContext | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GraphicsContext | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Common.Graphics.GraphicsContext">
+
+
+
+  <h1 id="Evergine_Common_Graphics_GraphicsContext" data-uid="Evergine.Common.Graphics.GraphicsContext" class="text-break">Class GraphicsContext</h1>
+  <div class="markdown level0 summary"><p>Performs primitive-based rendering, creates resources, handles system-level variables, adjusts gamma ramp levels, and generates shaders.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">GraphicsContext</span></div>
+      <div class="level2"><a class="xref" href="Evergine.DirectX11.DX11GraphicsContext.html">DX11GraphicsContext</a></div>
+      <div class="level2"><a class="xref" href="Evergine.DirectX12.DX12GraphicsContext.html">DX12GraphicsContext</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Metal.MTLGraphicsContext.html">MTLGraphicsContext</a></div>
+      <div class="level2"><a class="xref" href="Evergine.OpenGL.GLGraphicsContext.html">GLGraphicsContext</a></div>
+      <div class="level2"><a class="xref" href="Evergine.Vulkan.VKGraphicsContext.html">VKGraphicsContext</a></div>
+      <div class="level2"><a class="xref" href="Evergine.WebGPU.WGPUGraphicsContext.html">WGPUGraphicsContext</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.Helpers.IGetNativePointers.html">IGetNativePointers</a></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Common.html">Common</a>.<a class="xref" href="Evergine.Common.Graphics.html">Graphics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Common.dll</h6>
+  <h5 id="Evergine_Common_Graphics_GraphicsContext_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class GraphicsContext : IGetNativePointers</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_TimestampFrequency" data-uid="Evergine.Common.Graphics.GraphicsContext.TimestampFrequency">TimestampFrequency</h4>
+  <div class="markdown level1 summary"><p>The rate at which the GPU timestamp counter increments.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ulong TimestampFrequency</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Common_Graphics_GraphicsContext_AvailablePointerKeys_" data-uid="Evergine.Common.Graphics.GraphicsContext.AvailablePointerKeys*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_AvailablePointerKeys" data-uid="Evergine.Common.Graphics.GraphicsContext.AvailablePointerKeys">AvailablePointerKeys</h4>
+  <div class="markdown level1 summary"><p>Gets a list of all available keys to obtain native pointers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual IEnumerable&lt;string&gt; AvailablePointerKeys { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_BackendType_" data-uid="Evergine.Common.Graphics.GraphicsContext.BackendType*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_BackendType" data-uid="Evergine.Common.Graphics.GraphicsContext.BackendType">BackendType</h4>
+  <div class="markdown level1 summary"><p>Gets the backend type (DirectX, OpenGL, etc.)</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract GraphicsBackend BackendType { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GraphicsBackend.html">GraphicsBackend</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_Capabilities_" data-uid="Evergine.Common.Graphics.GraphicsContext.Capabilities*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_Capabilities" data-uid="Evergine.Common.Graphics.GraphicsContext.Capabilities">Capabilities</h4>
+  <div class="markdown level1 summary"><p>Gets the capabilities of this graphics context.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract GraphicsContextCapabilities Capabilities { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GraphicsContextCapabilities.html">GraphicsContextCapabilities</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_DefaultBufferUploaderSize_" data-uid="Evergine.Common.Graphics.GraphicsContext.DefaultBufferUploaderSize*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_DefaultBufferUploaderSize" data-uid="Evergine.Common.Graphics.GraphicsContext.DefaultBufferUploaderSize">DefaultBufferUploaderSize</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating the size in bytes of the buffer uploader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ulong DefaultBufferUploaderSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Common_Graphics_GraphicsContext_DefaultBufferUploaderSize_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To upload buffers and textures efficiently to dedicated GPU memory, first a large buffer is created in shared GPU memory.
+Before using these buffers and textures, a parallel copy queue executes all the copy commands at once.
+The initial size of these uploaders is defined by this property. The default value is (256 * 1024 * 1024).</p>
+</div>
+  <a id="Evergine_Common_Graphics_GraphicsContext_DefaultSampler_" data-uid="Evergine.Common.Graphics.GraphicsContext.DefaultSampler*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_DefaultSampler" data-uid="Evergine.Common.Graphics.GraphicsContext.DefaultSampler">DefaultSampler</h4>
+  <div class="markdown level1 summary"><p>Gets the default Sampler state used when a sampler is missing in a resource set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SamplerState DefaultSampler { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SamplerState.html">SamplerState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_DefaultTextureUploaderSize_" data-uid="Evergine.Common.Graphics.GraphicsContext.DefaultTextureUploaderSize*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_DefaultTextureUploaderSize" data-uid="Evergine.Common.Graphics.GraphicsContext.DefaultTextureUploaderSize">DefaultTextureUploaderSize</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating the size in bytes of the texture uploader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ulong DefaultTextureUploaderSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint64">ulong</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Common_Graphics_GraphicsContext_DefaultTextureUploaderSize_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>To upload buffers and textures efficiently to dedicated GPU memory, first a big buffer is created in shared GPU memory.
+Before using these buffers and textures, a parallel copy queue executes all the copy commands at once.
+The initial size of these uploaders is defined by this property. The default value is (256 * 1024 * 1024).</p>
+</div>
+  <a id="Evergine_Common_Graphics_GraphicsContext_Factory_" data-uid="Evergine.Common.Graphics.GraphicsContext.Factory*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_Factory" data-uid="Evergine.Common.Graphics.GraphicsContext.Factory">Factory</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the resource factory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ResourceFactory Factory { get; protected set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.ResourceFactory.html">ResourceFactory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_IsValidationLayerEnabled_" data-uid="Evergine.Common.Graphics.GraphicsContext.IsValidationLayerEnabled*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_IsValidationLayerEnabled" data-uid="Evergine.Common.Graphics.GraphicsContext.IsValidationLayerEnabled">IsValidationLayerEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the validation layer is enabled or disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsValidationLayerEnabled { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_NativeDevicePointer_" data-uid="Evergine.Common.Graphics.GraphicsContext.NativeDevicePointer*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_NativeDevicePointer" data-uid="Evergine.Common.Graphics.GraphicsContext.NativeDevicePointer">NativeDevicePointer</h4>
+  <div class="markdown level1 summary"><p>Gets the native device pointer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract nint NativeDevicePointer { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_ValidationLayer_" data-uid="Evergine.Common.Graphics.GraphicsContext.ValidationLayer*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_ValidationLayer" data-uid="Evergine.Common.Graphics.GraphicsContext.ValidationLayer">ValidationLayer</h4>
+  <div class="markdown level1 summary"><p>Gets the graphics validation layer pointer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ValidationLayer ValidationLayer { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.ValidationLayer.html">ValidationLayer</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Common_Graphics_GraphicsContext_CreateDefaultSampler_" data-uid="Evergine.Common.Graphics.GraphicsContext.CreateDefaultSampler*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_CreateDefaultSampler" data-uid="Evergine.Common.Graphics.GraphicsContext.CreateDefaultSampler">CreateDefaultSampler()</h4>
+  <div class="markdown level1 summary"><p>Creates the default sampler.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void CreateDefaultSampler()</code></pre>
+  </div>
+  <a id="Evergine_Common_Graphics_GraphicsContext_CreateDevice_" data-uid="Evergine.Common.Graphics.GraphicsContext.CreateDevice*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_CreateDevice_Evergine_Common_Graphics_ValidationLayer_" data-uid="Evergine.Common.Graphics.GraphicsContext.CreateDevice(Evergine.Common.Graphics.ValidationLayer)">CreateDevice(ValidationLayer)</h4>
+  <div class="markdown level1 summary"><p>Initializes the graphics context to be used in a compute shader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void CreateDevice(ValidationLayer validationLayer = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.ValidationLayer.html">ValidationLayer</a></td>
+        <td><span class="parametername">validationLayer</span></td>
+        <td><p>Indicates whether the validation layer is active or not.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_CreateDeviceInternal_" data-uid="Evergine.Common.Graphics.GraphicsContext.CreateDeviceInternal*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_CreateDeviceInternal" data-uid="Evergine.Common.Graphics.GraphicsContext.CreateDeviceInternal">CreateDeviceInternal()</h4>
+  <div class="markdown level1 summary"><p>Initializes the graphics context to be used in a compute shader.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void CreateDeviceInternal()</code></pre>
+  </div>
+  <a id="Evergine_Common_Graphics_GraphicsContext_CreateSwapChain_" data-uid="Evergine.Common.Graphics.GraphicsContext.CreateSwapChain*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_CreateSwapChain_Evergine_Common_Graphics_SwapChainDescription_" data-uid="Evergine.Common.Graphics.GraphicsContext.CreateSwapChain(Evergine.Common.Graphics.SwapChainDescription)">CreateSwapChain(SwapChainDescription)</h4>
+  <div class="markdown level1 summary"><p>Initializes the swap chain.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract SwapChain CreateSwapChain(SwapChainDescription description)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SwapChainDescription.html">SwapChainDescription</a></td>
+        <td><span class="parametername">description</span></td>
+        <td><p>The swap chain descriptor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SwapChain.html">SwapChain</a></td>
+        <td><p>Created Swap chain.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_Dispose_" data-uid="Evergine.Common.Graphics.GraphicsContext.Dispose*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_Dispose" data-uid="Evergine.Common.Graphics.GraphicsContext.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Performs tasks defined by the application associated with freeing, releasing, or resetting unmanaged resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <a id="Evergine_Common_Graphics_GraphicsContext_Dispose_" data-uid="Evergine.Common.Graphics.GraphicsContext.Dispose*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_Dispose_System_Boolean_" data-uid="Evergine.Common.Graphics.GraphicsContext.Dispose(System.Boolean)">Dispose(bool)</h4>
+  <div class="markdown level1 summary"><p>Releases unmanaged and optionally managed resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">disposing</span></td>
+        <td><p><code>true</code> to release both managed and unmanaged resources; <code>false</code> to release only unmanaged resources.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_GenerateTextureMipmapping_" data-uid="Evergine.Common.Graphics.GraphicsContext.GenerateTextureMipmapping*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_GenerateTextureMipmapping_Evergine_Common_Graphics_Texture_" data-uid="Evergine.Common.Graphics.GraphicsContext.GenerateTextureMipmapping(Evergine.Common.Graphics.Texture)">GenerateTextureMipmapping(Texture)</h4>
+  <div class="markdown level1 summary"><p>Generates mipmapping texture levels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool GenerateTextureMipmapping(Texture texture)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td><span class="parametername">texture</span></td>
+        <td><p>The texture for which mipmapping is generated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if the mipmapping has been generated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_GetNativePointer_" data-uid="Evergine.Common.Graphics.GraphicsContext.GetNativePointer*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_GetNativePointer_System_String_System_IntPtr__" data-uid="Evergine.Common.Graphics.GraphicsContext.GetNativePointer(System.String,System.IntPtr@)">GetNativePointer(string, out nint)</h4>
+  <div class="markdown level1 summary"><p>Obtains a native pointer for this graphics context using the given key.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual bool GetNativePointer(string pointerKey, out nint nativePointer)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">pointerKey</span></td>
+        <td><p>The pointer key.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><span class="parametername">nativePointer</span></td>
+        <td><p>The native pointer.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if there is an available pointer with this key.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_InternalUpdateBufferData_" data-uid="Evergine.Common.Graphics.GraphicsContext.InternalUpdateBufferData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_InternalUpdateBufferData_Evergine_Common_Graphics_Buffer_System_IntPtr_System_UInt32_System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.InternalUpdateBufferData(Evergine.Common.Graphics.Buffer,System.IntPtr,System.UInt32,System.UInt32)">InternalUpdateBufferData(Buffer, nint, uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer from a pointer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void InternalUpdateBufferData(Buffer buffer, nint source, uint sourceSizeInBytes, uint destinationOffsetInBytes = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Buffer.html">Buffer</a></td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Buffer instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The data pointer.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sourceSizeInBytes</span></td>
+        <td><p>The size in bytes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">destinationOffsetInBytes</span></td>
+        <td><p>The offset in bytes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_MapMemory_" data-uid="Evergine.Common.Graphics.GraphicsContext.MapMemory*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_MapMemory_Evergine_Common_Graphics_GraphicsResource_Evergine_Common_Graphics_MapMode_System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.MapMemory(Evergine.Common.Graphics.GraphicsResource,Evergine.Common.Graphics.MapMode,System.UInt32)">MapMemory(GraphicsResource, MapMode, uint)</h4>
+  <div class="markdown level1 summary"><p>Maps a <a class="xref" href="Evergine.Common.Graphics.Buffer.html">Buffer</a> or <a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a> to a CPU-accessible data region.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract MappedResource MapMemory(GraphicsResource resource, MapMode mode, uint subResource = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GraphicsResource.html">GraphicsResource</a></td>
+        <td><span class="parametername">resource</span></td>
+        <td><p>The graphics resource to map.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.MapMode.html">MapMode</a></td>
+        <td><span class="parametername">mode</span></td>
+        <td><p>The <a class="xref" href="Evergine.Common.Graphics.MapMode.html">MapMode</a> used to map the resource.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">subResource</span></td>
+        <td><p>The subresource to map. Subresources are indexed first by mip slice and then by array layer. Applies only to Textures.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.MappedResource.html">MappedResource</a></td>
+        <td><p>A <a class="xref" href="Evergine.Common.Graphics.MappedResource.html">MappedResource</a> structure describing the mapped data region.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_ShaderCompile_" data-uid="Evergine.Common.Graphics.GraphicsContext.ShaderCompile*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_ShaderCompile_System_String_System_String_Evergine_Common_Graphics_ShaderStages_" data-uid="Evergine.Common.Graphics.GraphicsContext.ShaderCompile(System.String,System.String,Evergine.Common.Graphics.ShaderStages)">ShaderCompile(string, string, ShaderStages)</h4>
+  <div class="markdown level1 summary"><p>Converts the shader source into bytecode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CompilationResult ShaderCompile(string shaderSource, string entryPoint, ShaderStages stage)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">shaderSource</span></td>
+        <td><p>The shader source text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">entryPoint</span></td>
+        <td><p>The entry point function name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.ShaderStages.html">ShaderStages</a></td>
+        <td><span class="parametername">stage</span></td>
+        <td><p>The shader stage, <a class="xref" href="Evergine.Common.Graphics.ShaderStages.html">ShaderStages</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.CompilationResult.html">CompilationResult</a></td>
+        <td><p>The shader bytecode.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_ShaderCompile_" data-uid="Evergine.Common.Graphics.GraphicsContext.ShaderCompile*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_ShaderCompile_System_String_System_String_Evergine_Common_Graphics_ShaderStages_Evergine_Common_Graphics_CompilerParameters_" data-uid="Evergine.Common.Graphics.GraphicsContext.ShaderCompile(System.String,System.String,Evergine.Common.Graphics.ShaderStages,Evergine.Common.Graphics.CompilerParameters)">ShaderCompile(string, string, ShaderStages, CompilerParameters)</h4>
+  <div class="markdown level1 summary"><p>Converts the shader source into bytecode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract CompilationResult ShaderCompile(string shaderSource, string entryPoint, ShaderStages stage, CompilerParameters parameters)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">shaderSource</span></td>
+        <td><p>The shader source text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">entryPoint</span></td>
+        <td><p>The entry point function name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.ShaderStages.html">ShaderStages</a></td>
+        <td><span class="parametername">stage</span></td>
+        <td><p>The shader stage, <a class="xref" href="Evergine.Common.Graphics.ShaderStages.html">ShaderStages</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.CompilerParameters.html">CompilerParameters</a></td>
+        <td><span class="parametername">parameters</span></td>
+        <td><p>The compiler parameters.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.CompilationResult.html">CompilationResult</a></td>
+        <td><p>The shader bytecode.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_SyncUpcopyQueue_" data-uid="Evergine.Common.Graphics.GraphicsContext.SyncUpcopyQueue*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_SyncUpcopyQueue" data-uid="Evergine.Common.Graphics.GraphicsContext.SyncUpcopyQueue">SyncUpcopyQueue()</h4>
+  <div class="markdown level1 summary"><p>Syncs the current buffer data in the copyQueue. Internal function used in the <a class="xref" href="Evergine.Common.Graphics.UploadBuffer.html">UploadBuffer</a> strategy.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual void SyncUpcopyQueue()</code></pre>
+  </div>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UnmapMemory_" data-uid="Evergine.Common.Graphics.GraphicsContext.UnmapMemory*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UnmapMemory_Evergine_Common_Graphics_GraphicsResource_System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UnmapMemory(Evergine.Common.Graphics.GraphicsResource,System.UInt32)">UnmapMemory(GraphicsResource, uint)</h4>
+  <div class="markdown level1 summary"><p>Invalidates a previously-mapped data region for the given <a class="xref" href="Evergine.Common.Graphics.Buffer.html">Buffer</a> or <a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void UnmapMemory(GraphicsResource resource, uint subResource = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GraphicsResource.html">GraphicsResource</a></td>
+        <td><span class="parametername">resource</span></td>
+        <td><p>The graphics resource to unmap.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">subResource</span></td>
+        <td><p>The subresource to unmap. Subresources are indexed first by mip slice and then by array layer. Only for Textures.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UpdateBufferData_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateBufferData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UpdateBufferData_Evergine_Common_Graphics_Buffer_System_IntPtr_System_UInt32_System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateBufferData(Evergine.Common.Graphics.Buffer,System.IntPtr,System.UInt32,System.UInt32)">UpdateBufferData(Buffer, nint, uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer from a pointer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateBufferData(Buffer buffer, nint source, uint sourceSizeInBytes, uint destinationOffsetInBytes = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Buffer.html">Buffer</a></td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Buffer instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The data pointer.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sourceSizeInBytes</span></td>
+        <td><p>The size in bytes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">destinationOffsetInBytes</span></td>
+        <td><p>The offset in bytes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UpdateBufferData_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateBufferData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UpdateBufferData__1_Evergine_Common_Graphics_Buffer___0__System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateBufferData``1(Evergine.Common.Graphics.Buffer,``0@,System.UInt32)">UpdateBufferData&lt;T&gt;(Buffer, ref T, uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer with a data array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateBufferData&lt;T&gt;(Buffer buffer, ref T data, uint destinationOffsetInBytes = 0) where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Buffer.html">Buffer</a></td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Buffer instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">data</span></td>
+        <td><p>The data array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">destinationOffsetInBytes</span></td>
+        <td><p>The destination offset.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The data type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UpdateBufferData_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateBufferData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UpdateBufferData__1_Evergine_Common_Graphics_Buffer___0___System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateBufferData``1(Evergine.Common.Graphics.Buffer,``0[],System.UInt32)">UpdateBufferData&lt;T&gt;(Buffer, T[], uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer with a data array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateBufferData&lt;T&gt;(Buffer buffer, T[] data, uint destinationOffsetInBytes = 0) where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Buffer.html">Buffer</a></td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>Buffer instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>The data array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">destinationOffsetInBytes</span></td>
+        <td><p>The destination offset.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The data type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UpdateBufferData_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateBufferData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UpdateBufferData__1_Evergine_Common_Graphics_Buffer___0___System_UInt32_System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateBufferData``1(Evergine.Common.Graphics.Buffer,``0[],System.UInt32,System.UInt32)">UpdateBufferData&lt;T&gt;(Buffer, T[], uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer with a data array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateBufferData&lt;T&gt;(Buffer buffer, T[] data, uint count, uint destinationOffsetInBytes = 0) where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Buffer.html">Buffer</a></td>
+        <td><span class="parametername">buffer</span></td>
+        <td><p>The buffer instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>The data array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>The number of elements.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">destinationOffsetInBytes</span></td>
+        <td><p>The destination offset in bytes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The data type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UpdateTextureData_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateTextureData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UpdateTextureData_Evergine_Common_Graphics_Texture_System_IntPtr_System_UInt32_System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateTextureData(Evergine.Common.Graphics.Texture,System.IntPtr,System.UInt32,System.UInt32)">UpdateTextureData(Texture, nint, uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer from a pointer.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void UpdateTextureData(Texture texture, nint source, uint sourceSizeInBytes, uint subResource)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td><span class="parametername">texture</span></td>
+        <td><p>Texture instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The data pointer.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sourceSizeInBytes</span></td>
+        <td><p>The size in bytes.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">subResource</span></td>
+        <td><p>The sub-resource index.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UpdateTextureData_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateTextureData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UpdateTextureData__1_Evergine_Common_Graphics_Texture___0__System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateTextureData``1(Evergine.Common.Graphics.Texture,``0@,System.UInt32)">UpdateTextureData&lt;T&gt;(Texture, ref T, uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer with a data array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateTextureData&lt;T&gt;(Texture texture, ref T data, uint destinationOffsetInBytes = 0) where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td><span class="parametername">texture</span></td>
+        <td><p>The texture instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">T</span></td>
+        <td><span class="parametername">data</span></td>
+        <td><p>The data array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">destinationOffsetInBytes</span></td>
+        <td><p>The destination offset.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The data type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UpdateTextureData_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateTextureData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UpdateTextureData__1_Evergine_Common_Graphics_Texture___0___System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateTextureData``1(Evergine.Common.Graphics.Texture,``0[],System.UInt32)">UpdateTextureData&lt;T&gt;(Texture, T[], uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer with a data array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateTextureData&lt;T&gt;(Texture texture, T[] data, uint destinationOffsetInBytes = 0) where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td><span class="parametername">texture</span></td>
+        <td><p>The texture instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>The data array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">destinationOffsetInBytes</span></td>
+        <td><p>The destination offset in bytes.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The data type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_GraphicsContext_UpdateTextureData_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateTextureData*"></a>
+  <h4 id="Evergine_Common_Graphics_GraphicsContext_UpdateTextureData__1_Evergine_Common_Graphics_Texture___0___System_UInt32_System_UInt32_" data-uid="Evergine.Common.Graphics.GraphicsContext.UpdateTextureData``1(Evergine.Common.Graphics.Texture,``0[],System.UInt32,System.UInt32)">UpdateTextureData&lt;T&gt;(Texture, T[], uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Fills the buffer with a data array.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void UpdateTextureData&lt;T&gt;(Texture texture, T[] data, uint count, uint destinationOffsetInBytes = 0) where T : struct</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td><span class="parametername">texture</span></td>
+        <td><p>Texture instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">data</span></td>
+        <td><p>The data array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>The number of elements.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">destinationOffsetInBytes</span></td>
+        <td><p>The destination offset.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The data type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.IGetNativePointers.html">IGetNativePointers</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

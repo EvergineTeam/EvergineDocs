@@ -1,0 +1,1530 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Struct BoundingBox | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Struct BoundingBox | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Mathematics.BoundingBox">
+
+
+
+  <h1 id="Evergine_Mathematics_BoundingBox" data-uid="Evergine.Mathematics.BoundingBox" class="text-break">Struct BoundingBox</h1>
+  <div class="markdown level0 summary"><p>Represents a bounding box.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Mathematics.html">Mathematics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Mathematics.dll</h6>
+  <h5 id="Evergine_Mathematics_BoundingBox_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public struct BoundingBox</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Mathematics_BoundingBox__ctor_" data-uid="Evergine.Mathematics.BoundingBox.#ctor*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox__ctor_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_" data-uid="Evergine.Mathematics.BoundingBox.#ctor(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3)">BoundingBox(Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a> struct.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BoundingBox(Vector3 min, Vector3 max)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">min</span></td>
+        <td><p>The minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">max</span></td>
+        <td><p>The maximum value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Mathematics_BoundingBox_CornerCount" data-uid="Evergine.Mathematics.BoundingBox.CornerCount">CornerCount</h4>
+  <div class="markdown level1 summary"><p>The number of corners.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int CornerCount = 8</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Mathematics_BoundingBox_Max" data-uid="Evergine.Mathematics.BoundingBox.Max">Max</h4>
+  <div class="markdown level1 summary"><p>Bounding box maximum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Max</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Mathematics_BoundingBox_Min" data-uid="Evergine.Mathematics.BoundingBox.Min">Min</h4>
+  <div class="markdown level1 summary"><p>Bounding box minimum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Min</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Mathematics_BoundingBox_Center_" data-uid="Evergine.Mathematics.BoundingBox.Center*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Center" data-uid="Evergine.Mathematics.BoundingBox.Center">Center</h4>
+  <div class="markdown level1 summary"><p>Gets the center of the bounding box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Center { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_HalfExtent_" data-uid="Evergine.Mathematics.BoundingBox.HalfExtent*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_HalfExtent" data-uid="Evergine.Mathematics.BoundingBox.HalfExtent">HalfExtent</h4>
+  <div class="markdown level1 summary"><p>Gets the bounding box half extents.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 HalfExtent { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Mathematics_BoundingBox_Contains_" data-uid="Evergine.Mathematics.BoundingBox.Contains*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Contains_Evergine_Mathematics_BoundingBox_" data-uid="Evergine.Mathematics.BoundingBox.Contains(Evergine.Mathematics.BoundingBox)">Contains(BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Determines whether [contains] [the specified box].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ContainmentType Contains(BoundingBox box)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">box</span></td>
+        <td><p>The box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.ContainmentType.html">ContainmentType</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Contains_" data-uid="Evergine.Mathematics.BoundingBox.Contains*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Contains_Evergine_Mathematics_BoundingBox__Evergine_Mathematics_ContainmentType__" data-uid="Evergine.Mathematics.BoundingBox.Contains(Evergine.Mathematics.BoundingBox@,Evergine.Mathematics.ContainmentType@)">Contains(ref BoundingBox, out ContainmentType)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified box is contained.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Contains(ref BoundingBox box, out ContainmentType result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">box</span></td>
+        <td><p>The box.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.ContainmentType.html">ContainmentType</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Contains_" data-uid="Evergine.Mathematics.BoundingBox.Contains*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Contains_Evergine_Mathematics_BoundingFrustum_" data-uid="Evergine.Mathematics.BoundingBox.Contains(Evergine.Mathematics.BoundingFrustum)">Contains(BoundingFrustum)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified frustum is contained.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ContainmentType Contains(BoundingFrustum frustum)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingFrustum.html">BoundingFrustum</a></td>
+        <td><span class="parametername">frustum</span></td>
+        <td><p>The frustum.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.ContainmentType.html">ContainmentType</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Contains_" data-uid="Evergine.Mathematics.BoundingBox.Contains*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Contains_Evergine_Mathematics_BoundingSphere_" data-uid="Evergine.Mathematics.BoundingBox.Contains(Evergine.Mathematics.BoundingSphere)">Contains(BoundingSphere)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified sphere is contained.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ContainmentType Contains(BoundingSphere sphere)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingSphere.html">BoundingSphere</a></td>
+        <td><span class="parametername">sphere</span></td>
+        <td><p>The sphere.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.ContainmentType.html">ContainmentType</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Contains_" data-uid="Evergine.Mathematics.BoundingBox.Contains*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Contains_Evergine_Mathematics_BoundingSphere__Evergine_Mathematics_ContainmentType__" data-uid="Evergine.Mathematics.BoundingBox.Contains(Evergine.Mathematics.BoundingSphere@,Evergine.Mathematics.ContainmentType@)">Contains(ref BoundingSphere, out ContainmentType)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified sphere is contained.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Contains(ref BoundingSphere sphere, out ContainmentType result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingSphere.html">BoundingSphere</a></td>
+        <td><span class="parametername">sphere</span></td>
+        <td><p>The sphere.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.ContainmentType.html">ContainmentType</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Contains_" data-uid="Evergine.Mathematics.BoundingBox.Contains*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Contains_Evergine_Mathematics_Vector3_" data-uid="Evergine.Mathematics.BoundingBox.Contains(Evergine.Mathematics.Vector3)">Contains(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified point is contained.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ContainmentType Contains(Vector3 point)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The point.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.ContainmentType.html">ContainmentType</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Contains_" data-uid="Evergine.Mathematics.BoundingBox.Contains*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Contains_Evergine_Mathematics_Vector3__Evergine_Mathematics_ContainmentType__" data-uid="Evergine.Mathematics.BoundingBox.Contains(Evergine.Mathematics.Vector3@,Evergine.Mathematics.ContainmentType@)">Contains(ref Vector3, out ContainmentType)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified point is contained.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Contains(ref Vector3 point, out ContainmentType result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The point.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.ContainmentType.html">ContainmentType</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_CreateFromPoints_" data-uid="Evergine.Mathematics.BoundingBox.CreateFromPoints*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_CreateFromPoints_System_Collections_Generic_IEnumerable_Evergine_Mathematics_Vector3__" data-uid="Evergine.Mathematics.BoundingBox.CreateFromPoints(System.Collections.Generic.IEnumerable{Evergine.Mathematics.Vector3})">CreateFromPoints(IEnumerable&lt;Vector3&gt;)</h4>
+  <div class="markdown level1 summary"><p>Creates from points.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static BoundingBox CreateFromPoints(IEnumerable&lt;Vector3&gt; points)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>&gt;</td>
+        <td><span class="parametername">points</span></td>
+        <td><p>The points.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_CreateFromSphere_" data-uid="Evergine.Mathematics.BoundingBox.CreateFromSphere*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_CreateFromSphere_Evergine_Mathematics_BoundingSphere_" data-uid="Evergine.Mathematics.BoundingBox.CreateFromSphere(Evergine.Mathematics.BoundingSphere)">CreateFromSphere(BoundingSphere)</h4>
+  <div class="markdown level1 summary"><p>Creates from a sphere.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static BoundingBox CreateFromSphere(BoundingSphere sphere)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingSphere.html">BoundingSphere</a></td>
+        <td><span class="parametername">sphere</span></td>
+        <td><p>The sphere.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_CreateFromSphere_" data-uid="Evergine.Mathematics.BoundingBox.CreateFromSphere*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_CreateFromSphere_Evergine_Mathematics_BoundingSphere__Evergine_Mathematics_BoundingBox__" data-uid="Evergine.Mathematics.BoundingBox.CreateFromSphere(Evergine.Mathematics.BoundingSphere@,Evergine.Mathematics.BoundingBox@)">CreateFromSphere(ref BoundingSphere, out BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Creates from a sphere.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateFromSphere(ref BoundingSphere sphere, out BoundingBox result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingSphere.html">BoundingSphere</a></td>
+        <td><span class="parametername">sphere</span></td>
+        <td><p>The sphere.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_CreateMerged_" data-uid="Evergine.Mathematics.BoundingBox.CreateMerged*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_CreateMerged_Evergine_Mathematics_BoundingBox_Evergine_Mathematics_BoundingBox_" data-uid="Evergine.Mathematics.BoundingBox.CreateMerged(Evergine.Mathematics.BoundingBox,Evergine.Mathematics.BoundingBox)">CreateMerged(BoundingBox, BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Creates the merged result.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static BoundingBox CreateMerged(BoundingBox original, BoundingBox additional)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">original</span></td>
+        <td><p>The original value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">additional</span></td>
+        <td><p>The additional value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_CreateMerged_" data-uid="Evergine.Mathematics.BoundingBox.CreateMerged*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_CreateMerged_Evergine_Mathematics_BoundingBox__Evergine_Mathematics_BoundingBox__Evergine_Mathematics_BoundingBox__" data-uid="Evergine.Mathematics.BoundingBox.CreateMerged(Evergine.Mathematics.BoundingBox@,Evergine.Mathematics.BoundingBox@,Evergine.Mathematics.BoundingBox@)">CreateMerged(ref BoundingBox, ref BoundingBox, out BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Creates the merged.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void CreateMerged(ref BoundingBox original, ref BoundingBox additional, out BoundingBox result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">original</span></td>
+        <td><p>The original.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">additional</span></td>
+        <td><p>The additional.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Equals_" data-uid="Evergine.Mathematics.BoundingBox.Equals*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Equals_Evergine_Mathematics_BoundingBox_" data-uid="Evergine.Mathematics.BoundingBox.Equals(Evergine.Mathematics.BoundingBox)">Equals(BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Equals the specified other.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Equals(BoundingBox other)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">other</span></td>
+        <td><p>The other.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Equals_" data-uid="Evergine.Mathematics.BoundingBox.Equals*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Equals_System_Object_" data-uid="Evergine.Mathematics.BoundingBox.Equals(System.Object)">Equals(object)</h4>
+  <div class="markdown level1 summary"><p>Determines whether the specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> is equal to this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool Equals(object obj)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">obj</span></td>
+        <td><p>The <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> to compare with this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the specified <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a> is equal to this instance; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.equals">ValueType.Equals(object)</a></div>
+  <a id="Evergine_Mathematics_BoundingBox_GetCorners_" data-uid="Evergine.Mathematics.BoundingBox.GetCorners*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_GetCorners" data-uid="Evergine.Mathematics.BoundingBox.GetCorners">GetCorners()</h4>
+  <div class="markdown level1 summary"><p>Gets the corners.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3[] GetCorners()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>[]</td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_GetCorners_" data-uid="Evergine.Mathematics.BoundingBox.GetCorners*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_GetCorners_Evergine_Mathematics_Vector3___" data-uid="Evergine.Mathematics.BoundingBox.GetCorners(Evergine.Mathematics.Vector3[])">GetCorners(Vector3[])</h4>
+  <div class="markdown level1 summary"><p>Gets the corners.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetCorners(Vector3[] corners)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>[]</td>
+        <td><span class="parametername">corners</span></td>
+        <td><p>The corners.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_GetHashCode_" data-uid="Evergine.Mathematics.BoundingBox.GetHashCode*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_GetHashCode" data-uid="Evergine.Mathematics.BoundingBox.GetHashCode">GetHashCode()</h4>
+  <div class="markdown level1 summary"><p>Returns a hash code for this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override int GetHashCode()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>A hash code for this instance, suitable for use in hashing algorithms and data structures such as a hash table.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.gethashcode">ValueType.GetHashCode()</a></div>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_BoundingBox_" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.BoundingBox)">Intersects(BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(BoundingBox box)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">box</span></td>
+        <td><p>The box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_BoundingBox__" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.BoundingBox@)">Intersects(ref BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(ref BoundingBox box)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">box</span></td>
+        <td><p>The box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if the boxes overlap.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_BoundingFrustum_" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.BoundingFrustum)">Intersects(BoundingFrustum)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified frustum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(BoundingFrustum frustum)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingFrustum.html">BoundingFrustum</a></td>
+        <td><span class="parametername">frustum</span></td>
+        <td><p>The frustum.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_BoundingSphere_" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.BoundingSphere)">Intersects(BoundingSphere)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified sphere.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Intersects(BoundingSphere sphere)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingSphere.html">BoundingSphere</a></td>
+        <td><span class="parametername">sphere</span></td>
+        <td><p>The sphere.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_BoundingSphere__System_Boolean__" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.BoundingSphere@,System.Boolean@)">Intersects(ref BoundingSphere, out bool)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified sphere.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Intersects(ref BoundingSphere sphere, out bool result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingSphere.html">BoundingSphere</a></td>
+        <td><span class="parametername">sphere</span></td>
+        <td><p>The sphere.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>If set to <code>true</code>, [result].</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_Plane_" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.Plane)">Intersects(Plane)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PlaneIntersectionType Intersects(Plane plane)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Plane.html">Plane</a></td>
+        <td><span class="parametername">plane</span></td>
+        <td><p>The plane.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.PlaneIntersectionType.html">PlaneIntersectionType</a></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_Plane__Evergine_Mathematics_PlaneIntersectionType__" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.Plane@,Evergine.Mathematics.PlaneIntersectionType@)">Intersects(ref Plane, out PlaneIntersectionType)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified plane.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Intersects(ref Plane plane, out PlaneIntersectionType result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Plane.html">Plane</a></td>
+        <td><span class="parametername">plane</span></td>
+        <td><p>The plane.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.PlaneIntersectionType.html">PlaneIntersectionType</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_Ray_" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.Ray)">Intersects(Ray)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified ray.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float? Intersects(Ray ray)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td><span class="parametername">ray</span></td>
+        <td><p>The ray.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>?</td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Intersects_" data-uid="Evergine.Mathematics.BoundingBox.Intersects*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Intersects_Evergine_Mathematics_Ray__System_Nullable_System_Single___" data-uid="Evergine.Mathematics.BoundingBox.Intersects(Evergine.Mathematics.Ray@,System.Nullable{System.Single}@)">Intersects(ref Ray, out float?)</h4>
+  <div class="markdown level1 summary"><p>Intersects the specified ray.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Intersects(ref Ray ray, out float? result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td><span class="parametername">ray</span></td>
+        <td><p>The ray.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>?</td>
+        <td><span class="parametername">result</span></td>
+        <td><p>The result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_ToString_" data-uid="Evergine.Mathematics.BoundingBox.ToString*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_ToString" data-uid="Evergine.Mathematics.BoundingBox.ToString">ToString()</h4>
+  <div class="markdown level1 summary"><p>Returns a <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> that represents this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ToString()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>A <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a> that represents this instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetype.tostring">ValueType.ToString()</a></div>
+  <a id="Evergine_Mathematics_BoundingBox_Transform_" data-uid="Evergine.Mathematics.BoundingBox.Transform*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Transform_Evergine_Mathematics_BoundingBox_Evergine_Mathematics_Matrix4x4_" data-uid="Evergine.Mathematics.BoundingBox.Transform(Evergine.Mathematics.BoundingBox,Evergine.Mathematics.Matrix4x4)">Transform(BoundingBox, Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Transforms a bounding box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static BoundingBox Transform(BoundingBox boundingBox, Matrix4x4 m)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">boundingBox</span></td>
+        <td><p>The bounding box.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">m</span></td>
+        <td><p>The matrix transform.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><p>The transformed bounding box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Transform_" data-uid="Evergine.Mathematics.BoundingBox.Transform*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Transform_Evergine_Mathematics_Matrix4x4_" data-uid="Evergine.Mathematics.BoundingBox.Transform(Evergine.Mathematics.Matrix4x4)">Transform(Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Transforms a bounding box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Transform(Matrix4x4 m)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">m</span></td>
+        <td><p>The transformation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_Transform_" data-uid="Evergine.Mathematics.BoundingBox.Transform*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_Transform_Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.Mathematics.BoundingBox.Transform(Evergine.Mathematics.Matrix4x4@)">Transform(ref Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Transforms a bounding box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Transform(ref Matrix4x4 m)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">m</span></td>
+        <td><p>The transform.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="operators">Operators
+</h3>
+  <a id="Evergine_Mathematics_BoundingBox_op_Equality_" data-uid="Evergine.Mathematics.BoundingBox.op_Equality*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_op_Equality_Evergine_Mathematics_BoundingBox_Evergine_Mathematics_BoundingBox_" data-uid="Evergine.Mathematics.BoundingBox.op_Equality(Evergine.Mathematics.BoundingBox,Evergine.Mathematics.BoundingBox)">operator ==(BoundingBox, BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator ==.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator ==(BoundingBox a, BoundingBox b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">a</span></td>
+        <td><p>First bounding box.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Second bounding box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>Result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Mathematics_BoundingBox_op_Inequality_" data-uid="Evergine.Mathematics.BoundingBox.op_Inequality*"></a>
+  <h4 id="Evergine_Mathematics_BoundingBox_op_Inequality_Evergine_Mathematics_BoundingBox_Evergine_Mathematics_BoundingBox_" data-uid="Evergine.Mathematics.BoundingBox.op_Inequality(Evergine.Mathematics.BoundingBox,Evergine.Mathematics.BoundingBox)">operator !=(BoundingBox, BoundingBox)</h4>
+  <div class="markdown level1 summary"><p>Implements the operator !=.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool operator !=(BoundingBox a, BoundingBox b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The first bounding box.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second bounding box.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>The result of the operator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,605 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Particle System Properties | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Particle System Properties | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="particle-system-properties">Particle System Properties</h1>
+
+<p><img src="images/particles-properties.png" alt="Particles properties"></p>
+<p>A particle system has the following properties.</p>
+<h2 id="particles-material">Particles Material</h2>
+<p>Group that manages the properties related to the particle material.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Texture</strong></td>
+<td><em>particle.png</em></td>
+<td>The texture that will appear in each particle quad.</td>
+</tr>
+<tr>
+<td><strong>Sampler State</strong></td>
+<td><em>LinearClampSampler</em></td>
+<td>The texture sampler state.</td>
+</tr>
+<tr>
+<td><strong>RenderLayer</strong></td>
+<td><em>Additive</em></td>
+<td>The texture render layer.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="general-properties">General properties</h2>
+<p>Properties that control the basic aspects of the particle system.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Max Particles</strong></td>
+<td><em>1000</em></td>
+<td>The maximum number of particles the emitter can handle. The emission will be paused if it reaches this number.</td>
+</tr>
+<tr>
+<td><strong>Gravity</strong></td>
+<td><em>0</em></td>
+<td><div><p>Sets the gravity of the particle system.</p><li>Gravity value of 9.8</li><video autoplay="" loop="" muted="" width="480"><source src="images/gravity.mp4" type="video/mp4"></video></div></td>
+</tr>
+<tr>
+<td><strong>Drag</strong></td>
+<td><em>0</em></td>
+<td><div><p>The amount of resistance the particle will encounter.</p><li>Drag value of 0.</li><video autoplay="" loop="" muted="" width="480"><source src="images/drag_off.mp4" type="video/mp4"></video><li>Drag value of 2.</li><video autoplay="" loop="" muted="" width="480"><source src="images/drag_on.mp4" type="video/mp4"></video></div></td>
+</tr>
+<tr>
+<td><strong>Simulation Space</strong></td>
+<td><em>World</em></td>
+<td><div><p>Sets the simulation space of the particle. In <strong>Local</strong> space, the particle positions stay relative to its emitter transform. In <strong>World</strong> space, all coordinates are global.</p><li>Simulation Space value of World.</li><video autoplay="" loop="" muted="" width="480"><source src="images/world_space.mp4" type="video/mp4"></video><li>Simulation Space value of Local.</li><video autoplay="" loop="" muted="" width="480"><source src="images/local_space.mp4" type="video/mp4"></video></div></td>
+</tr>
+<tr>
+<td><strong>Random Precision</strong></td>
+<td><em>Medium</em></td>
+<td>The precision of the random values generated, both in <em>GPU</em> and <em>CPU</em> simulations. <strong>High</strong> precision will randomize better but with a performance cost; <strong>Low</strong> precision will improve performance but produce less random values. <strong>Medium</strong> precision (<em>default value</em>) offers a good balance.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="life">Life</h3>
+<p>The life configuration panel controls the particle's remaining lifetime when it's emitted.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init Life mode</td>
+<td><em>Constant</em></td>
+<td>Sets whether the lifetime of the particle is <strong>Constant</strong> (<em>Init Life</em>) or <strong>RandomBetweenTwoConstants</strong> (a random value between <em>Init Life</em> and <em>Init Life2</em>).</td>
+</tr>
+<tr>
+<td>Init Life</td>
+<td><em>5</em></td>
+<td>The initial life of the particle.</td>
+</tr>
+<tr>
+<td>Init Life 2</td>
+<td><em>5</em></td>
+<td>The second value of the initial life range.</td>
+</tr>
+</tbody>
+</table>
+<p>The following video shows how different life parameters behave:</p>
+<video autoplay="" loop="" muted="" width="256">
+    <source src="images/random_life.mp4" type="video/mp4">
+</video>
+<h3 id="color">Color</h3>
+<p>The initial color configuration panel controls the particle color when it's emitted.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init Color mode</td>
+<td><em>Constant</em></td>
+<td>Sets whether the initial color is <strong>Constant</strong> (<em>Init Color</em>) or <strong>RandomBetweenTwoConstants</strong> (a random value between <em>Init Color</em> and <em>Init Color2</em>).</td>
+</tr>
+<tr>
+<td>Init Color</td>
+<td><em>White</em></td>
+<td>The initial color of the particle.</td>
+</tr>
+<tr>
+<td>Init Color 2</td>
+<td><em>White</em></td>
+<td>The second value of the initial color range.</td>
+</tr>
+<tr>
+<td>Preserve Highlights</td>
+<td><em>false</em></td>
+<td>If true, the tint effect of the initial color on the particle texture will decay when the texture color gets whiter.  <img src="images/preserve_highlights.png" alt="Preserve Highlights"></td>
+</tr>
+</tbody>
+</table>
+<p>The following image shows two examples of the initial color setting.</p>
+<p><img src="images/color_random.png" alt="Random Color"></p>
+<h3 id="size">Size</h3>
+<p>The initial size configuration panel controls the particle size when it's emitted.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init Size mode</td>
+<td><em>Constant</em></td>
+<td>Sets whether the initial size is <strong>Constant</strong> (<em>Init Size</em>) or <strong>RandomBetweenTwoConstants</strong> (a random value between <em>Init Size</em> and <em>Init Size 2</em>).</td>
+</tr>
+<tr>
+<td>Init Size</td>
+<td><em>0.1</em></td>
+<td>The initial size of the particle.</td>
+</tr>
+<tr>
+<td>Init Size 2</td>
+<td><em>0.1</em></td>
+<td>The second value of the initial size range.</td>
+</tr>
+</tbody>
+</table>
+<p>The following image shows two examples of the initial size setting.</p>
+<p><img src="images/size_random.png" alt="Random Size"></p>
+<h3 id="speed">Speed</h3>
+<p>The initial speed configuration panel controls the particle speed magnitude (in space units per second) when it's emitted. The initial <strong>Velocity</strong> of the particle will be the initial direction vector multiplied by the <strong>Speed</strong> of the particle.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init Speed mode</td>
+<td><em>Constant</em></td>
+<td>Sets whether the initial speed is <strong>Constant</strong> (<em>Init Speed</em>) or <strong>RandomBetweenTwoConstants</strong> (a random value between <em>Init Speed</em> and <em>Init Speed 2</em>).</td>
+</tr>
+<tr>
+<td>Init Speed</td>
+<td><em>0.1</em></td>
+<td>The initial speed of the particle.</td>
+</tr>
+<tr>
+<td>Init Speed 2</td>
+<td><em>0.1</em></td>
+<td>The second value of the initial speed range.</td>
+</tr>
+</tbody>
+</table>
+<p>The following video shows how different speed parameters behave:</p>
+<video autoplay="" loop="" muted="" width="256">
+    <source src="images/random_speed.mp4" type="video/mp4">
+</video>
+<h3 id="angle">Angle</h3>
+<p>The initial angle configuration panel controls the particle quad angle when it's emitted.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init Angle mode</td>
+<td><em>Constant</em></td>
+<td>Sets whether the initial angle is <strong>Constant</strong> (<em>Init Angle</em>) or <strong>RandomBetweenTwoConstants</strong> (a random value between <em>Init Angle</em> and <em>Init Angle 2</em>).</td>
+</tr>
+<tr>
+<td>Init Angle</td>
+<td><em>0</em></td>
+<td>The initial angle of the particle in degrees.</td>
+</tr>
+<tr>
+<td>Init Angle 2</td>
+<td><em>0</em></td>
+<td>The second value of the initial angle range in degrees.</td>
+</tr>
+</tbody>
+</table>
+<p>The following image shows three examples of the initial angle setting.</p>
+<p><img src="images/random_angle.png" alt="Random Size"></p>
+<h3 id="angular-speed">Angular Speed</h3>
+<p>The angular speed configuration panel controls the particle rotation speed when it's emitted. The quad will spin facing the camera with this angular speed.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Init Angular Speed mode</td>
+<td><em>Constant</em></td>
+<td>Sets whether the initial angular speed is <strong>Constant</strong> (<em>Init Angular Speed</em>) or <strong>RandomBetweenTwoConstants</strong> (a random value between <em>Init Angular Speed</em> and <em>Init Angular Speed 2</em>).</td>
+</tr>
+<tr>
+<td>Init Angular Speed</td>
+<td><em>0</em></td>
+<td>The initial angular speed of the particle.</td>
+</tr>
+<tr>
+<td>Init Angular Speed 2</td>
+<td><em>0</em></td>
+<td>The second value of the initial angular speed range.</td>
+</tr>
+</tbody>
+</table>
+<p>The following video shows a random angular speed of <strong>[-180, 180]</strong>.</p>
+<video autoplay="" loop="" muted="" width="128">
+    <source src="images/angular_speed.mp4" type="video/mp4">
+</video>
+<h2 id="shapes">Shapes</h2>
+<p>The <em>Shape</em> group defines all the properties to manage the volume or surface where the particles can be emitted.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Shape type</strong></td>
+<td><em>Point</em></td>
+<td><p><em>Enum</em> that contains all the shape emitter types. Currently, the options are:</p><li>Point</li><li>Sphere</li><li>Box</li><li>Circle</li><li>Entity</li><li>Edge</li></td>
+</tr>
+</tbody>
+</table>
+<p>More information about these shapes here: <a href="particle_shapes.html">Particle Shapes</a>.</p>
+<h2 id="spawn">Spawn</h2>
+<p>The <em>Spawn</em> property defines when and how many particles are emitted.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Spawn type</strong></td>
+<td><em>Rate</em></td>
+<td><p><em>Enum</em> that contains all the spawn emitter types. Currently, the options are:</p><li>Rate</li><li>Burst</li><li>Distance</li></td>
+</tr>
+</tbody>
+</table>
+<p>More information about the spawn management here: <a href="particle_spawn.html">Particle Spawn</a>.</p>
+<h2 id="color-over-life">Color Over Life</h2>
+<p>These properties manage how the particle color changes over its life.
+In a future <strong>Evergine</strong> version, we will implement a proper <em>Gradient Color</em> editor, but in the meantime, we've defined the color over the life of the particle using the following properties according to this diagram:</p>
+<p><img src="images/color_over_life.png" alt="Color Over Life Diagram"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The color of the gradient is applied as a tint over the initial color of the particle.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Color Animated</td>
+<td><em>false</em></td>
+<td>Sets whether the particle color is animated throughout its lifetime.</td>
+</tr>
+<tr>
+<td>Color Over Life 1</td>
+<td><em>Transparent</em></td>
+<td>Color of the <strong>first</strong> point of the animation.</td>
+</tr>
+<tr>
+<td>Color Over Life 2</td>
+<td><em>White</em></td>
+<td>Color of the <strong>second</strong> point of the animation.</td>
+</tr>
+<tr>
+<td>Color Over Life 3</td>
+<td><em>White</em></td>
+<td>Color of the <strong>third</strong> point of the animation.</td>
+</tr>
+<tr>
+<td>Color Over Life 4</td>
+<td><em>Transparent</em></td>
+<td>Color of the <strong>fourth</strong> point of the animation.</td>
+</tr>
+<tr>
+<td>Color Over Life 2 Position</td>
+<td><em>0.2</em></td>
+<td>Position in the curve of the <strong>second</strong> point of the animation. Must be in the range <em>[0, 1]</em>.</td>
+</tr>
+<tr>
+<td>Color Over Life 3 Position</td>
+<td><em>0.8</em></td>
+<td>Position in the curve of the <strong>third</strong> point of the animation. Must be in the range <em>[0, 1]</em>.</td>
+</tr>
+</tbody>
+</table>
+<p>The following video shows a particle system using the color gradient previously seen.</p>
+<video autoplay="" loop="" muted="" width="320">
+    <source src="images/color_over_life.mp4" type="video/mp4">
+</video>
+<h2 id="size-over-life">Size Over Life</h2>
+<p>These properties control how the particles change their size over their lifetime.
+In a future <strong>Evergine</strong> version, we will implement a proper <em>Curve Editor</em>, but in the meantime, we've defined the size over life of the particle using the following properties according to this diagram:</p>
+<p><img src="images/size_over_life.png" alt="Size Over Life Diagram"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The size of the curve is applied as a multiplier over the initial size of the particle.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Size Animated</td>
+<td><em>false</em></td>
+<td>Sets whether the particle size is animated throughout its lifetime.</td>
+</tr>
+<tr>
+<td>Size Over Life 1</td>
+<td><em>0</em></td>
+<td>Size multiplier of the <strong>first</strong> point of the animation.</td>
+</tr>
+<tr>
+<td>Size Over Life 2</td>
+<td><em>1</em></td>
+<td>Size multiplier of the <strong>second</strong> point of the animation.</td>
+</tr>
+<tr>
+<td>Size Over Life 3</td>
+<td><em>1</em></td>
+<td>Size multiplier of the <strong>third</strong> point of the animation.</td>
+</tr>
+<tr>
+<td>Size Over Life 4</td>
+<td><em>0</em></td>
+<td>Size multiplier of the <strong>fourth</strong> point of the animation.</td>
+</tr>
+<tr>
+<td>Size Over Life 2 Position</td>
+<td><em>0.2</em></td>
+<td>Position in the curve of the <strong>second</strong> point of the animation. Must be in the range <em>[0, 1]</em>.</td>
+</tr>
+<tr>
+<td>Size Over Life 3 Position</td>
+<td><em>0.8</em></td>
+<td>Position in the curve of the <strong>third</strong> point of the animation. Must be in the range <em>[0, 1]</em>.</td>
+</tr>
+</tbody>
+</table>
+<p>The following video shows a particle system using the size curve previously seen.</p>
+<video autoplay="" loop="" muted="" width="320">
+    <source src="images/size_over_life_view.mp4" type="video/mp4">
+</video>
+<h2 id="noise">Noise</h2>
+<p>The noise panel allows the application of a turbulence field into the particle system. All the properties of this panel are used to control the parameters of that field.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Noise Enabled</td>
+<td><em>false</em></td>
+<td>Sets whether the particle system is affected by the noise field.</td>
+</tr>
+<tr>
+<td>Noise Strength</td>
+<td><em>1</em></td>
+<td>How much the particles are affected by the noise field. A larger value will generate more chaos!</td>
+</tr>
+<tr>
+<td>Noise Size</td>
+<td><em>1</em></td>
+<td>The scale of the noise field. Large values cause more wavy noise; small values will change the behavior among close particles.</td>
+</tr>
+<tr>
+<td>Noise Frequency</td>
+<td><em>1</em></td>
+<td>Represents the period at which the noise data is sampled.</td>
+</tr>
+<tr>
+<td>Noise Speed</td>
+<td><em>(1, 1, 1)</em></td>
+<td>The velocity vector at which the noise field is moving.</td>
+</tr>
+</tbody>
+</table>
+<p>The following video shows a particle system affected by noise <em>(Strength 1, Size 10, Frequency 1, Speed (0, -1, 0))</em>.</p>
+<video autoplay="" loop="" muted="" width="320">
+    <source src="images/noise_view.mp4" type="video/mp4">
+</video>
+<h2 id="forces">Forces</h2>
+<p>This panel allows the particle system to be affected by forces and to tune which ones can affect them.</p>
+<p>The different available forces are explained in <a href="particle_forces.html">this article</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Forces Enabled</td>
+<td><em>false</em></td>
+<td>Sets whether the particle system is affected by the forces.</td>
+</tr>
+<tr>
+<td>Forces Category</td>
+<td><em>All</em></td>
+<td>The particle system is only affected by forces with the same <em>Forces Category</em> property.</td>
+</tr>
+</tbody>
+</table>
+<p>The following video shows a particle system affected by a <strong>Point Attractor Force</strong>.</p>
+<video autoplay="" loop="" muted="" width="480">
+    <source src="images/forces.mp4" type="video/mp4">
+</video>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

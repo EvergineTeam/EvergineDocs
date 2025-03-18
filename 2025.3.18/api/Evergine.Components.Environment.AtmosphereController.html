@@ -1,0 +1,621 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AtmosphereController | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AtmosphereController | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Components.Environment.AtmosphereController">
+
+
+
+  <h1 id="Evergine_Components_Environment_AtmosphereController" data-uid="Evergine.Components.Environment.AtmosphereController" class="text-break">Class AtmosphereController</h1>
+  <div class="markdown level0 summary"><p>This component controls the sky and atmosphere of the scene.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Behavior.html">Behavior</a></div>
+    <div class="level7"><span class="xref">AtmosphereController</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_Family">Behavior.Family</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_UpdateOrder">Behavior.UpdateOrder</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Components.html">Components</a>.<a class="xref" href="Evergine.Components.Environment.html">Environment</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Components.dll</h6>
+  <h5 id="Evergine_Components_Environment_AtmosphereController_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class AtmosphereController : Behavior, IDependencyObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Components_Environment_AtmosphereController__ctor_" data-uid="Evergine.Components.Environment.AtmosphereController.#ctor*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController__ctor" data-uid="Evergine.Components.Environment.AtmosphereController.#ctor">AtmosphereController()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Components.Environment.AtmosphereController.html">AtmosphereController</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AtmosphereController()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Components_Environment_AtmosphereController_AtmosphereRadiusInKm_" data-uid="Evergine.Components.Environment.AtmosphereController.AtmosphereRadiusInKm*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_AtmosphereRadiusInKm" data-uid="Evergine.Components.Environment.AtmosphereController.AtmosphereRadiusInKm">AtmosphereRadiusInKm</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the atmosphere radius in km.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float AtmosphereRadiusInKm { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_MiePreferredScatteringDirection_" data-uid="Evergine.Components.Environment.AtmosphereController.MiePreferredScatteringDirection*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_MiePreferredScatteringDirection" data-uid="Evergine.Components.Environment.AtmosphereController.MiePreferredScatteringDirection">MiePreferredScatteringDirection</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Mie preferred scattering direction.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float MiePreferredScatteringDirection { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_MieScaleHeight_" data-uid="Evergine.Components.Environment.AtmosphereController.MieScaleHeight*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_MieScaleHeight" data-uid="Evergine.Components.Environment.AtmosphereController.MieScaleHeight">MieScaleHeight</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Mie scale height in meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float MieScaleHeight { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_MieScatteringCoefficient_" data-uid="Evergine.Components.Environment.AtmosphereController.MieScatteringCoefficient*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_MieScatteringCoefficient" data-uid="Evergine.Components.Environment.AtmosphereController.MieScatteringCoefficient">MieScatteringCoefficient</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Mie scattering coefficient.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float MieScatteringCoefficient { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_ModifySunColor_" data-uid="Evergine.Components.Environment.AtmosphereController.ModifySunColor*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_ModifySunColor" data-uid="Evergine.Components.Environment.AtmosphereController.ModifySunColor">ModifySunColor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the sun color is modified by atmospheric scattering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ModifySunColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_PlanetRadiusInKm_" data-uid="Evergine.Components.Environment.AtmosphereController.PlanetRadiusInKm*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_PlanetRadiusInKm" data-uid="Evergine.Components.Environment.AtmosphereController.PlanetRadiusInKm">PlanetRadiusInKm</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the planet radius in km.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float PlanetRadiusInKm { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_RayleighScaleHeight_" data-uid="Evergine.Components.Environment.AtmosphereController.RayleighScaleHeight*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_RayleighScaleHeight" data-uid="Evergine.Components.Environment.AtmosphereController.RayleighScaleHeight">RayleighScaleHeight</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Rayleigh scale height in meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float RayleighScaleHeight { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_RayleighScatteringCoefficient_" data-uid="Evergine.Components.Environment.AtmosphereController.RayleighScatteringCoefficient*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_RayleighScatteringCoefficient" data-uid="Evergine.Components.Environment.AtmosphereController.RayleighScatteringCoefficient">RayleighScatteringCoefficient</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Rayleigh scattering coefficient.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 RayleighScatteringCoefficient { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_SunDiskEnabled_" data-uid="Evergine.Components.Environment.AtmosphereController.SunDiskEnabled*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_SunDiskEnabled" data-uid="Evergine.Components.Environment.AtmosphereController.SunDiskEnabled">SunDiskEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the Sun's disk is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SunDiskEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_SunDiskSize_" data-uid="Evergine.Components.Environment.AtmosphereController.SunDiskSize*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_SunDiskSize" data-uid="Evergine.Components.Environment.AtmosphereController.SunDiskSize">SunDiskSize</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating the size of the Sun's disk.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SunDiskSize { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Environment_AtmosphereController_SunIntensity_" data-uid="Evergine.Components.Environment.AtmosphereController.SunIntensity*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_SunIntensity" data-uid="Evergine.Components.Environment.AtmosphereController.SunIntensity">SunIntensity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the sun intensity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SunIntensity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Components_Environment_AtmosphereController_OnActivated_" data-uid="Evergine.Components.Environment.AtmosphereController.OnActivated*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_OnActivated" data-uid="Evergine.Components.Environment.AtmosphereController.OnActivated">OnActivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is activated once it is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnActivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a></div>
+  <a id="Evergine_Components_Environment_AtmosphereController_OnAttached_" data-uid="Evergine.Components.Environment.AtmosphereController.OnAttached*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_OnAttached" data-uid="Evergine.Components.Environment.AtmosphereController.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_OnAttached">Behavior.OnAttached()</a></div>
+  <a id="Evergine_Components_Environment_AtmosphereController_OnDeactivated_" data-uid="Evergine.Components.Environment.AtmosphereController.OnDeactivated*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_OnDeactivated" data-uid="Evergine.Components.Environment.AtmosphereController.OnDeactivated">OnDeactivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is deactivated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDeactivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a></div>
+  <a id="Evergine_Components_Environment_AtmosphereController_OnDetach_" data-uid="Evergine.Components.Environment.AtmosphereController.OnDetach*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_OnDetach" data-uid="Evergine.Components.Environment.AtmosphereController.OnDetach">OnDetach()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetach()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_OnDetach">Behavior.OnDetach()</a></div>
+  <a id="Evergine_Components_Environment_AtmosphereController_Update_" data-uid="Evergine.Components.Environment.AtmosphereController.Update*"></a>
+  <h4 id="Evergine_Components_Environment_AtmosphereController_Update_System_TimeSpan_" data-uid="Evergine.Components.Environment.AtmosphereController.Update(System.TimeSpan)">Update(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Allows this instance to execute custom logic during its <code>Update</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Update(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The game time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_Update_System_TimeSpan_">Behavior.Update(TimeSpan)</a></div>
+  <h5 id="Evergine_Components_Environment_AtmosphereController_Update_System_TimeSpan__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method will not be executed if the <a class="xref" href="Evergine.Framework.Component.html">Component</a> or the <a class="xref" href="Evergine.Framework.Entity.html">Entity</a>
+owning it is not <code>Active</code>.</p>
+</div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

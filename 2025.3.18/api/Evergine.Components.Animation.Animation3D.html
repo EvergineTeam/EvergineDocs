@@ -1,0 +1,1168 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Animation3D | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Animation3D | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Components.Animation.Animation3D">
+
+
+
+  <h1 id="Evergine_Components_Animation_Animation3D" data-uid="Evergine.Components.Animation.Animation3D" class="text-break">Class Animation3D</h1>
+  <div class="markdown level0 summary"><p>Behavior that controls the animations of a 3D model.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Behavior.html">Behavior</a></div>
+    <div class="level7"><span class="xref">Animation3D</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_Family">Behavior.Family</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_UpdateOrder">Behavior.UpdateOrder</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_OnDetach">Behavior.OnDetach()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Components.html">Components</a>.<a class="xref" href="Evergine.Components.Animation.html">Animation</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Components_Animation_Animation3D_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class Animation3D : Behavior, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Components_Animation_Animation3D_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Ideally, this class should be used to hold all the animations related to a given 3D model.</p>
+</div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Components_Animation_Animation3D__ctor_" data-uid="Evergine.Components.Animation.Animation3D.#ctor*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D__ctor" data-uid="Evergine.Components.Animation.Animation3D.#ctor">Animation3D()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Components.Animation.Animation3D.html">Animation3D</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Animation3D()</code></pre>
+  </div>
+  <a id="Evergine_Components_Animation_Animation3D__ctor_" data-uid="Evergine.Components.Animation.Animation3D.#ctor*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D__ctor_Evergine_Framework_Graphics_Model_" data-uid="Evergine.Components.Animation.Animation3D.#ctor(Evergine.Framework.Graphics.Model)">Animation3D(Model)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Components.Animation.Animation3D.html">Animation3D</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Animation3D(Model model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Model.html">Model</a></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>The path to the animation data.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Components_Animation_Animation3D_modelLink" data-uid="Evergine.Components.Animation.Animation3D.modelLink">modelLink</h4>
+  <div class="markdown level1 summary"><p>Dependency System Reference Model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected LoadableDependencyLink&lt;Model&gt; modelLink</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.LoadableDependencyLink-1.html">LoadableDependencyLink</a>&lt;<a class="xref" href="Evergine.Framework.Graphics.Model.html">Model</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_Animation_Animation3D_transform3D" data-uid="Evergine.Components.Animation.Animation3D.transform3D">transform3D</h4>
+  <div class="markdown level1 summary"><p>The Transform3D.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(true, true, BindComponentSource.Owner, null, true)]
+protected Transform3D transform3D</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Components_Animation_Animation3D_AnimationLayers_" data-uid="Evergine.Components.Animation.Animation3D.AnimationLayers*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_AnimationLayers" data-uid="Evergine.Components.Animation.Animation3D.AnimationLayers">AnimationLayers</h4>
+  <div class="markdown level1 summary"><p>Gets the registered animation layers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;AnimationBlendClip&gt; AnimationLayers { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html">AnimationBlendClip</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_AnimationNames_" data-uid="Evergine.Components.Animation.Animation3D.AnimationNames*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_AnimationNames" data-uid="Evergine.Components.Animation.Animation3D.AnimationNames">AnimationNames</h4>
+  <div class="markdown level1 summary"><p>Gets the animation names.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;string&gt; AnimationNames { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><p>The animation names.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_AnimationState_" data-uid="Evergine.Components.Animation.Animation3D.AnimationState*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_AnimationState" data-uid="Evergine.Components.Animation.Animation3D.AnimationState">AnimationState</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the state of the current active animation. When using
+<a class="xref" href="Evergine.Components.Animation.Animation3D.html#Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_">AddAnimationLayer(AnimationBlendClip)</a>, it affects the <a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html#Evergine_Components_Animation_AnimationBlendClip_State">State</a>
+property of the first animation clip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AnimationState AnimationState { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Animation.AnimationState.html">AnimationState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_ApplyRootMotion_" data-uid="Evergine.Components.Animation.Animation3D.ApplyRootMotion*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_ApplyRootMotion" data-uid="Evergine.Components.Animation.Animation3D.ApplyRootMotion">ApplyRootMotion</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether root motion will be applied to this entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ApplyRootMotion { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_BoundingBoxRefreshed_" data-uid="Evergine.Components.Animation.Animation3D.BoundingBoxRefreshed*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_BoundingBoxRefreshed" data-uid="Evergine.Components.Animation.Animation3D.BoundingBoxRefreshed">BoundingBoxRefreshed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the bounding box has been refreshed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool BoundingBoxRefreshed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the bounding box has been refreshed; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_Clip_" data-uid="Evergine.Components.Animation.Animation3D.Clip*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_Clip" data-uid="Evergine.Components.Animation.Animation3D.Clip">Clip</h4>
+  <div class="markdown level1 summary"><p>Gets the current animation clip. When using <a class="xref" href="Evergine.Components.Animation.Animation3D.html#Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_">AddAnimationLayer(AnimationBlendClip)</a>, it
+returns the first animation clip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AnimationBlendClip Clip { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html">AnimationBlendClip</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_CurrentAnimation_" data-uid="Evergine.Components.Animation.Animation3D.CurrentAnimation*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_CurrentAnimation" data-uid="Evergine.Components.Animation.Animation3D.CurrentAnimation">CurrentAnimation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the currently active animation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string CurrentAnimation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>The current animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_CurrentAnimationTrack_" data-uid="Evergine.Components.Animation.Animation3D.CurrentAnimationTrack*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_CurrentAnimationTrack" data-uid="Evergine.Components.Animation.Animation3D.CurrentAnimationTrack">CurrentAnimationTrack</h4>
+  <div class="markdown level1 summary"><p>Gets the current animation track.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AnimationClip CurrentAnimationTrack { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Animation.AnimationClip.html">AnimationClip</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_Duration_" data-uid="Evergine.Components.Animation.Animation3D.Duration*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_Duration" data-uid="Evergine.Components.Animation.Animation3D.Duration">Duration</h4>
+  <div class="markdown level1 summary"><p>Gets the duration time. When using <a class="xref" href="Evergine.Components.Animation.Animation3D.html#Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_">AddAnimationLayer(AnimationBlendClip)</a>, it
+returns the <a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html#Evergine_Components_Animation_AnimationBlendClip_Duration">Duration</a> property of the first animation clip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Duration { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_EndAnimationTime_" data-uid="Evergine.Components.Animation.Animation3D.EndAnimationTime*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_EndAnimationTime" data-uid="Evergine.Components.Animation.Animation3D.EndAnimationTime">EndAnimationTime</h4>
+  <div class="markdown level1 summary"><p>Gets the end animation time. When using <a class="xref" href="Evergine.Components.Animation.Animation3D.html#Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_">AddAnimationLayer(AnimationBlendClip)</a>, it
+returns the <a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html#Evergine_Components_Animation_AnimationBlendClip_EndAnimationTime">EndAnimationTime</a> property of the first animation clip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float EndAnimationTime { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_Frame_" data-uid="Evergine.Components.Animation.Animation3D.Frame*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_Frame" data-uid="Evergine.Components.Animation.Animation3D.Frame">Frame</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the current frame of the animation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Frame { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_Loop_" data-uid="Evergine.Components.Animation.Animation3D.Loop*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_Loop" data-uid="Evergine.Components.Animation.Animation3D.Loop">Loop</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the current active animation is looping. When using
+<a class="xref" href="Evergine.Components.Animation.Animation3D.html#Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_">AddAnimationLayer(AnimationBlendClip)</a> it affects the <a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html#Evergine_Components_Animation_AnimationBlendClip_Loop">Loop</a>
+property of the first animation clip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Loop { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the animation is looping; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_Model_" data-uid="Evergine.Components.Animation.Animation3D.Model*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_Model" data-uid="Evergine.Components.Animation.Animation3D.Model">Model</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the animation file path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Model Model { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Model.html">Model</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_PlayAutomatically_" data-uid="Evergine.Components.Animation.Animation3D.PlayAutomatically*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_PlayAutomatically" data-uid="Evergine.Components.Animation.Animation3D.PlayAutomatically">PlayAutomatically</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the animation is played automatically when the CurrentAnimation is set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool PlayAutomatically { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if [play automatically]; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_PlayTime_" data-uid="Evergine.Components.Animation.Animation3D.PlayTime*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_PlayTime" data-uid="Evergine.Components.Animation.Animation3D.PlayTime">PlayTime</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the current animation time. When using <a class="xref" href="Evergine.Components.Animation.Animation3D.html#Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_">AddAnimationLayer(AnimationBlendClip)</a>, it
+affects the <a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html#Evergine_Components_Animation_AnimationBlendClip_PlaybackRate">PlaybackRate</a> property of the first animation clip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float PlayTime { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_PlaybackRate_" data-uid="Evergine.Components.Animation.Animation3D.PlaybackRate*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_PlaybackRate" data-uid="Evergine.Components.Animation.Animation3D.PlaybackRate">PlaybackRate</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the playback rate. When using <a class="xref" href="Evergine.Components.Animation.Animation3D.html#Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_">AddAnimationLayer(AnimationBlendClip)</a>, it
+affects the <a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html#Evergine_Components_Animation_AnimationBlendClip_PlaybackRate">PlaybackRate</a> property of the first animation clip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float PlaybackRate { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The speed of the animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_SmoothTransitions_" data-uid="Evergine.Components.Animation.Animation3D.SmoothTransitions*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_SmoothTransitions" data-uid="Evergine.Components.Animation.Animation3D.SmoothTransitions">SmoothTransitions</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the animation transitions are smooth.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SmoothTransitions { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_StartAnimationTime_" data-uid="Evergine.Components.Animation.Animation3D.StartAnimationTime*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_StartAnimationTime" data-uid="Evergine.Components.Animation.Animation3D.StartAnimationTime">StartAnimationTime</h4>
+  <div class="markdown level1 summary"><p>Gets the start animation time. When using <a class="xref" href="Evergine.Components.Animation.Animation3D.html#Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_">AddAnimationLayer(AnimationBlendClip)</a> it
+returns the <a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html#Evergine_Components_Animation_AnimationBlendClip_StartAnimationTime">StartAnimationTime</a> property of the first animation clip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float StartAnimationTime { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Components_Animation_Animation3D_AddAnimationLayer_" data-uid="Evergine.Components.Animation.Animation3D.AddAnimationLayer*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_AddAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_" data-uid="Evergine.Components.Animation.Animation3D.AddAnimationLayer(Evergine.Components.Animation.AnimationBlendClip)">AddAnimationLayer(AnimationBlendClip)</h4>
+  <div class="markdown level1 summary"><p>Adds a new animation layer to be played with the other layers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AddAnimationLayer(AnimationBlendClip clip)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html">AnimationBlendClip</a></td>
+        <td><span class="parametername">clip</span></td>
+        <td><p>The clip to be played.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_GetDuration_" data-uid="Evergine.Components.Animation.Animation3D.GetDuration*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_GetDuration_System_String_" data-uid="Evergine.Components.Animation.Animation3D.GetDuration(System.String)">GetDuration(string)</h4>
+  <div class="markdown level1 summary"><p>Gets the duration of an animation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public double GetDuration(string animation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">animation</span></td>
+        <td><p>The name of the animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><p>The duration of the animation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_OnAttached_" data-uid="Evergine.Components.Animation.Animation3D.OnAttached*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_OnAttached" data-uid="Evergine.Components.Animation.Animation3D.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_OnAttached">Behavior.OnAttached()</a></div>
+  <a id="Evergine_Components_Animation_Animation3D_OnDestroy_" data-uid="Evergine.Components.Animation.Animation3D.OnDestroy*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_OnDestroy" data-uid="Evergine.Components.Animation.Animation3D.OnDestroy">OnDestroy()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is about to be disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDestroy()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a></div>
+  <a id="Evergine_Components_Animation_Animation3D_PlayAnimation_" data-uid="Evergine.Components.Animation.Animation3D.PlayAnimation*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_PlayAnimation_Evergine_Components_Animation_AnimationBlendClip_System_Single_" data-uid="Evergine.Components.Animation.Animation3D.PlayAnimation(Evergine.Components.Animation.AnimationBlendClip,System.Single)">PlayAnimation(AnimationBlendClip, float)</h4>
+  <div class="markdown level1 summary"><p>Plays the animation between the specified frames.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PlayAnimation(AnimationBlendClip clip, float transitionTime = 0)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html">AnimationBlendClip</a></td>
+        <td><span class="parametername">clip</span></td>
+        <td><p>The animation clip.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">transitionTime</span></td>
+        <td><p>The transition time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_PlayAnimation_" data-uid="Evergine.Components.Animation.Animation3D.PlayAnimation*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_PlayAnimation_System_String_System_Boolean_System_Single_System_Single_System_Nullable_System_Single__System_Nullable_System_Single__" data-uid="Evergine.Components.Animation.Animation3D.PlayAnimation(System.String,System.Boolean,System.Single,System.Single,System.Nullable{System.Single},System.Nullable{System.Single})">PlayAnimation(string, bool, float, float, float?, float?)</h4>
+  <div class="markdown level1 summary"><p>Plays the animation between the specified frames.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PlayAnimation(string name, bool loop = true, float transitionTime = 0, float playbackRate = 1, float? startTime = null, float? endTime = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">loop</span></td>
+        <td><p>Whether the animation loops.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">transitionTime</span></td>
+        <td><p>The transition time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">playbackRate</span></td>
+        <td><p>The playback rate.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>?</td>
+        <td><span class="parametername">startTime</span></td>
+        <td><p>The frame where the animation starts playing.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>?</td>
+        <td><span class="parametername">endTime</span></td>
+        <td><p>The last frame of the animation to be played.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_PlayAnimation_" data-uid="Evergine.Components.Animation.Animation3D.PlayAnimation*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_PlayAnimation_System_String_System_Nullable_System_Int32__System_Nullable_System_Int32__System_Boolean_System_Single_" data-uid="Evergine.Components.Animation.Animation3D.PlayAnimation(System.String,System.Nullable{System.Int32},System.Nullable{System.Int32},System.Boolean,System.Single)">PlayAnimation(string, int?, int?, bool, float)</h4>
+  <div class="markdown level1 summary"><p>Plays the animation between the specified frames.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void PlayAnimation(string name, int? startTime, int? endTime, bool loop = true, float playbackRate = 1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name of the animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">startTime</span></td>
+        <td><p>The frame where the animation starts playing.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>?</td>
+        <td><span class="parametername">endTime</span></td>
+        <td><p>The last frame of the animation to play.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">loop</span></td>
+        <td><p>If set to <code>true</code>, loops the animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">playbackRate</span></td>
+        <td><p>The playback rate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_RemoveAnimationLayer_" data-uid="Evergine.Components.Animation.Animation3D.RemoveAnimationLayer*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_RemoveAnimationLayer_Evergine_Components_Animation_AnimationBlendClip_" data-uid="Evergine.Components.Animation.Animation3D.RemoveAnimationLayer(Evergine.Components.Animation.AnimationBlendClip)">RemoveAnimationLayer(AnimationBlendClip)</h4>
+  <div class="markdown level1 summary"><p>Removes an existing animation layer from being played with the other layers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void RemoveAnimationLayer(AnimationBlendClip clip)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.Animation.AnimationBlendClip.html">AnimationBlendClip</a></td>
+        <td><span class="parametername">clip</span></td>
+        <td><p>The clip to be played.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_Animation_Animation3D_ResumeAnimation_" data-uid="Evergine.Components.Animation.Animation3D.ResumeAnimation*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_ResumeAnimation" data-uid="Evergine.Components.Animation.Animation3D.ResumeAnimation">ResumeAnimation()</h4>
+  <div class="markdown level1 summary"><p>Resumes the animation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ResumeAnimation()</code></pre>
+  </div>
+  <a id="Evergine_Components_Animation_Animation3D_StopAnimation_" data-uid="Evergine.Components.Animation.Animation3D.StopAnimation*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_StopAnimation" data-uid="Evergine.Components.Animation.Animation3D.StopAnimation">StopAnimation()</h4>
+  <div class="markdown level1 summary"><p>Stops the animation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StopAnimation()</code></pre>
+  </div>
+  <a id="Evergine_Components_Animation_Animation3D_Update_" data-uid="Evergine.Components.Animation.Animation3D.Update*"></a>
+  <h4 id="Evergine_Components_Animation_Animation3D_Update_System_TimeSpan_" data-uid="Evergine.Components.Animation.Animation3D.Update(System.TimeSpan)">Update(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Updates the animation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Update(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The game time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_Update_System_TimeSpan_">Behavior.Update(TimeSpan)</a></div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Components_Animation_Animation3D_AnimationUpdated" data-uid="Evergine.Components.Animation.Animation3D.AnimationUpdated">AnimationUpdated</h4>
+  <div class="markdown level1 summary"><p>An event that fires when the animation is updated</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;AnimationSample&gt; AnimationUpdated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.Animation.AnimationSample.html">AnimationSample</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_Animation_Animation3D_OnKeyFrameEvent" data-uid="Evergine.Components.Animation.Animation3D.OnKeyFrameEvent">OnKeyFrameEvent</h4>
+  <div class="markdown level1 summary"><p>Raised when a specific frame of an animation is played.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;AnimationKeyframeEvent&gt; OnKeyFrameEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.Animation.AnimationKeyframeEvent.html">AnimationKeyframeEvent</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

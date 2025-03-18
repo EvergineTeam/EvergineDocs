@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Physics Bodies | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Physics Bodies | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="physics-bodies">Physics Bodies</h1>
+
+<hr>
+<p>A Physics Body is an object that can interact with the physical world. In some cases, it is affected by dynamic forces such as gravity or collides with other bodies.</p>
+<p>Physics Bodies use their attached <a href="../colliders/index.html">Colliders</a> to define their physical shape.</p>
+<h2 id="types-of-physics-bodies">Types of Physics Bodies</h2>
+<h3 id="rigid-bodies">Rigid Bodies</h3>
+<p>Rigid bodies are moved around by forces such as collision and gravity. In general, rigid bodies are a good choice for objects that can be moved or pushed, like boxes, furniture, and obstacles. In Evergine, we use the <code>RigidBody3D</code> component.</p>
+<p><a href="rigid_bodies.html"><img src="images/rigid_bodies.gif" alt="Rigid Bodies"></a></p>
+<h3 id="static-bodies">Static Bodies</h3>
+<p>Static bodies are not affected by any physical force and, as a result, do not move. Rigid bodies can collide with static bodies. In general, static bodies can be used for objects that are immovable, like walls, floors, etc. In Evergine, we use the <code>StaticBody3D</code> component.</p>
+<p>[<img src="images/static_bodies.gif" alt="Static Bodies">(static_bodies)</p>
+<h3 id="character-controller">Character Controller</h3>
+<p>This is a special type of body used for player-controlled characters. It is usually controlled by user inputs. In Evergine, we use the <code>CharacterController3D</code> component.</p>
+<p><a href="character_controller.html"><img src="images/character_controller.png" alt="Character Controller"></a></p>
+<h3 id="vehicles">Vehicles</h3>
+<p>It is possible to simulate physical vehicles by using a standard <a href="rigid_bodies.html">Rigid Body</a> and applying several components to set the vehicle's behavior. In Evergine, add a <code>PhysicVehicle3D</code> to a RigidBody entity, and add several <code>PhysicWheel3D</code> for each desired wheel.</p>
+<p><a href="vehicle_physics.html"><img src="images/physic_vehicle.gif" alt="Vehicle Physics"></a></p>
+<h2 id="physics-bodies-and-colliders">Physics Bodies and Colliders</h2>
+<p>As mentioned before, a physic body itself doesn't define its shape. The entity that owns the Physic Body needs at least one <strong><a href="../colliders/index.html">Collider</a></strong> component to interact with other bodies. For example, a rigid body without colliders will pass through a floor because it doesn't have any shape to cause collisions.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="rigid_bodies.html">Rigid Bodies</a></li>
+<li><a href="static_bodies.html">Static Bodies</a></li>
+<li><a href="character_controller.html">Character Controller</a></li>
+<li><a href="vehicle_physics.html">Vehicle Physics</a></li>
+<li><a href="collisions.html">Collisions</a></li>
+<li><a href="sensors.html">Sensors</a></li>
+<li><a href="using_physics_bodies.html">Using Physics Bodies</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

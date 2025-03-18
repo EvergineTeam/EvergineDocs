@@ -1,0 +1,833 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TrackXRDevice | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TrackXRDevice | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Components.XR.TrackXRDevice">
+
+
+
+  <h1 id="Evergine_Components_XR_TrackXRDevice" data-uid="Evergine.Components.XR.TrackXRDevice" class="text-break">Class TrackXRDevice</h1>
+  <div class="markdown level0 summary"><p>Tracks a spatial anchor.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Behavior.html">Behavior</a></div>
+    <div class="level7"><span class="xref">TrackXRDevice</span></div>
+      <div class="level8"><a class="xref" href="Evergine.Components.XR.AdvancedTrackXRDevice.html">AdvancedTrackXRDevice</a></div>
+      <div class="level8"><a class="xref" href="Evergine.Components.XR.TrackXRController.html">TrackXRController</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_Family">Behavior.Family</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_UpdateOrder">Behavior.UpdateOrder</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Components.html">Components</a>.<a class="xref" href="Evergine.Components.XR.html">XR</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Components.dll</h6>
+  <h5 id="Evergine_Components_XR_TrackXRDevice_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class TrackXRDevice : Behavior, IDependencyObject</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_pointer" data-uid="Evergine.Components.XR.TrackXRDevice.pointer">pointer</h4>
+  <div class="markdown level1 summary"><p>The pointer ray in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Ray pointer</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_transform" data-uid="Evergine.Components.XR.TrackXRDevice.transform">transform</h4>
+  <div class="markdown level1 summary"><p>Owner Entity's Transform3D Component.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(true, true, BindComponentSource.Owner, null, true)]
+protected Transform3D transform</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_xrPlatform" data-uid="Evergine.Components.XR.TrackXRDevice.xrPlatform">xrPlatform</h4>
+  <div class="markdown level1 summary"><p>XReality platform.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindService(true)]
+protected XRPlatform xrPlatform</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Services.XRPlatform.html">XRPlatform</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Components_XR_TrackXRDevice_AngularVelocity_" data-uid="Evergine.Components.XR.TrackXRDevice.AngularVelocity*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_AngularVelocity" data-uid="Evergine.Components.XR.TrackXRDevice.AngularVelocity">AngularVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets the device's angular velocity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 AngularVelocity { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_InternalDeviceType_" data-uid="Evergine.Components.XR.TrackXRDevice.InternalDeviceType*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_InternalDeviceType" data-uid="Evergine.Components.XR.TrackXRDevice.InternalDeviceType">InternalDeviceType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the device type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected XRTrackedDeviceType InternalDeviceType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.TrackedDevices.XRTrackedDeviceType.html">XRTrackedDeviceType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_InternalHandedness_" data-uid="Evergine.Components.XR.TrackXRDevice.InternalHandedness*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_InternalHandedness" data-uid="Evergine.Components.XR.TrackXRDevice.InternalHandedness">InternalHandedness</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the controller role.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected XRHandedness InternalHandedness { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.XRHandedness.html">XRHandedness</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_InternalIndex_" data-uid="Evergine.Components.XR.TrackXRDevice.InternalIndex*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_InternalIndex" data-uid="Evergine.Components.XR.TrackXRDevice.InternalIndex">InternalIndex</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected uint InternalIndex { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_InternalSelectionStrategy_" data-uid="Evergine.Components.XR.TrackXRDevice.InternalSelectionStrategy*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_InternalSelectionStrategy" data-uid="Evergine.Components.XR.TrackXRDevice.InternalSelectionStrategy">InternalSelectionStrategy</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the Device Selection Strategy.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected TrackXRDevice.SelectionDeviceStrategy InternalSelectionStrategy { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.XR.TrackXRDevice.html">TrackXRDevice</a>.<a class="xref" href="Evergine.Components.XR.TrackXRDevice.SelectionDeviceStrategy.html">SelectionDeviceStrategy</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_IsConnected_" data-uid="Evergine.Components.XR.TrackXRDevice.IsConnected*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_IsConnected" data-uid="Evergine.Components.XR.TrackXRDevice.IsConnected">IsConnected</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this device has been connected to a real device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsConnected { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_LocalPointer_" data-uid="Evergine.Components.XR.TrackXRDevice.LocalPointer*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_LocalPointer" data-uid="Evergine.Components.XR.TrackXRDevice.LocalPointer">LocalPointer</h4>
+  <div class="markdown level1 summary"><p>Gets the device pointer ray in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Ray LocalPointer { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_LocalPose_" data-uid="Evergine.Components.XR.TrackXRDevice.LocalPose*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_LocalPose" data-uid="Evergine.Components.XR.TrackXRDevice.LocalPose">LocalPose</h4>
+  <div class="markdown level1 summary"><p>Gets the current device pose in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ViewPose LocalPose { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.ViewPose.html">ViewPose</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_Pointer_" data-uid="Evergine.Components.XR.TrackXRDevice.Pointer*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_Pointer" data-uid="Evergine.Components.XR.TrackXRDevice.Pointer">Pointer</h4>
+  <div class="markdown level1 summary"><p>Gets the device pointer ray.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Ray Pointer { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_Pose_" data-uid="Evergine.Components.XR.TrackXRDevice.Pose*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_Pose" data-uid="Evergine.Components.XR.TrackXRDevice.Pose">Pose</h4>
+  <div class="markdown level1 summary"><p>Gets the current device's pose.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ViewPose Pose { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.ViewPose.html">ViewPose</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_PoseIsValid_" data-uid="Evergine.Components.XR.TrackXRDevice.PoseIsValid*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_PoseIsValid" data-uid="Evergine.Components.XR.TrackXRDevice.PoseIsValid">PoseIsValid</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the pose of this device is valid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool PoseIsValid { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_TrackedDevice_" data-uid="Evergine.Components.XR.TrackXRDevice.TrackedDevice*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_TrackedDevice" data-uid="Evergine.Components.XR.TrackXRDevice.TrackedDevice">TrackedDevice</h4>
+  <div class="markdown level1 summary"><p>Gets the tracked device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XRTrackedDevice TrackedDevice { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.TrackedDevices.XRTrackedDevice.html">XRTrackedDevice</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_TrackingLostMode_" data-uid="Evergine.Components.XR.TrackXRDevice.TrackingLostMode*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_TrackingLostMode" data-uid="Evergine.Components.XR.TrackXRDevice.TrackingLostMode">TrackingLostMode</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how this controller behaves after tracking is lost.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[DataMember]
+public TrackXRDevice.XRTrackingLostMode TrackingLostMode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.XR.TrackXRDevice.html">TrackXRDevice</a>.<a class="xref" href="Evergine.Components.XR.TrackXRDevice.XRTrackingLostMode.html">XRTrackingLostMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_TrackingState_" data-uid="Evergine.Components.XR.TrackXRDevice.TrackingState*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_TrackingState" data-uid="Evergine.Components.XR.TrackXRDevice.TrackingState">TrackingState</h4>
+  <div class="markdown level1 summary"><p>Gets the current tracking state of this device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XRTrackingState TrackingState { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.XRTrackingState.html">XRTrackingState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_Transform_" data-uid="Evergine.Components.XR.TrackXRDevice.Transform*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_Transform" data-uid="Evergine.Components.XR.TrackXRDevice.Transform">Transform</h4>
+  <div class="markdown level1 summary"><p>Gets the transform of the tracked device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Transform3D Transform { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_XR_TrackXRDevice_Velocity_" data-uid="Evergine.Components.XR.TrackXRDevice.Velocity*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_Velocity" data-uid="Evergine.Components.XR.TrackXRDevice.Velocity">Velocity</h4>
+  <div class="markdown level1 summary"><p>Gets the device's angular velocity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 Velocity { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Components_XR_TrackXRDevice_InternalUpdate_" data-uid="Evergine.Components.XR.TrackXRDevice.InternalUpdate*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_InternalUpdate" data-uid="Evergine.Components.XR.TrackXRDevice.InternalUpdate">InternalUpdate()</h4>
+  <div class="markdown level1 summary"><p>Updates method by the tracked device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void InternalUpdate()</code></pre>
+  </div>
+  <a id="Evergine_Components_XR_TrackXRDevice_OnAttached_" data-uid="Evergine.Components.XR.TrackXRDevice.OnAttached*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_OnAttached" data-uid="Evergine.Components.XR.TrackXRDevice.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_OnAttached">Behavior.OnAttached()</a></div>
+  <a id="Evergine_Components_XR_TrackXRDevice_OnDetach_" data-uid="Evergine.Components.XR.TrackXRDevice.OnDetach*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_OnDetach" data-uid="Evergine.Components.XR.TrackXRDevice.OnDetach">OnDetach()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetach()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_OnDetach">Behavior.OnDetach()</a></div>
+  <a id="Evergine_Components_XR_TrackXRDevice_RefreshTrackedDevice_" data-uid="Evergine.Components.XR.TrackXRDevice.RefreshTrackedDevice*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_RefreshTrackedDevice" data-uid="Evergine.Components.XR.TrackXRDevice.RefreshTrackedDevice">RefreshTrackedDevice()</h4>
+  <div class="markdown level1 summary"><p>Refreshes the tracked device.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void RefreshTrackedDevice()</code></pre>
+  </div>
+  <a id="Evergine_Components_XR_TrackXRDevice_Update_" data-uid="Evergine.Components.XR.TrackXRDevice.Update*"></a>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_Update_System_TimeSpan_" data-uid="Evergine.Components.XR.TrackXRDevice.Update(System.TimeSpan)">Update(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Allows this instance to execute custom logic during its <code>Update</code>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Update(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The game time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Behavior.html#Evergine_Framework_Behavior_Update_System_TimeSpan_">Behavior.Update(TimeSpan)</a></div>
+  <h5 id="Evergine_Components_XR_TrackXRDevice_Update_System_TimeSpan__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method will not be executed if the <a class="xref" href="Evergine.Framework.Component.html">Component</a> or the <a class="xref" href="Evergine.Framework.Entity.html">Entity</a>
+owning it is not <code>Active</code>.</p>
+</div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Components_XR_TrackXRDevice_OnTrackedDeviceChanged" data-uid="Evergine.Components.XR.TrackXRDevice.OnTrackedDeviceChanged">OnTrackedDeviceChanged</h4>
+  <div class="markdown level1 summary"><p>Event triggered when a tracked device changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;XRTrackedDevice&gt; OnTrackedDeviceChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.XR.TrackedDevices.XRTrackedDevice.html">XRTrackedDevice</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

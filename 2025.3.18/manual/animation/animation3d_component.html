@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Animation 3D Component | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation 3D Component | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation-3d-component">Animation 3D Component</h1>
+
+<video autoplay="" loop="" muted="" width="100%" height="auto">
+  <source src="images/rhino.mp4" type="video/mp4">
+</video>
+<p>The <strong>Animation3D</strong> class in <strong>Evergine</strong> is a specialized component that facilitates the control and management of animations for 3D models. This class is essential for working with animated 3D characters, objects, or environments, allowing for smooth playback, looping, and synchronization of animations. Let's  explore the core features and usage of the <strong>Animation3D</strong> class based on its structure and common use cases.</p>
+<h2 id="properties">Properties</h2>
+<p>This component is created automatically when we instantiate a model that contains animations. It will be in the root entity. In addition, we can create our own component just knowing the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Clip</strong></td>
+<td>(<em>Only Getter</em>) Gets the current <strong>AnimationBlendClip</strong> in play.</td>
+</tr>
+<tr>
+<td><strong>AnimationLayers</strong></td>
+<td>(<em>Only Getter</em>) Gets all the registered layers of <strong>AnimationBlendClip</strong>.</td>
+</tr>
+<tr>
+<td><strong>BoundingBoxRefreshed</strong></td>
+<td><em>True</em> if the bounding box of the model has been refreshed.</td>
+</tr>
+<tr>
+<td><strong>CurrentAnimation</strong></td>
+<td>Holds the <strong>name</strong> of the animation that is currently active.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>Boolean value that determines whether the animation should restart after completion.</td>
+</tr>
+<tr>
+<td><strong>PlaybackRate</strong></td>
+<td>Controls the speed at which the animation plays.</td>
+</tr>
+<tr>
+<td><strong>CurrentAnimationTrack</strong></td>
+<td>(<em>Only Getter</em>) Gets the current animation track (from the Model asset) currently active.</td>
+</tr>
+<tr>
+<td><strong>AnimationState</strong></td>
+<td>The current status of the animation. It can be <strong>Stopped</strong> and <strong>Playing</strong>.</td>
+</tr>
+<tr>
+<td><strong>Frame</strong></td>
+<td>The current frame of the animation in play.</td>
+</tr>
+<tr>
+<td><strong>PlayTime</strong></td>
+<td>The amount of time since the current animation started playing</td>
+</tr>
+<tr>
+<td><strong>StartAnimationTime</strong></td>
+<td>The start time (in seconds) of the animation.</td>
+</tr>
+<tr>
+<td><strong>EndAnimationTime</strong></td>
+<td>The ending time (in seconds) of the animation.</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td>The duration (in seconds) of the current animation.</td>
+</tr>
+<tr>
+<td><strong>PlayAutomatically</strong></td>
+<td>When true, the current animation will start playing on the beginning without requiring manual play.</td>
+</tr>
+<tr>
+<td><strong>ApplyRootMotion</strong></td>
+<td>Boolean that indicates whether the transform offset from the root entity will be applied to this entity.</td>
+</tr>
+<tr>
+<td><strong>SmoothTransitions</strong></td>
+<td>If true, the transition between 2 AnimationBlendClips will be using a smooth transition, opposed to the linear interpolation by default.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods">Methods</h2>
+<p>The following methods allow us to fully control the animation.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PlayAnimation</strong></td>
+<td>Starts the playback of an animation. The new animation can be defined by the <strong>AnimationTrackClip</strong> name from the <strong>Model</strong> asset, or directly providing the <strong>AnimationBlendClip</strong> if we want more specific animation, like a blend tree (more information in <strong><a href="animation_blend_tree.html">this section</a>)</strong>.</td>
+</tr>
+<tr>
+<td><strong>StopAnimation</strong></td>
+<td>Stops the animation entirely and it keeps there.</td>
+</tr>
+<tr>
+<td><strong>ResumeAnimation</strong></td>
+<td>Resumes the animation playback from the moment it time it got stopped.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sample-code">Sample Code</h2>
+<p>The following code explores some of the methods.</p>
+<pre><code class="lang-csharp">
+Animation3D  animation3D; // this object can be acquired through [BindComponent] aswell.
+
+// We plays the 'walking' animation, in loop mode, at double speed and transitioning over 1 second.
+animation3D.PlayAnimation(&quot;walking&quot;, loop: true, transitionTime: 1, playbackRate: 2);
+
+// We plays only a window slice of the 'full_track' animation (from seconds 1 to 5), in loop mode.
+animation3D.PlayAnimation(&quot;full_track&quot;, loop: true, startTime: 1, endTime: 5);
+
+// We can also play directly an AnimationBlendClip.
+animation3D.PlayAnimation(animationBlendClip);
+
+// Stops the animation.
+animation3D.StopAnimation();
+
+</code></pre>
+<h2 id="working-with-animation-node-hierarchies">Working with Animation node hierarchies</h2>
+<p>When dealing with skeletal animations, creating a hierarchy of <strong>AnimationBlendClips</strong> becomes particularly useful. This feature ensures that complex models with multiple moving parts (such as characters with arms, legs, and head movement) behave correctly as the animation plays. Each node in the model’s hierarchy is mapped to a corresponding bone or joint in the animation, ensuring proper deformation and movement of the model. In <a href="animation_blend_tree.html">this article</a> we explain in detail how to create your own animation blend tree.</p>
+<h2 id="conclusions">Conclusions</h2>
+<p>The <strong>Animation3D</strong> class in <strong>Evergine</strong> provides a robust set of tools for controlling 3D model animations. Whether you're developing character animations or animating complex mechanical systems, the class offers essential features such as looping, playback control, and node hierarchy mapping. By mastering these properties and methods, developers can create lifelike and responsive animations that enhance the visual and interactive quality of their projects.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

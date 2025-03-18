@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Generate AI-Driven Assets | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Generate AI-Driven Assets | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="generate-ai-driven-assets">Generate AI-Driven Assets</h1>
+
+<p>To integrate AI-driven 3D model generation within Evergine Studio, a dedicated tab has been introduced. Below are the steps to utilize this functionality:</p>
+<h2 id="accessing-the-ai-model-generation-feature">Accessing the AI Model Generation Feature</h2>
+<p>Navigate to the AI Generation Tab by clicking on the &quot;Generative assets&quot; menu item located under the &quot;Assets&quot; menu of the main toolbar.</p>
+<p><img src="Images/generativeAssets.png" alt="Assets"></p>
+<h2 id="gallery">Gallery</h2>
+<p>The first screen is the Gallery, where you can find the generated assets you have saved.</p>
+<p><img src="Images/generateGallery.jpg" alt="Assets"></p>
+<h3 id="filter-and-sort">Filter and sort</h3>
+<p>At the top of the gallery, you will find filters and sorting options to help you locate assets within the gallery.</p>
+<h3 id="reuse-the-prompt">Reuse the prompt</h3>
+<p>The left button of a gallery item allows you to reuse the prompt. Clicking it will display the generation view with the prompt pre-filled using the data from the selected gallery item.</p>
+<h3 id="add-to-current-project">Add to current project</h3>
+<p>The right button of a gallery item adds the item to the current project. Clicking it will add the gallery item to the current folder you have opened in the asset details view of the project.</p>
+<h2 id="create-asset">Create asset</h2>
+<p>Currently, Evergine supports the creation of 3D models using Tripo AI. Future updates may introduce support for additional AI providers and the possibility to generate other types of assets such as textures, cubemaps, and more.</p>
+<p><img src="Images/generateCreate.jpg" alt="Assets"></p>
+<h3 id="initial-setup">Initial Setup</h3>
+<p>Enter Your TripoAI API Key:</p>
+<ul>
+<li>Before generating models, you must provide a valid Tripo AI API key.</li>
+<li>Within the AI Generation view, click the &quot;Manage API key&quot; button.</li>
+<li>Create a Tripo AI API key from its platform: <a href="https://platform.tripo3d.ai/api-keys">https://platform.tripo3d.ai/api-keys</a></li>
+<li>Input your TripoAI API key in the designated field and click &quot;Save key&quot;.</li>
+</ul>
+<p><img src="Images/generateTripoAI.png" alt="Assets"></p>
+<h3 id="monitoring-tripoai-credits">Monitoring TripoAI Credits</h3>
+<p>Evergine integrates with TripoAI APIs to display your real-time credit balance.
+This feature helps you plan and manage model generation according to your available resources.</p>
+<h3 id="methods-for-generating-3d-models">Methods for Generating 3D Models</h3>
+<p>Evergine offers three methods for AI-driven 3D model generation:</p>
+<ol>
+<li><p><strong>Text Generation</strong>:</p>
+<ul>
+<li>Select the &quot;Text&quot; tab.</li>
+<li>Provide a detailed description of the desired model in the positive prompt field.</li>
+<li>Optionally, use a negative prompt to exclude specific features.</li>
+</ul>
+</li>
+<li><p><strong>Image Generation</strong>:</p>
+<ul>
+<li>Choose the &quot;Image&quot; tab.</li>
+<li>Upload a reference image from your device using the upload function or by dragging and dropping the image into the designated area.</li>
+</ul>
+</li>
+<li><p><strong>Multiview Generation</strong>:</p>
+<ul>
+<li>Choose the &quot;Multiview&quot; tab.</li>
+<li>Upload up to 4 images from your device using the upload function or by dragging and dropping the image into the designated area.</li>
+</ul>
+</li>
+</ol>
+<p><img src="Images/generateTripoAI2.png" alt="Assets"></p>
+<h4 id="additional-options">Additional options</h4>
+<ul>
+<li>All three generation methods support the option to enable HD Texture.</li>
+<li>The Text and Image generation methods provide options to select a desired style, defining the artistic style or transformation to be applied to the 3D model, altering its appearance according to preset options.</li>
+</ul>
+<h4 id="generating-multiple-proposals">Generating Multiple Proposals</h4>
+<p><img src="Images/generateProposals.png" alt="Assets"></p>
+<ul>
+<li>To expedite the creative process, Evergine allows simultaneous generation of multiple proposals (1, 2, or 4).</li>
+<li>Each proposal is processed in parallel with individual progress indicators.</li>
+<li>Be aware that each generation consumes credits from your TripoAI account.</li>
+</ul>
+<h3 id="managing-models">Managing Models</h3>
+<p>You can save each generated model in the current project and the gallery by clicking the &quot;Save asset&quot; button and providing a name.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

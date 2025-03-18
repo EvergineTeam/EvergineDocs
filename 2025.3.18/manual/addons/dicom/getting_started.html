@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<hr>
+<h2 id="demo">Demo</h2>
+<p>We highly recommend checking out the <a href="https://github.com/EvergineTeam/Dicom-Demo">Dicom-Demo</a>. It's very simple and it illustrates the basic usage of the addon.</p>
+<p><img src="images/density_range.gif" alt="dicom_gif"></p>
+<h2 id="add-the-dicomcustomrenderpath">Add the Dicom.CustomRenderPath</h2>
+<p>The rendering of Dicoms in 3D is complex; therefore, it needs a custom RenderPath.</p>
+<p>We provide the <code>Dicom.CustomRenderPath</code> that you can set up in two different ways:</p>
+<ol>
+<li>Set the RenderPath in the specific <code>Camera</code> that you want.</li>
+<li>In the <code>RenderPipeline</code>, remove the <code>DefaultRenderPath</code> and add the <code>Dicom.CustomRenderPath</code>.</li>
+</ol>
+<pre><code class="lang-cs">// 1) In the specific Camera
+var cameraComponent = cameraEntity.FindComponent&lt;Camera&gt;(isExactType: false);
+cameraComponent.RenderPath = new Dicom.CustomRenderPath((RenderManager)this.Managers.RenderManager);
+</code></pre>
+<pre><code class="lang-cs">// 2) Globally, in the RenderPipeline
+// You could do this in the CreateScene of your Scene
+var renderPipeline = this.Managers.RenderManager.RenderPipeline;
+renderPipeline.RemoveRenderPath(renderPipeline.DefaultRenderPath);
+renderPipeline.AddRenderPath(new CustomRenderPath((RenderManager)this.Managers.RenderManager));
+
+// We also provide two helper functions to make this easier:
+// - DicomHelpers.ReplaceDefaultRenderPathWithDicomRenderPath
+// - DicomHelpers.ReplaceDicomRenderPathWithDefaultRenderPath
+</code></pre>
+<h2 id="dicomcomponent">DicomComponent</h2>
+<p>The DicomComponent is essential for both loading and rendering Dicom files.</p>
+<p>To load a Dicom file, call the <code>DicomComponent.LoadFromFile</code> method. The <code>DicomComponent</code> acts as a holder for a Dicom file.
+The parameter of <code>DicomComponent.LoadFromFile</code> is a <code>string</code> with the path to a <code>.zip</code> file. Our loader will scan for DCM files inside the <code>.zip</code>. You can have any folder hierarchy inside the ZIP, and the files can have any extension (no need for the .dcm extension), but <strong>all the files inside the zip must be valid DCMs</strong>.</p>
+<h3 id="windowrange">WindowRange</h3>
+<p>The <code>DicomComponent</code> has the <code>WindowRange</code> property for configuring the density window range. This allows users to control what density range they want to visualize.</p>
+<h3 id="dithering">Dithering</h3>
+<p>Dithering is a visualization technique that reduces the <a href="https://en.wikipedia.org/wiki/Colour_banding">banding</a> of the 3D visualization.
+The <code>DicomComponent</code> has the <code>DitheringEnabled</code> property to enable this feature.</p>
+<h2 id="3d-visualization">3D Visualization</h2>
+<p>To visualize Dicoms in 3D, you need:</p>
+<ol>
+<li><a href="#add-the-dicomcustomrenderpath">Add the Dicom.CustomRenderPath</a></li>
+<li>Create an entity with these components:
+<ul>
+<li>Transform3D: which will be the transform of our Dicom model</li>
+<li>DicomComponent</li>
+<li>Some MeshComponent for the geometry that contains the Dicom. Important: the vertices' bounding box must be {{-0.5, -0.5, -0.5}}.</li>
+<li>MeshRenderer</li>
+<li>MaterialComponent: using the Dicom3DMaterial</li>
+</ul>
+</li>
+</ol>
+<p><img src="images/components.jpg" alt="components_img"></p>
+<h3 id="what-meshcomponent-should-i-use">What MeshComponent should I use?</h3>
+<p>The easiest shape you could use is a simple cube of length 1, centered at (0, 0, 0).</p>
+<p>However, if you have knowledge about the way the Dicom was captured, you could use a shape that approximates better the shape of the underlying pixels.
+For example, most <a href="https://en.wikipedia.org/wiki/CT_scan">CT scanners</a> are cylindrical and, thus, the scanned pixels are also distributed inside a cylinder. Using a MeshComponent that has a better approximation of the Dicom pixels' shape can help improve rendering performance.</p>
+<h2 id="2d-visualization">2D Visualization</h2>
+<p>For the visualization of 2D cuts of the Dicom, we need another entity for each cut.
+The cut planes must be axis-aligned.</p>
+<p>Each cut plane must have its own entity with the following components:</p>
+<ul>
+<li>Transform3D: the position of the plane</li>
+<li>PlaneMesh: with an axis-aligned <code>PlaneNormal</code> and a large <code>Width</code> and <code>Height</code> (one million, for example)</li>
+<li>MeshRenderer</li>
+<li>Dicom2DViewComponent: You must set the <code>Dicom</code> property to reference the <code>DicomComponent</code> created in the aforementioned entity.</li>
+<li>MaterialComponent: using the Dicom2DMaterial</li>
+</ul>
+<p><img src="images/components_2d.png" alt="2d_components_img"></p>
+<p>If your Dicom application only uses 2D visualization (no 3D), when you create the entity that contains the <code>DicomComponent</code>, you don't need most of the components: just the <code>Transform3D</code> and the <code>DicomComponent</code>. Also, if your Dicom application only requires 2D visualization, you don't need to add the <code>Dicom.CustomRenderPath</code>.</p>
+<p>We provide <code>DicomHelpers.CreateDicomEntities</code> methods that allow creating all the Dicom entities in a single call (there is one extension method for <code>Scene</code>).</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

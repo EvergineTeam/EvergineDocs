@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Create Custom LineBatch | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create Custom LineBatch | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="create-custom-linebatch">Create Custom LineBatch</h1>
+
+<hr>
+<p>In most cases, the default LineBatch3D provided by the RenderManager will be sufficient. However, sometimes it is useful to create your custom line batch so you can modify its global transformation or alter its rendering behavior without impacting the default line batch included in Evergine. In these situations, it can be beneficial to create an independent custom line batch.</p>
+<h2 id="how-to-create-a-custom-linebatch">How to Create a Custom LineBatch</h2>
+<pre><code class="lang-csharp">public class MyDrawable : Drawable3D
+{
+    [BindService]
+    private AssetsService assetsService = null;
+
+    private GraphicsContext graphicsContext;
+
+    private LineBatch3D lineBatch;
+
+    protected override bool OnAttached()
+    {
+        this.graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();
+        var layer = this.assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID);
+
+        // Create custom line batch 3D
+        this.lineBatch = new LineBatch3D(this.graphicsContext, layer);
+
+        // Add line batch to render
+        this.Managers.RenderManager.AddRenderObject(this.lineBatch);
+
+        return base.OnAttached();
+    }
+
+    protected override void OnActivated()
+    {
+        // Enable line batch when the component is activated
+        this.lineBatch.IsEnabled = true;
+        base.OnActivated();
+    }
+
+    protected override void OnDeactivated()
+    {
+        // Disable line batch when the component is deactivated
+        this.lineBatch.IsEnabled = false;
+        base.OnDeactivated();
+    }
+
+    protected override void OnDetach()
+    {
+        // Remove line batch from render when the component is detached
+        this.Managers.RenderManager.RemoveRenderObject(this.lineBatch);
+        base.OnDetach();
+    }
+
+    public override void Draw(DrawContext drawContext)
+    {
+        // Draw a sample blue cone
+        this.lineBatch.DrawCone(0.5f, 1.0f, Vector3.UnitY, Vector3.Down, Color.Blue);
+    }
+}
+</code></pre>
+<p><strong>Result</strong>
+<img src="images/customLinebatch.jpg" alt="MyDrawable component"></p>
+<h2 id="some-interesting-properties">Some Interesting Properties</h2>
+<p>The line batch has a <strong>Transform</strong> property that can be used to apply transformations (translation, rotation, or scale) to all elements added to the batch. For example, if you use the line batch to draw a CAD map, you can use this property to rotate the whole map.</p>
+<p>By default, the line batch requires that every frame the elements to draw be added to the batch. However, in some cases, it is useful to create a static batch and draw the same elements every frame because no new elements will need to be added to the batch at runtime. You can use the <strong>ResetAfterRender</strong> property to indicate that the line batch doesn't reset the batch every frame.</p>
+<pre><code class="lang-csharp">this.lineBatch = new LineBatch3D(this.graphicsContext, layer)
+{
+    ResetAfterRender = false,
+};
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

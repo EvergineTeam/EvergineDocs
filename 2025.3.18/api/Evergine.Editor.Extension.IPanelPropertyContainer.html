@@ -1,0 +1,2282 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IPanelPropertyContainer | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IPanelPropertyContainer | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer">
+
+
+
+  <h1 id="Evergine_Editor_Extension_IPanelPropertyContainer" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer" class="text-break">Interface IPanelPropertyContainer</h1>
+  <div class="markdown level0 summary"><p>Represents a panel that contains properties.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Editor.html">Editor</a>.<a class="xref" href="Evergine.Editor.Extension.html">Extension</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Editor.Extension.dll</h6>
+  <h5 id="Evergine_Editor_Extension_IPanelPropertyContainer_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IPanelPropertyContainer</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_Properties_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Properties*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_Properties" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Properties">Properties</h4>
+  <div class="markdown level1 summary"><p>Gets the list of <a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a> elements in the container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IEnumerable&lt;IPropertyInfo&gt; Properties { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_Add_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Add*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_Add_System_Reflection_MemberInfo_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Add(System.Reflection.MemberInfo)">Add(MemberInfo)</h4>
+  <div class="markdown level1 summary"><p>Adds a property for the specified member of the instance associated with this panel.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Add(MemberInfo member)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a></td>
+        <td><span class="parametername">member</span></td>
+        <td><p>The member.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_Add_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Add*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_Add_System_Reflection_MemberInfo_System_Object_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Add(System.Reflection.MemberInfo,System.Object)">Add(MemberInfo, object)</h4>
+  <div class="markdown level1 summary"><p>Adds a property for the specified member of the instance as a parameter.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void Add(MemberInfo member, object instance)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a></td>
+        <td><span class="parametername">member</span></td>
+        <td><p>The member.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></td>
+        <td><span class="parametername">instance</span></td>
+        <td><p>The instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddBoolean_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddBoolean*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddBoolean_System_String_System_String_System_Boolean_System_Func_System_Boolean__System_Action_System_Boolean__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddBoolean(System.String,System.String,System.Boolean,System.Func{System.Boolean},System.Action{System.Boolean},System.String)">AddBoolean(string, string, bool, Func&lt;bool&gt;, Action&lt;bool&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a boolean property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddBoolean(string id, string name, bool defaultValue = false, Func&lt;bool&gt; getValue = null, Action&lt;bool&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property's name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function that retrieves the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action that sets the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddButton_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddButton*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddButton_System_String_System_String_System_Action_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddButton(System.String,System.String,System.Action)">AddButton(string, string, Action)</h4>
+  <div class="markdown level1 summary"><p>Adds a button to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddButton(string id, string text, Action action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The button text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action">Action</a></td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to be executed when the button is clicked.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddButton_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddButton*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddButton_System_String_System_String_System_Func_System_String_System_Threading_Tasks_Task__" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddButton(System.String,System.String,System.Func{System.String,System.Threading.Tasks.Task})">AddButton(string, string, Func&lt;string, Task&gt;)</h4>
+  <div class="markdown level1 summary"><p>Adds a button to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddButton(string id, string text, Func&lt;string, Task&gt; action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The button text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-2">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to be executed when the button is clicked.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddButton_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddButton*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddButton_System_String_System_String_System_Func_System_Threading_Tasks_Task__" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddButton(System.String,System.String,System.Func{System.Threading.Tasks.Task})">AddButton(string, string, Func&lt;Task&gt;)</h4>
+  <div class="markdown level1 summary"><p>Adds a button to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddButton(string id, string text, Func&lt;Task&gt; action)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The button text.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a>&gt;</td>
+        <td><span class="parametername">action</span></td>
+        <td><p>The action to be executed when the button is clicked.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddColor_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddColor*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddColor_System_String_System_String_Evergine_Common_Graphics_Color_System_Func_Evergine_Common_Graphics_Color__System_Action_Evergine_Common_Graphics_Color__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddColor(System.String,System.String,Evergine.Common.Graphics.Color,System.Func{Evergine.Common.Graphics.Color},System.Action{Evergine.Common.Graphics.Color},System.String)">AddColor(string, string, Color, Func&lt;Color&gt;, Action&lt;Color&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a color property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddColor(string id, string name, Color defaultValue = default, Func&lt;Color&gt; getValue = null, Action&lt;Color&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function to get the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action to set the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddEnum_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddEnum*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddEnum_System_String_System_String_System_Type_System_Func_System_Enum__System_Action_System_Enum__System_Enum___System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddEnum(System.String,System.String,System.Type,System.Func{System.Enum},System.Action{System.Enum},System.Enum[],System.String)">AddEnum(string, string, Type, Func&lt;Enum&gt;, Action&lt;Enum&gt;, Enum[], string)</h4>
+  <div class="markdown level1 summary"><p>Adds an Enum property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddEnum(string id, string name, Type enumType, Func&lt;Enum&gt; getValue = null, Action&lt;Enum&gt; setValue = null, Enum[] excluded = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">enumType</span></td>
+        <td><p>The enum type.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.enum">Enum</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.enum">Enum</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.enum">Enum</a>[]</td>
+        <td><span class="parametername">excluded</span></td>
+        <td><p>The list of excluded values.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddEnum_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddEnum*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddEnum__1_System_String_System_String_System_Func___0__System_Action___0____0___System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddEnum``1(System.String,System.String,System.Func{``0},System.Action{``0},``0[],System.String)">AddEnum&lt;TEnum&gt;(string, string, Func&lt;TEnum&gt;, Action&lt;TEnum&gt;, TEnum[], string)</h4>
+  <div class="markdown level1 summary"><p>Adds an enum property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddEnum&lt;TEnum&gt;(string id, string name, Func&lt;TEnum&gt; getValue = null, Action&lt;TEnum&gt; setValue = null, TEnum[] excluded = null, string tooltip = null) where TEnum : Enum</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;TEnum&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function to get the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;TEnum&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action to set the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td>TEnum[]</td>
+        <td><span class="parametername">excluded</span></td>
+        <td><p>The list of excluded values.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TEnum</span></td>
+        <td><p>The enum type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddInteger_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddInteger*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddInteger_System_String_System_String_System_Byte_System_Byte_System_Byte_System_Byte_System_Byte_System_Func_System_Byte__System_Action_System_Byte__System_Boolean_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddInteger(System.String,System.String,System.Byte,System.Byte,System.Byte,System.Byte,System.Byte,System.Func{System.Byte},System.Action{System.Byte},System.Boolean,System.String)">AddInteger(string, string, byte, byte, byte, byte, byte, Func&lt;byte&gt;, Action&lt;byte&gt;, bool, string)</h4>
+  <div class="markdown level1 summary"><p>Adds an integer property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INumericPropertyInfo AddInteger(string id, string name, byte minValue = 0, byte maxValue = 255, byte desiredChange = 0, byte desiredLargeChange = 0, byte defaultValue = 0, Func&lt;byte&gt; getValue = null, Action&lt;byte&gt; setValue = null, bool asSlider = false, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">minValue</span></td>
+        <td><p>The minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">maxValue</span></td>
+        <td><p>The maximum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">desiredChange</span></td>
+        <td><p>The desired change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">desiredLargeChange</span></td>
+        <td><p>The desired large change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.byte">byte</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">asSlider</span></td>
+        <td><p>A value indicating whether the property must be shown as a slider.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.INumericPropertyInfo.html">INumericPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddInteger_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddInteger*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddInteger_System_String_System_String_System_Int32_System_Int32_System_Int32_System_Int32_System_Int32_System_Func_System_Int32__System_Action_System_Int32__System_Boolean_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddInteger(System.String,System.String,System.Int32,System.Int32,System.Int32,System.Int32,System.Int32,System.Func{System.Int32},System.Action{System.Int32},System.Boolean,System.String)">AddInteger(string, string, int, int, int, int, int, Func&lt;int&gt;, Action&lt;int&gt;, bool, string)</h4>
+  <div class="markdown level1 summary"><p>Adds an integer property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INumericPropertyInfo AddInteger(string id, string name, int minValue = -2147483648, int maxValue = 2147483647, int desiredChange = 0, int desiredLargeChange = 0, int defaultValue = 0, Func&lt;int&gt; getValue = null, Action&lt;int&gt; setValue = null, bool asSlider = false, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">minValue</span></td>
+        <td><p>The minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">maxValue</span></td>
+        <td><p>The maximum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">desiredChange</span></td>
+        <td><p>The desired change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">desiredLargeChange</span></td>
+        <td><p>The desired large change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">asSlider</span></td>
+        <td><p>A value indicating whether the property must be shown as a slider.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.INumericPropertyInfo.html">INumericPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddInteger_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddInteger*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddInteger_System_String_System_String_System_Int64_System_Int64_System_Int64_System_Int64_System_Int64_System_Func_System_Int64__System_Action_System_Int64__System_Boolean_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddInteger(System.String,System.String,System.Int64,System.Int64,System.Int64,System.Int64,System.Int64,System.Func{System.Int64},System.Action{System.Int64},System.Boolean,System.String)">AddInteger(string, string, long, long, long, long, long, Func&lt;long&gt;, Action&lt;long&gt;, bool, string)</h4>
+  <div class="markdown level1 summary"><p>Adds an integer property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INumericPropertyInfo AddInteger(string id, string name, long minValue = -9223372036854775808, long maxValue = 9223372036854775807, long desiredChange = 0, long desiredLargeChange = 0, long defaultValue = 0, Func&lt;long&gt; getValue = null, Action&lt;long&gt; setValue = null, bool asSlider = false, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">minValue</span></td>
+        <td><p>The minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">maxValue</span></td>
+        <td><p>The maximum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">desiredChange</span></td>
+        <td><p>The desired change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">desiredLargeChange</span></td>
+        <td><p>The desired large change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int64">long</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">asSlider</span></td>
+        <td><p>A value indicating whether the property must be shown as a slider.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.INumericPropertyInfo.html">INumericPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddLabel_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddLabel*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddLabel_System_String_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddLabel(System.String,System.String)">AddLabel(string, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a label property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddLabel(string id, string text)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The label text.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddList_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddList*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddList_System_String_System_String_System_Func_System_Collections_Generic_IEnumerable_System_String___System_Action_System_Collections_Generic_IEnumerable_System_String___System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddList(System.String,System.String,System.Func{System.Collections.Generic.IEnumerable{System.String}},System.Action{System.Collections.Generic.IEnumerable{System.String}},System.String)">AddList(string, string, Func&lt;IEnumerable&lt;string&gt;&gt;, Action&lt;IEnumerable&lt;string&gt;&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a list property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddList(string id, string name, Func&lt;IEnumerable&lt;string&gt;&gt; getValue = null, Action&lt;IEnumerable&lt;string&gt;&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddLoadable_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddLoadable*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddLoadable_System_String_System_String_System_Type_System_Func_Evergine_Common_ILoadable__System_Action_Evergine_Common_ILoadable__System_Func_System_Guid_System_Lazy_Evergine_Common_ILoadable__System_Boolean__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddLoadable(System.String,System.String,System.Type,System.Func{Evergine.Common.ILoadable},System.Action{Evergine.Common.ILoadable},System.Func{System.Guid,System.Lazy{Evergine.Common.ILoadable},System.Boolean},System.String)">AddLoadable(string, string, Type, Func&lt;ILoadable&gt;, Action&lt;ILoadable&gt;, Func&lt;Guid, Lazy&lt;ILoadable&gt;, bool&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a loadable property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddLoadable(string id, string name, Type loadableType, Func&lt;ILoadable&gt; getValue, Action&lt;ILoadable&gt; setValue, Func&lt;Guid, Lazy&lt;ILoadable&gt;, bool&gt; assetsFilter = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td><span class="parametername">loadableType</span></td>
+        <td><p>The type of <a class="xref" href="Evergine.Common.ILoadable.html">ILoadable</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="Evergine.Common.ILoadable.html">ILoadable</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get-value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Evergine.Common.ILoadable.html">ILoadable</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set-value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.lazy-1">Lazy</a>&lt;<a class="xref" href="Evergine.Common.ILoadable.html">ILoadable</a>&gt;, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td><span class="parametername">assetsFilter</span></td>
+        <td><p>A filter for available loadables. The second func argument loads the asset when the Lazy is created and unloads it after the assets are filtered.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddLoadable_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddLoadable*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddLoadable__1_System_String_System_String_System_Func___0__System_Action___0__System_Func_System_Guid_System_Lazy___0__System_Boolean__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddLoadable``1(System.String,System.String,System.Func{``0},System.Action{``0},System.Func{System.Guid,System.Lazy{``0},System.Boolean},System.String)">AddLoadable&lt;TLoadable&gt;(string, string, Func&lt;TLoadable&gt;, Action&lt;TLoadable&gt;, Func&lt;Guid, Lazy&lt;TLoadable&gt;, bool&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a loadable property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddLoadable&lt;TLoadable&gt;(string id, string name, Func&lt;TLoadable&gt; getValue, Action&lt;TLoadable&gt; setValue, Func&lt;Guid, Lazy&lt;TLoadable&gt;, bool&gt; assetsFilter = null, string tooltip = null) where TLoadable : ILoadable</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;TLoadable&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function to get the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;TLoadable&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action to set the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.lazy-1">Lazy</a>&lt;TLoadable&gt;, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td><span class="parametername">assetsFilter</span></td>
+        <td><p>A filter for available loadables. The second function argument loads the asset when the Lazy is created and unloads it after filtering the assets.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TLoadable</span></td>
+        <td><p>The type of <a class="xref" href="Evergine.Common.ILoadable.html">ILoadable</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddNumeric_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddNumeric*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddNumeric_System_String_System_String_System_Double_System_Double_System_Double_System_Double_System_Double_System_Func_System_Double__System_Action_System_Double__System_Boolean_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddNumeric(System.String,System.String,System.Double,System.Double,System.Double,System.Double,System.Double,System.Func{System.Double},System.Action{System.Double},System.Boolean,System.String)">AddNumeric(string, string, double, double, double, double, double, Func&lt;double&gt;, Action&lt;double&gt;, bool, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a numeric property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INumericPropertyInfo AddNumeric(string id, string name, double minValue = -1.7976931348623157E+308, double maxValue = 1.7976931348623157E+308, double desiredChange = 0, double desiredLargeChange = 0, double defaultValue = 0, Func&lt;double&gt; getValue = null, Action&lt;double&gt; setValue = null, bool asSlider = false, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">minValue</span></td>
+        <td><p>The minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">maxValue</span></td>
+        <td><p>The maximum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">desiredChange</span></td>
+        <td><p>The desired change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">desiredLargeChange</span></td>
+        <td><p>The desired large change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">asSlider</span></td>
+        <td><p>A value indicating whether the property must be shown as a slider.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.INumericPropertyInfo.html">INumericPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddNumeric_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddNumeric*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddNumeric_System_String_System_String_System_Single_System_Single_System_Single_System_Single_System_Single_System_Func_System_Single__System_Action_System_Single__System_Boolean_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddNumeric(System.String,System.String,System.Single,System.Single,System.Single,System.Single,System.Single,System.Func{System.Single},System.Action{System.Single},System.Boolean,System.String)">AddNumeric(string, string, float, float, float, float, float, Func&lt;float&gt;, Action&lt;float&gt;, bool, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a numeric property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">INumericPropertyInfo AddNumeric(string id, string name, float minValue = -3.4028235E+38, float maxValue = 3.4028235E+38, float desiredChange = 0, float desiredLargeChange = 0, float defaultValue = 0, Func&lt;float&gt; getValue = null, Action&lt;float&gt; setValue = null, bool asSlider = false, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">minValue</span></td>
+        <td><p>The minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxValue</span></td>
+        <td><p>The maximum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">desiredChange</span></td>
+        <td><p>The desired change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">desiredLargeChange</span></td>
+        <td><p>The desired large change value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">asSlider</span></td>
+        <td><p>A value indicating whether the property must be shown as a slider.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.INumericPropertyInfo.html">INumericPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddSelector_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddSelector*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddSelector_System_String_System_String_System_Collections_Generic_IEnumerable_System_Single__System_Func_System_Single__System_Action_System_Single__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddSelector(System.String,System.String,System.Collections.Generic.IEnumerable{System.Single},System.Func{System.Single},System.Action{System.Single},System.String)">AddSelector(string, string, IEnumerable&lt;float&gt;, Func&lt;float&gt;, Action&lt;float&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a selector property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddSelector(string id, string name, IEnumerable&lt;float&gt; options, Func&lt;float&gt; getValue = null, Action&lt;float&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>The options.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function to get the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action to set the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddSelector_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddSelector*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddSelector_System_String_System_String_System_Collections_Generic_IEnumerable_System_String__System_Func_System_String__System_Action_System_String__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddSelector(System.String,System.String,System.Collections.Generic.IEnumerable{System.String},System.Func{System.String},System.Action{System.String},System.String)">AddSelector(string, string, IEnumerable&lt;string&gt;, Func&lt;string&gt;, Action&lt;string&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a selector property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddSelector(string id, string name, IEnumerable&lt;string&gt; options, Func&lt;string&gt; getValue = null, Action&lt;string&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">options</span></td>
+        <td><p>The options.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function to get the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action to set the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddSubPanel_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddSubPanel*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddSubPanel_System_String_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddSubPanel(System.String,System.String)">AddSubPanel(string, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a subpanel property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">ISubPanelPropertyInfo AddSubPanel(string id, string text)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">text</span></td>
+        <td><p>The label text.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.ISubPanelPropertyInfo.html">ISubPanelPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddText_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddText*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddText_System_String_System_String_System_String_System_Func_System_String__System_Action_System_String__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddText(System.String,System.String,System.String,System.Func{System.String},System.Action{System.String},System.String)">AddText(string, string, string, Func&lt;string&gt;, Action&lt;string&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a text property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddText(string id, string name, string defaultValue = null, Func&lt;string&gt; getValue = null, Action&lt;string&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function to get the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action to set the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddTimespan_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddTimespan*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddTimespan_System_String_System_String_System_Nullable_System_TimeSpan__System_Nullable_System_TimeSpan__System_Nullable_System_TimeSpan__System_Func_System_TimeSpan__System_Action_System_TimeSpan__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddTimespan(System.String,System.String,System.Nullable{System.TimeSpan},System.Nullable{System.TimeSpan},System.Nullable{System.TimeSpan},System.Func{System.TimeSpan},System.Action{System.TimeSpan},System.String)">AddTimespan(string, string, TimeSpan?, TimeSpan?, TimeSpan?, Func&lt;TimeSpan&gt;, Action&lt;TimeSpan&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a timespan property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddTimespan(string id, string name, TimeSpan? minValue = null, TimeSpan? maxValue = null, TimeSpan? defaultValue = null, Func&lt;TimeSpan&gt; getValue = null, Action&lt;TimeSpan&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>?</td>
+        <td><span class="parametername">minValue</span></td>
+        <td><p>The minimum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>?</td>
+        <td><span class="parametername">maxValue</span></td>
+        <td><p>The maximum value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>?</td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddVector2_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddVector2*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddVector2_System_String_System_String_System_Single_System_Single_System_Single_System_Single_Evergine_Mathematics_Vector2_System_Func_Evergine_Mathematics_Vector2__System_Action_Evergine_Mathematics_Vector2__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddVector2(System.String,System.String,System.Single,System.Single,System.Single,System.Single,Evergine.Mathematics.Vector2,System.Func{Evergine.Mathematics.Vector2},System.Action{Evergine.Mathematics.Vector2},System.String)">AddVector2(string, string, float, float, float, float, Vector2, Func&lt;Vector2&gt;, Action&lt;Vector2&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a Vector2 property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddVector2(string id, string name, float minX = -3.4028235E+38, float maxX = 3.4028235E+38, float minY = -3.4028235E+38, float maxY = 3.4028235E+38, Vector2 defaultValue = default, Func&lt;Vector2&gt; getValue = null, Action&lt;Vector2&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">minX</span></td>
+        <td><p>The minimum value for X.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxX</span></td>
+        <td><p>The maximum value for X.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">minY</span></td>
+        <td><p>The minimum value for Y.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxY</span></td>
+        <td><p>The maximum value for Y.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The get value function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The set value action.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddVector3_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddVector3*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddVector3_System_String_System_String_Evergine_Mathematics_Vector3_System_Func_Evergine_Mathematics_Vector3__System_Action_Evergine_Mathematics_Vector3__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddVector3(System.String,System.String,Evergine.Mathematics.Vector3,System.Func{Evergine.Mathematics.Vector3},System.Action{Evergine.Mathematics.Vector3},System.String)">AddVector3(string, string, Vector3, Func&lt;Vector3&gt;, Action&lt;Vector3&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a Vector3 property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddVector3(string id, string name, Vector3 defaultValue = default, Func&lt;Vector3&gt; getValue = null, Action&lt;Vector3&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function to get the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action to set the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_AddVector4_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddVector4*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_AddVector4_System_String_System_String_Evergine_Mathematics_Vector4_System_Func_Evergine_Mathematics_Vector4__System_Action_Evergine_Mathematics_Vector4__System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.AddVector4(System.String,System.String,Evergine.Mathematics.Vector4,System.Func{Evergine.Mathematics.Vector4},System.Action{Evergine.Mathematics.Vector4},System.String)">AddVector4(string, string, Vector4, Func&lt;Vector4&gt;, Action&lt;Vector4&gt;, string)</h4>
+  <div class="markdown level1 summary"><p>Adds a Vector4 property to this panel container.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo AddVector4(string id, string name, Vector4 defaultValue = default, Func&lt;Vector4&gt; getValue = null, Action&lt;Vector4&gt; setValue = null, string tooltip = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property ID.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The property name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector4.html">Vector4</a></td>
+        <td><span class="parametername">defaultValue</span></td>
+        <td><p>The default value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-1">Func</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector4.html">Vector4</a>&gt;</td>
+        <td><span class="parametername">getValue</span></td>
+        <td><p>The function to get the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector4.html">Vector4</a>&gt;</td>
+        <td><span class="parametername">setValue</span></td>
+        <td><p>The action to set the value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">tooltip</span></td>
+        <td><p>The property description.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The added property.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_Find_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Find*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_Find_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Find(System.String)">Find(string)</h4>
+  <div class="markdown level1 summary"><p>Searches for the property that matches the given id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo Find(string id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The <a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a> that matches the given id, if found; otherwise, returns null.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_Find_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Find*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_Find__1_Evergine_Editor_Extension_PropertyEditor___0__" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Find``1(Evergine.Editor.Extension.PropertyEditor{``0})">Find&lt;TPropertyType&gt;(PropertyEditor&lt;TPropertyType&gt;)</h4>
+  <div class="markdown level1 summary"><p>Searches for the property that matches the given editor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">IPropertyInfo Find&lt;TPropertyType&gt;(PropertyEditor&lt;TPropertyType&gt; editor)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.PropertyEditor-1.html">PropertyEditor</a>&lt;TPropertyType&gt;</td>
+        <td><span class="parametername">editor</span></td>
+        <td><p>The property editor.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a></td>
+        <td><p>The <a class="xref" href="Evergine.Editor.Extension.IPropertyInfo.html">IPropertyInfo</a> that matches the given id, if found; otherwise, returns null.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">TPropertyType</span></td>
+        <td><p>The property editor value type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_InvalidateLayout_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.InvalidateLayout*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_InvalidateLayout" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.InvalidateLayout">InvalidateLayout()</h4>
+  <div class="markdown level1 summary"><p>Invalidates the current panel layout, allowing the generation of a new panel layout the next time the
+GenerateUI method of <a class="xref" href="Evergine.Editor.Extension.PanelEditor.html">PanelEditor</a> and <a class="xref" href="Evergine.Editor.Extension.PropertyEditor.html">PropertyEditor</a> is called.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void InvalidateLayout()</code></pre>
+  </div>
+  <a id="Evergine_Editor_Extension_IPanelPropertyContainer_Remove_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Remove*"></a>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_Remove_System_String_" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.Remove(System.String)">Remove(string)</h4>
+  <div class="markdown level1 summary"><p>Removes the property that matches the given id.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool Remove(string id)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">id</span></td>
+        <td><p>The property id.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the property was removed; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Editor_Extension_IPanelPropertyContainer_PropertyUpdated" data-uid="Evergine.Editor.Extension.IPanelPropertyContainer.PropertyUpdated">PropertyUpdated</h4>
+  <div class="markdown level1 summary"><p>Occurs when the value of a property changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">event EventHandler&lt;string&gt; PropertyUpdated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

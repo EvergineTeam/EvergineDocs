@@ -1,0 +1,181 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Binding Elements | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Binding Elements | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="binding-elements">Binding Elements</h1>
+
+<hr>
+<p>Evergine allows you to bind dependencies automatically across your components, services, and scene managers.</p>
+<p>For example, bindings allow a custom component to require that its Owner Entity has a Transform3D component and set it to a property during the <strong>Attach</strong> phase (see the <a href="../lifecycle_elements.html">Lifecycle</a> documents).</p>
+<p>This binding feature gives developers a lot of flexibility to interconnect components, services, and scene managers, avoiding the tedious setup of these dependencies in Evergine Studio or from code.</p>
+<p>In Evergine, we define bindings using property attributes ([BindComponent] for example).</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>All dependencies are not available until the Attach phase. If you try to access them during the constructor, <code>OnLoaded()</code>, or <code>OnDestroy()</code> methods, the property value is going to be <code>null</code>.</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<p>There are four types of binding:</p>
+<ul>
+<li><a href="bind_components.html">Bind Components</a></li>
+<li><a href="bind_services.html">Bind Services</a></li>
+<li><a href="bind_entities.html">Bind Entities</a></li>
+<li><a href="bind_scenemanagers.html">Bind Scene Managers</a></li>
+</ul>
+<h2 id="example">Example</h2>
+<p>In the following example, the component will bind a service, a component, and a scene manager.</p>
+<pre><code class="lang-csharp">public class MyComponent : Component
+{
+    [BindService]
+    private AssetsService assetsService;
+
+    [BindSceneManager]
+    private RenderManager renderManager;
+
+    [BindComponent]
+    private Transform3D transform;
+
+    private Material defaultMaterial;
+
+    protected override Start()
+    {
+        // All values of bind attributes will be injected after the Attach phase...
+        
+        // Bind assetsService
+        this.defaultMaterial = this.assetsService.Load&lt;Material&gt;(EvergineContent.Materials.DefaultMaterial);
+        
+        // Bind SceneManagers
+        this.renderManager.DebugLines = true;
+        
+        // Bind Components
+        this.transform.Position = Vector3.Zero;
+    }
+
+    // ... 
+}
+</code></pre>
+<h2 id="bind-collections">Bind Collections</h2>
+<p>If the [Bind] attribute is set on top of a <code>List&lt;T&gt;</code> property, it will attempt to search for a list of elements that satisfy the dependency:</p>
+<pre><code class="lang-csharp">// Bind with the Transform component of the owner entity...
+[BindComponent]
+private Transform3D transform;
+
+// Bind a list with all Camera3D components in the entire scene...
+[BindComponent(source: BindComponentSource.Scene)]
+private List&lt;Camera3D&gt; sceneCameras;
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

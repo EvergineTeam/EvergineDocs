@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Application Container | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Application Container | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="application-container">Application Container</h1>
+
+<p>The <strong>Application Container</strong> is a class responsible for storing objects that will be accessed throughout the entire application. The application itself does not have inherent functionality; all logic is implemented using instances registered in the Container.</p>
+<p>The application Container can be accessed using the <code>Container</code> property in the Application class.</p>
+<p>Here you will register all <a href="../services.html">Services</a> of your application, among other instances to control your project (like the <a href="../../graphics/low_level_api/graphicscontext.html">GraphicContext</a> to expose the graphic API, AssetsService to control the asset library of your application, and <a href="../scenes/using_scenes.html">ScreenContextManager</a> to control the scenes that will be played in your application).</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>In general, in the <strong>Container</strong>, you will register all Services and logic that will be consumed by every Scene or Component in your Application.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>There can be only one instance per Type in the Container. Every object registered here is treated as a Singleton.</p>
+</div>
+<p><img src="images/application_container.png" alt="Application Container"></p>
+<h2 id="using-the-container">Using the Container</h2>
+<h3 id="register-instances">Register Instances</h3>
+<p>You can register elements inside the Container in two ways:</p>
+<h4 id="register-a-type">Register a Type</h4>
+<p>You can register a type in the Container. If this functionality is needed in the future, the Container will create an instance and will offer it to everyone that requires this instance. This is done by the <code>Container.RegisterType&lt;T&gt;()</code> method:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegisterType&lt;T&gt;()</code></td>
+<td>Registers the specified type <code>T</code> to the container.</td>
+</tr>
+</tbody>
+</table>
+<p>A small example:</p>
+<pre><code class="lang-csharp">public partial class MyApplication : Application
+   {
+       public MyApplication()
+       {
+           // Previous code :)
+
+           // You can register the service by type...
+           this.Container.RegisterType&lt;MyService&gt;();
+       }
+   ...
+</code></pre>
+<h4 id="register-an-instance">Register an Instance</h4>
+<p>On the other hand, you can register an instance directly. This is useful if you want to properly initialize the service or offer an implementation of an abstract class:</p>
+<table>
+<thead>
+<tr>
+<th>Methods</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RegisterInstance(T instance)</code></td>
+<td>Registers the instance object into the Container. It will be associated with the type of the instance.</td>
+</tr>
+<tr>
+<td><code>RegisterInstance&lt;T&gt;(T instance)</code></td>
+<td>Registers the instance object into the Container. It will be associated with the type of the generic type <code>&lt;T&gt;</code>. The instance parameter type must be a subclass of <code>&lt;T&gt;</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>A small example:</p>
+<pre><code class="lang-csharp">public partial class MyApplication : Application
+   {
+       public MyApplication()
+       {
+           // Previous code :)
+
+           // Register the service instance directly...
+           this.Container.RegisterInstance(new MyService());
+
+           // You can register an instance specifying a parent class to indicate
+           // the type that you want to expose.
+           // In this case, you are offering the DX11 implementation when someone requests the GraphicsContext...
+           this.Container.RegisterInstance&lt;GraphicsContext&gt;(new DX11GraphicsContext());
+       }
+   ...
+</code></pre>
+<h3 id="get-instances">Get Instances</h3>
+<p>It is easy to obtain instances from the Application Container.</p>
+<h4 id="using-bindservice-tag-attribute">Using [BindService] Tag Attribute</h4>
+<p>You can use the [BindService] attribute in your Component, SceneManager, or even from other Services to automatically inject the Service instance into your property.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+
+namespace MyProject
+{
+    public class MyBehavior : Behavior
+    {
+        // Use the BindService attribute on top of the property or field 
+        // where you want to inject the Service
+        [BindService]
+        private MyService myService = null;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            this.myService.DoRequest();
+        }
+    }
+}
+</code></pre>
+<h4 id="using-resolve-methods">Using Resolve() Methods</h4>
+<p>The Container has the following methods to obtain instances:</p>
+<table>
+<thead>
+<tr>
+<th>Methods</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>T Resolve&lt;T&gt;()</code></td>
+<td>Obtains the instance of the specified type <code>&lt;T&gt;</code>.</td>
+</tr>
+<tr>
+<td><code>object Resolve(Type type)</code></td>
+<td>Another way to obtain an object, but without C# generics.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+
+namespace MyProject
+{
+   public class MyBehavior : Behavior
+   {
+       private MyService myService = null;
+
+       protected override bool OnAttached()
+       {            
+           // Use the Resolve&lt;Type&gt; method from the Application Container....
+           this.myService = Application.Current.Container.Resolve&lt;MyService&gt;();
+
+           return base.OnAttached();
+       }
+
+       protected override void Update(TimeSpan gameTime)
+       {
+           this.myService.DoRequest();
+       }
+
+       protected override bool OnDetached()
+       {
+           // Release the reference when a component is being detached...
+           this.myService = null;
+       }
+   }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>
