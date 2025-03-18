@@ -54,3 +54,28 @@ This **BinaryAnimationBlendClip** also lerps between **ClipA** and **ClipB**, bu
 
 ## AdditiveBlendingClip
 This **BinaryAnimationBlendClip** adds **ClipB** animation blend clip on top of **ClipA**, using a specific **Lerp** controlled by the user. This is useful when each animation changes different parts of the model. For example we can have an "walk" animation and a "carry a candle" animation.
+
+
+## Sample
+The next sample we will blend the animation of a character between 'crouch', 'walk' and 'run' animations.
+
+To do that, we will create the following blend tree:
+
+![Blend Tree](images/animationBlendClip.png)
+
+```csharp
+
+// First we load the three AnimationTrackClips of the base animations.
+var crouchTrack = new AnimationTrackClip(model.Animations["crouch"], looping: true);
+var walkTrack = new AnimationTrackClip(model.Animations["walk"], looping: true);
+var runTrack = new AnimationTrackClip(model.Animations["run"], looping: true);
+
+// Because we want to blend 3 animations, we have to create a  2 level tree of SynchronizedTransitionClip and some leaves for the AnimationTrackClip.
+var crouch2WalkClip = new SynchronizedTransitionClip(chrouchTrack, walkTrack);
+var walk2RunClip = new SynchronizedTransitionClip(walkTrack, runTrack);
+var rootClip = new SynchronizedTransitionClip(crouch2WalkClip, walk2RunClip);
+
+// We finally can play this animation.
+animation3DComponenet.PlayAnimation(rootClip);
+
+``` 
