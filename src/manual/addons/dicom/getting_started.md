@@ -6,6 +6,8 @@
 
 We highly recommend checking out the [Dicom-Demo](https://github.com/EvergineTeam/Dicom-Demo). It's very simple and it illustrates the basic usage of the addon.
 
+![dicom_gif](images/density_range.gif)
+
 ## Add the Dicom.CustomRenderPath
 
 The rendering of Dicoms in 3D is complex; therefore, it needs a custom RenderPath.
@@ -53,13 +55,15 @@ The `DicomComponent` has the `DitheringEnabled` property to enable this feature.
 
 To visualize Dicoms in 3D, you need:
 
-1. [Add the Dicom.CustomRenderPath](#add-the-dicom.customrenderpath)
+1. [Add the Dicom.CustomRenderPath](#add-the-dicomcustomrenderpath)
 2. Create an entity with these components:
    - Transform3D: which will be the transform of our Dicom model
    - DicomComponent
    - Some MeshComponent for the geometry that contains the Dicom. Important: the vertices' bounding box must be {{-0.5, -0.5, -0.5}}.
    - MeshRenderer
    - MaterialComponent: using the Dicom3DMaterial 
+
+![components_img](images/components.jpg)
 
 ### What MeshComponent should I use?
 
@@ -79,6 +83,8 @@ Each cut plane must have its own entity with the following components:
 - MeshRenderer
 - Dicom2DViewComponent: You must set the `Dicom` property to reference the `DicomComponent` created in the aforementioned entity.
 - MaterialComponent: using the Dicom2DMaterial
+
+![2d_components_img](images/components_2d.png)
 
 If your Dicom application only uses 2D visualization (no 3D), when you create the entity that contains the `DicomComponent`, you don't need most of the components: just the `Transform3D` and the `DicomComponent`. Also, if your Dicom application only requires 2D visualization, you don't need to add the `Dicom.CustomRenderPath`.
 

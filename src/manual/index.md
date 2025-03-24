@@ -18,6 +18,7 @@ These pages contain information about how to use Evergine. This manual helps you
 - [Graphics](graphics/index.md)
 - [Input](input/index.md)
 - [Audio](audio/index.md)
+- [Animation](animation/index.md)
 - [Physics](physics/index.md)
 - [XR](xr/index.md)
 - [Runtimes](runtimes/index.md)

@@ -8,7 +8,7 @@ This article exemplifies the creation of a new model by code.
 # Single mesh model
 
 >[!NOTE]
-> The creation of custom meshes (With their vertex and index information) is covered in [this article](../meshes/index.md#Create-Mesh-from-Code).
+> The creation of custom meshes (With their vertex and index information) is covered in [this article](../meshes/index.md#create-mesh-from-code).
 
 For a single mesh Model, **Evergine** offers an easy way creating it, just passing it as a parameter in its constructor:
 
@@ -45,7 +45,7 @@ However, if we want to create more complex models (With multiple meshes, texture
 In this case, we just use the base **Model** constructor and creates the hierarchy from zero.
 
 ## Sample Code
-The next code will create a model with two meshes within the same node.
+The next code will create a model with two meshes within the same node. These meshes are the one created in the **[Meshes manual page](../meshes/index.md)**
 
 ```csharp
 // Create two meshes (covered in Meshes article).
@@ -68,10 +68,19 @@ var rootNode = new NodeContent()
     ChildIndices = new int[0],
 };
 
+// Create material. 
+// In the Material section of this manual, you can find additional information on this topic.
+var material = new StandardMaterial(assetsService.Load<Effect>(DefaultResourcesIDsStandardEffectID))
+{
+    VertexColorEnabled = true,  // Because the sample mesh uses color by vertex.
+    IBLEnabled = false,         // It also doesn't have normal information, so any
+    LightingEnabled = false,    // lighting calculations won't work.
+};
+
 // Create material List
 var materialCollection = new List<(string, System.Guid)>()
 {
-    ("Default", Guid.Empty), // When defining an empty GUID, the default material will be used.
+    ("Default", material.Id), // We assign material's id as the default material.
 };
 
 // Finally we define the model with the nodes, material list, mesh containers and the indices of 

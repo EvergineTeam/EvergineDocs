@@ -7,7 +7,7 @@ These libraries include various helpers, components, behaviors, and managers tha
 
 ## Available Runtimes
 
-* [Evergine.Runtimes.GLB](model_runtime/index.md)
-* [Evergine.Runtimes.STL](model_runtime/index.md)
-* [Evergine.Runtimes.Images](image_runtime/index.md)
-* [Evergine.Runtimes.Videos](video_runtime/index.md)
+* [Evergine.Runtimes.GLB](models_runtime.md)
+* [Evergine.Runtimes.STL](models_runtime.md)
+* [Evergine.Runtimes.Images](image_runtime.md)
+* [Evergine.Runtimes.Videos](video_runtime.md)

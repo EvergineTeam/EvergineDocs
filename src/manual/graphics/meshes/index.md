@@ -220,11 +220,21 @@ return new Mesh(new VertexBuffer[] { vertexBufferPos, vertexBufferColor }, index
 };
 ```
 
-In both cases the result will be the same:
+### What we've got
+If you've had a look, you will realize that the  previous code has created a mesh with a **LayoutDescription** containing the following elements:
+
+| Element |  Semantic | Semantic Index | Format | Offset |
+|----------|------|-------------|---|---|
+| Position | Position | 0 | Float3 | 0 | Vertex position.
+| Color    | Color | 0 | UByte4Normalized | 12 
+
+
+>[!NOTE]  
+> For simplicity, this mesh uses **Color per vertex** to define its color instead of a texture or a solid color. It also lacks normal information. Consequently, any **StandardMaterial** applied to this mesh must have the **VertexColor** property enabled and cannot have **Lighting** or **IBL** enabled to ensure correct rendering.
+
+### What's next
+The next step would be to use this recently created mesh into a **Model**. Then you can use that **Model** into your **Scene**. This is explained in **[this page](../models/create_model_from_code.md)**. 
+
+At the end this mesh should look like this:
 
 ![Quad](images/Quad.png)
-
->[!NOTE]
-> In this [article](../models/create_model_from_code.md) is explained how to show this custom mesh into a new entity.
-
-For a single mesh Model, **Evergine** offers an easy way creating it, just passing it as a parameter in its constructor:

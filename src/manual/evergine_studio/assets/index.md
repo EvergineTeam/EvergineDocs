@@ -35,11 +35,12 @@ However, some assets represent just abstract elements that can only be created b
 | [Post Processing Graph](../../graphics/postprocessing_graph/index.md) | Defines a visual post-processing graph node, using **compute shaders** for effects like _anti-aliasing_, _tone mapping_, _SSAO_, and many others. |
 | [Material](../../graphics/materials/index.md) | Represents how a geometry is rendered. It references an Effect asset and describes its parameters like textures and values. |
 | [Prefab](../../basics/component_arch/prefabs/index.md) | Contains an entity hierarchy that can be instanced in any scene. |
-| [Render Layer](../../graphics/render_layers.md) | Contains **Rasterizer**, **Blending**, **Depth**, and **Stencil** information. Every material needs a Render Layer asset. |
+| [Render Layer](../../graphics/renderlayers/index.md) | Contains **Rasterizer**, **Blending**, **Depth**, and **Stencil** information. Every material needs a Render Layer asset. |
 | [Sampler State](../../graphics/samplers.md) | Element that represents a texture sampler state description, like **filtering**, **clamping**, or **wrapping** information. |
 
 ## In This Section
 * [Create Assets](create.md)
+* [Generate AI-Driven Assets](generate.md)
 * [Edit Assets](edit.md)
 * [Export Assets](export.md)
 * [Use Assets](use.md)
