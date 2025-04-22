@@ -48,7 +48,7 @@ To start using the **Evergine.Runtimes.GLB** or **Evergine.Runtimes.STL** librar
 ```csharp
 protected async override void CreateScene()
 {    
-    var model = await GLBRuntime.Instance.Read("MyModel.obj");
+    var model = await OBJRuntime.Instance.Read("MyModel.obj");
 
     var assetsService = Application.Current.Container.Resolve<AssetsService>();
     var entity = model.InstantiateModelHierarchy(assetsService);
@@ -67,7 +67,7 @@ protected async override void CreateScene()
 {
     var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-    var model = await GLBRuntime.Instance.Read("Models/orc.obj", this.CustomMaterialAssigner);
+    var model = await OBJRuntime.Instance.Read("Models/orc.obj", this.CustomMaterialAssigner);
 
     var entity = model.InstantiateModelHierarchy(assetsService);
     this.Managers.EntityManager.Add(entity);
