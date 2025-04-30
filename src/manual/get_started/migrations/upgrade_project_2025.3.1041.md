@@ -1,4 +1,4 @@
-# Update from Evergine 2024.10.24 to Evergine 2025.3.18
+# Update from Evergine 2024.10.24 to Evergine 2025.3.1041
 
 Since Evergine 2024.10.24, there are some changes that should be applied to already existing projects that want to be upgraded to this version. 
 
@@ -42,4 +42,22 @@ namespace Evergine.MRTK.Demo.Drawables
         }
     }
 }
+```
+
+### DX compiler updated
+The DX Compiler used by HLSLEverywhere has been updated, and [HLSL 2021](https://devblogs.microsoft.com/directx/announcing-hlsl-2021/) is now set as the default version. You should review your shaders to ensure they are compatible with this version.
+A common change involves the ternary operator. While the new select function can be used, if you require multiplatform support, you can update your code as follows:
+
+Before:
+```csharp
+      ...
+	    n.xy += n.xy >= 0.0 ? -t : t;
+      ...
+```
+
+After: 
+```csharp
+      ...
+	    n.xy += float2(n.x >= 0.0 ? -t : t, n.y >= 0.0 ? -t : t);
+      ...
 ```
