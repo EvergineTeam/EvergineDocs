@@ -32,7 +32,7 @@ To do this:
 - Create a new class in the **Evergine** project in the **Visual Studio Solution**.
 - Set the new class to inherit from the **SceneManager** class.
 
-The newly created scene manager can use all the **lifecycle** methods like **OnAttached**, **OnDetach**, etc. More information in the [Life Cycle](../lifecycle_elements.md) article.
+The newly created scene manager can use all the **lifecycle** methods like **OnAttached**, **OnDetached**, etc. More information in the [Life Cycle](../lifecycle_elements.md) article.
 
 ### UpdatableSceneManager
 

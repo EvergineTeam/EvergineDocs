@@ -23,7 +23,7 @@ var message = new MyMessage("my-data", 1234);
 pubSub.Publish(message);
 ```
 \
-To receive messages of a specific type, use the _Subscribe_ method. It returns a subscription token, which you should save to enable unsubscribing when necessary. For example, if you want to use it in a _Component_, the standard approach is to subscribe in _OnAttach/OnActivated_ and unsubscribe in _OnDetach/OnDeactivated_.
+To receive messages of a specific type, use the _Subscribe_ method. It returns a subscription token, which you should save to enable unsubscribing when necessary. For example, if you want to use it in a _Component_, the standard approach is to subscribe in _OnAttach/OnActivated_ and unsubscribe in _OnDetached/OnDeactivated_.
 
 ```csharp
 public class MyComponent : Component 
@@ -45,9 +45,9 @@ public class MyComponent : Component
         return attached;
     }
 
-    protected override void OnDetach()
+    protected override void OnDetached()
     {
-        base.OnDetach();
+        base.OnDetached();
         this.pubSub.Unsubscribe(this.subscription);
     }
 
