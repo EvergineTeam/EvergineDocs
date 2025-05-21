@@ -2,7 +2,7 @@
 
 ---
 
-![Evergine Runtime Models](images/obj-header.png)  
+![Evergine Runtime Models](images/OBJ/obj-header.png)  
 
 The **Evergine.Runtime.OBJ** NuGet package provides a **powerful and efficient solution** for dynamically loading OBJ models at runtime. It is designed for real-time 3D applications and integrates seamlessly into your Evergine projects.
 
@@ -80,14 +80,14 @@ This OBJ loader has been extensively tested against the full [Comprehensive 3D M
 
 ### Some screenshots
 
-![Stanford Bunny – Geometry](images/bunny.jpg)  
+![Stanford Bunny – Geometry](images/OBJ/bunny.jpg)  
 *Stanford Bunny was created by Greg Turk and Marc Levoy from multiple range scans of a real object using a Cyberware 3030 MS scanner.*
 
-![Sponza Atrium – Textures](images/sponza.jpg)  
+![Sponza Atrium – Textures](images/OBJ/sponza.jpg)  
 *The Atrium Sponza Palace in Dubrovnik, re-modeled by Frank Meinl at Crytek with inspiration from Marko Dabrovic's original.*
 
-![Mitsuba](images/mitsuba.jpg)  
+![Mitsuba](images/OBJ/mitsuba.jpg)  
 *This is the standard material test object provided with the Mitsuba renderer. we converted it to a single OBJ file and separated the backdrop.*
 
-![Mitsuba](images/orc.jpg)  
+![Mitsuba](images/OBJ/orc.jpg)  
 *This orc was originally created on zbrush and exported as obj file.*

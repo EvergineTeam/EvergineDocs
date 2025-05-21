@@ -2,7 +2,7 @@
 
 ---
 
-![Evergine Runtime Models](images/usd-header.jpg)  
+![Evergine Runtime Models](images/USD/usd-header.jpg)  
 *Kitchen Set from Pixar Assets.*
 
 The **Evergine.Runtime.USD** NuGet package provides a **powerful and efficient solution** for dynamically loading USD models at runtime. It is designed for real-time 3D applications and integrates seamlessly into your Evergine projects.
@@ -104,14 +104,14 @@ Below are several representative screenshots of models successfully loaded and r
 
 ### Sample screenshots
 
-![Kitchen Set – Pixar](images/kitchen-set.png)  
+![Kitchen Set – Pixar](images/USD/kitchen-set.png)  
 *Kitchen Set from Pixar Assets.*
 
-![Toy biplane – Apple](images/toy-plane.png)  
+![Toy biplane – Apple](images/USD/toy-plane.png)  
 *Toy biplane, Copyright 2023 Apple Inc.*
 
-![Armor - Sketchfab](images/armor.png)  
+![Armor - Sketchfab](images/USD/armor.png)  
 *The Parade Armour of King Erik XIV of Sweden. The Royal Armoury (Livrustkammaren).*
 
-![Arm - Nvidia](images/Omniverse-robot-arm.jpg)  
+![Arm - Nvidia](images/USD/Omniverse-robot-arm.jpg)  
 *Mechanic arms from Nvidia Omniverse USD Asset packages.*
