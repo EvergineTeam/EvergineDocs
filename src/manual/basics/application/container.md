@@ -135,6 +135,8 @@ namespace MyProject
 
         protected override bool OnDetached()
         {
+            base.OnDetached();
+
             // Release the reference when a component is being detached...
             this.myService = null;
         }

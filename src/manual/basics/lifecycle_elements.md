@@ -109,9 +109,9 @@ This method is called when an activated element becomes disabled or inactive.
 
 * This method is the opposite of the OnActivated() method, and it's a good practice to undo all functionalities done in the OnActivated() method (unsubscribe events, for example).
 
-### OnDetach()
+### OnDetached()
 
-OnDetach is called when an element is detached.
+OnDetached is called when an element is detached.
 
 * This method is the opposite of the OnAttached() method, and it's a good practice to undo all functionalities done in the OnAttached() method.
 

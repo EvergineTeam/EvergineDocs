@@ -41,11 +41,11 @@ public class MyDrawable : Drawable3D
         base.OnDeactivated();
     }
 
-    protected override void OnDetach()
+    protected override void OnDetached()
     {
         // Remove line batch from render when the component is detached
         this.Managers.RenderManager.RemoveRenderObject(this.lineBatch);
-        base.OnDetach();
+        base.OnDetached();
     }
 
     public override void Draw(DrawContext drawContext)

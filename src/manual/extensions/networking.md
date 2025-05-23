@@ -206,10 +206,10 @@ public class SyncLocalTransform : NetworkMatrix4x4PropertySync<RoomProperties>
         return base.OnAttached();
     }
 
-    protected override void OnDetach()
+    protected override void OnDetached()
     {
         this.transform3d.LocalTransformChanged -= this.Transform3D_LocalTransformChanged;
-        base.OnDetach();
+        base.OnDetached();
     }
 
     protected override void OnPropertyAddedOrChanged()
