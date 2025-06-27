@@ -134,7 +134,12 @@
 Follow Visual Studio's indications to install the missing features.</p>
 </div>
 <h2 id="custom-structure">Custom Structure</h2>
-<p><strong>Evergine</strong> supports custom structures in your application. It only requires that every specific profile solution can be built properly.</p>
+<p><strong>Evergine</strong> supports custom folder structure in your application.  To open the project using <strong>Evergine Studio</strong>, ensure the following requirements are met:</p>
+<ul>
+<li>The <strong>[ProjectName].weproj</strong> file and the main <strong>[ProjectName].Windows.sln</strong> file must be in the same folder. You can move or edit other solution files, but if they remain in the same location as the Windows solution file and keep their original name, they will appear in the <code>File -&gt; Open C# editor</code> and <code>File -&gt; Build &amp; Run</code> menus.</li>
+<li>The <strong>[ProjectName].Windows.sln</strong> must reference both the base project (<strong>[ProjectName].csproj</strong>) and the editor project (<strong>[ProjectName].Editor.csproj</strong>). Additionally, the solution must build successfully in Visual Studio.</li>
+<li>If you have moved the <strong>Content</strong> folder, the <code>ResourcesPath</code> value in <strong>[ProjectName].weproj</strong> must be updated to set the correct relative path to it.</li>
+</ul>
 
 </article>
           </div>

@@ -101,14 +101,19 @@
 </ul>
 <p>This enhancement significantly expands the possibilities for dynamic content integration within your Evergine applications.</p>
 <h2 id="getting-started">Getting Started</h2>
-<p>Integrating <strong>Evergine.Runtimes.Images</strong> into your project is simple. Just include the NuGet package and follow the implementation example below:</p>
+<p>Integrating <strong>Evergine.Runtimes.Image</strong> into your project is simple. Just include the NuGet package and follow the implementation example below:</p>
 <pre><code class="lang-csharp">Texture texture = await ImageRuntime.Instance.Read(&quot;Textures/my_image.png&quot;, true, false);
 </code></pre>
-<p>Note:</p>
-<ul>
-<li>The first boolean parameter specifies whether you want to create a mipmap texture.</li>
-<li>The second boolean parameter determines whether the image has premultiplied alpha.</li>
-</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>· The first boolean parameter specifies whether you want to create a mipmap texture.<br>
+· The second boolean parameter determines whether the image has premultiplied alpha.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you're using this library in a web-based project you must also add the following NuGet package to your web project:
+<code>&lt;PackageReference Include=&quot;SkiaSharp.Views.Blazor&quot; Version=&quot;3.116.1&quot; /&gt;</code></p>
+</div>
 
 </article>
           </div>
