@@ -26,13 +26,16 @@ This enhancement significantly expands the possibilities for dynamic content int
 
 ## Getting Started
 
-Integrating **Evergine.Runtimes.Images** into your project is simple. Just include the NuGet package and follow the implementation example below:
+Integrating **Evergine.Runtimes.Image** into your project is simple. Just include the NuGet package and follow the implementation example below:
 
 ```csharp
 Texture texture = await ImageRuntime.Instance.Read("Textures/my_image.png", true, false);
 ```
-Note:
- - The first boolean parameter specifies whether you want to create a mipmap texture.
- - The second boolean parameter determines whether the image has premultiplied alpha.
 
+> [!Note]
+>  · The first boolean parameter specifies whether you want to create a mipmap texture.<br/>
+>  · The second boolean parameter determines whether the image has premultiplied alpha.
 
+> [!Note]
+> If you're using this library in a web-based project you must also add the following NuGet package to your web project:
+> ```<PackageReference Include="SkiaSharp.Views.Blazor" Version="3.116.1" />```
