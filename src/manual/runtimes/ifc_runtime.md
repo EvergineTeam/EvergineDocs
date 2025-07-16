@@ -37,6 +37,12 @@ Reduces the total number of draw calls to just two main calls:
   - One for **opaque** objects.
   - One for **translucent** objects.
 
+#### 5. Real‑Time Progress Reporting
+- Enables real‑time tracking of each stage of IFC file loading and processing.
+- Exposes three `IProgress<int>` properties:
+  - `OpenProgress`: progress percentage during file opening.
+  - `ContextProgress`: progress percentage while loading the IFC context.
+  - `GeometryProgress`: progress percentage during geometry generation.
 ---
 ### Limitations  
 #### 1. Platform
@@ -56,6 +62,11 @@ To start using the **Evergine.Runtimes.IFC** libraries, simply install the NuGet
 protected async override void CreateScene()
 {    
     var assetsService = Application.Current.Container.Resolve<AssetsService>();
+    
+    IFCRuntime.Instance.OpenProgress     = new Progress<int>(p => Console.Write($"\rOpen progress: {p}%   "));
+    IFCRuntime.Instance.ContextProgress  = new Progress<int>(p => Console.Write($"\rContext progress: {p}%   "));
+    IFCRuntime.Instance.GeometryProgress = new Progress<int>(p => Console.Write($"\rGeometry progress: {p}%   "));
+
     var model = await IFCRuntime.Instance.Read("MyModel.ifc", useSmoothNormals: true);
     var entity = model.InstantiateModelHierarchy(assetsService);
     this.manager.EntityManager.Add(entity);
