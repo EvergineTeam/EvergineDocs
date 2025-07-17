@@ -82,10 +82,9 @@ protected async override void CreateScene()
 
 ## Samples
 
-The CAD Runtime has been extensively tested with the following publicly available datasets:
+The CAD Runtime has been tested with the following publicly available datasets:
  - [CADMAPPER](https://cadmapper.com/#metro)
- - [Steptools Samples](https://www.steptools.com/docs/stpfiles/ifc/)
- - [BIM Whale Sample Files](https://github.com/andrewisen/bim-whale-ifc-samples)
+ - [Autodesk Samples](https://www.autodesk.com/support/technical/article/caas/tsarticles/ts/01em4r6LLJgnQQVBlk5GqD.html)
 
 These tests help ensure compatibility with a wide range of DXF & DWG files. 
 Below are several representative screenshots of CAD files successfully loaded and rendered at runtime:
@@ -97,6 +96,3 @@ Below are several representative screenshots of CAD files successfully loaded an
 
 ![AutoCAD Samples](images/CAD/Autocad_samples.png)  
 *AutoCAD Samples (DWG)*
-
-![BIM Whale Sample Files](images/CAD/BasicHouse.png)  
-*BIM Whale Sample: BasicHouse*
