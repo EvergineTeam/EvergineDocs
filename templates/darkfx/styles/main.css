@@ -582,3 +582,14 @@ input:checked + .slider:before {
 .option-version {
   color: black;
 }
+
+/* Syntax Highlighting */
+.hljs-subst {
+  color: #806c5d;
+}
+
+.hljs-meta .hljs-string,
+.hljs-regexp,
+.hljs-string {
+  color: #78849e;
+}
