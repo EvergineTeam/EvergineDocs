@@ -54,7 +54,7 @@ Each callback method must match the expected signature for the operation:
 | Addition       | `void OnAdded(IEnumerable<CollectionItem> items)`                            |
 | Update         | `void OnUpdated(CollectionItem item)`                                        |
 | Deletion       | `void OnDeleted(IEnumerable<CollectionItem> items)`                          |
-| Reordering     | `void OnReordered(CollectionItem oldItem, CollectionItem newItem)`           |
+| Reordering     | `void OnReordered(CollectionItem item, int fromIndex)`           |
 
 ---
 
@@ -109,9 +109,9 @@ public class ListStringComponent : Component
     }
 
     [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Reordering)]
-    internal void ReorderedItems(CollectionItem item1, CollectionItem item2)
+    internal void ReorderedItems(CollectionItem item, int fromIndex)
     {
-        Debug.WriteLine($"Reordered: {item1.Item} from {item1.Index} to {item2.Index}");
+        Debug.WriteLine($"Reordered: {item.Item} from {fromIndex} to {item.Index}");
     }
 }
 ```
