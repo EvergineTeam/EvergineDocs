@@ -33,6 +33,7 @@ The `Evergine.Runtimes.CAD` namespace includes a robust CAD file loader that sup
   - `DXFMTextSize` (float): height for multiline text (`MText`) in DXF files (default: 0.5f)  
   - `MetersPerUnit` (float?): manual scale factor converting CAD units to meters; if `null`, uses the units defined in the CAD document
   - `Font` (Evergine.Framework.Graphics.Font): optional Evergine font for text rendering; if null, uses the default font
+  - `EnableTextRendering` (bool): enables/disables text entity rendering (MText, TextEntity, AttributeEntity) for performance optimization (default: true)
 ```csharp
 var assetsService = Application.Current.Container.Resolve<AssetsService>();
 var myFont = assetsService.Load<Font>(EvergineContent.Fonts.MyFont_ttf);
@@ -42,7 +43,8 @@ var options = new CADReadOptions
     Precision = 32,
     DXFMTextSize = 0.5f,
     MetersPerUnit = 0.01f,
-    Font = myFont
+    Font = myFont,
+    EnableTextRendering = true,
 };
 var model = await CADRuntime.Instance.Read(filepath, options);
 ```
