@@ -77,7 +77,7 @@ public partial class MyApplication : Application
         // Previous code :)
 
         // You can register the service by type...
-        this.Container.RegisterType<MyService>();
+        this.Container.Register<MyService>();
 
         // Or register the service using an instance...
         this.Container.RegisterInstance(new MyService());            

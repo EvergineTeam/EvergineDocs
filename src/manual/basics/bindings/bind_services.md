@@ -24,15 +24,15 @@ For example, if these are all the Services registered inside the Application Con
 
 ```csharp
 // Register services in the application container...
-this.Container.RegisterType<TimerFactory>();
-this.Container.RegisterType<Random>();
-this.Container.RegisterType<ErrorHandler>();
-this.Container.RegisterType<ScreenContextManager>();
-this.Container.RegisterType<GraphicsPresenter>();
-this.Container.RegisterType<AssetsDirectory>();
-this.Container.RegisterType<AssetsService>();
-this.Container.RegisterType<ForegroundTaskSchedulerService>();            
-this.Container.RegisterType<WorkActionScheduler>();
+this.Container.Register<TimerFactory>();
+this.Container.Register<Random>();
+this.Container.Register<ErrorHandler>();
+this.Container.Register<ScreenContextManager>();
+this.Container.Register<GraphicsPresenter>();
+this.Container.Register<AssetsDirectory>();
+this.Container.Register<AssetsService>();
+this.Container.Register<ForegroundTaskSchedulerService>();            
+this.Container.Register<WorkActionScheduler>();
 ```
 
 The following component will be attached because the `AssetsService` has been registered:

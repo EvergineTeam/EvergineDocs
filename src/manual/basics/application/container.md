@@ -22,11 +22,11 @@ You can register elements inside the Container in two ways:
 
 #### Register a Type
 
-You can register a type in the Container. If this functionality is needed in the future, the Container will create an instance and will offer it to everyone that requires this instance. This is done by the `Container.RegisterType<T>()` method:
+You can register a type in the Container. If this functionality is needed in the future, the Container will create an instance and will offer it to everyone that requires this instance. This is done by the `Container.Register<T>()` method:
 
 | Method | Description |
 | --- | --- |
-| `RegisterType<T>()` | Registers the specified type `T` to the container. |
+| `Register<T>()` | Registers the specified type `T` to the container. |
 
 A small example:
 
@@ -38,7 +38,7 @@ A small example:
             // Previous code :)
 
             // You can register the service by type...
-            this.Container.RegisterType<MyService>();
+            this.Container.Register<MyService>();
         }
     ...
  ```
