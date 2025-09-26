@@ -76,37 +76,31 @@ Evergine also includes [built-in JSON serializers](serialization.md) to manage t
 
 In the following steps, we will demonstrate how to set up these function invocations, starting with calls from the SPA to Evergine and then covering calls from Evergine back to the SPA. Each step is accompanied by code examples to illustrate the process.
 
-#### Step 1: Adding a Custom Scene Manager for Communication
+#### Step 1: Add communication methods in C#
 
-To handle communication between the SPA and Evergine, we first need to add a custom scene manager. This manager will serve as the central point for invoking functions from the SPA to Evergine and for receiving callbacks from Evergine back to the SPA.
+To handle communication between the SPA and Evergine, you can modify or extend the `WebIntegration` service. This is the recommended place to add custom invokes and callbacks.
 
-In this example, we will define a callback class that must be implemented in the WebReact project. In WebFacade class will include methods to handle two-way communication: sending messages from the SPA to Evergine and receiving messages back from Evergine to the SPA.
+If you prefer, you can also use a custom SceneManager as an alternative (similar to older versions of this documentation). Both approaches are valid, but using WebIntegration is simpler in most cases.
 
-The following code snippet demonstrates how to create the custom scene manager and the callback class:
+Here’s an example:
 
 ```csharp
-public class MySceneManager : SceneManager
+public class WebIntegration : Service, IDisposable
 {
-    public EvergineCallbacks Callbacks { get; set; }
+        // Displaying just added code from original class
 
-    public void MessageToEvergine(string message)
-    {
-        Console.WriteLine(message);
-        _ = Task.Run(async () =>
+        [JSInvokable]
+        public ValueTask HelloFromSpa()
         {
-            await Task.Delay(2000);
-            this.Callbacks?.MessageFromEvergine("Hello from Evergine!");
-        });
-    }
+            Console.WriteLine("Received a hello from SPA!");
+            return SayHelloToSpa();
+        }
 
-    public abstract class EvergineCallbacks
-    {
-        public abstract void MessageFromEvergine(string message);
-    }
+        public ValueTask SayHelloToSpa() => this.reference.InvokeVoidAsync("helloFromCSharp");
 }
 ```
 
-Once we've defined the custom scene manager, we need to register it within the _MyScene_.
+If you use custom scene manager approach, remember to register it within the _MyScene_.
 
 ```csharp
 public class MyScene : Scene
@@ -125,112 +119,108 @@ public class MyScene : Scene
 }
 ```
 
-#### Step 2: Extend _WebFacade_ in web project
+#### Step 2: Add communication methods in SPA
 
-Next, we’ll extend the WebFacade to add new communication methods that can invoke functions between the SPA and Evergine. This is where we define how the SPA will communicate with the scene manager and vice versa.
-
-_WebFacade.cs_
-
-```csharp
-public static class WebFacade
-{        
-    private const string BaseInvokeClassName = "Sample.WebReact.WebFacade";
-
-    private static MySceneManager sceneManager;
-
-    public static MySceneManager SceneManager
-    {
-        get => sceneManager;
-        set
-        {
-            sceneManager = value;
-            sceneManager.Callbacks = new WebCallbacks();
-        }
-    }
-
-    // ...
-    [JSInvokable($"{BaseInvokeClassName}:MessageToEvergine")]
-    public static void MessageToEvergine(string message) => SceneManager?.MessageToEvergine(message);
-
-    private class WebCallbacks : EvergineCallbacks
-    {
-        public override void MessageFromEvergine(string message)
-        {
-            Program.Wasm.Invoke("App.appEventsListener.onMessageFromEvergine", args: message);
-        }
-    }
-}
-```
-
-_Program.cs_
-```csharp
-private static void ScreenContextManager_OnActivatingScene(Scene scene)
-{
-    var sceneManager = scene.Managers.FindManager<MySceneManager>();
-    WebFacade.SceneManager = sceneManager;
-
-    Wasm.Invoke("App.appEventsListener.onEvergineReady", false, true);
-}
-
-private static void ScreenContextManager_OnDesactivatingScene(Scene scene)
-{
-    WebFacade.SceneManager = null;
-    Wasm.Invoke("App.appEventsListener.onEvergineReady", false, false);
-}
-```
-
-#### Step 3: Adding Invokes and Callbacks in _evergine-initialize.ts_
-
-To complete the communication setup between the SPA and Evergine, we will modify the _evergine-initialize.ts_ file. In this step, we’ll extend the AppEventsListener to handle invokes coming from Evergine, and we’ll extend WebEventsProxy to define methods that the SPA can use to send messages to Evergine.
+To complete the communication setup between the SPA and Evergine, update the evergine-initialize.ts file.
+Now you can directly extend the `window.App` object type and define custom methods.
+Notice that `initializeEvergine` is simplified, using `initializeEvergineBase` with fewer parameters.
 
 ```typescript
 import { initializeEvergineBase } from "evergine-react";
 
 import {
   EVERGINE_ASSEMBLY_NAME,
-  EVERGINE_CLASS_NAME,
-  EVERGINE_LOADING_BAR_ID,
-} from "evergine/config";
+} from "../evergine/config";
 
 declare global {
-  let Blazor: { start(): Promise<void> };  
+  let Blazor: { start(): Promise<void> };
 
-  interface AppEventsListener {
-    onMessageFromEvergine: (message: string) => void
+  interface Window {
+    App: MyExtendedIntegration;
   }
-  interface WebEventsProxy {
-    sendMessageToEvergine: (message: string) => void;
-  }
-}
 
-function addCustomEvents() {
-    window.App.appEventsListener.onMessageFromEvergine = (message: string): void =>
-        console.log(message);
-    window.App.webEventsProxy.sendMessageToEvergine = (message: string): void =>
-        window.Utils.invoke("MessageToEvergine", message);
+  interface MyExtendedIntegration extends WebIntegration {
+      helloFromCSharp: () => void;
+      sayHelloToCsharp: () => string;
+  }
 }
 
 const initializeEvergine = (): void => {
-  initializeEvergineBase(
-    EVERGINE_LOADING_BAR_ID,
-    EVERGINE_ASSEMBLY_NAME,
-    EVERGINE_CLASS_NAME,
-    addCustomEvents
-  );
+  window.Evergine = {
+    initialize: (dotNetReference: DotNet.DotNetObject) => {
+        const evergineApp: MyExtendedIntegration = {
+            onEvergineReadyChanged: (isReady: boolean) => {
+                console.log(`Evergine ready ${isReady}`);
+            },
+            helloFromCSharp: () => console.log("Received a hello from C#"),
+            sayHelloToCsharp: () => dotNetReference.invokeMethod("HelloFromSpa"),
+        };
+
+        window.App = evergineApp;
+
+        return window.DotNet.createJSObjectReference(evergineApp);
+    },
+    initializeCanvasLifecycle: () => window.DotNet?.invokeMethod(EVERGINE_ASSEMBLY_NAME, `${EVERGINE_ASSEMBLY_NAME}.CanvasLifecycle:Initialize`),
+    onEvergineAssetLoaded: (asset: EvergineAsset) => {
+        console.log(`Evergine asset ${asset.name} loaded`);
+    },
+    onEvergineAllAssetsLoaded: () => {
+        console.log("Evergine assets loaded");
+    },
+  };
+
+  initializeEvergineBase(window.Evergine);
 };
 
 export { initializeEvergine };
 ```
 
-With this setup in place, you can test the communication by invoking the method directly from the browser’s development console. For example, to send a message from the SPA to Evergine, you can call the following in the console:
+#### Step 3: Testing Communication
+
+With the new initialization in place, you can test SPA ↔ C# calls from your React app.
+
+App.tsx (excerpt): the button triggers `window.App.sayHelloToCsharp()` which calls the .NET method `HelloFromSpa`.
+
+```tsx
+import { useEvergineStore, EvergineCanvas } from "evergine-react";
+import { EVERGINE_CANVAS_ID } from "./evergine/config";
+import { useContainerSize } from "./evergine/useContainerSize";
+import { useRef } from "react";
+import './App.css'
+
+function App() {
+  const { webAssemblyLoaded, evergineReady } = useEvergineStore();
+  const canvasContainer = useRef<HTMLDivElement>(null) as React.RefObject<HTMLDivElement>;
+
+  const handleButtonClick = () => {
+    window.App?.sayHelloToCsharp();
+  };
+
+  return (
+    <div className="App">
+      {(!webAssemblyLoaded || !evergineReady) && (<div className="loading">Loading Evergine...</div>)}
+      <div className="canvas-container" ref={canvasContainer}>
+        <EvergineCanvas
+          canvasId={EVERGINE_CANVAS_ID}
+          width={useContainerSize(canvasContainer).width}
+          height={useContainerSize(canvasContainer).height}
+        />
+      </div>
+      <div style={{ position: "absolute", left: 0, top: 0 }}>
+        <button onClick={handleButtonClick}>Say Hello to C#</button>
+      </div>
+    </div>
+  );
+}
+
+export default App;
+```
+
+With this setup in place, you can test the communication by invoking the method clicking the button. You may see the following in the console:
 
 ```javascript
-App.webEventsProxy.sendMessageToEvergine("Hello from SPA!")
-```
-This will trigger the sendMessageToEvergine method. After two seconds, a message saying "Hello from Evergine!" will be sent back to the SPA and displayed in the console.
-
-```
-Hello from Evergine!
+Received a hello from SPA!
+Received a hello from C#
 ```
 
 This is only one possible approach to setting up communication between the SPA and Evergine. You are free to define your own method for handling this interaction based on your specific requirements.
