@@ -24,7 +24,7 @@ Open Evergine Studio and add the Evergine.GaussianSplatting add-on to your proje
 ><configuration>
 >  <packageSources>
 >    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
->    <add key="Evergine Nightly" value="https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/>Evergine.NightlyBuilds/nuget/v3/index.json" />
+>    <add key="Evergine Nightly" value="https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json" />
 >  </packageSources>
 ></configuration>
 >```
