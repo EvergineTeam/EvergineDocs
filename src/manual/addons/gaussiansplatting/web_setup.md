@@ -43,7 +43,7 @@ In your `index.html` file, add the following line at the end of the file:
 
 ### 4. Configure Web App Headers for Multithreading
 
-To launch web worker threads in the web environment, add the following code to your **Program.cs** file located in your **[ApplicationName].Web.Server** project, just after the `var app = builder.Build();` line:
+To launch web worker threads in the web environment, add the following code to your **Program.cs** file located in your **[ApplicationName].Web.Server** project, just after the `var app = builder.Build();` line. This configuration removes certain browser security restrictions related to Web Workers, allowing Evergine to create background threads safely.
 
 ```cs
 if (app.Environment.IsDevelopment())
@@ -66,3 +66,29 @@ app.Use(async (context, next) =>
 
 ![Add cs code](images/add_cs_code.png)
 
+### Configure Headers in the React Template (Vite)
+
+If you are using the **Evergine React template**, you must also configure the same headers in your SPA project so that local execution works correctly.
+Since Vite is used as the development server, update your `vite.config.ts` file to include the following:
+
+```javascript
+plugins: [
+    plugin(),
+    {
+        name: 'configure-response-headers',
+        configureServer: (server) => {
+            server.middlewares.use((_req, res, next) => {
+                res.setHeader(
+                    'Cross-Origin-Opener-Policy',
+                    'same-origin'
+                );
+                res.setHeader(
+                    'Cross-Origin-Embedder-Policy',
+                    'require-corp'
+                );
+                next();
+            });
+        },
+    },
+],
+```
