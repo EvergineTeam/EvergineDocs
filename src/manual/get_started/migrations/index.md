@@ -25,6 +25,7 @@ If you are upgrading a project across multiple versions and one or more of them 
 * [Update from Evergine 2023.9.28 to Evergine 2024.6.28](upgrade_project_2024.6.28.md)
 * [Update from Evergine 2024.6.28 to Evergine 2024.10.24](upgrade_project_2024.10.24.md)
 * [Update from Evergine 2024.10.24 to Evergine 2025.3.18](upgrade_project_2025.3.18.md)
+* [Update from Evergine 2025.3.18 to Evergine 2025.10.21](upgrade_project_2025.10.21.md)
 
 ## General Upgrade Steps
 
