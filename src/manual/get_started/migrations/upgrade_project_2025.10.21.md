@@ -5,7 +5,53 @@ There are no major breaking changes in this release, and only a few manual updat
 
 ---
 
-## **ASP.NET Core Projects**
+## ⚠️ Breaking Changes: Gamma Correction
+
+There are major breaking changes related to **gamma correction**.  
+After updating, you may notice that **textures look brighter** than before and some textures may **fail to load**.
+
+**Previous behavior:**  
+All imported textures had linear format. Gamma decoding was performed in the shader (when needed), which is expensive for the pixel shader and inaccurate when combined with mipmapping and pixel interpolation.
+
+**New behavior:**  
+Evergine now leverages **hardware decoding**. Textures that are sRGB **must be marked as sRGB**.  
+
+### How to fix your textures
+
+We provide a **Python 3** script to help you port existing projects.  
+It detects texture usage and sets **sRGB** only where needed.
+
+**Steps:**
+1) Update your project from the launcher as usual.  
+2) Open the project and verify that textures look brighter than usual.  
+3) Download the script **[migration-2025.10.21.py](./migration-2025.10.21.py)** to a folder.  
+4) Run:  
+   ```bash
+   python3 migration-2025.10.21.py path/to/my_evergine.weproj
+   ```  
+5) Reopen your project — textures should now look correct.
+
+### Gamma framebuffers (recommended optimization)
+
+Previously, gamma **encoding** was performed in the pixel shader before writing to the framebuffer, and templates used **linear framebuffers**.
+
+Now, both linear and **sRGB framebuffers** are supported. For **better performance**, we recommend using **sRGB framebuffers**.
+
+In your `Program.cs`, change:
+
+```csharp
+ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm,
+```
+
+to:
+
+```csharp
+ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm_SRgb,
+```
+
+---
+
+## ASP.NET Core Projects
 
 If your project uses **ASP.NET Core** (for example, WebAssembly-based or MAUI hybrid projects), update the following package references in your `.csproj` file to version **8.0.20**:
 
@@ -17,7 +63,7 @@ If your project uses **ASP.NET Core** (for example, WebAssembly-based or MAUI hy
 
 ---
 
-## **TypeScript Projects**
+## TypeScript Projects
 
 For projects that include TypeScript build steps, update the **TypeScript MSBuild** package to version **5.9.2** where applicable:
 
@@ -27,7 +73,7 @@ For projects that include TypeScript build steps, update the **TypeScript MSBuil
 
 ---
 
-## **Physics Engine (LibBulletC)**
+## Physics Engine (LibBulletC)
 
 If your project uses physics components, update the **Evergine.LibBulletc.Natives.Wasm** package to the following version:
 
@@ -37,11 +83,11 @@ If your project uses physics components, update the **Evergine.LibBulletc.Native
 
 ---
 
-## **HTML5 Template Adjustments**
+## HTML5 Template Adjustments
 
 For projects created from the **HTML5 template**, a few minor code updates are required in TypeScript files.
 
-### **1. Update `ts/types/evergine.d.ts`**
+### 1. Update `ts/types/evergine.d.ts`
 
 Add the new `startAssetsDownloadIfNeeded` declaration inside the `declare global` block:
 
@@ -57,7 +103,7 @@ declare global {
 
 ---
 
-### **2. Modify `ts/app.ts`**
+### 2. Modify `ts/app.ts`
 
 Inside the `waitAndRun()` function, add a call to `startAssetsDownloadIfNeeded()` before checking the asset load state.
 
@@ -86,23 +132,22 @@ waitAndRun() {
 
 ---
 
-## **React Template Adjustments**
+## React Template Adjustments
 
 The new version introduces a simplified communication layer between Evergine and React, improves initialization flow, and updates several dependencies to ensure long-term compatibility with .NET 8 and the latest Evergine React package.
 
-
 ---
 
-## **1. Backend Code Changes (C#)**
+### 1. Backend Code Changes (C#)
 
-### **Removed classes**
+#### Removed classes
 The following classes have been **removed**:
 - `Base/WebEventsController.cs`
 - `WebFacade.cs`
 
 They have been replaced with a new, unified lifecycle and integration system.
 
-### **New classes added**
+#### New classes added
 The following new files have been added:
 - `CanvasLifecycle.cs`  
   Handles the full Evergine canvas lifecycle from JavaScript, including initialization, start/stop, and size refresh.
@@ -113,23 +158,23 @@ The following new files have been added:
 - `WebReactApplication.cs`  
   Replaces `MyApplication` and registers `WebIntegration` as a service within the Evergine container.
 
-### **Updated Program.cs**
+#### Updated Program.cs
 - The main application now uses `WebReactApplication` instead of `MyApplication`.  
 - All event handling logic (`OnActivatingScene`, `OnDesactivatingScene`) has been removed.  
 - The new lifecycle relies entirely on the `CanvasLifecycle` and `WebIntegration` mechanisms for synchronization between .NET and JavaScript.
 
 ---
 
-## **2. Frontend Code Changes (React SPA)**
+### 2. Frontend Code Changes (React SPA)
 
-### **Updated dependencies**
+#### Updated dependencies
 
 In `package.json` and `package-lock.json`, update:
 
 - `"evergine-react"` → `^1.0.5`  
 - Added `"@types/blazor__javascript-interop"` → `^3.1.7` as a dev dependency  
 
-### **Removed constants in `config.ts`**
+#### Removed constants in `config.ts`
 
 Remove the following constants:
 
@@ -147,7 +192,7 @@ export const EVERGINE_ASSEMBLY_NAME = "YourProject.WebReact";
 
 ---
 
-### **Refactored `evergine-initialize.ts`**
+#### Refactored `evergine-initialize.ts`
 
 The Evergine initialization has been simplified.  
 Replace the old call to `initializeEvergineBase` with the new one that defines the `Evergine` global object.
@@ -188,5 +233,3 @@ window.Evergine = {
 
 initializeEvergineBase(window.Evergine);
 ```
-
----
