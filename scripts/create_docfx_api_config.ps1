@@ -16,7 +16,7 @@ param
 
 # Config variables
 $csproj_sources = "src/Engine|src/Extensions|src/Runtimes|src/Tools/Evergine.HLSLEverywhere"
-$csproj_excludes = "macos"  # format a|b|c..
+$csproj_excludes = "macos|ios|metal|winui|android"  # format a|b|c..
 $metadataConfigFile = "docfx_api_template.json"
 $buildFolder = "build"
 $configFile = "docfx-api.json"
