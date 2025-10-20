@@ -61,7 +61,7 @@ jobs:
         shell: pwsh
         id: workloads_install
         run: |
-          dotnet workload install android ios macos
+          dotnet workload install android ios macos maccatalyst
 
       - name: Build API
         shell: pwsh
