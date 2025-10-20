@@ -31,7 +31,7 @@ jobs:
           ref: ${{ github.event.inputs.evergineBranch }}
           repository: EvergineTeam/Engine
           path: ./Engine
-          token: ${{secrets.ACTIONS_TOKEN}}
+          token: ${{secrets.ENGINE_GITHUB_TOKEN}}
 
       - name: Configure docfx
         shell: pwsh
