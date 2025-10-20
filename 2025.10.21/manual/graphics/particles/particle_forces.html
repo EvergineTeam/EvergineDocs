@@ -1,0 +1,267 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Particle Forces | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Particle Forces | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="particle-forces">Particle Forces</h1>
+
+<video autoplay="" loop="" muted="" width="100%" height="auto">
+  <source src="images/particle_forces_header.mp4" type="video/mp4">
+</video>
+<p><strong>Particle forces</strong> are components that, once attached to an entity, can alter the behavior of a <strong>Particle System</strong>. They primarily alter the velocity of the particles according to a set of rules.</p>
+<h2 id="creating-forces-in-evergine-studio">Creating Forces in Evergine Studio</h2>
+<p>In the Entities Hierarchy panel of your Scene Editor, click &quot;Add Entity&quot; and select <strong>Particles</strong>, then choose the type of force you want to create:</p>
+<ul>
+<li>Point attractor</li>
+<li>Entity attractor</li>
+<li>Wind force</li>
+<li>Drag force</li>
+</ul>
+<p>We will discuss the force types later in this article.</p>
+<p><img src="images/add_particle_forces.png" alt="Dragging a Particle System"></p>
+<p>This will create a new entity in the <strong>Scene</strong>.</p>
+<p><img src="images/new_force.png" alt="New Particle System"></p>
+<p>The newly created entity has a <strong>Transform3D</strong> component and a new component, depending on the type of force (see below).</p>
+<h2 id="creating-forces-by-code">Creating Forces by Code</h2>
+<p>The following sample code can be used to instantiate an existing material asset and apply it to an entity in your scene.</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    // Creates the entity. A Point Attractor in this sample.
+    Entity particleForce = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new PointAttractorForce()
+        {
+            ForceCategory = CollisionCategory3D.All
+        });
+
+    this.Managers.EntityManager.Add(particleForce);
+}
+</code></pre>
+<h2 id="common-properties">Common Properties</h2>
+<p>All particle forces share a common base class (<strong>BaseForce</strong>). This class contains the following properties, making them accessible to all forces:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strength</td>
+<td><em>1</em></td>
+<td>Factor of how much the force affects the particles.</td>
+</tr>
+<tr>
+<td>Force Category</td>
+<td><em>All</em></td>
+<td>Category of the force. A force only affects particle systems that share the same ForceCategory.</td>
+</tr>
+<tr>
+<td>Range Enabled</td>
+<td><em>true</em></td>
+<td>If the force has a maximum range effect.</td>
+</tr>
+<tr>
+<td>Range</td>
+<td><em>1</em></td>
+<td>The maximum distance at which the particle system is affected by the force.</td>
+</tr>
+<tr>
+<td>Decay Enabled</td>
+<td><em>true</em></td>
+<td>If true, the particle force will decay over its range.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-of-forces">Types of Forces</h2>
+<p>As stated previously, <strong>Evergine</strong> supports the following particle system forces:</p>
+<h3 id="point-attractor-force">Point Attractor Force</h3>
+<p>This force gravitationally pulls all the particles into a point. In addition to the common properties of the base class, <strong>Particle Attractor Force</strong> adds properties for managing a <em>cutout</em> behavior.</p>
+<h4 id="cutout-effect">Cutout Effect</h4>
+<p>The cutout effect is a behavior affecting particles that get closer to the attractor center. Instead of being gravitationally pulled to the center and orbiting around that point, the cutout effect causes particles to be dragged directly to its center without escaping or continuing to orbit. This is useful when we want to control particles that go to a specific point without endlessly orbiting around its center.</p>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/cutout_on_off.mp4" type="video/mp4">
+</video>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Cutout Enabled</td>
+<td><em>false</em></td>
+<td>Enables the <em>cutout</em> behavior of the force.</td>
+</tr>
+<tr>
+<td>Cutout Strength</td>
+<td><em>All</em></td>
+<td>The intensity at which the particles are dragged into a vortex pit.</td>
+</tr>
+<tr>
+<td>Cutout Range</td>
+<td><em>true</em></td>
+<td>The range within which the particles start falling into the force center.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="entity-attractor-force">Entity Attractor Force</h3>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/entity_attractor.mp4" type="video/mp4">
+</video>
+<p>The <strong>Entity Attractor Force</strong> is similar to the Point Attractor Force, but the particles are attracted to an Entity, specifically to all the meshes contained in an entity. It has the same <strong>Cutout</strong> parameters as previously stated, but in addition, it has the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Source Entity Path</td>
+<td><em>null</em></td>
+<td>The path of the target entity of the force.</td>
+</tr>
+<tr>
+<td>Source Topology</td>
+<td><em>Vertex</em></td>
+<td>The part of the mesh topology towards which the particles are attracted. Its values can be <em>Vertex</em> or <em>Triangle</em>.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>In this version, <strong>Evergine</strong> does not support <em>Triangle</em> as <strong>Source Topology</strong>.</p>
+</div>
+<h3 id="wind-force">Wind Force</h3>
+<p>The <strong>Wind Force</strong> pushes the particles in the <strong>entity's forward direction</strong> around its effect area (if the range is enabled). It doesn't have additional parameters. Its strength controls how much the particles are pushed by the wind.</p>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/wind.mp4" type="video/mp4">
+</video>
+<h3 id="drag-force">Drag Force</h3>
+<p>The <strong>Drag Force</strong> drags the particles around its effect area (if the range is enabled). It doesn't have additional parameters. Its strength controls how much the particles are dragged by the force.</p>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/drag.mp4" type="video/mp4">
+</video>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using the Evergine.Serialization.Converters Library | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using the Evergine.Serialization.Converters Library | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-the-evergineserializationconverters-library">Using the Evergine.Serialization.Converters Library</h1>
+
+<p>The <strong>Evergine.Serialization.Converters</strong> library simplifies data serialization between JavaScript and C# in WebAssembly (WASM) environments. This library includes default JSON converters for many structs in <code>Evergine.Mathematics</code> and <code>Evergine.Common</code>, enabling seamless data handling between JavaScript and C# for web projects, API creation in ASP.NET Core, and other JSON-based serialization scenarios.</p>
+<h2 id="installation">Installation</h2>
+<p>For <strong>new Evergine web projects</strong>, the <strong>Evergine.Serialization.Converters</strong> package is added automatically. However, if you are updating an existing project, you’ll need to manually add the following reference in your project file:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Evergine.Serialization.Converters&quot; Version=&quot;EVERGINE_VERSION&quot; /&gt;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Replace <code>EVERGINE_VERSION</code> with the appropriate Evergine version</p>
+</div>
+<p>Additionally, updating an existing project may require some minor code changes. Please refer to the following code example for guidance:</p>
+<pre><code class="lang-csharp">public class Program
+{
+    // Some code here...
+
+    public static void Main()
+    {
+        // Use new host configuration option (before loading WASM runtime instance)
+        global::Evergine.Web.WebAssembly.HostConfiguration = new HostConfiguration();
+        wasm = global::Evergine.Web.WebAssembly.GetInstance();
+    }
+
+    // Some code here...
+
+    // Adding a host configuration class
+    private class HostConfiguration : IWasmHostConfiguration
+    {
+        public void ConfigureHost(WebAssemblyHostBuilder builder)
+        {
+            // Here you can do some custom config
+            // for WASM host, if you need it.
+        }
+
+        public void RegisterJsonConverters(IList&lt;JsonConverter&gt; converters)
+        {
+            // Here you can globally register  JSON converters used for JS Bridge 
+            // Serialization of parameters on C# invokes.
+
+            // Use this extension method to add most of built-in Evergine converters
+            converters.AddEvergineConverters();
+        }
+    }
+</code></pre>
+<h2 id="extending-or-customizing-converters">Extending or Customizing Converters</h2>
+<p>This library provides default converters for a selection of Evergine structs and some common classes. However, you have flexibility to customize this setup:</p>
+<ul>
+<li><strong>Remove specific converters</strong>: You can exclude converters provided by Evergine if they don’t meet your specific needs.</li>
+<li><strong>Add custom converters</strong>: Add converters for any custom models or structs in your application.</li>
+</ul>
+<pre><code class="lang-csharp">public class Program
+{
+    // Some code here...
+
+    private class HostConfiguration : IWasmHostConfiguration
+    {
+        public void ConfigureHost(WebAssemblyHostBuilder builder)
+        {
+        }
+
+        public void RegisterJsonConverters(IList&lt;JsonConverter&gt; converters)
+        {
+            // You always can modify this converters list to remove
+            // already registered converters or register new ones. Example:
+
+            var toRemove = converters.OfType&lt;ColorAsHexJsonConverter&gt;().FirstOrDefault();
+            if (toRemove != null)
+            {
+                converters.Remove(toRemove);
+            }
+
+            // Or you can register custom converters
+            converters.Add(new MyOwnConverter());
+        }
+    }
+</code></pre>
+<p>Converters registered through this library are available globally within the application, so it isn’t necessary to add the <code>JsonConverter</code> attribute to individual properties. Additionally, these converters can be used directly in JavaScript interop invoke parameters.</p>
+<h2 id="converters-and-data-structure-requirements">Converters and Data Structure Requirements</h2>
+<p>Each converter is designed to support a specific data structure when serialized to or from JavaScript. These structures are consistent whether data is being passed from JavaScript to Evergine or vice versa, ensuring seamless communication.</p>
+<p>Below are descriptions of each default converter along with examples of the expected JavaScript data structure for compatibility.</p>
+<h3 id="everginecommon">Evergine.Common</h3>
+<h4 id="colorashexjsonconverter">ColorAsHexJsonConverter</h4>
+<p>Expects a color as hexadecimal string from JavaScript side.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;ChangeColor&quot;, '#334422');
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:ChangeColor&quot;)]
+public static void ChangeColor(Color color)
+</code></pre>
+<h4 id="colorjsonconverter">ColorJsonConverter</h4>
+<p>Expects a color as object.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;ChangeColor&quot;, { r: 255, g: 255, b: 255, a: 255 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:ChangeColor&quot;)]
+public static void ChangeColor(Color color)
+</code></pre>
+<h3 id="everginemathematics">Evergine.Mathematics</h3>
+<h4 id="boundigboxjsonconverter">BoundigBoxJsonConverter</h4>
+<p>Expects bounding box to be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetBoundingBox&quot;, { 
+    min: { x: 1.0, y: 2.0, z: 3.0 }, 
+    max: { x: 1.0, y: 2.0, z: 3.0 } 
+});
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetBoundingBox&quot;)]
+public static void SetBoundingBox(BoundingBox bb)
+</code></pre>
+<h4 id="boundingfrustumjsonconverter">BoundingFrustumJsonConverter</h4>
+<p>Expects frustum to be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetBoundingFrustum&quot;, { 
+    matrix: [
+        [1.0, 2.0, 3.0, 4.0],
+        [1.0, 2.0, 3.0, 4.0],
+        [1.0, 2.0, 3.0, 4.0],
+        [1.0, 2.0, 3.0, 4.0]
+    ]
+});
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetBoundingFrustum&quot;)]
+public static void SetBoundingFrustum(BoundingFrustum frustum)
+</code></pre>
+<h4 id="boundingorientedboxjsonconverter">BoundingOrientedBoxJsonConverter</h4>
+<p>Expects bounding box to be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetBoundingOrientedBox&quot;, { 
+    center: { x: 1.0, y: 2.0, z: 3.0 },
+    halfExtent: { x: 1.0, y: 2.0, z: 3.0 },
+    orientation: { x: 1.0, y: 2.0, z: 3.0, w: 4.0 }
+});
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetBoundingOrientedBox&quot;)]
+public static void SetBoundingOrientedBox(BoundingOrientedBox bb)
+</code></pre>
+<h4 id="boundingspherejsonconverter">BoundingSphereJsonConverter</h4>
+<p>Expects bounding sphere to be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetBoundingSphere&quot;, { 
+    center: { x: 1.0, y: 2.0, z: 3.0 },
+    radius: 3.0,
+});
+</code></pre>
+<h4 id="byte4jsonconverter">Byte4JsonConverter</h4>
+<p>Expects <em>Byte4</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetByte4&quot;, { x: 1.0, y: 2.0, z: 3.0, w: 4.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetByte4&quot;)]
+public static void SetByte4(Byte4 b4)
+</code></pre>
+<h4 id="matrix3x3jsonconverter">Matrix3x3JsonConverter</h4>
+<p>Expects <em>Matrix3x3</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetMatrix3x3&quot;, [
+    [1.0, 2.0, 3.0],
+    [1.0, 2.0, 3.0],
+    [1.0, 2.0, 3.0]
+]);
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetMatrix3x3&quot;)]
+public static void SetMatrix3x3(Matrix3x3 matrix)
+</code></pre>
+<h4 id="matrix4x4jsonconverter">Matrix4x4JsonConverter</h4>
+<p>Expects <em>Matrix4x4</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetMatrix4x4&quot;, [
+    [1.0, 2.0, 3.0, 4.0],
+    [1.0, 2.0, 3.0, 4.0],
+    [1.0, 2.0, 3.0, 4.0],
+    [1.0, 2.0, 3.0, 4.0]
+]);
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetMatrix4x4&quot;)]
+public static void SetMatrix4x4(Matrix4x4 matrix)
+</code></pre>
+<h4 id="planejsonconverter">PlaneJsonConverter</h4>
+<p>Expects plane be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetPlane&quot;, {
+   normal: { x: 1.0, y: 2.0, z: 3.0},
+   d: 3.0 
+});
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetPlane&quot;)]
+public static void SetPlane(Plane plane)
+</code></pre>
+<h4 id="pointjsonconverter">PointJsonConverter</h4>
+<p>Expects point be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetPoint&quot;, { x: 1.0, y: 2.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetPoint&quot;)]
+public static void SetPoint(Point point)
+</code></pre>
+<h4 id="quaternionjsonconverter">QuaternionJsonConverter</h4>
+<p>Expects quaternion be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetQuaternion&quot;, { x: 1.0, y: 2.0, z: 3.0, w: 4.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetQuaternion&quot;)]
+public static void SetQuaternion(Quaternion quaternion)
+</code></pre>
+<h4 id="rayhit3djsonconverter">RayHit3DJsonConverter</h4>
+<p>Expects <em>RayHit3D</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetRayHit3D&quot;, { 
+    location: { x:1.0, y: 2.0, z: 3.0 },
+    normal: { x:1.0, y: 2.0, z: 3.0 },
+    t: 1.0
+});
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetRayHit3D&quot;)]
+public static void SetRayHit3D(RayHit3D hit)
+</code></pre>
+<h4 id="rayjsonconverter">RayJsonConverter</h4>
+<p>Expects <em>Ray</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetRay&quot;, { 
+    position: { x:1.0, y: 2.0, z: 3.0 },
+    direction: { x:1.0, y: 2.0, z: 3.0 }
+});
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetRay&quot;)]
+public static void SetRay(Ray ray)
+</code></pre>
+<h4 id="raystepjsonconverter">RayStepJsonConverter</h4>
+<p>Expects <em>RayStep</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetRayStep&quot;, { 
+    origin: { x:1.0, y: 2.0, z: 3.0 },
+    terminus: { x:1.0, y: 2.0, z: 3.0 }
+});
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetRayStep&quot;)]
+public static void SetRayStep(RayStep step)
+</code></pre>
+<h4 id="rectanglefjsonconverter">RectangleFJsonConverter</h4>
+<p>Expects <em>RectangleF</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetRectangleF&quot;, {x: 1.0, y: 0, width: 100, height: 100 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetRectangleF&quot;)]
+public static void SetRectangleF(RectangleF rectangle)
+</code></pre>
+<h4 id="rectanglejsonconverter">RectangleJsonConverter</h4>
+<p>Expects <em>Rectangle</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetRectangle&quot;, {x: 1.0, y: 1.0, width: 100, height: 100 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetRectangle&quot;)]
+public static void SetRectangle(Rectangle rectangle)
+</code></pre>
+<h4 id="splinejsonconverter">SplineJsonConverter</h4>
+<p>Expects spline be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetSpline&quot;, {a: 1.0, b: 2.0, c: 3.0, d: 4.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetSpline&quot;)]
+public static void SetSpline(Spline spline)
+</code></pre>
+<h4 id="uint2jsonconverter">UInt2JsonConverter</h4>
+<p>Expects <em>UInt2</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetUInt2&quot;, {x: 1.0, y: 2.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetUInt2&quot;)]
+public static void SetUInt2(UInt2 uint2)
+</code></pre>
+<h4 id="uint3jsonconverter">UInt3JsonConverter</h4>
+<p>Expects <em>UInt3</em> be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetUInt3&quot;, {x: 1.0, y: 2.0, z: 3.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetUInt3&quot;)]
+public static void SetUInt3(UInt3 uint3)
+</code></pre>
+<h4 id="vector2jsonconverter">Vector2JsonConverter</h4>
+<p>Expects vector be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetVector2&quot;, {x: 1.0, y: 2.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetVector2&quot;)]
+public static void SetVector2(Vector2 vector)
+</code></pre>
+<h4 id="vector3jsonconverter">Vector3JsonConverter</h4>
+<p>Expects vector be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetVector3&quot;, {x: 1.0, y: 2.0, z: 3.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetVector3&quot;)]
+public static void SetVector3(Vector3 vector)
+</code></pre>
+<h4 id="vector4jsonconverter">Vector4JsonConverter</h4>
+<p>Expects vector be defined as following.</p>
+<p><em>JavaScript</em></p>
+<pre><code class="lang-javascript">window.Utils.invoke(&quot;SetVector4&quot;, {x: 1.0, y: 2.0, z: 3.0, w: 4.0 });
+</code></pre>
+<p><em>C#</em></p>
+<pre><code class="lang-csharp">[JSInvokable($&quot;{BaseInvokeClassName}:SetVector4&quot;)]
+public static void SetVector4(Vector4 vector)
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

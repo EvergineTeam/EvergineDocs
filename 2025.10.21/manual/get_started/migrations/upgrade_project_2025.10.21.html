@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Update from Evergine 2025.3.18 to Evergine 2025.10.21 | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Update from Evergine 2025.3.18 to Evergine 2025.10.21 | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="update-from-evergine-2025318-to-evergine-20251021">Update from Evergine 2025.3.18 to Evergine 2025.10.21</h1>
+
+<p>This guide describes the steps required to update your existing Evergine projects to the latest version.<br>
+There are no major breaking changes in this release, and only a few manual updates are needed.</p>
+<hr>
+<h2 id="-breaking-changes-gamma-correction">⚠️ Breaking Changes: Gamma Correction</h2>
+<p>There are major breaking changes related to <strong>gamma correction</strong>.<br>
+After updating, you may notice that <strong>textures look brighter</strong> than before and some textures may <strong>fail to load</strong>.</p>
+<p><strong>Previous behavior:</strong><br>
+All imported textures had linear format. Gamma decoding was performed in the shader (when needed), which is expensive for the pixel shader and inaccurate when combined with mipmapping and pixel interpolation.</p>
+<p><strong>New behavior:</strong><br>
+Evergine now leverages <strong>hardware decoding</strong>. Textures that are sRGB <strong>must be marked as sRGB</strong>.</p>
+<h3 id="how-to-fix-your-textures">How to fix your textures</h3>
+<p>We provide a <strong>Python 3</strong> script to help you port existing projects.<br>
+It detects texture usage and sets <strong>sRGB</strong> only where needed.</p>
+<p><strong>Steps:</strong></p>
+<ol>
+<li>Update your project from the launcher as usual.</li>
+<li>Open the project and verify that textures look brighter than usual.</li>
+<li>Download the script <strong><a href="./migration-2025.10.21.py">migration-2025.10.21.py</a></strong> to a folder.</li>
+<li>Run:
+<pre><code class="lang-bash">python3 migration-2025.10.21.py path/to/my_evergine.weproj
+</code></pre>
+</li>
+<li>Reopen your project — textures should now look correct.</li>
+</ol>
+<h3 id="gamma-framebuffers-recommended-optimization">Gamma framebuffers (recommended optimization)</h3>
+<p>Previously, gamma <strong>encoding</strong> was performed in the pixel shader before writing to the framebuffer, and templates used <strong>linear framebuffers</strong>.</p>
+<p>Now, both linear and <strong>sRGB framebuffers</strong> are supported. For <strong>better performance</strong>, we recommend using <strong>sRGB framebuffers</strong>.</p>
+<p>In your <code>Program.cs</code>, change:</p>
+<pre><code class="lang-csharp">ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm,
+</code></pre>
+<p>to:</p>
+<pre><code class="lang-csharp">ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm_SRgb,
+</code></pre>
+<hr>
+<h2 id="aspnet-core-projects">ASP.NET Core Projects</h2>
+<p>If your project uses <strong>ASP.NET Core</strong> (for example, WebAssembly-based or MAUI hybrid projects), update the following package references in your <code>.csproj</code> file to version <strong>8.0.20</strong>:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Microsoft.AspNetCore.Components.WebAssembly&quot; Version=&quot;8.0.20&quot; /&gt;
+&lt;PackageReference Include=&quot;Microsoft.AspNetCore.Components.WebAssembly.Server&quot; Version=&quot;8.0.20&quot; /&gt;
+&lt;PackageReference Include=&quot;Microsoft.AspNetCore.Components.WebAssembly.DevServer&quot; Version=&quot;8.0.20&quot; PrivateAssets=&quot;all&quot; /&gt;
+</code></pre>
+<hr>
+<h2 id="typescript-projects">TypeScript Projects</h2>
+<p>For projects that include TypeScript build steps, update the <strong>TypeScript MSBuild</strong> package to version <strong>5.9.2</strong> where applicable:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Microsoft.TypeScript.MSBuild&quot; Version=&quot;5.9.2&quot; /&gt;
+</code></pre>
+<hr>
+<h2 id="physics-engine-libbulletc">Physics Engine (LibBulletC)</h2>
+<p>If your project uses physics components, update the <strong>Evergine.LibBulletc.Natives.Wasm</strong> package to the following version:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Evergine.LibBulletc.Natives.Wasm&quot; Version=&quot;2025.8.29.27&quot; /&gt;
+</code></pre>
+<hr>
+<h2 id="html5-template-adjustments">HTML5 Template Adjustments</h2>
+<p>For projects created from the <strong>HTML5 template</strong>, a few minor code updates are required in TypeScript files.</p>
+<h3 id="1-update-tstypeseverginedts">1. Update <code>ts/types/evergine.d.ts</code></h3>
+<p>Add the new <code>startAssetsDownloadIfNeeded</code> declaration inside the <code>declare global</code> block:</p>
+<pre><code class="lang-ts">declare global {
+    var areAllAssetsLoaded: any;
+    var startAssetsDownloadIfNeeded: any; // &lt;-- Add this line
+    var evergineSetProgressCallback: (progress: number) =&gt; void;
+    var Blazor: any;
+    var DotNet: any;
+}
+</code></pre>
+<hr>
+<h3 id="2-modify-tsappts">2. Modify <code>ts/app.ts</code></h3>
+<p>Inside the <code>waitAndRun()</code> function, add a call to <code>startAssetsDownloadIfNeeded()</code> before checking the asset load state.</p>
+<p><strong>Before:</strong></p>
+<pre><code class="lang-ts">waitAndRun() {
+    if (areAllAssetsLoaded()) {
+        console.log(&quot;Running...&quot;);
+        this.program.Run(this.canvasId);
+    }
+}
+</code></pre>
+<p><strong>After:</strong></p>
+<pre><code class="lang-ts">waitAndRun() {
+    startAssetsDownloadIfNeeded(); // &lt;-- Add this line
+    if (areAllAssetsLoaded()) {
+        console.log(&quot;Running...&quot;);
+        this.program.Run(this.canvasId);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="react-template-adjustments">React Template Adjustments</h2>
+<p>The new version introduces a simplified communication layer between Evergine and React, improves initialization flow, and updates several dependencies to ensure long-term compatibility with .NET 8 and the latest Evergine React package.</p>
+<hr>
+<h3 id="1-backend-code-changes-c">1. Backend Code Changes (C#)</h3>
+<h4 id="removed-classes">Removed classes</h4>
+<p>The following classes have been <strong>removed</strong>:</p>
+<ul>
+<li><code>Base/WebEventsController.cs</code></li>
+<li><code>WebFacade.cs</code></li>
+</ul>
+<p>They have been replaced with a new, unified lifecycle and integration system.</p>
+<h4 id="new-classes-added">New classes added</h4>
+<p>The following new files have been added:</p>
+<ul>
+<li><p><code>CanvasLifecycle.cs</code><br>
+Handles the full Evergine canvas lifecycle from JavaScript, including initialization, start/stop, and size refresh.</p>
+</li>
+<li><p><code>WebIntegration.cs</code><br>
+Provides a two-way integration layer between Evergine and React via <code>JSInterop</code>. It manages Evergine readiness state and notifies the JavaScript side when the engine is ready.</p>
+</li>
+<li><p><code>WebReactApplication.cs</code><br>
+Replaces <code>MyApplication</code> and registers <code>WebIntegration</code> as a service within the Evergine container.</p>
+</li>
+</ul>
+<h4 id="updated-programcs">Updated Program.cs</h4>
+<ul>
+<li>The main application now uses <code>WebReactApplication</code> instead of <code>MyApplication</code>.</li>
+<li>All event handling logic (<code>OnActivatingScene</code>, <code>OnDesactivatingScene</code>) has been removed.</li>
+<li>The new lifecycle relies entirely on the <code>CanvasLifecycle</code> and <code>WebIntegration</code> mechanisms for synchronization between .NET and JavaScript.</li>
+</ul>
+<hr>
+<h3 id="2-frontend-code-changes-react-spa">2. Frontend Code Changes (React SPA)</h3>
+<h4 id="updated-dependencies">Updated dependencies</h4>
+<p>In <code>package.json</code> and <code>package-lock.json</code>, update:</p>
+<ul>
+<li><code>&quot;evergine-react&quot;</code> → <code>^1.0.5</code></li>
+<li>Added <code>&quot;@types/blazor__javascript-interop&quot;</code> → <code>^3.1.7</code> as a dev dependency</li>
+</ul>
+<h4 id="removed-constants-in-configts">Removed constants in <code>config.ts</code></h4>
+<p>Remove the following constants:</p>
+<pre><code class="lang-ts">export const EVERGINE_LOADING_BAR_ID = &quot;evergine-loading-bar&quot;;
+export const EVERGINE_CLASS_NAME = `${EVERGINE_ASSEMBLY_NAME}.WebFacade&quot;;
+</code></pre>
+<p>Keep only:</p>
+<pre><code class="lang-ts">export const EVERGINE_CANVAS_ID = &quot;evergine-canvas&quot;;
+export const EVERGINE_ASSEMBLY_NAME = &quot;YourProject.WebReact&quot;;
+</code></pre>
+<hr>
+<h4 id="refactored-evergine-initializets">Refactored <code>evergine-initialize.ts</code></h4>
+<p>The Evergine initialization has been simplified.<br>
+Replace the old call to <code>initializeEvergineBase</code> with the new one that defines the <code>Evergine</code> global object.</p>
+<p><strong>Before:</strong></p>
+<pre><code class="lang-ts">initializeEvergineBase(
+  EVERGINE_LOADING_BAR_ID,
+  EVERGINE_ASSEMBLY_NAME,
+  EVERGINE_CLASS_NAME
+);
+</code></pre>
+<p><strong>After:</strong></p>
+<pre><code class="lang-ts">window.Evergine = {
+    initialize: (_dotNetReference: DotNet.DotNetObject) =&gt; {
+        const evergineApp: WebIntegration = {
+            onEvergineReadyChanged: (isReady: boolean) =&gt; {
+                console.log(`Evergine ready ${isReady}`);
+            },
+        };
+
+        window.App = evergineApp;
+        return window.DotNet.createJSObjectReference(evergineApp);
+    },
+    initializeCanvasLifecycle: () =&gt; window.DotNet?.invokeMethod(
+        EVERGINE_ASSEMBLY_NAME,
+        `${EVERGINE_ASSEMBLY_NAME}.CanvasLifecycle:Initialize`
+    ),
+    onEvergineAssetLoaded: (asset: EvergineAsset) =&gt; {
+        console.log(`Evergine asset ${asset.name} loaded`);
+    },
+    onEvergineAllAssetsLoaded: () =&gt; {
+        console.log(&quot;Evergine assets loaded&quot;);
+    },
+};
+
+initializeEvergineBase(window.Evergine);
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

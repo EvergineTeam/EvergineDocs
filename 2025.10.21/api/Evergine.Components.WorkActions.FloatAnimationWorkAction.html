@@ -1,0 +1,2434 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class FloatAnimationWorkAction | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class FloatAnimationWorkAction | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction">
+
+
+
+  <h1 id="Evergine_Components_WorkActions_FloatAnimationWorkAction" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction" class="text-break">Class FloatAnimationWorkAction</h1>
+  <div class="markdown level0 summary"><p>Executes an action on a single float value.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Components.WorkActions.WorkAction.html">WorkAction</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Components.WorkActions.UpdatableWorkAction.html">UpdatableWorkAction</a></div>
+    <div class="level3"><span class="xref">FloatAnimationWorkAction</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Framework.Services.IWorkAction.html">IWorkAction</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Completed">WorkAction.Completed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Canceled">WorkAction.Canceled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_IsSkippable">WorkAction.IsSkippable</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Skipped">WorkAction.Skipped</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_State">WorkAction.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Scene">WorkAction.Scene</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_ChildActions">WorkAction.ChildActions</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Run">WorkAction.Run()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_TrySkip">WorkAction.TrySkip()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Cancel">WorkAction.Cancel()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_PerformCompleted">WorkAction.PerformCompleted()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Components.html">Components</a>.<a class="xref" href="Evergine.Components.WorkActions.html">WorkActions</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Components.dll</h6>
+  <h5 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class FloatAnimationWorkAction : UpdatableWorkAction, IWorkAction</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction__ctor_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.#ctor*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction__ctor_Evergine_Framework_Entity_System_Single_System_Single_System_TimeSpan_Evergine_Components_WorkActions_EaseFunction_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.#ctor(Evergine.Framework.Entity,System.Single,System.Single,System.TimeSpan,Evergine.Components.WorkActions.EaseFunction)">FloatAnimationWorkAction(Entity, float, float, TimeSpan, EaseFunction)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Components.WorkActions.FloatAnimationWorkAction.html">FloatAnimationWorkAction</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected FloatAnimationWorkAction(Entity entity, float from, float to, TimeSpan time, EaseFunction ease)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Entity.html">Entity</a></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The entity.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Initial value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">time</span></td>
+        <td><p>The duration of the animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.WorkActions.EaseFunction.html">EaseFunction</a></td>
+        <td><span class="parametername">ease</span></td>
+        <td><p>Easing function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction__ctor_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.#ctor*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction__ctor_Evergine_Framework_Entity_System_Single_System_Single_System_TimeSpan_Evergine_Components_WorkActions_EaseFunction_System_Action_System_Single__" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.#ctor(Evergine.Framework.Entity,System.Single,System.Single,System.TimeSpan,Evergine.Components.WorkActions.EaseFunction,System.Action{System.Single})">FloatAnimationWorkAction(Entity, float, float, TimeSpan, EaseFunction, Action&lt;float&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Components.WorkActions.FloatAnimationWorkAction.html">FloatAnimationWorkAction</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public FloatAnimationWorkAction(Entity entity, float from, float to, TimeSpan time, EaseFunction ease, Action&lt;float&gt; updateAction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Entity.html">Entity</a></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The entity.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Initial value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">time</span></td>
+        <td><p>The duration of the animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.WorkActions.EaseFunction.html">EaseFunction</a></td>
+        <td><span class="parametername">ease</span></td>
+        <td><p>Easing function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td><span class="parametername">updateAction</span></td>
+        <td><p>The action when it needs to be updated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_from" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.from">from</h4>
+  <div class="markdown level1 summary"><p>Initial value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float from</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_to" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.to">to</h4>
+  <div class="markdown level1 summary"><p>End value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected float to</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_updateAction" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.updateAction">updateAction</h4>
+  <div class="markdown level1 summary"><p>The update action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Action&lt;float&gt; updateAction</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BackInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BackInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BackInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BackInEase(System.Single,System.Single,System.Single,System.Single)">BackInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Back in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float BackInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BackInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BackInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BackInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BackInOutEase(System.Single,System.Single,System.Single,System.Single)">BackInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Back in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float BackInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BackOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BackOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BackOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BackOutEase(System.Single,System.Single,System.Single,System.Single)">BackOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Back out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float BackOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Starting value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>Ending value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BounceInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BounceInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BounceInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BounceInEase(System.Single,System.Single,System.Single,System.Single)">BounceInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Bounce in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float BounceInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Starting value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>Ending value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BounceInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BounceInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BounceInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BounceInOutEase(System.Single,System.Single,System.Single,System.Single)">BounceInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Bounce in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float BounceInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BounceOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BounceOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_BounceOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.BounceOutEase(System.Single,System.Single,System.Single,System.Single)">BounceOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Bounce out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float BounceOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CircleInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CircleInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CircleInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CircleInEase(System.Single,System.Single,System.Single,System.Single)">CircleInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Circle-in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float CircleInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CircleInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CircleInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CircleInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CircleInOutEase(System.Single,System.Single,System.Single,System.Single)">CircleInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Circle in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float CircleInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CircleOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CircleOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CircleOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CircleOutEase(System.Single,System.Single,System.Single,System.Single)">CircleOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Circle out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float CircleOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CubicInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CubicInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CubicInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CubicInEase(System.Single,System.Single,System.Single,System.Single)">CubicInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Cubic in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float CubicInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CubicInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CubicInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CubicInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CubicInOutEase(System.Single,System.Single,System.Single,System.Single)">CubicInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Cubic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float CubicInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CubicOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CubicOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_CubicOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.CubicOutEase(System.Single,System.Single,System.Single,System.Single)">CubicOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Cubic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float CubicOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_DeltaFunction_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.DeltaFunction*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_DeltaFunction_Evergine_Components_WorkActions_EaseFunction_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.DeltaFunction(Evergine.Components.WorkActions.EaseFunction,System.Single,System.Single,System.Single,System.Single)">DeltaFunction(EaseFunction, float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Delta function method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float DeltaFunction(EaseFunction function, float from, float to, float time, float totalTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.WorkActions.EaseFunction.html">EaseFunction</a></td>
+        <td><span class="parametername">function</span></td>
+        <td><p>Function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">time</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">totalTime</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ElasticInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ElasticInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ElasticInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ElasticInEase(System.Single,System.Single,System.Single,System.Single)">ElasticInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Elastic in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float ElasticInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ElasticInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ElasticInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ElasticInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ElasticInOutEase(System.Single,System.Single,System.Single,System.Single)">ElasticInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Elastic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float ElasticInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ElasticOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ElasticOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ElasticOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ElasticOutEase(System.Single,System.Single,System.Single,System.Single)">ElasticOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Elastic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float ElasticOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ExponentialInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ExponentialInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ExponentialInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ExponentialInEase(System.Single,System.Single,System.Single,System.Single)">ExponentialInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Exponential in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float ExponentialInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ExponentialInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ExponentialInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ExponentialInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ExponentialInOutEase(System.Single,System.Single,System.Single,System.Single)">ExponentialInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Exponential in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float ExponentialInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ExponentialOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ExponentialOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_ExponentialOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.ExponentialOutEase(System.Single,System.Single,System.Single,System.Single)">ExponentialOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Exponential out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float ExponentialOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_LinearStep_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.LinearStep*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_LinearStep_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.LinearStep(System.Single,System.Single,System.Single)">LinearStep(float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Smooth Step method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float LinearStep(float from, float to, float lerp)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Initial value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">lerp</span></td>
+        <td><p>The interpolation value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The calculated value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_PerformCancel_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.PerformCancel*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_PerformCancel" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.PerformCancel">PerformCancel()</h4>
+  <div class="markdown level1 summary"><p>Cancels the work action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void PerformCancel()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_PerformCancel">WorkAction.PerformCancel()</a></div>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_PerformRun_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.PerformRun*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_PerformRun" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.PerformRun">PerformRun()</h4>
+  <div class="markdown level1 summary"><p>On the run.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void PerformRun()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_PerformRun">WorkAction.PerformRun()</a></div>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_PerformSkip_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.PerformSkip*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_PerformSkip" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.PerformSkip">PerformSkip()</h4>
+  <div class="markdown level1 summary"><p>Notifies the skip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool PerformSkip()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if the action is skipped successfully.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_PerformSkip">WorkAction.PerformSkip()</a></div>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuadraticInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuadraticInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuadraticInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuadraticInEase(System.Single,System.Single,System.Single,System.Single)">QuadraticInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quadratic easing-in function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuadraticInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuadraticInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuadraticInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuadraticInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuadraticInOutEase(System.Single,System.Single,System.Single,System.Single)">QuadraticInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quadratic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuadraticInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuadraticOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuadraticOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuadraticOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuadraticOutEase(System.Single,System.Single,System.Single,System.Single)">QuadraticOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quadratic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuadraticOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuarticInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuarticInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuarticInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuarticInEase(System.Single,System.Single,System.Single,System.Single)">QuarticInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quartic in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuarticInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuarticInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuarticInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuarticInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuarticInOutEase(System.Single,System.Single,System.Single,System.Single)">QuarticInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quartic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuarticInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuarticOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuarticOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuarticOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuarticOutEase(System.Single,System.Single,System.Single,System.Single)">QuarticOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quartic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuarticOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuinticInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuinticInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuinticInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuinticInEase(System.Single,System.Single,System.Single,System.Single)">QuinticInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quintic in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuinticInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuinticInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuinticInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuinticInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuinticInOutEase(System.Single,System.Single,System.Single,System.Single)">QuinticInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quintic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuinticInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuinticOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuinticOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_QuinticOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.QuinticOutEase(System.Single,System.Single,System.Single,System.Single)">QuinticOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Quintic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float QuinticOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_SineInEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.SineInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_SineInEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.SineInEase(System.Single,System.Single,System.Single,System.Single)">SineInEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Sine in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SineInEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_SineInOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.SineInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_SineInOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.SineInOutEase(System.Single,System.Single,System.Single,System.Single)">SineInOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Sine in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SineInOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_SineOutEase_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.SineOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_SineOutEase_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.SineOutEase(System.Single,System.Single,System.Single,System.Single)">SineOutEase(float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Sine out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SineOutEase(float t, float b, float c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_FloatAnimationWorkAction_Update_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.Update*"></a>
+  <h4 id="Evergine_Components_WorkActions_FloatAnimationWorkAction_Update_System_TimeSpan_" data-uid="Evergine.Components.WorkActions.FloatAnimationWorkAction.Update(System.TimeSpan)">Update(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Updates the single work action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Update(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The elapsed game time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.WorkActions.UpdatableWorkAction.html#Evergine_Components_WorkActions_UpdatableWorkAction_Update_System_TimeSpan_">UpdatableWorkAction.Update(TimeSpan)</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Framework.Services.IWorkAction.html">IWorkAction</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_AndWaitCondition_Evergine_Framework_Services_IWorkAction_System_Func_System_Boolean__System_Int32_">WorkActionFactory.AndWaitCondition(IWorkAction, Func&lt;bool&gt;, int)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_AsSkippableWorkAction_Evergine_Framework_Services_IWorkAction_">WorkActionFactory.AsSkippableWorkAction(IWorkAction)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_Evergine_Framework_Services_IWorkAction_">WorkActionFactory.ContinueWith(IWorkAction, IWorkAction)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_Evergine_Framework_Services_IWorkAction___">WorkActionFactory.ContinueWith(IWorkAction, params IWorkAction[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_System_Collections_Generic_IEnumerable_Evergine_Framework_Services_IWorkAction__">WorkActionFactory.ContinueWith(IWorkAction, IEnumerable&lt;IWorkAction&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_System_Func_Evergine_Framework_Services_IWorkAction__">WorkActionFactory.ContinueWith(IWorkAction, Func&lt;IWorkAction&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_System_Func_Evergine_Framework_Services_IWorkAction____">WorkActionFactory.ContinueWith(IWorkAction, params Func&lt;IWorkAction&gt;[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWithAction_Evergine_Framework_Services_IWorkAction_System_Action_">WorkActionFactory.ContinueWithAction(IWorkAction, Action)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_CreateParallelWorkActions_Evergine_Framework_Services_IWorkAction_System_Collections_Generic_IEnumerable_Evergine_Framework_Services_IWorkAction__">WorkActionFactory.CreateParallelWorkActions(IWorkAction, IEnumerable&lt;IWorkAction&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_Delay_Evergine_Framework_Services_IWorkAction_System_TimeSpan_">WorkActionFactory.Delay(IWorkAction, TimeSpan)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

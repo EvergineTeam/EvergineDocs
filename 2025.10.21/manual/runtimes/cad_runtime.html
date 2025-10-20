@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>CAD Runtime Models | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="CAD Runtime Models | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cad-runtime-models">CAD Runtime Models</h1>
+
+<hr>
+<p><img src="images/CAD/HeaderCAD.png" alt="Evergine Runtime Models"></p>
+<p>The <strong>Evergine.Runtime.CAD</strong> NuGet package provides a <strong>powerful and efficient solution</strong> for dynamically loading CAD files at runtime. It is designed for real-time applications and integrates seamlessly into your Evergine projects.</p>
+<h2 id="supported-cad-features">Supported CAD Features</h2>
+<p>The <code>Evergine.Runtimes.CAD</code> namespace includes a robust CAD file loader that supports a comprehensive range of features:</p>
+<h3 id="-features">✅ Features</h3>
+<h4 id="1-supported-cad-file-types">1. Supported CAD File Types</h4>
+<ul>
+<li><strong>DXF</strong>: R12 through R2024 (ASCII &amp; Binary)</li>
+<li><strong>DWG</strong>: R14 through R2024</li>
+<li>Uses <strong>ACadSharp</strong> for reading and processing CAD documents.</li>
+</ul>
+<h4 id="2-geometry--entities">2. Geometry &amp; Entities</h4>
+<ul>
+<li><strong>Geometry</strong>: Point, Line, Circle, Arc, Ellipse, Spline, 2D Polylines, Ray, XLine, Solid, Face3D</li>
+<li><strong>Text</strong>: <code>TextEntity</code>, <code>MText</code> with alignment, rotation and background rectangles</li>
+<li><strong>Hatches</strong>: Solid fills.</li>
+<li><strong>Blocks &amp; Inserts</strong>: Nested blocks with transformation, color and layer inheritance</li>
+<li><strong>Metadata</strong>: Layers (name, color, visibility, frozen), extended data (XData), block attributes</li>
+</ul>
+<h4 id="3-efficient-rendering-line-batching">3. Efficient Rendering (Line Batching)</h4>
+<ul>
+<li>Implements CAD element rendering via a <code>DrawableLineBatch</code> system for all geometry and <code>Text3D</code> for text entities.</li>
+</ul>
+<h4 id="4-runtime-customization">4. Runtime Customization</h4>
+<ul>
+<li>Configure the CAD reader via an options object:
+<ul>
+<li><code>Precision</code> (int): tessellation precision for curves (default: 32)</li>
+<li><code>DXFMTextSize</code> (float): height for multiline text (<code>MText</code>) in DXF files (default: 0.5f)</li>
+<li><code>MetersPerUnit</code> (float?): manual scale factor converting CAD units to meters; if <code>null</code>, uses the units defined in the CAD document</li>
+<li><code>Font</code> (Evergine.Framework.Graphics.Font): optional Evergine font for text rendering; if null, uses the default font</li>
+<li><code>EnableTextRendering</code> (bool): enables/disables text entity rendering (MText, TextEntity, AttributeEntity) for performance optimization (default: true)</li>
+</ul>
+</li>
+</ul>
+<pre><code class="lang-csharp">var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+var myFont = assetsService.Load&lt;Font&gt;(EvergineContent.Fonts.MyFont_ttf);
+
+var options = new CADReadOptions
+{
+    Precision = 32,
+    DXFMTextSize = 0.5f,
+    MetersPerUnit = 0.01f,
+    Font = myFont,
+    EnableTextRendering = true,
+};
+var model = await CADRuntime.Instance.Read(filepath, options);
+</code></pre>
+<hr>
+<h3 id="limitations">Limitations</h3>
+<h4 id="1-cad-entities-limitations">1. CAD Entities Limitations</h4>
+<ul>
+<li>Visual line styles (dashed, dotted, varying line weights, linetypes) are not currently supported—everything is rendered as simple solid lines.</li>
+<li>Hatch rendering is limited: complex patterns and gradient fills are exploded into basic line geometry.</li>
+<li>No support for 3D CAD models: only 2D geometry (planar entities) is processed and rendered.</li>
+</ul>
+<h4 id="2-cad-file-handling-limitations">2. CAD File Handling Limitations</h4>
+<p>Based on the capabilities of the <strong>ACadSharp</strong>.</p>
+<h5 id="supported-dxfdwg-versions">Supported DXF/DWG Versions</h5>
+<table>
+<thead>
+<tr>
+<th>Version</th>
+<th>DxfReader</th>
+<th>DxfWriter</th>
+<th>DwgReader</th>
+<th>DwgWriter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>AC1009</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AC1012</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>❌</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AC1014</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>AC1015</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>AC1018</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>AC1021</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>❌</td>
+</tr>
+<tr>
+<td>AC1024</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>AC1027</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+<tr>
+<td>AC1032</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+<td>✔️</td>
+</tr>
+</tbody>
+</table>
+<p>⚠️ <em>These limitations are subject to change in future updates.</em></p>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<p>To start using the <strong>Evergine.Runtimes.CAD</strong> libraries, simply install the NuGet package and use the following code to load your assets:</p>
+<pre><code class="lang-csharp">protected async override void CreateScene()
+{    
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+    var entity = await CADRuntime.Instance.Read(&quot;myCADFile.dxf&quot;);
+    this.manager.EntityManager.Add(entity);
+}
+</code></pre>
+<br>
+<h2 id="samples">Samples</h2>
+<p>The CAD Runtime has been tested with the following publicly available datasets:</p>
+<ul>
+<li><a href="https://cadmapper.com/#metro">CADMAPPER</a></li>
+<li><a href="https://www.autodesk.com/support/technical/article/caas/tsarticles/ts/01em4r6LLJgnQQVBlk5GqD.html">Autodesk Samples</a></li>
+</ul>
+<p>These tests help ensure compatibility with a wide range of DXF &amp; DWG files.
+Below are several representative screenshots of CAD files successfully loaded and rendered at runtime:</p>
+<h3 id="sample-screenshots">Sample screenshots</h3>
+<p><img src="images/CAD/Amsterdam.png" alt="CADMAPPER"><br>
+<em>Amsterdam map (DXF).</em></p>
+<p><img src="images/CAD/Autocad_samples.png" alt="AutoCAD Samples"><br>
+<em>AutoCAD Samples (DWG)</em></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

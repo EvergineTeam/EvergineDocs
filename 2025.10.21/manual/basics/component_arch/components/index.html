@@ -1,0 +1,208 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Components | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Components | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="components">Components</h1>
+
+<p><img src="../images/component_based_arch.jpg" alt="Component Based Architecture"></p>
+<p>A <strong>Component</strong> allows the addition of functionality and logic to an <strong>Entity</strong>. The <code>Component</code> class is the base class for every component in Evergine.</p>
+<p>There are three types of Components widely used throughout the engine:</p>
+<ul>
+<li><a href="index.html">Component</a>: You can derive directly from the Component class to add functionality without Update() or Draw() calls. You can register for events or expose some logic; the only limit is your imagination :)</li>
+<li><a href="behaviours.html">Behavior</a>: This is designed to add logic to the associated Entity. It provides an <code>Update()</code> method that is executed in each game loop.</li>
+<li><a href="drawables.html">Drawable</a>: Responsible for managing the rendering on the screen. Similar to the previous one, this provides a <code>Draw()</code> abstract method invoked during the rendering cycle. It is suitable for registering and updating objects to be rendered.</li>
+</ul>
+<h2 id="component-lifecycle">Component Lifecycle</h2>
+<p>Please, check <a href="../../lifecycle_elements.html">Lifecycle of element</a> for details regarding the lifecycle of elements in Evergine, including Components.</p>
+<h2 id="using-components">Using Components</h2>
+<p>You can manage Components both in Evergine Studio and directly from code.</p>
+<h3 id="from-evergine-studio">From Evergine Studio</h3>
+<p>In Evergine Studio, you can add/remove Components to an Entity and modify its properties.</p>
+<h4 id="add-a-component">Add a Component</h4>
+<p>In Evergine Studio, first select an Entity that you want to add the Component to, and click the <img src="../../../graphics/images/plusIcon.jpg" alt="Add Button"> button in the Entity Details section:</p>
+<p><img src="images/add_component_everginestudio.png" alt="Add component"></p>
+<p>A Component selector dialog appears. Select the component type that you want to add:</p>
+<p><img src="images/component_selector.png" alt="Select Component"></p>
+<h4 id="remove-a-component">Remove a Component</h4>
+<p>The process of removing a component is quite simple. First, select the Entity from which you want to remove one Component. Then, in the Entity Details, right-click on the Component name area and click the Delete button:</p>
+<p><img src="images/remove_component_everginestudio.png" alt="Delete Component"></p>
+<h3 id="from-code">From Code</h3>
+<h4 id="add-components">Add Components</h4>
+<p>To add Components, you just need to invoke the <code>Entity.AddComponent()</code> method:</p>
+<pre><code class="lang-csharp">Entity entity = new Entity(&quot;MyAwesomeEntity&quot;);
+
+// Add a Component (Transform3D)...
+entity.AddComponent(new Transform3D());
+
+// You can chain AddComponent() calls...
+entity.AddComponent(new CubeMesh())
+    .AddComponent(new MaterialComponent())
+    .AddComponent(new MeshRenderer());
+</code></pre>
+<h4 id="remove-components">Remove Components</h4>
+<p>You have several options to specify the component or components that you want to remove. You can remove components by indicating the Component instance itself or by giving the type of the component to remove.</p>
+<p>In every method to remove the component specifying the type, you have the optional parameter <code>isExactType</code>, which indicates if the component to search and remove must match the given type, or if it can be a subclass of the type.</p>
+<pre><code class="lang-csharp">// Remove a component passing the instance:
+entity.RemoveComponent(component); 
+
+// Remove a component by type (MeshRenderer in this case):
+entity.RemoveComponent&lt;MeshRenderer&gt;();
+
+// An alternative way to remove a Component using the type:
+entity.RemoveComponent(typeof(MeshRenderer));
+
+// You can remove all components that match the specified type (all Drawables in this example)
+// keep in mind that isExactType is false...
+entity.RemoveAllComponentsOfType&lt;Drawable&gt;(isExactType: false)
+</code></pre>
+<h2 id="create-a-new-component">Create a new Component</h2>
+<p>Evergine provides a robust Component library, but when developing a custom application, you may need to create your own Components to meet your specific requirements.</p>
+<h3 id="write-the-c-code-for-your-component">Write the C# code for your Component</h3>
+<p>You only need to create a class that inherits from the <code>Component</code> class and add it to your application project:</p>
+<pre><code class="lang-csharp">public class MyComponent : Component
+{
+    // Add some properties to expose data :)    
+    public int Value { get; set; }
+
+    // Override the Start method, which is called once the Entity is started:
+    protected override void Start()
+    {
+        base.Start();
+        Trace.TraceInformation($&quot;The component has been started: {this.Value}&quot;);
+    }
+}
+</code></pre>
+<h2 id="allow-multiple-instances">Allow multiple instances</h2>
+<p>By default, an Entity can only have one Component per type (for instance, an Entity can't have more than one Transform3D).</p>
+<p>However, in some cases, it is useful for an Entity to have multiple instances of a type (for example, if you want to add several colliders).</p>
+<p>In that case, you need to add the [AllowMultipleInstances] attribute to your class:</p>
+<pre><code class="lang-csharp">[AllowMultipleInstances]
+public MyComponent : Component
+{
+    // The entity can have multiple instances of this component type...    
+}
+</code></pre>
+<pre><code class="lang-csharp">// This is valid because MyComponent has the [AllowMultipleInstances] attribute...
+Entity entity = new Entity()
+    .AddComponent(new MyComponent())
+    .AddComponent(new MyComponent())
+    .AddComponent(new MyComponent())
+    .AddComponent(new MyComponent())
+    .AddComponent(new MyComponent());
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

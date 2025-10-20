@@ -1,0 +1,227 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Animation Blend Tree | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation Blend Tree | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation-blend-tree">Animation Blend Tree</h1>
+
+<video autoplay="" loop="" muted="" width="100%" height="auto">
+  <source src="images/AnimationTransition.mp4" type="video/mp4">
+</video>
+<p>In complex animation systems, it is essential to blend multiple animations seamlessly based on various input conditions. Evergine allows the creation of an Animation Blend Tree system, which blends different animations based on parameters such as time (for transitions) or hierarchy. This results in smoother transitions between animations like walking, running, jumping, or transitioning between idle and action states.</p>
+<h2 id="animationblendclip">AnimationBlendClip</h2>
+<p>This class represents a node in the animation blending tree. It is an abstract class, so there are multiple node types, each with a specific behavior.</p>
+<h3 id="base-properties">Base properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HierarchyMapping</strong></td>
+<td>The hierarchy map object, that maps the model node with its intantiated entity in the scene.</td>
+</tr>
+<tr>
+<td><strong>ListenKeyframeEvents</strong></td>
+<td>If the blend clips launch keyframe events.</td>
+</tr>
+<tr>
+<td><strong>GlobalStartTime</strong></td>
+<td>The animation's global start time.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>If the animation is looping.</td>
+</tr>
+<tr>
+<td><strong>PlayTime</strong></td>
+<td>The current time of the animation's execution.</td>
+</tr>
+<tr>
+<td><strong>Frame</strong></td>
+<td>The current frame of the animation.</td>
+</tr>
+<tr>
+<td><strong>Phase</strong></td>
+<td>the normalized time [0, 1], where 1 is the end of the animation clip.</td>
+</tr>
+<tr>
+<td><strong>PlaybackRate</strong></td>
+<td><em>(1 by default)</em> The speed factor of the playback.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="base-methods">Base methods</h2>
+<p>The most important method is:</p>
+<pre><code class="lang-csharp">// Note the return type.
+public abstract AnimationBlendClip UpdateClip();
+</code></pre>
+<p>The most important aspect of this method is that it returns an <strong>AnimationBlendClip</strong>. This allows you to change the type of the animation blend clip, enabling dynamic changes in behavior.</p>
+<p>Now, let's explain the different types of <strong>AnimationBlendClip</strong>:</p>
+<h2 id="animationtrackclip">AnimationTrackClip</h2>
+<p>The most important node. It simply plays the AnimationClip track from the asset model, passed as a constructor parameter.
+When playing an animation from the model, the animation blend tree consists solely of this node.</p>
+<h2 id="binaryanimationblendclip">BinaryAnimationBlendClip</h2>
+<p>An abstract class that manages two different <strong>AnimationBlendClips</strong>. It contains two additional properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ClipA</strong></td>
+<td><em>(Getter only, passed as a constructor parameter)</em> The <strong>AnimationBlendClip</strong> of the &quot;left&quot; sub-node of the blending tree.</td>
+</tr>
+<tr>
+<td><strong>ClipB</strong></td>
+<td><em>(Getter only, passed as a constructor parameter)</em> The <strong>AnimationBlendClip</strong> of the &quot;right&quot; sub-node of the blending tree.</td>
+</tr>
+</tbody>
+</table>
+<p>It is up to the derived classes to specify how to handle these two <strong>AnimationBlendClips</strong>.</p>
+<h2 id="transitionclip">TransitionClip</h2>
+<p>This <strong>BinaryAnimationBlendClip</strong> transitions from <strong>ClipA</strong> to <strong>ClipB</strong> during the duration of this animation clip. When the transition is finished, the <code>UpdateClip</code> method returns <strong>ClipB</strong>, finishing the transition.</p>
+<h2 id="synchronizedtransitionclip">SynchronizedTransitionClip</h2>
+<p>This <strong>BinaryAnimationBlendClip</strong> also lerps between <strong>ClipA</strong> and <strong>ClipB</strong>, but it syncrhonizes the phase of the two animation blend clips, useful  for transitions between different character animations like running or walking. The <strong>Lerp</strong> of the transition is controlled by the user, instead of automatically being updated, like the previous clip.</p>
+<h2 id="additiveblendingclip">AdditiveBlendingClip</h2>
+<p>This <strong>BinaryAnimationBlendClip</strong> adds <strong>ClipB</strong> animation blend clip on top of <strong>ClipA</strong>, using a specific <strong>Lerp</strong> controlled by the user. This is useful when each animation changes different parts of the model. For example we can have an &quot;walk&quot; animation and a &quot;carry a candle&quot; animation.</p>
+<h2 id="sample">Sample</h2>
+<p>The next sample we will blend the animation of a character between 'crouch', 'walk' and 'run' animations.</p>
+<p>To do that, we will create the following blend tree:</p>
+<p><img src="images/animationBlendClip.png" alt="Blend Tree"></p>
+<pre><code class="lang-csharp">
+// First we load the three AnimationTrackClips of the base animations.
+var crouchTrack = new AnimationTrackClip(model.Animations[&quot;crouch&quot;], looping: true);
+var walkTrack = new AnimationTrackClip(model.Animations[&quot;walk&quot;], looping: true);
+var runTrack = new AnimationTrackClip(model.Animations[&quot;run&quot;], looping: true);
+
+// Because we want to blend 3 animations, we have to create a  2 level tree of SynchronizedTransitionClip and some leaves for the AnimationTrackClip.
+var crouch2WalkClip = new SynchronizedTransitionClip(chrouchTrack, walkTrack);
+var walk2RunClip = new SynchronizedTransitionClip(walkTrack, runTrack);
+var rootClip = new SynchronizedTransitionClip(crouch2WalkClip, walk2RunClip);
+
+// We finally can play this animation.
+animation3DComponenet.PlayAnimation(rootClip);
+
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

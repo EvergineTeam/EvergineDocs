@@ -1,0 +1,159 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>3D Gaussian Splatting | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="3D Gaussian Splatting | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="3d-gaussian-splatting">3D Gaussian Splatting</h1>
+
+<hr>
+<p><img src="images/gaussian_splatting.jpg" alt="GaussianSplatting"></p>
+<p><strong>Evergine Gaussian Splatting</strong> provides a robust solution for integrating state-of-the-art 3D Gaussian Splatting technology into Evergine applications. By leveraging the unique benefits of Gaussian Splatting, Evergine paves the way for groundbreaking advancements in interactive graphics and simulation, setting a new standard for modern application performance.</p>
+<h2 id="supported-formats">Supported Formats</h2>
+<p>Currently, this add-on supports the following 3D Gaussian Splatting formats:</p>
+<h3 id="compressed-ply-format-ply">Compressed PLY Format <code>.ply</code></h3>
+<p>This format is a modification of the traditional <code>.ply</code> and can be summarized as follows:</p>
+<ul>
+<li>The scene is split into chunks of 256 splats.</li>
+<li>For each chunk, the minimum and maximum (x, y, z) values for position and scale are stored in floating point.</li>
+<li>For each splat in the chunk, a normalized and quantized value for position, scale (relative to chunk extents), orientation, and color is stored.</li>
+</ul>
+<h3 id="splat-splat">Splat <code>.splat</code></h3>
+<p>A <code>.splat</code> file is a simple format that stores the parameters and attributes used in Gaussian Splatting. It contains packed information for each splat (color, position, rotation, scale).</p>
+<h2 id="what-is-3d-gaussian-splatting">What is 3D Gaussian Splatting?</h2>
+<p>Gaussian Splatting is a rendering technique developed in the 1990s within the scientific field. However, its recent application to real-time scene visualization, presented in August 2023 at SIGGRAPH, has brought it back into the spotlight.</p>
+<p>Gaussian Splatting is a rasterization technique for real-time 3D reconstruction and rendering of images captured from multiple viewpoints.</p>
+<p>3D space is defined as a set of Gaussians, with each Gaussian’s parameters calculated through machine learning. This means:</p>
+<ul>
+<li>Having data that describes the scene.</li>
+<li>Rendering the data on the screen.</li>
+</ul>
+<p><img src="images/gausian.png" alt="Gaussians"></p>
+<p>It is, therefore, analogous to triangle rasterization in computer graphics, which is used to draw many triangles on the screen. However, instead of drawing triangles, Gaussians are used. Each Gaussian is described by the following parameters:</p>
+<ul>
+<li><strong>Position:</strong> where it is located (XYZ)</li>
+<li><strong>Covariance:</strong> how it stretches/scales (3×3 matrix)</li>
+<li><strong>Color:</strong> RGB</li>
+<li><strong>Alpha:</strong> its transparency (α)</li>
+</ul>
+<p>Here’s an example with 7 million Gaussian splats:</p>
+<p><img src="images/bicycle.png" alt="Gaussians example"></p>
+<h2 id="in-this-section">In this Section</h2>
+<ul>
+<li><a href="getting_started.html">Getting Started</a></li>
+<li><a href="web_setup.html">Web Setup</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

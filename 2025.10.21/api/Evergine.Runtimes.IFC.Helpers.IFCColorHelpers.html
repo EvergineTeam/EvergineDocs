@@ -1,0 +1,481 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class IFCColorHelpers | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class IFCColorHelpers | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers">
+
+
+
+  <h1 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers" class="text-break">Class IFCColorHelpers</h1>
+  <div class="markdown level0 summary"><p>Helper class for extracting and generating color information from IFC entities.
+Provides methods to retrieve colors from styled items, products, tessellated face sets, and to generate smooth vertex colors.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">IFCColorHelpers</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Runtimes.html">Runtimes</a>.<a class="xref" href="Evergine.Runtimes.IFC.html">IFC</a>.<a class="xref" href="Evergine.Runtimes.IFC.Helpers.html">Helpers</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Runtimes.IFC.dll</h6>
+  <h5 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class IFCColorHelpers</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_OPAQUE_INDEX" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.OPAQUE_INDEX">OPAQUE_INDEX</h4>
+  <div class="markdown level1 summary"><p>Index constant for opaque materials.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int OPAQUE_INDEX = 1</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_TRANSPARENT_INDEX" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.TRANSPARENT_INDEX">TRANSPARENT_INDEX</h4>
+  <div class="markdown level1 summary"><p>Index constant for transparent materials.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int TRANSPARENT_INDEX = 0</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_ExtractFaceColors_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.ExtractFaceColors*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_ExtractFaceColors_Xbim_Ifc4_Interfaces_IIfcTessellatedFaceSet_Xbim_Ifc_IfcStore_System_Int32_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.ExtractFaceColors(Xbim.Ifc4.Interfaces.IIfcTessellatedFaceSet,Xbim.Ifc.IfcStore,System.Int32)">ExtractFaceColors(IIfcTessellatedFaceSet, IfcStore, int)</h4>
+  <div class="markdown level1 summary"><p>Extracts a list of face colors from an <a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/GeometricModelResource/IfcTessellatedFaceSet.cs">IIfcTessellatedFaceSet</a> using the associated <a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/PresentationAppearanceResource/IfcIndexedColourMap.cs">IIfcIndexedColourMap</a> in the model.
+If no color map is found, returns a list of <a class="xref" href="Evergine.Common.Graphics.Color.html#Evergine_Common_Graphics_Color_White">White</a> of the specified count.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;Color&gt; ExtractFaceColors(IIfcTessellatedFaceSet faceSet, IfcStore model, int count)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/GeometricModelResource/IfcTessellatedFaceSet.cs">IIfcTessellatedFaceSet</a></td>
+        <td><span class="parametername">faceSet</span></td>
+        <td><p>The tessellated face set to extract colors from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc/IfcStore.cs">IfcStore</a></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>The IFC model containing the color map.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">count</span></td>
+        <td><p>The number of faces (used for fallback color list size).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a>&gt;</td>
+        <td><p>A list of <a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a> for each face.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_GenerateFlatColors_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.GenerateFlatColors*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_GenerateFlatColors_System_Collections_Generic_List_Evergine_Mathematics_Vector3__System_Collections_Generic_List_System_UInt32__System_Collections_Generic_List_Evergine_Common_Graphics_Color__System_Collections_Generic_IList_Xbim_Ifc4_Interfaces_IIfcIndexedPolygonalFace__Xbim_Common_IItemSet_Xbim_Common_IItemSet_Xbim_Ifc4_MeasureResource_IfcPositiveInteger___" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.GenerateFlatColors(System.Collections.Generic.List{Evergine.Mathematics.Vector3},System.Collections.Generic.List{System.UInt32},System.Collections.Generic.List{Evergine.Common.Graphics.Color},System.Collections.Generic.IList{Xbim.Ifc4.Interfaces.IIfcIndexedPolygonalFace},Xbim.Common.IItemSet{Xbim.Common.IItemSet{Xbim.Ifc4.MeasureResource.IfcPositiveInteger}})">GenerateFlatColors(List&lt;Vector3&gt;, List&lt;uint&gt;, List&lt;Color&gt;, IList&lt;IIfcIndexedPolygonalFace&gt;, IItemSet&lt;IItemSet&lt;IfcPositiveInteger&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Generates an array of <a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a> for a mesh with flat shading.
+Each triangle is assigned a single color from the provided face color list.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VertexPositionNormalColor[] GenerateFlatColors(List&lt;Vector3&gt; allVertices, List&lt;uint&gt; indexList, List&lt;Color&gt; faceColors, IList&lt;IIfcIndexedPolygonalFace&gt; faces = null, IItemSet&lt;IItemSet&lt;IfcPositiveInteger&gt;&gt; coordIndexList = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>&gt;</td>
+        <td><span class="parametername">allVertices</span></td>
+        <td><p>List of all vertex positions.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>&gt;</td>
+        <td><span class="parametername">indexList</span></td>
+        <td><p>List of triangle indices (triplets per triangle).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a>&gt;</td>
+        <td><span class="parametername">faceColors</span></td>
+        <td><p>List of colors, one per face (triangle).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/GeometricModelResource/IfcIndexedPolygonalFace.cs">IIfcIndexedPolygonalFace</a>&gt;</td>
+        <td><span class="parametername">faces</span></td>
+        <td><p>Optional: List of polygonal faces (not used in this implementation).</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Common/IItemSet.cs">IItemSet</a>&lt;<a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Common/IItemSet.cs">IItemSet</a>&lt;<a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/MeasureResource/IfcPositiveInteger.cs">IfcPositiveInteger</a>&gt;&gt;</td>
+        <td><span class="parametername">coordIndexList</span></td>
+        <td><p>Optional: Coordinate index list (not used in this implementation).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a>[]</td>
+        <td><p>An array of <a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a> with flat colors per triangle.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_GenerateSmoothColors_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.GenerateSmoothColors*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_GenerateSmoothColors_System_Collections_Generic_List_Evergine_Mathematics_Vector3__System_Collections_Generic_Dictionary_System_Int32_Evergine_Mathematics_Vector3__System_Collections_Generic_Dictionary_System_Int32_System_Collections_Generic_List_Evergine_Common_Graphics_Color___" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.GenerateSmoothColors(System.Collections.Generic.List{Evergine.Mathematics.Vector3},System.Collections.Generic.Dictionary{System.Int32,Evergine.Mathematics.Vector3},System.Collections.Generic.Dictionary{System.Int32,System.Collections.Generic.List{Evergine.Common.Graphics.Color}})">GenerateSmoothColors(List&lt;Vector3&gt;, Dictionary&lt;int, Vector3&gt;, Dictionary&lt;int, List&lt;Color&gt;&gt;)</h4>
+  <div class="markdown level1 summary"><p>Generates an array of <a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a> with smooth color interpolation for each vertex.
+The color for each vertex is computed as the average of all colors assigned to that vertex.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static VertexPositionNormalColor[] GenerateSmoothColors(List&lt;Vector3&gt; allVertices, Dictionary&lt;int, Vector3&gt; vertexNormals, Dictionary&lt;int, List&lt;Color&gt;&gt; vertexColors)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>&gt;</td>
+        <td><span class="parametername">allVertices</span></td>
+        <td><p>List of vertex positions.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>&gt;</td>
+        <td><span class="parametername">vertexNormals</span></td>
+        <td><p>Dictionary mapping vertex indices to normals.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.dictionary-2">Dictionary</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a>&gt;&gt;</td>
+        <td><span class="parametername">vertexColors</span></td>
+        <td><p>Dictionary mapping vertex indices to lists of colors.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a>[]</td>
+        <td><p>An array of <a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a> with averaged colors and normals per vertex.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_GetColorByStyleLabel_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.GetColorByStyleLabel*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_GetColorByStyleLabel_System_Int32_Xbim_Ifc_IfcStore_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.GetColorByStyleLabel(System.Int32,Xbim.Ifc.IfcStore)">GetColorByStyleLabel(int, IfcStore)</h4>
+  <div class="markdown level1 summary"><p>Retrieves the color associated with a given style label from the IFC model.
+Attempts to extract the color from an <a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/PresentationAppearanceResource/IfcSurfaceStyle.cs">IIfcSurfaceStyle</a> or, if not found,
+from an <a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/PresentationAppearanceResource/IfcPresentationStyleAssignment.cs">IIfcPresentationStyleAssignment</a> that contains the surface style.
+If no valid color is found, returns <a class="xref" href="Evergine.Common.Graphics.Color.html#Evergine_Common_Graphics_Color_White">White</a> as a fallback.
+The alpha channel is computed based on the transparency value of the surface style rendering.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Color GetColorByStyleLabel(int styleLabel, IfcStore model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">styleLabel</span></td>
+        <td><p>The entity label of the style in the IFC model.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc/IfcStore.cs">IfcStore</a></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>The IFC model containing the style entity.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a></td>
+        <td><p>The extracted <a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a> or <a class="xref" href="Evergine.Common.Graphics.Color.html#Evergine_Common_Graphics_Color_White">White</a> if not found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_GetMaterialIndexFromStyle_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.GetMaterialIndexFromStyle*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCColorHelpers_GetMaterialIndexFromStyle_System_Int32_Xbim_Ifc_IfcStore_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCColorHelpers.GetMaterialIndexFromStyle(System.Int32,Xbim.Ifc.IfcStore)">GetMaterialIndexFromStyle(int, IfcStore)</h4>
+  <div class="markdown level1 summary"><p>Determines the material index (opaque or transparent) from a style label in the IFC model.
+Inspects the style entity referenced by the label, checks for surface style rendering, and evaluates transparency.
+Returns OPAQUE_INDEX if no rendering information is found or if transparency is less than or equal to 0.5.
+Returns TRANSPARENT_INDEX if transparency is greater than 0.5.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static int GetMaterialIndexFromStyle(int styleLabel, IfcStore model)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">styleLabel</span></td>
+        <td><p>The entity label of the style in the IFC model.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc/IfcStore.cs">IfcStore</a></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>The IFC model containing the style entity.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>OPAQUE_INDEX or TRANSPARENT_INDEX depending on the transparency value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

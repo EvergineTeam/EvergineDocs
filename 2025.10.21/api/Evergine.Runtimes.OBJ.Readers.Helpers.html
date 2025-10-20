@@ -1,0 +1,275 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Helpers | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Helpers | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Runtimes.OBJ.Readers.Helpers">
+
+
+
+  <h1 id="Evergine_Runtimes_OBJ_Readers_Helpers" data-uid="Evergine.Runtimes.OBJ.Readers.Helpers" class="text-break">Class Helpers</h1>
+  <div class="markdown level0 summary"><p>Provides helper methods for parsing and processing data in the OBJ runtime.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">Helpers</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Runtimes.html">Runtimes</a>.<a class="xref" href="Evergine.Runtimes.OBJ.html">OBJ</a>.<a class="xref" href="Evergine.Runtimes.OBJ.Readers.html">Readers</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Runtimes.OBJ.dll</h6>
+  <h5 id="Evergine_Runtimes_OBJ_Readers_Helpers_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class Helpers</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Runtimes_OBJ_Readers_Helpers_ParseVector3_" data-uid="Evergine.Runtimes.OBJ.Readers.Helpers.ParseVector3*"></a>
+  <h4 id="Evergine_Runtimes_OBJ_Readers_Helpers_ParseVector3_System_Collections_Generic_List_System_String__System_Int32_Evergine_Mathematics_Vector3__" data-uid="Evergine.Runtimes.OBJ.Readers.Helpers.ParseVector3(System.Collections.Generic.List{System.String},System.Int32,Evergine.Mathematics.Vector3@)">ParseVector3(List&lt;string&gt;, int, ref Vector3)</h4>
+  <div class="markdown level1 summary"><p>Parses a subset of tokens into a <a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a> starting from a specified index.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ParseVector3(List&lt;string&gt; tokens, int startIndex, ref Vector3 arr)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><span class="parametername">tokens</span></td>
+        <td><p>The list of tokens to parse.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">startIndex</span></td>
+        <td><p>The index in the token list to start parsing from.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">arr</span></td>
+        <td><p>The <a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a> to populate with parsed values.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Runtimes_OBJ_Readers_Helpers_ParseVector3_System_Collections_Generic_List_System_String__System_Int32_Evergine_Mathematics_Vector3___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This method attempts to parse up to three consecutive tokens starting from <code class="paramref">startIndex</code>.
+If a token cannot be parsed, the corresponding component of <code class="paramref">arr</code> remains unchanged.</p>
+</div>
+  <a id="Evergine_Runtimes_OBJ_Readers_Helpers_Tokenize_" data-uid="Evergine.Runtimes.OBJ.Readers.Helpers.Tokenize*"></a>
+  <h4 id="Evergine_Runtimes_OBJ_Readers_Helpers_Tokenize_System_String_" data-uid="Evergine.Runtimes.OBJ.Readers.Helpers.Tokenize(System.String)">Tokenize(string)</h4>
+  <div class="markdown level1 summary"><p>Splits a string into tokens based on whitespace and trims each token.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;string&gt; Tokenize(string line)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">line</span></td>
+        <td><p>The input string to tokenize.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td><p>A list of tokens extracted from the input string.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_OBJ_Readers_Helpers_TryParseFloat_" data-uid="Evergine.Runtimes.OBJ.Readers.Helpers.TryParseFloat*"></a>
+  <h4 id="Evergine_Runtimes_OBJ_Readers_Helpers_TryParseFloat_System_String_System_Single__" data-uid="Evergine.Runtimes.OBJ.Readers.Helpers.TryParseFloat(System.String,System.Single@)">TryParseFloat(string, out float)</h4>
+  <div class="markdown level1 summary"><p>Attempts to parse a string into a floating-point number using invariant culture.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool TryParseFloat(string s, out float val)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">s</span></td>
+        <td><p>The string to parse.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">val</span></td>
+        <td><p>When this method returns, contains the parsed float value if the conversion succeeded, or zero if it failed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> if the string was successfully parsed; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

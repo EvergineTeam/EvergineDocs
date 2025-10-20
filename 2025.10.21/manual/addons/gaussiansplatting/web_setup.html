@@ -1,0 +1,192 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Setup Gaussian Splatting on the Web Platform | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Setup Gaussian Splatting on the Web Platform | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="setup-gaussian-splatting-on-the-web-platform">Setup Gaussian Splatting on the Web Platform</h1>
+
+<hr>
+<p>3D Gaussian Splatting requires special care and manual work to run on the <a href="../../platforms/web/index.html">Web</a> platform.</p>
+<p>To render Gaussian Splatting, Evergine internally creates a separate thread to perform a sorting algorithm for all splats. Due to .NET idiosyncrasies with WASM and the Web platform, you will need to follow these steps:</p>
+<h2 id="setup-gaussian-splatting-in-your-web-application">Setup Gaussian Splatting in Your Web Application</h2>
+<p>Prior to these steps, you need to:</p>
+<ul>
+<li>Properly set up the rest of the requirements provided in the <a href="getting_started.html">Getting Started</a> document.</li>
+<li>Ensure that your Evergine application has a valid Web profile.</li>
+</ul>
+<h3 id="1-add-the-everginegaussiansplattingweb-nuget-package">1. Add the Evergine.GaussianSplatting.Web NuGet Package</h3>
+<p>Add the <code>Evergine.GaussianSplatting.Web</code> NuGet package to your Web profile project (typically named <strong>[ApplicationName].Web</strong>).</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The version must match the installed Evergine.GaussianSplatting add-on version.</p>
+</div>
+<p><img src="images/add_web_nuget.png" alt="Add web NuGet"></p>
+<h3 id="2-register-a-gaussian-splatting-sorter-for-the-web">2. Register a Gaussian Splatting Sorter for the Web</h3>
+<p>Now that you have added the NuGet package, add the following code in the <strong>Program.cs</strong> file in the same project, inside your <code>Run()</code> method:</p>
+<pre><code class="lang-cs">// Register GSplat sorter.
+application.Container.Register&lt;IGSplatSorter, WorkerGSplatSorter&gt;();
+</code></pre>
+<p><img src="images/add_web_sorter.png" alt="Add web sorter"></p>
+<h3 id="3-add-the-js-file-to-your-indexhtml">3. Add the JS File to Your index.html</h3>
+<p>In your <code>index.html</code> file, add the following line at the end of the file:</p>
+<pre><code class="lang-html">&lt;script type=&quot;text/javascript&quot; src=&quot;evergine_gaussiansplatting.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p><img src="images/add_html_script.png" alt="Add JS file"></p>
+<h3 id="4-configure-web-app-headers-for-multithreading">4. Configure Web App Headers for Multithreading</h3>
+<p>To launch web worker threads in the web environment, add the following code to your <strong>Program.cs</strong> file located in your <strong>[ApplicationName].Web.Server</strong> project, just after the <code>var app = builder.Build();</code> line. This configuration removes certain browser security restrictions related to Web Workers, allowing Evergine to create background threads safely.</p>
+<pre><code class="lang-cs">if (app.Environment.IsDevelopment())
+{
+    app.UseWebAssemblyDebugging();
+}
+
+void ApplyHeaders(IHeaderDictionary headers)
+{
+    headers[&quot;Cross-Origin-Embedder-Policy&quot;] = &quot;require-corp&quot;;
+    headers[&quot;Cross-Origin-Opener-Policy&quot;] = &quot;same-origin&quot;;
+}
+
+app.Use(async (context, next) =&gt;
+{
+    ApplyHeaders(context.Response.Headers);
+    await next();
+});
+</code></pre>
+<p><img src="images/add_cs_code.png" alt="Add cs code"></p>
+<h3 id="configure-headers-in-the-react-template-vite">Configure Headers in the React Template (Vite)</h3>
+<p>If you are using the <strong>Evergine React template</strong>, you must also configure the same headers in your SPA project so that local execution works correctly.
+Since Vite is used as the development server, update your <code>vite.config.ts</code> file to include the following:</p>
+<pre><code class="lang-javascript">plugins: [
+    plugin(),
+    {
+        name: 'configure-response-headers',
+        configureServer: (server) =&gt; {
+            server.middlewares.use((_req, res, next) =&gt; {
+                res.setHeader(
+                    'Cross-Origin-Opener-Policy',
+                    'same-origin'
+                );
+                res.setHeader(
+                    'Cross-Origin-Embedder-Policy',
+                    'require-corp'
+                );
+                next();
+            });
+        },
+    },
+],
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

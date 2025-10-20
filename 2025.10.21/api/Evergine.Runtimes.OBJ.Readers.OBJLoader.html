@@ -1,0 +1,325 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class OBJLoader | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class OBJLoader | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Runtimes.OBJ.Readers.OBJLoader">
+
+
+
+  <h1 id="Evergine_Runtimes_OBJ_Readers_OBJLoader" data-uid="Evergine.Runtimes.OBJ.Readers.OBJLoader" class="text-break">Class OBJLoader</h1>
+  <div class="markdown level0 summary"><p>Main OBJ loading logic in a static class.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">OBJLoader</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Runtimes.html">Runtimes</a>.<a class="xref" href="Evergine.Runtimes.OBJ.html">OBJ</a>.<a class="xref" href="Evergine.Runtimes.OBJ.Readers.html">Readers</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Runtimes.OBJ.dll</h6>
+  <h5 id="Evergine_Runtimes_OBJ_Readers_OBJLoader_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class OBJLoader</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Runtimes_OBJ_Readers_OBJLoader_UndefinedIndex" data-uid="Evergine.Runtimes.OBJ.Readers.OBJLoader.UndefinedIndex">UndefinedIndex</h4>
+  <div class="markdown level1 summary"><p>The index used to indicate an undefined or invalid index in the OBJ file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public const int UndefinedIndex = 2147483647</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Runtimes_OBJ_Readers_OBJLoader_Load_" data-uid="Evergine.Runtimes.OBJ.Readers.OBJLoader.Load*"></a>
+  <h4 id="Evergine_Runtimes_OBJ_Readers_OBJLoader_Load_System_IO_StreamReader_Evergine_Runtimes_OBJ_DataTypes_OBJAttrib__System_Collections_Generic_List_Evergine_Runtimes_OBJ_DataTypes_OBJShape__System_Collections_Generic_List_Evergine_Runtimes_OBJ_DataTypes_OBJMaterial__System_String__System_String__Evergine_Common_IO_AssetsDirectory_System_String_System_Boolean_System_Boolean_" data-uid="Evergine.Runtimes.OBJ.Readers.OBJLoader.Load(System.IO.StreamReader,Evergine.Runtimes.OBJ.DataTypes.OBJAttrib@,System.Collections.Generic.List{Evergine.Runtimes.OBJ.DataTypes.OBJShape},System.Collections.Generic.List{Evergine.Runtimes.OBJ.DataTypes.OBJMaterial},System.String@,System.String@,Evergine.Common.IO.AssetsDirectory,System.String,System.Boolean,System.Boolean)">Load(StreamReader, ref OBJAttrib, List&lt;OBJShape&gt;, List&lt;OBJMaterial&gt;, ref string, ref string, AssetsDirectory, string, bool, bool)</h4>
+  <div class="markdown level1 summary"><p>Loads an OBJ file from the provided stream and parses its contents into attributes, shapes, and materials.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool Load(StreamReader inStream, ref OBJAttrib attrib, List&lt;OBJShape&gt; shapes, List&lt;OBJMaterial&gt; materials, ref string warning, ref string error, AssetsDirectory assetsDirectory, string workingDirectory, bool triangulate, bool defaultVcolsFallback)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.io.streamreader">StreamReader</a></td>
+        <td><span class="parametername">inStream</span></td>
+        <td><p>The input stream containing the OBJ file data.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Runtimes.OBJ.DataTypes.OBJAttrib.html">OBJAttrib</a></td>
+        <td><span class="parametername">attrib</span></td>
+        <td><p>The parsed attributes of the OBJ file, including vertices, normals, and texture coordinates.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Runtimes.OBJ.DataTypes.OBJShape.html">OBJShape</a>&gt;</td>
+        <td><span class="parametername">shapes</span></td>
+        <td><p>The list of shapes parsed from the OBJ file, including meshes, lines, and points.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Runtimes.OBJ.DataTypes.OBJMaterial.html">OBJMaterial</a>&gt;</td>
+        <td><span class="parametername">materials</span></td>
+        <td><p>The list of materials parsed from the OBJ file.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">warning</span></td>
+        <td><p>A string to capture any warnings encountered during parsing.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>A string to capture any errors encountered during parsing.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.IO.AssetsDirectory.html">AssetsDirectory</a></td>
+        <td><span class="parametername">assetsDirectory</span></td>
+        <td><p>The directory containing additional assets, such as material files.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">workingDirectory</span></td>
+        <td><p>The working directory for resolving relative paths in the OBJ file.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">triangulate</span></td>
+        <td><p>A flag indicating whether to triangulate faces with more than three vertices.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">defaultVcolsFallback</span></td>
+        <td><p>A flag indicating whether to use default vertex colors if none are found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>Returns <code>true</code> if the OBJ file was successfully loaded; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_OBJ_Readers_OBJLoader_ParseRawTriple_" data-uid="Evergine.Runtimes.OBJ.Readers.OBJLoader.ParseRawTriple*"></a>
+  <h4 id="Evergine_Runtimes_OBJ_Readers_OBJLoader_ParseRawTriple_System_String_System_Int32_System_Int32_System_Int32_" data-uid="Evergine.Runtimes.OBJ.Readers.OBJLoader.ParseRawTriple(System.String,System.Int32,System.Int32,System.Int32)">ParseRawTriple(string, int, int, int)</h4>
+  <div class="markdown level1 summary"><p>Parses a raw triple from an OBJ file, which can represent vertex, texture coordinate, and normal indices.
+// Raw triple parse: i, i/j, i/j/k, i//k.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static OBJIndex ParseRawTriple(string token, int vOffset, int vtoffset, int vnoffset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">token</span></td>
+        <td><p>The raw string token from the OBJ file, typically in the format &quot;v&quot;, &quot;v/vt&quot;, &quot;v/vt/vn&quot;, or &quot;v//vn&quot;.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">vOffset</span></td>
+        <td><p>The offset for vertex indices, used to adjust the index to a 0-based system.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">vtoffset</span></td>
+        <td><p>The offset for texture coordinate indices, used to adjust the index to a 0-based system.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">vnoffset</span></td>
+        <td><p>The offset for normal indices, used to adjust the index to a 0-based system.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Runtimes.OBJ.DataTypes.OBJIndex.html">OBJIndex</a></td>
+        <td><p>An <a class="xref" href="Evergine.Runtimes.OBJ.DataTypes.OBJIndex.html">OBJIndex</a> structure containing the parsed vertex, texture coordinate, and normal indices.
+If an index is not specified in the token, it will be set to <a class="xref" href="Evergine.Runtimes.OBJ.Readers.OBJLoader.html#Evergine_Runtimes_OBJ_Readers_OBJLoader_UndefinedIndex">UndefinedIndex</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

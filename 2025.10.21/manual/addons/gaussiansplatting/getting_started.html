@@ -1,0 +1,260 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<hr>
+<p>Follow these steps to begin working with 3D Gaussian Splatting in your Evergine applications:</p>
+<h2 id="project-setup">Project Setup</h2>
+<h3 id="1-create-a-new-project">1. Create a New Project</h3>
+<p>Use <a href="../../evergine_launcher/create_project.html">Evergine Launcher</a> to start a new project. Along with Windows, select an additional template for your target device.</p>
+<h3 id="2-add-the-everginegaussiansplatting-add-on">2. Add the Evergine.GaussianSplatting Add-on</h3>
+<p>Open Evergine Studio and add the Evergine.GaussianSplatting add-on to your project. Refer to <a href="../index.html">this guide</a> for instructions on adding add-ons.</p>
+<p><img src="images/addon_installation.png" alt="Add-on installation"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you are using a Web profile, you need to perform the additional steps described in this document: <a href="web_setup.html">Setup Gaussian Splatting on the Web Platform</a></p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Gaussian Splatting add-ons are available as NuGet packages. For nightly builds, update <code>nuget.config</code> to include the Evergine nightly feed:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+ &lt;packageSources&gt;
+   &lt;add key=&quot;nuget.org&quot; value=&quot;https://api.nuget.org/v3/index.json&quot; /&gt;
+   &lt;add key=&quot;Evergine Nightly&quot; value=&quot;https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json&quot; /&gt;
+ &lt;/packageSources&gt;
+&lt;/configuration&gt;
+</code></pre>
+</div>
+<h3 id="3-add-your-splat-file-to-the-project">3. Add Your Splat File to the Project</h3>
+<p>In Evergine Studio, add a supported 3D Gaussian Splatting file (<code>.splat</code> or compressed <code>.ply</code> file) to your project:</p>
+<p><img src="images/add_splat_file.png" alt="Add splat file"></p>
+<h3 id="4-instantiate-gaussian-splatting-prefab">4. Instantiate Gaussian Splatting prefab</h3>
+<p>Instantiate the <code>GSplatPrefab</code> prefab in your scene, located in the <code>Dependencies &gt; Evergine.GaussianSplatting &gt; Prefabs</code> folder:</p>
+<p><img src="images/add_splat_prefab.png" alt="Gaussian Splatting Prefab"></p>
+<p>In the <code>GSplatMesh</code> component, set the <code>SplatPath</code> property to the path of the 3D Gaussian Splat file:</p>
+<p><img src="images/add_entity.png" alt="Add 3DGS entity"></p>
+<p>This prefab creates an Entity and adds the following components:</p>
+<ul>
+<li><strong>GSplatMesh:</strong> Responsible for loading the Gaussian Splatting file.</li>
+<li><strong>GSplatRenderer:</strong> A drawable that renders the Gaussian Splatting.</li>
+<li><strong>GSplatPointRenderer:</strong> A drawable (disabled by default) that renders a point cloud using the splat centers.</li>
+</ul>
+<h2 id="component-properties">Component Properties</h2>
+<h3 id="gsplatmesh-properties">GSplatMesh Properties</h3>
+<p>The <code>GSplatMesh</code> component has the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SplatPath</strong></td>
+<td>The path to the Gaussian Splatting file. You can change this property at runtime to dynamically update the Gaussian Splatting scene.</td>
+</tr>
+<tr>
+<td><strong>SHBands</strong></td>
+<td>The number of Spherical Harmonics bands used to render the Gaussian Splatting scene.</td>
+</tr>
+<tr>
+<td><strong>IsSplatSceneLoaded</strong></td>
+<td>Indicates whether a Gaussian Splatting scene is loaded.</td>
+</tr>
+<tr>
+<td><strong>Layer</strong></td>
+<td>The layer used to render the Gaussian Splatting.</td>
+</tr>
+</tbody>
+</table>
+<p>And the following event:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OnSplatSceneLoaded</strong></td>
+<td>Triggered when a Gaussian Splatting scene is successfully loaded.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gsplatrenderer-properties">GSplatRenderer Properties</h3>
+<p>The <code>GSplatRenderer</code> is a Drawable3D component that renders the Gaussian Splatting loaded in the <code>GSplatMesh</code> component. It has the following property:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layer</strong></td>
+<td>The layer used to render the Gaussian Splatting.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="gsplatpointrenderer">GSplatPointRenderer</h3>
+<p>The <code>GSplatPointRenderer</code> component has the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Color</strong></td>
+<td>The color of the points.</td>
+</tr>
+<tr>
+<td><strong>PointSize</strong></td>
+<td>The size of the points (in pixels).</td>
+</tr>
+<tr>
+<td><strong>Layer</strong></td>
+<td>The layer used to render the Gaussian Splatting point cloud.</td>
+</tr>
+</tbody>
+</table>
+<p>This component renders a point at each splat center:</p>
+<p><img src="images/gsplat_points.png" alt="Gaussian Splatting Point Cloud"></p>
+<h2 id="create-gaussian-splatting-from-code">Create Gaussian Splatting from Code</h2>
+<p>The following code demonstrates how to load a Gaussian Splatting file into your Evergine scene:</p>
+<pre><code class="lang-cs">var gaussianSplattingEntity = new Entity()
+    .AddComponent(new Transform3D())
+    .AddComponent(new GSplatMesh()
+    {
+        SplatPath = &quot;MySplatPlyFile.ply&quot;
+    })
+    .AddComponent(new GSplatRenderer())
+    .AddComponent(new GSplatPointRenderer(){ IsEnabled = false}); // Add this component if you want to render the splats point cloud...
+    
+
+this.Managers.EntityManager.Add(gaussianSplattingEntity);
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

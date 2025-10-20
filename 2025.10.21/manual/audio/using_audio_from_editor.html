@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Audio from Evergine Studio | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Audio from Evergine Studio | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-audio-from-evergine-studio">Using Audio from Evergine Studio</h1>
+
+<p><img src="images/3dAudioHeader.jpg" alt="Spatial sounds"></p>
+<p>3D spatialized audio allows simulating sounds in a 3D environment. The goal is to reproduce audio in a way that replicates how we hear sound in the real world.</p>
+<p>Spatial sounds are very useful for simulating environments in <em>Virtual Reality / Augmented Reality</em> because this feature adds more realism to the experience.</p>
+<p>In Evergine, there are two components to simulate audio/spatial audio:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SoundListener3D</strong></td>
+<td>Represents a listener. Usually, this component is used with the camera entity.</td>
+</tr>
+<tr>
+<td><strong>SoundEmitter3D</strong></td>
+<td>Represents an emitter. This component can be added to any entity in your scene to emit a 3D sound.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sound-listener">Sound Listener</h2>
+<p>To add a sound listener component to the main camera, select the camera and click the button with the <img src="images/plusIcon.jpg" alt="plus icon"> in the <strong>Entity Details</strong> panel and search for the component.</p>
+<p><img src="images/AddSoundListener.jpg" alt="Add listener component"></p>
+<table>
+<thead>
+<tr>
+<th>Properties</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DopplerFactor</strong></td>
+<td>Changes in the frequency of a wave relative to a listener who is moving relative to the sound emitter. The value is a positive float, and the default value is 1.0.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sound-emitter">Sound Emitter</h2>
+<p>To add a sound emitter component to any scene entity, select the entity and click the button with the <img src="images/plusIcon.jpg" alt="plus icon"> in the <strong>Entity Details</strong> panel and search for the component.</p>
+<p><img src="images/AddSoundEmitter.jpg" alt="Add emitter component"></p>
+<table>
+<thead>
+<tr>
+<th>Properties</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audio</strong></td>
+<td>The audio asset. <strong><em>Note: The audio must be mono to work as spatial sound.</em></strong></td>
+</tr>
+<tr>
+<td><strong>Volume</strong></td>
+<td>The audio volume. The value is between [0.0-1.0], and the default value is 1.0.</td>
+</tr>
+<tr>
+<td><strong>Pitch</strong></td>
+<td>The quality that makes it possible to judge sounds as <em>higher</em> or <em>lower</em> in the sense associated with musical melodies. The value is between [0.0-1.0], and the default value is 1.0.</td>
+</tr>
+<tr>
+<td><strong>IsMuted</strong></td>
+<td>Indicates whether the emitter is muted.</td>
+</tr>
+<tr>
+<td><strong>Distance Scale Factor</strong></td>
+<td>This is only used to calculate the Doppler effect on the sound effect.</td>
+</tr>
+<tr>
+<td><strong>Play Automatically</strong></td>
+<td>The emitter starts playing the sound automatically.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>The emitter plays in loop mode.</td>
+</tr>
+<tr>
+<td><strong>Apply3D</strong></td>
+<td>Indicates whether the position of the emitter with respect to the listener will be used to simulate spatial sound.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

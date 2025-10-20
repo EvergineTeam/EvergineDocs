@@ -1,0 +1,162 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Entities | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Entities | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-entities">Using Entities</h1>
+
+<p>Manipulating entities is quite straightforward in Evergine.</p>
+<h2 id="from-evergine-studio">From Evergine Studio</h2>
+<h3 id="add-entity-in-evergine-studio">Add Entity in Evergine Studio</h3>
+<p>In the <strong>Entities Hierarchy</strong> area in an opened SceneEditor, just click the <img src="../../../graphics/images/plusIcon.jpg" alt="Add Button"> button. A pop-up menu will appear:</p>
+<p><img src="images/create_entity.png" alt="Create Entity"></p>
+<p>This menu gives you several options to create entities. If you just want to create an entity with only the Transform3D component, click the <code>Empty entity</code> button.</p>
+<p>If an entity is selected, you can change its properties (Name, Tag, Enable) in the Entity Details panel:</p>
+<p><img src="images/entity_details.png" alt="Entity details"></p>
+<h2 id="from-code">From Code</h2>
+<h3 id="create-a-new-entity-from-code">Create a new Entity from Code</h3>
+<p>Creating an entity from code is not a complex task:</p>
+<pre><code class="lang-csharp">Entity entity = new Entity(&quot;EntityName&quot;);
+
+// Set the Entity Tag...
+entity.Tag = &quot;Tag&quot;;
+
+// Add some components...
+entity.AddComponent(new Transform3D())
+    .AddComponent(new TeapotMesh())
+    .AddComponent(new MaterialComponent())
+    .AddComponent(new MeshRenderer());
+
+// Add to the EntityManager
+this.Managers.EntityManager.Add(entity);
+</code></pre>
+<h3 id="create-a-simple-hierarchy-from-code">Create a Simple Hierarchy from Code</h3>
+<pre><code class="lang-csharp">// Create the parent entity...
+Entity parentEntity = new Entity()
+    .AddComponent(new Transform3D());
+
+// Create the child entity...
+Entity childEntity = new Entity()
+    .AddComponent(new Transform3D());
+
+// Add the child entity to the parent...
+parentEntity.AddChild(childEntity);
+
+// Add only the parent entity to the EntityManager
+this.Managers.EntityManager.Add(parentEntity);
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

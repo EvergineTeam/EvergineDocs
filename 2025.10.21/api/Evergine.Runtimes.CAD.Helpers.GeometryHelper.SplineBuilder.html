@@ -1,0 +1,338 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class GeometryHelper.SplineBuilder | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class GeometryHelper.SplineBuilder | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder">
+
+
+
+  <h1 id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder" class="text-break">Class GeometryHelper.SplineBuilder</h1>
+  <div class="markdown level0 summary"><p>Utility class to build and evaluate a non-rational B-Spline (NURBS without weights).</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">GeometryHelper.SplineBuilder</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Runtimes.html">Runtimes</a>.<a class="xref" href="Evergine.Runtimes.CAD.html">CAD</a>.<a class="xref" href="Evergine.Runtimes.CAD.Helpers.html">Helpers</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Runtimes.CAD.dll</h6>
+  <h5 id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class GeometryHelper.SplineBuilder</code></pre>
+  </div>
+  <h5 id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Expected invariants:</p>
+<ul>
+<li>Degree (p) must be &gt;= 1.</li>
+<li>ControlPoints.Count must be &gt;= p + 1.</li>
+<li>Knots.Count must be == ControlPoints.Count + Degree + 1.</li>
+<li>Knot vector must be non-decreasing.
+Typical uniform clamped knot vector example for n+1 control points and degree p:
+[0,...,0, internal increasing values ...,1,...,1] with (p+1) zeros and (p+1) ones at the ends.
+Algorithm:</li>
+<li>Point evaluation uses the De Boor algorithm (stable form of de Casteljau analogue for B-Splines).</li>
+<li>Public parameter t is normalized in [0,1]; it's mapped to the valid internal knot range [U[p], U[m-p-1]].</li>
+<li>PolygonalVertexes produces a polyline sampling the spline (uniform parameter sampling, not arc-length).</li>
+</ul>
+</div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_ControlPoints_" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.ControlPoints*"></a>
+  <h4 id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_ControlPoints" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.ControlPoints">ControlPoints</h4>
+  <div class="markdown level1 summary"><p>Gets or sets ordered list of control points P0..Pn that define the spline shape.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;XYZ&gt; ControlPoints { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">XYZ</span>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_Degree_" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.Degree*"></a>
+  <h4 id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_Degree" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.Degree">Degree</h4>
+  <div class="markdown level1 summary"><p>Gets or sets degree (p) of the B-Spline. Cubic (3) by default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Degree { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_Knots_" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.Knots*"></a>
+  <h4 id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_Knots" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.Knots">Knots</h4>
+  <div class="markdown level1 summary"><p>Gets or sets knot vector U of size (n + p + 2). Must be non-decreasing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;double&gt; Knots { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_PointOnSpline_" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.PointOnSpline*"></a>
+  <h4 id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_PointOnSpline_System_Double_" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.PointOnSpline(System.Double)">PointOnSpline(double)</h4>
+  <div class="markdown level1 summary"><p>Evaluates a point on the spline for a normalized parameter t in [0,1].</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XYZ PointOnSpline(double t)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.double">double</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Normalized parameter (0 returns first control point, 1 returns last).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">XYZ</span></td>
+        <td><p>Point on the spline curve.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_PolygonalVertexes_" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.PolygonalVertexes*"></a>
+  <h4 id="Evergine_Runtimes_CAD_Helpers_GeometryHelper_SplineBuilder_PolygonalVertexes_System_Int32_" data-uid="Evergine.Runtimes.CAD.Helpers.GeometryHelper.SplineBuilder.PolygonalVertexes(System.Int32)">PolygonalVertexes(int)</h4>
+  <div class="markdown level1 summary"><p>Generates a uniformly sampled polyline approximation of the spline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;XYZ&gt; PolygonalVertexes(int precision)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">precision</span></td>
+        <td><p>Number of sample points (&gt;= 2). Higher values yield a denser approximation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<span class="xref">XYZ</span>&gt;</td>
+        <td><p>List of sampled XYZ points along the spline.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="exceptions">Exceptions</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Condition</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.argumentoutofrangeexception">ArgumentOutOfRangeException</a></td>
+        <td><p>If precision &lt; 2.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

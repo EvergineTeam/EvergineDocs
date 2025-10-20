@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Model Editor | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Model Editor | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="model-editor">Model Editor</h1>
+
+<p><img src="images/ModelEditor.jpg" alt="Model Editor"></p>
+<p>The <strong>Model Editor</strong> allows the editing of model assets. Double-clicking a <strong>Model</strong> asset shown in <a href="../../evergine_studio/interface.html">Assets Details</a> will open this editor. The editor is composed of five main parts:</p>
+<h2 id="viewport">Viewport</h2>
+<p>Shows the <strong>Model</strong> with the current configuration. If the model is animated, it will show the current animation state on the <em>animation toolbar</em>.</p>
+<h2 id="toolbar">Toolbar</h2>
+<p><img src="images/modelToolbar.png" alt="Toolbar controls"></p>
+<p>Assists with the model visualization. It has the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/toggleGrid.png" alt="toggle grid"></td>
+<td>Toggles the <strong>Grid</strong> visualization.</td>
+</tr>
+<tr>
+<td><img src="images/solidIcon.png" alt="solid"> /  <img src="images/wireframeIcon.png" alt="wireframe"></td>
+<td><p>Toggles the visualization from <strong>Solid</strong> (default) to <strong>Wireframe</strong>. </p> <img src="images/wireframe.png" alt="Wireframe"></td>
+</tr>
+<tr>
+<td><img src="images/boundingBoxIcon.png" alt="bounding box"></td>
+<td><p>Toggles the <strong>Bounding box</strong> visualization of the model.</p> <img src="images/boundingBox.png" alt="Bounding Box"></td>
+</tr>
+<tr>
+<td><img src="images/hierarchyIcon.png" alt="hierarchy"></td>
+<td><p>Toggles the <strong>Hierarchy</strong> visualization of the model.</p> <img src="images/hierarchy.png" alt="Hierarchy"></td>
+</tr>
+<tr>
+<td><img src="images/normalIcon.png" alt="normals"></td>
+<td><p>Toggles the <strong>Normals</strong> visualization of the vertices.</p> <img src="images/normals.png" alt="Normals"></td>
+</tr>
+<tr>
+<td><img src="images/uvCheckerIcon.png" alt="uv"></td>
+<td><p>Toggles the <strong>UV checker</strong> visualization of the model.</p> <img src="images/checker.png" alt="UV Checker"></td>
+</tr>
+<tr>
+<td><img src="images/resetCameraIcon.png" alt="reset camera"></td>
+<td>Resets the camera position.</td>
+</tr>
+<tr>
+<td><img src="images/changeBackground.png" alt="change background"></td>
+<td>Changes the background color.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="playback-controls">Playback Controls</h2>
+<p><img src="images/playbackToolbar.png" alt="Playback controls"></p>
+<p>If the model has animations, the <em>Playback Toolbar</em> allows playing the selected clip.</p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/playIcon.png" alt="play"> /  <img src="images/stopIcon.png" alt="stop"></td>
+<td>Plays / Stops the current clip animations.</td>
+</tr>
+<tr>
+<td><img src="images/slider.png" alt="timeline"></td>
+<td>The timeline slider. The handle will mark the current time in the animation, and its position can be modified.</td>
+</tr>
+<tr>
+<td><img src="images/velocity.png" alt="speed"></td>
+<td>Controls the <strong>Speed Factor</strong> of the reproduction. The default is <strong>1.00</strong>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<p>Panel with all the <strong>Model</strong> properties. They don't depend on the profile.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Swap Swinding Order</strong></td>
+<td>Flips the normals of the model when activated.</td>
+</tr>
+<tr>
+<td><strong>Generate Tangent Space</strong></td>
+<td>When checked, generates the tangent coordinates of every vertex. Useful when dealing with normal mapping.</td>
+</tr>
+<tr>
+<td><strong>Export Animations</strong></td>
+<td>For exporting the animation information of the model.</td>
+</tr>
+<tr>
+<td><strong>Export As Raw</strong></td>
+<td>Will export the model as the source file (e.g., <code>.fbx</code>), instead of creating a binary <strong>Evergine</strong> asset.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="animation-clip-properties">Animation Clip Properties</h2>
+<p>For every animation contained in the model, the following information will be shown:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Index</td>
+<td>The animation order.</td>
+</tr>
+<tr>
+<td>Name</td>
+<td>The name of the clip. This string will be used in the <strong>Animation3D</strong> when we want to play the animation.</td>
+</tr>
+<tr>
+<td>Duration</td>
+<td>Timestamp of the duration.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

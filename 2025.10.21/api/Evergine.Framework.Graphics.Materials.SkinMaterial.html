@@ -1,0 +1,953 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SkinMaterial | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SkinMaterial | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial">
+
+
+
+  <h1 id="Evergine_Framework_Graphics_Materials_SkinMaterial" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial" class="text-break">Class SkinMaterial</h1>
+  <div class="markdown level0 summary"></div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Framework.Graphics.BaseMaterialDecorator.html">BaseMaterialDecorator</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.Graphics.MaterialDecorator.html">MaterialDecorator</a></div>
+    <div class="level3"><span class="xref">SkinMaterial</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.MaterialDecorator.html#Evergine_Framework_Graphics_MaterialDecorator_Material">MaterialDecorator.Material</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.MaterialDecorator.html#Evergine_Framework_Graphics_MaterialDecorator_AllowInstancing">MaterialDecorator.AllowInstancing</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.MaterialDecorator.html#Evergine_Framework_Graphics_MaterialDecorator_Id">MaterialDecorator.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.MaterialDecorator.html#Evergine_Framework_Graphics_MaterialDecorator_OrderBias">MaterialDecorator.OrderBias</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.MaterialDecorator.html#Evergine_Framework_Graphics_MaterialDecorator_LayerDescription">MaterialDecorator.LayerDescription</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseMaterialDecorator.html#Evergine_Framework_Graphics_BaseMaterialDecorator_material">BaseMaterialDecorator.material</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseMaterialDecorator.html#Evergine_Framework_Graphics_BaseMaterialDecorator_ActiveDirectivesNames">BaseMaterialDecorator.ActiveDirectivesNames</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseMaterialDecorator.html#Evergine_Framework_Graphics_BaseMaterialDecorator_Effect">BaseMaterialDecorator.Effect</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseMaterialDecorator.html#Evergine_Framework_Graphics_BaseMaterialDecorator_GetMaterialPassResources_System_String_System_Boolean_">BaseMaterialDecorator.GetMaterialPassResources(string, bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseMaterialDecorator.html#Evergine_Framework_Graphics_BaseMaterialDecorator_Prepare_Evergine_Common_Graphics_CommandBuffer_">BaseMaterialDecorator.Prepare(CommandBuffer)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseMaterialDecorator.html#Evergine_Framework_Graphics_BaseMaterialDecorator_Dispose">BaseMaterialDecorator.Dispose()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Graphics.html">Graphics</a>.<a class="xref" href="Evergine.Framework.Graphics.Materials.html">Materials</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Graphics_Materials_SkinMaterial_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[MaterialDecorator(&quot;940bd66d-a00e-43ef-9321-a637338f3064&quot;)]
+public class SkinMaterial : MaterialDecorator</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial__ctor_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.#ctor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial__ctor_Evergine_Framework_Graphics_Effects_Effect_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.#ctor(Evergine.Framework.Graphics.Effects.Effect)">SkinMaterial(Effect)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SkinMaterial(Effect effect)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Effects.Effect.html">Effect</a></td>
+        <td><span class="parametername">effect</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial__ctor_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.#ctor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial__ctor_Evergine_Framework_Graphics_Material_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.#ctor(Evergine.Framework.Graphics.Material)">SkinMaterial(Material)</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SkinMaterial(Material material)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Material.html">Material</a></td>
+        <td><span class="parametername">material</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_Alpha_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.Alpha*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_Alpha" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.Alpha">Alpha</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Specify alpha channel.&quot;)]
+public float Alpha { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_AlphaCutout_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.AlphaCutout*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_AlphaCutout" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.AlphaCutout">AlphaCutout</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Alpha Cutout&quot;, Tooltip = &quot;Discard pixels when alpha value is less than the specified value.&quot;)]
+public float AlphaCutout { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColor_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColor" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColor">BaseColor</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Base Color&quot;, Tooltip = &quot;Base color.&quot;)]
+public Color BaseColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColorGamma_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColorGamma*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColorGamma" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColorGamma">BaseColorGamma</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public GammaColor BaseColorGamma { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GammaColor.html">GammaColor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColorLinear_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColorLinear*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColorLinear" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColorLinear">BaseColorLinear</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public LinearColor BaseColorLinear { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.LinearColor.html">LinearColor</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColorSampler_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColorSampler*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColorSampler" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColorSampler">BaseColorSampler</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Base Color Sampler&quot;)]
+public SamplerState BaseColorSampler { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SamplerState.html">SamplerState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColorTexture_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColorTexture*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_BaseColorTexture" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.BaseColorTexture">BaseColorTexture</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Base Color Texture&quot;, Tooltip = &quot;Base color texture (Albedo).&quot;)]
+public Texture BaseColorTexture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_EmissiveColor_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.EmissiveColor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_EmissiveColor" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.EmissiveColor">EmissiveColor</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Color EmissiveColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_EmissiveCompensation_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.EmissiveCompensation*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_EmissiveCompensation" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.EmissiveCompensation">EmissiveCompensation</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Emissive Compensation&quot;, Tooltip = &quot;The exposure compensation value of the emissive property can be used to force the emissive color to be brighter (positive values) or darker (negative values) than the current exposure.&quot;)]
+public float EmissiveCompensation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_EmissiveSampler_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.EmissiveSampler*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_EmissiveSampler" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.EmissiveSampler">EmissiveSampler</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Emissive Sampler&quot;)]
+public SamplerState EmissiveSampler { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SamplerState.html">SamplerState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_EmissiveTexture_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.EmissiveTexture*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_EmissiveTexture" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.EmissiveTexture">EmissiveTexture</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Emissive Texture&quot;, Tooltip = &quot;The emissive texture can be used to simulate additional light emitted by the surface.&quot;)]
+public Texture EmissiveTexture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_IBLEnabled_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.IBLEnabled*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_IBLEnabled" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.IBLEnabled">IBLEnabled</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;IBL enabled&quot;, Tooltip = &quot;Enable ImageBasedLighting on this material.&quot;)]
+public bool IBLEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_LightingEnabled_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.LightingEnabled*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_LightingEnabled" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.LightingEnabled">LightingEnabled</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Lighting enabled&quot;, Tooltip = &quot;Enable lighting on this material.&quot;)]
+public bool LightingEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_Metallic_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.Metallic*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_Metallic" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.Metallic">Metallic</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Metallic&quot;, Tooltip = &quot;Whether a surface appears to be dielectric (0.0) or conductor (1.0). Often used as a binary value (0 or 1)&quot;)]
+public float Metallic { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_MetallicRoughnessSampler_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.MetallicRoughnessSampler*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_MetallicRoughnessSampler" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.MetallicRoughnessSampler">MetallicRoughnessSampler</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;MetalRoughness Sampler&quot;)]
+public SamplerState MetallicRoughnessSampler { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SamplerState.html">SamplerState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_MetallicRoughnessTexture_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.MetallicRoughnessTexture*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_MetallicRoughnessTexture" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.MetallicRoughnessTexture">MetallicRoughnessTexture</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;MetalRoughness Texture&quot;, Tooltip = &quot;Indicates in the same texture the Metallic value (blue channel) and Roughness (green channel)&quot;)]
+public Texture MetallicRoughnessTexture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_NormalSampler_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.NormalSampler*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_NormalSampler" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.NormalSampler">NormalSampler</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Normal Sampler&quot;)]
+public SamplerState NormalSampler { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SamplerState.html">SamplerState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_NormalTexture_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.NormalTexture*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_NormalTexture" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.NormalTexture">NormalTexture</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Normal Texture&quot;, Tooltip = &quot;Texture that specify at pixel level the normal of the surface.&quot;)]
+public Texture NormalTexture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_OcclusionSampler_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.OcclusionSampler*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_OcclusionSampler" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.OcclusionSampler">OcclusionSampler</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Occlusion Sampler&quot;)]
+public SamplerState OcclusionSampler { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.SamplerState.html">SamplerState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_OcclusionTexture_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.OcclusionTexture*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_OcclusionTexture" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.OcclusionTexture">OcclusionTexture</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Occlusion Texture&quot;, Tooltip = &quot;Defines how much of the ambient light is accessible to a surface point. It is a per-pixel shadowing factor between 0.0 and 1.0.&quot;)]
+public Texture OcclusionTexture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_Reflectance_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.Reflectance*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_Reflectance" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.Reflectance">Reflectance</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Reflectance&quot;, Tooltip = &quot;Fresnel reflectance at normal incidence for dielectric surfaces. This directly controls the strength of the reflections&quot;)]
+public float Reflectance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_Roughness_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.Roughness*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_Roughness" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.Roughness">Roughness</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Roughness&quot;, Tooltip = &quot;Perceived smoothness (0.0) or roughness (1.0) of a surface. Smooth surfaces exhibit sharp reflections&quot;)]
+public float Roughness { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSBias_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSBias*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSBias" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSBias">SSSBias</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;SSS Bias&quot;, Tooltip = &quot;The suf-surface scattering bias used for the transmitance effect, used for avoiding artifacts.&quot;)]
+public float SSSBias { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSIntensity_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSIntensity*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSIntensity" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSIntensity">SSSIntensity</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;SSS Intensity&quot;, Tooltip = &quot;Intensity of the suf-surface scattering effect. Value usally go from 0 to 1.&quot;)]
+public float SSSIntensity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSScatter_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSScatter*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSScatter" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSScatter">SSSScatter</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;SSS Scatter&quot;, Tooltip = &quot;The thickness or width of the sub-surface scattering effect, expressed in size units.&quot;)]
+public float SSSScatter { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSScatterTexture_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSScatterTexture*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSScatterTexture" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSScatterTexture">SSSScatterTexture</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;SSS Scatter Texture&quot;, Tooltip = &quot;Texture that sets the thickness of the SSS effect around the surface.&quot;)]
+public Texture SSSScatterTexture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSTranslucencyColor_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSTranslucencyColor*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSTranslucencyColor" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSTranslucencyColor">SSSTranslucencyColor</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;SSS Trasnlucency Color&quot;, Tooltip = &quot;The suf-surface translucency color used for transmitance effect.&quot;)]
+public Color SSSTranslucencyColor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSTranslucencyTexture_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSTranslucencyTexture*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_SSSTranslucencyTexture" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.SSSTranslucencyTexture">SSSTranslucencyTexture</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Texture SSSTranslucencyTexture { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_UVOffset0_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.UVOffset0*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_UVOffset0" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.UVOffset0">UVOffset0</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;UV Offsets 0&quot;, Tooltip = &quot;Texture coordinate offsets on UV channel 0.&quot;)]
+public Vector2 UVOffset0 { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector2.html">Vector2</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_Materials_SkinMaterial_VertexColorEnabled_" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.VertexColorEnabled*"></a>
+  <h4 id="Evergine_Framework_Graphics_Materials_SkinMaterial_VertexColorEnabled" data-uid="Evergine.Framework.Graphics.Materials.SkinMaterial.VertexColorEnabled">VertexColorEnabled</h4>
+  <div class="markdown level1 summary"></div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(CustomPropertyName = &quot;Vertex Color&quot;, Tooltip = &quot;Enable vertex color.&quot;)]
+public bool VertexColorEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>
