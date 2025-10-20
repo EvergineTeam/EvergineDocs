@@ -24,7 +24,7 @@ It detects texture usage and sets **sRGB** only where needed.
 **Steps:**
 1) Update your project from the launcher as usual.  
 2) Open the project and verify that textures look brighter than usual.  
-3) Download the script **[migration-2025.10.21.py](./migration-2025.10.21.py)** to a folder.  
+3) Download the script **[migration-2025.10.21.py](https://github.com/EvergineTeam/EvergineDocs/tree/master/src/manual/get_started/migrations/migration-2025.10.21.py)** to a folder.  
 4) Run:  
    ```bash
    python3 migration-2025.10.21.py path/to/my_evergine.weproj
