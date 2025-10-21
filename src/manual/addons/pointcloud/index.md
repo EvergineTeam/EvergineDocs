@@ -2,7 +2,7 @@
 
 ---
 
-![TeaserAddon.png](.\images\TeaserAddon.png)
+![TeaserAddon.png](images/TeaserAddon.png)
 
 **Evergine Point Cloud add-on** brings a High-performance progressive GPU rendering and import pipeline for massive point cloud datasets to Evergine.
 
