@@ -12,6 +12,7 @@ They may contain assets, prefabs, behaviors, components, and NuGet packages that
 * [XRV](xrv/index.md)
 * [Gaussian Splatting](gaussiansplatting/index.md)
 * [DICOM](dicom/index.md)
+* [Point Cloud](pointcloud/index.md)
 
 ## Add-ons in Evergine Studio
 
