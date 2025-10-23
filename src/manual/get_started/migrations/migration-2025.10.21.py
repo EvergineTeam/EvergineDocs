@@ -105,11 +105,14 @@ def process_texture_file(file_path):
             used_as_other = textures_used_as_other.get(tex_id, None)
             not_used = not used_as_color and not used_as_other
             name_lower = file_path.name.lower()
+            is_ktx = file_path.name.split('.')[-2].lower() == 'ktx'
 
             name_suggests_is_color = ("color" in name_lower) or ("emissive" in name_lower)
             name_suggests_is_other = ("normal" in name_lower) or ("roughness" in name_lower) or ("metallic" in name_lower) or ("pbr" in name_lower)
 
-            if used_as_color and used_as_other:
+            if is_ktx:
+                target_format = "KTX"
+            elif used_as_color and used_as_other:
                 target_format = "R8G8B8A8_UNorm_SRgb"
                 print(f"Warning: Texture '{tex_id}' in '{file_path}' is used both as {used_as_color[1]} in {used_as_color[0]} and as {used_as_other[1]} in {used_as_other[0]}. Will be considered as color.")
             elif not_used:
@@ -143,8 +146,12 @@ def process_texture_file(file_path):
                 if hasDataStart != -1:
                     hasData = lines[i].find("true") != -1
                     if hasData:
-                        lines[i] = lines[i][:hasDataStart] + "DataFormat: bitmap\n"
-                        modified.append("DataFormat: bitmap")
+                        if is_ktx:
+                            lines[i] = lines[i][:hasDataStart] + "DataFormat: KTX\n"
+                            modified.append("DataFormat: KTX")
+                        else:
+                            lines[i] = lines[i][:hasDataStart] + "DataFormat: bitmap\n"
+                            modified.append("DataFormat: bitmap")
                     else:
                         lines[i] = lines[i][:hasDataStart] + "DataFormat: none\n"
                         modified.append("DataFormat: none")
