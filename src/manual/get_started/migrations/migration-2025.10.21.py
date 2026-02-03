@@ -107,7 +107,7 @@ def process_texture_file(file_path):
             name_lower = file_path.name.lower()
             is_ktx = file_path.name.split('.')[-2].lower() == 'ktx'
 
-            name_suggests_is_color = ("color" in name_lower) or ("emissive" in name_lower)
+            name_suggests_is_color = ("color" in name_lower) or ("emissive" in name_lower) or ("radiance" in name_lower) or ("irradiance" in name_lower)
             name_suggests_is_other = ("normal" in name_lower) or ("roughness" in name_lower) or ("metallic" in name_lower) or ("pbr" in name_lower)
 
             if is_ktx:
@@ -126,8 +126,11 @@ def process_texture_file(file_path):
 
             def replace_format(label):
                 for i in range(len(lines)):
-                    if lines[i].find(label + ":") >= 0:
-                        for srcFormat in ["R8G8B8A8_UNorm_SRgb", "R8G8B8A8_UNorm"]:
+                    ind = lines[i].find(label + ":")
+                    if ind >= 0:
+                        srcFormat = lines[i][ind + len(label) + 1 : ]
+                        srcFormat = srcFormat.strip()
+                        if srcFormat in ["R8G8B8A8_UNorm_SRgb", "R8G8B8A8_UNorm"]:
                             if srcFormat == target_format:
                                 continue
                             j = lines[i].find(srcFormat)
@@ -171,4 +174,6 @@ def process_texture_file(file_path):
                 print(f"Updated texture '{tex_id}' in '{file_path}': {modified}")
 
 if __name__ == '__main__':
+    print("Migrating project...")
     main()
+    print("Done!")
