@@ -137,11 +137,9 @@ def process_texture_file(file_path):
                             if j != -1:
                                 lines[i] = lines[i][:j] + target_format + "\n"
                                 modified.append(f"{srcFormat} -> {target_format}")
-                                break
                         
             if target_format:
                 replace_format("Format")
-                replace_format("PixelFormat")
 
             # HasData doesn't exist any more, it has been replaces by DataFormat
             for i in range(len(lines)):
