@@ -3,17 +3,20 @@
 
 3D Gaussian Splatting requires special care and manual work to run on the [Web](../../platforms/web/index.md) platform.
 
+> [!NOTE]
+> These steps apply to both the **Web (WebGL)** and **WebGPU** profiles. Follow the same instructions regardless of which web profile you are using.
+
 To render Gaussian Splatting, Evergine internally creates a separate thread to perform a sorting algorithm for all splats. Due to .NET idiosyncrasies with WASM and the Web platform, you will need to follow these steps:
 
 ## Setup Gaussian Splatting in Your Web Application
 
 Prior to these steps, you need to:
 - Properly set up the rest of the requirements provided in the [Getting Started](getting_started.md) document.
-- Ensure that your Evergine application has a valid Web profile.
+- Ensure that your Evergine application has a valid Web or WebGPU profile.
 
 ### 1. Add the Evergine.GaussianSplatting.Web NuGet Package
 
-Add the `Evergine.GaussianSplatting.Web` NuGet package to your Web profile project (typically named **[ApplicationName].Web**).
+Add the `Evergine.GaussianSplatting.Web` NuGet package to your Web profile project (typically named **[ApplicationName].Web** or **[ApplicationName].WebGPU**).
 
 > [!NOTE]
 > The version must match the installed Evergine.GaussianSplatting add-on version.
@@ -43,7 +46,7 @@ In your `index.html` file, add the following line at the end of the file:
 
 ### 4. Configure Web App Headers for Multithreading
 
-To launch web worker threads in the web environment, add the following code to your **Program.cs** file located in your **[ApplicationName].Web.Server** project, just after the `var app = builder.Build();` line. This configuration removes certain browser security restrictions related to Web Workers, allowing Evergine to create background threads safely.
+To launch web worker threads in the web environment, add the following code to your **Program.cs** file located in your **[ApplicationName].Web.Server** or **[ApplicationName].WebGPU.Server** project, just after the `var app = builder.Build();` line. This configuration removes certain browser security restrictions related to Web Workers, allowing Evergine to create background threads safely.
 
 ```cs
 if (app.Environment.IsDevelopment())

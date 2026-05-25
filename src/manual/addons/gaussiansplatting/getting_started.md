@@ -15,7 +15,7 @@ Open Evergine Studio and add the Evergine.GaussianSplatting add-on to your proje
 ![Add-on installation](images/addon_installation.png)
 
 > [!NOTE]
-> If you are using a Web profile, you need to perform the additional steps described in this document: [Setup Gaussian Splatting on the Web Platform](web_setup.md)
+> If you are using a **Web** or **WebGPU** profile, you need to perform the additional steps described in this document: [Setup Gaussian Splatting on the Web Platform](web_setup.md)
 
 > [!NOTE]
 > Gaussian Splatting add-ons are available as NuGet packages. For nightly builds, update `nuget.config` to include the Evergine nightly feed:
