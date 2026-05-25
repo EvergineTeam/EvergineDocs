@@ -14,7 +14,7 @@ Additionally, you can publish the app using the following command:
 
 `dotnet publish -c [Debug|Release] ./sample.web/sample.web.csproj`
 
-Then, run the app by populating the folder `./sample.web/bin/[Debug|Release]/net6.0/publish/wwwroot`. In this second case, we recommend using VSCode Live Server instead of Fenix, as the latter has known issues with Web Assembly.
+Then, run the app by populating the folder `./sample.web/bin/[Debug|Release]/net10.0/publish/wwwroot`. In this second case, we recommend using VSCode Live Server instead of Fenix, as the latter has known issues with Web Assembly.
 
 ### Debug
 
@@ -26,4 +26,4 @@ To publish the application with automatic compression (Brotli & GZip), the AspNe
 
 `dotnet publish -c Release -r win-x86 --self-contained ./sample.web.Server/sample.web.Server.csproj`
 
-If done from the terminal, you can publish the files in `sample.web.Server/bin/Release/net6.0/win-x86/publish` to an AspNetCore server, either from VSCode or manually.
+If done from the terminal, you can publish the files in `sample.web.Server/bin/Release/net10.0/win-x86/publish` to an AspNetCore server, either from VSCode or manually.

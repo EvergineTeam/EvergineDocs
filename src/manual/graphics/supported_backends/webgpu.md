@@ -26,7 +26,7 @@ WebGPU offers several notable advantages, making it a significant step forward i
 The current WebGPU integration in Evergine has the following known limitations:
 
 - `RGBA32Float` textures are not supported on most mobile devices, which means HDR textures are unavailable.
-- The .NET 8 version of Emscripten does not support depth clip control, resulting in artifacts in shadow mapping for objects behind the camera that still cast visible shadows.
+- The .NET 10 version of Emscripten does not support depth clip control, resulting in artifacts in shadow mapping for objects behind the camera that still cast visible shadows.
 - GPU Particles & PostProcessing are not yet supported because the shader techniques they rely on are not precompiled.
 
 ## Supported WebGPU devices
