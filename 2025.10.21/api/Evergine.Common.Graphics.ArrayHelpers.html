@@ -160,55 +160,6 @@
       </tr>
     </tbody>
   </table>
-  <a id="Evergine_Common_Graphics_ArrayHelpers_EnsureArraySize_" data-uid="Evergine.Common.Graphics.ArrayHelpers.EnsureArraySize*"></a>
-  <h4 id="Evergine_Common_Graphics_ArrayHelpers_EnsureArraySize__1___0____System_Int32_" data-uid="Evergine.Common.Graphics.ArrayHelpers.EnsureArraySize``1(``0[]@,System.Int32)">EnsureArraySize&lt;T&gt;(ref T[], int)</h4>
-  <div class="markdown level1 summary"><p>Ensure that the array length is equal to the specified size. If it is not, resize the array to the specified capacity.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public static void EnsureArraySize&lt;T&gt;(ref T[] array, int size)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td>T[]</td>
-        <td><span class="parametername">array</span></td>
-        <td><p>The array.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td><span class="parametername">size</span></td>
-        <td><p>The capacity.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="typeParameters">Type Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><span class="parametername">T</span></td>
-        <td><p>The array type.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
   <a id="Evergine_Common_Graphics_ArrayHelpers_EnsureCapacityPo2_" data-uid="Evergine.Common.Graphics.ArrayHelpers.EnsureCapacityPo2*"></a>
   <h4 id="Evergine_Common_Graphics_ArrayHelpers_EnsureCapacityPo2__1___0____System_Int32_" data-uid="Evergine.Common.Graphics.ArrayHelpers.EnsureCapacityPo2``1(``0[]@,System.Int32)">EnsureCapacityPo2&lt;T&gt;(ref T[], int)</h4>
   <div class="markdown level1 summary"><p>Ensures that the array has the specified capacity. If it does not, resizes the capacity to the next power of two value that accommodates the specified capacity.</p>
@@ -286,6 +237,55 @@
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
         <td><span class="parametername">capacity</span></td>
+        <td><p>The capacity.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="typeParameters">Type Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="parametername">T</span></td>
+        <td><p>The array type.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_ArrayHelpers_Resize_" data-uid="Evergine.Common.Graphics.ArrayHelpers.Resize*"></a>
+  <h4 id="Evergine_Common_Graphics_ArrayHelpers_Resize__1___0____System_Int32_" data-uid="Evergine.Common.Graphics.ArrayHelpers.Resize``1(``0[]@,System.Int32)">Resize&lt;T&gt;(ref T[], int)</h4>
+  <div class="markdown level1 summary"><p>Ensure that the array length is equal to the specified size. If it is not, resize the array to the specified capacity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void Resize&lt;T&gt;(ref T[] array, int size)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td>T[]</td>
+        <td><span class="parametername">array</span></td>
+        <td><p>The array.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">size</span></td>
         <td><p>The capacity.</p>
 </td>
       </tr>

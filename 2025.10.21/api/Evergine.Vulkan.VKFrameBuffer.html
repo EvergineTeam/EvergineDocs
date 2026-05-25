@@ -298,13 +298,13 @@
   <h3 id="methods">Methods
 </h3>
   <a id="Evergine_Vulkan_VKFrameBuffer_CreateImageView_" data-uid="Evergine.Vulkan.VKFrameBuffer.CreateImageView*"></a>
-  <h4 id="Evergine_Vulkan_VKFrameBuffer_CreateImageView_Evergine_Vulkan_VKTexture_System_UInt32_System_UInt32_Evergine_Bindings_Vulkan_VkImageAspectFlags_System_Boolean_" data-uid="Evergine.Vulkan.VKFrameBuffer.CreateImageView(Evergine.Vulkan.VKTexture,System.UInt32,System.UInt32,Evergine.Bindings.Vulkan.VkImageAspectFlags,System.Boolean)">CreateImageView(VKTexture, uint, uint, VkImageAspectFlags, bool)</h4>
+  <h4 id="Evergine_Vulkan_VKFrameBuffer_CreateImageView_Evergine_Vulkan_VKTexture_System_UInt32_System_UInt32_System_UInt32_Evergine_Bindings_Vulkan_VkImageAspectFlags_System_Boolean_" data-uid="Evergine.Vulkan.VKFrameBuffer.CreateImageView(Evergine.Vulkan.VKTexture,System.UInt32,System.UInt32,System.UInt32,Evergine.Bindings.Vulkan.VkImageAspectFlags,System.Boolean)">CreateImageView(VKTexture, uint, uint, uint, VkImageAspectFlags, bool)</h4>
   <div class="markdown level1 summary"><p>Generates a VKImageView from FrameBufferAttachment.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>
   <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">protected VkImageView CreateImageView(VKTexture vkTexture, uint mipSlice, uint firstSlice, VkImageAspectFlags flags = VkImageAspectFlags.VK_IMAGE_ASPECT_COLOR_BIT, bool depthTexture = false)</code></pre>
+    <pre><code class="lang-csharp hljs">protected VkImageView CreateImageView(VKTexture vkTexture, uint mipSlice, uint firstSlice, uint numSlices, VkImageAspectFlags flags = VkImageAspectFlags.VK_IMAGE_ASPECT_COLOR_BIT, bool depthTexture = false)</code></pre>
   </div>
   <h5 class="parameters">Parameters</h5>
   <table class="table table-bordered table-condensed">
@@ -332,6 +332,12 @@
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
         <td><span class="parametername">firstSlice</span></td>
         <td><p>First slice.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">numSlices</span></td>
+        <td><p>Number of slices.</p>
 </td>
       </tr>
       <tr>
