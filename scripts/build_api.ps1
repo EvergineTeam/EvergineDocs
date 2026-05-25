@@ -2,7 +2,7 @@
 .SYNOPSIS
 	Evergine API Docs generation script. (c) Evergine
 .DESCRIPTION
-	This script generates the Evergine API Documentation for an specific framework. Defaults to net8.0 .
+	This script generates the Evergine API Documentation for the current Evergine target framework.
 	It uses DocFX.
 .EXAMPLE
 	.\<script_name>

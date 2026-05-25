@@ -37,10 +37,10 @@ if ($isAPIAvailable)
     Get-ChildItem -Path $apiFolder -Recurse -Exclude ".gitignore" | Remove-Item -Force
 
     # Finally, build the API documentation for all target frameworks
-    . "./build_api.ps1 -targetFramework net8.0"
-    . "./build_api.ps1 -targetFramework net8.0-windows"
-    . "./build_api.ps1 -targetFramework net8.0-android"
-    . "./build_api.ps1 -targetFramework net8.0-ios"
+    . "./build_api.ps1 -targetFramework net10.0"
+    . "./build_api.ps1 -targetFramework net10.0-windows"
+    . "./build_api.ps1 -targetFramework net10.0-android"
+    . "./build_api.ps1 -targetFramework net10.0-ios"
 }
 else
 {

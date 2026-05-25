@@ -16,4 +16,6 @@ Local compilation:
 .\scripts\build_docs.ps1
 ```
 
+This repository now requires the **.NET 10 SDK** to build the API documentation against the current Evergine sources.
+
 Generated documentation can be found at `build/dist` and can be served with any static file server.
