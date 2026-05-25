@@ -1,0 +1,353 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class IFCMeshHelpers | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class IFCMeshHelpers | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers">
+
+
+
+  <h1 id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers" class="text-break">Class IFCMeshHelpers</h1>
+  <div class="markdown level0 summary"><p>Provides helper methods for generating mesh data and converting IFC geometry to Evergine mesh structures.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">IFCMeshHelpers</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Runtimes.html">Runtimes</a>.<a class="xref" href="Evergine.Runtimes.IFC.html">IFC</a>.<a class="xref" href="Evergine.Runtimes.IFC.Helpers.html">Helpers</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Runtimes.IFC.dll</h6>
+  <h5 id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class IFCMeshHelpers</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_ConvertFromShapeTriangulationSmoothNormals_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers.ConvertFromShapeTriangulationSmoothNormals*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_ConvertFromShapeTriangulationSmoothNormals_Xbim_Common_Geometry_XbimShapeTriangulation_Evergine_Common_Graphics_VertexFormats_VertexPositionNormalColor____System_UInt32____Evergine_Common_Graphics_Color_System_Boolean_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers.ConvertFromShapeTriangulationSmoothNormals(Xbim.Common.Geometry.XbimShapeTriangulation,Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor[]@,System.UInt32[]@,Evergine.Common.Graphics.Color,System.Boolean)">ConvertFromShapeTriangulationSmoothNormals(XbimShapeTriangulation, out VertexPositionNormalColor[], out uint[], Color, bool)</h4>
+  <div class="markdown level1 summary"><p>Converts a <a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Common/Geometry/XbimShapeTriangulation.cs">XbimShapeTriangulation</a> mesh to Evergine vertex and index buffers, generating either smooth or flat normals.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ConvertFromShapeTriangulationSmoothNormals(XbimShapeTriangulation mesh, out VertexPositionNormalColor[] vertices, out uint[] indices, Color vertexColor, bool useSmoothNormals)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Common/Geometry/XbimShapeTriangulation.cs">XbimShapeTriangulation</a></td>
+        <td><span class="parametername">mesh</span></td>
+        <td><p>The XBim shape triangulation mesh to convert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a>[]</td>
+        <td><span class="parametername">vertices</span></td>
+        <td><p>The output array of vertices, each with position, normal, and color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>[]</td>
+        <td><span class="parametername">indices</span></td>
+        <td><p>The output array of indices for the mesh triangles.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.Color.html">Color</a></td>
+        <td><span class="parametername">vertexColor</span></td>
+        <td><p>The color to assign to each vertex.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">useSmoothNormals</span></td>
+        <td><p>If true, generates smooth normals by averaging adjacent face normals; otherwise, uses flat normals per face.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_ConvertFromTessellatedFaceSet_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers.ConvertFromTessellatedFaceSet*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_ConvertFromTessellatedFaceSet_Xbim_Ifc4_Interfaces_IIfcTessellatedFaceSet_Xbim_Ifc_IfcStore_Evergine_Common_Graphics_VertexFormats_VertexPositionNormalColor____System_UInt32____System_Boolean_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers.ConvertFromTessellatedFaceSet(Xbim.Ifc4.Interfaces.IIfcTessellatedFaceSet,Xbim.Ifc.IfcStore,Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor[]@,System.UInt32[]@,System.Boolean)">ConvertFromTessellatedFaceSet(IIfcTessellatedFaceSet, IfcStore, out VertexPositionNormalColor[], out uint[], bool)</h4>
+  <div class="markdown level1 summary"><p>Converts an <a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/GeometricModelResource/IfcTessellatedFaceSet.cs">IIfcTessellatedFaceSet</a> to Evergine vertex and index buffers, supporting both smooth and flat normals.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ConvertFromTessellatedFaceSet(IIfcTessellatedFaceSet faceSet, IfcStore model, out VertexPositionNormalColor[] vertices, out uint[] indices, bool useSmoothNormals)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc4/GeometricModelResource/IfcTessellatedFaceSet.cs">IIfcTessellatedFaceSet</a></td>
+        <td><span class="parametername">faceSet</span></td>
+        <td><p>The IFC tessellated face set to convert.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://github.com/xBimTeam/XbimEssentials/blob/master/Xbim.Ifc/IfcStore.cs">IfcStore</a></td>
+        <td><span class="parametername">model</span></td>
+        <td><p>The IFC model store for color extraction and context.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a>[]</td>
+        <td><span class="parametername">vertices</span></td>
+        <td><p>The output array of vertices, each with position, normal, and color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>[]</td>
+        <td><span class="parametername">indices</span></td>
+        <td><p>The output array of indices for the mesh triangles.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">useSmoothNormals</span></td>
+        <td><p>If true, generates smooth normals by averaging adjacent face normals; otherwise, uses flat normals per face.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_CreateEvergineMesh_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers.CreateEvergineMesh*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_CreateEvergineMesh_Evergine_Common_Graphics_GraphicsContext_Evergine_Common_Graphics_VertexFormats_VertexPositionNormalColor___System_UInt32___" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers.CreateEvergineMesh(Evergine.Common.Graphics.GraphicsContext,Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor[],System.UInt32[])">CreateEvergineMesh(GraphicsContext, VertexPositionNormalColor[], uint[])</h4>
+  <div class="markdown level1 summary"><p>Creates an Evergine <a class="xref" href="Evergine.Framework.Graphics.Mesh.html">Mesh</a> from the provided vertices and indices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Mesh CreateEvergineMesh(GraphicsContext graphicsContext, VertexPositionNormalColor[] vertices, uint[] indices)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html">GraphicsContext</a></td>
+        <td><span class="parametername">graphicsContext</span></td>
+        <td><p>The graphics context used to create buffers.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.VertexFormats.VertexPositionNormalColor.html">VertexPositionNormalColor</a>[]</td>
+        <td><span class="parametername">vertices</span></td>
+        <td><p>The array of vertices with position, normal, and color.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>[]</td>
+        <td><span class="parametername">indices</span></td>
+        <td><p>The array of indices for the mesh.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Mesh.html">Mesh</a></td>
+        <td><p>A new <a class="xref" href="Evergine.Framework.Graphics.Mesh.html">Mesh</a> instance.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_GenerateVertexNormals_" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers.GenerateVertexNormals*"></a>
+  <h4 id="Evergine_Runtimes_IFC_Helpers_IFCMeshHelpers_GenerateVertexNormals_System_Collections_Generic_List_Evergine_Mathematics_Vector3__System_Collections_Generic_List_System_Int32__" data-uid="Evergine.Runtimes.IFC.Helpers.IFCMeshHelpers.GenerateVertexNormals(System.Collections.Generic.List{Evergine.Mathematics.Vector3},System.Collections.Generic.List{System.Int32})">GenerateVertexNormals(List&lt;Vector3&gt;, List&lt;int&gt;)</h4>
+  <div class="markdown level1 summary"><p>Generates per-vertex normals for a mesh given its vertices and triangle indices.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static List&lt;Vector3&gt; GenerateVertexNormals(List&lt;Vector3&gt; vertices, List&lt;int&gt; indices)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>&gt;</td>
+        <td><span class="parametername">vertices</span></td>
+        <td><p>The list of vertex positions.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>&gt;</td>
+        <td><span class="parametername">indices</span></td>
+        <td><p>The list of triangle indices (triplets per triangle).</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>&gt;</td>
+        <td><p>A list of normals corresponding to each vertex.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

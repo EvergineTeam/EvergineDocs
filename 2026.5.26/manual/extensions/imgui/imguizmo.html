@@ -1,0 +1,145 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ImGuizmo | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ImGuizmo | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="imguizmo">ImGuizmo</h1>
+
+<hr>
+<p><img src="images/ImGuizmo.png" alt="ImGuizmo"></p>
+<p>This extension also allows you to use the ImGuizmo library, which is a collection of 3D widgets built on top of the ImGUI library. The project and source code are available on GitHub at: <a href="https://github.com/CedricGuillemet/ImGuizmo">https://github.com/CedricGuillemet/ImGuizmo</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The C# wrapper is generated on top of a C-API wrapper version of this library. As a result, some samples may not work directly, but all features are supported.</p>
+</div>
+<h2 id="features">Features</h2>
+<p>This library comes with many widgets in 3D that are useful for creating editor tools. Here you have more information about them:</p>
+<h2 id="imviewgizmo-widget">ImViewGizmo Widget</h2>
+<p>This widget displays a 3D cube in a corner of the screen that represents the view transformation. It is used to select between different camera view presets like top, left, right, and bottom.</p>
+<p><img src="images/ImGuizmo_ImViewGizmo.gif" alt="ImGuizmo"></p>
+<h2 id="imguizmo-widget">ImGuizmo Widget</h2>
+<p>This widget allows you to draw 3D helpers that are useful for moving, scaling, and transforming 3D geometry. These widgets compute the resulting 4x4 Matrix, making it easy to apply it to the geometry.</p>
+<p><img src="images/ImGuizmo_1.gif" alt="ImGuizmo">
+<img src="images/ImGuizmo_2.gif" alt="ImGuizmo">
+<img src="images/ImGuizmo_3.gif" alt="ImGuizmo"></p>
+<h2 id="imsequencer-widget">ImSequencer Widget</h2>
+<p>A work-in-progress little sequencer used to edit frame start/end for different events in a timeline.</p>
+<p><img src="images/ImGuizmo_ImSequencer.png" alt="ImGuizmo"></p>
+<h2 id="graph-editor-widget">Graph Editor Widget</h2>
+<p>This widget is useful for creating a custom graph editor based on nodes and links between them. It is possible to change how nodes are rendered to customize them.</p>
+<p><img src="images/ImGuizmo_GraphEditor.jpg" alt="ImGuizmo"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

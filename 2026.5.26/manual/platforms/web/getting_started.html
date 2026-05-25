@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started with an Evergine Web Application | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started with an Evergine Web Application | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-an-evergine-web-application">Getting Started with an Evergine Web Application</h1>
+
+<hr>
+<h2 id="create-a-new-application">Create a New Application</h2>
+<p>From the Evergine launcher, you can create a Web (WebGL 2.0) project or add the web profile from the Evergine Studio.</p>
+<p><img src="images/launcher.png" alt="Create a new Web project"></p>
+<p>Evergine now offers two web templates: an HTML5 web template and a ReactJS web template. Both options are designed to execute Evergine in a web canvas, allowing for flexibility in your web development approach.</p>
+<p>This template adds two projects to the web solution: the <em>Web</em> project, which is the web application client that uses TypeScript to execute Evergine in a web canvas, and an optional <em>Server</em> project, which is an ASP server application that implements some optimizations for asset loading that can only be done from the server side.</p>
+<p><img src="images/explorer.png" alt="Web projects"></p>
+<p>After editing your scene in Evergine Studio as usual, run the <em>Web.Server</em> project or the <em>Web</em> project from Visual Studio 2022 to see it running in the browser.</p>
+<p><img src="images/sample.png" alt="Robot sample"></p>
+<p>For the ReactJS template, the web solution includes a different set of projects: the Host project (equivalent to the Server project in the HTML5 template), the WebReact project (similar to the Web project), and an additional react.spa project, which holds the code for the single-page application (SPA).</p>
+<p><img src="images/explorer-react.png" alt="Web projects"></p>
+<p>Finally, check out <a href="ops.html">how to deploy the app</a> and <a href="tips.html">improve its performance</a>.</p>
+<h3 id="reactjs-web-template">ReactJS Web Template</h3>
+<p>The ReactJS template for Evergine uses the <strong>evergine-react</strong> NPM package, which is registered on <a href="https://www.npmjs.com/package/evergine-react">npmjs.com/package/evergine-react</a>. This package contains a set of helper components designed to facilitate interaction with Evergine within a ReactJS single-page application (SPA).</p>
+<p>The main component provided by this package is the <em>EvergineCanvas</em>, which is used in the <em>App.tsx</em> file. This component renders the HTML5 canvas where Evergine will be executed. Another important file is <em>evergine-initialize.ts</em>, which is responsible for managing communication between the SPA and Evergine via a WebAssembly (WASM) JavaScript bridge.</p>
+<p>The <strong>evergine-react</strong> package also includes a state store for Evergine, which holds two key values:</p>
+<ul>
+<li><strong>webAssemblyLoaded</strong>: Becomes <strong>true</strong> once WASM has been successfully loaded.</li>
+<li><strong>evergineReady</strong>: Becomes <strong>true</strong> once Evergine has initialized all necessary assets.</li>
+</ul>
+<p>It’s recommended to wait for both of these values to be <strong>true</strong> before initiating any custom communication between the SPA and Evergine. This helps prevent potential race conditions that could occur if communication is attempted too early.</p>
+<p>For example, following code snippet modifies the <em>App.tsx</em> file to include a text message that will be displayed while Evergine is loading.</p>
+<pre><code class="lang-typescript">import './App.css';
+import { useEvergineStore, EvergineCanvas } from &quot;evergine-react&quot;;
+import { EVERGINE_CANVAS_ID } from &quot;evergine/config&quot;;
+import { useWindowSize } from &quot;evergine/useWindowSize&quot;;
+
+function App() {
+    const { webAssemblyLoaded, evergineReady } = useEvergineStore();
+
+    return (
+        &lt;div className=&quot;App&quot;&gt;
+            {(!webAssemblyLoaded || !evergineReady) &amp;&amp; (&lt;div&gt;Loading Evergine...&lt;/div&gt;)}
+            &lt;EvergineCanvas
+                canvasId={EVERGINE_CANVAS_ID}
+                width={useWindowSize().width}
+                height={useWindowSize().height}
+            /&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<p>When you build the SPA (react.spa) project, all required code and dependencies will be copied into the <strong>public</strong> folder. This folder contains the SPA code that embeds the Evergine canvas and can be deployed as a static website.</p>
+<p><img src="images/reactjs_public-folder.png" alt="ReactJS public folder"></p>
+<h3 id="invoking-functions-between-spa-and-evergine">Invoking Functions Between SPA and Evergine</h3>
+<p>In Evergine, communication between the single-page application (SPA) and the engine is facilitated through function invocations in both directions: from the SPA to Evergine and from Evergine to the SPA. This process enables dynamic interactions, such as triggering engine events from the UI or responding to engine updates in real-time.</p>
+<p>Evergine also includes <a href="serialization.html">built-in JSON serializers</a> to manage the serialization and deserialization of objects exchanged across the JavaScript and .NET boundary via the JS bridge. These serializers ensure that data structures are accurately converted, making it straightforward to pass complex objects between JavaScript and .NET in both directions.</p>
+<p>In the following steps, we will demonstrate how to set up these function invocations, starting with calls from the SPA to Evergine and then covering calls from Evergine back to the SPA. Each step is accompanied by code examples to illustrate the process.</p>
+<h4 id="step-1-add-communication-methods-in-c">Step 1: Add communication methods in C#</h4>
+<p>To handle communication between the SPA and Evergine, you can modify or extend the <code>WebIntegration</code> service. This is the recommended place to add custom invokes and callbacks.</p>
+<p>If you prefer, you can also use a custom SceneManager as an alternative (similar to older versions of this documentation). Both approaches are valid, but using WebIntegration is simpler in most cases.</p>
+<p>Here’s an example:</p>
+<pre><code class="lang-csharp">public class WebIntegration : Service, IDisposable
+{
+        // Displaying just added code from original class
+
+        [JSInvokable]
+        public ValueTask HelloFromSpa()
+        {
+            Console.WriteLine(&quot;Received a hello from SPA!&quot;);
+            return SayHelloToSpa();
+        }
+
+        public ValueTask SayHelloToSpa() =&gt; this.reference.InvokeVoidAsync(&quot;helloFromCSharp&quot;);
+}
+</code></pre>
+<p>If you use custom scene manager approach, remember to register it within the <em>MyScene</em>.</p>
+<pre><code class="lang-csharp">public class MyScene : Scene
+{
+    public override void RegisterManagers()
+    {
+        base.RegisterManagers();
+        
+        this.Managers.AddManager(new global::Evergine.Bullet.BulletPhysicManager3D());
+        this.Managers.AddManager(new MySceneManager());
+    }
+
+    protected override void CreateScene()
+    {
+    }
+}
+</code></pre>
+<h4 id="step-2-add-communication-methods-in-spa">Step 2: Add communication methods in SPA</h4>
+<p>To complete the communication setup between the SPA and Evergine, update the evergine-initialize.ts file.
+Now you can directly extend the <code>window.App</code> object type and define custom methods.
+Notice that <code>initializeEvergine</code> is simplified, using <code>initializeEvergineBase</code> with fewer parameters.</p>
+<pre><code class="lang-typescript">import { initializeEvergineBase } from &quot;evergine-react&quot;;
+
+import {
+  EVERGINE_ASSEMBLY_NAME,
+} from &quot;../evergine/config&quot;;
+
+declare global {
+  let Blazor: { start(): Promise&lt;void&gt; };
+
+  interface Window {
+    App: MyExtendedIntegration;
+  }
+
+  interface MyExtendedIntegration extends WebIntegration {
+      helloFromCSharp: () =&gt; void;
+      sayHelloToCsharp: () =&gt; string;
+  }
+}
+
+const initializeEvergine = (): void =&gt; {
+  window.Evergine = {
+    initialize: (dotNetReference: DotNet.DotNetObject) =&gt; {
+        const evergineApp: MyExtendedIntegration = {
+            onEvergineReadyChanged: (isReady: boolean) =&gt; {
+                console.log(`Evergine ready ${isReady}`);
+            },
+            helloFromCSharp: () =&gt; console.log(&quot;Received a hello from C#&quot;),
+            sayHelloToCsharp: () =&gt; dotNetReference.invokeMethod(&quot;HelloFromSpa&quot;),
+        };
+
+        window.App = evergineApp;
+
+        return window.DotNet.createJSObjectReference(evergineApp);
+    },
+    initializeCanvasLifecycle: () =&gt; window.DotNet?.invokeMethod(EVERGINE_ASSEMBLY_NAME, `${EVERGINE_ASSEMBLY_NAME}.CanvasLifecycle:Initialize`),
+    onEvergineAssetLoaded: (asset: EvergineAsset) =&gt; {
+        console.log(`Evergine asset ${asset.name} loaded`);
+    },
+    onEvergineAllAssetsLoaded: () =&gt; {
+        console.log(&quot;Evergine assets loaded&quot;);
+    },
+  };
+
+  initializeEvergineBase(window.Evergine);
+};
+
+export { initializeEvergine };
+</code></pre>
+<h4 id="step-3-testing-communication">Step 3: Testing Communication</h4>
+<p>With the new initialization in place, you can test SPA ↔ C# calls from your React app.</p>
+<p>App.tsx (excerpt): the button triggers <code>window.App.sayHelloToCsharp()</code> which calls the .NET method <code>HelloFromSpa</code>.</p>
+<pre><code class="lang-tsx">import { useEvergineStore, EvergineCanvas } from &quot;evergine-react&quot;;
+import { EVERGINE_CANVAS_ID } from &quot;./evergine/config&quot;;
+import { useContainerSize } from &quot;./evergine/useContainerSize&quot;;
+import { useRef } from &quot;react&quot;;
+import './App.css'
+
+function App() {
+  const { webAssemblyLoaded, evergineReady } = useEvergineStore();
+  const canvasContainer = useRef&lt;HTMLDivElement&gt;(null) as React.RefObject&lt;HTMLDivElement&gt;;
+
+  const handleButtonClick = () =&gt; {
+    window.App?.sayHelloToCsharp();
+  };
+
+  return (
+    &lt;div className=&quot;App&quot;&gt;
+      {(!webAssemblyLoaded || !evergineReady) &amp;&amp; (&lt;div className=&quot;loading&quot;&gt;Loading Evergine...&lt;/div&gt;)}
+      &lt;div className=&quot;canvas-container&quot; ref={canvasContainer}&gt;
+        &lt;EvergineCanvas
+          canvasId={EVERGINE_CANVAS_ID}
+          width={useContainerSize(canvasContainer).width}
+          height={useContainerSize(canvasContainer).height}
+        /&gt;
+      &lt;/div&gt;
+      &lt;div style={{ position: &quot;absolute&quot;, left: 0, top: 0 }}&gt;
+        &lt;button onClick={handleButtonClick}&gt;Say Hello to C#&lt;/button&gt;
+      &lt;/div&gt;
+    &lt;/div&gt;
+  );
+}
+
+export default App;
+</code></pre>
+<p>With this setup in place, you can test the communication by invoking the method clicking the button. You may see the following in the console:</p>
+<pre><code class="lang-javascript">Received a hello from SPA!
+Received a hello from C#
+</code></pre>
+<p>This is only one possible approach to setting up communication between the SPA and Evergine. You are free to define your own method for handling this interaction based on your specific requirements.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

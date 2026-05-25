@@ -1,0 +1,876 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface IHingeJoint3D | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface IHingeJoint3D | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D">
+
+
+
+  <h1 id="Evergine_Framework_Physics3D_IHingeJoint3D" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D" class="text-break">Interface IHingeJoint3D</h1>
+  <div class="markdown level0 summary"><p>Interface for a 3D hinge joint in physics.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_OnBroke">IJoint3D.OnBroke</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_InternalJoint">IJoint3D.InternalJoint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_BodyA">IJoint3D.BodyA</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_BodyB">IJoint3D.BodyB</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_AppliedImpulse">IJoint3D.AppliedImpulse</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_DebugDrawSize">IJoint3D.DebugDrawSize</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_NeedsFeedback">IJoint3D.NeedsFeedback</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_JointFeedback">IJoint3D.JointFeedback</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_OverrideNumSolverIterations">IJoint3D.OverrideNumSolverIterations</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_IsEnabled">IJoint3D.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html#Evergine_Framework_Physics3D_IJoint3D_BreakingImpulseThreshold">IJoint3D.BreakingImpulseThreshold</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics3D.html">Physics3D</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics3D_IHingeJoint3D_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public interface IHingeJoint3D : IJoint3D</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_AFrame_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.AFrame*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_AFrame" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.AFrame">AFrame</h4>
+  <div class="markdown level1 summary"><p>Gets the reference frame on Body A.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Matrix4x4 AFrame { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_AngularOnly_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.AngularOnly*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_AngularOnly" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.AngularOnly">AngularOnly</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether it only affects angular movement to the joint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool AngularOnly { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_BFrame_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.BFrame*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_BFrame" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.BFrame">BFrame</h4>
+  <div class="markdown level1 summary"><p>Gets the reference frame on Body B.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Matrix4x4 BFrame { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_EnableMotor_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.EnableMotor*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_EnableMotor" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.EnableMotor">EnableMotor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the motor is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool EnableMotor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_Flags_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.Flags*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_Flags" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.Flags">Flags</h4>
+  <div class="markdown level1 summary"><p>Gets the hinge flags.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int Flags { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_FrameOffsetA_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.FrameOffsetA*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_FrameOffsetA" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.FrameOffsetA">FrameOffsetA</h4>
+  <div class="markdown level1 summary"><p>Gets the frame offset for body A.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Matrix4x4 FrameOffsetA { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_FrameOffsetB_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.FrameOffsetB*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_FrameOffsetB" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.FrameOffsetB">FrameOffsetB</h4>
+  <div class="markdown level1 summary"><p>Gets the frame offset for body B.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">Matrix4x4 FrameOffsetB { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_HasLimit_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.HasLimit*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_HasLimit" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.HasLimit">HasLimit</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this joint has limitations.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool HasLimit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_HingeAngle_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.HingeAngle*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_HingeAngle" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.HingeAngle">HingeAngle</h4>
+  <div class="markdown level1 summary"><p>Gets the angle of the joint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float HingeAngle { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_LimitBiasFactor_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LimitBiasFactor*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_LimitBiasFactor" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LimitBiasFactor">LimitBiasFactor</h4>
+  <div class="markdown level1 summary"><p>Gets the limit bias factor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float LimitBiasFactor { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_LimitRelaxationFactor_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LimitRelaxationFactor*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_LimitRelaxationFactor" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LimitRelaxationFactor">LimitRelaxationFactor</h4>
+  <div class="markdown level1 summary"><p>Gets the limit relaxation factor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float LimitRelaxationFactor { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_LimitSign_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LimitSign*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_LimitSign" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LimitSign">LimitSign</h4>
+  <div class="markdown level1 summary"><p>Gets the limit sign.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float LimitSign { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_LimitSoftness_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LimitSoftness*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_LimitSoftness" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LimitSoftness">LimitSoftness</h4>
+  <div class="markdown level1 summary"><p>Gets the limit softness.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float LimitSoftness { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_LowerLimit_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LowerLimit*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_LowerLimit" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.LowerLimit">LowerLimit</h4>
+  <div class="markdown level1 summary"><p>Gets the lower limit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float LowerLimit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_MaxMotorImpulse_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.MaxMotorImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_MaxMotorImpulse" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.MaxMotorImpulse">MaxMotorImpulse</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the maximum motor impulse.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MaxMotorImpulse { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_MotorTargetVelocity_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.MotorTargetVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_MotorTargetVelocity" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.MotorTargetVelocity">MotorTargetVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets the maximum motor target velocity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float MotorTargetVelocity { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_SolveLimit_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SolveLimit*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_SolveLimit" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SolveLimit">SolveLimit</h4>
+  <div class="markdown level1 summary"><p>Gets the solve limit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">int SolveLimit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_UpperLimit_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.UpperLimit*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_UpperLimit" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.UpperLimit">UpperLimit</h4>
+  <div class="markdown level1 summary"><p>Gets the upper limit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">float UpperLimit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_UseFrameOffset_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.UseFrameOffset*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_UseFrameOffset" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.UseFrameOffset">UseFrameOffset</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether frame offsets are enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool UseFrameOffset { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_UseReferenceFrameA_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.UseReferenceFrameA*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_UseReferenceFrameA" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.UseReferenceFrameA">UseReferenceFrameA</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the joint uses A as a frame reference.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">bool UseReferenceFrameA { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_EnableAngularMotor_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.EnableAngularMotor*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_EnableAngularMotor_System_Boolean_System_Single_System_Single_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.EnableAngularMotor(System.Boolean,System.Single,System.Single)">EnableAngularMotor(bool, float, float)</h4>
+  <div class="markdown level1 summary"><p>Enables the angular motor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void EnableAngularMotor(bool motorEnabled, float targetVelocity, float maxMotorImpulse)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">motorEnabled</span></td>
+        <td><p>Indicates whether the motor is enabled.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">targetVelocity</span></td>
+        <td><p>The target velocity.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxMotorImpulse</span></td>
+        <td><p>The maximum motor impulse.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_SetAxis_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetAxis*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_SetAxis_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetAxis(Evergine.Mathematics.Vector3)">SetAxis(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Sets the axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetAxis(Vector3 axis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_SetFrames_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetFrames*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_SetFrames_Evergine_Mathematics_Matrix4x4_Evergine_Mathematics_Matrix4x4_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetFrames(Evergine.Mathematics.Matrix4x4,Evergine.Mathematics.Matrix4x4)">SetFrames(Matrix4x4, Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Sets frames.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetFrames(Matrix4x4 frameA, Matrix4x4 frameB)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">frameA</span></td>
+        <td><p>Frame A.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">frameB</span></td>
+        <td><p>Frame B.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_SetLimit_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetLimit*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_SetLimit_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetLimit(System.Single,System.Single,System.Single,System.Single,System.Single)">SetLimit(float, float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Sets limits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetLimit(float low, float high, float softness = 0.9, float biasFactor = 0.3, float relaxationFactor = 1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">low</span></td>
+        <td><p>The low limit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">high</span></td>
+        <td><p>The high limit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">softness</span></td>
+        <td><p>How much the hinge rotates for a given force.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">biasFactor</span></td>
+        <td><p>Offset for the relaxed rotation of the hinge.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">relaxationFactor</span></td>
+        <td><p>How much force is applied internally to bring the hinge to its central rotation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_SetMotorTarget_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetMotorTarget*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_SetMotorTarget_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetMotorTarget(Evergine.Mathematics.Quaternion,System.Single)">SetMotorTarget(Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Sets motor target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetMotorTarget(Quaternion qAinB, float deltaTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">qAinB</span></td>
+        <td><p>Quaternion of A in B.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">deltaTime</span></td>
+        <td><p>Delta time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics3D_IHingeJoint3D_SetMotorTarget_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetMotorTarget*"></a>
+  <h4 id="Evergine_Framework_Physics3D_IHingeJoint3D_SetMotorTarget_System_Single_System_Single_" data-uid="Evergine.Framework.Physics3D.IHingeJoint3D.SetMotorTarget(System.Single,System.Single)">SetMotorTarget(float, float)</h4>
+  <div class="markdown level1 summary"><p>Sets the motor target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">void SetMotorTarget(float targetAngle, float deltaTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">targetAngle</span></td>
+        <td><p>The target angle.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">deltaTime</span></td>
+        <td><p>The delta time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

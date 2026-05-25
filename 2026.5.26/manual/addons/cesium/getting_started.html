@@ -1,0 +1,341 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<hr>
+<p>Follow these steps to begin working with <strong>Evergine.Cesium</strong> in your project.</p>
+<h2 id="project-setup">Project Setup</h2>
+<h3 id="1-create-a-new-project">1. Create a New Project</h3>
+<p>Use <a href="../../evergine_launcher/create_project.html">Evergine Launcher</a> to start a new project. Select <strong>Windows</strong> or another supported desktop/mobile platform.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Evergine.Cesium does <strong>not</strong> support Web platforms (WebGL / WebGPU). Please choose a different platform profile.</p>
+</div>
+<h3 id="2-add-the-everginecesium-add-on">2. Add the Evergine.Cesium Add-on</h3>
+<p>Open Evergine Studio and add the <strong>Evergine.Cesium</strong> add-on to your project. Refer to <a href="../index.html">this guide</a> for instructions on adding add-ons.</p>
+<p><img src="images/addon_installation.png" alt="Add-on installation"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Evergine.Cesium is distributed as a NuGet package. For nightly builds, add the Evergine nightly feed to your <code>nuget.config</code>:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;packageSources&gt;
+    &lt;add key=&quot;nuget.org&quot; value=&quot;https://api.nuget.org/v3/index.json&quot; /&gt;
+    &lt;add key=&quot;Evergine Nightly&quot; value=&quot;https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json&quot; /&gt;
+  &lt;/packageSources&gt;
+&lt;/configuration&gt;
+</code></pre>
+</div>
+<h3 id="3-set-up-the-cesiumcoordinator">3. Set Up the CesiumCoordinator</h3>
+<p><code>CesiumCoordinator</code> is the central scene manager that drives terrain streaming, camera navigation, and optional geocoding. Register it inside your scene's <code>RegisterManagers()</code> override:</p>
+<pre><code class="lang-csharp">using Evergine.Cesium;
+using Evergine.Framework;
+
+public class MyScene : Scene
+{
+    public override void RegisterManagers()
+    {
+        base.RegisterManagers();
+
+        var cesium = new CesiumCoordinator
+        {
+            AccessToken = &quot;&lt;CESIUM_ION_TOKEN&gt;&quot;,
+            AzureMapsKey = &quot;&lt;OPTIONAL_AZURE_MAPS_KEY&gt;&quot;,  // leave null if not needed
+            EntityManager = this.Managers.EntityManager,
+            OverlayProvider = TerrainOverlayProvider.BingAerial,
+        };
+
+        this.Managers.AddManager(cesium);
+
+        // Optional: fly to a starting location on scene load
+        // cesium.FlyTo(40.4168, -3.7038, 3.0);
+    }
+}
+</code></pre>
+<hr>
+<h2 id="core-runtime-api">Core Runtime API</h2>
+<p>Once registered, you can access <code>CesiumCoordinator</code> from anywhere in your scene via <code>this.Managers.FindManager&lt;CesiumCoordinator&gt;()</code>.</p>
+<h3 id="initialization--status">Initialization &amp; Status</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IsInitialized</code></td>
+<td><code>bool</code></td>
+<td><code>true</code> once the coordinator has successfully connected to Cesium ion.</td>
+</tr>
+<tr>
+<td><code>CurrentStatus</code></td>
+<td><code>CesiumStatus</code></td>
+<td>Detailed loader state including connectivity and authentication results.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="camera--navigation">Camera &amp; Navigation</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FlyTo(latitude, longitude, seconds)</code></td>
+<td>Smoothly animates the camera to the given geodetic position over the specified duration.</td>
+</tr>
+<tr>
+<td><code>WorldCamera</code></td>
+<td>Returns the current geospatial camera state (latitude, longitude, altitude, heading, pitch).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="terrain">Terrain</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>QueryTerrainMinHeight(latitude, longitude, callback)</code></td>
+<td>Asynchronously samples terrain height at the given coordinates and invokes the callback with the result.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="geocoding-requires-azure-maps-key">Geocoding <em>(requires Azure Maps key)</em></h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GeocodeAsync(query)</code></td>
+<td>Searches for a place by address or name and returns matching results.</td>
+</tr>
+<tr>
+<td><code>ReverseGeocodeAsync(latitude, longitude)</code></td>
+<td>Returns the address for the given coordinates.</td>
+</tr>
+<tr>
+<td><code>AutocompleteAsync(query, maxResults)</code></td>
+<td>Returns autocomplete suggestions for a partial address or place name.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="diagnostics">Diagnostics</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Diagnostics</code></td>
+<td>Exposes tile queue and streaming counters (tiles loaded, pending, cancelled…).</td>
+</tr>
+<tr>
+<td><code>UnmanagedDiagnostics</code></td>
+<td>Exposes native memory allocation and free counters for low-level profiling.</td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="placing-entities-on-earth">Placing Entities on Earth</h2>
+<p>Attach a <code>CesiumPlacerComponent</code> to any entity to position it using geodetic coordinates. The component automatically converts coordinates to world space each frame and aligns the entity's orientation to the local up vector.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Latitude</code></td>
+<td><code>double</code></td>
+<td>Latitude in decimal degrees (−90 to 90).</td>
+</tr>
+<tr>
+<td><code>Longitude</code></td>
+<td><code>double</code></td>
+<td>Longitude in decimal degrees (−180 to 180).</td>
+</tr>
+<tr>
+<td><code>Height</code></td>
+<td><code>double</code></td>
+<td>Height in metres.</td>
+</tr>
+<tr>
+<td><code>HeightIsRelativeToTerrain</code></td>
+<td><code>bool</code></td>
+<td>When <code>true</code>, <code>Height</code> is measured above the terrain surface. When <code>false</code>, it is measured above the WGS84 ellipsoid.</td>
+</tr>
+<tr>
+<td><code>Rotation</code></td>
+<td><code>Vector3</code></td>
+<td>Local orientation offset applied after aligning to the Earth's surface.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// Example: place a marker at the Eiffel Tower, 10 m above ground
+var marker = new Entity(&quot;EiffelTower&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(new CesiumPlacerComponent
+    {
+        Latitude  = 48.8584,
+        Longitude =  2.2945,
+        Height    = 10.0,
+        HeightIsRelativeToTerrain = true,
+    })
+    .AddComponent(new SphereMesh())
+    .AddComponent(new MeshRenderer());
+
+this.Managers.EntityManager.Add(marker);
+</code></pre>
+<hr>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Can I change the imagery overlay at runtime?</strong></p>
+<p>Yes. Set <code>CesiumCoordinator.OverlayProvider</code> to any <code>TerrainOverlayProvider</code> value at any time. Terrain tiles are automatically reset and reloaded with the new imagery.</p>
+<p><strong>Q: Do I need to manage tile or texture memory manually?</strong></p>
+<p>No. The add-on handles all tile lifecycle management — loading, caching, and eviction — automatically.</p>
+<p><strong>Q: What happens if I don't provide an Azure Maps key?</strong></p>
+<p>Geocoding methods (<code>GeocodeAsync</code>, <code>ReverseGeocodeAsync</code>, <code>AutocompleteAsync</code>) will not work. All other features — terrain, buildings, imagery, camera navigation, and entity placement — remain fully functional.</p>
+<p><strong>Q: My scene loads but the terrain is blank. What should I check?</strong></p>
+<ol>
+<li>Verify that your Cesium ion access token has the correct permissions for <strong>Cesium World Terrain</strong> and <strong>3D Tiles</strong>.</li>
+<li>Check <code>CesiumCoordinator.CurrentStatus</code> for connectivity or authentication errors.</li>
+<li>Ensure the scene has a <strong>MainCamera</strong> entity with a <code>Camera3D</code> component.</li>
+</ol>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,323 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Update from Evergine 2025.10.21 to Evergine 2026.5.26 | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Update from Evergine 2025.10.21 to Evergine 2026.5.26 | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="update-from-evergine-20251021-to-evergine-2026526">Update from Evergine 2025.10.21 to Evergine 2026.5.26</h1>
+
+<p>This guide describes the steps required to update your existing Evergine projects to the latest version.</p>
+<hr>
+<h2 id="migration-script">Migration Script</h2>
+<p>To automate most of the changes described in this guide, a PowerShell migration script is provided.</p>
+<blockquote>
+<p>⚠️ <strong>Important</strong> ⚠️<br>
+This script modifies files in your project directly. We strongly recommend using a version control system like Git to track and review the changes. Make sure your project is committed or backed up before running the script so you can verify or revert any changes if necessary.</p>
+</blockquote>
+<p>Download: <a href="https://github.com/EvergineTeam/EvergineDocs/tree/master/src/manual/get_started/migrations/migration-2026.5.26.zip">migration-2026.5.26.zip</a></p>
+<p>Basic usage:</p>
+<pre><code class="lang-powershell">.\migration-2026.5.26.ps1 -RootPath &quot;C:\Projects\MySolution&quot;
+</code></pre>
+<p>Additional options:</p>
+<pre><code class="lang-powershell"># Preview changes without writing any files
+.\migration-2026.5.26.ps1 -RootPath &quot;C:\Projects\MySolution&quot; -DryRun
+
+# Create a .bak backup of each modified file before overwriting
+.\migration-2026.5.26.ps1 -RootPath &quot;C:\Projects\MySolution&quot; -BackupOriginals
+
+# Also update Evergine package versions in .weproj files
+.\migration-2026.5.26.ps1 -RootPath &quot;C:\Projects\MySolution&quot; -OldEvergineVersion &quot;2025.10.21.x&quot; -NewEvergineVersion &quot;2026.5.26.x&quot;
+</code></pre>
+<p>The script handles:</p>
+<ul>
+<li>Target framework upgrades (net8.0/net9.0 → net10.0)</li>
+<li>NuGet package version updates</li>
+<li>Render layer <code>.werl</code> file fixes (Reverse-Z depth function)</li>
+<li>Web project file replacements (<code>tsconfig.json</code>, <code>ts/</code> folder, <code>Program.cs</code>)</li>
+</ul>
+<hr>
+<h2 id="-breaking-change-upgrade-to-net-10">⚠️ Breaking Change: Upgrade to .NET 10</h2>
+<p>As of this release, Evergine requires <strong>.NET 10</strong>. All project files must be updated to target <code>net10.0</code> instead of <code>net8.0</code> or <code>net9.0</code>.</p>
+<p>Update the <code>&lt;TargetFramework&gt;</code> (or <code>&lt;TargetFrameworks&gt;</code>) element in each <code>.csproj</code> file, preserving any platform suffix:</p>
+<pre><code class="lang-xml">&lt;!-- Before --&gt;
+&lt;TargetFramework&gt;net8.0-windows&lt;/TargetFramework&gt;
+
+&lt;!-- After --&gt;
+&lt;TargetFramework&gt;net10.0-windows&lt;/TargetFramework&gt;
+</code></pre>
+<p>This applies to all platform-specific start projects (Windows, Android, iOS, Web, etc.). The script handles all variants automatically, including semicolon-separated multi-target entries and <code>Condition</code> attributes that reference <code>$(TargetFramework)</code>.</p>
+<hr>
+<h2 id="-breaking-change-reverse-z-depth-projection">⚠️ Breaking Change: Reverse-Z Depth Projection</h2>
+<p>Evergine now uses <strong>Reverse-Z projection</strong>, which inverts the depth buffer direction (1.0 = near plane, 0.0 = far plane). As a result, fragments closer to the camera have a <em>greater</em> depth value, and the depth comparison function must be updated accordingly.</p>
+<p><strong>All render layer files (<code>.werl</code>) must have their <code>DepthFunction</code> updated:</strong></p>
+<pre><code class="lang-yaml"># Before
+DepthFunction: LessEqual
+
+# After
+DepthFunction: GreaterEqual
+</code></pre>
+<p>The migration script applies this change automatically to every <code>.werl</code> file found under the specified root path.</p>
+<hr>
+<h2 id="-breaking-change-texturedescriptionfaces-removed">⚠️ Breaking Change: <code>TextureDescription.Faces</code> Removed</h2>
+<p>The <code>Faces</code> property has been removed from <code>TextureDescription</code>. Its value must now be folded into the <code>Layers</code> property by <strong>multiplying</strong> the two values together.</p>
+<p><strong>Before:</strong></p>
+<pre><code class="lang-csharp">var desc = new TextureDescription
+{
+    Width  = 512,
+    Height = 512,
+    Faces  = 6,
+    Layers = 1,
+    // ...
+};
+</code></pre>
+<p><strong>After:</strong></p>
+<pre><code class="lang-csharp">var desc = new TextureDescription
+{
+    Width  = 512,
+    Height = 512,
+    Layers = 6,   // Layers = old Layers × old Faces
+    // ...
+};
+</code></pre>
+<p>The most common case is a <strong>cubemap</strong>, which has 6 faces. Any code that previously set <code>Faces = 6</code> (and <code>Layers = 1</code>) must be updated to <code>Layers = 6</code>. For a cubemap array with, for example, 4 elements, the old <code>Faces = 6, Layers = 4</code> becomes <code>Layers = 24</code>.</p>
+<blockquote>
+<p>This change is not handled by the migration script and must be applied manually.</p>
+</blockquote>
+<hr>
+<h2 id="nuget-package-updates">NuGet Package Updates</h2>
+<h3 id="aspnet-core-projects">ASP.NET Core Projects</h3>
+<p>If your project uses <strong>ASP.NET Core</strong> (e.g. WebAssembly-based or MAUI hybrid projects), update the following packages to version <strong>10.0.8</strong>:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Microsoft.AspNetCore.Components.WebAssembly&quot; Version=&quot;10.0.8&quot; /&gt;
+&lt;PackageReference Include=&quot;Microsoft.AspNetCore.Components.WebAssembly.Server&quot; Version=&quot;10.0.8&quot; /&gt;
+&lt;PackageReference Include=&quot;Microsoft.AspNetCore.Components.WebAssembly.DevServer&quot; Version=&quot;10.0.8&quot; PrivateAssets=&quot;all&quot; /&gt;
+</code></pre>
+<h3 id="typescript-projects">TypeScript Projects</h3>
+<p>For projects that include TypeScript build steps, update <strong>TypeScript MSBuild</strong> to version <strong>6.0.3</strong>:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Microsoft.TypeScript.MSBuild&quot; Version=&quot;6.0.3&quot; /&gt;
+</code></pre>
+<h3 id="logging-debug">Logging (Debug)</h3>
+<p>If your project references <code>Microsoft.Extensions.Logging.Debug</code>, update it to <strong>10.0.8</strong>:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Microsoft.Extensions.Logging.Debug&quot; Version=&quot;10.0.8&quot; /&gt;
+</code></pre>
+<h3 id="physics-engine-libbulletc">Physics Engine (LibBulletC)</h3>
+<p>If your project uses physics components, ensure <strong>Evergine.LibBulletc.Natives</strong> is at version <strong>2025.8.29.27</strong>:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Evergine.LibBulletc.Natives.Wasm&quot; Version=&quot;2025.8.29.27&quot; /&gt;
+</code></pre>
+<hr>
+<h2 id="web-template-adjustments">Web Template Adjustments</h2>
+<p>Projects created from the <strong>HTML5 (Web)</strong> or <strong>WebGPU</strong> templates require several file-level updates. The migration script applies these automatically by replacing <code>tsconfig.json</code>, the <code>ts/</code> folder, and the server <code>Program.cs</code> with updated versions from the release package.</p>
+<p>If you prefer to apply changes manually, the sections below describe what was changed.</p>
+<h3 id="1-update-tsconfigjson">1. Update <code>tsconfig.json</code></h3>
+<p>TypeScript 6.0 deprecates some previously accepted constructs. To suppress deprecation errors without modifying existing code, add <code>&quot;ignoreDeprecations&quot;: &quot;6.0&quot;</code> to your <code>compilerOptions</code>:</p>
+<pre><code class="lang-json">{
+  &quot;compilerOptions&quot;: {
+    &quot;noImplicitAny&quot;: false,
+    &quot;noEmitOnError&quot;: true,
+    &quot;removeComments&quot;: false,
+    &quot;target&quot;: &quot;es6&quot;,
+    &quot;outFile&quot;: &quot;wwwroot/evergine.js&quot;,
+    &quot;rootDir&quot;: &quot;./ts&quot;,
+    &quot;ignoreDeprecations&quot;: &quot;6.0&quot;
+  },
+  &quot;include&quot;: [
+    &quot;ts/**/*&quot;
+  ],
+  &quot;exclude&quot;: [
+    &quot;node_modules&quot;,
+    &quot;wwwroot&quot;
+  ]
+}
+</code></pre>
+<h3 id="2-update-tstypeseverginedts">2. Update <code>ts/types/evergine.d.ts</code></h3>
+<p>The <code>Module</code> interface definition has been extended to include the <code>canvasId</code> property:</p>
+<pre><code class="lang-ts">declare global {
+  var areAllAssetsLoaded: any;
+  var startAssetsDownloadIfNeeded: any;
+  var evergineSetProgressCallback: (progress: number) =&gt; void;
+  var Blazor: any;
+  var DotNet: any;
+  interface Window {
+    (src: any, event: any): void;
+    BINDING: {
+      call_static_method: (method: string, args?: unknown[]) =&gt; unknown;
+    };
+    EGL: any;
+  }
+  interface Module {
+    canvasId: HTMLCanvasElement;
+    locateFile: (base: string) =&gt; string;
+    setProgress: (progress: number) =&gt; void;
+  }
+}
+
+export {};
+</code></pre>
+<h3 id="3-update-web-server-programcs">3. Update Web Server <code>Program.cs</code></h3>
+<p>The <code>Program.cs</code> for <code>.Web.Server</code> and <code>.WebGPU.Server</code> projects has been updated to align with .NET 10 and the revised static files configuration. Replace its contents with:</p>
+<pre><code class="lang-csharp">using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.StaticFiles;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+builder.Services.AddResponseCompression(options =&gt;
+{
+    options.EnableForHttps = true;
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+        new[] { &quot;application/octet-stream&quot; });
+});
+
+var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler(&quot;/Error&quot;);
+    app.UseHsts();
+}
+else
+{
+    app.UseDeveloperExceptionPage();
+    app.UseWebAssemblyDebugging();
+}
+
+app.UseHttpsRedirection();
+app.UseResponseCompression();
+
+app.UseBlazorFrameworkFiles();
+var contentTypeProvider = new FileExtensionContentTypeProvider();
+var evergineExtensions = new[]
+{
+    &quot;.weptx&quot;, &quot;.wepsn&quot;, &quot;.wepsc&quot;, &quot;.wepsp&quot;, &quot;.weprl&quot;, &quot;.weprp&quot;,
+    &quot;.weppp&quot;, &quot;.wepmd&quot;, &quot;.wepmt&quot;, &quot;.wepfb&quot;, &quot;.wepfx&quot;, &quot;.wepprf&quot;
+};
+foreach (var ext in evergineExtensions)
+{
+    contentTypeProvider.Mappings.Add(ext, &quot;application/octet-stream&quot;);
+}
+app.UseStaticFiles(new StaticFileOptions
+{
+    ServeUnknownFileTypes = true,
+    ContentTypeProvider = contentTypeProvider
+});
+
+app.UseRouting();
+app.MapRazorPages();
+app.MapFallbackToFile(&quot;index.html&quot;);
+
+app.Run();
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

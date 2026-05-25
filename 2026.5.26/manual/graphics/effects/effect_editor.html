@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Effect Editor | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Effect Editor | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="effect-editor">Effect Editor</h1>
+
+<hr>
+<p><img src="images/EffectEditor.jpg" alt="Material Editor Interface"></p>
+<p><strong>Effect Editor</strong> allows editing the effect assets. Double-clicking on an effect asset shown in <a href="../../evergine_studio/interface.html">Assets Details</a> will open this editor. The editor is composed of two main parts: the Shader Text Editor and the Viewport.</p>
+<h2 id="shader-text-editor"><strong>Shader Text Editor</strong></h2>
+<p>The shader text editor allows you to write your effects in <a href="https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-pguide"><strong>HLSL</strong></a> language with <a href="effect_metatags.html"><strong>metatags</strong></a>. This editor includes common code editor features such as error marks, syntax highlighting, and code completion (<code>Ctrl+Space</code>) to help you create your custom effects.</p>
+<table>
+<thead>
+<tr>
+<th>Actions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Ctrl+Space</td>
+<td>Code completion.</td>
+</tr>
+<tr>
+<td>Ctrl+F</td>
+<td>Search word toolbox.</td>
+</tr>
+<tr>
+<td>Alt+Left mouse button</td>
+<td>Edit multiple code lines.</td>
+</tr>
+</tbody>
+</table>
+<p>The effect is compiled automatically while you are writing the shader, and at the bottom of the editor, you can see the compilation process result.</p>
+<p><img src="images/compilationResult.jpg" alt="Compilation result"></p>
+<p>When the compilation results in errors, you can click on the error text, and the editor will mark the error line and scroll the view to it.</p>
+<h3 id="toolbox"><strong>Toolbox</strong></h3>
+<p>The shader text editor has a toolbox that helps you with several important tasks such as enabling/disabling directives, generating the associated material decorator, or configuring effect asset properties. The complete options list is:</p>
+<table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/CompilationIcon.jpg" alt="Compilation"><img src="images/Compilation2Icon.jpg" alt="Compilation"></td>
+<td>Toggle button to indicate if the automatic compilation mode is enabled or manual compilation mode <em>(Key <code>F5</code>)</em> is enabled.</td>
+</tr>
+<tr>
+<td><img src="images/PassIcon.jpg" alt="Pass"></td>
+<td>Combo box to enable the current effect pass.</td>
+</tr>
+<tr>
+<td><img src="images/DirectivesIcon.jpg" alt="Directives"></td>
+<td>Shows the effect directive list and allows enabling/disabling combinations.</td>
+</tr>
+<tr>
+<td><img src="images/SnippetsIcon.jpg" alt="Snippets"></td>
+<td>Allows adding common snippet codes into your effects.</td>
+</tr>
+<tr>
+<td><img src="images/MaterialDecoratorIcon.jpg" alt="Material Decorator"></td>
+<td>Generates the Material Decorator class in your project.</td>
+</tr>
+<tr>
+<td><img src="images/CombinationsIcon.jpg" alt="All Combinations"></td>
+<td>Compiles all directive combinations and shows the combinations with errors.</td>
+</tr>
+<tr>
+<td><img src="images/TranslationIcon.jpg" alt="Translate"></td>
+<td>Shows the automatic translation from original <code>HLSL</code> to <code>SPIRV</code>(Vulkan), <code>GLSL</code>(OpenGL/OpenGLES), or <code>MSL</code>(Metal) when it will be used in other backends.</td>
+</tr>
+<tr>
+<td><img src="images/ProfileIcon.jpg" alt="Profile"></td>
+<td>Allows configuring the asset profile, such as excluding an effect on a single platform or pre-compiling an effect for a single platform.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="translation-panel">Translation Panel</h3>
+<p>The translation panel is shown below the shader text editor after clicking on the <img src="images/TranslationIcon.jpg" alt="Translate"> button. It shows the result of translating the current HLSL pass and directive combinations to other languages. The panel includes two combo boxes to select the translation languages: <code>GLSL</code>, <code>ESSL</code>, <code>WebGL1</code>, <code>WebGL2</code>, <code>MSL</code>, or <code>SPIRV</code>, and another to select the stage to translate: <em>Vertex</em>, <em>Geometry</em>, <em>Hull</em>, <em>Domain</em>, or <em>Compute</em>.</p>
+<p><img src="images/TranslationPanel.jpg" alt="Translation Panel"></p>
+<h3 id="profile-panel">Profile Panel</h3>
+<p>This panel allows configuring the effect asset properties by platform. The first tab is the default or global configuration, but you can modify the default configuration using the platform tabs.</p>
+<p><img src="images/profielPanel.jpg" alt="Profile Panel"></p>
+<p>The effect asset properties are:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>ExcludeAsset</td>
+<td>True, false</td>
+<td>If enabled, the effect asset will be excluded in the building project for the platform. If enabled in the Default configuration tab, the asset will never be included in the build project process.</td>
+</tr>
+<tr>
+<td>GraphicsBackend</td>
+<td>ByPlatform, DirectX11, DirectX12, OpenGL, OpenGLES, Metal, Vulkan, WebGL1, WebGL2, or WebGPU</td>
+<td>Defines the backend and languages that the effect will be translated and compiled for. The ByPlatform value indicates that the data will be retrieved from project settings (<code>weproj</code> file).</td>
+</tr>
+<tr>
+<td>Compile</td>
+<td>ByPlatform, Yes, or No</td>
+<td>Defines if the effect will be pre-compiled or not. The ByPlatform value indicates that the data will be retrieved from project settings (<code>weproj</code> file).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="viewport"><strong>Viewport</strong></h2>
+<p>The viewport shows the result of the current effect in real-time. Text at the bottom of the viewport indicates whether the primitive mesh vertex input is compatible with the vertex input shader because otherwise, it will be impossible to display the result.</p>
+<p><img src="images/MeshAndShaderCompatibility.jpg" alt="Viewport compatibility text"></p>
+<table>
+<thead>
+<tr>
+<th>Actions</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Left mouse button</td>
+<td>Rotate the camera around the primitive.</td>
+</tr>
+<tr>
+<td>Right mouse button</td>
+<td>Rotate two lights around the primitive.</td>
+</tr>
+<tr>
+<td>Mouse wheel</td>
+<td>Zoom in/out camera.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="toolbox-1"><strong>Toolbox</strong></h3>
+<p>The viewport toolbox is on the top side of the Viewport and has the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/RenderPathIcon.jpg" alt="Render Path"></td>
+<td>Defines the current RenderPipeline Path used by the viewport.</td>
+</tr>
+<tr>
+<td><img src="images/PassIcon.jpg" alt="Pass"></td>
+<td>Defines the current pass used by the viewport.</td>
+</tr>
+<tr>
+<td><img src="images/PrimitiveIcon.jpg" alt="Primitive"></td>
+<td>Allows changing the primitive used by the viewport.</td>
+</tr>
+<tr>
+<td><img src="images/backgroundIcon.jpg" alt="Background"></td>
+<td>Allows changing the background color of the viewport.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="input-resources-and-properties"><strong>Input Resources and Properties</strong></h3>
+<p>The property list panel below the viewport allows testing the effect with different values for constant buffer properties, textures, or samplers. The viewport updates automatically with these changes.</p>
+<p><img src="images/ShaderResources.jpg" alt="Viewport properties"></p>
+<p>The resources and properties update automatically with any change in the effect resource layout block. The values are not stored and are only useful for testing purposes.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

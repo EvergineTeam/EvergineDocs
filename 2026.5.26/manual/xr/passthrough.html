@@ -1,0 +1,332 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>XR Passthrough | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="XR Passthrough | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="xr-passthrough">XR Passthrough</h1>
+
+<video autoplay="" loop="" muted="" width="100%" height="auto">
+  <source src="images/xrpassthrough.mp4" type="video/mp4">
+</video>
+<p><strong>Passthrough</strong> provides a real-time, immersive 3D visualization of the physical world through XR headsets. The Passthrough API allows developers to seamlessly integrate this view into their virtual experiences.</p>
+<h2 id="supported-devices">Supported Devices</h2>
+<p>Evergine currently supports <strong>Passthrough</strong> on the following devices:</p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>XR Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Meta Quest X</strong></td>
+<td><strong>OpenXR</strong>. Learn more <a href="https://developers.meta.com/horizon/documentation/native/android/mobile-passthrough">here</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-does-it-work">How Does It Work?</h2>
+<p>Passthrough is rendered by a dedicated service in a separate layer, which is directly submitted to the XR Compositor. Applications cannot access the user's physical environment images or videos. Instead, they submit a placeholder layer that the XR Compositor replaces with the actual passthrough. Passthrough customization is possible through composite layering and styling:</p>
+<ul>
+<li><strong>Composite layering</strong> allows you to define the placement of the passthrough layer relative to virtual content (either overlay or underlay) in the XR Compositor stack. You can also control how it blends with the virtual environment. Using alpha masking, you can specify which areas of the screen show passthrough. Currently, depth-based blending is not supported.</li>
+<li><strong>Styling</strong> enables you to colorize the passthrough feed and apply visual effects, such as edge rendering.</li>
+<li><strong>Surface-Projected Passthrough</strong> lets you specify the geometry onto which passthrough images are projected. This method offers more stable rendering, especially when certain parts of the user's environment are known to the application.</li>
+</ul>
+<h2 id="prerequisites">Prerequisites</h2>
+<p>Before using passthrough, ensure your device is running the latest operating system.</p>
+<h3 id="prerequisites-for-meta-quest-devices">Prerequisites for Meta Quest Devices</h3>
+<p>To enable Passthrough on Meta Quest devices with Evergine, starting with the Evergine Quest profile, you need to:</p>
+<ul>
+<li><strong>Enable OpenXR Passthrough Extensions.</strong> In the <code>MainActivity.cs</code> file, uncomment the following extensions in the OpenXRPlatform constructor: <code>XR_FB_passthrough</code> and <code>XR_FB_triangle_mesh</code> (the latter is necessary if you want to project passthrough onto custom meshes).</li>
+</ul>
+<p><img src="images/passthrough_extensions.jpg" alt="XR Passthrough Extensions"></p>
+<ul>
+<li><strong>Enable the Passthrough feature</strong> in the <code>AndroidManifest.xml</code> file by uncommenting the relevant profile.</li>
+</ul>
+<p><img src="images/passthrough_feature.jpg" alt="XR Passthrough Feature"></p>
+<h2 id="xrpassthroughlayer-component">XRPassthroughLayer Component</h2>
+<p>To use Passthrough layers in your application, create an Entity and add the <code>XRPassthroughLayerComponent</code>:</p>
+<p><img src="images/xrpassthroughlayercomponent.jpg" alt="XRPassthroughLayerComponent"></p>
+<p>This component enables and configures the Passthrough layer properties.</p>
+<h3 id="layer-properties">Layer Properties</h3>
+<p>These settings configure the Passthrough layer's behavior, including order, projection, and other details.</p>
+<p>There are two types of passthrough surfaces:</p>
+<ul>
+<li><p><strong>Automatically Reconstructed (Default):</strong> By default, the Passthrough API automatically creates and submits this layer to the XR Compositor using environment reconstruction. This is the most common method, as the user’s environment geometry is usually unknown beforehand.<br><video autoplay="" loop="" muted="" width="250px" height="auto"><source src="images/xrpassthroughreconstructed.mp4" type="video/mp4"></video></p>
+</li>
+<li><p><strong>Surface-Projected Passthrough (User Defined):</strong> This option allows applications to define the geometry onto which passthrough images are projected, rather than relying on automatic depth reconstruction. Passthrough will only appear within the defined surface geometries, and the rest of the layer will remain transparent. To use this:</p>
+<ul>
+<li>Add the <code>XRPassthroughLayerComponent</code> to an Entity with a <code>MeshComponent</code>, which will project the passthrough.</li>
+<li>Add the <code>XRPassthroughSurfaceMeshComponent</code> to indicate that the mesh of this entity will be used for the passthrough projection.<br><video autoplay="" loop="" muted="" width="250px" height="auto"><source src="images/xrpassthroughuserdefined.mp4" type="video/mp4"></video></li>
+</ul>
+</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ProjectionSurface</strong> (Default: Reconstructed)</td>
+<td>Defines the surface onto which passthrough textures are projected: <ul><li><strong>Reconstructed:</strong> Uses automatic environment reconstruction.</li><li><strong>UserDefined:</strong> Allows applications to specify the projection geometry.</li></ul></td>
+</tr>
+<tr>
+<td><strong>Placement</strong> (Default: Underlay)</td>
+<td>Determines layer placement: <ul><li><strong>Underlay:</strong> Renders passthrough beneath the Evergine scene.</li><li><strong>Overlay:</strong> Renders passthrough on top of the Evergine scene.</li></ul></td>
+</tr>
+<tr>
+<td><strong>CompositionOrder</strong> (Default: 0)</td>
+<td>For applications with multiple layers, this defines the rendering order.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you wish to use a Passthrough layer as a background (<code>Underlay</code>), set the Camera's <code>BackgroundColor</code> to <code>Transparent</code> and disable or remove any background-rendering entities (e.g., Sky Atmosphere). Otherwise, the Evergine scene will obscure the Passthrough layer.</p>
+</div>
+<h3 id="layer-style-properties">Layer Style Properties</h3>
+<p>These properties define how the passthrough surfaces are rendered and styled:</p>
+<p><img src="images/xrpassthrough_styling.png" alt="Passthrough Styles"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Opacity</strong> (Default: 1)</td>
+<td>Adjusts the passthrough image opacity, independent of edge rendering.</td>
+</tr>
+<tr>
+<td><strong>EdgeRendering</strong> (Default: false)</td>
+<td>Enables an edge detection algorithm, superimposing detected edges on the passthrough image.</td>
+</tr>
+<tr>
+<td><strong>EdgeColor</strong> (Default: White)</td>
+<td>Sets the color for edge detection, available only when <code>EdgeRendering</code> is enabled.</td>
+</tr>
+<tr>
+<td><strong>ColorControl</strong> (Default: None)</td>
+<td>Adjusts the passthrough image’s color. Options include: <ul><li><strong>None:</strong> No color modification.</li><li><strong>ColorAdjustment:</strong> Adjusts brightness, contrast, and saturation (saturation is effective only on devices supporting color passthrough).</li><li><strong>ColorMap:</strong> Converts the passthrough image to grayscale (if applicable) and maps each value to an RGBA value using a lookup table.</li><li><strong>GrayscaleMap:</strong> Converts the passthrough image to grayscale and remaps values based on a lookup table.</li></ul></td>
+</tr>
+</tbody>
+</table>
+<h5 id="edgerendering-properties">EdgeRendering Properties</h5>
+<p>These settings apply only when <code>EdgeRendering</code> is enabled.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EdgeColor</strong> (Default: White)</td>
+<td>Sets the color for edge detection.</td>
+</tr>
+</tbody>
+</table>
+<p><video autoplay="" loop="" muted="" width="250px" height="auto"><source src="images/xrpassthrough_edgerendering.mp4" type="video/mp4"></video></p>
+<h4 id="coloradjustment-properties">ColorAdjustment Properties</h4>
+<p>These settings apply when <code>ColorControl</code> is set to <code>ColorAdjustment</code>. Adjust brightness, contrast, and saturation of the passthrough image.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Brightness</strong> (Default: 0)</td>
+<td>Brightness adjustment in the range [-100, 100]. The neutral value is 0.</td>
+</tr>
+<tr>
+<td><strong>Contrast</strong> (Default: 1)</td>
+<td>Contrast adjustment in the range [0, Infinity]. The neutral value is 1.</td>
+</tr>
+<tr>
+<td><strong>Saturation</strong> (Default: 1)</td>
+<td>Saturation adjustment in the range [0, Infinity]. The neutral value is 1.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="colormap-properties">ColorMap Properties</h4>
+<p>These settings apply when <code>ColorControl</code> is set to <code>ColorMap</code>. Convert passthrough images to grayscale (if applicable) and remap values using an RGBA lookup table.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorMapMonoToRGBA</strong> (Default: <code>null</code>)</td>
+<td>A <code>ColorCurve</code> instance. Specify keyframes in the [0, 1] range, assigning a color to each key. <em>See example below.</em></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// Create a color curve map
+ColorCurve colorMap = new ColorCurve();
+colorMap.Keyframes.Clear();
+colorMap.AddKey(0, Color.Black);
+colorMap.AddKey(0.1f, Color.Blue);
+colorMap.AddKey(0.4f, Color.Green);
+colorMap.AddKey(0.6f, Color.Red);
+colorMap.AddKey(0.8f, Color.Yellow);
+colorMap.AddKey(1, Color.White);
+
+// Assign to the Passthrough layer component
+passthroughLayer.ColorMapMonoToRGBA = colorMap;
+</code></pre>
+<p><video autoplay="" loop="" muted="" width="250px" height="auto"><source src="images/xrpassthrough_colormap.mp4" type="video/mp4"></video></p>
+<h4 id="grayscalemap-properties">GrayscaleMap Properties</h4>
+<p>These settings apply when <code>ColorControl</code> is set to <code>GrayscaleMap</code>. Convert passthrough images to grayscale (if applicable) and remap values using a lookup table.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorMapMonoToMono</strong> (Default: <code>null</code>)</td>
+<td>A <code>FloatCurve</code> instance. Specify keyframes in the [0, 1] range, assigning a float value to each key. <em>See example below.</em></td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// Create a curve map to invert grayscale colors
+FloatCurve monoMap = new FloatCurve();
+monoMap.Keyframes.Clear();
+monoMap.AddKey(0, 1);
+monoMap.AddKey(1, 0);
+
+// Assign to the Passthrough layer component
+passthroughLayer.ColorMapMonoToMono = monoMap.
+
+
+</code></pre>
+<p><video autoplay="" loop="" muted="" width="250px" height="auto"><source src="images/xrpassthrough_monomap.mp4" type="video/mp4"></video></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

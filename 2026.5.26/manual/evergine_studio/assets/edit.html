@@ -1,0 +1,176 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Edit Assets | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Edit Assets | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="edit-assets">Edit Assets</h1>
+
+<p><strong>Evergine Studio</strong> offers the possibility of editing numerous properties of every asset to fully customize its use in your app. Additionally, every <strong>Evergine</strong> project defines a set of <strong>profiles</strong>, allowing you to set different properties per profile.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>For example, we can halve the resolution of a texture for the <em>Android</em> or <em>iOS</em> profiles, or set a different <em>PixelFormat</em>.</p>
+</div>
+<h2 id="contextual-actions">Contextual Actions</h2>
+<p><img src="Images/assetContextualMenu.png" alt="Asset Contextual Menu"></p>
+<p>You can apply some actions to the assets regardless of their type. <strong>Right-click</strong> an asset in the <strong>Assets Details</strong> panel to show a contextual menu with the following actions:</p>
+<ul>
+<li><strong>Rename</strong> the asset.</li>
+<li><strong>Cut</strong> the asset <em>(for cut/paste operation)</em>.</li>
+<li><strong>Copy</strong> the asset <em>(for copy/paste operation)</em>.</li>
+<li><strong>Duplicate</strong>, which will create an exact copy of the asset but with a different <strong>Id</strong>.</li>
+<li><strong>Delete</strong> the asset.</li>
+<li><strong>Set to export as raw</strong>, which copies the resource file to the <em>Export Content Folder</em> instead of exporting the compiled version.</li>
+<li><strong>Open folder location</strong>, which opens the File Explorer to the asset's location.</li>
+<li><strong>Copy path to clipboard</strong>, which copies the path of the asset's <strong>metafile</strong>.</li>
+<li><strong>Copy id to clipboard</strong>.</li>
+</ul>
+<h2 id="assets-editor">Assets Editor</h2>
+<p>To edit an asset:</p>
+<ol>
+<li>Click on it in the <strong>Assets Details</strong> panel.</li>
+<li>A new panel specific to that asset will open.</li>
+</ol>
+<p><img src="Images/editAssets.png" alt="Asset editor"></p>
+<p>Every <strong>Asset Editor</strong> panel is different, but some of the most common areas are the following:</p>
+<ul>
+<li>Asset viewer area</li>
+<li>Global properties panel</li>
+<li>Profile properties panel(s)</li>
+</ul>
+<p><img src="Images/assetEditorParts.png" alt="Asset editor"></p>
+<h3 id="viewer-area">Viewer Area</h3>
+<p>Usually, the viewer area of the asset shows a visual representation of the asset. It's also common to have some controls to change the visualization settings. Some examples are:</p>
+<ul>
+<li>Enabling/disabling texture channels</li>
+<li>Selecting the <strong>Level of Mipmap</strong> of a texture</li>
+<li>Play/Pause a <strong>Model</strong> animation</li>
+<li>Setting the geometry where a <strong>Material</strong> is applied</li>
+</ul>
+<h3 id="global-properties">Global Properties</h3>
+<p>Usually, the global properties are the ones that apply to all the <strong>Project profiles</strong>. The next image shows the <strong>Render Layer</strong> parameters:</p>
+<p><img src="Images/globalParameters.png" alt="Global parameters"></p>
+<h3 id="profile-properties">Profile Properties</h3>
+<p>In many assets, there is a <strong>Profile Parameters</strong> area where users can customize properties per profile. This area usually looks like this:</p>
+<p><img src="Images/profileParameters.png" alt="Profile parameters"></p>
+<p>This area shows:</p>
+<ul>
+<li><strong>Profile tabs</strong>: <img src="Images/profileTabs.png" alt="Profile tabs"> This shows the <em>default profile</em> tab and one tab per <strong>Project profile</strong>, allowing you to switch to a specific profile property panel.</li>
+<li><strong>Default profile</strong>: <img src="Images/defaultProfile.png" alt="Profile tabs"> This sets the profile properties by default when no other profile is specified.</li>
+<li><strong>Override Default Property</strong>: When enabled, this allows the customization of properties for this profile. If disabled, the default profile will be used.</li>
+<li><strong>Exclude Asset</strong>: This property allows an asset not to be exported in a specific profile, making it available only in some profiles.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

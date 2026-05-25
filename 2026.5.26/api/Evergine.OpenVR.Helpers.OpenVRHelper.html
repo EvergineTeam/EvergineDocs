@@ -1,0 +1,1034 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class OpenVRHelper | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class OpenVRHelper | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper">
+
+
+
+  <h1 id="Evergine_OpenVR_Helpers_OpenVRHelper" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper" class="text-break">Class OpenVRHelper</h1>
+  <div class="markdown level0 summary"><p>OpenVR Helper class.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">OpenVRHelper</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.OpenVR.html">OpenVR</a>.<a class="xref" href="Evergine.OpenVR.Helpers.html">Helpers</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.OpenVR.dll</h6>
+  <h5 id="Evergine_OpenVR_Helpers_OpenVRHelper_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class OpenVRHelper</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_GetButtonPressed_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.GetButtonPressed*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_GetButtonPressed_Valve_VR_VRControllerState_t_Valve_VR_EVRButtonId_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.GetButtonPressed(Valve.VR.VRControllerState_t,Valve.VR.EVRButtonId)">GetButtonPressed(VRControllerState_t, EVRButtonId)</h4>
+  <div class="markdown level1 summary"><p>Gets the press state of a button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool GetButtonPressed(this VRControllerState_t state, EVRButtonId buttonId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.VRControllerState_t.html">VRControllerState_t</a></td>
+        <td><span class="parametername">state</span></td>
+        <td><p>Current controller state.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Valve.VR.EVRButtonId.html">EVRButtonId</a></td>
+        <td><span class="parametername">buttonId</span></td>
+        <td><p>Button id.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if button pressed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_GetButtonState_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.GetButtonState*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_GetButtonState_Valve_VR_VRControllerState_t__Valve_VR_VRControllerState_t__Valve_VR_EVRButtonId_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.GetButtonState(Valve.VR.VRControllerState_t@,Valve.VR.VRControllerState_t@,Valve.VR.EVRButtonId)">GetButtonState(ref VRControllerState_t, ref VRControllerState_t, EVRButtonId)</h4>
+  <div class="markdown level1 summary"><p>Gets the press state of a button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ButtonState GetButtonState(ref VRControllerState_t lastState, ref VRControllerState_t state, EVRButtonId buttonId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.VRControllerState_t.html">VRControllerState_t</a></td>
+        <td><span class="parametername">lastState</span></td>
+        <td><p>Current controller state of the previous frame.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Valve.VR.VRControllerState_t.html">VRControllerState_t</a></td>
+        <td><span class="parametername">state</span></td>
+        <td><p>Current controller state.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Valve.VR.EVRButtonId.html">EVRButtonId</a></td>
+        <td><span class="parametername">buttonId</span></td>
+        <td><p>Button id.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.ButtonState.html">ButtonState</a></td>
+        <td><p>Pressed state on true value. Release otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_GetButtonTouched_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.GetButtonTouched*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_GetButtonTouched_Valve_VR_VRControllerState_t_Valve_VR_EVRButtonId_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.GetButtonTouched(Valve.VR.VRControllerState_t,Valve.VR.EVRButtonId)">GetButtonTouched(VRControllerState_t, EVRButtonId)</h4>
+  <div class="markdown level1 summary"><p>Gets the touch state of a button.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static bool GetButtonTouched(this VRControllerState_t state, EVRButtonId buttonId)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.VRControllerState_t.html">VRControllerState_t</a></td>
+        <td><span class="parametername">state</span></td>
+        <td><p>Current controller state.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Valve.VR.EVRButtonId.html">EVRButtonId</a></td>
+        <td><span class="parametername">buttonId</span></td>
+        <td><p>Button id.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if button touched.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ReportCompositeError_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ReportCompositeError*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ReportCompositeError_Valve_VR_EVRCompositorError_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ReportCompositeError(Valve.VR.EVRCompositorError)">ReportCompositeError(EVRCompositorError)</h4>
+  <div class="markdown level1 summary"><p>Reports compositor error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReportCompositeError(EVRCompositorError error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.EVRCompositorError.html">EVRCompositorError</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>Compositor error enumerator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ReportInitError_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ReportInitError*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ReportInitError_Valve_VR_EVRInitError_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ReportInitError(Valve.VR.EVRInitError)">ReportInitError(EVRInitError)</h4>
+  <div class="markdown level1 summary"><p>Reports any error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReportInitError(EVRInitError error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.EVRInitError.html">EVRInitError</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>Error enumerator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ReportRenderModelError_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ReportRenderModelError*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ReportRenderModelError_Valve_VR_EVRRenderModelError_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ReportRenderModelError(Valve.VR.EVRRenderModelError)">ReportRenderModelError(EVRRenderModelError)</h4>
+  <div class="markdown level1 summary"><p>Reports render model error.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ReportRenderModelError(EVRRenderModelError error)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.EVRRenderModelError.html">EVRRenderModelError</a></td>
+        <td><span class="parametername">error</span></td>
+        <td><p>Render model error enumerator.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToButtonState_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToButtonState*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToButtonState_System_Boolean_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToButtonState(System.Boolean)">ToButtonState(bool)</h4>
+  <div class="markdown level1 summary"><p>Converts boolean to button state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ButtonState ToButtonState(this bool b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Current value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.ButtonState.html">ButtonState</a></td>
+        <td><p>Pressed state on true value. Release otherwise.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToDeviceType_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToDeviceType*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToDeviceType_Valve_VR_ETrackedDeviceClass_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToDeviceType(Valve.VR.ETrackedDeviceClass)">ToDeviceType(ETrackedDeviceClass)</h4>
+  <div class="markdown level1 summary"><p>Converts OpenVR device class to OpenXR Device Type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static XRTrackedDeviceType ToDeviceType(this ETrackedDeviceClass deviceClass)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.ETrackedDeviceClass.html">ETrackedDeviceClass</a></td>
+        <td><span class="parametername">deviceClass</span></td>
+        <td><p>The openVR device class.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.TrackedDevices.XRTrackedDeviceType.html">XRTrackedDeviceType</a></td>
+        <td><p>XR tracking state enum.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToEvergine_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToEvergine*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToEvergine_Valve_VR_HmdVector3_t_Evergine_Mathematics_Vector3__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToEvergine(Valve.VR.HmdVector3_t,Evergine.Mathematics.Vector3@)">ToEvergine(HmdVector3_t, out Vector3)</h4>
+  <div class="markdown level1 summary"><p>Converts a HmwVector3 to Wave Vector3.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToEvergine(this HmdVector3_t hmdVector3, out Vector3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.HmdVector3_t.html">HmdVector3_t</a></td>
+        <td><span class="parametername">hmdVector3</span></td>
+        <td><p>The hmwVector3.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>Evergine Vector3.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToEvergine_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToEvergine*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToEvergine_Valve_VR_HmdVector3_t__Evergine_Mathematics_Vector3__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToEvergine(Valve.VR.HmdVector3_t@,Evergine.Mathematics.Vector3@)">ToEvergine(ref HmdVector3_t, out Vector3)</h4>
+  <div class="markdown level1 summary"><p>Converts a HmwVector3 to Wave Vector3.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToEvergine(ref HmdVector3_t hmdVector3, out Vector3 result)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.HmdVector3_t.html">HmdVector3_t</a></td>
+        <td><span class="parametername">hmdVector3</span></td>
+        <td><p>The hmwVector3.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">result</span></td>
+        <td><p>Evergine Vector3.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToGenericController_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToGenericController*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToGenericController_Valve_VR_VRControllerState_t__Valve_VR_VRControllerState_t__Evergine_Framework_XR_XRControllerGenericState__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToGenericController(Valve.VR.VRControllerState_t@,Valve.VR.VRControllerState_t@,Evergine.Framework.XR.XRControllerGenericState@)">ToGenericController(ref VRControllerState_t, ref VRControllerState_t, out XRControllerGenericState)</h4>
+  <div class="markdown level1 summary"><p>Converts VR controller state to generic controller.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToGenericController(ref VRControllerState_t lastState, ref VRControllerState_t state, out XRControllerGenericState controllerState)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.VRControllerState_t.html">VRControllerState_t</a></td>
+        <td><span class="parametername">lastState</span></td>
+        <td><p>VR controller state of the last frame.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Valve.VR.VRControllerState_t.html">VRControllerState_t</a></td>
+        <td><span class="parametername">state</span></td>
+        <td><p>VR controller state.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.XRControllerGenericState.html">XRControllerGenericState</a></td>
+        <td><span class="parametername">controllerState</span></td>
+        <td><p>Generic controller state output parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_Valve_VR_HmdMatrix34_t_Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix(Valve.VR.HmdMatrix34_t,Evergine.Mathematics.Matrix4x4@)">ToMatrix(HmdMatrix34_t, out Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Convert an ovrMatrix44f to a Wave Matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToMatrix(this HmdMatrix34_t ovrMatrix34f, out Matrix4x4 matrix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.HmdMatrix34_t.html">HmdMatrix34_t</a></td>
+        <td><span class="parametername">ovrMatrix34f</span></td>
+        <td><p>ovrMatrix44f to convert to a Wave Matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>Wave Matrix, based on the ovrMatrix4f.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_Valve_VR_HmdMatrix34_t__Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix(Valve.VR.HmdMatrix34_t@,Evergine.Mathematics.Matrix4x4@)">ToMatrix(ref HmdMatrix34_t, out Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Convert an ovrMatrix34f to a Wave Matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToMatrix(ref HmdMatrix34_t ovrMatrix34f, out Matrix4x4 matrix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.HmdMatrix34_t.html">HmdMatrix34_t</a></td>
+        <td><span class="parametername">ovrMatrix34f</span></td>
+        <td><p>ovrMatrix34f to convert to a Wave Matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>Wave Matrix, based on the ovrMatrix4f.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_Valve_VR_HmdMatrix44_t_Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix(Valve.VR.HmdMatrix44_t,Evergine.Mathematics.Matrix4x4@)">ToMatrix(HmdMatrix44_t, out Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Convert an ovrMatrix44f to a Wave Matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToMatrix(this HmdMatrix44_t ovrMatrix44f, out Matrix4x4 matrix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.HmdMatrix44_t.html">HmdMatrix44_t</a></td>
+        <td><span class="parametername">ovrMatrix44f</span></td>
+        <td><p>ovrMatrix44f to convert to a Wave Matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>Wave Matrix, based on the ovrMatrix4f.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_Valve_VR_HmdMatrix44_t__Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix(Valve.VR.HmdMatrix44_t@,Evergine.Mathematics.Matrix4x4@)">ToMatrix(ref HmdMatrix44_t, out Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Convert an ovrMatrix44f to a Wave Matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToMatrix(ref HmdMatrix44_t ovrMatrix34f, out Matrix4x4 matrix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.HmdMatrix44_t.html">HmdMatrix44_t</a></td>
+        <td><span class="parametername">ovrMatrix34f</span></td>
+        <td><p>ovrMatrix44f to convert to a Wave Matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>Wave Matrix, based on the ovrMatrix4f.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToMatrix_Valve_VR_TrackedDevicePose_t_Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToMatrix(Valve.VR.TrackedDevicePose_t,Evergine.Mathematics.Matrix4x4@)">ToMatrix(TrackedDevicePose_t, out Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Converts Pose to Matrix.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToMatrix(this TrackedDevicePose_t trackedPose, out Matrix4x4 matrix)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.TrackedDevicePose_t.html">TrackedDevicePose_t</a></td>
+        <td><span class="parametername">trackedPose</span></td>
+        <td><p>The trackable pose.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>Matrix output parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToTextureType_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToTextureType*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToTextureType_Evergine_Common_Graphics_GraphicsBackend_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToTextureType(Evergine.Common.Graphics.GraphicsBackend)">ToTextureType(GraphicsBackend)</h4>
+  <div class="markdown level1 summary"><p>Converts graphics backend to Texture type.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static ETextureType ToTextureType(this GraphicsBackend backend)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GraphicsBackend.html">GraphicsBackend</a></td>
+        <td><span class="parametername">backend</span></td>
+        <td><p>Graphics backend.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.ETextureType.html">ETextureType</a></td>
+        <td><p>Texture Type enum.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToTrackingState_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToTrackingState*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToTrackingState_Valve_VR_ETrackingResult_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToTrackingState(Valve.VR.ETrackingResult)">ToTrackingState(ETrackingResult)</h4>
+  <div class="markdown level1 summary"><p>Converts tracking result to tracking state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static XRTrackingState ToTrackingState(this ETrackingResult trackingResult)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.ETrackingResult.html">ETrackingResult</a></td>
+        <td><span class="parametername">trackingResult</span></td>
+        <td><p>The tracking result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.XRTrackingState.html">XRTrackingState</a></td>
+        <td><p>XR tracking state enum.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToTrackingState_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToTrackingState*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToTrackingState_Valve_VR_TrackedDevicePose_t__Evergine_Framework_XR_TrackedDevices_XRTrackedDeviceState__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToTrackingState(Valve.VR.TrackedDevicePose_t@,Evergine.Framework.XR.TrackedDevices.XRTrackedDeviceState@)">ToTrackingState(ref TrackedDevicePose_t, out XRTrackedDeviceState)</h4>
+  <div class="markdown level1 summary"><p>Converts device pose to Tracking State.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToTrackingState(ref TrackedDevicePose_t trackedPose, out XRTrackedDeviceState state)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.TrackedDevicePose_t.html">TrackedDevicePose_t</a></td>
+        <td><span class="parametername">trackedPose</span></td>
+        <td><p>Device pose.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.TrackedDevices.XRTrackedDeviceState.html">XRTrackedDeviceState</a></td>
+        <td><span class="parametername">state</span></td>
+        <td><p>Device state.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToUInt_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToUInt*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToUInt_Evergine_Common_Graphics_TextureSampleCount_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToUInt(Evergine.Common.Graphics.TextureSampleCount)">ToUInt(TextureSampleCount)</h4>
+  <div class="markdown level1 summary"><p>Converts the sample count to integer value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint ToUInt(this TextureSampleCount sampleCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.TextureSampleCount.html">TextureSampleCount</a></td>
+        <td><span class="parametername">sampleCount</span></td>
+        <td><p>The sample count enumerate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><p>The sample count as integer.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToVRPose_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToVRPose*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToVRPose_Valve_VR_TrackedDevicePose_t_Evergine_Mathematics_Matrix4x4__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToVRPose(Valve.VR.TrackedDevicePose_t,Evergine.Mathematics.Matrix4x4@)">ToVRPose(TrackedDevicePose_t, out Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Converts TrackedDevicePose to Wave Matrix4x4.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToVRPose(this TrackedDevicePose_t trackedPose, out Matrix4x4 pose)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Valve.VR.TrackedDevicePose_t.html">TrackedDevicePose_t</a></td>
+        <td><span class="parametername">trackedPose</span></td>
+        <td><p>The pose.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">pose</span></td>
+        <td><p>Matrix output parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToVulkan_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToVulkan*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToVulkan_Evergine_Common_Graphics_PixelFormat_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToVulkan(Evergine.Common.Graphics.PixelFormat)">ToVulkan(PixelFormat)</h4>
+  <div class="markdown level1 summary"><p>Converts the pixel format to Vulkan pixel format.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static uint ToVulkan(this PixelFormat pixelFormat)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.PixelFormat.html">PixelFormat</a></td>
+        <td><span class="parametername">pixelFormat</span></td>
+        <td><p>The pixel format.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><p>The vulkan pixel format.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToXRPose_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToXRPose*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToXRPose_Evergine_Mathematics_Matrix4x4_Evergine_Framework_Graphics_ViewPose__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToXRPose(Evergine.Mathematics.Matrix4x4,Evergine.Framework.Graphics.ViewPose@)">ToXRPose(Matrix4x4, out ViewPose)</h4>
+  <div class="markdown level1 summary"><p>Converts matrix to XR Pose.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToXRPose(this Matrix4x4 matrix, out ViewPose pose)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>The matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.ViewPose.html">ViewPose</a></td>
+        <td><span class="parametername">pose</span></td>
+        <td><p>Pose output parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_OpenVR_Helpers_OpenVRHelper_ToXRPose_" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToXRPose*"></a>
+  <h4 id="Evergine_OpenVR_Helpers_OpenVRHelper_ToXRPose_Evergine_Mathematics_Matrix4x4__Evergine_Framework_Graphics_ViewPose__" data-uid="Evergine.OpenVR.Helpers.OpenVRHelper.ToXRPose(Evergine.Mathematics.Matrix4x4@,Evergine.Framework.Graphics.ViewPose@)">ToXRPose(ref Matrix4x4, out ViewPose)</h4>
+  <div class="markdown level1 summary"><p>Converts matrix to XR Pose.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ToXRPose(ref Matrix4x4 matrix, out ViewPose pose)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">matrix</span></td>
+        <td><p>The matrix.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.ViewPose.html">ViewPose</a></td>
+        <td><span class="parametername">pose</span></td>
+        <td><p>Pose output parameter.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

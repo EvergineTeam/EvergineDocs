@@ -1,0 +1,930 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class BulletConeTwistJoint3D | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class BulletConeTwistJoint3D | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Bullet.BulletConeTwistJoint3D">
+
+
+
+  <h1 id="Evergine_Bullet_BulletConeTwistJoint3D" data-uid="Evergine.Bullet.BulletConeTwistJoint3D" class="text-break">Class BulletConeTwistJoint3D</h1>
+  <div class="markdown level0 summary"><p>The BulletConeTwistJoint3D is a base class for all 3D joints implemented by Bullet.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Bullet.BulletJoint3D.html">BulletJoint3D</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Bullet.BulletJoint3D-2.html">BulletJoint3D</a>&lt;<span class="xref">ConeTwistConstraint</span>, <a class="xref" href="Evergine.Framework.Physics3D.ConeTwistJointDef3D.html">ConeTwistJointDef3D</a>&gt;</div>
+    <div class="level3"><span class="xref">BulletConeTwistJoint3D</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Framework.Physics3D.IConeTwistJoint3D.html">IConeTwistJoint3D</a></div>
+    <div><a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html">IJoint3D</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D-2.html#Evergine_Bullet_BulletJoint3D_2_joint">BulletJoint3D&lt;ConeTwistConstraint, ConeTwistJointDef3D&gt;.joint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D-2.html#Evergine_Bullet_BulletJoint3D_2_def">BulletJoint3D&lt;ConeTwistConstraint, ConeTwistJointDef3D&gt;.def</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D-2.html#Evergine_Bullet_BulletJoint3D_2_BreakingImpulseThreshold">BulletJoint3D&lt;ConeTwistConstraint, ConeTwistJointDef3D&gt;.BreakingImpulseThreshold</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D-2.html#Evergine_Bullet_BulletJoint3D_2_InternalJoint">BulletJoint3D&lt;ConeTwistConstraint, ConeTwistJointDef3D&gt;.InternalJoint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D-2.html#Evergine_Bullet_BulletJoint3D_2_CreateJoint">BulletJoint3D&lt;ConeTwistConstraint, ConeTwistJointDef3D&gt;.CreateJoint()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_simulation">BulletJoint3D.simulation</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_OnBroke">BulletJoint3D.OnBroke</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_InternalJoint">BulletJoint3D.InternalJoint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_BodyA">BulletJoint3D.BodyA</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_BodyB">BulletJoint3D.BodyB</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_AppliedImpulse">BulletJoint3D.AppliedImpulse</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_DebugDrawSize">BulletJoint3D.DebugDrawSize</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_NeedsFeedback">BulletJoint3D.NeedsFeedback</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_JointFeedback">BulletJoint3D.JointFeedback</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_OverrideNumSolverIterations">BulletJoint3D.OverrideNumSolverIterations</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_IsEnabled">BulletJoint3D.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_BreakingImpulseThreshold">BulletJoint3D.BreakingImpulseThreshold</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Bullet.BulletJoint3D.html#Evergine_Bullet_BulletJoint3D_Dispose">BulletJoint3D.Dispose()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Bullet.html">Bullet</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Bullet.dll</h6>
+  <h5 id="Evergine_Bullet_BulletConeTwistJoint3D_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class BulletConeTwistJoint3D : BulletJoint3D&lt;ConeTwistConstraint, ConeTwistJointDef3D&gt;, IConeTwistJoint3D, IJoint3D</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D__ctor_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.#ctor*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D__ctor_Evergine_Bullet_BulletPhysicManager3D_Evergine_Framework_Physics3D_ConeTwistJointDef3D_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.#ctor(Evergine.Bullet.BulletPhysicManager3D,Evergine.Framework.Physics3D.ConeTwistJointDef3D)">BulletConeTwistJoint3D(BulletPhysicManager3D, ConeTwistJointDef3D)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Bullet.BulletConeTwistJoint3D.html">BulletConeTwistJoint3D</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BulletConeTwistJoint3D(BulletPhysicManager3D simulation, ConeTwistJointDef3D def)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Bullet.BulletPhysicManager3D.html">BulletPhysicManager3D</a></td>
+        <td><span class="parametername">simulation</span></td>
+        <td><p>The bullet simulation instance.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics3D.ConeTwistJointDef3D.html">ConeTwistJointDef3D</a></td>
+        <td><span class="parametername">def</span></td>
+        <td><p>The definition.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_AFrame_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.AFrame*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_AFrame" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.AFrame">AFrame</h4>
+  <div class="markdown level1 summary"><p>Gets the Reference frame on Body A.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 AFrame { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_AngularOnly_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.AngularOnly*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_AngularOnly" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.AngularOnly">AngularOnly</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether only affects angular movement to the joint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool AngularOnly { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_BFrame_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.BFrame*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_BFrame" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.BFrame">BFrame</h4>
+  <div class="markdown level1 summary"><p>Gets the Reference frame on Body B.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 BFrame { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_Damping_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.Damping*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_Damping" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.Damping">Damping</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the damping value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Damping { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_FixThresh_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.FixThresh*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_FixThresh" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.FixThresh">FixThresh</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the fix thresh.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float FixThresh { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_Flags_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.Flags*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_Flags" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.Flags">Flags</h4>
+  <div class="markdown level1 summary"><p>Gets the hinge flags.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int Flags { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_FrameOffsetA_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.FrameOffsetA*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_FrameOffsetA" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.FrameOffsetA">FrameOffsetA</h4>
+  <div class="markdown level1 summary"><p>Gets the frame offset for body A.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 FrameOffsetA { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_FrameOffsetB_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.FrameOffsetB*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_FrameOffsetB" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.FrameOffsetB">FrameOffsetB</h4>
+  <div class="markdown level1 summary"><p>Gets the frame offset for body B.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Matrix4x4 FrameOffsetB { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_IsMaxMotorImpulseNormalized_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.IsMaxMotorImpulseNormalized*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_IsMaxMotorImpulseNormalized" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.IsMaxMotorImpulseNormalized">IsMaxMotorImpulseNormalized</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this motor impulse is normalized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsMaxMotorImpulseNormalized { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_IsMotorEnabled_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.IsMotorEnabled*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_IsMotorEnabled" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.IsMotorEnabled">IsMotorEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this motor is enabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsMotorEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_IsPastSwingLimit_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.IsPastSwingLimit*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_IsPastSwingLimit" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.IsPastSwingLimit">IsPastSwingLimit</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the swing limit is past.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsPastSwingLimit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_LimitSoftness_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.LimitSoftness*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_LimitSoftness" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.LimitSoftness">LimitSoftness</h4>
+  <div class="markdown level1 summary"><p>Gets the limit softness.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float LimitSoftness { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_MaxMotorImpulse_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.MaxMotorImpulse*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_MaxMotorImpulse" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.MaxMotorImpulse">MaxMotorImpulse</h4>
+  <div class="markdown level1 summary"><p>Gets or sets and sets maximum motor impulse.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float MaxMotorImpulse { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_MotorTarget_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.MotorTarget*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_MotorTarget" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.MotorTarget">MotorTarget</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the motor target.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion MotorTarget { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_RelaxationFactor_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.RelaxationFactor*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_RelaxationFactor" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.RelaxationFactor">RelaxationFactor</h4>
+  <div class="markdown level1 summary"><p>Gets the relaxation factor.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float RelaxationFactor { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_SolveSwingLimit_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SolveSwingLimit*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_SolveSwingLimit" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SolveSwingLimit">SolveSwingLimit</h4>
+  <div class="markdown level1 summary"><p>Gets the swing solve limit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SolveSwingLimit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_SolveTwistLimit_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SolveTwistLimit*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_SolveTwistLimit" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SolveTwistLimit">SolveTwistLimit</h4>
+  <div class="markdown level1 summary"><p>Gets the twist solve limit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int SolveTwistLimit { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_SwingSpan1_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SwingSpan1*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_SwingSpan1" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SwingSpan1">SwingSpan1</h4>
+  <div class="markdown level1 summary"><p>Gets the swing span 1.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SwingSpan1 { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_SwingSpan2_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SwingSpan2*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_SwingSpan2" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SwingSpan2">SwingSpan2</h4>
+  <div class="markdown level1 summary"><p>Gets the swing span 2.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float SwingSpan2 { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_TwistLimitSign_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.TwistLimitSign*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_TwistLimitSign" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.TwistLimitSign">TwistLimitSign</h4>
+  <div class="markdown level1 summary"><p>Gets or sets sign of twist limit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float TwistLimitSign { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_TwistSpan_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.TwistSpan*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_TwistSpan" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.TwistSpan">TwistSpan</h4>
+  <div class="markdown level1 summary"><p>Gets the twist span.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float TwistSpan { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_CreateJoint_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.CreateJoint*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_CreateJoint" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.CreateJoint">CreateJoint()</h4>
+  <div class="markdown level1 summary"><p>Instantiate joint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override ConeTwistConstraint CreateJoint()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ConeTwistConstraint</span></td>
+        <td><p>The new joint.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Bullet.BulletJoint3D-2.html#Evergine_Bullet_BulletJoint3D_2_CreateJoint">BulletJoint3D&lt;ConeTwistConstraint, ConeTwistJointDef3D&gt;.CreateJoint()</a></div>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_SetFrames_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SetFrames*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_SetFrames_Evergine_Mathematics_Matrix4x4_Evergine_Mathematics_Matrix4x4_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SetFrames(Evergine.Mathematics.Matrix4x4,Evergine.Mathematics.Matrix4x4)">SetFrames(Matrix4x4, Matrix4x4)</h4>
+  <div class="markdown level1 summary"><p>Set frames.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetFrames(Matrix4x4 frameA, Matrix4x4 frameB)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">frameA</span></td>
+        <td><p>The frame A.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Matrix4x4.html">Matrix4x4</a></td>
+        <td><span class="parametername">frameB</span></td>
+        <td><p>The frame B.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_SetLimit_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SetLimit*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_SetLimit_System_Single_System_Single_System_Single_System_Single_System_Single_System_Single_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SetLimit(System.Single,System.Single,System.Single,System.Single,System.Single,System.Single)">SetLimit(float, float, float, float, float, float)</h4>
+  <div class="markdown level1 summary"><p>Set limits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetLimit(float swingSpan1, float swingSpan2, float twistSpan, float softness = 1, float biasFactor = 0.3, float relaxationFactor = 1)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">swingSpan1</span></td>
+        <td><p>The swing span 1.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">swingSpan2</span></td>
+        <td><p>The swing span 2.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">twistSpan</span></td>
+        <td><p>The twist span.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">softness</span></td>
+        <td><p>How much the hinge rotates for a given force.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">biasFactor</span></td>
+        <td><p>offset for the relaxed rotation of the hinge.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">relaxationFactor</span></td>
+        <td><p>How much force is applied internally to bring the hinge in its central rotation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_SetMaxMotorImpulseNormalized_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SetMaxMotorImpulseNormalized*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_SetMaxMotorImpulseNormalized_System_Single_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SetMaxMotorImpulseNormalized(System.Single)">SetMaxMotorImpulseNormalized(float)</h4>
+  <div class="markdown level1 summary"><p>Sets the max motor impulse normalized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetMaxMotorImpulseNormalized(float impulse)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">impulse</span></td>
+        <td><p>The impulse.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Bullet_BulletConeTwistJoint3D_SetMotorTargetInConstraintSpace_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SetMotorTargetInConstraintSpace*"></a>
+  <h4 id="Evergine_Bullet_BulletConeTwistJoint3D_SetMotorTargetInConstraintSpace_Evergine_Mathematics_Quaternion_" data-uid="Evergine.Bullet.BulletConeTwistJoint3D.SetMotorTargetInConstraintSpace(Evergine.Mathematics.Quaternion)">SetMotorTargetInConstraintSpace(Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Set the motor target in constraint space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetMotorTargetInConstraintSpace(Quaternion target)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">target</span></td>
+        <td><p>The target orientation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IConeTwistJoint3D.html">IConeTwistJoint3D</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Framework.Physics3D.IJoint3D.html">IJoint3D</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

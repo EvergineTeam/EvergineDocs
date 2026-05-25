@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CADLoader | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CADLoader | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Runtimes.CAD.CADLoader">
+
+
+
+  <h1 id="Evergine_Runtimes_CAD_CADLoader" data-uid="Evergine.Runtimes.CAD.CADLoader" class="text-break">Class CADLoader</h1>
+  <div class="markdown level0 summary"><p>Provides functionality to load and process CAD documents, converting their entities into drawable line batches and text representations.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">CADLoader</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Runtimes.html">Runtimes</a>.<a class="xref" href="Evergine.Runtimes.CAD.html">CAD</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Runtimes.CAD.dll</h6>
+  <h5 id="Evergine_Runtimes_CAD_CADLoader_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CADLoader</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Runtimes_CAD_CADLoader_LoadCadDocument_" data-uid="Evergine.Runtimes.CAD.CADLoader.LoadCadDocument*"></a>
+  <h4 id="Evergine_Runtimes_CAD_CADLoader_LoadCadDocument_ACadSharp_CadDocument_System_Boolean_System_Int32_System_Single_System_Nullable_System_Single__System_Boolean_Evergine_Common_Graphics_GraphicsContext_" data-uid="Evergine.Runtimes.CAD.CADLoader.LoadCadDocument(ACadSharp.CadDocument,System.Boolean,System.Int32,System.Single,System.Nullable{System.Single},System.Boolean,Evergine.Common.Graphics.GraphicsContext)">LoadCadDocument(CadDocument, bool, int, float, float?, bool, GraphicsContext)</h4>
+  <div class="markdown level1 summary"><p>Loads a CAD document asynchronously, processes its entities, and returns a tuple containing a <a class="xref" href="Evergine.Runtimes.CAD.CustomLineBatch.DrawableLineBatch.html">DrawableLineBatch</a> for line rendering
+and an array of <a class="xref" href="Evergine.Runtimes.CAD.DataTypes.CADText.html">CADText</a> for text entities.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static Task&lt;(DrawableLineBatch, CADText[])&gt; LoadCadDocument(CadDocument cadDocument, bool isDXF, int precision, float maxMTextSize = 0.5, float? customMetersPerUnit = null, bool enableTextRendering = true, GraphicsContext graphicsContext = null)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">CadDocument</span></td>
+        <td><span class="parametername">cadDocument</span></td>
+        <td><p>The CAD document to load and process.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isDXF</span></td>
+        <td><p>Indicates whether the document is in DXF format.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">precision</span></td>
+        <td><p>The precision to use for polygonal approximations of curves.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxMTextSize</span></td>
+        <td><p>The maximum size for MText entities (used for DXF). Default is 0.5f.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>?</td>
+        <td><span class="parametername">customMetersPerUnit</span></td>
+        <td><p>The manual scale factor to re-size.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">enableTextRendering</span></td>
+        <td><p>Indicates whether text rendering is enabled.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html">GraphicsContext</a></td>
+        <td><span class="parametername">graphicsContext</span></td>
+        <td><p>The graphics context used for rendering operations. If null, the line batch will create it.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;(<a class="xref" href="Evergine.Runtimes.CAD.CustomLineBatch.DrawableLineBatch.html">DrawableLineBatch</a>, <a class="xref" href="Evergine.Runtimes.CAD.DataTypes.CADText.html">CADText</a>[])&gt;</td>
+        <td><p>A task that represents the asynchronous operation. The task result contains a tuple with:</p>
+<ul><li><a class="xref" href="Evergine.Runtimes.CAD.CustomLineBatch.DrawableLineBatch.html">DrawableLineBatch</a>: The batch of drawable lines generated from the CAD entities.</li><li><a class="xref" href="Evergine.Runtimes.CAD.DataTypes.CADText.html">CADText</a>[]: An array of CAD text entities extracted from the document.</li></ul>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Runtimes_CAD_CADLoader_ProcessEntity_" data-uid="Evergine.Runtimes.CAD.CADLoader.ProcessEntity*"></a>
+  <h4 id="Evergine_Runtimes_CAD_CADLoader_ProcessEntity_ACadSharp_Entities_Entity_System_Int32_Evergine_Runtimes_CAD_CustomLineBatch_DrawableLineBatch__System_Collections_Generic_List_Evergine_Runtimes_CAD_DataTypes_CADText__System_Boolean_ACadSharp_Entities_Insert_CSMath_Transform_System_Single_System_Boolean_" data-uid="Evergine.Runtimes.CAD.CADLoader.ProcessEntity(ACadSharp.Entities.Entity,System.Int32,Evergine.Runtimes.CAD.CustomLineBatch.DrawableLineBatch@,System.Collections.Generic.List{Evergine.Runtimes.CAD.DataTypes.CADText},System.Boolean,ACadSharp.Entities.Insert,CSMath.Transform,System.Single,System.Boolean)">ProcessEntity(Entity, int, ref DrawableLineBatch, List&lt;CADText&gt;, bool, Insert, Transform, float, bool)</h4>
+  <div class="markdown level1 summary"><p>Processes a single CAD entity, converting it into drawable line batches and/or text representations.
+Handles transformation, color, and layer inheritance, as well as nested inserts and hatches.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static void ProcessEntity(Entity entity, int precision, ref DrawableLineBatch linebatch, List&lt;CADText&gt; texts, bool isDXF, Insert parentInsert = null, Transform parentTransform = null, float maxMTextSize = 0.5, bool enableTextRendering = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Entity</span></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The CAD entity to process.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">precision</span></td>
+        <td><p>The precision to use for polygonal approximations of curves.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Runtimes.CAD.CustomLineBatch.DrawableLineBatch.html">DrawableLineBatch</a></td>
+        <td><span class="parametername">linebatch</span></td>
+        <td><p>Reference to the <a class="xref" href="Evergine.Runtimes.CAD.CustomLineBatch.DrawableLineBatch.html">DrawableLineBatch</a> where lines will be added.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Runtimes.CAD.DataTypes.CADText.html">CADText</a>&gt;</td>
+        <td><span class="parametername">texts</span></td>
+        <td><p>A list to collect <a class="xref" href="Evergine.Runtimes.CAD.DataTypes.CADText.html">CADText</a> objects for text entities.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isDXF</span></td>
+        <td><p>Indicates whether the document is in DXF format.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Insert</span></td>
+        <td><span class="parametername">parentInsert</span></td>
+        <td><p>Optional parent <span class="xref">ACadSharp.Entities.Insert</span> for nested transformations. Default is null.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">Transform</span></td>
+        <td><span class="parametername">parentTransform</span></td>
+        <td><p>Optional parent transformation matrix. Default is null.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxMTextSize</span></td>
+        <td><p>The maximum size for MText entities (used for DXF). Default is 0.5f.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">enableTextRendering</span></td>
+        <td><p>Indicates whether text rendering is enabled.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

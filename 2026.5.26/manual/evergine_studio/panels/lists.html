@@ -1,0 +1,249 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>IList Support in Components | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="IList Support in Components | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ilist-support-in-components">IList Support in Components</h1>
+
+<blockquote>
+<p>⚠️ <strong>Note:</strong><br>
+The user interface used for editing component properties (including <code>IList</code> support) is powered by an internal panels framework. This system is currently <strong>pending documentation</strong>.</p>
+</blockquote>
+<h2 id="overview">Overview</h2>
+<p>Evergine now supports the use of <code>IList&lt;T&gt;</code> properties within your custom <code>Component</code> classes. This allows developers to expose and manage collections of data directly from the Evergine Studio editor.</p>
+<p><img src="images/ilist.png" alt="Lists"></p>
+<p>Users can:</p>
+<ul>
+<li><strong>Add</strong>, <strong>edit</strong>, <strong>remove</strong>, or <strong>reorder</strong> elements in any <code>IList&lt;T&gt;</code> property.</li>
+<li>Respond to these collection operations using a new attribute: <code>CollectionChangeCallback</code>.</li>
+</ul>
+<p>This functionality streamlines the development of dynamic and interactive components that work with list-like data structures in the editor.</p>
+<hr>
+<h2 id="collectionchangecallback-attribute">CollectionChangeCallback Attribute</h2>
+<p>The <code>[CollectionChangeCallback]</code> attribute allows you to register methods that will be automatically invoked by the editor when changes are made to a specific list property.</p>
+<h3 id="attribute-syntax">Attribute Syntax</h3>
+<pre><code class="lang-csharp">[CollectionChangeCallback(PropertyName = &quot;MyList&quot;, Type = OperationType.Addition)]
+void OnAdd(IEnumerable&lt;CollectionChangeCallback.CollectionItem&gt; items) { ... }
+</code></pre>
+<h3 id="parameters">Parameters</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PropertyName</code></td>
+<td>The name of the property (list) that this callback monitors.</td>
+</tr>
+<tr>
+<td><code>Type</code></td>
+<td>The type of operation that triggers the callback. See below.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="operation-types">Operation Types</h3>
+<pre><code class="lang-csharp">enum OperationType
+{
+    Addition,
+    Update,
+    Deletion,
+    Reordering
+}
+</code></pre>
+<p>Each callback method must match the expected signature for the operation:</p>
+<table>
+<thead>
+<tr>
+<th>Operation Type</th>
+<th>Expected Callback Signature</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Addition</td>
+<td><code>void OnAdded(IEnumerable&lt;CollectionItem&gt; items)</code></td>
+</tr>
+<tr>
+<td>Update</td>
+<td><code>void OnUpdated(CollectionItem item)</code></td>
+</tr>
+<tr>
+<td>Deletion</td>
+<td><code>void OnDeleted(IEnumerable&lt;CollectionItem&gt; items)</code></td>
+</tr>
+<tr>
+<td>Reordering</td>
+<td><code>void OnReordered(CollectionItem item, int fromIndex)</code></td>
+</tr>
+</tbody>
+</table>
+<hr>
+<h2 id="collectionitem-structure">CollectionItem Structure</h2>
+<p>Each <code>CollectionItem</code> provides context about the changed element:</p>
+<pre><code class="lang-csharp">public class CollectionItem
+{
+    public object Item { get; }
+    public int Index { get; }
+}
+</code></pre>
+<ul>
+<li><code>Item</code>: The value of the element affected.</li>
+<li><code>Index</code>: The index within the list.</li>
+</ul>
+<hr>
+<h2 id="example-handling-a-list-of-strings">Example: Handling a List of Strings</h2>
+<p>Here’s an example component using <code>List&lt;string&gt;</code> and handling all collection changes via callbacks:</p>
+<pre><code class="lang-csharp">public class ListStringComponent : Component
+{
+    public List&lt;string&gt; StringList;
+
+    [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Addition)]
+    internal void AddedItems(IEnumerable&lt;CollectionItem&gt; items)
+    {
+        foreach (var item in items)
+        {
+            Debug.WriteLine($&quot;Added: {item.Item} at index {item.Index}&quot;);
+        }
+    }
+
+    [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Update)]
+    internal void UpdatedItem(CollectionItem item)
+    {
+        Debug.WriteLine($&quot;Updated: {item.Item} at index {item.Index}&quot;);
+    }
+
+    [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Deletion)]
+    internal void DeletedItems(IEnumerable&lt;CollectionItem&gt; items)
+    {
+        foreach (var item in items)
+        {
+            Debug.WriteLine($&quot;Deleted: {item.Item} at index {item.Index}&quot;);
+        }
+    }
+
+    [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Reordering)]
+    internal void ReorderedItems(CollectionItem item, int fromIndex)
+    {
+        Debug.WriteLine($&quot;Reordered: {item.Item} from {fromIndex} to {item.Index}&quot;);
+    }
+}
+</code></pre>
+<p>This setup allows your component to dynamically react to list operations triggered from the Evergine Studio editor — for example, updating visuals, syncing with other systems, or triggering logic based on user input.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

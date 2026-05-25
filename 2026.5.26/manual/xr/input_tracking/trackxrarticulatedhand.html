@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>TrackXRArticulatedHand | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="TrackXRArticulatedHand | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="trackxrarticulatedhand">TrackXRArticulatedHand</h1>
+
+<p><img src="images/trackxrarticulatedhand.jpg" alt="TrackXRArticulatedHand"></p>
+<p>This component is used to track and obtain the state of an articulated hand. A variety of MR and VR platforms support hand tracking, such as Mixed Reality (HoloLens) or Oculus Quest.</p>
+<h2 id="supported-hand-joints">Supported Hand Joints</h2>
+<p>Evergine supports a list of hand joints to be tracked, described using the <code>XRHandJointKind</code> enumeration. Its values can be visually perceived in the following image:</p>
+<p><img src="images/hand-skeleton.png" alt="Hand Joints"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The entity transform will use the <code>Palm</code> joint pose.</p>
+</div>
+<h2 id="properties">Properties</h2>
+<p>The following properties have been added to this component to access hand joint information:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Handedness</strong></td>
+<td>This property allows you to indicate the handedness of the device you want to track: <ul><li><code>LeftHand</code> to specify the left hand.</li><li><code>RightHand</code> to specify the right hand.</li><li><code>Undefined</code> if the device has no specific handedness.</li></ul></td>
+</tr>
+<tr>
+<td><strong>TrackingLostMode</strong></td>
+<td>Specifies the strategy to follow if the device is not well-tracked: <ul><li><code>DisableEntityOnPoseInvalid</code> disables the entity if the tracked pose is not valid. If the device is well-tracked again, the entity will be enabled again. <em>This is the default value.</em></li><li><code>KeepLastPose</code> stops tracking the entity if the pose is not valid, maintaining the entity with the last received pose.</li><li><code>DisableEntityOnDisconnection</code> disables the entity only if the selected device is no longer connected.</li></ul></td>
+</tr>
+<tr>
+<td><strong>SupportedHandJointKind</strong></td>
+<td>Returns an <code>XRHandJointKind[]</code> array of supported hand joints. Hand tracking in some devices can be limited and only support limited joints.</td>
+</tr>
+<tr>
+<td><strong>TryGetArticulatedHandJoint</strong></td>
+<td>Obtains the articulated hand joint state specified using an <code>XRHandJointKind</code> value. Returns true if the joint is successfully obtained.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-trackxrarticulatedhand">Using TrackXRArticulatedHand</h2>
+<h3 id="create-a-trackxrarticulatedhand-from-code">Create a TrackXRArticulatedHand from code</h3>
+<p>In the following code, you will learn how to create an entity that tracks a controller from code:</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    base.CreateScene();
+
+    var material = this.Managers.AssetSceneManager
+        .Load&lt;Material&gt;(EvergineContneet.DefaultMaterialID); // The hand material
+
+    // Hand entity
+    var leftHand = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new MaterialComponent() { Material = material })
+        .AddComponent(new TeapotMesh() { Size = 0.15f })
+        .AddComponent(new MeshRenderer())
+        .AddComponent(new TrackXRArticulatedHand()
+        {
+            Handedness = XRHandedness.LeftHand // select the left hand
+        })
+        .AddComponent(new DebugArticulatedhand());
+
+    this.Managers.EntityManager.Add(leftHand);
+}
+</code></pre>
+<h3 id="read-the-hand-joints">Read the Hand Joints</h3>
+<p>A small sample to read the hand joint state:</p>
+<pre><code class="lang-csharp">public class DebugArticulatedhand : Behavior
+{
+    [BindComponent]
+    private TrackXRArticulatedHand trackXRHand;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        var lineBatch = this.Managers.RenderManager.LineBatch3D;
+        if (trackXRHand.IsConnected)
+        {
+            // Iterate over all supported joints
+            foreach (var supportedJoint in this.trackXRHand.SupportedHandJointKind)
+            {
+                // Obtain the joint pose and draw it...
+                if (this.trackXRHand.TryGetArticulatedHandJoint(supportedJoint, out var handJoint))
+                {
+                    Matrix4x4.CreateFromTR(ref handJoint.Pose.Position, ref handJoint.Pose.Orientation, out var jointTransform);
+                    lineBatch.DrawAxis(jointTransform, 0.01f); // Draw 1cm axis with the joint transform
+                }
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="render-hands">Render Hands</h3>
+<p>Using the <code>XRDeviceRenderableModel</code> component, you can obtain a renderable model associated with an XR device. In the case of articulated hands, it provides a skinned mesh of the hand that follows the user's hand poses.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>You can add an optional <code>MaterialComponent</code> to the entity to specify which material will be used to render the hand meshes. If this component is not provided, they will be rendered with the default material.</p>
+</div>
+<p><video width="512" height="512" autoplay="" loop=""><source src="images/renderhandsvideo.mp4" type="video/mp4"></video></p>
+<h4 id="render-hands-from-code">Render Hands from code</h4>
+<p>A small example that shows how to render both hands using the <code>XRDeviceRenderableModel</code> component:</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    base.CreateScene();
+
+    var material = this.Managers.AssetSceneManager
+        .Load&lt;Material&gt;(EvergineContneet.DefaultMaterialID); // The hand material
+
+    // Left hand
+    var leftHand = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new MaterialComponent() { Material = material })            
+        .AddComponent(new TrackXRArticulatedHand()
+        {
+            Handedness = XRHandedness.LeftHand // select the left hand
+        })
+        .AddComponent(new XRDeviceRenderableModel());
+
+    this.Managers.EntityManager.Add(leftHand);
+
+    // Right hand
+    var rightHand = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new MaterialComponent() { Material = material })            
+        .AddComponent(new TrackXRArticulatedHand()
+        {
+            Handedness = XRHandedness.RightHand // select the right hand
+        })
+        .AddComponent(new XRDeviceRenderableModel());
+
+    this.Managers.EntityManager.Add(rightHand);
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

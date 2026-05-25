@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class StagingDescriptorAllocator | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class StagingDescriptorAllocator | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.DirectX12.StagingDescriptorAllocator">
+
+
+
+  <h1 id="Evergine_DirectX12_StagingDescriptorAllocator" data-uid="Evergine.DirectX12.StagingDescriptorAllocator" class="text-break">Class StagingDescriptorAllocator</h1>
+  <div class="markdown level0 summary"><p>StagingDescriptorAllocator allocates a fixed-size block of descriptors from a CPU
+descriptor heap pool.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">StagingDescriptorAllocator</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.DirectX12.html">DirectX12</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.DirectX12.dll</h6>
+  <h5 id="Evergine_DirectX12_StagingDescriptorAllocator_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class StagingDescriptorAllocator</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_DirectX12_StagingDescriptorAllocator__ctor_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.#ctor*"></a>
+  <h4 id="Evergine_DirectX12_StagingDescriptorAllocator__ctor_Vortice_Direct3D12_ID3D12Device_System_UInt32_System_UInt32_Vortice_Direct3D12_DescriptorHeapType_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.#ctor(Vortice.Direct3D12.ID3D12Device,System.UInt32,System.UInt32,Vortice.Direct3D12.DescriptorHeapType)">StagingDescriptorAllocator(ID3D12Device, uint, uint, DescriptorHeapType)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.DirectX12.StagingDescriptorAllocator.html">StagingDescriptorAllocator</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public StagingDescriptorAllocator(ID3D12Device device, uint descriptorCount, uint heapSize, DescriptorHeapType heapType)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">ID3D12Device</span></td>
+        <td><span class="parametername">device</span></td>
+        <td><p>The Direct3D12 device.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">descriptorCount</span></td>
+        <td><p>The number of descriptors per block.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">heapSize</span></td>
+        <td><p>The size of the heap.</p>
+</td>
+      </tr>
+      <tr>
+        <td><span class="xref">DescriptorHeapType</span></td>
+        <td><span class="parametername">heapType</span></td>
+        <td><p>The type of the descriptor heap.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_DirectX12_StagingDescriptorAllocator_SizeIncrement_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.SizeIncrement*"></a>
+  <h4 id="Evergine_DirectX12_StagingDescriptorAllocator_SizeIncrement" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.SizeIncrement">SizeIncrement</h4>
+  <div class="markdown level1 summary"><p>Gets the size increment for descriptors in this heap.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint SizeIncrement { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_DirectX12_StagingDescriptorAllocator_AllocateCPUDescriptors_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.AllocateCPUDescriptors*"></a>
+  <h4 id="Evergine_DirectX12_StagingDescriptorAllocator_AllocateCPUDescriptors_Evergine_DirectX12_Heaps_CPU_CPUDescriptorHeapAllocation__" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.AllocateCPUDescriptors(Evergine.DirectX12.Heaps.CPU.CPUDescriptorHeapAllocation@)">AllocateCPUDescriptors(out CPUDescriptorHeapAllocation)</h4>
+  <div class="markdown level1 summary"><p>Allocates CPU descriptors from the staging heap.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void AllocateCPUDescriptors(out CPUDescriptorHeapAllocation allocation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.DirectX12.Heaps.CPU.CPUDescriptorHeapAllocation.html">CPUDescriptorHeapAllocation</a></td>
+        <td><span class="parametername">allocation</span></td>
+        <td><p>The allocated CPU descriptor heap allocation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_DirectX12_StagingDescriptorAllocator_Deallocate_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.Deallocate*"></a>
+  <h4 id="Evergine_DirectX12_StagingDescriptorAllocator_Deallocate_Evergine_DirectX12_Heaps_CPU_CPUDescriptorHeapAllocation__" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.Deallocate(Evergine.DirectX12.Heaps.CPU.CPUDescriptorHeapAllocation@)">Deallocate(ref CPUDescriptorHeapAllocation)</h4>
+  <div class="markdown level1 summary"><p>Deallocates a CPU descriptor allocation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Deallocate(ref CPUDescriptorHeapAllocation allocation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.DirectX12.Heaps.CPU.CPUDescriptorHeapAllocation.html">CPUDescriptorHeapAllocation</a></td>
+        <td><span class="parametername">allocation</span></td>
+        <td><p>The CPU descriptor heap allocation to deallocate.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_DirectX12_StagingDescriptorAllocator_Dispose_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.Dispose*"></a>
+  <h4 id="Evergine_DirectX12_StagingDescriptorAllocator_Dispose" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.Dispose">Dispose()</h4>
+  <div class="markdown level1 summary"><p>Disposes the staging descriptor allocator and all its resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
+  </div>
+  <a id="Evergine_DirectX12_StagingDescriptorAllocator_Dispose_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.Dispose*"></a>
+  <h4 id="Evergine_DirectX12_StagingDescriptorAllocator_Dispose_System_Boolean_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.Dispose(System.Boolean)">Dispose(bool)</h4>
+  <div class="markdown level1 summary"><p>Disposes the staging descriptor allocator and all its resources.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void Dispose(bool disposing)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">disposing</span></td>
+        <td><p>Indicates whether the method is called from Dispose.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_DirectX12_StagingDescriptorAllocator_Finalize_" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.Finalize*"></a>
+  <h4 id="Evergine_DirectX12_StagingDescriptorAllocator_Finalize" data-uid="Evergine.DirectX12.StagingDescriptorAllocator.Finalize">~StagingDescriptorAllocator()</h4>
+  <div class="markdown level1 summary"><p>Finalizes an instance of the <a class="xref" href="Evergine.DirectX12.StagingDescriptorAllocator.html">StagingDescriptorAllocator</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected ~StagingDescriptorAllocator()</code></pre>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

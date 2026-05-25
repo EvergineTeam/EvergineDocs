@@ -1,0 +1,294 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cone Twist Joint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cone Twist Joint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cone-twist-joint">Cone Twist Joint</h1>
+
+<p>For ragdolls, the <strong>Cone-Twist Joint</strong> is useful for limbs like the upper arm. It is a special point-to-point joint that adds cone and twist axis limits.</p>
+<p>A Cone-Twist Joint is similar to a Point-to-Point Joint relationship but specifies an elliptical cone within which rotation may take place. The cone is described by specifying a maximum rotation on each axis.</p>
+<h2 id="conetwistjoint3d">ConeTwistJoint3D</h2>
+<p>In Evergine, a Cone-Twist Joint is implemented using the <code>ConeTwistJoint3D</code> component.</p>
+<p><img src="images/conetwistJointComponent.png" alt="Point-to-Point Joint"></p>
+<h2 id="properties">Properties</h2>
+<h3 id="common-properties">Common Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ConnectedEntityPath</strong></td>
+<td>null</td>
+<td>The <a href="../../basics/component_arch/entities/entity_hierarchy.html#entity-paths">entity path</a> of the connected body. Only when the path is valid is a joint properly established.</td>
+</tr>
+<tr>
+<td><strong>Anchor</strong></td>
+<td>0, 0, 0</td>
+<td>The point which defines the center of the joint in source entity local space. All physics-based simulations use this point as the center in calculations.</td>
+</tr>
+<tr>
+<td><strong>AutoConfigureConnected</strong></td>
+<td>true</td>
+<td>Enable this setting to automatically calculate the <em>ConnectedAnchor</em> position to match the global position of the anchor property. This is the default setting. Disable it to configure the position of the connected anchor manually.</td>
+</tr>
+<tr>
+<td><strong>ConnectedAnchor</strong></td>
+<td><em>auto-calculated</em></td>
+<td>Manually configure the connected anchor position in the connected body local space.</td>
+</tr>
+<tr>
+<td><strong>BreakPoint</strong></td>
+<td>0</td>
+<td>If the value is greater than 0, it indicates the force that needs to be applied for this joint to break.</td>
+</tr>
+<tr>
+<td><strong>CollideConnected</strong></td>
+<td>false</td>
+<td>Determines whether a collision between the two bodies managed by the joint is enabled.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="limit-properties">Limit Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ConeTwistSettings</strong></td>
+<td>30º, 30º, 30º</td>
+<td>Defines the limitation angle on each axis.</td>
+</tr>
+<tr>
+<td><strong>LimitSoftness</strong></td>
+<td>0.9</td>
+<td>Once an angle is greater than softness * the maximum angle, the constraint begins to take effect. Lowering the value of softness softens the constraint boundaries.</td>
+</tr>
+<tr>
+<td><strong>LimitBiasFactor</strong></td>
+<td>0.3</td>
+<td>The rate at which the constraint corrects errors in orientation. A value of 1 will ensure that the constraint is always obeyed. It is recommended to keep bias between 0.2 and 0.5.</td>
+</tr>
+<tr>
+<td><strong>LimitRelaxationFactor</strong></td>
+<td>1</td>
+<td>The rate at which the angular velocity is changed by the constraint. A low value means the constraint will modify the velocities slowly, leaving the boundaries appearing softer.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="motor-properties">Motor Properties</h3>
+<p>The following properties set the motor properties of the joint.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UseMotor</strong></td>
+<td>false</td>
+<td>If enabled, the motor makes the object spin around.</td>
+</tr>
+<tr>
+<td><strong>MotorTargetRotation</strong></td>
+<td>0, 0, 0</td>
+<td>The target angular speed on each axis.</td>
+</tr>
+<tr>
+<td><strong>MotorTargetImpulse</strong></td>
+<td>0</td>
+<td>The impulse applied to attain the speed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-cone-twist-joint">Using Cone-Twist Joint</h2>
+<p>This snippet creates a series of bodies attached using Cone-Twist joints.</p>
+<video autoplay="" loop="" muted="" width="400px" height="auto">
+  <source src="images/ConeTwistSample.mp4" type="video/mp4">
+</video>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    this.Managers.RenderManager.DebugLines = true;
+
+    // Load your material
+    var cubeMaterial = this.Managers.AssetSceneManager.Load&lt;Material&gt;(EvergineContent.CrateMat);
+
+    int chainLength = 4;
+    Entity previousLink = null;
+
+    // Create the chain...
+    for (int i = 0; i &lt; chainLength; i++)
+    {
+        // The first object is kinematic (we don't want a falling chain :D)
+        var rigidObjectType = (i == 0) ? RigidBodyType3D.Kinematic : RigidBodyType3D.Dynamic;
+
+        // Create the link entities...
+        var link = this.CreateCube(cubeMaterial, new Vector3(i, 0, 0), 0.75f, rigidObjectType);
+
+        if (previousLink != null)
+        {
+            // Limit Joint to 40º or 10º...
+            var angle = MathHelper.ToRadians(i % 2 == 0 ? 40 : 10);
+
+            // Add a PointToPoint joint to the previous link connected to the current link...
+            previousLink.AddComponent(new ConeTwistJoint3D()
+            {
+                ConnectedEntityPath = link.EntityPath,
+                Anchor = new Vector3(0.5f, 0, 0),           // Sets the anchor between the two objects
+                ConeTwistSettings = Vector3.One * angle,    // Sets the limit angle...
+            });
+        }
+
+        previousLink = link;
+
+        this.Managers.EntityManager.Add(link);
+    }
+}
+
+private Entity CreateCube(Material material, Vector3 position, float size, RigidBodyType3D rigidBodyType)
+{
+    Entity cube = new Entity()
+        .AddComponent(new Transform3D()
+        {
+            Position = position
+        })
+        .AddComponent(new MaterialComponent() { Material = material })
+        .AddComponent(new CubeMesh() { Size = size })
+        .AddComponent(new MeshRenderer())
+
+        .AddComponent(new RigidBody3D()         // Add a RigidBody3D component...
+        {
+            PhysicBodyType = rigidBodyType,
+        })
+        .AddComponent(new BoxCollider3D());     // Add a BoxCollider3D to the physic body...
+
+    return cube;
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

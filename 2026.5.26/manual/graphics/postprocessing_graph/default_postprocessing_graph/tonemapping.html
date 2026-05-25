@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tonemapping, Chromatic Aberration, Vignette, Grain, Distortion | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tonemapping, Chromatic Aberration, Vignette, Grain, Distortion | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tonemapping-chromatic-aberration-vignette-grain-distortion">Tonemapping, Chromatic Aberration, Vignette, Grain, Distortion</h1>
+
+<hr>
+<p>In this section, multiple effects are explained because the process steps to calculate them are similar and they were implemented together for performance reasons.</p>
+<h2 id="tonemapping">Tonemapping</h2>
+<p><strong>Tonemapping</strong> is a technique used in image processing and computer graphics to map one set of colors to another to approximate the appearance of high-dynamic-range images in a medium that has a more limited dynamic range.</p>
+<p><img src="images/Tonemapping.jpg" alt="Tonemapping"></p>
+<p>In the above image, the left side is the render without tonemapping applied, and the right side is the result of applying tonemapping to the left side.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>HDR Enabled</td>
+<td>Enables/Disables mapping of High Dynamic Range (HDR) to Low Dynamic Range (LDR).</td>
+</tr>
+<tr>
+<td>Curve</td>
+<td>Defines how to map the image color to the output image. The following curves are available: Reinhard, ReinhardSQ, LumaReinhard, Filmic, ACES, RombindAHouse. The default curve is ACES.</td>
+</tr>
+<tr>
+<td>LUT Enable</td>
+<td>Enables/Disables the use of the Lookup Table (LUT) texture to map the colors.</td>
+</tr>
+<tr>
+<td>LUT Texture</td>
+<td>Represents a Lookup Table (LUT) 16x16x16 color neutral unwrapped to a 256x16 texture. <br> There are two LUT Texture samples: <br>  <p>HDR:</p><img src="images/LUTHDR.png" alt="LUT HDR"><p></p> <p>Vintage:</p><img src="images/LUTVintage.png" alt="LUT Vintage"><p></p></td>
+</tr>
+</tbody>
+</table>
+<h2 id="chromatic-aberration">Chromatic Aberration</h2>
+<p>Chromatic aberration, also known as “color fringing” or “purple fringing,” is a common optical problem that occurs when a lens is either unable to bring all wavelengths of color to the same focal plane, and/or when wavelengths of color are focused at different positions in the focal plane. Chromatic aberration is caused by lens dispersion, with different colors of light traveling at different speeds while passing through a lens. As a result, the image can look blurred or noticeable colored edges (red, green, blue, yellow, purple, magenta) can appear around objects, especially in high-contrast situations.</p>
+<p><img src="images/ChromaticAberration.jpg" alt="Chromatic aberration"></p>
+<p>In the above image, the left side is the render without chromatic aberration applied, and the right side is the result of applying chromatic aberration to the left side.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Strength</td>
+<td>Defines the distance between color bands.</td>
+</tr>
+<tr>
+<td>Offset</td>
+<td>Defines the vector direction of the aberration.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="grain">Grain</h2>
+<p>If you’ve watched a film and seen speckles on the screen in random patterns, you’ve seen film grain. Originally, the actual grains in film grain were small particles of silver halide, the primary photosensitive substance used in chemical film. These particles are randomly distributed artifacts throughout the image.</p>
+<p><img src="images/Grain.jpg" alt="Grain"></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Intensity</td>
+<td>Defines the intensity of the grain effect.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vignette">Vignette</h2>
+<p>A vignette is a decrease in brightness of a photograph towards its edges compared to the image center. Vignetting is often an undesired effect caused by camera settings that are not suitable for the given light situation. However, the effect can also be added subsequently to create noticeable changes in the picture’s mood and perception by making subtle changes.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Power</td>
+<td>Defines the intensity of the vignette effect.</td>
+</tr>
+<tr>
+<td>Ratio</td>
+<td>Defines the ratio of the effect with respect to the center of the image.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="distortion">Distortion</h2>
+<p>This is a visual effect that simulates the effect produced by the refraction of light. Examples of this effect include looking through glass or fire smoke.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>This effect requires the use of the <strong><a href="../../effects/builtin_effects.html">Distortion Material</a></strong> included in the <a href="../../../addons/index.html"><strong>Evergine.core</strong> package</a>.</p>
+</div>
+<p><img src="images/Distortion.jpg" alt="Distortion effect"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

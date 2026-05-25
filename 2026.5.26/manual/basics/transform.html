@@ -1,0 +1,326 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Transform3D | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Transform3D | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="transform3d">Transform3D</h1>
+
+<p>Transform3D is perhaps the most important <a href="component_arch/components/index.html">Component</a> in Evergine.</p>
+<p>The Transform3D components are used to store the Entity's position, rotation, and scale.</p>
+<h2 id="parent--child-hierarchy">Parent / Child Hierarchy</h2>
+<p>When an Entity is a Parent of another Entity, the Child Entity will move, rotate, and scale in the same way as its Parent does. You can think of the parent/child hierarchy as being like the relationship between your arms and your body; whenever your body moves, your arms also move along with it. Child objects can also have children. Your hands can be considered children of your arms, and your fingers are the children of your hands.</p>
+<p><img src="component_arch/entities/images/entity_hierarchy.png" alt="Hierarchy"></p>
+<h2 id="local-vs-world-space">Local vs. World Space</h2>
+<p>3D positions and transformations exist within coordinate systems called spaces:</p>
+<h3 id="world-space">World Space</h3>
+<p><strong>World Space</strong> is the coordinate system for the entire scene. Its origin is at the center of the scene:</p>
+<ul>
+<li>Position [0, 0, 0]</li>
+<li>Scale [1, 1, 1]</li>
+<li>Rotation [0, 0, 0]</li>
+</ul>
+<p>In an entity hierarchy, this space is used to get the global position of your body hand (following the example explained above).</p>
+<h3 id="local-space">Local Space</h3>
+<p><strong>Local Space</strong> is the coordinate system where position, rotation, and scale are used, taking the entity's parent as a reference.</p>
+<p><img src="images/localvsworld.gif" alt="localvsworld"></p>
+<h2 id="transform3d-properties">Transform3D Properties</h2>
+<p>When you set a local property, the equivalent world property is set automatically, and vice versa. So, you can place a child object in a global position, and the Transform3D component translates it to local space.</p>
+<h3 id="local-space-properties">Local Space Properties</h3>
+<p>The following properties are used to modify Transform3D in local space:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LocalPosition</strong></td>
+<td><code>Vector3</code></td>
+<td><code>Vector3.Zero</code></td>
+<td>This is the position of the entity in local space.</td>
+</tr>
+<tr>
+<td><strong>LocalOrientation</strong></td>
+<td><code>Quaternion</code></td>
+<td><code>Quaternion.Identity</code></td>
+<td>This is the orientation of the entity in local space.</td>
+</tr>
+<tr>
+<td><strong>LocalRotation</strong></td>
+<td><code>Vector3</code></td>
+<td><code>Vector3.Zero</code></td>
+<td>This is the rotation of the entity in local space, expressed in Euler angles.</td>
+</tr>
+<tr>
+<td><strong>LocalScale</strong></td>
+<td><code>Vector3</code></td>
+<td><code>Vector3.One</code></td>
+<td>This is the scale of the entity in local space.</td>
+</tr>
+<tr>
+<td><strong>LocalTransform</strong></td>
+<td><code>Matrix4x4</code></td>
+<td>The transform matrix relative to the parent transform. It is obtained by combining the LocalPosition, LocalOrientation, and LocalScale (TRS matrix).</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>As you can see, we use the terminology <strong>Orientation</strong> to express quaternion properties, and <strong>Rotation</strong> to express Euler angles.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Internally, the orientation/rotation are stored in a Quaternion value. Therefore, for performance reasons, we recommend using Quaternion properties (apart from the great benefits that Quaternion offers itself).</p>
+</div>
+<h3 id="world-space-properties">World Space Properties</h3>
+<p>The following properties are used to modify Transform3D in world space:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Position</strong></td>
+<td><code>Vector3</code></td>
+<td>This is the position of the entity in world space.</td>
+</tr>
+<tr>
+<td><strong>Orientation</strong></td>
+<td><code>Quaternion</code></td>
+<td>This is the orientation of the entity in world space.</td>
+</tr>
+<tr>
+<td><strong>Rotation</strong></td>
+<td><code>Vector3</code></td>
+<td>This is the rotation of the entity in world space, expressed in Euler angles.</td>
+</tr>
+<tr>
+<td><strong>Scale</strong></td>
+<td><code>Vector3</code></td>
+<td>This is the scale of the entity in world space.</td>
+</tr>
+<tr>
+<td><strong>WorldTransform</strong></td>
+<td><code>Matrix4x4</code></td>
+<td>The matrix that transforms from local space to world space. It is obtained by combining the Position, Orientation, and Scale (TRS matrix).</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The initial Position, Orientation, and Scale values depend on parent transforms because parent translation, scaling, or orientation changes are propagated.</p>
+</div>
+<h3 id="events">Events</h3>
+<p>You can subscribe to transform events to be notified when one of its properties changes:</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LocalPositionChanged</strong></td>
+<td>Triggered when the <strong>LocalPosition</strong> is changed.</td>
+</tr>
+<tr>
+<td><strong>LocalOrientationChanged</strong></td>
+<td>Triggered when the <strong>LocalOrientation</strong> is changed.</td>
+</tr>
+<tr>
+<td><strong>LocalScaleChanged</strong></td>
+<td>Triggered when the <strong>LocalScale</strong> is changed.</td>
+</tr>
+<tr>
+<td><strong>LocalTransformChanged</strong></td>
+<td>Triggered when the <strong>LocalTransform</strong> is changed.</td>
+</tr>
+<tr>
+<td><strong>PositionChanged</strong></td>
+<td>Triggered when the <strong>Position</strong> is changed.</td>
+</tr>
+<tr>
+<td><strong>OrientationChanged</strong></td>
+<td>Triggered when the <strong>Orientation</strong> is changed.</td>
+</tr>
+<tr>
+<td><strong>ScaleChanged</strong></td>
+<td>Triggered when the <strong>Scale</strong> is changed.</td>
+</tr>
+<tr>
+<td><strong>TransformChanged</strong></td>
+<td>Triggered when the <strong>WorldTransform</strong> is changed.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="hierarchy-properties">Hierarchy Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ParentTransform</strong></td>
+<td>Indicates the transform of the parent entity. <code>null</code> if the entity has no parent.</td>
+</tr>
+<tr>
+<td><strong>ChildrenTransform</strong></td>
+<td>The list of children transforms.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="useful-methods">Useful Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LookAt(targetPosition, up)</strong></td>
+<td>Rotates the entity to point to the target position and up vector. All calculations are made in <strong>world space</strong>.</td>
+</tr>
+<tr>
+<td><strong>LocalLookAt(targetPosition, up)</strong></td>
+<td>Rotates the entity to point to the target position and up vector. All calculations are made in <strong>local space</strong>.</td>
+</tr>
+<tr>
+<td><strong>SetLocalTransform(localPosition, localOrientation, localScale)</strong></td>
+<td>Computes the local transform and updates all local space properties.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>We recommend invoking the <code>SetLocalTransform()</code> method instead of setting LocalPosition, LocalOrientation, and LocalScale separately.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

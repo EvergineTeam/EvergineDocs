@@ -1,0 +1,441 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class TypeInfoAllMemberExtensions | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class TypeInfoAllMemberExtensions | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions">
+
+
+
+  <h1 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions" class="text-break">Class TypeInfoAllMemberExtensions</h1>
+  <div class="markdown level0 summary"><p>Extension methods for TypeInfo.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">TypeInfoAllMemberExtensions</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Common.html">Common</a>.<a class="xref" href="Evergine.Common.Helpers.html">Helpers</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Common.dll</h6>
+  <h5 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static class TypeInfoAllMemberExtensions</code></pre>
+  </div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllConstructors_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllConstructors*"></a>
+  <h4 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllConstructors_System_Reflection_TypeInfo_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllConstructors(System.Reflection.TypeInfo)">GetAllConstructors(TypeInfo)</h4>
+  <div class="markdown level1 summary"><p>Get constructors of the type and its base types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;ConstructorInfo&gt; GetAllConstructors(this TypeInfo typeInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.typeinfo">TypeInfo</a></td>
+        <td><span class="parametername">typeInfo</span></td>
+        <td><p>The type info.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.constructorinfo">ConstructorInfo</a>&gt;</td>
+        <td><p>All the constructors.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllEvents_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllEvents*"></a>
+  <h4 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllEvents_System_Reflection_TypeInfo_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllEvents(System.Reflection.TypeInfo)">GetAllEvents(TypeInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets events of the type and its base types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;EventInfo&gt; GetAllEvents(this TypeInfo typeInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.typeinfo">TypeInfo</a></td>
+        <td><span class="parametername">typeInfo</span></td>
+        <td><p>The type info.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.eventinfo">EventInfo</a>&gt;</td>
+        <td><p>All the events.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllFields_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllFields*"></a>
+  <h4 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllFields_System_Reflection_TypeInfo_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllFields(System.Reflection.TypeInfo)">GetAllFields(TypeInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets fields of the type and its base types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;FieldInfo&gt; GetAllFields(this TypeInfo typeInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.typeinfo">TypeInfo</a></td>
+        <td><span class="parametername">typeInfo</span></td>
+        <td><p>The type info.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.fieldinfo">FieldInfo</a>&gt;</td>
+        <td><p>All the fields.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllMembers_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllMembers*"></a>
+  <h4 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllMembers_System_Reflection_TypeInfo_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllMembers(System.Reflection.TypeInfo)">GetAllMembers(TypeInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets members of the type and its base types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;MemberInfo&gt; GetAllMembers(this TypeInfo typeInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.typeinfo">TypeInfo</a></td>
+        <td><span class="parametername">typeInfo</span></td>
+        <td><p>The type info.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.memberinfo">MemberInfo</a>&gt;</td>
+        <td><p>All the members.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllMethods_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllMethods*"></a>
+  <h4 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllMethods_System_Reflection_TypeInfo_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllMethods(System.Reflection.TypeInfo)">GetAllMethods(TypeInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets methods of the type and its base types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;MethodInfo&gt; GetAllMethods(this TypeInfo typeInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.typeinfo">TypeInfo</a></td>
+        <td><span class="parametername">typeInfo</span></td>
+        <td><p>The type info.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.methodinfo">MethodInfo</a>&gt;</td>
+        <td><p>All the methods.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllNestedTypes_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllNestedTypes*"></a>
+  <h4 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllNestedTypes_System_Reflection_TypeInfo_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllNestedTypes(System.Reflection.TypeInfo)">GetAllNestedTypes(TypeInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets nested types of the type and its base types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;TypeInfo&gt; GetAllNestedTypes(this TypeInfo typeInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.typeinfo">TypeInfo</a></td>
+        <td><span class="parametername">typeInfo</span></td>
+        <td><p>The type info.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.typeinfo">TypeInfo</a>&gt;</td>
+        <td><p>All the nested types.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllProperties_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllProperties*"></a>
+  <h4 id="Evergine_Common_Helpers_TypeInfoAllMemberExtensions_GetAllProperties_System_Reflection_TypeInfo_" data-uid="Evergine.Common.Helpers.TypeInfoAllMemberExtensions.GetAllProperties(System.Reflection.TypeInfo)">GetAllProperties(TypeInfo)</h4>
+  <div class="markdown level1 summary"><p>Gets properties of the type and its base types.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public static IEnumerable&lt;PropertyInfo&gt; GetAllProperties(this TypeInfo typeInfo)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.typeinfo">TypeInfo</a></td>
+        <td><span class="parametername">typeInfo</span></td>
+        <td><p>The type info.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.reflection.propertyinfo">PropertyInfo</a>&gt;</td>
+        <td><p>All the properties.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

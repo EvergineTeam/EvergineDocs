@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>GraphicsContext | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="GraphicsContext | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="graphicscontext">GraphicsContext</h1>
+
+<p>The GraphicsContext is the central class for displaying your application. It's used to create and manage graphic resources.</p>
+<p>Like the majority of Low-level-API classes, GraphicsContext is an abstract class that exposes the common functionality of each graphics API (e.g. DirectX, Vulkan, Metal...). To use this API, you just need to create or access the GraphicsContext instance, indicating the appropriate implementation depending on which graphic backend you are interested in.</p>
+<p>In the following example, we are creating a DirectX11 GraphicsContext:</p>
+<pre><code class="lang-csharp">var graphicsContext = new Evergine.DirectX11.DX11GraphicsContext();
+</code></pre>
+<p>Use the specified constructor to initialize a concrete graphics API.</p>
+<table>
+<thead>
+<tr>
+<th>API</th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DirectX 11</td>
+<td><code>new DX11GraphicsContext()</code></td>
+</tr>
+<tr>
+<td>DirectX 12</td>
+<td><code>new DX12GraphicsContext()</code></td>
+</tr>
+<tr>
+<td>Vulkan</td>
+<td><code>new VKGraphicsContext()</code></td>
+</tr>
+<tr>
+<td>OpenGL</td>
+<td><code>new GLGraphicsContext()</code></td>
+</tr>
+<tr>
+<td>Metal</td>
+<td><code>new MTLGraphicsContext()</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialize-the-device">Initialize the Device</h2>
+<p>Once you have created the GraphicsContext, to create resources and render your content, you need to create the graphics device:</p>
+<pre><code class="lang-csharp">graphicsContext.CreateDevice();
+</code></pre>
+<h3 id="validation-layer">Validation Layer</h3>
+<p>To enable debug graphics mode, you must add the ValidationLayer object to the device constructor. This will show you the native and internal errors:</p>
+<pre><code class="lang-csharp">// Add a ValidationLayer instance in the CreateDevice invocation...
+graphicsContext.CreateDevice(new ValidationLayer());
+</code></pre>
+<p>By default, the ValidationLayer uses exceptions to notify any issue, but it is possible to change it:</p>
+<table>
+<thead>
+<tr>
+<th>Notify Method</th>
+<th>Declaration</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exception</strong></td>
+<td><code>new ValidationLayer()</code></td>
+<td>Throws exceptions for each internal error and stops the execution.</td>
+</tr>
+<tr>
+<td><strong>Trace</strong></td>
+<td><code>new ValidationLayer(ValidationLayer.NotifyMethod.Trace)</code></td>
+<td>Displays all errors in the console without stopping the execution.</td>
+</tr>
+<tr>
+<td><strong>Event</strong></td>
+<td><code>new ValidationLayer(ValidationLayer.NotifyMethod.Event)</code></td>
+<td>The ValidationLayer.Error event allows you to obtain the error messages.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialize-swapchain">Initialize Swapchain</h2>
+<p>Once you have the GraphicsContext, you can use it to create the swapchain and render on a surface.</p>
+<pre><code class="lang-csharp">// Create a window...
+var windowSystem = new Evergine.WindowsForms.FormsWindowsSystem();
+var window = windowSystem.CreateWindow(windowTitle, width, height);
+
+// Create a swapchain descriptor and assign the surface info...
+var swapChainDescriptor = new SwapChainDescription()
+{
+    Width = window.Width,
+    Height = window.Height,
+    SurfaceInfo = info,
+    ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm,
+    ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+    DepthStencilTargetFormat = PixelFormat.D24_UNorm_S8_UInt,
+    DepthStencilTargetFlags = TextureFlags.DepthStencil,
+    SampleCount = this.SampleCount,
+    IsWindowed = true,
+    RefreshRate = 60,
+    SurfaceInfo = window.SurfaceInfo
+};
+
+// Finally, create the swapchain...
+var swapChain = this.graphicsContext.CreateSwapChain(swapChainDescriptor);
+swapChain.VerticalSync = false;
+</code></pre>
+<p>To create the surface, first, you need to select a UI technology:</p>
+<table>
+<thead>
+<tr>
+<th>UI</th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Windows Forms</strong></td>
+<td>Evergine.Forms.FormsWindowsSystem</td>
+</tr>
+<tr>
+<td><strong>WPF</strong></td>
+<td>Evergine.WPF.WPFWindowsSystem</td>
+</tr>
+<tr>
+<td><strong>SDL</strong></td>
+<td>Evergine.SDL.SDLWindowsSystem</td>
+</tr>
+<tr>
+<td><strong>Android</strong></td>
+<td>Evergine.AndroidView.AndroidWindowsSystem</td>
+</tr>
+<tr>
+<td><strong>iOS</strong></td>
+<td>Evergine.iOSView.iOSWindowsSystem</td>
+</tr>
+<tr>
+<td><strong>UWP</strong></td>
+<td>Evergine.UWPView.UWPWindowsSystem</td>
+</tr>
+<tr>
+<td><strong>WinUI</strong></td>
+<td>Evergine.WinUI.WinUIWindowsSystem</td>
+</tr>
+<tr>
+<td><strong>MixedReality</strong></td>
+<td>Evergine.MixedReality.MixedRealityWindowsSystem</td>
+</tr>
+<tr>
+<td><strong>Web</strong></td>
+<td>Evergine.Web.WebWindowsSystem</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create-from-scratch">Create from scratch</h2>
+<p>Visit the <a href="https://github.com/evergineteam/LowLevelAPIDemo">Low-Level test samples</a> to learn how to create an application from scratch using this cross-platform API.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

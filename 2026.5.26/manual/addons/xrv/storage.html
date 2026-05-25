@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Storage | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Storage | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="storage">Storage</h1>
+
+<p>If your application requires an external repository for models, images, or other files, <em>XRV</em> offers a flexible file storage system. The base class, <em>FileAccess</em>, can be extended to create custom implementations with full CRUD capabilities for files in various storage repositories.</p>
+<h2 id="file-access">File Access</h2>
+<p>The following methods are available in any <em>FileAccess</em> implementation and provide core functionalities for file and directory operations.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ClearAsync</strong></td>
+<td>Clears all files and directories.</td>
+</tr>
+<tr>
+<td><strong>CreateBaseDirectoryIfNotExistsAsync</strong></td>
+<td>Ensures that the base directory defined by <em>BaseDirectory</em> exists. If it does not exist, the directory is created.</td>
+</tr>
+<tr>
+<td><strong>CreateDirectoryAsync</strong></td>
+<td>Creates a directory, indicated by a relative path.</td>
+</tr>
+<tr>
+<td><strong>DeleteDirectoryAsync</strong></td>
+<td>Deletes a directory, indicated by a relative path.</td>
+</tr>
+<tr>
+<td><strong>DeleteFileAsync</strong></td>
+<td>Deletes a file, indicated by a relative path.</td>
+</tr>
+<tr>
+<td><strong>GetFileAsync</strong></td>
+<td>Gets file contents by relative path.</td>
+</tr>
+<tr>
+<td><strong>GetFileItemAsync</strong></td>
+<td>Gets file metadata by relative path.</td>
+</tr>
+<tr>
+<td><strong>EnumerateDirectoriesAsync</strong></td>
+<td>Enumerates directories existing in the base directory or a relative directory path.</td>
+</tr>
+<tr>
+<td><strong>EnumerateFilesAsync</strong></td>
+<td>Enumerates files existing in the base directory or a relative directory path.</td>
+</tr>
+<tr>
+<td><strong>ExistsDirectoryAsync</strong></td>
+<td>Checks if a directory, indicated by a relative path, exists or not.</td>
+</tr>
+<tr>
+<td><strong>WriteFileAsync</strong></td>
+<td>Writes file contents by relative path.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="local-application-data-folder-storage">Local Application Data Folder Storage</h3>
+<p>The <em>ApplicationDataFileAccess</em> implementation sets the base path to <em>System.Environment.SpecialFolder.LocalApplicationData</em>, which varies depending on the platform. To use this storage, set the <em>BaseDirectory</em> to the desired folder name. This option is ideal for data caching or temporary file storage, but note that files may not be accessible outside of the application depending on the platform.</p>
+<pre><code class="lang-csharp">var fileAccess = new ApplicationDataFileAccess()
+{
+    BaseDirectory = &quot;my-folder&quot;,
+};
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Some folders are used internally. Avoid using <em>&quot;cache&quot;</em> as the base directory name.</p>
+</div>
+<h3 id="azure-blob-data-storage">Azure Blob Data Storage</h3>
+<p><em>Azure Blob Storage</em> can also be used for storing and retrieving files needed by your application. To set up an Azure Blob instance, provide storage account configuration details. Note that directory methods may not work here, as Azure Blob Storage does not support traditional directories. When using SAS (Shared Access Signature), ensure it includes permissions for full CRUD access if needed.</p>
+<pre><code class="lang-csharp">var fileAccess = AzureBlobFileAccess.CreateFromConnectionString(&quot;Storage account connection string&quot;, &quot;Container name&quot;); //or
+var fileAccess = AzureBlobFileAccess.CreateFromUri(&quot;https://&lt;ACCOUNT&gt;.blob.core.windows.net/container?sv=2021-08-06&amp;st=2022-11-18T15%3A07%3A20Z&amp;...&quot;); // Container URI containing SAS (or without SAS for public containers, if you need read-only operations)
+var fileAccess = AzureBlobFileAccess.CreateFromConnectionString(&quot;https://&lt;ACCOUNT&gt;.blob.core.windows.net/container&quot;, &quot;sv=2021-08-06&amp;st=2022-11-18T15%3A07%3A20Z&amp;...&quot;);  // Container URI with separated SAS
+</code></pre>
+<h3 id="azure-files-data-storage">Azure Files Data Storage</h3>
+<p><em>Azure Files</em> is another supported storage option that uses similar configuration parameters. You can set up Azure Files using the connection configuration data provided.</p>
+<pre><code class="lang-csharp">var fileAccess = AzureFileShareFileAccess.CreateFromConnectionString(&quot;Storage account connection string&quot;, &quot;Share name&quot;); //or
+var fileAccess = AzureFileShareFileAccess.CreateFromUri(&quot;https://&lt;ACCOUNT&gt;.file.core.windows.net/share?sv=2021-08-06&amp;st=2022-11-18T15%3A07%3A20Z&amp;...&quot;); // Share URI containing SAS
+var fileAccess = AzureFileShareFileAccess.CreateFromConnectionString(&quot;https://&lt;ACCOUNT&gt;.file.core.windows.net/share&quot;, &quot;sv=2021-08-06&amp;st=2022-11-18T15%3A07%3A20Z&amp;...&quot;);  // Share URI with separated SAS
+</code></pre>
+<h2 id="disk-cache">Disk Cache</h2>
+<p>Any <em>FileAccess</em> instance can use an optional disk cache, which will check for and retrieve files locally before attempting to download them again. To enable caching, create a <em>DiskCache</em> instance and assign it to the <em>FileAccess</em> instance.</p>
+<pre><code class="lang-csharp">var fileAccess = AzureFileShareFileAccess.CreateFromUri(...);
+fileAccess.Cache = new DiskCache(&quot;images&quot;); // indicate a unique cache name for your needs
+</code></pre>
+<p>Cache settings include the following options:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>SizeLimit</td>
+<td>Cache size limit. Defaults to 100 MB.</td>
+</tr>
+<tr>
+<td>SlidingExpiration</td>
+<td>Maximum time an item remains in cache without being accessed.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

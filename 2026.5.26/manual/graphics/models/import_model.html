@@ -1,0 +1,191 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Import a Model | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Import a Model | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="import-a-model">Import a Model</h1>
+
+<p><img src="images/ModelImport.png" alt="Drag and Drop Asset"></p>
+<p>In <strong>Evergine Studio</strong>, importing a 3D model file will create a <strong>Model</strong> asset, as explained in <a href="../../evergine_studio/assets/create.html">this article</a>.</p>
+<h2 id="embedded-assets">Embedded Assets</h2>
+<p>Depending on the 3D model file, when importing a <strong>Model</strong>, it may also import other embedded assets. A new folder will be created at the same level as the 3D file, with the name <strong><code>[ModelName]_Embedded</code></strong> (e.g., the file <code>car.fbx</code> will generate a folder named <code>car_Embedded</code>).</p>
+<table>
+<thead>
+<tr>
+<th>Asset</th>
+<th>Location</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Material</strong></td>
+<td><code>[ModelName]_Embedded/Materials</code></td>
+<td>The most common one. Every material that the 3D file uses is generated as a specific <strong>Material</strong> asset and referenced in the <strong>Model</strong>.</td>
+</tr>
+<tr>
+<td><strong>Texture</strong></td>
+<td><code>[ModelName]_Embedded/Textures</code></td>
+<td>Some 3D file formats can embed textures. For every embedded <strong>Texture</strong>, an asset is generated.</td>
+</tr>
+<tr>
+<td><strong>Sampler</strong></td>
+<td><code>[ModelName]_Embedded/Samplers</code></td>
+<td>Some 3D file formats specify the sampler states for their textures. In this case, <strong>Samplers</strong> are generated.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="inspect-models-in-asset-details">Inspect Models in Asset Details</h2>
+<p>You can find the model assets in the <em>Assets Details</em> panel when you select a folder in the <em>Project Explorer</em>.</p>
+<p><img src="images/ModelGallery.png" alt="Texture view"></p>
+<p>The picture shows both the <strong>Model</strong> asset and the <strong>Embedded</strong> folder for all the generated assets.</p>
+<h2 id="model-files-in-content-directory">Model Files in Content Directory</h2>
+<p><strong>Models</strong> imported in <strong>Evergine</strong> create an additional metadata <code>.wemd</code> file.</p>
+<p><img src="images/ModelFiles.png" alt="Model files"></p>
+<h2 id="supported-formats">Supported Formats</h2>
+<p><strong>Evergine</strong> supports the following model formats:</p>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.gltf</code>, <code>.glb</code></td>
+<td><div><p>Open source format. The <a href="https://www.khronos.org/">Kronos Group</a> created this format for 3D web, AR, VR, games, and 3D advertising. It’s the first really well-defined standard for 3D. This file format supports geometry, materials, textures, colors, and animations, including PBR (Physical Based Rendering).</p> <p><strong>GLTF</strong> is based on JSON, so it stores some data in external files like textures (JPEG or PNG), shaders (GLSL), or geometry and animation data (BIN). <strong>GLB</strong> files store all this data internally. The Kronos Group is continually improving and updating this file format. It is quickly becoming the standard for 3D shopping. </p></div></td>
+</tr>
+<tr>
+<td><code>.fbx</code></td>
+<td><strong>FBX</strong> is a proprietary 3D file format. AutoDesk purchased it in 2006 and continued supporting FBX. It is widely used in the film and video game industry. It supports geometry, appearance (color and texture), as well as animations (skeletal and morphs). FBX is most popular for animation and is used as an exchange format between different programs like Maya, 3DSMax, AutoCAD, Roman’s CAD, and others.</td>
+</tr>
+<tr>
+<td><code>.obj</code></td>
+<td>An <strong>OBJ</strong> file contains information about the geometry of 3D objects. Developers use the file format for exchanging information and in CAD and 3D printing applications. OBJ files can support unlimited colors, and one file can define multiple objects. The current version is 3.0. The objects in an OBJ file are defined by polygon faces and normals, curves, texture maps, and surfaces. OBJ is a vector file, which makes the defined objects scalable.</td>
+</tr>
+<tr>
+<td><code>.3ds</code></td>
+<td>A <strong>3DS</strong> file is a 3D image format used by Autodesk 3D Studio. It contains mesh data, material attributes, bitmap references, smoothing group data, viewport configurations, camera locations, and lighting information. 3DS files may also include object animation data.</td>
+</tr>
+<tr>
+<td><code>.dae</code></td>
+<td>A <strong>DAE</strong> file is a Digital Asset Exchange file format that is used for exchanging data between interactive 3D applications. This file format is based on the COLLADA (COLLAborative Design Activity) XML schema, an open standard XML schema for the exchange of digital assets among graphics software applications.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

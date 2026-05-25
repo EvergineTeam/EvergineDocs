@@ -1,0 +1,328 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Hinge Joint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Hinge Joint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hinge-joint">Hinge Joint</h1>
+
+<video autoplay="" loop="" muted="" width="100%" height="auto">
+  <source src="images/HingeJointVideo.mp4" type="video/mp4">
+</video>
+<p>The <strong>Hinge Joint</strong> restricts translation and two additional angular degrees of freedom, so the body can only rotate around one defined axis. This joint is useful for representing doors or wheels rotating around an axis. The user can specify limits and motor settings for the hinge.</p>
+<h2 id="hingejoint3d">HingeJoint3D</h2>
+<p>In Evergine, a Hinge Joint is implemented using the <code>HingeJoint3D</code> component.</p>
+<p><img src="images/hingeJointComponent.png" alt="Hinge Joint"></p>
+<h3 id="common-properties">Common Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ConnectedEntityPath</strong></td>
+<td>null</td>
+<td>The <a href="../../basics/component_arch/entities/entity_hierarchy.html#entity-paths">entity path</a> of the connected body. Only when the path is valid is a joint established properly.</td>
+</tr>
+<tr>
+<td><strong>Axis</strong></td>
+<td>1, 0, 0</td>
+<td>The direction of the axis around which the body swings. The direction is defined in local space.</td>
+</tr>
+<tr>
+<td><strong>Anchor</strong></td>
+<td>0, 0, 0</td>
+<td>The position of the axis around which the body swings. The position is defined in local space.</td>
+</tr>
+<tr>
+<td><strong>AutoConfigureConnected</strong></td>
+<td>true</td>
+<td>Enable this setting to automatically calculate the <em>ConnectedAnchor</em> position and <em>ConnectedAxis</em> to match the global position of the anchor property. This is the default setting. Disable it to configure the position of the connected anchor and connected axis manually.</td>
+</tr>
+<tr>
+<td><strong>ConnectedAxis</strong></td>
+<td><em>auto-calculated</em></td>
+<td>The joint axis relative to the connected body.</td>
+</tr>
+<tr>
+<td><strong>ConnectedAnchor</strong></td>
+<td><em>auto-calculated</em></td>
+<td>Manually configure the connected anchor position in the connected body's local space.</td>
+</tr>
+<tr>
+<td><strong>BreakPoint</strong></td>
+<td>0</td>
+<td>If the value is greater than 0, it indicates the force that needs to be applied for this joint to break.</td>
+</tr>
+<tr>
+<td><strong>CollideConnected</strong></td>
+<td>false</td>
+<td>Determines whether a collision between the two bodies managed by the joint is enabled.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="limit-properties">Limit Properties</h3>
+<p>The following properties set the limits of the rotation movement.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UseAngularLimit</strong></td>
+<td>false</td>
+<td>If enabled, the angle of the hinge will be restricted within the <em>LowerAngularLimit</em> and <em>UpperAngularLimit</em> values.</td>
+</tr>
+<tr>
+<td><strong>LowerAngularLimit</strong></td>
+<td>0</td>
+<td>The lowest angle the rotation can go.</td>
+</tr>
+<tr>
+<td><strong>UpperAngularLimit</strong></td>
+<td>0</td>
+<td>The highest angle the rotation can go.</td>
+</tr>
+<tr>
+<td><strong>LimitSoftness</strong></td>
+<td>0.9</td>
+<td>Once an angle is greater than softness * the maximum angle, the constraint begins to take effect. Lowering the value of softness softens the constraint boundaries.</td>
+</tr>
+<tr>
+<td><strong>LimitBiasFactor</strong></td>
+<td>0.3</td>
+<td>The rate at which the constraint corrects errors in orientation. A value of 1 will ensure that the constraint is always obeyed. It is recommended to keep bias between 0.2 and 0.5.</td>
+</tr>
+<tr>
+<td><strong>LimitRelaxationFactor</strong></td>
+<td>1</td>
+<td>The rate at which the angular velocity is changed by the constraint. A low value means the constraint will modify the velocities slowly, leaving the boundaries appearing softer.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="motor-properties">Motor Properties</h3>
+<p>The following properties set the motor properties of the joint.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UseMotor</strong></td>
+<td>false</td>
+<td>If enabled, the motor makes the object spin around.</td>
+</tr>
+<tr>
+<td><strong>MotorTargetVelocity</strong></td>
+<td>0</td>
+<td>The speed the object tries to attain.</td>
+</tr>
+<tr>
+<td><strong>MotorTargetImpulse</strong></td>
+<td>0</td>
+<td>The impulse applied in order to attain the speed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-hinge-joint">Using Hinge Joint</h2>
+<p>This snippet creates a small bridge of a series of connected bodies.</p>
+<video autoplay="" loop="" muted="" width="400px" height="auto">
+  <source src="images/HingeSample.mp4" type="video/mp4">
+</video>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    this.Managers.RenderManager.DebugLines = true;
+
+    // Load your material
+    var cubeMaterial = this.Managers.AssetSceneManager.Load&lt;Material&gt;(DefaultResourcesIDs.DefaultMaterialID);
+
+    int chainLength = 6;
+    Entity previousLink = null;
+
+    var size = new Vector3(0.5f, 0.1f, 2);
+    var separation = 0.6f;
+
+    // Create the chain...
+    for (int i = 0; i &lt; chainLength; i++)
+    {
+        // The first object is kinematic (we don't want a falling chain :D)
+        var rigidObjectType = (i == 0) ? RigidBodyType3D.Kinematic : RigidBodyType3D.Dynamic;
+
+        // Create the link entities...
+        var link = this.CreateCube(cubeMaterial, new Vector3(i * separation, 0, 0), size, rigidObjectType);
+
+        if (previousLink != null)
+        {
+            // Add a PointToPoint joint to the previous link connected to the current link...
+            previousLink.AddComponent(new HingeJoint3D()
+            {
+                ConnectedEntityPath = link.EntityPath,
+                Axis = Vector3.Forward,                     // Sets the hinge axis to Z
+                Anchor = new Vector3(separation / 2, 0, 0)  // Sets the Anchor between the source and connected body
+            });
+        }
+
+        previousLink = link;
+
+        this.Managers.EntityManager.Add(link);
+    }
+}
+
+private Entity CreateCube(Material material, Vector3 position, Vector3 size, RigidBodyType3D rigidBodyType)
+{
+    Entity cube = new Entity()
+        .AddComponent(new Transform3D()
+        {
+            Position = position,
+            Scale = size
+        })
+        .AddComponent(new MaterialComponent() { Material = material })
+        .AddComponent(new CubeMesh())
+        .AddComponent(new MeshRenderer())
+
+        .AddComponent(new RigidBody3D()         // Add a RigidBody3D component...
+        {
+            PhysicBodyType = rigidBodyType
+        })
+        .AddComponent(new BoxCollider3D());     // Add a BoxCollider3D to the physic body...
+
+    return cube;
+}
+</code></pre>
+<h3 id="add-motor">Add Motor</h3>
+<p>At the end of the previous <code>CreateScene()</code> method, add the following code:</p>
+<pre><code class="lang-csharp">var firstHinge = this.Managers.EntityManager.FindFirstComponentOfType&lt;HingeJoint3D&gt;();
+firstHinge.UseMotor = true;
+firstHinge.MotorTargetVelocity = 4;
+firstHinge.MotorTargetImpulse = 100;
+</code></pre>
+<p>This will produce the following effect:</p>
+<video autoplay="" loop="" muted="" width="400px" height="auto">
+  <source src="images/HingeSampleMotor.mp4" type="video/mp4">
+</video>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

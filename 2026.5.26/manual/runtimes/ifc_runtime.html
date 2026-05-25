@@ -1,0 +1,231 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>IFC Runtime Models | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="IFC Runtime Models | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ifc-runtime-models">IFC Runtime Models</h1>
+
+<hr>
+<p><img src="images/IFC/HeaderIFC.png" alt="Evergine Runtime Models"></p>
+<p>The <strong>Evergine.Runtime.IFC</strong> NuGet package provides a <strong>powerful and efficient solution</strong> for dynamically loading IFC models at runtime. It is designed for real-time 3D applications and integrates seamlessly into your Evergine projects.</p>
+<h2 id="supported-ifc-features">Supported IFC Features</h2>
+<p>The <code>Evergine.Runtime.IFC</code> namespace includes a robust IFC file loader that supports a comprehensive range of mesh features:</p>
+<h3 id="-features">✅ Features</h3>
+<h4 id="1-supported-ifc-file-types">1. Supported IFC File Types</h4>
+<ul>
+<li>Supports <code>.ifc</code> files in both <strong>IFC2x3</strong> and <strong>IFC4</strong> schema versions.</li>
+<li>Data processing is based on the <strong>XBim Toolkit</strong>.</li>
+</ul>
+<h4 id="2-geometry">2. Geometry</h4>
+<ul>
+<li>Supports multiple geometric representations:
+<ul>
+<li><strong>Triangulated face sets</strong>: direct 3D meshes based on triangle lists.</li>
+<li><strong>Extruded solids</strong>: generated from parametric IFC solid extrusions.</li>
+<li><strong>Boolean operations</strong>: geometry resulting from boolean operations (union, difference, intersection).</li>
+</ul>
+</li>
+<li>Generated meshes include: <strong>vertex positions</strong>, <strong>triangle indices</strong>, <strong>vertex normals</strong>, <strong>vertex color</strong>.</li>
+<li>Normal generation can be configured using the <code>useSmoothNormals</code> flag in the runtime:
+<ul>
+<li>When set to <code>false</code> (default), geometry is generated with <strong>flat normals</strong> (per face), resulting in a faceted appearance and better performance.</li>
+<li>When set to <code>true</code>, geometry is generated with <strong>smooth normals</strong> (per vertex), producing visually smoother surfaces.</li>
+</ul>
+</li>
+<li>Mesh generation is optimized for direct integration into Evergine scenes.</li>
+</ul>
+<h4 id="3-basic-materials">3. Basic Materials</h4>
+<ul>
+<li>Supports default <strong>opaque</strong> materials.</li>
+<li>Supports <strong>translucent</strong> materials by interpreting properties related to glass or semi-transparent materials.</li>
+</ul>
+<h4 id="4-efficient-rendering-batching">4. Efficient Rendering (Batching)</h4>
+<ul>
+<li>Implements an intelligent batching system that groups meshes by material type.
+Reduces the total number of draw calls to just two main calls:
+<ul>
+<li>One for <strong>opaque</strong> objects.</li>
+<li>One for <strong>translucent</strong> objects.</li>
+</ul>
+</li>
+</ul>
+<h4 id="5-realtime-progress-reporting">5. Real‑Time Progress Reporting</h4>
+<ul>
+<li>Enables real‑time tracking of each stage of IFC file loading and processing.</li>
+<li>Exposes three <code>IProgress&lt;int&gt;</code> properties:
+<ul>
+<li><code>OpenProgress</code>: progress percentage during file opening.</li>
+<li><code>ContextProgress</code>: progress percentage while loading the IFC context.</li>
+<li><code>GeometryProgress</code>: progress percentage during geometry generation.</li>
+</ul>
+</li>
+</ul>
+<hr>
+<h3 id="limitations">Limitations</h3>
+<h4 id="1-platform">1. Platform</h4>
+<ul>
+<li>The IFC runtime is currently supported only on Windows desktop platforms.</li>
+</ul>
+<h4 id="2-ifc-file-handling">2. IFC File Handling</h4>
+<ul>
+<li>Supported file types include <strong>IFC2x3</strong> and <strong>IFC4</strong>, based on the capabilities of the <strong>XBim Toolkit</strong>.</li>
+</ul>
+<p>⚠️ <em>These limitations are subject to change in future updates.</em></p>
+<hr>
+<h2 id="getting-started">Getting Started</h2>
+<p>To start using the <strong>Evergine.Runtimes.IFC</strong> libraries, simply install the NuGet package and use the following code to load your assets:</p>
+<pre><code class="lang-csharp">protected async override void CreateScene()
+{    
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+    
+    IFCRuntime.Instance.OpenProgress     = new Progress&lt;int&gt;(p =&gt; Console.Write($&quot;\rOpen progress: {p}%   &quot;));
+    IFCRuntime.Instance.ContextProgress  = new Progress&lt;int&gt;(p =&gt; Console.Write($&quot;\rContext progress: {p}%   &quot;));
+    IFCRuntime.Instance.GeometryProgress = new Progress&lt;int&gt;(p =&gt; Console.Write($&quot;\rGeometry progress: {p}%   &quot;));
+
+    var model = await IFCRuntime.Instance.Read(&quot;MyModel.ifc&quot;, useSmoothNormals: true);
+    var entity = model.InstantiateModelHierarchy(assetsService);
+    this.manager.EntityManager.Add(entity);
+}
+</code></pre>
+<br>
+<h3 id="custom-shader-support">Custom Shader Support</h3>
+<p>By default, models are loaded using the Standard Effect (Evergine’s built-in shader). However, if you want to load models using your custom shader, you must pass an additional <strong>CustomMaterialAssigner</strong> function to the Read method:</p>
+<pre><code class="lang-csharp">protected async override void CreateScene()
+{
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+    var model = await IFCRuntime.Instance.Read(&quot;Models/buildingExample.ifc&quot;, this.CustomMaterialAssigner);
+    var entity = model.InstantiateModelHierarchy(assetsService);
+    this.Managers.EntityManager.Add(entity);
+}
+</code></pre>
+<h2 id="samples">Samples</h2>
+<p>The IFC Runtime has been extensively tested with the following publicly available datasets:</p>
+<ul>
+<li><a href="https://openifcmodel.cs.auckland.ac.nz/">OpenIFC Model Repository</a></li>
+<li><a href="https://www.steptools.com/docs/stpfiles/ifc/">Steptools Samples</a></li>
+<li><a href="https://github.com/andrewisen/bim-whale-ifc-samples">BIM Whale Sample Files</a></li>
+</ul>
+<p>These tests help ensure compatibility with a wide range of real-world meshes, materials, and topology configurations.
+Below are several representative screenshots of models successfully loaded and rendered at runtime:</p>
+<h3 id="sample-screenshots">Sample screenshots</h3>
+<p><img src="images/IFC/OpenIFC.png" alt="OpenIFC Model Repository"><br>
+<em>OpenIFC Model Repository.</em></p>
+<p><img src="images/IFC/AC20-Institute.png" alt="Steptools Samples"><br>
+<em>Karlsruhe Institute of Technology (KIT), Institute for Automation and Applied Informatics</em></p>
+<p><img src="images/IFC/BasicHouse.png" alt="BIM Whale Sample Files"><br>
+<em>BIM Whale Sample: BasicHouse</em></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

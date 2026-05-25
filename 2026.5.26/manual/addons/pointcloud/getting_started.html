@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<hr>
+<p>Follow these steps to begin working with Point Clouds in your Evergine applications:</p>
+<h2 id="project-setup">Project Setup</h2>
+<h3 id="1-create-a-new-project">1. Create a New Project</h3>
+<p>Use <a href="../../evergine_launcher/create_project.html">Evergine Launcher</a> to start a new project. Along with Windows, select an additional template for your target device.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This addon doesn't support Web platforms. Please, select a different platform to test and use the addon.</p>
+</div>
+<h3 id="2-add-the-everginepointcloud-add-on">2. Add the Evergine.PointCloud Add-on</h3>
+<p>Open Evergine Studio and add the Evergine.PointCloud add-on to your project. Refer to <a href="../index.html">this guide</a> for instructions on adding add-ons.</p>
+<p><img src="images/addon_installation.png" alt="Add-on installation"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Point Cloud add-on is available as NuGet packages. For nightly builds, update <code>nuget.config</code> to include the Evergine nightly feed:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+ &lt;packageSources&gt;
+   &lt;add key=&quot;nuget.org&quot; value=&quot;https://api.nuget.org/v3/index.json&quot; /&gt;
+   &lt;add key=&quot;Evergine Nightly&quot; value=&quot;https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json&quot; /&gt;
+ &lt;/packageSources&gt;
+&lt;/configuration&gt;
+</code></pre>
+</div>
+<h3 id="3-setup-the-point-cloud-runtime">3. Setup the Point Cloud Runtime</h3>
+<h4 id="register-services-during-application-construction">Register services during <code>Application</code> construction</h4>
+<pre><code class="lang-csharp">public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        // Your usual core services...
+        this.Container.Register&lt;Settings&gt;();
+        this.Container.Register&lt;Clock&gt;();
+        this.Container.Register&lt;TimerFactory&gt;();
+        this.Container.Register&lt;Random&gt;();
+        this.Container.Register&lt;ErrorHandler&gt;();
+        this.Container.Register&lt;ScreenContextManager&gt;();
+        this.Container.Register&lt;GraphicsPresenter&gt;();
+        this.Container.Register&lt;AssetsDirectory&gt;();
+        this.Container.Register&lt;AssetsService&gt;();
+        this.Container.Register&lt;ForegroundTaskSchedulerService&gt;();
+        this.Container.Register&lt;WorkActionScheduler&gt;();
+
+        // Point Cloud addon hook:
+        PointCloudRuntime.OnAppConstruction(this.Container);
+    }
+}
+</code></pre>
+<h4 id="register-managers-in-your-scene">Register managers in your <code>Scene</code></h4>
+<pre><code class="lang-csharp">public class MyScene : Scene
+{
+    public override void RegisterManagers()
+    {
+        base.RegisterManagers();
+        PointCloudRuntime.RegisterManagers(this.Managers);
+    }
+
+    protected override void CreateScene()
+    {
+        PointCloudRuntime.OnSceneInitialization(this.Managers);
+    }
+}
+</code></pre>
+<h3 id="4-load-point-cloud-data">4. Load point cloud data</h3>
+<p>Call once the scene is active (e.g., after you navigate to it). Remember supported extensions: <code>.e57</code>, <code>.las</code>, <code>.laz</code> and <code>.pcd</code>.</p>
+<pre><code class="lang-csharp">await PointCloudRuntime.LoadCloudAsync(@&quot;C:\Data\scans\building.e57&quot;);
+</code></pre>
+<p>This will:</p>
+<ol>
+<li>Detect the importer based on extension</li>
+<li>Stream metadata + point chunks</li>
+<li>Instantiate the Point Cloud prefab</li>
+<li>Allocate GPU buffers</li>
+<li>Distribute uploaded points into sparse buffers for early image quality</li>
+</ol>
+<p>No manual entity creation is required. An entity tagged <code>PointCloud</code> is added automatically.</p>
+<h2 id="faq">FAQ</h2>
+<p><strong>Q: Do I have to manually create the point cloud entity?</strong>
+No. The loader instantiates the prefab and injects required components.</p>
+<p><strong>Q: Can I load multiple clouds?</strong>
+Yes. Each call to <code>LoadCloudAsync</code> adds another entity; buffers expand automatically.</p>
+<p><strong>Q: How do I remove a cloud?</strong>
+Remove / dispose the entity (tagged <code>PointCloud</code>); GPU memory is compacted automatically.</p>
+<p><strong>Q: How do I tweak point size or max points per frame?</strong>
+Resolve <code>PointDataManager</code> (e.g., via <code>Managers.FindManager&lt;PointDataManager&gt;()</code>) and adjust <code>PointSize</code> / <code>MaxPointsPerFrame</code> before or during runtime.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

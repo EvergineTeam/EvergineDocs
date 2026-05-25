@@ -1,0 +1,600 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Features | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Features | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="features">Features</h1>
+
+<hr>
+<p>Here is a list of different controls that you can create with just a few lines of code. Here is the complete list:</p>
+<h2 id="window">Window</h2>
+<p><strong>Windows</strong> are draggable containers of controls. They can receive and lose focus when clicked. Because of this, they are implemented slightly differently from the other controls. Each Window has an ID number, and its contents are declared inside a separate function that is called when the Window has focus.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+using Evergine.Mathematics;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        bool open = true;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igSetNextWindowPos(new Vector2(420, 120), ImGuiCond.Appearing, new Vector2(1, 0.5f));
+            ImguiNative.igSetNextWindowSize(new Vector2(400, 100), ImGuiCond.Appearing);
+            ImguiNative.igBegin(&quot;MyWindow&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            // Controls
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+</code></pre>
+<p><img src="images/Features_Window.png" alt="Window"></p>
+<h2 id="labeltext">LabelText</h2>
+<p>The <strong>LabelText</strong> is non-interactive. It is for display only. It cannot be clicked or otherwise moved. It is best for displaying information only.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        bool open = true;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;MyWindow&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            ImguiNative.igLabelText(&quot;This is a label&quot;, &quot;Value1&quot;);
+            ImguiNative.igLabelText(&quot;This is another label&quot;, &quot;Value2&quot;);
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+</code></pre>
+<p><img src="images/Features_Label.png" alt="Label"></p>
+<h2 id="button">Button</h2>
+<p>The <strong>Button</strong> is a typical interactive button. It will respond a single time when clicked, no matter how long the mouse remains depressed. The response occurs as soon as the mouse button is released.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+using Evergine.Mathematics;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        uint clicked;
+        bool open = true;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;MyWindow&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            if (ImguiNative.igButton(&quot;Press me&quot;, new Vector2(100, 25)))
+            {
+                clicked++;
+            }
+
+            if (clicked &gt; 0)
+            {
+                ImguiNative.igText(&quot;Thanks for clicking me!&quot;);
+            }
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+</code></pre>
+<p><img src="images/Features_Button.png" alt="button"></p>
+<h2 id="text">Text</h2>
+<p>The <strong>Text</strong> Control is an interactive, editable single-line field containing a text string.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        bool open = true;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;MyWindow&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            ImguiNative.igText(&quot;This is a text control&quot;);
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+
+</code></pre>
+<p><img src="images/Features_Text.png" alt="Text"></p>
+<h2 id="inputtext">InputText</h2>
+<p>The <strong>InputText</strong> Control is an interactive, editable area containing a text string.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+using Evergine.Mathematics;
+using System.Text;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        bool open = true;
+
+        // Create a StringBuilder to hold the input text
+        StringBuilder inputText = new StringBuilder(256);
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;Input Text Example&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            // Set window size
+            ImguiNative.igSetNextWindowSize(new Vector2(400, 150), ImGuiCond.FirstUseEver);
+
+            // Create the input text field
+            fixed (byte* buffer = Encoding.UTF8.GetBytes(inputText.ToString().PadRight(256, '\0')))
+            {
+                if (ImguiNative.igInputText(&quot;Enter text:&quot;, buffer, 256, ImGuiInputTextFlags.None, null, null))
+                {
+                    inputText.Clear();
+                    inputText.Append(Encoding.UTF8.GetString(buffer, 256).TrimEnd('\0'));
+                }
+            }
+
+            // Display the current input text
+            ImguiNative.igText($&quot;Current text: {inputText}&quot;);
+
+            // Add a button to clear the input
+            if (ImguiNative.igButton(&quot;Clear&quot;, new Vector2(100, 30)))
+            {
+                inputText.Clear();
+            }
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+</code></pre>
+<p><img src="images/Features_InputText.png" alt="Text"></p>
+<h2 id="toggle">Toggle</h2>
+<p>The <strong>Toggle</strong> Control creates a checkbox with a persistent on/off state. The user can change the state by clicking on it.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        bool open = true;
+
+        // Create a boolean to hold the state of the toggle
+        bool isToggled = false;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;MyWindow&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            // Create the toggle button
+            if (ImguiNative.igCheckbox(&quot;Toggle me&quot;, isToggled.Pointer()))
+            {
+                // This code block will run when the toggle state changes
+                System.Console.WriteLine($&quot;Toggle state changed to: {isToggled}&quot;);
+            }
+
+            // Display the current state of the toggle
+            ImguiNative.igText($&quot;Toggle state: {(isToggled ? &quot;ON&quot; : &quot;OFF&quot;)}&quot;);
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+</code></pre>
+<p><img src="images/Features_Toggle.png" alt="Text"></p>
+<h2 id="toolbar">Toolbar</h2>
+<p>A <strong>Toolbar</strong> is a graphical control element that displays a row of selectable items, typically represented as icons or buttons. It provides quick access to frequently used commands or options within an application.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+using Evergine.Mathematics;
+using System.Text;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        bool open = true;
+
+        // Toolbar state
+        bool isBold = false;
+        bool isItalic = false;
+        bool isUnderline = false;
+        int fontSize = 12;
+        int alignmentState = 0; // 0: Left, 1: Center, 2: Right
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;Text Editor Toolbar&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            // Set window size
+            ImguiNative.igSetNextWindowSize(new Vector2(600, 100), ImGuiCond.FirstUseEver);
+
+            // Begin a horizontal layout for the toolbar
+            ImguiNative.igBeginGroup();
+
+            // Text style toggles
+            if (ToggleButton(&quot;B&quot;, isBold, new Vector2(30, 30))) isBold = !isBold;
+            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip(&quot;Toggle Bold&quot;);
+            ImguiNative.igSameLine(0, 5);
+
+            if (ToggleButton(&quot;I&quot;, isItalic, new Vector2(30, 30))) isItalic = !isItalic;
+            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip(&quot;Toggle Italic&quot;);
+            ImguiNative.igSameLine(0, 5);
+
+            if (ToggleButton(&quot;U&quot;, isUnderline, new Vector2(30, 30))) isUnderline = !isUnderline;
+            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip(&quot;Toggle Underline&quot;);
+            ImguiNative.igSameLine(0, 15);
+
+            // Font size adjustment
+            if (ImguiNative.igButton(&quot;-&quot;, new Vector2(30, 30)) &amp;&amp; fontSize &gt; 8) fontSize--;
+            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip(&quot;Decrease Font Size&quot;);
+            ImguiNative.igSameLine(0, 5);
+
+            ImguiNative.igText($&quot;{fontSize}&quot;);
+            ImguiNative.igSameLine(0, 5);
+
+            if (ImguiNative.igButton(&quot;+&quot;, new Vector2(30, 30)) &amp;&amp; fontSize &lt; 72) fontSize++;
+            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip(&quot;Increase Font Size&quot;);
+            ImguiNative.igSameLine(0, 15);
+
+            // Text alignment
+            if (ImguiNative.igButton(&quot;Left&quot;, new Vector2(50, 30))) alignmentState = 0;
+            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip(&quot;Align Left&quot;);
+            ImguiNative.igSameLine(0, 5);
+
+            if (ImguiNative.igButton(&quot;Center&quot;, new Vector2(50, 30))) alignmentState = 1;
+            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip(&quot;Align Center&quot;);
+            ImguiNative.igSameLine(0, 5);
+
+            if (ImguiNative.igButton(&quot;Right&quot;, new Vector2(50, 30))) alignmentState = 2;
+            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip(&quot;Align Right&quot;);
+
+            ImguiNative.igEndGroup();
+
+            // Display the current text style
+            ImguiNative.igText($&quot;Text Style: {(isBold ? &quot;Bold &quot; : &quot;&quot;)}{(isItalic ? &quot;Italic &quot; : &quot;&quot;)}{(isUnderline ? &quot;Underline &quot; : &quot;&quot;)}&quot;);
+            ImguiNative.igText($&quot;Font Size: {fontSize}&quot;);
+            ImguiNative.igText($&quot;Alignment: {(alignmentState == 0 ? &quot;Left&quot; : alignmentState == 1 ? &quot;Center&quot; : &quot;Right&quot;)}&quot;);
+
+            ImguiNative.igEnd();
+        }
+
+        // Helper method to create a toggle button
+        private bool ToggleButton(string label, bool isActive, Vector2 size)
+        {
+            ImguiNative.igPushStyleColor_Vec4(ImGuiCol.Button, isActive ? new Vector4(0.2f, 0.7f, 0.2f, 1.0f) : new Vector4(0.2f, 0.2f, 0.2f, 1.0f));
+            bool clicked = ImguiNative.igButton(label, size);
+            ImguiNative.igPopStyleColor(1);
+            return clicked;
+        }
+    }
+}
+
+</code></pre>
+<p><img src="images/Features_Toolbar.png" alt="Text"></p>
+<h2 id="images">Images</h2>
+<p><strong>Image</strong> controls in ImGui allow you to display images within your user interface. When working with ImGui in C# using Evergine bindings, you can use these controls to show textures, icons, or any other graphical elements.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+using Evergine.Mathematics;
+using System.Threading.Tasks;
+
+namespace LoadingImages
+{
+    public class MyUI : Behavior
+    {
+        bool open = true;
+        IntPtr image;
+
+        [BindSceneManager]
+        ImGuiManager imguiManager;
+
+        protected override void Start()
+        {
+            base.Start();
+            DownloadImage();
+        }
+
+        private async void DownloadImage()
+        {
+            string url = $&quot;https://pbs.twimg.com/profile_images/1460919352862158851/T0aHus0C_400x400.jpg&quot;;
+            var textureimage = await ImGUIHelpers.DownloadTextureFromUrl(url);
+            image = imguiManager.CreateImGuiBinding(textureimage);
+        }
+
+        protected override unsafe void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;Debug&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            // Set window size
+            ImguiNative.igSetNextWindowSize(new Vector2(500, 500), ImGuiCond.FirstUseEver);
+
+            ImguiNative.igText(&quot;Image Display:&quot;);
+
+            if (image != IntPtr.Zero)
+            {
+                Vector2 imageSize = new Vector2(400, 400);
+                ImguiNative.igImage(image, imageSize, new Vector2(0, 0), new Vector2(1, 1), new Vector4(1, 1, 1, 1), new Vector4(0, 0, 0, 0));
+                ImguiNative.igText($&quot;Image Size: {imageSize.X}x{imageSize.Y}&quot;);
+            }
+            else
+            {
+                ImguiNative.igTextColored(new Vector4(1, 0, 0, 1), &quot;Failed to load image&quot;);
+            }
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+</code></pre>
+<p><img src="images/Features_Image.png" alt="Text"></p>
+<h2 id="selectiongrid">SelectionGrid</h2>
+<p>A <strong>SelectionGrid</strong> is a user interface component that displays a grid of selectable items. It allows users to choose one or more items from a set of options presented in a grid layout.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using System;
+using Evergine.UI;
+using Evergine.Bindings.Imgui;
+using Evergine.Mathematics;
+using System.Text;
+using System.Collections.Generic;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        bool open = true;
+
+        private List&lt;string&gt; items;
+        private List&lt;bool&gt; selectedItems;
+        private int columns = 3;
+
+        protected override void Start()
+        {
+            base.Start();
+
+            // Initialize items
+            items = new List&lt;string&gt;
+            {
+                &quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot;, &quot;Item 4&quot;, &quot;Item 5&quot;,
+                &quot;Item 6&quot;, &quot;Item 7&quot;, &quot;Item 8&quot;, &quot;Item 9&quot;, &quot;Item 10&quot;
+            };
+
+            // Initialize selection state
+            selectedItems = new List&lt;bool&gt;(new bool[items.Count]);
+        }
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;Selection Grid&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            // Set window size
+            ImguiNative.igSetNextWindowSize(new Vector2(400, 300), ImGuiCond.FirstUseEver);
+
+            ImguiNative.igText(&quot;Select items from the grid:&quot;);
+
+            // Calculate item width based on available space and number of columns
+            float windowWidth = ImguiNative.igGetWindowWidth();
+            float itemWidth = (windowWidth - (columns - 1) * ImguiNative.igGetStyle()-&gt;ItemSpacing.X) / columns;
+
+            for (int i = 0; i &lt; items.Count; i++)
+            {
+                if (i % columns != 0)
+                    ImguiNative.igSameLine(0, -1);
+
+                ImguiNative.igPushID_Int(i);
+                bool selectedBool = selectedItems[i];
+                if (ImguiNative.igSelectable_BoolPtr(items[i], selectedBool.Pointer(), ImGuiSelectableFlags.None, new Vector2(itemWidth, 0)))
+                {
+                    selectedItems[i] = !selectedItems[i];
+                }
+                ImguiNative.igPopID();
+            }
+
+            ImguiNative.igSeparator();
+
+            ImguiNative.igText(&quot;Selected items:&quot;);
+            for (int i = 0; i &lt; items.Count; i++)
+            {
+                if (selectedItems[i])
+                {
+                    ImguiNative.igBulletText(items[i]);
+                }
+            }
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+
+</code></pre>
+<p><img src="images/Features_SelectionGrid.png" alt="Text"></p>
+<h2 id="slider">Slider</h2>
+<p>A <strong>Slider</strong> is a user interface control that allows users to select a value from a continuous range by sliding a handle along a horizontal or vertical track.</p>
+<pre><code class="lang-csharp">using Evergine.UI;
+using Evergine.Bindings.Imgui;
+using Evergine.Mathematics;
+using System.Text;
+
+namespace ImGUI
+{
+    public unsafe class MyUI : Behavior
+    {
+        bool open = true;
+
+        private float sliderValue = 50f;
+        private float minValue = 0f;
+        private float maxValue = 100f;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            ImguiNative.igBegin(&quot;Horizontal Slider&quot;, open.Pointer(), ImGuiWindowFlags.None);
+
+            // Set window size
+            ImguiNative.igSetNextWindowSize(new Vector2(400, 200), ImGuiCond.FirstUseEver);
+
+            ImguiNative.igText(&quot;Adjust the slider:&quot;);
+
+            fixed (float* valuePointer = &amp;sliderValue)
+            {
+                // Create the slider
+                if (ImguiNative.igSliderFloat(&quot;##slider&quot;, valuePointer, minValue, maxValue, &quot;%.1f&quot;, ImGuiSliderFlags.None))
+                {
+                    // This code block will run when the slider value changes
+                    System.Console.WriteLine($&quot;Slider value changed to: {sliderValue}&quot;);
+                }
+            }
+
+            // Display the current value
+            ImguiNative.igText($&quot;Current Value: {sliderValue:F1}&quot;);
+
+            ImguiNative.igEnd();
+        }
+    }
+}
+</code></pre>
+<p><img src="images/Features_Slider.png" alt="Text"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

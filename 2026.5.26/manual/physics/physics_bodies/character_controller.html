@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Character Controller | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Character Controller | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="character-controller">Character Controller</h1>
+
+<p><img src="images/character_controller_section.png" alt="Character Controller"></p>
+<p>The character controller is a type of physics body used for player objects to provide collision-based physics while also allowing for more customizations dedicated to game characters (player or NPCs). It's a common choice for first-person and third-person games.</p>
+<p><img src="images/character_controller.gif" alt="Character Controller"></p>
+<p>In Evergine, we use the <code>CharacterController3D</code> component to provide this functionality.</p>
+<h2 id="charactercontroller3d-component">CharacterController3D Component</h2>
+<p><img src="images/character_controller_component.png" alt="CharacterController3D"></p>
+<h3 id="general-properties">General Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Restitution</strong></td>
+<td>0</td>
+<td>Sets the amount of kinetic energy lost or gained after a collision. A typical value is between 0 and 1. If the restitution property of colliding bodies is 0, the bodies lose all energy and stop moving immediately on impact. If the restitution is 1, they lose no energy and rebound with the same velocity they collided at. Use this to change the &quot;bounciness&quot; of rigidbodies.</td>
+</tr>
+<tr>
+<td><strong>Friction</strong></td>
+<td>0.5</td>
+<td>Sets the surface friction.</td>
+</tr>
+<tr>
+<td><strong>RollingFriction</strong></td>
+<td>0</td>
+<td>Sets the rolling friction.</td>
+</tr>
+<tr>
+<td><strong>IsSensor</strong></td>
+<td>true</td>
+<td>Characters are a special type of physics body and by default are created as sensors.</td>
+</tr>
+<tr>
+<td><strong>CollisionCategory</strong></td>
+<td><code>Cat1</code></td>
+<td>The CollisionCategory flag specifies the category of this body.</td>
+</tr>
+<tr>
+<td><strong>MaskBit</strong></td>
+<td><code>All</code></td>
+<td>The MaskBits indicate with which categories this body will collide.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="character-properties">Character Properties</h3>
+<p>The following properties affect the movement of the rigidbody.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>StepHeight</strong></td>
+<td>0.2</td>
+<td>The maximum height the character can step onto.</td>
+</tr>
+<tr>
+<td><strong>FallSpeed</strong></td>
+<td>55</td>
+<td>Maximum velocity of a character in free fall (m/s). By default, it is 55, the terminal velocity of a sky diver.</td>
+</tr>
+<tr>
+<td><strong>JumpSpeed</strong></td>
+<td>10</td>
+<td>Jump speed.</td>
+</tr>
+<tr>
+<td><strong>MaxSlope</strong></td>
+<td>45</td>
+<td>Limits the character to only climb slopes that are less steep (in degrees) than the indicated value.</td>
+</tr>
+<tr>
+<td><strong>Gravity</strong></td>
+<td>29.4</td>
+<td>3G gravity acceleration.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="useful-methods">Useful Methods</h3>
+<p>To control a character, you may find these methods useful:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SetVelocity(velocity)</strong></td>
+<td>Sets the character velocity. This is the most common way to move and control a character. After setting a velocity vector, the character will move in that direction and will interact with the physics world.</td>
+</tr>
+<tr>
+<td><strong>Jump(), Jump(jumpDirection)</strong></td>
+<td>The character performs a jump movement. You can specify an optional jump direction.</td>
+</tr>
+<tr>
+<td><strong>Teleport(newPosition)</strong></td>
+<td>Teleports the character to a new position.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create-a-character-controller">Create a Character Controller</h2>
+<h3 id="from-code">From Code</h3>
+<p>This code is used to create a character body:</p>
+<pre><code class="lang-csharp">Entity character = new Entity()
+    .AddComponent(new Transform3D() { Position = characterPosition })
+    .AddComponent(new MaterialComponent() { Material = material }) // assign a material
+    .AddComponent(new CapsuleMesh())
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new CharacterController())    // Add a CharacterController3D component...
+    .AddComponent(new CapsuleCollider3D())      // Assign a CapsuleCollider3D to the physics body...
+    .AddComponent(new MoveCharacterBehavior()); // Add a component that will control the character.
+
+this.Managers.EntityManager.Add(character);
+</code></pre>
+<p>However, we need a component that moves the <code>CharacterController3D</code> component. The following component captures some keys to move and jump the character.</p>
+<pre><code class="lang-csharp">public class MoveCharacterBehavior : Behavior
+{
+    [BindComponent]
+    private CharacterController3D character;
+
+    public float Speed { get; set; } = 3;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // Gets the keyboard
+        var keyboard = this.Managers.RenderManager.ActiveCamera3D.Display.KeyboardDispatcher;
+
+        // Use keys (I, K, J, L) to move the character...
+        var velocity = Vector3.Zero;
+        if (keyboard.IsKeyDown(Evergine.Common.Input.Keyboard.Keys.I)) { velocity += Vector3.Forward; }
+        if (keyboard.IsKeyDown(Evergine.Common.Input.Keyboard.Keys.K)) { velocity += Vector3.Backward; }
+        if (keyboard.IsKeyDown(Evergine.Common.Input.Keyboard.Keys.J)) { velocity += Vector3.Left; }
+        if (keyboard.IsKeyDown(Evergine.Common.Input.Keyboard.Keys.L)) { velocity += Vector3.Right; }
+
+        // Update the character velocity...
+        this.character.SetVelocity(velocity * this.Speed);
+
+        // Jump if we press the space key...
+        if (keyboard.IsKeyDown(Evergine.Common.Input.Keyboard.Keys.Space)) { this.character.Jump(); }
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

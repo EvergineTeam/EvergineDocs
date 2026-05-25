@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Particle Emission Shapes | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Particle Emission Shapes | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="particle-emission-shapes">Particle Emission Shapes</h1>
+
+<p><img src="images/shapes_header.png" alt="Shapes header"></p>
+<p>The particle system emission shape controls the <strong>position</strong> and <strong>direction</strong> of the particles when they are spawned.</p>
+<h3 id="common-parameters">Common Parameters</h3>
+<p>All the emission shapes share the following properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Randomize Direction</td>
+<td><em>0</em></td>
+<td><div><p>Randomness factor of the particle direction. A value of <strong>0</strong> means no random directions, <strong>1</strong> is total chaos, while intermediate values add a little bit of randomness while keeping the overall particle direction of the emission shape.</p></div><video autoplay="" loop="" muted="" width="512" height="auto"><source src="images/randomize.mp4" type="video/mp4"></video></td>
+</tr>
+<tr>
+<td>Velocity Offset</td>
+<td><em>(0, 0, 0)</em></td>
+<td>Velocity that is added on top of the initial particle velocity.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="point-shape">Point Shape</h2>
+<p><strong>Point Shape</strong> emits the particles from the same position, using the <strong>Up</strong> vector of the particle entity as direction.
+<img src="images/point_shape.png" alt="Point Shape"></p>
+<h2 id="sphere-shape">Sphere Shape</h2>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/sphere.mp4" type="video/mp4">
+</video>
+<p><strong>Sphere Shape</strong> uses a sphere for the emission. Its parameters control the size of the emission sphere, whether the particles are emitted from the sphere volume or only from its surface, and the direction of the new particles (from the sphere center or following the up vector).</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Radius</td>
+<td><em>1</em></td>
+<td>The radius of the emission sphere</td>
+</tr>
+<tr>
+<td>From Surface</td>
+<td><em>false</em></td>
+<td><div><p><strong>True</strong> if the particles are spawned from the sphere surface, <strong>false</strong> if they are placed from inside the sphere volume. </p><img src="images/from_surface_sphere.png"></div></td>
+</tr>
+<tr>
+<td>From Center</td>
+<td><em>true</em></td>
+<td><div><p>If the particles are moving from the sphere center or all in the same direction (<em>Up vector</em>). </p><img src="images/from_center_sphere.png"></div></td>
+</tr>
+</tbody>
+</table>
+<h2 id="box-shape">Box Shape</h2>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/box_shape.mp4" type="video/mp4">
+</video>
+<p><strong>Box Shape</strong> uses a box for the emission. Its parameters control the size of the emission box.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Size</td>
+<td><em>(1, 1, 1)</em></td>
+<td>The size of the emission box</td>
+</tr>
+<tr>
+<td>From Center</td>
+<td><em>true</em></td>
+<td><div><p>If the particles are moving from the box center or all in the same direction (<em>Up vector</em>).</p><img src="images/from_center_box.png"></div></td>
+</tr>
+</tbody>
+</table>
+<h2 id="circle-shape">Circle Shape</h2>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/circle.mp4" type="video/mp4">
+</video>
+<p><strong>Circle Shape</strong> uses a circle for the emission. Its parameters control the size of the emission circle, whether the particles are emitted from the circle area or its circumference, and the direction of the new particles (from the circle center or following the up vector).</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Radius</td>
+<td><em>1</em></td>
+<td>The radius of the emission circle</td>
+</tr>
+<tr>
+<td>From Circumference</td>
+<td><em>false</em></td>
+<td><div><p><strong>True</strong> if the particles are spawned from the circle circumference, <strong>false</strong> if they are placed inside the circle area.</p><img src="images/from_circumference.png"></div></td>
+</tr>
+<tr>
+<td>From Center</td>
+<td><em>true</em></td>
+<td><div><p>If the particles are moving from the center or all in the same direction (<em>Up vector</em>).</p><img src="images/from_center.png"></div></td>
+</tr>
+</tbody>
+</table>
+<h2 id="edge-shape">Edge Shape</h2>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/edge_shape.mp4" type="video/mp4">
+</video>
+<p><strong>Edge Shape</strong> uses a line for the emission. Its parameters control the length of the edge or line and the direction of the new particles (from the line or following the up vector).</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Length</td>
+<td><em>1</em></td>
+<td>The length of the emission line</td>
+</tr>
+<tr>
+<td>From Center</td>
+<td><em>true</em></td>
+<td><div><p>If the particles are moving from the center or all in the same direction (<em>Up vector</em>).</p><img src="images/from_center_edge.png"></div></td>
+</tr>
+</tbody>
+</table>
+<h2 id="entity-shape">Entity Shape</h2>
+<video autoplay="" loop="" muted="" width="auto" height="auto">
+    <source src="images/entity_shape.mp4" type="video/mp4">
+</video>
+<p><strong>Entity Shape</strong> is an emission shape where particles are emitted from a specific <strong>Entity</strong> in the scene. More specifically, the particle system uses the meshes of the entity and its children.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The target entity is not defined in the <strong>Entity Shape Emitter</strong> because it's part of the <strong>Particle System</strong> asset, hence is not bound to any specific scene. It's defined in the <strong>ParticlesComponent</strong> component, which can access the scene entities.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Emission Source</td>
+<td><em>Vertex</em></td>
+<td>The part of the mesh topology where the particles are emitted. Its values can be <em>Vertex</em> or <em>Triangle</em>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

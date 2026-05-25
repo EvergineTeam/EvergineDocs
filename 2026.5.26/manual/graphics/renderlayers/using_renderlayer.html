@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using RenderLayer | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using RenderLayer | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-renderlayer">Using RenderLayer</h1>
+
+<hr>
+<p><img src="images/renderlayer.jpg" alt="RenderLayer header"></p>
+<p>In this guide, you will learn how to load and use <strong>RenderLayer</strong> in your applications to control mesh rendering order and configure various rendering states.</p>
+<h2 id="loading-a-renderlayer-from-code">Loading a RenderLayer from Code</h2>
+<p>The following sample code demonstrates how to instantiate an existing <code>RenderLayer</code> asset and apply it to a material in your scene.</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+    // Load the opaque RenderLayer
+    RenderLayerDescription opaque = assetsService.Load&lt;RenderLayerDescription&gt;(EvergineContent.RenderLayers.Opaque);
+
+    // Load the effect
+    Effect standardEffect = assetsService.Load&lt;Effect&gt;(EvergineContent.Effects.StandardEffect);
+
+    // Create your own material
+    Material material = new Material(standardEffect);
+    material.LayerDescription = opaque;
+
+    // Apply the material to an entity
+    Entity primitive = new Entity()
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new SphereMesh())
+            .AddComponent(new MeshRenderer());
+
+    this.Managers.EntityManager.Add(primitive);
+}
+</code></pre>
+<h2 id="applying-a-renderlayer-to-a-material-in-evergine-studio">Applying a RenderLayer to a Material in Evergine Studio</h2>
+<p>To apply a <code>RenderLayer</code> to a material in <strong>Evergine Studio</strong>, follow these steps:</p>
+<ol>
+<li>Open the <a href="../../evergine_studio/interface.html"><strong>Assets Details</strong></a> panel and select the desired material.</li>
+<li>Navigate to the <a href="../materials/material_editor.html"><strong>Material Editor</strong></a>.</li>
+<li>In the Properties panel, find the <code>Layer</code> field.</li>
+<li>Choose the appropriate <code>RenderLayer</code> from the dropdown menu.</li>
+</ol>
+<p>This will assign the selected <code>RenderLayer</code> to your material, allowing you to control the rendering order and define its rendering behavior.</p>
+<p><img src="images/ApplyRenderLayer.jpg" alt="RenderLayer Property"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,170 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Library Effect | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Library Effect | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="library-effect">Library Effect</h1>
+
+<hr>
+<p><img src="images/libraries/Header.png" alt="Library effect"></p>
+<h3 id="what-is-a-library-effect">What is a Library Effect?</h3>
+<p>A Library Effect acts as a collection of static variables, constants, directives, and reusable functions that can be referenced from your Graphics and Compute effects. By simply including the library in your effect files, you can centralize shared logic and keep your effect codebase clean and maintainable.</p>
+<h3 id="creating-a-library-effect">Creating a Library Effect</h3>
+<p>You can create a new Library Effect from the Evergine Studio Asset Menu or by right-clicking on the Asset Details Panel and selecting the relevant option.</p>
+<p><img src="images/libraries/CreatingALibrary.png" alt="Creating a library"></p>
+<h3 id="defining-a-library-effect">Defining a Library Effect</h3>
+<p>Every new Library Effect must start with the [Begin_Library] metatag and end with the [End_Library] metatag. Library Effects are compiled in the same way as any other effect, so you need to specify the compilation profile version, just as you would when defining passes. This ensures that any potential issues can be caught and debugged early, even before the library is used in other effects.</p>
+<p><img src="images/libraries/MyFirstLibraryEffect.png" alt="My first library"></p>
+<h3 id="structuring-your-libraries">Structuring Your Libraries</h3>
+<p>Inside a Library Effect, you can define common variables, constants, and functions that you want to reuse across your Graphics or Compute effects. In the example below, a Tonemapping library is created with the logic for implementing an ACES color adjustment.</p>
+<p><img src="images/libraries/TonemappingLibrary.png" alt="Struturing your libraries"></p>
+<h3 id="using-a-library-effect-in-other-effects">Using a Library Effect in Other Effects</h3>
+<p>To use a Library Effect in your Graphics or Compute effects, simply include it using the following metatag:</p>
+<p><span style="color:lightgreen">[Include_Library LibraryName LibraryIdentifierNumber]</span></p>
+<ul>
+<li><strong>LibraryName:</strong> A human-readable name for your library.</li>
+<li><strong>LibraryIdentifierNumber:</strong> A unique GUID that identifies the library effect asset.</li>
+</ul>
+<p>The advantage of using the GUID is that it remains independent of the asset’s relative path. This means you can move your library assets around the project’s content folders without breaking the references.
+To make it easier to include a library in your effects, you can drag and drop the library effect asset from the Asset Details Panel into another effect opened in the Effect Editor. This action will automatically create the reference in your code.</p>
+<p><img src="images/libraries/DragAndDrop.gif" alt="Drag and drop a library"></p>
+<p><strong>Example: Using the my library in a Graphics Effect</strong>
+Below is an example of how to use the previously defined Tonemapping library in a Graphics Effect.</p>
+<p><img src="images/libraries/UsingACES.png" alt="Using MyLibrary example"></p>
+<h3 id="library-effect-dependencies-and-recursive-includes">Library Effect Dependencies and Recursive Includes</h3>
+<p>Library Effects can also reference other Library Effects, enabling you to build more complex effects by combining multiple libraries. This approach helps you organize your code into a logical dependency tree and ensures better modularity and separation of concerns.</p>
+<p><img src="images/libraries/LibraryIncludingAnother.png" alt="Library reference another library"></p>
+<h3 id="using-directives-in-your-library-effects">Using Directives in Your Library Effects</h3>
+<p>You can leverage directives inside your Library Effects to control the flow of your HLSL code, making it possible to create multiple variations of your library depending on the values of these directives.</p>
+<p><img src="images/libraries/MultiplesTonemapping.png" alt="Tonemapping library"></p>
+<p>When you import a Library Effect into your Graphics or Compute Effect, its directives are also imported, merging with the directives of the effect itself and all its dependent libraries. This results in a single, unified group of directives that the effect can utilize.</p>
+<p><img src="images/libraries/UsingDirectives.png" alt="Using directives of referenced library"></p>
+<h3 id="managing-errors-with-the-effect-analyzer">Managing Errors with the Effect Analyzer</h3>
+<p>The Evergine Effect Editor has been enhanced with a new Effect Analyzer that provides detailed information about the new [Include_Library] metatags and helps you manage any issues that may arise when working with Library Effects. Here are some common scenarios and how the Effect Analyzer handles them:</p>
+<ol>
+<li><strong>Unresolved Reference:</strong> If an included library has an incorrect Library Identifier Number, the analyzer will report that the reference to the library cannot be resolved.</li>
+</ol>
+<p><img src="images/libraries/LibraryCannotBeResolved.png" alt="Unresolved reference"></p>
+<ol start="2">
+<li><strong>Library Compilation Error:</strong> If your Library Effect contains a mistake or code error, the analyzer will highlight the include line in your main effect and show the error inside the library itself.</li>
+</ol>
+<p><img src="images/libraries/ErrorInsideLibrary.png" alt="Unresolved reference"></p>
+<ol start="3">
+<li><strong>Cross-Reference Issues:</strong> If an effect includes a library that, in turn, includes another library, and a cyclic dependency is detected, the analyzer will report a cross-reference issue.</li>
+</ol>
+<p><img src="images/libraries/CrossReference.png" alt="Unresolved reference"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

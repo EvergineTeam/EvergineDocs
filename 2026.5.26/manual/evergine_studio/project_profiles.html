@@ -1,0 +1,141 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Project Settings &amp; Manage Profiles | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Project Settings &amp; Manage Profiles | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="project-settings--manage-profiles">Project Settings &amp; Manage Profiles</h1>
+
+<p>As a cross-platform engine, <em>Evergine</em> provides a way to create different launcher projects for supported platforms. For each platform, a <em>C#</em> project will be added to your filesystem. You can create more than one project for a given platform, but each one of these projects will be considered a different profile.</p>
+<p>If you did not add all the platforms you wanted in the project creation window, you can do so from <em>Evergine Studio</em> once your project is loaded. Just go to the <em>Settings &gt; Project Settings</em> menu to open a dialog to manage your project profiles. By default, an Evergine project includes <em>Windows</em> as a platform. This platform is required for <em>Evergine Studio</em> to work, so you cannot remove it.</p>
+<p><img src="Images/profile_add-profile.jpg" alt="Scene update for managers"></p>
+<p>To add a new platform profile, use the <em>Add</em> button. A new window will open, where you can select the platform you want to add. By default, a profile name will be proposed, but you can change it if you prefer. As described above, you can even have more than one profile for the same platform. This will create separate C# projects for each of these platforms.</p>
+<p><img src="Images/profile_search-profile.jpg" alt="Scene update for managers"></p>
+<p>Similar to the launcher creation form, we have added some filters here to make it easier to find a template. Just use the free text input and platform dropdown selector to limit template results.</p>
+<h2 id="profile-management">Profile Management</h2>
+<p>For each profile, a different set of settings is applied. Once you add a new platform profile, a default set of values will be added for that platform. For example, on platforms like <em>Windows</em>, shaders are compiled at runtime by default, but other platforms like <em>Web</em> or <em>Android</em> require shaders to be precompiled due to performance and platform limitations.</p>
+<p><img src="Images/profile_edit-profile.jpg" alt="Scene update for managers"></p>
+<p>Profile settings can be customized at any time you want. Changes will be saved once you press the <em>Update</em> button. The list of options that you can configure is described below.</p>
+<h3 id="textures">Textures</h3>
+<p>Controls the texture compression to be used in a given profile. This is important to optimize textures to be loaded in graphics hardware, which may be limited on platforms like mobile devices.</p>
+<p>You can specify both alpha and non-alpha compression formats. A list of available formats is provided by the <a class="xref" href="../../api/Evergine.Common.Graphics.PixelFormat.html">PixelFormat</a> enum.</p>
+<h3 id="shaders">Shaders</h3>
+<p>You can enable shaders to be precompiled and included in the platform package. This may increase build time but will reduce loading time while running the application.</p>
+<p>Additionally, you can configure your own directive specifications that best fit your project. For each directive, you can choose to enable or disable it. Once enabled, you can also add each directive to a directive combination. At the bottom, there is a read-only text area that presents the configured directive combinations.</p>
+<h2 id="open-platform-projects">Open Platform Projects</h2>
+<p>For each profile registered within your project, you will find a new entry in the <em>File &gt; Open C# editor</em> menu. When clicking on one of the provided options, the platform-specific <em>Visual Studio</em> solution will open.</p>
+<p><img src="Images/profile_open-project.jpg" alt="Scene update for managers"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

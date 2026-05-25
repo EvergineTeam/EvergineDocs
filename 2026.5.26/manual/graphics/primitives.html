@@ -1,0 +1,427 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Primitives | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Primitives | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="primitives">Primitives</h1>
+
+<hr>
+<p><img src="images/primitives.jpg" alt="Primitives"></p>
+<p>Evergine has a collection of 3D <strong>primitives</strong> that you can use for prototyping purposes. The primitives are easier and faster to use, making them very useful when you are conducting tests or creating a prototype scene.</p>
+<p>Primitive collection:</p>
+<ul>
+<li>Capsule</li>
+<li>Cone</li>
+<li>Cube</li>
+<li>Cylinder</li>
+<li>Plane</li>
+<li>Pyramid</li>
+<li>Sphere</li>
+<li>Teapot</li>
+<li>Torus</li>
+</ul>
+<p>The main difference between using primitives and using a <a href="models/index.html">Model</a> is that in the case of primitives, the Mesh is generated procedurally instead of being obtained from an asset. This allows you to parameterize the way the mesh is generated.</p>
+<h2 id="create-a-primitive-from-evergine-studio">Create a Primitive from Evergine Studio</h2>
+<p>From the Entity Hierarchy panel, click on the <img src="images/plusIcon.jpg" alt="plus"> button and go to the Primitives 3D submenu.</p>
+<p><img src="images/CreatePrimitivesMenu.jpg" alt="Create Primitive"></p>
+<h2 id="create-a-primitive-from-code">Create a Primitive from Code</h2>
+<p>To create a primitive, you only need to create an entity with the following components:</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+    var material = assetsService.Load&lt;Material&gt;(EvergineContent.Materials.DefaultMaterial);
+
+    Entity cubeEntity = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new MaterialComponent() { Material = material })
+        .AddComponent(new CubeMesh()) // A cube primitive
+        .AddComponent(new MeshRenderer());
+
+    this.Managers.EntityManager.Add(cubeEntity);
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>To create a primitive, you only need to change the <em>CubeMesh</em> component to <em>CapsuleMesh</em>, <em>ConeMesh</em>, <em>CylinderMesh</em>, <em>PlaneMesh</em>, <em>PyramidMesh</em>, <em>SphereMesh</em>, <em>TeapotMesh</em>, or <em>TorusMesh</em> component.</p>
+</div>
+<h2 id="cube-parameters">Cube Parameters</h2>
+<p><img src="images/cube.png" alt="Cube"></p>
+<p>The component to create this primitive is <code>CubeMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Size</strong></td>
+<td>The size of the cube. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>UVHorizontalFlip</strong></td>
+<td>Indicates whether to flip the horizontal texture coordinate.</td>
+</tr>
+<tr>
+<td><strong>UVVerticalFlip</strong></td>
+<td>Indicates whether to flip the vertical texture coordinate.</td>
+</tr>
+<tr>
+<td><strong>InitialU</strong></td>
+<td>The horizontal texture coordinate offset.</td>
+</tr>
+<tr>
+<td><strong>InitialV</strong></td>
+<td>The vertical texture coordinate offset.</td>
+</tr>
+<tr>
+<td><strong>UTile</strong></td>
+<td>The horizontal texture coordinate scale factor.</td>
+</tr>
+<tr>
+<td><strong>VTile</strong></td>
+<td>The vertical texture coordinate scale factor.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sphere-parameters">Sphere Parameters</h2>
+<p><img src="images/sphere.png" alt="Sphere"></p>
+<p>The component to create this primitive is <code>SphereMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Diameter</strong></td>
+<td>The diameter of the sphere. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Tessellation</strong></td>
+<td>The tessellation of the sphere. Must be greater than 3.</td>
+</tr>
+<tr>
+<td><strong>UVHorizontalFlip</strong></td>
+<td>Indicates whether to flip the horizontal texture coordinate.</td>
+</tr>
+<tr>
+<td><strong>UVVerticalFlip</strong></td>
+<td>Indicates whether to flip the vertical texture coordinate.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="plane-parameters">Plane Parameters</h2>
+<p><img src="images/plane.png" alt="Plane"></p>
+<p>The component to create this primitive is <code>PlaneMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PlaneNormal</strong></td>
+<td>The normal of the plane. Available values: <ul><li>XPositive</li><li>YPositive</li><li>ZPositive</li><li>XNegative</li><li>YNegative</li><li>ZNegative</li></ul></td>
+</tr>
+<tr>
+<td><strong>Width</strong></td>
+<td>The width of the plane. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>The height of the plane. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>TwoSides</strong></td>
+<td>Indicates whether the plane has two sides. By default, the bottom face of the plane is not generated.</td>
+</tr>
+<tr>
+<td><strong>UMirror</strong></td>
+<td>Indicates whether to flip the horizontal texture coordinate.</td>
+</tr>
+<tr>
+<td><strong>VMirror</strong></td>
+<td>Indicates whether to flip the vertical texture coordinate.</td>
+</tr>
+<tr>
+<td><strong>UOffset</strong></td>
+<td>Applies an offset to the horizontal texture coordinates.</td>
+</tr>
+<tr>
+<td><strong>VOffset</strong></td>
+<td>Applies an offset to the vertical texture coordinates.</td>
+</tr>
+<tr>
+<td><strong>UTile</strong></td>
+<td>The horizontal texture coordinate scale factor.</td>
+</tr>
+<tr>
+<td><strong>VTile</strong></td>
+<td>The vertical texture coordinate scale factor.</td>
+</tr>
+<tr>
+<td><strong>Origin</strong></td>
+<td>Represents the pivot in a normalized position. By default, the value is (0.5, 0.5), which indicates that the PlaneMesh position is measured from the center of the plane.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="teapot-parameters">Teapot Parameters</h2>
+<p><img src="images/teapot.png" alt="Teapot"></p>
+<p>The component to create this primitive is <code>TeapotMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Size</strong></td>
+<td>The size of the teapot. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Tessellation</strong></td>
+<td>The tessellation of the teapot. Must be greater than 3.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="capsule-parameters">Capsule Parameters</h2>
+<p><img src="images/capsule.png" alt="Capsule"></p>
+<p>The component to create this primitive is <code>CapsuleMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Height</strong></td>
+<td>The height of the capsule. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Radius</strong></td>
+<td>The radius of the capsule. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Tessellation</strong></td>
+<td>The tessellation of the capsule. Must be even.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cone-parameters">Cone Parameters</h2>
+<p><img src="images/cone.png" alt="Cone"></p>
+<p>The component to create this primitive is <code>ConeMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Height</strong></td>
+<td>The height of the cone. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Diameter</strong></td>
+<td>The diameter of the cone. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Tessellation</strong></td>
+<td>The tessellation of the cone.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="cylinder-parameters">Cylinder Parameters</h2>
+<p><img src="images/cylinder.png" alt="Cylinder"></p>
+<p>The component to create this primitive is <code>CylinderMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Height</strong></td>
+<td>The height of the cylinder. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Diameter</strong></td>
+<td>The diameter of the cylinder. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Tessellation</strong></td>
+<td>The tessellation of the cylinder. Must be greater than 3.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="pyramid-parameters">Pyramid Parameters</h2>
+<p><img src="images/pyramid.png" alt="Pyramid"></p>
+<p>The component to create this primitive is <code>PyramidMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Size</strong></td>
+<td>The size of the pyramid. Must be greater than 0.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="torus-parameters">Torus Parameters</h2>
+<p><img src="images/torus.png" alt="Torus"></p>
+<p>The component to create this primitive is <code>TorusMesh</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Diameter</strong></td>
+<td>The diameter of the torus. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Thickness</strong></td>
+<td>The thickness of the torus. Must be greater than 0.</td>
+</tr>
+<tr>
+<td><strong>Tessellation</strong></td>
+<td>The tessellation of the torus. Must be greater than 3.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

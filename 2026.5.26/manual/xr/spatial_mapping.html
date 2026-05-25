@@ -1,0 +1,235 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>XR Spatial Mapping | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="XR Spatial Mapping | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="xr-spatial-mapping">XR Spatial Mapping</h1>
+
+<p><img src="images/spatialmapping_image.jpg" alt="Spatial Mapping"></p>
+<p>Some XR devices have built-in cameras that continuously scan the environment, allowing them to construct virtual world geometry for real-world objects. This ability allows developers to create convincing interactions between virtual content and the real world (such as occluding and physically interacting with real-world objects). The process of mapping real-world surfaces into the virtual world is called <strong>Spatial Mapping</strong>.</p>
+<h2 id="supported-devices">Supported Devices</h2>
+<p>Currently, in Evergine, the following devices have <strong>Spatial Mapping</strong> support:</p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>XR Platform</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HoloLens 2</strong></td>
+<td>Windows Mixed Reality</td>
+</tr>
+</tbody>
+</table>
+<h2 id="spatialmapping-component">SpatialMapping Component</h2>
+<p>To start using Spatial Mapping in your application, you only need to create an Entity and add the <code>SpatialMapping</code> component:</p>
+<p><img src="images/spatialmapping_component.png" alt="SpatialMapping Component in Evergine Studio"></p>
+<p>This component will request from the XR Platform a collection of Spatial Mapping surfaces, which consist of meshes that conform to the detected environment by the XR Device. Internally, this component will create a collection of child entities, each one responsible for maintaining and rendering a single surface with the given properties, which will be described later.</p>
+<p><img src="images/spatial-mapping-500px.png" alt="SpatialMapping"></p>
+<h3 id="properties">Properties</h3>
+<h4 id="mesh-generation-properties">Mesh Generation Properties</h4>
+<p>The following properties specify how the spatial mapping meshes will be generated:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TrianglesPerCubicMeter</strong> (Default 500)</td>
+<td>The triangles per cubic meter of the generated Spatial Mapping Meshes. With this property, you can control the overall quality of the generated meshes. <br> Lower values generate meshes with less quality but increase overall performance, while greater values provide better spatial mapping quality but with a performance penalty. <em>Default value is 500</em></td>
+</tr>
+<tr>
+<td><strong>ObtainNormals</strong> (Default true)</td>
+<td>Indicates that the generated mesh will provide normals. <em>Default value is <code>true</code></em></td>
+</tr>
+<tr>
+<td><strong>Extents</strong> (Default [6, 5, 6])</td>
+<td>This property defines a volume area (measured in meters) centered around the XR Device user in which all spatial mapping surfaces are updated and generated. Distant surfaces are discarded to prevent a performance penalty. <em>Default value is an area of 6m x 5m x 6m</em></td>
+</tr>
+<tr>
+<td><strong>Material</strong></td>
+<td>Specifies which material will be used to render the Spatial Mapping meshes. If no material is provided, the spatial mapping surfaces won't be rendered. <em>Default value is <code>null</code></em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="update-mesh-properties">Update Mesh Properties</h4>
+<p>The following properties indicate how often the spatial mapping surfaces will be updated or generated:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UpdateInterval</strong> (Default 0)</td>
+<td>Frequency (in seconds) at which the SpatialMapping component will update its surfaces. In the case of 0, the spatial mapping will not be updated (keeping the first requested spatial mapping surfaces). Increase this value for more frequent updates. <em>Default value is 0</em></td>
+</tr>
+<tr>
+<td><strong>MaxSurfaceUpdatesPerFrame</strong> (Default 1)</td>
+<td>Indicates how many surfaces will be processed per frame. When SpatialMapping requests an update, it gives a list of surfaces that require an update. Setting this value allows you to control how many surfaces will be processed in a single frame. This prevents the application from increasing CPU usage and causing a drop in FPS. <em>Default value is 1</em></td>
+</tr>
+</tbody>
+</table>
+<h4 id="collision-mesh-properties">Collision Mesh Properties</h4>
+<p>One of the most important utilities for Spatial Mapping is to generate Physics colliders for the detected surfaces, allowing physical interaction with the environment.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GenerateColliders</strong> (Default false)</td>
+<td>Indicates if physics colliders will be generated for detected spatial mapping surfaces. Generating colliders has a significant performance penalty, so we recommend enabling colliders only if necessary. <em>Default value is <code>false</code></em></td>
+</tr>
+<tr>
+<td><strong>CollisionCategory</strong> (Default Cat1)</td>
+<td>Specifies the CollisionCategory property of spatial mapping physics colliders (It has no effect if the GenerateColliders value is false). Please, read <a href="../physics/physics_bodies/collisions.html#collision-filtering">Collision Filtering</a> for further details. <em>Default value is <code>Cat1</code></em></td>
+</tr>
+<tr>
+<td><strong>MaskBits</strong> (Default All)</td>
+<td>Specifies the MaskBits property of spatial mapping physics colliders (It has no effect if the GenerateColliders value is false). Please, read <a href="../physics/physics_bodies/collisions.html#collision-filtering">Collision Filtering</a> for further details. <em>Default value is <code>All</code></em></td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-spatialmapping-from-code">Using SpatialMapping from Code</h2>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    base.CreateScene();
+
+    // Spatial Mapping entity
+    var spatialMapping = new Entity()
+        .AddComponent(new Transform3D())
+        .AddComponent(new SpatialMapping() 
+        { 
+            UpdateInterval = 5, // Update spatial mapping surfaces every 5 seconds
+            GenerateColliders = true // Generate colliders
+        });
+
+    this.Managers.EntityManager.Add(spatialMapping);
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>
