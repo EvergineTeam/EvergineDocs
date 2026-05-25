@@ -43,8 +43,7 @@ The **TextureDescription** struct contains all the specifications of the **Textu
 | Width | unsigned integer | Width of the texture (first dimension). The maximum value is defined by the device hardware. |
 | Height | unsigned integer | Height of the texture (second dimension). The maximum value is defined by the device hardware. |
 | Depth | unsigned integer | Depth of the texture (third dimension). Used in **Texture3D**. The maximum value is defined by the device hardware. |
-| ArraySize | unsigned integer | The number of textures in a **Texture Array** (either 1D, 2D, or Cube). |
-| Faces | unsigned integer | The number of texture faces used in **TextureCube** and **TextureCubeArray**. |
+| Layers | unsigned integer | The total number of texture layers. For texture arrays this is the array size; for cubemaps each face counts as one layer (e.g. a single cubemap has `Layers = 6`; a cubemap array of 4 has `Layers = 24`). |
 | MipLevels | unsigned integer | Maximum number of mipmap levels in the **Texture**. |
 | ResourceUsage | <ul><li>**Default**: Requires read and write access from the GPU.</li><li>**Immutable**: Can only be read by the GPU. Cannot be written or accessed by the CPU.</li><li>**Dynamic**: Can be accessed by the GPU (read only) and the CPU (write only). Used for textures updated by the CPU.</li><li>**Staging**: Supports data transfer (copy) from the GPU to the CPU.</li></ul> | Type of access of the **Texture**. |
 | Usage | None, Count2, Count4, Count8, Count16, Count32 | Number of samples in the **Texture**. |

@@ -18,8 +18,7 @@ var description = new TextureDescription()
     Width = expectedSize,
     Height = expectedSize,
     Depth = 1,
-    ArraySize = 1,
-    Faces = 1,
+    Layers = 1,
     Usage = expectedUsage,
     CpuAccess = ResourceCpuAccess.None,
     Flags = TextureFlags.None,
@@ -40,8 +39,7 @@ var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
 | **Width** | `uint` | Width of the texture (in texels). |
 | **Height** | `uint` | Height of the texture (in texels). |
 | **Depth** | `uint` | Depth of the texture (in texels). |
-| **ArraySize** | `uint` | Number of textures in the texture array. |
-| **Faces** | `uint` | Number of texture faces, useful in `TextureCube` and `TextureCubeArray`. |
+| **Layers** | `uint` | Total number of texture layers. For texture arrays this is the array size; for cubemaps each face counts as one layer (e.g. a single cubemap has `Layers = 6`; a cubemap array of 4 has `Layers = 24`). |
 | **MipLevels** | `uint` | The maximum number of mipmap levels in the texture.|
 | **Flags** | `TextureFlags` | The texture flags. |
 | **Usage** | `ResourceUsage` | Value that identifies how the texture is to be read from and written to. |
@@ -158,8 +156,7 @@ var description = new TextureDescription()
     Width = expectedSize,
     Height = expectedSize,
     Depth = 1,
-    ArraySize = 1,
-    Faces = 1,
+    Layers = 1,
     Usage = ResourceUsage.Default,
     CpuAccess = ResourceCpuAccess.None,
     Flags = TextureFlags.None,
@@ -195,8 +192,7 @@ var description = new TextureDescription()
     Width = expectedSize,
     Height = expectedSize,
     Depth = 1,
-    ArraySize = 1,
-    Faces = 1,
+    Layers = 1,
     Usage = expectedUsage,
     CpuAccess = ResourceCpuAccess.None,
     Flags = TextureFlags.None,
@@ -224,8 +220,7 @@ var description = new TextureDescription()
     Width = expectedSize,
     Height = expectedSize,
     Depth = 1,
-    ArraySize = 1,
-    Faces = 1,
+    Layers = 1,
     Usage = ResourceUsage.Default,
     CpuAccess = ResourceCpuAccess.None,
     Flags = TextureFlags.None,
@@ -267,8 +262,7 @@ var description = new TextureDescription()
     Width = expectedSize,
     Height = expectedSize,
     Depth = 1,
-    ArraySize = 1,
-    Faces = 1,
+    Layers = 1,
     Usage = ResourceUsage.Staging,
     CpuAccess = ResourceCpuAccess.Write | ResourceCpuAccess.Read,
     Flags = TextureFlags.None,
@@ -297,8 +291,7 @@ var description = new TextureDescription()
     Width = expectedSize,
     Height = expectedSize,
     Depth = 1,
-    ArraySize = 1,
-    Faces = 1,
+    Layers = 1,
     Usage = ResourceUsage.Staging,
     CpuAccess = ResourceCpuAccess.Write | ResourceCpuAccess.Read,
     Flags = TextureFlags.None,

@@ -64,8 +64,7 @@ protected override void CreateScene()
         Height = height,
         Depth = 1,
         MipLevels = 1,
-        ArraySize = 1,
-        Faces = 1,
+        Layers = 1,
         CpuAccess = ResourceCpuAccess.None,
         SampleCount = TextureSampleCount.None,
     };
