@@ -14,7 +14,7 @@ This template adds two projects to the web solution: the _Web_ project, which is
 
 ![Web projects](images/explorer.png)
 
-After editing your scene in Evergine Studio as usual, run the _Web.Server_ project or the _Web_ project from Visual Studio 2022 to see it running in the browser.
+After editing your scene in Evergine Studio as usual, run the _Web.Server_ project or the _Web_ project from Visual Studio 2026 to see it running in the browser.
 
 ![Robot sample](images/sample.png)
 

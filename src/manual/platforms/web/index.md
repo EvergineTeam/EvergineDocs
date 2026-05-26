@@ -8,7 +8,7 @@ Evergine web applications can run statically on the client side quite fast by us
 ## Prerequisites
 
 - .NET 10.0 SDK
-  - Install Visual Studio 2022 (Recommended)
+  - Install Visual Studio 2026 (Recommended)
   - Alternatively, [install](https://dotnet.microsoft.com/download/dotnet/10.0) the latest .NET SDK release.
 - Install wasm-tools
   - From the Visual Studio Installer, add the _web development workload_ and the _.NET WebAssembly build tools_ individual component.
