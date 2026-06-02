@@ -84,17 +84,17 @@
 <h1 id="detailed-information-to-develop-debug-and-deploy-evergine-for-the-web">Detailed Information to Develop, Debug, and Deploy Evergine for the Web</h1>
 
 <h2 id="build">Build</h2>
-<p>Use VS2022 or VSCode/Terminal. You can build and test only the client project (web); the server is only needed for publishing with compression (see below).</p>
+<p>Use Visual Studio 2026 or VSCode/Terminal. You can build and test only the client project (web); the server is only needed for publishing with compression (see below).</p>
 <p><code>dotnet build -c [Debug|Release] ./sample.web/sample.web.[Server.]csproj</code></p>
 <h2 id="run">Run</h2>
-<p>From VS2022, you can run the profile <code>sample.web[.Server]</code>. There is also an IIS Express profile for each client and server project, but it is usually slower.</p>
+<p>From Visual Studio 2026, you can run the profile <code>sample.web[.Server]</code>. There is also an IIS Express profile for each client and server project, but it is usually slower.</p>
 <p>Additionally, you can publish the app using the following command:</p>
 <p><code>dotnet publish -c [Debug|Release] ./sample.web/sample.web.csproj</code></p>
 <p>Then, run the app by populating the folder <code>./sample.web/bin/[Debug|Release]/net10.0/publish/wwwroot</code>. In this second case, we recommend using VSCode Live Server instead of Fenix, as the latter has known issues with Web Assembly.</p>
 <h3 id="debug">Debug</h3>
-<p>Debugging is now possible from VS2022 by running the application in debug mode only on the <strong>Chrome</strong> browser.</p>
+<p>Debugging is now possible from Visual Studio 2026 by running the application in debug mode only on the <strong>Chrome</strong> browser.</p>
 <h2 id="publish-with-compression">Publish with Compression</h2>
-<p>To publish the application with automatic compression (Brotli &amp; GZip), the AspNetCore server is needed. Use VS2022 or Terminal:</p>
+<p>To publish the application with automatic compression (Brotli &amp; GZip), the AspNetCore server is needed. Use Visual Studio 2026 or Terminal:</p>
 <p><code>dotnet publish -c Release -r win-x86 --self-contained ./sample.web.Server/sample.web.Server.csproj</code></p>
 <p>If done from the terminal, you can publish the files in <code>sample.web.Server/bin/Release/net10.0/win-x86/publish</code> to an AspNetCore server, either from VSCode or manually.</p>
 
