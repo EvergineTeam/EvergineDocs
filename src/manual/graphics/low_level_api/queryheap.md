@@ -46,6 +46,10 @@ this.queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
 > }
 > ```
 
+![A rotating cube with an overlay reporting the GPU time of the draw and of the interface](images/timestamp_query.png)
+
+*`TimestampQueryTest` reading its own GPU cost back: the draw took 0.0164 ms and the interface 0.0143 ms on this frame.*
+
 ## Timestamp Queries
 
 You can obtain timestamps as part of a command list (rather than via a CPU-side call on a command queue) using timestamp queries.

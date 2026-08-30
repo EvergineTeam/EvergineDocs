@@ -66,6 +66,10 @@ this.commandQueue.Submit();
 this.commandQueue.WaitIdle();
 ```
 
+![The triangle that code draws, on the cornflower blue it clears to](images/draw_triangle.png)
+
+*What those thirty lines produce: a cleared frame and one triangle whose colours are interpolated between its vertices.*
+
 > [!TIP]
 > That final `WaitIdle()` blocks the CPU until the GPU has drained the whole queue, which is the simplest thing that is correct and the slowest thing that works. [Fence](fence.md) shows how to replace it once the rest of the frame is in place.
 
