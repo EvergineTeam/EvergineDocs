@@ -8,7 +8,7 @@ A **fixed constraint** welds two bodies together: no relative movement and no re
 
 ## When to use it
 
-If two things are permanently attached, the cheaper answer is usually one body with two colliders — a [compound shape](../colliders/index.md) — since the solver then has nothing to solve at all.
+If two things are permanently attached, the cheaper answer is usually one body with two colliders, a [compound shape](../colliders/index.md), since the solver then has nothing to solve at all.
 
 A fixed constraint earns its place when the join has to be **breakable**, when the two halves need different physical properties, or when they are separate entities that come and go independently: a crate strapped to a pallet, a wing that can be torn off, a barrel welded to a truck bed until it is hit hard enough.
 
@@ -40,11 +40,11 @@ A fixed constraint adds nothing of its own: it uses only the [common properties]
 
 | Property | Default | Description |
 | --- | --- | --- |
-| **ConnectedEntityPath** | null | The entity to weld to. Left empty, the body is welded **to the world** — pinned in place, unable to move or turn. |
-| **Anchor** | 0,0,0 | Where the weld sits. It does not change what the constraint allows — nothing — but it is the point the breaking force is measured about. |
+| **ConnectedEntityPath** | null | The entity to weld to. Left empty, the body is welded **to the world**: pinned in place, unable to move or turn. |
+| **Anchor** | 0,0,0 | Where the weld sits. It does not change what the constraint allows (nothing at all) but it is the point the breaking force is measured about. |
 
 > [!TIP]
-> Welding a body to the world with an empty `ConnectedEntityPath` is a quick way to pin a dynamic body in place while keeping it dynamic — so it can still be broken loose, pushed once released, or have forces read off it.
+> Welding a body to the world with an empty `ConnectedEntityPath` is a quick way to pin a dynamic body in place while keeping it dynamic, so it can still be broken loose, pushed once released, or have forces read off it.
 
 ## Using Fixed Constraint
 

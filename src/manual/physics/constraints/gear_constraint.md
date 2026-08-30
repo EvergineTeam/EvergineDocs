@@ -66,8 +66,8 @@ The ratio is the gear ratio, and it is what a difference in tooth count would gi
 | Ratio | Effect |
 | --- | --- |
 | 1 | Both turn at the same speed, in opposite directions. |
-| 2 | This body turns twice for each turn of the other — a small gear driven by a large one. |
-| 0.5 | This body turns half as fast — a large gear driven by a small one. |
+| 2 | This body turns twice for each turn of the other: a small gear driven by a large one. |
+| 0.5 | This body turns half as fast: a large gear driven by a small one. |
 | -1 | Both turn at the same speed, in the **same** direction, as though there were an idler between them. |
 
 ```csharp
@@ -80,4 +80,4 @@ gear.Ratio = otherRadius / thisRadius;
 > The two `Axis` values are each in their **own** body's local space, and each has to match the axis of that body's hinge. A gear whose axis disagrees with its hinge fights the hinge every step, which shows up as the pair juddering rather than turning.
 
 > [!TIP]
-> A gear train is a chain of gear constraints: gear A to B, B to C, C to D. Only the first needs a motor; the rest are driven through the chain. If the far end of a long train lags, give the gears nearest the motor a higher `Priority` — higher is solved last, and the last one solved is the one that wins.
+> A gear train is a chain of gear constraints: gear A to B, B to C, C to D. Only the first needs a motor; the rest are driven through the chain. If the far end of a long train lags, give the gears nearest the motor a higher `Priority`. Higher is solved last, and the last one solved is the one that wins.

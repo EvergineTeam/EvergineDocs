@@ -10,7 +10,7 @@ Every [`RigidBody`](rigid_body.md) reports what it touches. The three collision 
 | --- | --- |
 | **CollisionStarted** | The first step in which the two bodies are touching. |
 | **CollisionUpdated** | Once per step for as long as they stay touching. |
-| **CollisionEnded** | The step in which they stop touching. Its `CollisionInfo` carries no point, normal or depth — there is no longer a contact to describe. |
+| **CollisionEnded** | The step in which they stop touching. Its `CollisionInfo` carries no point, normal or depth, because there is no longer a contact to describe. |
 
 Two things are worth knowing about how they are delivered:
 
@@ -77,7 +77,7 @@ public class Breakable : Behavior
 
 ## Contact Validation
 
-The [collision matrix](../collision_filtering.md) decides which pairs of categories touch at all. For rules it cannot express — a platform you can jump up through but not fall down through, an enemy that ignores its own projectiles — the world offers a callback consulted for every pair before a contact is made:
+The [collision matrix](../collision_filtering.md) decides which pairs of categories touch at all. For rules it cannot express (a platform you can jump up through but not fall down through, an enemy that ignores its own projectiles) the world offers a callback consulted for every pair before a contact is made:
 
 ```csharp
 // A platform solid only from above: a contact is allowed when the other body is moving downwards.

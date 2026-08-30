@@ -4,7 +4,7 @@
   <source src="images/hinge_constraint.mp4" type="video/mp4">
 </video>
 
-A **hinge constraint** lets a body rotate about one axis and nothing else. Doors, lids, levers, wheels, pendulums, drawbridges — anything that swings.
+A **hinge constraint** lets a body rotate about one axis and nothing else. Doors, lids, levers, wheels, pendulums, drawbridges: anything that swings.
 
 ![Hinge constraint](images/hinge_constraint_diagram.png)
 
@@ -65,7 +65,7 @@ this.Managers.EntityManager.Add(door);
 | **MotorMode** | `Off` | `Velocity` drives towards `TargetAngularVelocity`; `Position` drives towards `TargetAngle` and holds there. |
 | **TargetAngularVelocity** | 0 | The speed the velocity motor aims for, in radians per second. |
 | **TargetAngle** | 0 | The angle the position motor aims for, in radians. |
-| **MaxMotorTorque** | 1000 | The strongest torque the motor may apply. A motor that cannot reach its target simply falls short. |
+| **MaxMotorTorque** | 1000 | The strongest torque the motor may apply. A motor that cannot reach its target falls short. |
 
 Plus the [common properties](index.md#common-properties).
 

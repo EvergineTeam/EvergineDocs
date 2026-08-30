@@ -2,7 +2,7 @@
 
 ![Tapered Cylinder Collider](images/tapered_cylinder_collider.png)
 
-A cylinder with a different radius at each end — a truncated cone. Setting its top radius to **zero** makes a plain cone, which is how cones are built now: there is no separate cone collider any more.
+A cylinder with a different radius at each end: a truncated cone. Setting its top radius to **zero** makes a plain cone, which is how cones are built now: there is no separate cone collider any more.
 
 ## TaperedCylinderCollider Component
 

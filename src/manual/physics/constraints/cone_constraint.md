@@ -6,7 +6,7 @@
 
 A **cone constraint** pins two bodies at a point, like a [point constraint](point_constraint.md), and then limits how far the joint may bend: its axis must stay inside a cone.
 
-It is the simplest of the limited ball joints. Twisting about the axis is left free — for a joint that limits that too, use a [swing twist constraint](swing_twist_constraint.md).
+It is the simplest of the limited ball joints. Twisting about the axis is left free. For a joint that limits that too, use a [swing twist constraint](swing_twist_constraint.md).
 
 This constraint had no equivalent in the previous API.
 

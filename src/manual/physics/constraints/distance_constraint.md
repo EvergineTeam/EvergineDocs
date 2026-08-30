@@ -4,7 +4,7 @@
   <source src="images/distance_constraint.mp4" type="video/mp4">
 </video>
 
-A **distance constraint** keeps two points a certain distance apart — or between two distances. It is the rope, the rod and the spring, depending on how its limits and its spring are set.
+A **distance constraint** keeps two points a certain distance apart, or between two distances. It is the rope, the rod and the spring, depending on how its limits and its spring are set.
 
 This constraint had no equivalent in the previous API; it was previously approximated with a generic six-degree-of-freedom joint.
 
@@ -98,4 +98,4 @@ spring.LimitsSpring = SpringParameters.FromFrequency(1.5f, 0.4f);
 ```
 
 > [!TIP]
-> A rope made of one distance constraint does not drape — it is a straight line between two points that happens to have a maximum length. For a rope that hangs in a curve, chain several bodies together with [point constraints](point_constraint.md) instead.
+> A rope made of one distance constraint does not drape: it is a straight line between two points that happens to have a maximum length. For a rope that hangs in a curve, chain several bodies together with [point constraints](point_constraint.md) instead.

@@ -25,7 +25,7 @@ this.physicsManager.DebugFlags = PhysicsDebugFlags.Colliders | PhysicsDebugFlags
 | **Velocities** | The linear velocity of every awake body, as a line. |
 | **Constraints** | Constraints and the arcs of their limits: hinge ranges, swing cones, twist arcs, slider travel. |
 | **Characters** | Each [character controller](character_controller.md)'s capsule and its ground normal. |
-| **SleepState** | Colours bodies by state — red asleep, green kinematic, yellow dynamic. |
+| **SleepState** | Colours bodies by state: red asleep, green kinematic, yellow dynamic. |
 | **SoftBodyStructure** | The vertices and the edge, volume and LRA constraints of every [soft body](soft_bodies/index.md). |
 | **All** | Everything above. |
 
@@ -36,11 +36,11 @@ hull over a mesh and a handful of primitives.
 | | |
 | --- | --- |
 | ![Colliders](images/debug_colliders.png) | ![Constraints](images/debug_constraints.png) |
-| **Colliders** — the flag worth leaving on while building a scene. The hull over the wedge is the case worth seeing: the wireframe and the surface it was generated from are not the same shape. | **Constraints** — each joint's frame drawn in place, with the cone a swing twist allows and the arc a hinge allows. This is how a [ragdoll](ragdolls.md) is tuned. |
+| **Colliders**: the flag worth leaving on while building a scene. The hull over the wedge is the case worth seeing: the wireframe and the surface it was generated from are not the same shape. | **Constraints**: each joint's frame drawn in place, with the cone a swing twist allows and the arc a hinge allows. This is how a [ragdoll](ragdolls.md) is tuned. |
 | ![Characters](images/debug_characters.png) | ![Soft body structure](images/debug_softbody.png) |
-| **Characters** — the controller's capsule and the normal of the ground it is standing on, which is what to watch when a character catches on a seam. | **SoftBodyStructure** — the vertices and the edges the solver is working on, which is a different picture from the surface being rendered over them. |
+| **Characters**: the controller's capsule and the normal of the ground it is standing on, which is what to watch when a character catches on a seam. | **SoftBodyStructure**: the vertices and the edges the solver is working on, which is a different picture from the surface being rendered over them. |
 | ![Bounding boxes](images/debug_bounding_boxes.png) | ![Sleep state](images/debug_sleep_state.png) |
-| **BoundingBoxes** — what the broad phase sees, which is always bigger than the shape and, for a rotated body, considerably bigger. | **SleepState** — which bodies have stopped being simulated. A scene that has gone quiet when it should not have is this flag's question. |
+| **BoundingBoxes**: what the broad phase sees, which is always bigger than the shape and, for a rotated body, considerably bigger. | **SleepState**: which bodies have stopped being simulated. A scene that has gone quiet when it should not have is this flag's question. |
 
 ![Debug rendering](images/debug_rendering_still.png)
 
@@ -102,15 +102,15 @@ public class PhysicsGizmos : Behavior
 
 | Symptom | Flag to turn on |
 | --- | --- |
-| A body rests too high, or sinks into the floor | **Colliders** — the shape is not the size the mesh is. |
-| A compound body behaves as though it were one box | **Colliders** — a child collider is missing from the hierarchy. |
-| A body tips over for no reason | **CentersOfMass** — its centre of mass is not where you assumed. |
-| A vehicle rolls in every corner | **CentersOfMass** — set `CenterOfMassOffset` lower. |
-| A ragdoll explodes on the first frame | **Constraints** — it was built outside its own limits. |
-| A hinge opens the wrong way | **Constraints** — the limit arc shows where zero is. |
-| A character catches on flat ground | **Characters** — watch the ground normal at the seams. |
-| Bodies stop reacting to each other | **SleepState** — they have gone to sleep. |
-| Cloth stretches away from its pins | **SoftBodyStructure** — the LRA constraints are missing. |
+| A body rests too high, or sinks into the floor | **Colliders**: the shape is not the size the mesh is. |
+| A compound body behaves as though it were one box | **Colliders**: a child collider is missing from the hierarchy. |
+| A body tips over for no reason | **CentersOfMass**: its centre of mass is not where you assumed. |
+| A vehicle rolls in every corner | **CentersOfMass**: set `CenterOfMassOffset` lower. |
+| A ragdoll explodes on the first frame | **Constraints**: it was built outside its own limits. |
+| A hinge opens the wrong way | **Constraints**: the limit arc shows where zero is. |
+| A character catches on flat ground | **Characters**: watch the ground normal at the seams. |
+| Bodies stop reacting to each other | **SleepState**: they have gone to sleep. |
+| Cloth stretches away from its pins | **SoftBodyStructure**: the LRA constraints are missing. |
 
 > [!TIP]
 > `Colliders` and `SleepState` together are the pair to keep on while building a scene: the first says whether the shapes are right, and the second says whether anything is still awake that should not be.

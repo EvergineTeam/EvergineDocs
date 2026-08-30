@@ -3,16 +3,16 @@
 
 ![Colliders](images/colliders_overview.png)
 
-A [`RigidBody`](../physics_bodies/rigid_body.md) has no shape of its own. **Colliders** are what give it one: where it is solid, what it can hit, and — through their density — how heavy it is.
+A [`RigidBody`](../physics_bodies/rigid_body.md) has no shape of its own. **Colliders** are what give it one: where it is solid, what it can hit, and, through their density, how heavy it is.
 
 A body collects **every collider on its own entity and on its descendants** when it is created, and builds one shape from them. The walk stops at any descendant that carries a `RigidBody` of its own, since that entity is a separate body.
 
 ![One body with one collider, and one with five](images/compound_collider.png)
 
-*Two bodies, drawn with `PhysicsDebugFlags.Colliders` on. **Left**: the ordinary case — one `RigidBody`
+*Two bodies, drawn with `PhysicsDebugFlags.Colliders` on. **Left**: the ordinary case, one `RigidBody`
 and one `BoxCollider` on the same entity, and the body's shape is that collider. **Right**: a table
 whose `RigidBody` is on the root and whose five `BoxCollider` components are on its children. The
-children carry no body of their own, and there is no compound collider component to add — the
+children carry no body of their own, and there is no compound collider component to add: the
 hierarchy is the compound.*
 
 <video autoplay loop muted playsinline width="100%" height="auto">
@@ -63,7 +63,7 @@ Every collider has these, whatever its shape:
   <source src="images/colliders_drop.mp4" type="video/mp4">
 </video>
 
-*Every convex collider dropped side by side: box, sphere, capsule, cylinder, tapered capsule and — with its top radius at zero — a cone.*
+*Every convex collider dropped side by side: box, sphere, capsule, cylinder, tapered capsule, and a cone (a tapered cylinder with its top radius at zero).*
 
 > [!TIP]
 > A pile of primitives beats a mesh collider nearly every time. A convex hull is more expensive to test than a box, a triangle mesh cannot go on a moving body at all, and three boxes describe most props well enough that no one will notice the difference.

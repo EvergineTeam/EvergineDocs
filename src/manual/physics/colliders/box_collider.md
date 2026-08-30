@@ -2,7 +2,7 @@
 
 ![Box Collider](images/box_collider.png)
 
-A box-shaped collider, and the cheapest shape the solver has. Crates, walls, platforms, floors — most of a level is boxes.
+A box-shaped collider, and the cheapest shape the solver has. Crates, walls, platforms, floors: most of a level is boxes.
 
 ## BoxCollider Component
 

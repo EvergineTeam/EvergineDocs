@@ -55,10 +55,10 @@ wheel.SuspensionMaxLength = 0.3f;
 | **LongitudinalFrictionScale** | 1 | Scales grip along the wheel's rolling direction: acceleration and braking. |
 | **LateralFrictionScale** | 1 | Scales grip sideways: cornering. |
 
-These two are the handling dials. More lateral grip at the rear than the front gives understeer — the car pushes wide; more at the front gives oversteer — the back steps out.
+These two are the handling dials. More lateral grip at the rear than the front gives understeer, where the car pushes wide. More at the front gives oversteer, where the back steps out.
 
 > [!NOTE]
-> On a wheeled vehicle the two scales reshape the tyre's friction **curves** — grip against slip. On a [tracked](tracked_vehicles.md) one a track's grip is a single number rather than a curve, so the same two properties simply multiply it. Either way, `1` leaves the simulation's own model untouched.
+> On a wheeled vehicle the two scales reshape the tyre's friction **curves**, grip against slip. On a [tracked](tracked_vehicles.md) one a track's grip is a single number rather than a curve, so the same two properties just multiply it. Either way, `1` leaves the simulation's own model untouched.
 
 ## Telemetry
 
@@ -80,7 +80,7 @@ Read-only, and updated every step. Everything a HUD, a tyre-smoke effect or a su
 | **Index** | This wheel's index on its controller, or `-1` if it has not been assigned. |
 
 > [!NOTE]
-> The five tyre values — the two slips and the two frictions, plus `BrakeImpulse` — are only meaningful on a **wheeled** vehicle. On a [tracked](tracked_vehicles.md) one they read zero, because a track's grip is not modelled per wheel.
+> The five tyre values (the two slips and the two frictions, plus `BrakeImpulse`) are only meaningful on a **wheeled** vehicle. On a [tracked](tracked_vehicles.md) one they read zero, because a track's grip is not modelled per wheel.
 
 ```csharp
 public class TyreSmoke : Behavior
@@ -101,4 +101,4 @@ public class TyreSmoke : Behavior
 ```
 
 > [!TIP]
-> Leave `UpdateEntityTransform` on and make the wheel's visual a **child** of the wheel entity, not the wheel entity itself. The controller owns that entity's pose, so any rotation authored on it — laying a `CylinderMesh` on its side, for instance — is overwritten every step.
+> Leave `UpdateEntityTransform` on and make the wheel's visual a **child** of the wheel entity, not the wheel entity itself. The controller owns that entity's pose, so any rotation authored on it, laying a `CylinderMesh` on its side for instance, is overwritten every step.

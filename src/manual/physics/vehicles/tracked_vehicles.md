@@ -6,7 +6,7 @@
 
 `TrackedVehicleController` drives anything that steers by running two tracks at different speeds: tanks, excavators, bulldozers, snow groomers.
 
-It is built exactly like a [wheeled vehicle](wheeled_vehicles.md) — one dynamic chassis body, one controller, a child entity per road wheel — and everything in [Vehicles](index.md) about the engine, the gearbox and the collision testers applies unchanged. What differs is how the wheels are driven and how the vehicle turns.
+It is built exactly like a [wheeled vehicle](wheeled_vehicles.md), with one dynamic chassis body, one controller and a child entity per road wheel, and everything in [Vehicles](index.md) about the engine, the gearbox and the collision testers applies unchanged. What differs is how the wheels are driven and how the vehicle turns.
 
 ![Tracked vehicle](images/tracked_still.png)
 
@@ -16,7 +16,7 @@ It is built exactly like a [wheeled vehicle](wheeled_vehicles.md) — one dynami
 
 * **No wheel steers.** Every `MaxSteerAngle` stays at zero. Turning comes from driving one track faster than the other, or from running them in opposite directions to spin on the spot.
 * **Each track is one differential.** Every wheel on a side turns together at the speed its track is running, rather than each being driven separately.
-* **Two tracks, not four corners.** There are no front-left and rear-right indices — only which wheels belong to the left track and which to the right.
+* **Two tracks, not four corners.** There are no front-left and rear-right indices, only which wheels belong to the left track and which to the right.
 
 ## TrackedVehicleController Component
 
@@ -76,10 +76,10 @@ tank.SetDriverInput(forward, leftRatio, rightRatio, brake);
 
 | Argument | Range | Meaning |
 | --- | --- | --- |
-| **forward** | -1 … 1 | Throttle. Negative is reverse. |
-| **leftRatio** | -1 … 1 | How much of the throttle the left track gets. |
-| **rightRatio** | -1 … 1 | How much the right track gets. |
-| **brake** | 0 … 1 | The brake. |
+| **forward** | -1 to 1 | Throttle. Negative is reverse. |
+| **leftRatio** | -1 to 1 | How much of the throttle the left track gets. |
+| **rightRatio** | -1 to 1 | How much the right track gets. |
+| **brake** | 0 to 1 | The brake. |
 
 The two ratios are the steering:
 
@@ -128,4 +128,4 @@ public class TankInput : Behavior
 > Tracked vehicles are heavy and drive over things rather than around them, so `CastCylinder` is worth the extra cost as a collision tester: it puts the road wheels on top of kerbs and rubble instead of dropping them into every gap.
 
 > [!NOTE]
-> A track's grip is not modelled per wheel, so the tyre telemetry on [`VehicleWheel`](vehicle_wheel.md) — the slip and friction values, and `BrakeImpulse` — reads zero on a tracked vehicle. `HasContact`, `SuspensionLength` and `AngularVelocity` all work as usual.
+> A track's grip is not modelled per wheel, so the tyre telemetry on [`VehicleWheel`](vehicle_wheel.md), the slip and friction values and `BrakeImpulse`, reads zero on a tracked vehicle. `HasContact`, `SuspensionLength` and `AngularVelocity` all work as usual.

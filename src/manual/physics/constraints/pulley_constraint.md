@@ -16,7 +16,7 @@ The rope's total length is what stays constant:
 distance(bodyA, fixedPoint) + Ratio * distance(bodyB, connectedFixedPoint) = constant
 ```
 
-The two fixed points are the pulley wheels, in **world space**. They are not bodies and nothing has to exist at them — but putting something visible there is usually worth doing, since a rope going over nothing is hard to read.
+The two fixed points are the pulley wheels, in **world space**. They are not bodies and nothing has to exist at them, but putting something visible there is usually worth doing, since a rope going over nothing is hard to read.
 
 ## PulleyConstraint Component
 
@@ -48,7 +48,7 @@ this.Managers.EntityManager.Add(counterweight);
 | --- | --- | --- |
 | **FixedPoint** | 0,0,0 | The pulley wheel this body's end of the rope runs over, **in world space**. |
 | **ConnectedFixedPoint** | 0,0,0 | The pulley wheel the other body's end runs over, in world space. |
-| **Ratio** | 1 | How much rope the other side takes up for each unit this side takes up. Above 1 **this** body moves further than the other one and pulls with correspondingly less force — the hauling end of a block and tackle. |
+| **Ratio** | 1 | How much rope the other side takes up for each unit this side takes up. Above 1 **this** body moves further than the other one and pulls with correspondingly less force: the hauling end of a block and tackle. |
 | **MinLength** | 0 | The shortest the rope may become. |
 | **MaxLength** | -1 | The longest. **Negative means "the length it has when the constraint is created"**, which is the usual case. |
 
@@ -77,7 +77,7 @@ pulley.Ratio = 2f;
 ```
 
 > [!IMPORTANT]
-> The fixed points are in **world space** and are captured when the constraint is created. Moving the entity that represents the pulley wheel afterwards does not move the constraint's idea of where the rope runs — update `FixedPoint` and call `Recreate()`.
+> The fixed points are in **world space** and are captured when the constraint is created. Moving the entity that represents the pulley wheel afterwards does not move the constraint's idea of where the rope runs. Update `FixedPoint` and call `Recreate()`.
 
 > [!TIP]
-> A pulley is a length limit, not a rope: it stops the two ends going too far apart and does nothing to hold them up. A body whose end of the rope goes slack simply falls, which is correct, and is why `MinLength` is worth setting on anything that could otherwise be pulled all the way into its wheel.
+> A pulley is a length limit, not a rope: it stops the two ends going too far apart and does nothing to hold them up. A body whose end of the rope goes slack just falls, which is correct, and is why `MinLength` is worth setting on anything that could otherwise be pulled all the way into its wheel.

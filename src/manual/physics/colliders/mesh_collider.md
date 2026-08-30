@@ -8,7 +8,7 @@
   <source src="images/mesh_collider_hull.mp4" type="video/mp4">
 </video>
 
-A collider built from triangle geometry — either the model already on the entity, or vertices handed over from code. It is how a prop gets a shape that primitives cannot describe.
+A collider built from triangle geometry: either the model already on the entity, or vertices handed over from code. It is how a prop gets a shape that primitives cannot describe.
 
 ## Convex Hull or Triangle Mesh
 
@@ -17,7 +17,7 @@ A collider built from triangle geometry — either the model already on the enti
 | | Mode | Shape | Bodies |
 | --- | --- | --- | --- |
 | ![Convex hull](images/mesh_collider_convex.png) | **ConvexHull** | The convex wrapping of the geometry. Every dent, hole and cavity is filled in. | Any body, including dynamic ones. |
-| ![Triangle mesh](images/mesh_collider_full.png) | **TriangleMesh** | Every triangle, concavities and all. | **Static or kinematic bodies only** — never dynamic. |
+| ![Triangle mesh](images/mesh_collider_full.png) | **TriangleMesh** | Every triangle, concavities and all. | **Static or kinematic bodies only**, never dynamic. |
 
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/mesh_collider_types.mp4" type="video/mp4">
@@ -26,7 +26,7 @@ A collider built from triangle geometry — either the model already on the enti
 *The same wedge twice. On the left, as a triangle mesh: the balls settle into the dip. On the right, as a convex hull: the hull has put a lid over the dip and they roll straight off.*
 
 > [!IMPORTANT]
-> A triangle mesh is a surface, not a solid. It has no volume, so it has no mass and no inertia, and the solver has no way to tell inside from outside — which is why it is rejected on dynamic bodies. For a moving object, use a convex hull, or better, a handful of primitives.
+> A triangle mesh is a surface, not a solid. It has no volume, so it has no mass and no inertia, and the solver has no way to tell inside from outside, which is why it is rejected on dynamic bodies. For a moving object, use a convex hull, or better, a handful of primitives.
 
 ## MeshCollider Component
 
@@ -68,7 +68,7 @@ A convex hull needs at least four points to enclose a volume.
 
 ## Setting Geometry from Code
 
-Generated geometry — terrain, a procedural mesh, a shape assembled at run time — is handed over directly, and takes precedence over the model:
+Generated geometry (terrain, a procedural mesh, a shape assembled at run time) is handed over directly, and takes precedence over the model:
 
 ```csharp
 public class WedgeBuilder : Behavior

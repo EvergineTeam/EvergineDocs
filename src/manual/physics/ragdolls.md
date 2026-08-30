@@ -5,7 +5,7 @@
   <source src="images/ragdoll_figure.mp4" type="video/mp4">
 </video>
 
-A **ragdoll** is a figure the simulation moves instead of an animation: one [rigid body](physics_bodies/rigid_body.md) per bone and one [constraint](constraints/index.md) per joint. There is no ragdoll component — a ragdoll is those two things assembled in a particular way, and this page is about the way.
+A **ragdoll** is a figure the simulation moves instead of an animation: one [rigid body](physics_bodies/rigid_body.md) per bone and one [constraint](constraints/index.md) per joint. There is no ragdoll component: a ragdoll is those two things assembled in a particular way, and this page is about the way.
 
 ## The Anatomy
 
@@ -20,13 +20,13 @@ The reference figure below is eleven bodies and ten joints, about 1.8 m tall. Ev
 
 | Part | Shape | Mass | Joint to its parent | Limits |
 | --- | --- | --- | --- | --- |
-| Pelvis | box 0.30 × 0.20 × 0.20 | 12 kg | — (the root) | — |
+| Pelvis | box 0.30 × 0.20 × 0.20 | 12 kg | *None*, it is the root | *None* |
 | Torso | box 0.36 × 0.46 × 0.22 | 22 kg | swing twist to pelvis | 25° / 20° swing, ±25° twist |
 | Head | sphere r 0.12 | 5 kg | swing twist to torso | 35° / 35° swing, ±45° twist |
 | Upper arm ×2 | capsule r 0.055, h 0.30 | 2.5 kg | swing twist to torso | 80° / 60° swing, ±30° twist |
-| Lower arm ×2 | capsule r 0.05, h 0.28 | 2 kg | hinge to upper arm | 0° … 140° |
+| Lower arm ×2 | capsule r 0.05, h 0.28 | 2 kg | hinge to upper arm | 0° to 140° |
 | Upper leg ×2 | capsule r 0.08, h 0.44 | 7 kg | swing twist to pelvis | 60° / 35° swing, ±20° twist |
-| Lower leg ×2 | capsule r 0.065, h 0.44 | 4 kg | hinge to upper leg | 0° … 140° |
+| Lower leg ×2 | capsule r 0.065, h 0.44 | 4 kg | hinge to upper leg | 0° to 140° |
 
 ```csharp
 // A shoulder or a hip. The anchor is in the child's own space: where the two bones meet.
@@ -66,7 +66,7 @@ var knee = new HingeConstraint()
 
 Almost every ragdoll that explodes, jitters or folds through itself breaks one of these.
 
-**`CollideConnected = false` on every joint.** Limbs overlap where they meet — that is what makes a figure look like a figure rather than a chain of sausages. Left connected, the solver spends every step pushing two bodies apart that a constraint is holding together, and the figure blows itself apart on the first frame.
+**`CollideConnected = false` on every joint.** Limbs overlap where they meet, and that is what makes a figure look like a figure rather than a chain of sausages. Left connected, the solver spends every step pushing two bodies apart that a constraint is holding together, and the figure blows itself apart on the first frame.
 
 **Build the figure inside its own limits.** A constraint measures its angles from the pose the two bodies were in when it was created. Assemble the figure with an elbow already bent past its stop and the solver's first job is to force it back, which reads as a limb snapping.
 
@@ -78,7 +78,7 @@ Almost every ragdoll that explodes, jitters or folds through itself breaks one o
   <source src="images/ragdoll_joints.mp4" type="video/mp4">
 </video>
 
-`PhysicsDebugFlags.Constraints` draws every joint's frame in place on the figure, with the cone a swing twist allows and the arc a hinge allows. This is how a ragdoll is tuned — a limb that reaches somewhere it should not is a cone drawn too wide, and it is visible before the figure has finished falling.
+`PhysicsDebugFlags.Constraints` draws every joint's frame in place on the figure, with the cone a swing twist allows and the arc a hinge allows. This is how a ragdoll is tuned: a limb that reaches somewhere it should not is a cone drawn too wide, and it is visible before the figure has finished falling.
 
 ```csharp
 this.Managers.FindManager<PhysicsManager>().DebugFlags = PhysicsDebugFlags.Constraints;
@@ -109,7 +109,7 @@ foreach (HingeConstraint hinge in hinges)
 This is what a figure driven by an animation is doing every frame, with the targets read out of the animation instead of fixed.
 
 > [!IMPORTANT]
-> Motors make the figure **rigid**, not **upright**. Each target is the rotation of one limb relative to its parent, so a ragdoll lying on its face with its motors on becomes a mannequin lying on its face. Standing it up takes a force on the pelvis, which no joint can supply — a joint only ever holds two bodies to each other. That is a job for a [character controller](character_controller.md), or for an external force on the root body.
+> Motors make the figure **rigid**, not **upright**. Each target is the rotation of one limb relative to its parent, so a ragdoll lying on its face with its motors on becomes a mannequin lying on its face. Standing it up takes a force on the pelvis, which no joint can supply, since a joint only ever holds two bodies to each other. That is a job for a [character controller](character_controller.md), or for an external force on the root body.
 
 ## From Animation to Ragdoll
 
@@ -121,7 +121,7 @@ The reason to build a ragdoll over a skeleton rather than as a free-standing fig
 
 Nothing in the framework couples animation to physics, so the coupling is yours to write. It is three ideas.
 
-**One body per bone, in world space.** A bone entity carries the model's own node scale — often a hundredth — so a collider placed directly on one has to be sized and offset in that space. It is far simpler to give each limb an entity of its own and record the fixed offset between it and its bone once, when the ragdoll is built:
+**One body per bone, in world space.** A bone entity carries the model's own node scale, often a hundredth, so a collider placed directly on one has to be sized and offset in that space. It is far simpler to give each limb an entity of its own and record the fixed offset between it and its bone once, when the ragdoll is built:
 
 ```csharp
 // Built at the midpoint of the bone, turned so the capsule's own +Y runs down it.
@@ -163,20 +163,20 @@ foreach (Limb limb in this.limbs)
 ```
 
 > [!TIP]
-> Changing `BodyType` from kinematic to dynamic does **not** recreate the body: it keeps its velocity, its constraints and its place in the world. That is what makes this transition look right — every limb inherits the velocity the animation had just given it, so the figure is thrown forward by the stride it was in the middle of instead of dropping straight down like a plank.
+> Changing `BodyType` from kinematic to dynamic does **not** recreate the body: it keeps its velocity, its constraints and its place in the world. That is what makes this transition look right: every limb inherits the velocity the animation had just given it, so the figure is thrown forward by the stride it was in the middle of instead of dropping straight down like a plank.
 
 ![Ragdoll taking over from the animation](images/ragdoll_wall_still.png)
 
 > [!NOTE]
 > **The skin does not follow the ragdoll, and the reason is narrower than it looks.** Writing the
-> simulated poses back onto the bones works — for every bone except one. Written one at a time, or all
+> simulated poses back onto the bones works for every bone except one. Written one at a time, or all
 > ten at once, with the animation running or switched off, the mesh is fine. Written to the **pelvis**,
 > the figure disappears completely; so does moving the entity that carries the model, which moves the
 > pelvis with it.
 >
 > On this rig the pelvis is the skinned mesh's **root joint**: the mesh is drawn at that joint's world
 > transform and its bone matrices are unwound again by the same joint's inverse, and the pair does not
-> survive that joint being moved by anything other than the animation — not through `Position` and
+> survive that joint being moved by anything other than the animation: not through `Position` and
 > `Orientation`, not through `WorldTransform`, not through the local pair the animation itself writes,
 > and not by solving for the model root instead. Even writing back the value already there does it.
 >
@@ -202,8 +202,8 @@ Vector3 local = this.hips.LocalPosition;
 this.hips.LocalPosition = new Vector3(local.X, local.Y, this.hipsRestZ);
 ```
 
-Only the axis along the walk. The other two carry the sway and the bob of a real stride — four and
-eight node units of it — and zeroing them gives a figure that glides.
+Only the axis along the walk. The other two carry the sway and the bob of a real stride (four and
+eight node units of it) and zeroing them gives a figure that glides.
 
 > [!IMPORTANT]
 > `AnimationClip.InPlaceMode` looks like the setting for this, and today it is not: the enum and

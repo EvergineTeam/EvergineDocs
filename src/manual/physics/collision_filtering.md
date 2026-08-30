@@ -39,7 +39,7 @@ public override void RegisterManagers()
 
 | Member | Description |
 | --- | --- |
-| **CategoryNames** | The 32 names, defaulting to `"Category 1"` … `"Category 32"`. |
+| **CategoryNames** | The 32 names, defaulting to `"Category 1"` through `"Category 32"`. |
 | **SetCategoryName(category, name)** | Names one category. |
 | **GetCategoryName(category)** | Reads one back. |
 
@@ -69,7 +69,7 @@ physics.SetCollisionEnabled(CollisionCategory.Cat4, CollisionCategory.Cat5, fals
 
 ## Ignoring a Single Pair of Bodies
 
-Categories are for kinds of thing. For two specific bodies that should ignore each other — the two halves of a hinge, a turret and the vehicle carrying it — there is a per-pair exclusion:
+Categories are for kinds of thing. For two specific bodies that should ignore each other (the two halves of a hinge, a turret and the vehicle carrying it), there is a per-pair exclusion:
 
 ```csharp
 physics.SetPairCollisionEnabled(turretBody, hullBody, false);
@@ -81,11 +81,11 @@ physics.SetPairCollisionEnabled(turretBody, hullBody, false);
 | **GetPairCollisionEnabled(first, second)** | Reads it back. |
 | **WereBodiesInContact(first, second)** | Whether the two touched in the last step. |
 
-This is what [`Constraint.CollideConnected`](constraints/index.md) uses under the hood: a hinge whose two halves overlap would otherwise spend every step fighting its own contact.
+This is what [`Constraint.CollideConnected`](constraints/index.md) uses internally: a hinge whose two halves overlap would otherwise spend every step fighting its own contact.
 
 ## Filtering Beyond the Matrix
 
-Some rules cannot be expressed as "these two kinds do or do not touch" — a platform solid only from above, a shot that passes through its own team. For those the world takes a callback consulted for every candidate pair:
+Some rules cannot be expressed as "these two kinds do or do not touch": a platform solid only from above, a shot that passes through its own team. For those the world takes a callback consulted for every candidate pair:
 
 ```csharp
 physics.ContactValidator = (first, second) => !this.SameTeam(first, second);

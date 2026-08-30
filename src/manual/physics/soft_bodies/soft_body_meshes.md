@@ -2,7 +2,7 @@
 
 ![Soft body shapes](images/softbody_still.png)
 
-`SoftBodyMesh` is the shape half of a [soft body](index.md): it generates the surface, draws it, and hands it to the `SoftBody` beside it. It derives from `MeshComponent`, so the entity is drawn like any other — material, mesh, renderer.
+`SoftBodyMesh` is the shape half of a [soft body](index.md): it generates the surface, draws it, and hands it to the `SoftBody` beside it. It derives from `MeshComponent`, so the entity is drawn like any other: material, mesh, renderer.
 
 ## Built-in Shapes
 
@@ -22,11 +22,11 @@ Each of them landing, one at a time:
 | | |
 | --- | --- |
 | <video autoplay loop muted playsinline width="100%"><source src="images/softbody_cloth.mp4" type="video/mp4"></video> | <video autoplay loop muted playsinline width="100%"><source src="images/softbody_jelly.mp4" type="video/mp4"></video> |
-| **Cloth** — pinned along its top row to a moving bar, draping over what it is swept across. | **Cube** — a hollow shell, held out by its pressure and squashing against the block it lands on. |
+| **Cloth**: pinned along its top row to a moving bar, draping over what it is swept across. | **Cube**: a hollow shell, held out by its pressure and squashing against the block it lands on. |
 | <video autoplay loop muted playsinline width="100%"><source src="images/softbody_pressure.mp4" type="video/mp4"></video> | <video autoplay loop muted playsinline width="100%"><source src="images/softbody_bolster.mp4" type="video/mp4"></video> |
-| **Sphere** — a water balloon: heavy for its size, slack skin, no bounce. | **Cylinder** — lying on its side, so it squashes along its length instead of standing on one cap. |
+| **Sphere**: a water balloon, heavy for its size, slack skin, no bounce. | **Cylinder**: lying on its side, so it squashes along its length instead of standing on one cap. |
 | <video autoplay loop muted playsinline width="100%"><source src="images/softbody_torus.mp4" type="video/mp4"></video> | <video autoplay loop muted playsinline width="100%"><source src="images/softbody_model.mp4" type="video/mp4"></video> |
-| **Torus** — dropped on edge, which is also what proves the transform's rotation reaches the solver. | **FromModel** — a duck read straight off a model asset, welded and pressurised. |
+| **Torus**: dropped on edge, which is also what proves the transform's rotation reaches the solver. | **FromModel**: a duck read straight off a model asset, welded and pressurised. |
 
 ## Properties
 
@@ -50,7 +50,7 @@ Read-only: **Model**, **RestPositions**, **TriangleIndices**. Method: **SetCusto
 
 ## Cloth
 
-A cloth is generated in the local **XZ** plane, row by row along Z. That layout is what makes pinning straightforward: `index = z * GridColumns + x`, and the edge at local −Z is simply `0 … GridColumns - 1`.
+A cloth is generated in the local **XZ** plane, row by row along Z. That layout is what makes pinning straightforward: `index = z * GridColumns + x`, and the edge at local -Z is `0` to `GridColumns - 1`.
 
 ```csharp
 Entity banner = new Entity("banner")
@@ -126,7 +126,7 @@ new SoftBodyMesh()
 > A model used with `Pressure` must be **one closed shell**. A model whose eyes, wheels or trim are separate pieces has no single enclosed volume, so the pressure has nothing to act on and the body lands flat whatever value you give it. Check Euler's formula on the welded mesh: `V - E + F` should come to 2 for a single closed surface.
 
 > [!TIP]
-> `WeldDistance` is the dial that decides whether a model closes. Too small and the exporter's duplicated seam vertices stay separate, leaving the shell open; too large and real detail is collapsed. The default millimetre is right for most assets — check it against the shortest real edge in the mesh.
+> `WeldDistance` is the dial that decides whether a model closes. Too small and the exporter's duplicated seam vertices stay separate, leaving the shell open; too large and real detail is collapsed. The default millimetre is right for most assets. Check it against the shortest real edge in the mesh.
 
 ## Custom Geometry
 

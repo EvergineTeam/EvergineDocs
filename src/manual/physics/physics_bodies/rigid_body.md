@@ -6,7 +6,7 @@
 
 `RigidBody` is the component that puts an entity into the physics simulation. Everything the solver moves is one: the crates, the floor they land on, and the platform carrying them.
 
-The three kinds of body are the same component with a different `BodyType`, because the difference between them is one of behaviour and not of capability — a crate that becomes scenery, or scenery that starts to move, is a property change rather than a different component.
+The three kinds of body are the same component with a different `BodyType`, because the difference between them is one of behaviour and not of capability. A crate that becomes scenery, or scenery that starts to move, is a property change rather than a different component.
 
 ## RigidBody Component
 
@@ -30,7 +30,7 @@ The shape is collected from the colliders on the entity **and on its descendants
 
 ![One body, one collider, and one body with five](../colliders/images/compound_collider.png)
 
-*On the left, the ordinary case: `RigidBody` and `BoxCollider` on the same entity. On the right, a table whose `RigidBody` is on the root and whose five `BoxCollider` components are on its children — the children carry no body of their own, and the five shapes are gathered into one compound shape for the body at the top.*
+*On the left, the ordinary case: `RigidBody` and `BoxCollider` on the same entity. On the right, a table whose `RigidBody` is on the root and whose five `BoxCollider` components are on its children. The children carry no body of their own, and the five shapes are gathered into one compound shape for the body at the top.*
 
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="../colliders/images/compound_collider_drop.mp4" type="video/mp4">
@@ -42,7 +42,7 @@ The shape is collected from the colliders on the entity **and on its descendants
 
 | Property | Default | Description |
 | --- | --- | --- |
-| **BodyType** | `Dynamic` | <ul><li>**Static** — never moves. Two static bodies never collide with each other, whatever the collision matrix says.</li><li>**Kinematic** — moved by your code through `MoveTo`. Pushes dynamic bodies and carries them; nothing pushes it back.</li><li>**Dynamic** — moved by the solver: gravity, collisions and forces.</li></ul> |
+| **BodyType** | `Dynamic` | <ul><li>**Static**: never moves. Two static bodies never collide with each other, whatever the collision matrix says.</li><li>**Kinematic**: moved by your code through `MoveTo`. Pushes dynamic bodies and carries them; nothing pushes it back.</li><li>**Dynamic**: moved by the solver, through gravity, collisions and forces.</li></ul> |
 
 > [!NOTE]
 > Switching between static and non-static recreates the body internally. It is not something to do every frame.
@@ -82,7 +82,7 @@ The shape is collected from the colliders on the entity **and on its descendants
 | **AngularDamping** | 0.05 | Slows rotation down over time. |
 | **GravityFactor** | 1 | Multiplies the world's gravity for this body. `0` makes it weightless; `2` makes it fall twice as hard. |
 | **MaxLinearVelocity** | 500 | A speed limit, in metres per second. |
-| **MaxAngularVelocity** | 47.12 | A spin limit, in radians per second — 15π, which is seven and a half turns a second. |
+| **MaxAngularVelocity** | 47.12 | A spin limit, in radians per second: 15π, which is seven and a half turns a second. |
 | **AllowedDegreesOfFreedom** | `All` | Locks axes outright. `Plane2D` keeps a body in the XY plane turning only about Z, which is how a 2.5D game is built. |
 | **MotionQuality** | `Discrete` | `LinearCast` sweeps the body's movement between steps instead of testing only where it lands, which is what stops a fast body passing through a thin wall. |
 
@@ -104,7 +104,7 @@ The shape is collected from the colliders on the entity **and on its descendants
 | **SurfaceVelocity** | 0,0,0 | Tells contacts that the surface is moving even though the body is not. This is how a conveyor belt is built. |
 | **AllowSleeping** | true | Lets this body be put to sleep when it stops moving. |
 | **EnhancedInternalEdgeRemoval** | false | Stops bodies catching on the seams between the triangles of a mesh collider. |
-| **CollideKinematicVsNonDynamic** | false | Needed for a kinematic body to notice static and other kinematic bodies — a kinematic sensor, for instance. |
+| **CollideKinematicVsNonDynamic** | false | Needed for a kinematic body to notice static and other kinematic bodies, a kinematic sensor for instance. |
 | **ApplyGyroscopicForce** | false | Simulates the gyroscopic effect, which matters for fast-spinning bodies. |
 | **SolverVelocityIterationsOverride** | 0 | Per-body override of the world's solver settings. `0` uses the world's. |
 | **SolverPositionIterationsOverride** | 0 | The same for position iterations. |

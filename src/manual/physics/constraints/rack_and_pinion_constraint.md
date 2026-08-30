@@ -6,7 +6,7 @@
 
 A **rack and pinion constraint** turns rotation into straight-line movement: a turning pinion drives a sliding rack along its axis. Steering columns, sliding gates, screw jacks, a lift driven by a winch drum.
 
-It is the [gear constraint](gear_constraint.md)'s cousin — one couples two rotations, this one couples a rotation to a translation.
+It is the [gear constraint](gear_constraint.md)'s cousin: one couples two rotations, this one couples a rotation to a translation.
 
 This constraint had no equivalent in the previous API.
 
@@ -65,7 +65,7 @@ this.Managers.EntityManager.Add(pinion);
 
 | Property | Default | Description |
 | --- | --- | --- |
-| **HingeAxis** | 0,0,1 | The pinion's rotation axis, in **this** body's local space — this body is the pinion. It must match the axis of its own hinge. |
+| **HingeAxis** | 0,0,1 | The pinion's rotation axis, in **this** body's local space. This body is the pinion. It must match the axis of its own hinge. |
 | **SliderAxis** | 1,0,0 | The direction the rack travels along, in the **connected** body's local space. It must match the axis of the rack's own slider. |
 | **Ratio** | 1 | How many radians the pinion turns for each metre the rack travels. |
 
@@ -80,7 +80,7 @@ For real teeth to mesh, one full turn of the pinion moves the rack by its circum
 rackAndPinion.Ratio = 1f / pinionRadius;
 ```
 
-Raise it above that and the rack moves less per turn — a slower, stronger drive. Lower it and the rack moves further per turn.
+Raise it above that and the rack moves less per turn: a slower, stronger drive. Lower it and the rack moves further per turn.
 
 Steering is the everyday case: a steering wheel that turns two and a half times lock to lock, driving a rack that travels fifteen centimetres each way.
 
@@ -88,4 +88,4 @@ Steering is the everyday case: a steering wheel that turns two and a half times 
 > The component goes on the **pinion**, not on the rack, and `ConnectedEntityPath` names the rack. That is also why `HingeAxis` is read in this entity's space and `SliderAxis` in the connected one's. Getting them the wrong way round leaves the constraint trying to slide the pinion and turn the rack.
 
 > [!TIP]
-> Turn on `PhysicsDebugFlags.Constraints` while wiring one up. The four axes — the slider's, the hinge's, and this constraint's two — all have to agree, and seeing them drawn is much quicker than working out which of the four is wrong. See [Debug Rendering](../debug_rendering.md).
+> Turn on `PhysicsDebugFlags.Constraints` while wiring one up. The four axes (the slider's, the hinge's, and this constraint's two) all have to agree, and seeing them drawn is much quicker than working out which of the four is wrong. See [Debug Rendering](../debug_rendering.md).

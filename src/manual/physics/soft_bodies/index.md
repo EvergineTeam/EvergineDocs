@@ -95,10 +95,10 @@ this.Managers.EntityManager.Add(flag);
   <source src="images/softbody_pressure.mp4" type="video/mp4">
 </video>
 
-A surface has no volume term of its own. What holds a hollow shape out is `Pressure`, and it needs **one closed shell** to push against — a mesh with separate pieces, holes or non-manifold edges has nothing to inflate, and lands flat however much pressure it is given.
+A surface has no volume term of its own. What holds a hollow shape out is `Pressure`, and it needs **one closed shell** to push against. A mesh with separate pieces, holes or non-manifold edges has nothing to inflate, and lands flat however much pressure it is given.
 
 > [!IMPORTANT]
-> `Pressure` is not a pressure. It is the *n* of *n·R·T*, and the force the solver applies is that divided by the enclosed volume. It therefore **cannot be copied between bodies of different sizes**: the value that inflates a small balloon will tear a large tube apart. Scale it with the volume — matching a body of twice the volume means twice the number.
+> `Pressure` is not a pressure. It is the *n* of *n·R·T*, and the force the solver applies is that divided by the enclosed volume. It therefore **cannot be copied between bodies of different sizes**: the value that inflates a small balloon will tear a large tube apart. Scale it with the volume: matching a body of twice the volume means twice the number.
 
 ## Pinning Vertices
 
@@ -140,7 +140,7 @@ softBody.NotifyPinsChanged();
 ### Pinning in the Editor
 
 Writing vertex indices out by hand only works while the surface is a grid whose numbering you can
-reason about. For anything else — a shape read off a model, a torus, one corner of a cube — the
+reason about. For anything else (a shape read off a model, a torus, one corner of a cube) the
 `SoftBody` inspector has a picking mode.
 
 ![SoftBody component](images/softbody_component.png)
@@ -161,7 +161,7 @@ free.*
 | Cyan | Pinned to an entity, so it is carried by that entity. |
 | Yellow | Currently selected. |
 
-**Select in the viewport.** Clicking a vertex toggles it — within about twelve pixels, so a point
+**Select in the viewport.** Clicking a vertex toggles it, within about twelve pixels, so a point
 does not have to be hit exactly. Dragging draws a rectangle and takes everything inside it. Holding
 **Ctrl** adds to the selection instead of replacing it; **Shift** is not used for this, because the
 viewport camera has it.
@@ -180,7 +180,7 @@ viewport camera has it.
 | **`Clear selection`** | Deselects, without changing anything. |
 
 Every group that exists is listed under **`Pinned vertices`**, one row each, labelled by what it holds
-rather than by a number — *"24 vertices on sweepBar"*.
+rather than by a number, as in *"24 vertices on sweepBar"*.
 
 ![The panel with the mode off](images/softbody_pins.png)
 
@@ -191,7 +191,7 @@ so a group can be moved onto a different entity by typing the new path over it.
 > [!IMPORTANT]
 > **`Clear all pins` is there because changing the shape renumbers the vertices.** A pin group is a
 > list of indices into the surface, and changing `ShapeType`, `GridColumns`, `GridRows` or the source
-> model regenerates that surface — so the indices survive and now point at completely different
+> model regenerates that surface, so the indices survive and now point at completely different
 > vertices. Starting the groups over is the way out.
 
 ## In this section

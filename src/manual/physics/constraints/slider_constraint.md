@@ -4,7 +4,7 @@
   <source src="images/slider_constraint.mp4" type="video/mp4">
 </video>
 
-A **slider constraint** lets a body move along one axis and nothing else — no other translation and no rotation at all. Pistons, drawers, lifts on rails, sliding doors.
+A **slider constraint** lets a body move along one axis and nothing else: no other translation and no rotation at all. Pistons, drawers, lifts on rails, sliding doors.
 
 ![Slider constraint](images/slider_constraint_diagram.png)
 
@@ -118,4 +118,4 @@ slider.LimitsSpring = SpringParameters.FromFrequency(2.5f, 0.5f);
 > A slider's values are expressed **from the point of view of the body carrying the component**. A positive `TargetPosition` moves this body along its own `Axis`, whichever of the two bodies happens to be the heavier.
 
 > [!TIP]
-> For a lift that should travel a fixed path and carry whatever stands on it, a kinematic body driven with `MoveTo` is simpler than a motorised slider — see [Rigid Body](../physics_bodies/rigid_body.md). Use a slider when the lift should be stoppable, should sag under load, or should be pushed by something else.
+> For a lift that should travel a fixed path and carry whatever stands on it, a kinematic body driven with `MoveTo` is simpler than a motorised slider. See [Rigid Body](../physics_bodies/rigid_body.md). Use a slider when the lift should be stoppable, should sag under load, or should be pushed by something else.

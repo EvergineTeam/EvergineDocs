@@ -2,7 +2,7 @@
 
 ![Queries](images/raycasting.jpg)
 
-A **query** asks the world what is there, without moving anything. Aiming a weapon, checking whether a character can step forward, finding everything caught in a blast — all of it is done with queries rather than by putting bodies into the scene and watching what they hit.
+A **query** asks the world what is there, without moving anything. Aiming a weapon, checking whether a character can step forward, finding everything caught in a blast: all of it is done with queries rather than by putting bodies into the scene and watching what they hit.
 
 All of them live on the [`PhysicsManager`](physics_manager.md):
 
@@ -75,7 +75,7 @@ public class Picker : Behavior
 
 ![Shape cast](images/sweep_test.png)
 
-A shape cast sweeps a whole shape along a line instead of a single ray. It is what answers "can I move there" — a ray through the middle of a character says nothing about its shoulders.
+A shape cast sweeps a whole shape along a line instead of a single ray. It is what answers "can I move there", since a ray through the middle of a character says nothing about its shoulders.
 
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/shapecast.mp4" type="video/mp4">
@@ -101,7 +101,7 @@ bool blocked = this.physicsManager.SphereCast(
     out ShapeCastHit hit);
 ```
 
-`ShapeCastHit` carries everything `RayCastHit` does, plus **PenetrationDepth** — how deep the shape already overlapped at the start of the sweep.
+`ShapeCastHit` carries everything `RayCastHit` does, plus **PenetrationDepth**, how deep the shape already overlapped at the start of the sweep.
 
 > [!TIP]
 > A shape cast starting inside a body reports a hit at distance zero. Passing the body you are casting from in `QueryFilter.IgnoreBody` is nearly always what you want, and `QueryFilter.Ignoring(body)` is the one-liner for it.
@@ -159,7 +159,7 @@ Every query takes a `QueryFilter`. Its default value hits every solid body and s
 | --- | --- | --- |
 | **CategoryMask** | `None` | The [categories](collision_filtering.md) the query may hit. **Zero means every category**, not none. |
 | **IncludeSensors** | false | Whether sensors take part. Off by default: a sensor is a volume to be notified about, not an obstacle. |
-| **IgnoreBody** | null | A body the query always skips — normally the one it starts from. |
+| **IgnoreBody** | null | A body the query always skips, normally the one it starts from. |
 | **Predicate** | null | An extra test per candidate body. Returning `false` skips it. |
 
 | Factory | Description |
@@ -178,4 +178,4 @@ int found = this.physicsManager.OverlapSphere(this.transform.Position, 8f, this.
 ```
 
 > [!IMPORTANT]
-> `Predicate` is called during the query, on the calling thread. Keep it to a test — do not create or destroy anything from inside one.
+> `Predicate` is called during the query, on the calling thread. Keep it to a test: do not create or destroy anything from inside one.

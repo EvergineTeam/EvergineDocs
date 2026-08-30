@@ -129,7 +129,7 @@ Give the platform entity a `RigidBody` with `BodyType = RigidBodyType.Kinematic`
 
 ## 5. Shoot at it
 
-Firing a body into a live world exercises the interesting part of the system — deferred creation, the broad phase taking a new body mid-simulation — and it is the quickest way to see whether the scene behaves.
+Firing a body into a live world exercises the interesting part of the system (deferred creation, the broad phase taking a new body mid-simulation) and it is the quickest way to see whether the scene behaves.
 
 ```csharp
 public class BallLauncher : Behavior
@@ -193,4 +193,4 @@ When a body behaves oddly the first question is always whether its shape is what
 this.Managers.FindManager<PhysicsManager>().DebugFlags = PhysicsDebugFlags.Colliders;
 ```
 
-The debug drawing shows the shapes **as the solver has them** — convex radius applied, compound shapes assembled — so anything that disagrees with the mesh is a real difference and not a drawing artefact. See [Debug Rendering](../debug_rendering.md).
+The debug drawing shows the shapes **as the solver has them**, convex radius applied and compound shapes assembled, so anything that disagrees with the mesh is a real difference and not a drawing artefact. See [Debug Rendering](../debug_rendering.md).

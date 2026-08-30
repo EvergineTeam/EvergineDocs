@@ -2,7 +2,7 @@
 
 ![Height Field Collider](images/heightfield_collider.png)
 
-A terrain built from a square grid of heights. For the same ground it is far cheaper than a [triangle mesh](mesh_collider.md) — one float per sample instead of three vertices per triangle — and it is the only collider that can be **deformed while the simulation runs**.
+A terrain built from a square grid of heights. For the same ground it is far cheaper than a [triangle mesh](mesh_collider.md), one float per sample instead of three vertices per triangle, and it is the only collider that can be **deformed while the simulation runs**.
 
 ## HeightFieldCollider Component
 
@@ -58,7 +58,7 @@ public class TerrainBuilder : Behavior
 | **Density** | 1000 | Unused: a height field has no volume. |
 
 > [!IMPORTANT]
-> A height field cannot back a **dynamic** body — static and kinematic only — and its sample count must be a **power of two** — that is what the acceleration structure is built around. `SetHeights` throws if it is not.
+> A height field cannot back a **dynamic** body: static and kinematic only. Its sample count must also be a **power of two**, which is what the acceleration structure is built around. `SetHeights` throws if it is not.
 
 ## Methods
 
@@ -67,7 +67,7 @@ public class TerrainBuilder : Behavior
 | **SetHeights(samples, sampleCount)** | Replaces the whole grid. One height per grid point, row major, `sampleCount` squared entries. |
 | **SetHeights(x, z, sizeX, sizeZ, regionHeights)** | Deforms a rectangle **in place**, without rebuilding the shape or the body. Returns whether the deformation reached the simulation. |
 | **GetHeight(x, z)** | The height stored at one grid point, before the vertical scale. |
-| **GetHeights(x, z, sizeX, sizeZ, destination)** | Reads a rectangle back **from the simulation**, quantization included — which is what a ray actually hits, and may differ slightly from what was written. |
+| **GetHeights(x, z, sizeX, sizeZ, destination)** | Reads a rectangle back **from the simulation**, quantization included. That is what a ray actually hits, and it may differ slightly from what was written. |
 
 ## Deforming Terrain at Run Time
 
@@ -92,7 +92,7 @@ public void Crater(uint centreX, uint centreZ, uint size, float depth)
 ```
 
 > [!IMPORTANT]
-> Two rules for the region overload. The rectangle must be **aligned to the internal block size** — both its position and its size have to be multiples of it — and heights are **quantized into the range the shape was created with**. Terrain that will be raised later needs that headroom present in the grid it was first built from, or the raised part is clipped flat.
+> Two rules for the region overload. The rectangle must be **aligned to the internal block size**, so both its position and its size have to be multiples of it, and heights are **quantized into the range the shape was created with**. Terrain that will be raised later needs that headroom present in the grid it was first built from, or the raised part is clipped flat.
 
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/terrain_grounds.mp4" type="video/mp4">

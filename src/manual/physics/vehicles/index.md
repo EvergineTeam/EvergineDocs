@@ -68,7 +68,7 @@ this.Managers.EntityManager.Add(car);
 | **EngineMaxTorque** | 500 | The strongest torque the engine makes, in newton-metres. |
 | **EngineMinRPM** | 1000 | Idle speed. |
 | **EngineMaxRPM** | 6000 | The red line. |
-| **EngineRPM** | *read-only* | What the engine is doing right now — the number a rev counter shows. |
+| **EngineRPM** | *read-only* | What the engine is doing right now: the number a rev counter shows. |
 
 ## Transmission
 

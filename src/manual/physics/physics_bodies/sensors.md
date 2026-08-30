@@ -27,7 +27,7 @@ Entity checkpoint = new Entity("checkpoint")
 this.Managers.EntityManager.Add(checkpoint);
 ```
 
-A sensor is usually static or kinematic, and usually invisible — it needs no mesh at all. Turn on [debug rendering](../debug_rendering.md) while placing one, or give it a translucent material as the picture above does.
+A sensor is usually static or kinematic, and usually invisible: it needs no mesh at all. Turn on [debug rendering](../debug_rendering.md) while placing one, or give it a translucent material as the picture above does.
 
 ## Detecting Bodies
 
@@ -78,7 +78,7 @@ public class TriggerZone : Behavior
 ```
 
 > [!NOTE]
-> `CollisionEnded` carries no contact point or normal. By the time it fires there is no contact left to describe — only `OtherBody` and `OtherEntity` are meaningful.
+> `CollisionEnded` carries no contact point or normal. By the time it fires there is no contact left to describe, so only `OtherBody` and `OtherEntity` are meaningful.
 
 ## Sensors and Other Body Types
 

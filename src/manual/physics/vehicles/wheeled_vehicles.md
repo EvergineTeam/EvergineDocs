@@ -41,10 +41,10 @@ vehicle.SetDriverInput(forward, right, brake, handBrake);
 
 | Argument | Range | Meaning |
 | --- | --- | --- |
-| **forward** | -1 … 1 | Throttle. Negative is reverse — with an automatic gearbox, asking for negative throttle while stopped selects reverse. |
-| **right** | -1 … 1 | Steering, from full left to full right. |
-| **brake** | 0 … 1 | The brake pedal. |
-| **handBrake** | 0 … 1 | The hand brake, which acts on whichever wheels have a `MaxHandBrakeTorque`. |
+| **forward** | -1 to 1 | Throttle. Negative is reverse: with an automatic gearbox, asking for negative throttle while stopped selects reverse. |
+| **right** | -1 to 1 | Steering, from full left to full right. |
+| **brake** | 0 to 1 | The brake pedal. |
+| **handBrake** | 0 to 1 | The hand brake, which acts on whichever wheels have a `MaxHandBrakeTorque`. |
 
 ```csharp
 public class CarInput : Behavior
@@ -168,7 +168,7 @@ foreach (var (name, offset, steer) in layout)
 
 ### 4. The body shell
 
-The chassis entity itself must stay unscaled — its scale would reach the wheels, which the controller places itself — so the drawn body goes on a child of its own:
+The chassis entity itself must stay unscaled, because its scale would reach the wheels that the controller places itself, so the drawn body goes on a child of its own:
 
 ```csharp
 car.AddChild(new Entity("shell")

@@ -38,7 +38,7 @@ this.Managers.EntityManager.Add(carriage);
 
 ## Degrees of Freedom
 
-`DegreesOfFreedom` is a flags enum: `TranslationX`, `TranslationY`, `TranslationZ`, `RotationX`, `RotationY`, `RotationZ`, plus `None`, `All`, and `Plane2D` — which is `TranslationX | TranslationY | RotationZ`, everything a body needs to live in a flat world.
+`DegreesOfFreedom` is a flags enum: `TranslationX`, `TranslationY`, `TranslationZ`, `RotationX`, `RotationY`, `RotationZ`, plus `None`, `All`, and `Plane2D`, which is `TranslationX | TranslationY | RotationZ`: everything a body needs to live in a flat world.
 
 | Property | Default | Description |
 | --- | --- | --- |

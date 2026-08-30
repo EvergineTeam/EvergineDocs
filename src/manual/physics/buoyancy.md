@@ -23,7 +23,7 @@ It works out how much of the shape is under the surface and pushes accordingly, 
 | Point | Detail |
 | --- | --- |
 | **Dynamic only** | Returns `false` for a static or kinematic body, and for a dynamic one with nothing submerged. A kinematic body has an inverse mass of zero, so the impulse would come to nothing anyway. |
-| **Once per fixed step** | The impulse is scaled by the step it is applied for. Driven off the frame instead, it pushes harder on a slow frame than on a fast one — a boat that accelerates when the window is busy. |
+| **Once per fixed step** | The impulse is scaled by the step it is applied for. Driven off the frame instead, it pushes harder on a slow frame than on a fast one: a boat that accelerates when the window is busy. |
 | **It wakes the body** | A body asleep on the surface is woken when an impulse is applied to it. |
 
 ## There Is No Fluid Density
@@ -41,7 +41,7 @@ One neither floats nor sinks. Above one floats. And the same number answers the 
 | 200 kg/m³ | 5.0 | a fifth of it under water |
 | 500 kg/m³ | 2.0 | half of it under water |
 | 800 kg/m³ | 1.25 | four fifths of it under water |
-| 1000 kg/m³ | 1.0 | neutral — it hangs wherever it is put |
+| 1000 kg/m³ | 1.0 | neutral: it hangs wherever it is put |
 | 1200 kg/m³ | 0.83 | it sinks |
 
 ![Five densities at rest](images/buoyancy_still.png)
@@ -84,7 +84,7 @@ body.ApplyBuoyancy(
 
 ## A Plane Has No Edges
 
-The surface is given as a point and a normal — in other words as an **infinite plane**. A crate sitting on dry ground two hundred metres away is below that same plane, so it floats too.
+The surface is given as a point and a normal, in other words as an **infinite plane**. A crate sitting on dry ground two hundred metres away is below that same plane, so it floats too.
 
 Something therefore has to say where the pool stops, and the natural answer is an [overlap query](queries.md) against the volume of water:
 
@@ -139,10 +139,10 @@ There is no boat controller, and a motorboat does not need one. Everything it do
 
 | Piece | How |
 | --- | --- |
-| **Floating** | `ApplyBuoyancy`, with a hull density around 340 kg/m³ — a ratio near 3, so it rides high. |
+| **Floating** | `ApplyBuoyancy`, with a hull density around 340 kg/m³ (a ratio near 3), so it rides high. |
 | **Thrust** | `ApplyForce(force, worldPosition)` at the **stern**. |
 | **Steering** | Rotate the thrust vector by the rudder angle. That is all. |
-| **Not sliding sideways** | Resist the lateral part of the hull's velocity — a keel. |
+| **Not sliding sideways** | Resist the lateral part of the hull's velocity: a keel. |
 | **Not rolling over** | `CenterOfMassOffset` below the centre of buoyancy. |
 | **Stopping** | The drag from `ApplyBuoyancy`, plus `LinearDamping`. |
 

@@ -28,7 +28,7 @@ this.Managers.AddManager<PhysicManager3D>(new Evergine.Bullet.BulletPhysicManage
 this.Managers.AddManager(new Evergine.Framework.Physics.PhysicsManager());
 ```
 
-There is no abstract base and no backend to choose. `SceneManagers.PhysicManager3D` is gone too — bind to the manager instead:
+There is no abstract base and no backend to choose. `SceneManagers.PhysicManager3D` is gone too. Bind to the manager instead:
 
 ```csharp
 [BindSceneManager]
@@ -46,9 +46,9 @@ private PhysicsManager physicsManager = null;
 
 | Property | Bullet | Jolt |
 | --- | --- | --- |
-| Axis locking | `LinearFactor`, `AngularFactor` (0…1 per axis) | `AllowedDegreesOfFreedom` — a flags enum that locks an axis **exactly** rather than scaling it. |
-| Per-body gravity | `OverrideGravity` + `Gravity` (a vector) | `GravityFactor` — a scalar multiplying the world's gravity. |
-| Inertia | `LocalInertia` (a tensor) | `InertiaMultiplier` — a scalar scaling the inertia computed from the shape. |
+| Axis locking | `LinearFactor`, `AngularFactor` (0 to 1 per axis) | `AllowedDegreesOfFreedom`, a flags enum that locks an axis **exactly** rather than scaling it. |
+| Per-body gravity | `OverrideGravity` + `Gravity` (a vector) | `GravityFactor`, a scalar multiplying the world's gravity. |
+| Inertia | `LocalInertia` (a tensor) | `InertiaMultiplier`, a scalar scaling the inertia computed from the shape. |
 | Rolling friction | `RollingFriction` | *Removed.* Use `AngularDamping` to stop things rolling for ever. |
 | Mass | `Mass`, default 1 | `Mass`, default **0**, which means "work it out from the colliders' `Density`". |
 | Friction | default 0.5 | default **0.2**. |
@@ -66,7 +66,7 @@ private PhysicsManager physicsManager = null;
 | `ApplyTorque(torque)` | `ApplyTorque(torque)` |
 | `ApplyTorqueImpulse(impulse)` | `ApplyAngularImpulse(impulse)` |
 | `ClearForces()` | *Removed.* Forces are cleared at the end of each step. |
-| — | `MoveTo`, `Teleport`, `ApplyBuoyancy`, `GetPointVelocity`, `InvalidateShape` |
+| *None.* | `MoveTo`, `Teleport`, `ApplyBuoyancy`, `GetPointVelocity`, `InvalidateShape` |
 
 > [!IMPORTANT]
 > Kinematic bodies now have a proper way to be moved: `MoveTo(position, orientation)`. It generates the velocity needed to get there this step, so the body pushes and carries as it should. Writing the `Transform3D` teleports it and drops whatever was standing on it.
@@ -84,14 +84,14 @@ private PhysicsManager physicsManager = null;
 | `MeshCollider3D` | [`MeshCollider`](colliders/mesh_collider.md) | `MeshType = TriangleMesh`. |
 | `BulletConvexHullCollider3D` | [`MeshCollider`](colliders/mesh_collider.md) | `MeshType = ConvexHull`, which is the default. |
 | `BulletCompoundCollider3D` | *Removed.* | A body builds a compound from every collider on its entity and its descendants, automatically. |
-| — | [`TaperedCapsuleCollider`](colliders/tapered_capsule_collider.md) | New. |
-| — | [`PlaneCollider`](colliders/plane_collider.md) | New. |
-| — | [`HeightFieldCollider`](colliders/heightfield_collider.md) | New, and deformable at run time. |
+| *None.* | [`TaperedCapsuleCollider`](colliders/tapered_capsule_collider.md) | New. |
+| *None.* | [`PlaneCollider`](colliders/plane_collider.md) | New. |
+| *None.* | [`HeightFieldCollider`](colliders/heightfield_collider.md) | New, and deformable at run time. |
 
 | Property | Bullet | Jolt |
 | --- | --- | --- |
 | Collision margin | `Margin`, 0.04 | `ConvexRadius`, 0.05, on the shapes that have one. |
-| Density | — | `Density`, 1000 kg/m³, which is what a body's mass is computed from. |
+| Density | *None.* | `Density`, 1000 kg/m³, which is what a body's mass is computed from. |
 
 ## Joints become Constraints
 
@@ -106,7 +106,7 @@ private PhysicsManager physicsManager = null;
 | `Generic6DofJoint3D` | [`SixDOFConstraint`](constraints/six_dof_constraint.md) |
 | `Generic6DofSpringJoint3D` | [`SixDOFConstraint`](constraints/six_dof_constraint.md) with `LimitsSpring` |
 | `SpringJoint3D` | *No direct equivalent.* Springs are a property of a limit: `LimitsSpring` on a hinge, slider or distance constraint, or a six DOF constraint. |
-| — | [`DistanceConstraint`](constraints/distance_constraint.md), [`ConeConstraint`](constraints/cone_constraint.md), [`RackAndPinionConstraint`](constraints/rack_and_pinion_constraint.md), [`PulleyConstraint`](constraints/pulley_constraint.md) — all new. |
+| *None.* | [`DistanceConstraint`](constraints/distance_constraint.md), [`ConeConstraint`](constraints/cone_constraint.md), [`RackAndPinionConstraint`](constraints/rack_and_pinion_constraint.md), [`PulleyConstraint`](constraints/pulley_constraint.md), all new. |
 
 The `IXxxJoint3D` interfaces and the `XxxJointDef3D` structs are gone: a constraint is a component and nothing else.
 
@@ -145,10 +145,10 @@ Three real differences:
 | `SearchVehicle`, `PhysicVehicleEntityPath` | *Removed.* Wheels are child entities and are found by walking the hierarchy. |
 | `SuspensionStiffness`, `SuspensionCompression` | `SuspensionSpring`, a `SpringParameters`. |
 | `MaxSuspensionTravel`, `SuspensionRestLength` | `SuspensionMinLength`, `SuspensionMaxLength`. |
-| `IsSteerableWheel` | `MaxSteerAngle` — zero means it does not steer. |
+| `IsSteerableWheel` | `MaxSteerAngle`. Zero means it does not steer. |
 | `IsDriveWheel` | `FrontWheelDrive` / `RearWheelDrive` on the controller. |
-| `IsBrakableWheel` | `MaxBrakeTorque` — zero means it does not brake. |
-| — | [`TrackedVehicleController`](vehicles/tracked_vehicles.md), new. |
+| `IsBrakableWheel` | `MaxBrakeTorque`. Zero means it does not brake. |
+| *None.* | [`TrackedVehicleController`](vehicles/tracked_vehicles.md), new. |
 
 ## Queries
 
@@ -197,7 +197,7 @@ Events are now raised **once per pair of bodies** rather than per pair of sub-sh
 1. **Remove the `Evergine.Bullet` package reference.** Nothing replaces it; the new physics ships in `Evergine.Framework`.
 2. **Change the manager registration** to `new Evergine.Framework.Physics.PhysicsManager()`.
 3. **Change the using** from `Evergine.Framework.Physics3D` to `Evergine.Framework.Physics`.
-4. **Rename the components** using the tables above. Existing `.wescene` files carry the old type names and will need re-authoring — the components are not the same types, so the converter cannot map them.
+4. **Rename the components** using the tables above. Existing `.wescene` files carry the old type names and will need re-authoring, because the components are not the same types and the converter cannot map them.
 5. **Replace `StaticBody3D`** with `RigidBody` + `BodyType = Static`.
 6. **Replace `LinearFactor`/`AngularFactor`** with `AllowedDegreesOfFreedom`, and `OverrideGravity` with `GravityFactor`.
 7. **Move collision filtering** from per-body mask bits to the world's [collision matrix](collision_filtering.md).

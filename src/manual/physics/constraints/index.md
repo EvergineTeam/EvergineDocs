@@ -29,7 +29,7 @@ Every constraint has these. The pages that follow list only what is specific to 
 | **ConnectedAnchor** | 0,0,0 | Where it attaches on the other body, when the above is off. |
 | **CollideConnected** | false | Whether the two bodies still collide with each other. Off by default, because two bodies bolted together usually overlap and would otherwise fight their own contact every step. |
 | **IsHolding** | true | Whether the constraint is holding at all. Turning it off releases the bodies **without moving the anchors**, so turning it back on picks up where it left off. |
-| **Priority** | 0 | The order the solver works through constraints in. Higher is solved **last**, and the last one solved is the one that tends to win — which is what settles a fight between two constraints pulling the same body different ways. Leave it at zero otherwise. |
+| **Priority** | 0 | The order the solver works through constraints in. Higher is solved **last**, and the last one solved is the one that tends to win, which is what settles a fight between two constraints pulling the same body different ways. Leave it at zero otherwise. |
 | **SolverVelocityIterationsOverride** | 0 | Per-constraint solver override. `0` uses the world's. |
 | **SolverPositionIterationsOverride** | 0 | The same for position iterations. |
 
@@ -84,10 +84,10 @@ A motor drives a constraint towards a speed or a position instead of leaving it 
 | Mode | What it does |
 | --- | --- |
 | **Off** | No motor. The constraint only restricts. |
-| **Velocity** | Drives towards a target velocity — a wheel, a fan, a conveyor drum. |
-| **Position** | Drives towards a target position or angle and holds there — a powered door, a piston, a servo. |
+| **Velocity** | Drives towards a target velocity: a wheel, a fan, a conveyor drum. |
+| **Position** | Drives towards a target position or angle and holds there: a powered door, a piston, a servo. |
 
-Every motor has a limit on how hard it may push — `MaxMotorTorque` or `MaxMotorForce`, and on a swing twist constraint the separate `MaxSwingTorque` and `MaxTwistTorque`. A motor that cannot reach its target simply falls short, which is what makes a powered door stoppable by something heavy enough.
+Every motor has a limit on how hard it may push: `MaxMotorTorque` or `MaxMotorForce`, and on a swing twist constraint the separate `MaxSwingTorque` and `MaxTwistTorque`. A motor that cannot reach its target falls short, which is what makes a powered door stoppable by something heavy enough.
 
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/hinge_constraint_motor.mp4" type="video/mp4">
@@ -101,7 +101,7 @@ Several constraints take a `SpringParameters`, which makes their limits soft ins
 
 | Field | Description |
 | --- | --- |
-| **Mode** | `FrequencyAndDamping` — how many times a second it wants to oscillate — or `StiffnessAndDamping`, in newtons per metre. |
+| **Mode** | `FrequencyAndDamping`, how many times a second it wants to oscillate, or `StiffnessAndDamping`, in newtons per metre. |
 | **FrequencyOrStiffness** | The frequency or the stiffness, depending on the mode. **Zero means a hard limit**, with no spring at all. |
 | **Damping** | How quickly the oscillation dies away. `1` is critical damping, which settles without overshooting. |
 
@@ -117,7 +117,7 @@ slider.LimitsSpring = SpringParameters.FromFrequency(2f, 0.7f);
 
 ## Choosing a Constraint
 
-| I want… | Use |
+| I want | Use |
 | --- | --- |
 | Two bodies welded together | [Fixed](fixed_constraint.md) |
 | A ball joint: free to rotate, fixed in place | [Point](point_constraint.md) |
@@ -125,7 +125,7 @@ slider.LimitsSpring = SpringParameters.FromFrequency(2f, 0.7f);
 | A door, a wheel, a lever, a pendulum on an axis | [Hinge](hinge_constraint.md) |
 | A piston, a drawer, a lift on rails | [Slider](slider_constraint.md) |
 | A ball joint that may not bend past a cone | [Cone](cone_constraint.md) |
-| A shoulder, a hip, a ragdoll joint | [Swing Twist](swing_twist_constraint.md) — and see [Ragdolls](../ragdolls.md) for a whole figure |
+| A shoulder, a hip, a ragdoll joint | [Swing Twist](swing_twist_constraint.md); see [Ragdolls](../ragdolls.md) for a whole figure |
 | Anything else: per-axis limits and motors | [Six DOF](six_dof_constraint.md) |
 | Two rotations geared together | [Gear](gear_constraint.md) |
 | A rotation driving a linear motion | [Rack and Pinion](rack_and_pinion_constraint.md) |

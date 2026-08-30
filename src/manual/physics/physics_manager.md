@@ -33,7 +33,7 @@ public class Explosion : Behavior
 ```
 
 > [!TIP]
-> A scene can also carry its own `PhysicsManager` serialized in the `.wescene` file, which is what makes its settings — the collision matrix above all — editable from the inspector.
+> A scene can also carry its own `PhysicsManager` serialized in the `.wescene` file, which is what makes its settings, the collision matrix above all, editable from the inspector.
 
 ## Creation Settings
 
@@ -45,7 +45,7 @@ These size the world when it is created. Changing them afterwards has no effect 
 | **MaxBodyPairs** | 65536 | The most broad phase pairs one step can consider. |
 | **MaxContactConstraints** | 10240 | The most contacts the solver can handle in one step. |
 | **TempAllocatorSizeMB** | 16 | Scratch memory, in megabytes, for one simulation step. |
-| **WorkerThreadCount** | -1 | How many worker threads the solver uses. `-1` means one fewer than the processor count, and `0` — which is what browsers get — runs it all on the calling thread. |
+| **WorkerThreadCount** | -1 | How many worker threads the solver uses. `-1` means one fewer than the processor count, and `0`, which is what browsers get, runs it all on the calling thread. |
 
 > [!IMPORTANT]
 > Running out of any of the three limits above is reported once per world through `Trace.TraceError`, naming the exact property to raise. A world that silently stops creating bodies is nearly impossible to diagnose from the picture alone, so it is worth watching the trace output the first time a scene grows.
@@ -58,7 +58,7 @@ These can be changed at any time and take effect on the next step.
 | --- | --- | --- |
 | **Gravity** | 0,-9.81,0 | Acceleration applied to every dynamic body. A single body can opt out with its `GravityFactor`. |
 | **FixedTimeStep** | 0.0166 | How much time one physics step advances, in seconds. The simulation always runs at this rate whatever the frame rate is. |
-| **MaxStepsPerFrame** | 4 | The most steps one frame may run. It is what stops a long frame — a stall, a breakpoint — being paid back as twenty steps at once. |
+| **MaxStepsPerFrame** | 4 | The most steps one frame may run. It is what stops a long frame (a stall, a breakpoint) being paid back as twenty steps at once. |
 | **CollisionSteps** | 1 | Collision sub-steps inside one physics step. Raise it for fast bodies before reaching for `MotionQuality`. |
 | **InterpolateTransforms** | true | Blends each body's drawn pose between the last two steps, so motion is smooth even though the solver runs at a fixed rate. |
 | **TimeScale** | 1 | Multiplies the time handed to the simulation. `0.25` is slow motion; `0` freezes it while the rest of the scene keeps running. |
@@ -137,10 +137,10 @@ public class Thruster : Behavior
 
 | Method | Description |
 | --- | --- |
-| **FlushPending()** | Applies the bodies, constraints, vehicles and soft bodies that are queued to be added or removed. Structural changes are deferred to a safe point in the step, so a body created this frame is not in the world — and not visible to a query — until the next one. Call this to close that gap. |
+| **FlushPending()** | Applies the bodies, constraints, vehicles and soft bodies that are queued to be added or removed. Structural changes are deferred to a safe point in the step, so a body created this frame is not in the world, and not visible to a query, until the next one. Call this to close that gap. |
 | **StepOnce()** | Runs a single step even while `IsSimulationEnabled` is false. Useful for stepping a scene frame by frame while debugging. |
 | **OptimizeBroadPhase()** | Rebuilds the broad phase now. Worth doing once after building a large static level. |
-| **ContactValidator** | A `Func<RigidBody, RigidBody, bool>` consulted for every pair before a contact is made, for filtering that the [collision matrix](collision_filtering.md) cannot express — one-way platforms, for instance. |
+| **ContactValidator** | A `Func<RigidBody, RigidBody, bool>` consulted for every pair before a contact is made, for filtering that the [collision matrix](collision_filtering.md) cannot express, one-way platforms for instance. |
 
 > [!IMPORTANT]
 > `ContactValidator` runs on the solver's worker threads. It must be cheap, must not touch the scene, and must not allocate.

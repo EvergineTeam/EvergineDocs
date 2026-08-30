@@ -12,12 +12,12 @@ A **character controller** moves a player or an NPC the way a game expects: it w
 
 This is the thing to understand first, and everything else follows from it.
 
-A [`RigidBody`](physics_bodies/rigid_body.md) is moved by forces. Push it and it accelerates; let go and it keeps going; walk it into a wall and it either bounces or tips over. None of that is what a character should do — a character should move at exactly the speed the player is holding, stop the instant they let go, and stay upright whatever it walks into.
+A [`RigidBody`](physics_bodies/rigid_body.md) is moved by forces. Push it and it accelerates; let go and it keeps going; walk it into a wall and it either bounces or tips over. None of that is what a character should do. A character should move at exactly the speed the player is holding, stop the instant they let go, and stay upright whatever it walks into.
 
 So `CharacterController` is **not** a rigid body. Do not add a `RigidBody` or a `Collider` to the same entity: the component owns its own capsule and moves it by sweeping and sliding rather than by integrating forces.
 
 > [!IMPORTANT]
-> The entity's origin is at the character's **feet**, not at the middle of its capsule. Standing on a floor whose top is at y = 0, the entity sits at exactly y = 0. Primitive meshes are centred, so a `CapsuleMesh` drawn on the same entity is buried half way into the ground — put the visual on a child entity lifted by half the height.
+> The entity's origin is at the character's **feet**, not at the middle of its capsule. Standing on a floor whose top is at y = 0, the entity sits at exactly y = 0. Primitive meshes are centred, so a `CapsuleMesh` drawn on the same entity is buried half way into the ground. Put the visual on a child entity lifted by half the height.
 
 ![Character controller](images/character_controller.png)
 
@@ -61,7 +61,7 @@ this.Managers.EntityManager.Add(player);
 | **Height** | 1.8 | The **total** height of the capsule, caps included, from the feet up. |
 | **Up** | 0,1,0 | Which way is up for this character. |
 | **Mass** | 70 | How heavy the character is when it pushes a dynamic body. |
-| **Orientation** | identity | Turns the capsule itself. It does not turn the entity — a character's facing is the entity's business. |
+| **Orientation** | identity | Turns the capsule itself. It does not turn the entity: a character's facing is the entity's business. |
 | **EnableInnerBody** | true | Gives the character a body inside its capsule, so other bodies and [queries](queries.md) can see it. Without it the character is invisible to the rest of the simulation. |
 | **CharacterPadding** | 0.02 | A small skin kept between the capsule and the world. |
 

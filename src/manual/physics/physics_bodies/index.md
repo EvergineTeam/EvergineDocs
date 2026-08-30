@@ -20,7 +20,7 @@ In Evergine there is a single component for all of this: `RigidBody`. What kind 
 *All three in one scene: grey static scenery on the left, a blue kinematic platform carrying a crate in the middle, and a stack of dynamic crates on the right.*
 
 > [!NOTE]
-> The previous API had a separate component per kind — `RigidBody3D` for dynamic and kinematic bodies, `StaticBody3D` for static ones. They are now one component and one enum, so changing a crate into scenery is a single property rather than a different component.
+> The previous API had a separate component per kind: `RigidBody3D` for dynamic and kinematic bodies, `StaticBody3D` for static ones. They are now one component and one enum, so changing a crate into scenery is a single property rather than a different component.
 
 ## Bodies and Colliders
 
