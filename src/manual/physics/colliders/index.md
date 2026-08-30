@@ -1,39 +1,106 @@
 # Colliders
 ---
 
-![Colliders](imges/../images/colliders.png)
+![Colliders](images/colliders_overview.png)
 
-**Colliders** are used to define the physical shape of a [Physics Body](../physics_bodies/index.md). Colliders are invisible and don't need to be the exact same shape as the object's mesh. In fact, a rough approximation is often more efficient and indistinguishable in your application.
+A [`RigidBody`](../physics_bodies/rigid_body.md) has no shape of its own. **Colliders** are what give it one: where it is solid, what it can hit, and — through their density — how heavy it is.
 
-Evergine provides various collider types, such as Box, Sphere, or Capsule. Using simple collider shapes helps with application performance optimizations. However, if you need more detailed and exact collision for your object, use the Mesh collider.
+A body collects **every collider on its own entity and on its descendants** when it is created, and builds one shape from them. The walk stops at any descendant that carries a `RigidBody` of its own, since that entity is a separate body.
 
-## Physics Bodies and Colliders
+![One body with one collider, and one with five](images/compound_collider.png)
 
-As mentioned in the [Physics Bodies](../physics_bodies/index.md) section, a Collider needs a Physics Body to be attached, and a Physics Body itself needs Colliders to define its shape.
+*Two bodies, drawn with `PhysicsDebugFlags.Colliders` on. **Left**: the ordinary case — one `RigidBody`
+and one `BoxCollider` on the same entity, and the body's shape is that collider. **Right**: a table
+whose `RigidBody` is on the root and whose five `BoxCollider` components are on its children. The
+children carry no body of their own, and there is no compound collider component to add — the
+hierarchy is the compound.*
 
-**A Physics Body searches for its attached colliders in its child hierarchy**, including the owner's entity of the physics body. This also implies that a **Physics Body could have multiple colliders attached** to it.
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/compound_collider_drop.mp4" type="video/mp4">
+</video>
 
-### Simple shapes
+*Which is what "one body" means in practice: shoved over, the table tips as a single object rather
+than coming apart into a top and four legs.*
 
-![Simple Body](images/body_collider_simple.png)
+![Every collider, with its wireframe](images/colliders_overview_debug.png)
 
-This is the most common scenario. Your entity has a Physics Body component (`RigidBody3D` in this case), and one or more colliders attached to the same entity (`BoxCollider3D` in this case).
+*Every collider shape in the gallery scene with its wireframe drawn over it. This is the flag worth
+leaving on while a scene is being built: it says whether each shape is the size, and in the place,
+that you think it is.*
 
-### Compound shapes
+## Base Properties
 
-![Complex Body](images/body_collider_hierarchy.png)
+Every collider has these, whatever its shape:
 
-This is another possible scenario. In this case, we have an entity hierarchy. The parent entity has a `StaticBody3D` component, and we have added several entities containing several colliders (a `BoxCollider3D` and a `SphereCollider3D`).
+| Property | Default | Description |
+| --- | --- | --- |
+| **Offset** | 0,0,0 | Moves the shape relative to the entity, in local space. The drawn mesh does not move with it. |
+| **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. Shown in degrees in the inspector and held in radians in code. |
+| **Density** | 1000 | Density in kg/m³, used to work out the body's mass when its `Mass` is left at 0. Water is 1000; oak is about 700; steel is about 7850. |
 
-This causes the final shape of the body to be composed of all attached colliders.
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/box_collider_offset.mp4" type="video/mp4">
+</video>
+
+*`Offset` in action. The mesh stays where the entity is and only the shape moves, which is what the gap between the two shows.*
+
+## Choosing a Collider
+
+| Collider | Convex | Bodies | Notes |
+| --- | --- | --- | --- |
+| [Box](box_collider.md) | yes | any | The cheapest shape there is. Reach for it first. |
+| [Sphere](sphere_collider.md) | yes | any | Cheaper still to test, and rolls. |
+| [Capsule](capsule_collider.md) | yes | any | The standard shape for anything that stands up. Never catches on a seam. |
+| [Cylinder](cylinder_collider.md) | yes | any | Wheels, barrels, columns. |
+| [Tapered Capsule](tapered_capsule_collider.md) | yes | any | A capsule with a different radius at each end. |
+| [Tapered Cylinder](tapered_cylinder_collider.md) | yes | any | A truncated cone, and a plain cone when its top radius is 0. |
+| [Mesh (convex hull)](mesh_collider.md) | yes | any | The convex wrapping of a model. Anything hollow or concave is filled in. |
+| [Mesh (triangle mesh)](mesh_collider.md) | no | **not dynamic** | Every triangle of a model, concavities and all. Static or kinematic bodies only. |
+| [Plane](plane_collider.md) | no | **not dynamic** | An infinite ground plane, and the cheapest ground there is. |
+| [Height Field](heightfield_collider.md) | no | **not dynamic** | A grid of heights: terrain, deformable at run time. |
+
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/colliders_drop.mp4" type="video/mp4">
+</video>
+
+*Every convex collider dropped side by side: box, sphere, capsule, cylinder, tapered capsule and — with its top radius at zero — a cone.*
 
 > [!TIP]
-> As a rule of thumb, create a physical body when you want to interact with it independently of other bodies, for example, to capture collision events.
+> A pile of primitives beats a mesh collider nearly every time. A convex hull is more expensive to test than a box, a triangle mesh cannot go on a moving body at all, and three boxes describe most props well enough that no one will notice the difference.
+
+## Compound Shapes from Code
+
+```csharp
+// A table: one top and four legs, all on one body. The child entities carry the colliders; only the
+// root carries the RigidBody, so the five shapes end up as one compound body.
+Entity table = new Entity("table")
+    .AddComponent(new Transform3D())
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider() { Size = new Vector3(2f, 0.1f, 1.2f), Offset = new Vector3(0f, 0.7f, 0f) });
+
+foreach (Vector3 corner in legs)
+{
+    table.AddChild(new Entity()
+        .AddComponent(new Transform3D() { LocalPosition = corner })
+        .AddComponent(new BoxCollider() { Size = new Vector3(0.1f, 0.7f, 0.1f) }));
+}
+
+this.Managers.EntityManager.Add(table);
+```
+
+Colliders added or changed after the body exists need the shape rebuilding:
+
+```csharp
+this.body.InvalidateShape();
+```
 
 ## In this section
 * [Box Collider](box_collider.md)
 * [Sphere Collider](sphere_collider.md)
 * [Capsule Collider](capsule_collider.md)
 * [Cylinder Collider](cylinder_collider.md)
-* [Cone Collider](cone_collider.md)
+* [Tapered Capsule Collider](tapered_capsule_collider.md)
+* [Tapered Cylinder Collider](tapered_cylinder_collider.md)
 * [Mesh Collider](mesh_collider.md)
+* [Plane Collider](plane_collider.md)
+* [Height Field Collider](heightfield_collider.md)

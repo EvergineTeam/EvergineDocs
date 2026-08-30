@@ -2,25 +2,41 @@
 
 ![Capsule Collider](images/capsule_collider.png)
 
-A capsule-shaped collider.
-
-A capsule is a special shape defined by two properties:
-* **Radius:** The radius of the collider's local width.
-* **Height:** The total height of the collider.
+A cylinder with a hemisphere at each end, standing along the local **Y** axis. It is the standard shape for anything upright — characters, barrels, limbs — because it has no edges to catch on and slides smoothly over steps and seams.
 
 ![Capsule shape](images/capsule_shape.png)
 
-## SphereCollider3D Component
+## CapsuleCollider Component
 
-To use a Sphere Collider in Evergine, you only need to add a `SphereCollider3D` component to your entity:
+![CapsuleCollider component](images/capsulecollider_component.png)
 
-![CapsuleCollider3D](images/capsulecollider3d_component.png)
+```csharp
+Entity barrel = new Entity("barrel")
+    .AddComponent(new Transform3D() { Position = position })
+    .AddComponent(new MaterialComponent() { Material = material })
 
-### Properties
+    // CapsuleMesh.Height is the straight section only, so the caps are added on top of it: a total
+    // height of 1.6 with a radius of 0.4 is a mesh height of 1.6 - (2 * 0.4) = 0.8.
+    .AddComponent(new CapsuleMesh() { Radius = 0.4f, Height = 0.8f })
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody())
+    .AddComponent(new CapsuleCollider() { Radius = 0.4f, Height = 1.6f });
 
-| Property | Default | Description | 
+this.Managers.EntityManager.Add(barrel);
+```
+
+## Properties
+
+| Property | Default | Description |
 | --- | --- | --- |
-| **Radius** | 0.5 | This property defines the radius of the Capsule collider. <br/><video width="600" height="220" autoplay loop><source src="images/capsule_collider_radius.mp4" type="video/mp4"></video><br/>The **Radius** value can be used in two ways:<ul><li>If the entity has a mesh (with `MeshComponent` for example), the Radius value is relative to the mesh extents.</li><li>If the entity has no meshes, the Radius value is used as scene units.</li></ul>|
-| **Height** | 1 | This property defines the total height of the Capsule collider. <br/><video width="600" height="220" autoplay loop><source src="images/capsule_collider_height.mp4" type="video/mp4"></video><br/>The **Height** value can be used in two ways:<ul><li>If the entity has a mesh (with `MeshComponent` for example), the Height value is relative to the mesh height.</li><li>If the entity has no meshes, the Height value is used as scene units.</li></ul>|
-| **Offset** | 0,0,0 | Offsets the collider with respect to the owner entity. <br/><video width="600" height="220" autoplay loop><source src="images/capsule_collider_offset.mp4" type="video/mp4"></video><br/>The **Offset** value can be used in two ways:<ul><li>If the entity has a mesh (with `MeshComponent` for example), the Offset value is relative to the mesh extents.</li><li>If the entity has no meshes, the Offset value is used as scene units.</li></ul> | 
-| **Margin** | 0.04 | The physics engine uses a small collision margin for collision shapes to improve performance and reliability of the collision detection. | 
+| **Radius** | 0.5 | The radius of the cylinder and of both caps.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/capsule_collider_radius.mp4" type="video/mp4"></video> |
+| **Height** | 2 | The **total** height, caps included, from the bottom of the lower hemisphere to the top of the upper one.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/capsule_collider_height.mp4" type="video/mp4"></video> |
+| **Offset** | 0,0,0 | Moves the shape relative to the entity. |
+| **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. A capsule stands along Y, so this is how a capsule is laid on its side. |
+| **Density** | 1000 | Density in kg/m³, used to compute the body's mass when its `Mass` is 0. |
+
+> [!IMPORTANT]
+> `CapsuleCollider.Height` and `CapsuleMesh.Height` do not mean the same thing. The collider's is the total including the caps; the mesh's is only the straight section between them. Feeding the same number to both draws a capsule one radius taller at each end than the one being simulated — which usually shows up as a body apparently sunk into the floor.
+
+> [!TIP]
+> A capsule is nearly always the right shape for a character body. See the [Character Controller](../character_controller.md), which builds one for you and takes the same `Radius` and total `Height`.

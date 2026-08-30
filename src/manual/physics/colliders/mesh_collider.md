@@ -1,47 +1,97 @@
 # Mesh Collider
 
-![Mesh Collider](images/mesh_collider.png)
+![A convex hull over a teapot](images/mesh_collider.png)
 
-A collider represented by an arbitrary mesh.
+*A convex hull drawn over the mesh it was built from. The two are visibly not the same object, which is the whole idea of a hull in one picture: the spout and the handle are inside it, not part of it.*
 
-A **Mesh Collider** uses the owner entity meshes to define its shape. It uses all `MeshComponent` objects to obtain meshes and creates colliders with them.
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/mesh_collider_hull.mp4" type="video/mp4">
+</video>
 
-## Types of Mesh Collider
+A collider built from triangle geometry — either the model already on the entity, or vertices handed over from code. It is how a prop gets a shape that primitives cannot describe.
 
-### Default mode
+## Convex Hull or Triangle Mesh
 
-By default, a Mesh Collider uses **the entire triangle mesh to generate a collider shape**. This creates the best precision and fidelity. However, only [Static Bodies](../physics_bodies/static_bodies.md) can have Mesh Colliders in the default mode.
+`MeshCollider` has two modes, and the difference between them decides what the collider can be used for.
 
-Mesh Colliders in the default mode are more suitable for creating collisions for static scenery objects, such as walls, terrain, props, etc.
+| | Mode | Shape | Bodies |
+| --- | --- | --- | --- |
+| ![Convex hull](images/mesh_collider_convex.png) | **ConvexHull** | The convex wrapping of the geometry. Every dent, hole and cavity is filled in. | Any body, including dynamic ones. |
+| ![Triangle mesh](images/mesh_collider_full.png) | **TriangleMesh** | Every triangle, concavities and all. | **Static or kinematic bodies only** — never dynamic. |
+
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/mesh_collider_types.mp4" type="video/mp4">
+</video>
+
+*The same wedge twice. On the left, as a triangle mesh: the balls settle into the dip. On the right, as a convex hull: the hull has put a lid over the dip and they roll straight off.*
 
 > [!IMPORTANT]
-> Only [Static Bodies](../physics_bodies/static_bodies.md) can have Mesh Colliders in the default mode.
+> A triangle mesh is a surface, not a solid. It has no volume, so it has no mass and no inertia, and the solver has no way to tell inside from outside — which is why it is rejected on dynamic bodies. For a moving object, use a convex hull, or better, a handful of primitives.
 
-![Mesh](images/mesh_collider_full.png)
+## MeshCollider Component
 
-### Convex Hull
+![MeshCollider component](images/meshcollider_component.png)
 
-If you want to use Mesh Colliders in dynamic bodies like [Rigid Bodies](../physics_bodies/rigid_bodies.md), you need to set your Mesh Collider to use a Convex Hull. In this mode, the physics engine creates a convex approximation of the mesh, allowing it to be used in dynamic bodies. As a trade-off, the precision of the collision is reduced.
+Put it on an entity that already carries a model and it reads the model's meshes:
 
-Convex colliders are suitable for movable physics objects like chairs, tables, stones, etc.
+```csharp
+Entity rock = new Entity("rock")
+    .AddComponent(new Transform3D() { Position = position })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new MeshComponent() { Model = rockModel })
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody())
+    .AddComponent(new MeshCollider() { MeshType = MeshColliderType.ConvexHull });
 
-![Mesh](images/mesh_collider_convex.png)
+this.Managers.EntityManager.Add(rock);
+```
 
-## MeshCollider3D component
+## Properties
 
-To use a Mesh Collider in Evergine, you only need to add a `MeshCollider3D` component to your entity.
-
-> [!NOTE]
-> It is obvious, but to use a `MeshCollider3D`, the owner entity is required to have at least one `MeshComponent`.
-
-![MeshCollider3D](images/meshcollider3d_component.png)
-
-### Properties
-
-| Property | Default | Description | 
+| Property | Default | Description |
 | --- | --- | --- |
-| **Size** | 1,1,1 | This property allows you to scale the generated Mesh Collider. | 
-| **Offset** | 0,0,0 | Position offset of the collider relative to the owner entity. The units are relative to the size of the entity mesh. | 
-| **RotationOffset** | 0,0,0 | Applies a rotation offset to the Collider relative to the owner entity. | 
-| **Margin** | 0.04 | The physics engine uses a small collision margin for collision shapes to improve performance and reliability of the collision detection. | 
-| **AsyncShapeCreation** | false | Allows the creation of Mesh Colliders asynchronously. Creating mesh colliders can be very CPU intensive. By default, the execution thread is blocked until the Mesh Collider is generated. If this property is set to `true`, the generation is done on a separate thread, freeing the main thread. However, it is possible that for some frames the collider won't work. | 
+| **MeshType** | `ConvexHull` | `ConvexHull` wraps the geometry and works on any body; `TriangleMesh` keeps every triangle and works on static and kinematic bodies only. |
+| **ConvexRadius** | 0.05 | Rounds the hull's edges. Ignored in `TriangleMesh` mode. |
+| **Offset** | 0,0,0 | Moves the shape relative to the entity. |
+| **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. |
+| **Density** | 1000 | Density in kg/m³, used to compute the body's mass when its `Mass` is 0. Only meaningful for a convex hull, which is the only one of the two with a volume. |
+
+## Reading the Model
+
+With no geometry set from code, the collider reads the meshes of the `BaseModel` on the same entity and merges all of them into one shape. There are three requirements:
+
+* the meshes must be **triangle lists**;
+* their positions must be `Float3` or `Float4`;
+* their vertex buffers must be **readable by the CPU**.
+
+A convex hull needs at least four points to enclose a volume.
+
+## Setting Geometry from Code
+
+Generated geometry — terrain, a procedural mesh, a shape assembled at run time — is handed over directly, and takes precedence over the model:
+
+```csharp
+public class WedgeBuilder : Behavior
+{
+    [BindComponent]
+    private MeshCollider collider = null;
+
+    protected override void Start()
+    {
+        Vector3[] vertices = BuildVertices();
+        int[] indices = BuildIndices();
+
+        // Vertices in the entity's local space. The collider applies the entity's scale itself, so
+        // geometry baked at world scale ends up scaled twice.
+        this.collider.SetGeometry(vertices, indices);
+    }
+}
+```
+
+| Method | Description |
+| --- | --- |
+| **SetGeometry(vertices, indices)** | Uses this geometry instead of the model's. |
+| **ClearGeometry()** | Goes back to reading the model. |
+
+> [!TIP]
+> For a heightmap, [`HeightFieldCollider`](heightfield_collider.md) beats a triangle mesh: it stores one float per sample instead of three vertices per triangle, tests faster, and can be deformed at run time without rebuilding the shape.

@@ -2,18 +2,35 @@
 
 ![Sphere Collider](images/sphere_collider.png)
 
-A sphere-shaped collider.
+A sphere. The cheapest shape to test after a box, the only one with no orientation to get wrong, and the only primitive that rolls convincingly.
 
-## SphereCollider3D Component
+## SphereCollider Component
 
-To use a Sphere Collider in Evergine, you only need to add a `SphereCollider3D` component to your entity:
+![SphereCollider component](images/spherecollider_component.png)
 
-![BoxCollider3D](images/boxcollider3d_component.png)
+```csharp
+Entity ball = new Entity("ball")
+    .AddComponent(new Transform3D() { Position = position })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new SphereMesh() { Diameter = 1f })
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody() { Restitution = 0.6f })
+    .AddComponent(new SphereCollider() { Radius = 0.5f });
 
-### Properties
+this.Managers.EntityManager.Add(ball);
+```
 
-| Property   | Default | Description |
-|------------|---------|-------------|
-| **Radius** | 0.5     | This property defines the radius of the Sphere Collider. <br/><video width="600" height="220" autoplay loop><source src="images/sphere_collider_radius.mp4" type="video/mp4"></video><br/>The **Radius** value can be used in two ways:<ul><li>If the entity has a mesh (with `MeshComponent` for example), the Radius value is relative to the mesh extents. *In that case, a value of 0.5 lets the SphereCollider3D fit the entity mesh.*</li><li>If the entity doesn't have any meshes, the Radius value is used as scene units. *In that case, a value of 2 will create a Sphere Collider with a radius of 2 units and a diameter of 4 units.*</li></ul> |
-| **Offset** | 0,0,0   | Offsets the collider relative to the owner entity. <br/><video width="600" height="220" autoplay loop><source src="images/sphere_collider_offset.mp4" type="video/mp4"></video><br/>The **Offset** value can be used in two ways:<ul><li>If the entity has a mesh (with `MeshComponent` for example), the Offset value is relative to the mesh extents.</li><li>If the entity doesn't have any meshes, the Offset value is used as scene units.</li></ul> |
-| **Margin** | 0.04    | The physics engine uses a small collision margin for collision shapes to improve the performance and reliability of collision detection. |
+## Properties
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **Radius** | 0.5 | The radius of the sphere. A `SphereMesh` is measured by its **diameter**, so a mesh of diameter 1 matches a collider of radius 0.5.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/sphere_collider_radius.mp4" type="video/mp4"></video> |
+| **Offset** | 0,0,0 | Moves the shape relative to the entity.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/sphere_collider_offset.mp4" type="video/mp4"></video> |
+| **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. It has no visible effect on a sphere on its own, but it still applies inside a compound shape. |
+| **Density** | 1000 | Density in kg/m³, used to compute the body's mass when its `Mass` is 0. |
+
+> [!NOTE]
+> A sphere needs no convex radius: it is already round everywhere, which is also why it is the shape least likely to catch on the seam between two triangles of a mesh collider.
+
+> [!TIP]
+> A sphere that will never stop rolling is usually asking for `AngularDamping` on its body rather than more friction.

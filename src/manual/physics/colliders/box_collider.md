@@ -2,19 +2,38 @@
 
 ![Box Collider](images/box_collider.png)
 
-A box-shaped collider.
+A box-shaped collider, and the cheapest shape the solver has. Crates, walls, platforms, floors — most of a level is boxes.
 
-## BoxCollider3D Component
+## BoxCollider Component
 
-To use a Box Collider in Evergine, you only need to add a `BoxCollider3D` component to your entity:
+![BoxCollider component](images/boxcollider_component.png)
 
-![BoxCollider3D](images/boxcollider3d_component.png)
+Add a `BoxCollider` to an entity that has a [`RigidBody`](../physics_bodies/rigid_body.md), or to any descendant of one.
 
-### Properties
+```csharp
+Entity crate = new Entity("crate")
+    .AddComponent(new Transform3D() { Position = position })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new CubeMesh())
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider() { Size = new Vector3(1f, 1f, 1f) });
 
-| Property | Default | Description | 
+this.Managers.EntityManager.Add(crate);
+```
+
+## Properties
+
+| Property | Default | Description |
 | --- | --- | --- |
-| **Size** | 1,1,1 | This property defines the size of the box collider. <br/><video width="600" height="220" autoplay loop><source src="images/box_collider_size.mp4" type="video/mp4"></video><br/>The **Size** value can be used in two ways:<ul><li>If the entity has a mesh (with `MeshComponent` for example), the Size value is relative to the mesh extents. *In that case, a value of 1,1,1 lets the BoxCollider3D fit the entity mesh.*</li><li>If the entity has no meshes, the Size value is used as scene units. *In that case, a value of 2,2,2 will create a box collider of 2x2x2 units.*</li></ul>| 
-| **Offset** | 0,0,0 | Offsets the collider with respect to the owner entity. <br/><video width="600" height="220" autoplay loop><source src="images/box_collider_offset.mp4" type="video/mp4"></video><br/>The **Offset** value can be used in two ways:<ul><li>If the entity has a mesh (with `MeshComponent` for example), the Offset value is relative to the mesh extents.</li><li>If the entity has no meshes, the Offset value is used as scene units.</li></ul> | 
-| **RotationOffset** | 0,0,0 | Applies a rotation offset to the collider with respect to the owner entity. <br/><video width="600" height="220" autoplay loop><source src="images/box_collider_rotationoffset.mp4" type="video/mp4"></video><br/> | 
-| **Margin** | 0.04 | The physics engine uses a small collision margin for collision shapes to improve performance and reliability of the collision detection. | 
+| **Size** | 1,1,1 | The **full** size of the box, not its half extents, in local units before the entity's scale is applied.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/box_collider_size.mp4" type="video/mp4"></video> |
+| **ConvexRadius** | 0.05 | Rounds the edges of the box by this much, which is what lets the solver find contacts cheaply and reliably. It is clamped to half of the smallest half extent, so a small box quietly gets a smaller radius. |
+| **Offset** | 0,0,0 | Moves the shape relative to the entity.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/box_collider_offset.mp4" type="video/mp4"></video> |
+| **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/box_collider_rotationoffset.mp4" type="video/mp4"></video> |
+| **Density** | 1000 | Density in kg/m³, used to compute the body's mass when its `Mass` is 0. |
+
+> [!NOTE]
+> `Size` is combined with the entity's scale, so a box of size 1 on an entity scaled to 4×0.2×4 is a 4×0.2×4 slab. That is what makes the one-line floor in [Using Physics Bodies](../physics_bodies/using_physics_bodies.md) work.
+
+> [!TIP]
+> The convex radius is real: it makes the simulated box very slightly smaller and rounder than the drawn one. It only shows on small boxes, where the fix is to lower `ConvexRadius` rather than to grow the box.

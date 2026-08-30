@@ -1,46 +1,35 @@
 # Physics Bodies
 ---
 
-A Physics Body is an object that can interact with the physical world. In some cases, it is affected by dynamic forces such as gravity or collides with other bodies.
+![Physics Bodies](images/rigid_bodies.gif)
 
-Physics Bodies use their attached [Colliders](../colliders/index.md) to define their physical shape.
+A **physics body** is what turns an entity into something the simulation knows about. It gives the entity mass, velocity and a place in the collision world; the [colliders](../colliders/index.md) on it and on its children give it a shape.
+
+In Evergine there is a single component for all of this: `RigidBody`. What kind of body it is comes from one property, `BodyType`.
 
 ## Types of Physics Bodies
 
-### Rigid Bodies
+| | Type | Behaviour |
+| --- | --- | --- |
+| ![Static](images/static_bodies.gif) | **Static** | Never moves. The floor, the walls, the level. Static bodies never collide with each other, so a level made of a thousand of them costs nothing to simulate. |
+| ![Kinematic](images/kinematic_bodies.gif) | **Kinematic** | Moved by you, not by the solver. It pushes dynamic bodies out of the way and carries what stands on it, but nothing can push it back. Lifts, moving platforms, doors. |
+| ![Dynamic](images/rigid_bodies.gif) | **Dynamic** | Moved by the simulation. Gravity pulls it, collisions push it, forces accelerate it. Crates, debris, anything that should fall over. |
 
-Rigid bodies are moved around by forces such as collision and gravity. In general, rigid bodies are a good choice for objects that can be moved or pushed, like boxes, furniture, and obstacles. In Evergine, we use the `RigidBody3D` component.
+![Three body types](images/body_types_still.png)
 
-[![Rigid Bodies](images/rigid_bodies.gif)](rigid_bodies.md)
+*All three in one scene: grey static scenery on the left, a blue kinematic platform carrying a crate in the middle, and a stack of dynamic crates on the right.*
 
-### Static Bodies 
+> [!NOTE]
+> The previous API had a separate component per kind — `RigidBody3D` for dynamic and kinematic bodies, `StaticBody3D` for static ones. They are now one component and one enum, so changing a crate into scenery is a single property rather than a different component.
 
-Static bodies are not affected by any physical force and, as a result, do not move. Rigid bodies can collide with static bodies. In general, static bodies can be used for objects that are immovable, like walls, floors, etc. In Evergine, we use the `StaticBody3D` component.
+## Bodies and Colliders
 
-[![Static Bodies](images/static_bodies.gif)(static_bodies)
+A body on its own has no shape. When it is created it collects **every collider on its own entity and on its descendants**, and builds one shape out of them. A hierarchy with several colliders in it becomes a compound shape automatically; the walk stops at any descendant that has a `RigidBody` of its own, since that entity is a body in its own right.
 
-### Character Controller
-
-This is a special type of body used for player-controlled characters. It is usually controlled by user inputs. In Evergine, we use the `CharacterController3D` component.
-
-[![Character Controller](images/character_controller.png)](character_controller.md)
-
-### Vehicles
-
-It is possible to simulate physical vehicles by using a standard [Rigid Body](rigid_bodies.md) and applying several components to set the vehicle's behavior. In Evergine, add a `PhysicVehicle3D` to a RigidBody entity, and add several `PhysicWheel3D` for each desired wheel.
-
-[![Vehicle Physics](images/physic_vehicle.gif)](vehicle_physics.md)
-
-## Physics Bodies and Colliders
-
-As mentioned before, a physic body itself doesn't define its shape. The entity that owns the Physic Body needs at least one **[Collider](../colliders/index.md)** component to interact with other bodies. For example, a rigid body without colliders will pass through a floor because it doesn't have any shape to cause collisions.
+See [Colliders](../colliders/index.md) for the shapes available and how a compound one is put together.
 
 ## In this section
-
-* [Rigid Bodies](rigid_bodies.md)
-* [Static Bodies](static_bodies.md)
-* [Character Controller](character_controller.md)
-* [Vehicle Physics](vehicle_physics.md)
+* [Rigid Body](rigid_body.md)
 * [Collisions](collisions.md)
 * [Sensors](sensors.md)
 * [Using Physics Bodies](using_physics_bodies.md)

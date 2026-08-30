@@ -1,147 +1,181 @@
-# Physics Queries
+# Queries
 
-![Raycasting](images/raycasting.jpg)
+![Queries](images/raycasting.jpg)
 
-You can use physics **Raycast** queries to determine whether a specific line segment intersects physics geometry.
+A **query** asks the world what is there, without moving anything. Aiming a weapon, checking whether a character can step forward, finding everything caught in a blast — all of it is done with queries rather than by putting bodies into the scene and watching what they hit.
 
-Similarly, a SweepTest query tests whether a shape extruded along a line segment intersects with physics geometry. Example uses for these queries might include determining whether an object is in front of another object or testing a line of sight.
+All of them live on the [`PhysicsManager`](physics_manager.md):
 
-## Raycast
+| Query | Answers |
+| --- | --- |
+| **Ray cast** | What does this line hit first? |
+| **Shape cast** | If I sweep this shape along this line, where does it first touch something? |
+| **Overlap** | What is inside this volume right now? |
 
-**Raycast** queries are the most common scene queries, based on firing a ray from a start position a specified distance along a ray direction.
+> [!IMPORTANT]
+> Queries see the world **as the last step left it**. A body created earlier in the same frame is not in it yet, because bodies are added at a safe point in the step. Call `physicsManager.FlushPending()` first if a query has to see something that was only just created.
 
-There are two ways to perform a raycast:
+## Ray Casting
 
-* **Closest Hit:** Return the closest hit position detected by the raycast<br/>
-![Raycast](images/raycast.png)
+| | |
+| --- | --- |
+| ![Closest hit](images/raycast.png) | **RayCast** returns the closest hit along the ray, which is what "what am I aiming at" means. |
+| ![All hits](images/raycastAll.png) | **RayCastAll** returns every body the ray crosses, in no particular order. |
 
-* **All Hits:** Return all hits produced between the start and end position.<br/>
-![RaycastAll](images/raycastAll.png)
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/raycast.mp4" type="video/mp4">
+</video>
+
+*A ray swept across a scene. The cross is the hit point and the yellow line is the surface normal there.*
 
 | Method | Description |
 | --- | --- |
-| **Raycast(from, to, ...)** | Perform a raycast between the specified from and to positions. Returns a [HitResult3D](#hitresult3d) instance with the result. |
-| **Raycast(ray, distance, ...)** | Perform a raycast defined by a Ray (position and direction) and a maximum distance. Returns a [HitResult3D](#hitresult3d) instance with the result. |
-| **RaycastAll(from, to, resultsOutput, ...)** | Perform a raycast between the specified from and to positions. Returns all hits in a [HitResult3D](#hitresult3d) collection, which needs to be passed as an argument. |
-| **RaycastAll(ray, distance, resultsOutput, ...)** | Perform a raycast defined by a Ray (position and direction) and a maximum distance. Returns all hits in a [HitResult3D](#hitresult3d) collection, which needs to be passed as an argument. |
-
-### Using Raycast from Code
+| **RayCast(origin, direction, maxDistance, out hit)** | The closest hit, with the default filter. |
+| **RayCast(origin, direction, maxDistance, in filter, out hit)** | The closest hit, filtered. |
+| **RayCast(ref ray, maxDistance, in filter, out hit)** | The same, from a `Ray`. |
+| **RayCastAll(origin, direction, maxDistance, results, in filter)** | Every hit, appended to `results`. Returns how many there were. |
 
 ```csharp
-[BindComponent]
-private Transform3D transform;
-
-public float RayDistance { get; set; } = 10;
-
-private List<HitResult3D> hitCollection = new List<HitResult3D>();
-
-protected override void Update(TimeSpan gameTime)
+public class Picker : Behavior
 {
-    // Launch a raycast from the transform position, pointing forward...
-    var from = this.transform.Position;
-    var to = from + (this.transform.WorldTransform.Forward * this.RayDistance);
-    
-    // Perform a hit test, getting the closest result...
-    var hitResult = this.Managers.PhysicManager3D.RayCast(ref from, ref to);
-    if (hitResult.Succeeded)
-    {
-        this.DebugHit(hitResult);
-        Console.WriteLine("Hit detected!");
-    }
+    [BindSceneManager]
+    private PhysicsManager physicsManager = null;
 
-    // Perform a hit test, getting all results...
-    
-    // Clear the previous hits...
-    this.hitCollection.Clear();
-    this.Managers.PhysicManager3D.RayCastAll(ref from, ref to, this.hitCollection);
+    [BindComponent]
+    private Transform3D transform = null;
 
-    foreach (var hit in this.hitCollection)
+    public Entity PickAhead()
     {
-        this.DebugHit(hit);
-        Console.WriteLine("Process hit!");
+        Vector3 origin = this.transform.Position;
+        Vector3 direction = this.transform.WorldTransform.Forward;
+
+        if (this.physicsManager.RayCast(origin, direction, 100f, out RayCastHit hit))
+        {
+            return hit.Entity;
+        }
+
+        return null;
     }
 }
 ```
 
-## Sweep Test
-
-A **Sweep Test** query is similar to a raycast query except that a sweep query takes a [Collider](colliders/index.md) as well as a point and direction. The collider shape is swept along the ray to form a volume. Anything that intersects with this volume is returned from the query.
-
-![Sweep Test](images/sweep_test.png)
-
-| Method | Description |
-| --- | --- |
-| **ConvexSweepTest(colliderShape, from, to, ...)** | Perform a sweep test between the specified from and to transforms (Matrix4x4 values, as you can specify position, orientation, and scale). Returns a [HitResult3D](#hitresult3d) instance with the first position in which the collider hit. |
-| **ConvexSweepTestAll(colliderShape, from, to, resultOutput, ...)** | Perform a sweep test between the specified from and to transforms (Matrix4x4 values, as you can specify position, orientation, and scale). Returns all hits in a [HitResult3D](#hitresult3d) collection, which needs to be passed as an argument. |
-
-### Using Sweep Test from Code
-
-```csharp
-[BindComponent]
-private Collider3D collider;
-
-[BindComponent]
-private Transform3D transform;
-
-public float RayDistance { get; set; } = 10;
-
-private List<HitResult3D> hitCollection = new List<HitResult3D>();
-
-protected override void Update(TimeSpan gameTime)
-{
-    // Launch a sweep test from the transform position, pointing forward...
-    var from = this.transform.WorldTransform;
-    var to = from * Matrix4x4.CreateTranslation(this.transform.WorldTransform.Forward * this.RayDistance);
-
-    // Perform a sweep test, getting the closest result...
-    var hitResult = this.Managers.PhysicManager3D.ConvexSweepTest(collider.InternalColliderShape, ref from, ref to);
-    if (hitResult.Succeeded)
-    {
-        this.DebugHit(hitResult);
-        Console.WriteLine("Hit detected!");
-    }
-
-    // Perform a sweep test, getting all results...
-
-    // Clear the previous hits...
-    this.hitCollection.Clear();
-    this.Managers.PhysicManager3D.ConvexSweepTestAll(collider.InternalColliderShape, ref from, ref to, this.hitCollection);
-
-    foreach (var hit in this.hitCollection)
-    {
-        this.DebugHit(hitResult);
-        Console.WriteLine("Process hit!");
-    }
-}
-```
-
-## HitResult3D
-
-All physics queries use the `HitResult3D` structure to return all hit information. This structure contains all the required information to process a hit result:
+### RayCastHit
 
 | Property | Description |
 | --- | --- |
-| **Succeeded** | Indicates if the query has successfully hit another object. |
-| **Point** | The hit position in world space. |
-| **Normal** | The hit normal vector. |
-| **HitFraction** | A value between [0-1] indicating if the hit is produced at the start position `0`, or at the end position `1`. |
-| **PhysicBody** | The hit physics body. |
-| **Collider** | The hit collider. Note that a physics body can have multiple colliders. |
-| **TriangleIndex** | If the hit collider is a [MeshCollider](colliders/mesh_collider.md), specifies the intersected triangle index in this mesh. |
+| **Body** | The body that was hit. |
+| **Entity** | Its entity, which is usually what gameplay code wants. |
+| **Collider** | Which collider of a compound shape was hit. |
+| **Point** | Where the ray met the surface, in world space. |
+| **Normal** | The surface normal there. |
+| **Distance** | How far along the ray the hit is, in metres. |
+| **Fraction** | The same, as a fraction of `maxDistance`, from 0 to 1. |
 
-### Using HitResult3D from Code
+## Shape Casting
 
-In the previous sample, we used a `DebugHit()` method:
+![Shape cast](images/sweep_test.png)
+
+A shape cast sweeps a whole shape along a line instead of a single ray. It is what answers "can I move there" — a ray through the middle of a character says nothing about its shoulders.
+
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/shapecast.mp4" type="video/mp4">
+</video>
+
+*A sphere swept along the same line as the ray above. The green outline is where it stopped; the cross is where it touched.*
+
+| Method | Description |
+| --- | --- |
+| **SphereCast(radius, from, direction, maxDistance, in filter, out hit)** | Sweeps a sphere. |
+| **BoxCast(halfExtents, from, orientation, direction, maxDistance, in filter, out hit)** | Sweeps a box. |
+| **ShapeCast(collider, from, orientation, direction, maxDistance, in filter, out hit)** | Sweeps the shape of an existing collider. |
+| **ShapeCastAll(collider, from, orientation, direction, maxDistance, results, in filter)** | Every body the swept shape touches. |
 
 ```csharp
-private void DebugHit(HitResult3D hitResult)
-{
-    var lineBatch = this.Managers.RenderManager.LineBatch3D;
-    
-    // Draw the hit position
-    lineBatch.DrawPoint(hitResult.Point, 0.2f, Color.Red);
+// Can this character move a step forward without clipping a wall?
+bool blocked = this.physicsManager.SphereCast(
+    radius: 0.4f,
+    from: this.transform.Position + Vector3.Up,
+    direction: this.facing,
+    maxDistance: 0.6f,
+    filter: QueryFilter.Ignoring(this.body),
+    out ShapeCastHit hit);
+```
 
-    // Draw the hit normal
-    lineBatch.DrawLine(hitResult.Point, hitResult.Point + (hitResult.Normal * 0.5f), Color.Yellow);
+`ShapeCastHit` carries everything `RayCastHit` does, plus **PenetrationDepth** — how deep the shape already overlapped at the start of the sweep.
+
+> [!TIP]
+> A shape cast starting inside a body reports a hit at distance zero. Passing the body you are casting from in `QueryFilter.IgnoreBody` is nearly always what you want, and `QueryFilter.Ignoring(body)` is the one-liner for it.
+
+## Overlap Queries
+
+An overlap asks what is inside a volume right now. Nothing is swept and nothing moves.
+
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/overlap_sphere.mp4" type="video/mp4">
+</video>
+
+| Method | Description |
+| --- | --- |
+| **OverlapPoint(point, in filter, out hit)** | The first body containing a point. |
+| **OverlapPointAll(point, results, in filter)** | Every body containing it. |
+| **OverlapSphere(centre, radius, results, in filter)** | Every body inside a sphere. |
+| **OverlapBox(centre, halfExtents, orientation, results, in filter)** | Every body inside a box. |
+| **OverlapShape(collider, position, orientation, results, in filter)** | Every body inside an existing collider's shape. |
+| **OverlapAABox(box, results, in filter)** | Every body whose bounds meet an axis-aligned box. **Broad phase only**, so it is approximate and very fast. |
+
+```csharp
+public void Explode(Vector3 centre, float radius, float force)
+{
+    // Reused between calls rather than allocated here: an explosion that runs every frame while a
+    // charge burns would otherwise hand the collector a list a frame.
+    this.hits.Clear();
+    this.physicsManager.OverlapSphere(centre, radius, this.hits, QueryFilter.Default);
+
+    foreach (OverlapHit hit in this.hits)
+    {
+        Vector3 away = hit.Body.CenterOfMassPosition - centre;
+        float distance = away.Length();
+
+        if (distance < 0.001f)
+        {
+            continue;
+        }
+
+        // Falls off with distance, so the edge of the blast nudges and the middle of it throws.
+        float falloff = Math.Max(0f, 1f - (distance / radius));
+
+        hit.Body.ApplyImpulse(away / distance * force * falloff);
+    }
 }
 ```
+
+`OverlapHit` carries **Body**, **Entity** and **Collider**. There is no point or normal: nothing was cast, so there is no contact to report.
+
+## Query Filters
+
+Every query takes a `QueryFilter`. Its default value hits every solid body and skips sensors, which is what a query usually wants.
+
+| Field | Default | Description |
+| --- | --- | --- |
+| **CategoryMask** | `None` | The [categories](collision_filtering.md) the query may hit. **Zero means every category**, not none. |
+| **IncludeSensors** | false | Whether sensors take part. Off by default: a sensor is a volume to be notified about, not an obstacle. |
+| **IgnoreBody** | null | A body the query always skips — normally the one it starts from. |
+| **Predicate** | null | An extra test per candidate body. Returning `false` skips it. |
+
+| Factory | Description |
+| --- | --- |
+| **QueryFilter.Default** | Every solid body, no sensors. |
+| **QueryFilter.FromCategories(categories)** | Restricted to a set of categories. |
+| **QueryFilter.Ignoring(body)** | Everything except one body. |
+
+```csharp
+// Only enemies, never the shooter, and only those still alive.
+QueryFilter filter = QueryFilter.FromCategories(CollisionCategory.Cat3);
+filter.IgnoreBody = this.body;
+filter.Predicate = candidate => candidate.Owner.FindComponent<Health>()?.IsAlive == true;
+
+int found = this.physicsManager.OverlapSphere(this.transform.Position, 8f, this.hits, filter);
+```
+
+> [!IMPORTANT]
+> `Predicate` is called during the query, on the calling thread. Keep it to a test — do not create or destroy anything from inside one.
