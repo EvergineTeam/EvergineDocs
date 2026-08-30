@@ -1,10 +1,12 @@
 # QueryHeap
 
-A query heap contains an array of GPU queries. A query heap allows batching a set of GPU queries to achieve better performance.
+A `QueryHeap` is a fixed array of slots the GPU writes answers into. You allocate the slots up front, record queries against them by index, and read the results back later. Batching them into one heap costs less than asking one question at a time.
+
+Two kinds of question are worth asking: how long a piece of GPU work took, and whether anything was drawn.
 
 ## Creation
 
-To create a `QueryHeap`, you first need to construct a `QueryHeapDescription`:
+A heap has one `QueryType` for all of its slots, so timestamps and occlusion queries need separate heaps:
 
 ```csharp
 QueryHeap queryHeap;
@@ -27,11 +29,28 @@ this.queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
 | **Occlusion** | Indicates the query is for depth/stencil occlusion counts. |
 | **BinaryOcclusion** | Indicates the query is for binary depth/stencil occlusion statistics. |
 
+### QueryHeapDescription
+
+| Property | Type | Description |
+| --- | --- | --- |
+| **Type** | `QueryType` | The kind of query every slot in this heap holds. |
+| **QueryCount** | `uint` | How many slots to allocate. Indices passed to the command buffer run from `0` to `QueryCount - 1`. |
+
+> [!IMPORTANT]
+> Timestamp queries are not available on every backend. Check before creating the heap, because on WebGPU the feature depends on what the browser exposes:
+>
+> ```csharp
+> if (this.graphicsContext.Capabilities.IsTimestampQuerySupported)
+> {
+>     this.queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
+> }
+> ```
+
 ## Timestamp Queries
 
 You can obtain timestamps as part of a command list (rather than via a CPU-side call on a command queue) using timestamp queries.
 
-### How to Use Timestamp Queries
+### How to use timestamp queries
 
 ```csharp
 ulong[] results;
@@ -65,7 +84,7 @@ this.commandQueue.WaitIdle();
 this.queryHeap.ReadData(0, 4, this.results);
 ```
 
-### How to Show Timestamp Results
+### How to show timestamp results
 
 ```csharp
 this.surface.MouseDispatcher.DispatchEvents();
@@ -93,7 +112,7 @@ this.uiRenderer.Render(commandBuffer);
 
 Hardware occlusion queries have been one of the most eagerly awaited graphics hardware features for a long time. This feature allows an application to ask the 3D API whether any pixels would be drawn if a particular object were rendered. With this feature, applications can check whether the bounding boxes of complex objects are visible; if the bounds are occluded, the application can skip drawing those objects.
 
-### QueryHeap Creation
+### Creating the heap
 
 ```csharp
 uint maxQueries = 4;
@@ -106,7 +125,7 @@ QueryHeapDescription desc = new QueryHeapDescription()
 var queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
 ```
 
-### How to Use Occlusion Queries
+### How to use occlusion queries
 
 ```csharp
 // Draw
@@ -140,7 +159,7 @@ this.commandQueue.WaitIdle();
 this.queryHeap.ReadData(0, 1, this.results);
 ```
 
-### How to Show Occlusion Results
+### How to show occlusion results
 
 ```csharp
 this.surface.MouseDispatcher.DispatchEvents();

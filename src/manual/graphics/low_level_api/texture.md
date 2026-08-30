@@ -1,8 +1,10 @@
 # Texture
 
-A **Texture** object in a low-level API is a 2D object (1D and 3D textures also exist) used to provide details to objects or to map information.
+A `Texture` is an image in GPU memory. It can be 1D, 2D or 3D, an array of any of those, or a cubemap, and it holds anything addressable by coordinates: surface colour, normals, height, a lookup table, or the output of a compute pass.
 
-Please read the [Graphics Texture](../textures/index.md) section for high-level asset information and usage in Evergine Studio.
+A texture is read through a [Sampler](sampler.md), bound through a [ResourceSet](resourceset.md), and drawn into through a [Framebuffer](framebuffer.md). Its `TextureFlags` decide which of those are allowed.
+
+Read the [Graphics Texture](../textures/index.md) section for the high-level asset and how it is used in Evergine Studio.
 
 ## Creation
 
@@ -27,7 +29,7 @@ var description = new TextureDescription()
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 ```
 
 ### TextureDescription
@@ -174,7 +176,7 @@ var pinnedHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
 IntPtr dataPointer = Marshal.UnsafeAddrOfPinnedArrayElement(data, 0);
 var databox = new DataBox[] { new DataBox(dataPointer, rowPitch, slicePitch) };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(databox, ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(databox, ref description);
 
 pinnedHandle.Free();
 ```
@@ -201,11 +203,11 @@ var description = new TextureDescription()
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
 float[] data = Enumerable.Range(0, (int)(expectedSize * expectedSize)).Select(i => (float)i).ToArray();
 
-this.GraphicsContext.UpdateTextureData(texture, data);
+this.graphicsContext.UpdateTextureData(texture, data);
 texture.Dispose();
 ```
 
@@ -229,14 +231,14 @@ var description = new TextureDescription()
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
 float[] data = Enumerable.Range(0, 256 * 256).Select(i => (float)i).ToArray();
-this.GraphicsContext.UpdateTextureData(texture, data);
+this.graphicsContext.UpdateTextureData(texture, data);
 
-var textureCopy = this.GraphicsContext.Factory.CreateTexture(ref description);
+var textureCopy = this.graphicsContext.Factory.CreateTexture(ref description);
 
-var queue = this.GraphicsContext.Factory.CreateCommandQueue();
+var queue = this.graphicsContext.Factory.CreateCommandQueue();
 var command = queue.CommandBuffer();
 
 command.Begin();
@@ -271,11 +273,11 @@ var description = new TextureDescription()
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
 float[] data = Enumerable.Range(0, (int)(expectedSize * expectedSize)).Select(i => (float)i).ToArray();
 
-this.GraphicsContext.UpdateTextureData(texture, data);
+this.graphicsContext.UpdateTextureData(texture, data);
 
 texture.Dispose();
 ```
@@ -300,25 +302,31 @@ var description = new TextureDescription()
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
 float[] data = Enumerable.Range(0, (int)(expectedSize * expectedSize)).Select(i => (float)i).ToArray();
 
-this.GraphicsContext.UpdateTextureData(texture, data);
+this.graphicsContext.UpdateTextureData(texture, data);
 
-var mappedResource = this.GraphicsContext.MapMemory(texture, MapMode.Read);
-for (int y = 0; y < expectedSize; y++)
+var mappedResource = this.graphicsContext.MapMemory(texture, MapMode.Read);
+var readBack = new float[expectedSize * expectedSize];
+
+// Rows are padded to RowPitch, which is not the same as width times pixel size.
+// Reading through a pointer needs an unsafe context...
+unsafe
 {
-    for (int x = 0; x < expectedSize; x++)
+    for (int y = 0; y < expectedSize; y++)
     {
-        int offset = ((y * ((int)mappedResource.RowPitch / sizeof(float))) + x) * sizeof(float);
-        float* pointer = (float*)(mappedResource.Data + offset);
-        int index = (y * (int)expectedSize) + x;
-        Assert.Equal(data[index], *pointer);
+        for (int x = 0; x < expectedSize; x++)
+        {
+            int offset = ((y * ((int)mappedResource.RowPitch / sizeof(float))) + x) * sizeof(float);
+            float* pointer = (float*)(mappedResource.Data + offset);
+            readBack[(y * (int)expectedSize) + x] = *pointer;
+        }
     }
 }
 
-this.GraphicsContext.UnmapMemory(texture);
+this.graphicsContext.UnmapMemory(texture);
 
 texture.Dispose();
 ```

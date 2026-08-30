@@ -1,35 +1,35 @@
 # Swapchain
 
-A swap chain is a collection of buffers used for displaying frames to the user. Each time an application presents a new frame for display, the first buffer in the swap chain takes the place of the displayed buffer. This process is called swapping or flipping.
+A swapchain is the set of buffers that puts your rendering on screen. You draw into one of them, and presenting hands it to the display while giving you back another to draw into.
 
-A graphics adapter holds a pointer to a surface that represents the image being displayed on the monitor, called a front buffer. As the monitor is refreshed, the graphics card sends the contents of the front buffer to the monitor to be displayed. However, this leads to a problem when rendering real-time graphics. The heart of the problem is that monitor refresh rates are very slow in comparison to the rest of the computer. Common refresh rates range from 60 Hz (60 times per second) to 100 Hz. If your application is updating the front buffer while the monitor is in the middle of a refresh, the image that is displayed will be cut in half, with the upper half of the display containing the old image and the lower half containing the new image. This problem is referred to as tearing.
+The reason it is not a single buffer is timing. Monitors refresh between 60 and 240 times a second, far slower than the GPU can produce frames, and they scan the image out from top to bottom. Writing into the buffer the monitor is currently scanning means the top of the screen shows the old frame and the bottom shows the new one, split at whatever line the scan had reached. That split is called tearing.
+
+![The back buffer, the front buffer, and the calls that move a frame between them](images/swapchain_present.png)
 
 ## Creation
 
-To create a swap chain, first you need to create the `SwapChainDescription` struct:
+A swapchain is created from the [GraphicsContext](graphicscontext.md), not from the factory, because it binds to a window rather than to the device alone:
 
 ```csharp
 // Create a window...
-var windowSystem = new Evergine.WindowsForms.FormsWindowsSystem();
+var windowSystem = new Evergine.Forms.FormsWindowsSystem();
 var window = windowSystem.CreateWindow(windowsTitle, width, height);
 
-// Create a swap chain descriptor and assign the surface info...
+// Describe the buffers, and point the description at the window's surface...
 var swapChainDescriptor = new SwapChainDescription()
 {
     Width = window.Width,
     Height = window.Height,
-    SurfaceInfo = info,
+    SurfaceInfo = window.SurfaceInfo,
     ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm,
     ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
     DepthStencilTargetFormat = PixelFormat.D24_UNorm_S8_UInt,
     DepthStencilTargetFlags = TextureFlags.DepthStencil,
-    SampleCount = this.SampleCount,
+    SampleCount = TextureSampleCount.None,
     IsWindowed = true,
     RefreshRate = 60,
-    SurfaceInfo = window.SurfaceInfo
 };
 
-// Finally, create the swap chain...
 var swapChain = this.graphicsContext.CreateSwapChain(swapChainDescriptor);
 swapChain.VerticalSync = false;
 ```
@@ -37,40 +37,105 @@ swapChain.VerticalSync = false;
 ### SwapChainDescription
 
 | Property | Type | Description |
-|--------| ----------- |----------- |
-| **SurfaceInfo** | `SurfaceInfo` | Surface information. |
-| **Width** | `uint` | The swap chain buffers width. |
-| **Height** | `uint` | The swap chain buffers height. |
-| **RefreshRate** | `uint` | The screen refresh rate. |
-| **ColorTargetFormat** | `PixelFormat` | The pixel format of the color target. |
-| **ColorTargetFlags** | `TextureFlags` | The color texture flags for binding to pipeline stages. The flags can be combined by a logical OR. |
-| **DepthStencilTargetFormat** | `PixelFormat` | The pixel format of the depth stencil target. |
-| **DepthStencilTargetFlags** | `TextureFlags` | The depth texture flags for binding to pipeline stages. The flags can be combined by a logical OR. |
-| **SampleCount** | `TextureSampleCount` | The sample count of this swap chain. |
-| **IsWindowed** | `bool` | Whether the output is in windowed mode. |
+| --- | --- | --- |
+| **SurfaceInfo** | `SurfaceInfo` | The window surface to present to. See [GraphicsContext](graphicscontext.md) for the windowing systems available. |
+| **Width** | `uint` | Width of the swapchain buffers. |
+| **Height** | `uint` | Height of the swapchain buffers. |
+| **RefreshRate** | `uint` | Target screen refresh rate. |
+| **ColorTargetFormat** | `PixelFormat` | Pixel format of the colour target. |
+| **ColorTargetFlags** | `TextureFlags` | How the colour target may be bound. Combine flags with a logical OR. |
+| **DepthStencilTargetFormat** | `PixelFormat` | Pixel format of the depth stencil target. |
+| **DepthStencilTargetFlags** | `TextureFlags` | How the depth target may be bound. |
+| **SampleCount** | `TextureSampleCount` | Multisample count for the swapchain buffers. |
+| **IsWindowed** | `bool` | Whether the output is windowed rather than fullscreen. |
 
-### TextureFlags
+`TextureFlags` and `TextureSampleCount` are documented in full on the [Texture](texture.md) page.
 
-Identifies how to bind a texture.
+> [!TIP]
+> Add `TextureFlags.ShaderResource` to `ColorTargetFlags` when a post-processing pass needs to sample the result before it is presented. Leaving it out costs nothing, but adding it later means recreating the swapchain.
 
-| TextureFlags |  Description |
-|--------| ----------- |
-| **None**    | Not specified, **default value**. |
-| **ShaderResource**    | A texture usable as a Shader Resource View. |
-| **RenderTarget**    | A texture usable as a render target. |
-| **UnorderedAccess**    | A texture usable as an unordered access buffer. |
-| **DepthStencil**    | A texture usable as a depth stencil buffer. |
-| **GenerateMipmaps**    | Enables MIP map generation by GPU. |
+## Presenting
 
-### TextureSampleCount
+Four steps per frame:
 
-Describes the number of samples to use in a texture.
+```csharp
+this.swapChain.InitFrame();
 
-| TextureSampleCount |  Description |
-|--------| ----------- |
-| **None**    | Not multisample. **Default value**. |
-| **Count2**    | Multisample count of 2 pixels. |
-| **Count4**    | Multisample count of 4 pixels. |
-| **Count8**    | Multisample count of 8 pixels. |
-| **Count16**    | Multisample count of 16 pixels. |
-| **Count32**    | Multisample count of 32 pixels. |
+var commandBuffer = this.commandQueue.CommandBuffer();
+commandBuffer.Begin();
+
+RenderPassDescription renderPassDescription = new RenderPassDescription(
+    this.swapChain.FrameBuffer,
+    new ClearValue(ClearFlags.All, Color.CornflowerBlue));
+commandBuffer.BeginRenderPass(ref renderPassDescription);
+
+// ...draws...
+
+commandBuffer.EndRenderPass();
+commandBuffer.End();
+commandBuffer.Commit();
+
+this.commandQueue.Submit();
+
+this.swapChain.Present();
+```
+
+`InitFrame()` acquires the next buffer, which is why it comes before any recording. `swapChain.FrameBuffer` is the [Framebuffer](framebuffer.md) for the buffer it handed you, so read it after `InitFrame` rather than caching it across frames.
+
+> [!IMPORTANT]
+> On DirectX 12 and Vulkan a swapchain texture you wrote to yourself, rather than through a render pass, has to be transitioned into `Texture.StateFlags.PresentSrc` before `Present()`. A pass that ends with a copy into the swapchain is the usual case. See [Barriers](barriers.md).
+>
+> ```csharp
+> commandBuffer.Barrier(new Texture.Barrier(swapchainColor, Texture.StateFlags.PresentSrc));
+> ```
+
+## Members
+
+| Member | Description |
+| --- | --- |
+| **FrameBuffer** | The framebuffer for the current back buffer. |
+| **SwapChainDescription** | The description it was created from. |
+| **VerticalSync** | Whether `Present` waits for the next refresh. |
+| **InitFrame()** | Acquires the next back buffer. Call it at the start of each frame. |
+| **Present()** | Hands the back buffer to the display. |
+| **ResizeSwapChain(width, height)** | Recreates the buffers at a new size. |
+| **RefreshSurfaceInfo(surfaceInfo)** | Points the swapchain at a new surface. |
+| **ChangeDepthStencilFormat(format)** | Recreates the depth target with a different format. |
+| **GetCurrentFramebufferTexture()** | The texture behind the current back buffer. |
+| **Name** | Debug name, shown in graphics debugging tools. |
+
+## Vertical sync
+
+```csharp
+swapChain.VerticalSync = true;
+```
+
+With it on, `Present` waits for the next refresh before swapping. There is no tearing, and the frame rate is capped to the monitor. With it off, `Present` returns as soon as the swap is queued, the frame rate is uncapped, and a refresh can catch the swap partway down the screen.
+
+Leave it on for anything a person looks at. Turn it off to measure throughput, where a capped frame rate hides the difference you are trying to see.
+
+## Resizing
+
+A window resize invalidates the buffers, so handle it before the next frame:
+
+```csharp
+protected override void OnResized(uint width, uint height)
+{
+    this.swapChain.ResizeSwapChain(width, height);
+
+    this.viewports[0] = new Viewport(0, 0, width, height);
+    this.scissors[0] = new Rectangle(0, 0, (int)width, (int)height);
+}
+```
+
+`ResizeSwapChain` recreates the underlying textures, so anything that captured the old ones has to be rebuilt: your own framebuffers over swapchain textures, and resource sets that sampled them. Pipelines survive, because a resize does not change formats.
+
+> [!WARNING]
+> Wait for the GPU to finish with the old buffers before resizing, with `commandQueue.WaitIdle()` or a [Fence](fence.md). Resizing under a frame that is still in flight destroys textures the GPU is reading.
+
+## Cleaning up
+
+```csharp
+this.commandQueue.WaitIdle();
+swapChain.Dispose();
+```

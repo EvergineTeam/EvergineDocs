@@ -1,6 +1,8 @@
 # Sampler
 
-A **Sampler State** is a low-level object that encapsulates how a texture will be sampled in your application.
+A `SamplerState` says how a [Texture](texture.md) is read: how texels are blended when the sampling rate does not match the texture size, what happens to coordinates outside the zero to one range, and how far the filtering follows a surface seen at an angle.
+
+It carries no image data, so one sampler serves any number of textures. It is bound through a [ResourceSet](resourceset.md), in a slot the layout declares as `ResourceType.Sampler`.
 
 ## Creation
 
@@ -44,7 +46,7 @@ var samplerState = this.graphicsContext.Factory.CreateSamplerState(ref samplerDe
 
 Defines texture filtering modes for a texture stage.
 
-![Graphics](images/Sampler_TextureFilter.jpg)
+![Point sampling against bilinear filtering on the same texture](images/Sampler_TextureFilter.jpg)
 
 | Value | Description |
 |-------|-------------|
@@ -70,14 +72,14 @@ Your application can assign texture coordinates to any vertex of any primitive. 
 | **Border** | Texture coordinates outside the range [0.0, 1.0] are set to the border color specified in SamplerStateDescription. |
 | **Mirror_One** | Takes the absolute value of the texture coordinate (thus, mirroring around 0), and then clamps to the maximum value. |
 
-![Graphics](images/Sampler_TextureAddressMode.jpg)
+![How each address mode resolves coordinates outside the zero to one range](images/Sampler_TextureAddressMode.jpg)
 
 ### MaxAnisotropy
 
 Retrieves a value that indicates the maximum valid value for anisotropic filtering.
 Valid values are between 1 and 16.
 
-![Graphics](images/Sampler_Anisotropy.jpg)
+![A surface at a grazing angle with anisotropic filtering off and on](images/Sampler_Anisotropy.jpg)
 
 ## Presets
 
@@ -113,7 +115,7 @@ public void SetDefault()
 }
 ```
 
-### Presets Initialization
+### Initialising the presets
 
 ```csharp
 PointClamp = SamplerStateDescription.Default;
