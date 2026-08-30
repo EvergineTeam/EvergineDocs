@@ -49,6 +49,8 @@ Identifies expected resource usage during rendering.
 | **Dynamic**    | A resource that is accessible by both the GPU (read-only) and the CPU (write-only). |
 | **Staging**    | A resource that supports data transfer (copy) from the GPU to the CPU. |
 
+`Dynamic` and `Staging` move data in opposite directions and are not interchangeable. A dynamic buffer is written by the CPU and read by the GPU, which is how you upload. A staging buffer is written by the GPU through a copy and read by the CPU, which is how you read back.
+
 ### BufferFlags
 
 Identifies how to bind a buffer. This flag gives a hint to the graphics API about how this buffer will be used.
@@ -230,7 +232,7 @@ var dynamicDescription = new BufferDescription(
 
 var dynamicBuffer = this.graphicsContext.Factory.CreateBuffer(ref dynamicDescription);
 
-// Map the write staging and leave mapped...
+// Map the dynamic buffer for writing and keep it mapped...
 var writableResource = this.graphicsContext.MapMemory(dynamicBuffer, MapMode.Write);
 
 Vector4* pointer = (Vector4*)writableResource.Data;

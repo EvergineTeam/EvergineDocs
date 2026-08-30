@@ -122,6 +122,8 @@ Identifies expected resource usage during rendering.
 | **Dynamic** | A resource that is accessible by both the GPU (read only) and the CPU (write only). |
 | **Staging** | A resource that supports data transfer (copy) from the GPU to the CPU. |
 
+`Dynamic` and `Staging` move data in opposite directions and are not interchangeable. A dynamic texture is written by the CPU and read by the GPU, which is how you upload. A staging texture is written by the GPU through a copy and read by the CPU, which is how you read back.
+
 ### TextureSampleCount
 
 Describes the number of samples to use in a texture.
@@ -253,7 +255,9 @@ textureCopy.Dispose();
 queue.Dispose();
 ```
 
-### How to set data in a staging texture
+### How to update a dynamic texture
+
+Reach for a dynamic texture when the CPU writes its contents, whether once during loading or again every frame:
 
 ```csharp
 uint expectedSize = 256;
@@ -265,9 +269,9 @@ var description = new TextureDescription()
     Height = expectedSize,
     Depth = 1,
     Layers = 1,
-    Usage = ResourceUsage.Staging,
-    CpuAccess = ResourceCpuAccess.Write | ResourceCpuAccess.Read,
-    Flags = TextureFlags.None,
+    Usage = ResourceUsage.Dynamic,
+    CpuAccess = ResourceCpuAccess.Write,
+    Flags = TextureFlags.ShaderResource,
     Format = PixelFormat.R8G8B8A8_UNorm,
     MipLevels = 1,
     SampleCount = TextureSampleCount.None,
@@ -277,12 +281,20 @@ var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
 float[] data = Enumerable.Range(0, (int)(expectedSize * expectedSize)).Select(i => (float)i).ToArray();
 
+// This is the call to repeat each frame...
 this.graphicsContext.UpdateTextureData(texture, data);
 
 texture.Dispose();
 ```
 
-### How to map and read a staging texture
+> [!IMPORTANT]
+> Write to a dynamic texture with `UpdateTextureData` rather than by mapping it. DirectX 11 requires a dynamic resource to be mapped with `WriteDiscard`, and `MapMemory` does not ask for it on the texture path. `UpdateTextureData` does, which is what stops the GPU from waiting on the contents you are replacing.
+>
+> A dynamic [Buffer](buffer.md) is the other way round: that one you map.
+
+### How to read a texture back through a staging texture
+
+A texture the GPU draws into lives in memory the CPU cannot reach. Reading it takes two steps: copy it into a staging texture, then map that one.
 
 ```csharp
 uint expectedSize = 256;
@@ -294,21 +306,36 @@ var description = new TextureDescription()
     Height = expectedSize,
     Depth = 1,
     Layers = 1,
-    Usage = ResourceUsage.Staging,
-    CpuAccess = ResourceCpuAccess.Write | ResourceCpuAccess.Read,
-    Flags = TextureFlags.None,
+    Usage = ResourceUsage.Default,
+    CpuAccess = ResourceCpuAccess.None,
+    Flags = TextureFlags.RenderTarget,
     Format = PixelFormat.R8G8B8A8_UNorm,
     MipLevels = 1,
     SampleCount = TextureSampleCount.None,
 };
 
+// The texture the GPU rendered into...
 var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
-float[] data = Enumerable.Range(0, (int)(expectedSize * expectedSize)).Select(i => (float)i).ToArray();
+// ...and the staging texture that will receive a copy of it.
+var stagingDescription = description;
+stagingDescription.Usage = ResourceUsage.Staging;
+stagingDescription.CpuAccess = ResourceCpuAccess.Read;
+stagingDescription.Flags = TextureFlags.None;
 
-this.graphicsContext.UpdateTextureData(texture, data);
+var stagingTexture = this.graphicsContext.Factory.CreateTexture(ref stagingDescription);
 
-var mappedResource = this.graphicsContext.MapMemory(texture, MapMode.Read);
+var queue = this.graphicsContext.Factory.CreateCommandQueue();
+var command = queue.CommandBuffer();
+
+command.Begin();
+command.CopyTextureDataTo(texture, stagingTexture);
+command.End();
+command.Commit();
+queue.Submit();
+queue.WaitIdle();
+
+var mappedResource = this.graphicsContext.MapMemory(stagingTexture, MapMode.Read);
 var readBack = new float[expectedSize * expectedSize];
 
 // Rows are padded to RowPitch, which is not the same as width times pixel size.
@@ -326,7 +353,12 @@ unsafe
     }
 }
 
-this.graphicsContext.UnmapMemory(texture);
+this.graphicsContext.UnmapMemory(stagingTexture);
 
 texture.Dispose();
+stagingTexture.Dispose();
+queue.Dispose();
 ```
+
+> [!NOTE]
+> `WaitIdle()` blocks until the copy has finished, which is the simplest thing that is correct. A [Fence](fence.md) lets you poll instead and collect the result on a later frame, without stopping the CPU.
