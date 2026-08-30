@@ -1,6 +1,6 @@
 # Barriers
 
-A GPU resource is not simply readable or writable. At any moment it sits in a state that reflects what it is being used for: a render target, a shader resource, the source of a copy, the image being presented. Changing that use requires telling the backend, and the call that does it is a barrier.
+At any moment a GPU resource sits in a state that reflects what it is being used for: a render target, a shader resource, the source of a copy, the image being presented. Changing that use requires telling the backend, and the call that does it is a barrier.
 
 DirectX 12 and Vulkan will not do this for you, and get it wrong when you omit it. DirectX 11, Metal, OpenGL and WebGPU track resource state internally and implement `Barrier` as an empty method, so code that omits barriers runs correctly there and then fails on the explicit backends. Write them everywhere.
 

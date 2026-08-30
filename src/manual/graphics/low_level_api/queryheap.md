@@ -52,7 +52,7 @@ this.queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
 
 ## Timestamp Queries
 
-You can obtain timestamps as part of a command list (rather than via a CPU-side call on a command queue) using timestamp queries.
+A timestamp is written by the GPU as it reaches that point in the recorded command stream, so the interval between two of them measures GPU work rather than the CPU time spent submitting it.
 
 ### How to use timestamp queries
 
@@ -114,7 +114,7 @@ this.uiRenderer.Render(commandBuffer);
 
 ## Occlusion Queries
 
-Hardware occlusion queries have been one of the most eagerly awaited graphics hardware features for a long time. This feature allows an application to ask the 3D API whether any pixels would be drawn if a particular object were rendered. With this feature, applications can check whether the bounding boxes of complex objects are visible; if the bounds are occluded, the application can skip drawing those objects.
+An occlusion query counts the pixels a draw would actually write. Render the bounding box of an expensive object, read the count back, and skip the object itself when nothing would have been visible.
 
 ### Creating the heap
 

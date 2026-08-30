@@ -8,7 +8,7 @@ Read the [Graphics Texture](../textures/index.md) section for the high-level ass
 
 ## Creation
 
-To create a texture, you first need to create the `TextureDescription` struct:
+To create a texture, first create the `TextureDescription` struct:
 
 ```csharp
 uint expectedSize = 256;
@@ -95,7 +95,7 @@ Specifies the byte format used in each texel. The most common formats are:
 | **R32G32B32A32_SInt** | A four-component, 128-bit signed-integer format that supports 32 bits per channel including alpha. |
 | **R32G32B32A32_UInt** | A four-component, 128-bit unsigned-integer format that supports 32 bits per channel including alpha. |
 
-> [!Note]
+> [!NOTE]
 > See the [PixelFormat](xref:Evergine.Common.Graphics.PixelFormat) enum in the `Evergine.Common` namespace for the complete list.
 
 ### TextureFlags

@@ -6,7 +6,7 @@ It carries no image data, so one sampler serves any number of textures. It is bo
 
 ## Creation
 
-To create a sampler, you first need to create the `SamplerStateDescription` struct:
+To create a sampler, first create the `SamplerStateDescription` struct:
 
 ```csharp
 // Linear clamp sampler state
@@ -62,7 +62,7 @@ Defines texture filtering modes for a texture stage.
 
 ### TextureAddressMode
 
-Your application can assign texture coordinates to any vertex of any primitive. Typically, the u- and v-texture coordinates that you assign to a vertex are in the range of 0.0 to 1.0 inclusive. However, by assigning texture coordinates outside that range, you can create certain special texturing effects.
+Texture coordinates usually run from 0.0 to 1.0. The address mode decides what a coordinate outside that range samples, which is what makes tiling and mirroring possible.
 
 | Value | Description |
 |-------|-------------|
@@ -83,7 +83,7 @@ Valid values are between 1 and 16.
 
 ## Presets
 
-To simplify sampler construction, you can use `Evergine.Common.SamplerStates` to describe the most common sampler descriptions:
+`Evergine.Common.SamplerStates` holds the combinations you would otherwise write out by hand:
 
 | Value |
 |-------|

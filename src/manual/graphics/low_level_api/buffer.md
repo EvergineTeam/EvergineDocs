@@ -6,7 +6,7 @@ What it can be used for, though, is fixed when you create it. `BufferFlags` deci
 
 ## Creation
 
-To create a buffer, first, you need to create the BufferDescription struct:
+To create a buffer, first create the `BufferDescription` struct:
 
 ```csharp
 // Populate some data for the buffer...
@@ -80,7 +80,7 @@ Specifies the types of CPU access allowed for a resource.
 
 ### How to update a default buffer
 
-In this case, you just need to execute the `GraphicsContext.UpdateBufferData(...)` method:
+Call `GraphicsContext.UpdateBufferData(...)`:
 
 ```csharp
 var vertexData = new Vector4[]
@@ -101,7 +101,7 @@ this.graphicsContext.UpdateBufferData(buffer, vertexData);
 
 ### How to copy one default buffer into another
 
-In this case, you need to execute the `CommandBuffer.CopyBufferDataTo(...)` method. To do this, you need to obtain a `CommandBuffer` instance and enqueue the copy command:
+Get a `CommandBuffer` and record a `CopyBufferDataTo` command:
 
 ```csharp
 var vertexData = new Vector4[]
@@ -148,7 +148,7 @@ queue.Dispose();
 
 ### How to read a default buffer through a staging buffer
 
-In order to read a Default Buffer, you need to copy the content into a Staging Buffer first. Once you do this, you can map the Staging Buffer to CPU memory and access the data without problems:
+A default buffer lives in GPU memory the CPU cannot reach, so reading it takes two steps: copy it into a staging buffer, then map that buffer into CPU memory.
 
 ```csharp
 var vertexData = new Vector4[]
@@ -211,7 +211,7 @@ queue.Dispose();
 
 ### How to map a dynamic buffer
 
-A Dynamic Buffer can be updated directly from the CPU. To do this, you only need to map a Buffer and write the data directly to the mapped pointer:
+A dynamic buffer is written straight from the CPU. Map it, write to the mapped pointer, and unmap:
 
 ```csharp
 var vectorSize = (uint)Unsafe.SizeOf<Vector4>();
