@@ -287,11 +287,6 @@ this.graphicsContext.UpdateTextureData(texture, data);
 texture.Dispose();
 ```
 
-> [!IMPORTANT]
-> Write to a dynamic texture with `UpdateTextureData` rather than by mapping it. DirectX 11 requires a dynamic resource to be mapped with `WriteDiscard`, and `MapMemory` does not ask for it on the texture path. `UpdateTextureData` does, which is what stops the GPU from waiting on the contents you are replacing.
->
-> A dynamic [Buffer](buffer.md) is the other way round: that one you map.
-
 ### How to read a texture back through a staging texture
 
 A texture the GPU draws into lives in memory the CPU cannot reach. Reading it takes two steps: copy it into a staging texture, then map that one.
