@@ -42,13 +42,13 @@ public class MyComponent : Component
 }
 ```
 
-However, in this case, the dependency will fail because `PhysicManager3D` is not registered in the scene:
+However, in this case, the dependency will fail because `PhysicsManager` is not registered in the scene:
 
 ```csharp
 public class MyComponent : Component
 {
     [BindSceneManager]
-    private PhysicManager3D physicManager;
+    private PhysicsManager physicsManager;
 
     // ...
 }

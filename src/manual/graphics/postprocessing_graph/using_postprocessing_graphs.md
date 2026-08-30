@@ -31,7 +31,7 @@ You can apply a postprocessing graph to your scene by clicking on the ![Plus Ico
 A Postprocessing Volume is an entity in your scene composed of 3 components:
 * `Transform3D`
 * `PostProcessingGraphRenderer`
-* `BoxCollider3D`
+* `BoxCollider`
 
 With the `PostProcessingGraphRenderer` component, you can configure it to work in two modes.
 

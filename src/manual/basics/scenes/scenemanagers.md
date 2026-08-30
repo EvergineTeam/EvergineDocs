@@ -15,10 +15,10 @@ All SceneManagers in a scene can be accessed using the `Scene.Managers` property
 | **BehaviorManager** | `this.Managers.BehaviorManager` | Manages the behavior update execution of the scene and their priority order. |
 | **RenderManager** | `this.Managers.RenderManager` | Handles the **Rendering** of the scene. More information in the [Rendering](../../graphics/rendering_overview.md) article. |
 | **EnvironmentManager** | `this.Managers.EnvironmentManager` | Controls the environmental information of the scene, including reflection probes, environmental radiance, and irradiance maps. More information in the [Environment](../../graphics/environment/index.md) article. |
-| **PhysicsManager3D** | `this.Managers.PhysicsManager3D` | Manages the physics simulation. All the rigid or static bodies are registered with this manager. More information in the [Physics Manager and Bullet](../../physics/physicmanager_bullet.md) article. |
+| **PhysicsManager** | `this.Managers.FindManager<PhysicsManager>()` | Manages the physics simulation. All the bodies, colliders and constraints are registered with this manager. More information in the [Physics Manager](../../physics/physics_manager.md) article. |
 
 >[!NOTE]
-> The **PhysicsManager3D** scene manager is not registered by default, although in the project template, it's loaded in the **RegisterManagers** method of the template scene class.
+> The **PhysicsManager** scene manager is not registered by default, although in the project template, it's loaded in the **RegisterManagers** method of the template scene class.
 
 ### Assets Scene Manager
 
@@ -36,7 +36,7 @@ The newly created scene manager can use all the **lifecycle** methods like **OnA
 
 ### UpdatableSceneManager
 
-In addition, instead of creating a class that inherits from **SceneManager**, we can choose to inherit from **UpdatableSceneManager**. This class has an **Update** method that will be called in every frame. This is useful for managers that need to update some components in real-time. For example, **PhysicsManager3D** controls the physics simulation using this method.
+In addition, instead of creating a class that inherits from **SceneManager**, we can choose to inherit from **UpdatableSceneManager**. This class has an **Update** method that will be called in every frame. This is useful for managers that need to update some components in real-time. For example, **PhysicsManager** controls the physics simulation using this method.
 
 ## Using SceneManagers
 
@@ -48,7 +48,7 @@ We can register a new **SceneManager** from code like this:
 this.Managers.AddManager(new MyManager());
 
 // Alternatively, we can register by type, which is useful when dealing with abstract classes.
-this.Managers.AddManager<PhysicsManager3D>(new BulletPhysicsManager3D());
+this.Managers.AddManager(new Evergine.Framework.Physics.PhysicsManager());
 ```
 
 ### Unregister a Scene Manager
@@ -59,8 +59,8 @@ We can also unregister a scene manager by calling the following function:
 // We can remove the manager using its instance.
 this.Managers.RemoveManager(myManagerInstance);
 
-// Or by type. For example, the next line will remove the BulletPhysicsManager3D manager that we registered in the previous section.
-this.Managers.RemoveManager<PhysicsManager3D>();
+// Or by type. For example, the next line will remove the PhysicsManager that we registered in the previous section.
+this.Managers.RemoveManager<PhysicsManager>();
 ```
 
 ### Obtaining a SceneManager
@@ -92,8 +92,8 @@ Using the `SceneManager.FindManager<T>()` you can find your desired manager:
 ```csharp
 MyManager manager = this.Managers.FindManager<MyManager>();
 
-// This, for example, will return the BulletPhysicsManager3D registered before.
-PhysicsManager3D physics = this.Managers.FindManager<PhysicsManager3D>();
+// This, for example, will return the PhysicsManager registered before.
+PhysicsManager physics = this.Managers.FindManager<PhysicsManager>();
 
 // For default SceneManagers, you can access them using quick properties :)
 RenderManager renderManager = this.Managers.RenderManager;

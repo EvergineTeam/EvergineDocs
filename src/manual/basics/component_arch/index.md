@@ -30,12 +30,12 @@ To give an Entity the properties it needs to become a Light, a Model, or a Camer
 
 ### SceneManagers and Components
 
-In Evergine, a **Scene** has several subsystems (called **SceneManagers**). Every SceneManager controls different aspects of the scene (for example: `RenderManager` to render and draw the scene, `BehaviorManager` to update all Behaviors, `PhysicManager3D` to perform Physics simulations, and so on).
+In Evergine, a **Scene** has several subsystems (called **SceneManagers**). Every SceneManager controls different aspects of the scene (for example: `RenderManager` to render and draw the scene, `BehaviorManager` to update all Behaviors, `PhysicsManager` to perform Physics simulations, and so on).
 
 With the Component architecture, every component is responsible for registering itself into the associated SceneManager, allowing these SceneManagers to have the scope of Components in which they are interested and ignore the rest.
 
 > [!NOTE]
-> For instance: Every physics-related component (RigidBody3D, BoxCollider3D, etc.) is internally registered into the PhysicManager3D when an Entity is spawned into the scene. This allows PhysicManager3D to gather and control all the physics information in the scene.
+> For instance: Every physics-related component (RigidBody, BoxCollider, etc.) is internally registered into the PhysicsManager when an Entity is spawned into the scene. This allows PhysicsManager to gather and control all the physics information in the scene.
 
 ### Summary Diagram
 

@@ -44,7 +44,7 @@ public class MyScene : Scene
     public override void RegisterManagers()
     {
         base.RegisterManagers();
-        this.Managers.AddManager(new Evergine.Bullet.BulletPhysicManager3D());        	
+        this.Managers.AddManager(new Evergine.Framework.Physics.PhysicsManager());        	
     }
 
     protected override void CreateScene()
