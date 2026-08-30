@@ -37,7 +37,7 @@ this.queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
 | **QueryCount** | `uint` | How many slots to allocate. Indices passed to the command buffer run from `0` to `QueryCount - 1`. |
 
 > [!IMPORTANT]
-> Timestamp queries are not available on every backend. Check before creating the heap, because on WebGPU the feature depends on what the browser exposes:
+> Timestamp queries are not available everywhere, and on some platforms they depend on what the host chooses to expose. Ask before creating the heap:
 >
 > ```csharp
 > if (this.graphicsContext.Capabilities.IsTimestampQuerySupported)

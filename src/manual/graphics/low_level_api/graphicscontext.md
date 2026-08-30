@@ -40,7 +40,7 @@ graphicsContext.CreateDevice(new ValidationLayer());
 | **Event** | `new ValidationLayer(ValidationLayer.NotifyMethod.Event)` | Raises `ValidationLayer.Error` so you can route the message yourself. |
 
 > [!IMPORTANT]
-> On DirectX 12 and Vulkan the validation layer is the only thing that reports a missing or wrong [barrier](barriers.md). Without it, an incorrect resource state renders wrongly and says nothing. Develop with it on, even when the application ships without it.
+> The validation layer is the only thing that reports a missing or wrong [barrier](barriers.md). Without it, a resource left in the wrong state renders incorrectly and says nothing. Develop with it on, even when the application ships without it.
 
 ## Asking what the hardware supports
 
@@ -55,17 +55,17 @@ if (this.graphicsContext.Capabilities.IsRaytracingSupported)
 
 | Capability | Description |
 | --- | --- |
-| **IsComputeShaderSupported** | Whether [compute pipelines](computepipeline.md) can run. `false` on OpenGL. |
-| **IsRaytracingSupported** | Whether [ray tracing](raytracingpipeline.md) is available. Needs DirectX 12 or Vulkan and a capable device. |
+| **IsComputeShaderSupported** | Whether [compute pipelines](computepipeline.md) can run. |
+| **IsRaytracingSupported** | Whether [ray tracing](raytracingpipeline.md) is available. Depends on the device as well as on the backend. |
 | **IsMeshShaderSupported** | Whether mesh and amplification shaders are available. |
 | **IsMRTSupported** | Whether a [framebuffer](framebuffer.md) may have several colour targets. |
 | **IsShadowMapSupported** | Whether depth textures can be sampled as shadow maps. |
 | **IsTextureFormatSupported(format)** | Whether one `PixelFormat` is usable on this device. |
 | **FlipProjectionRequired** | Whether the projection matrix needs flipping vertically for this backend. |
 | **MatrixMajorness** | Row or column major, which decides how matrices are uploaded. |
-| **ClipDepth** | The depth range of clip space, which differs between DirectX and OpenGL. |
+| **ClipDepth** | The depth range of clip space, which is not the same on every backend. |
 
-`BackendType` returns the `GraphicsBackend` in use: `DirectX11`, `DirectX12`, `OpenGL`, `OpenGLES`, `Metal`, `Vulkan`, `WebGL1`, `WebGL2` or `WebGPU`. Its main honest use is picking which [shader](shader.md) language to load.
+`BackendType` returns the `GraphicsBackend` in use. Its one honest use is picking which [shader](shader.md) language to load, since that is the only thing the abstraction cannot hide. For anything else, ask `Capabilities`.
 
 ## Creating a swapchain
 

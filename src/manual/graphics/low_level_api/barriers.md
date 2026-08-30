@@ -2,7 +2,7 @@
 
 At any moment a GPU resource sits in a state that reflects what it is being used for: a render target, a shader resource, the source of a copy, the image being presented. Changing that use requires telling the backend, and the call that does it is a barrier.
 
-DirectX 12 and Vulkan will not do this for you, and get it wrong when you omit it. DirectX 11, Metal, OpenGL and WebGPU track resource state internally and implement `Barrier` as an empty method, so code that omits barriers runs correctly there and then fails on the explicit backends. Write them everywhere.
+Some backends track that state for you and accept the call without doing anything. Others need it, and render incorrectly when it is missing. Record a barrier every time a resource changes use, whichever backend you happen to be running: one that is not needed costs nothing, and one that is missing stays invisible until the code reaches a machine that does need it.
 
 ## The model
 
@@ -79,10 +79,10 @@ commandBuffer.Barrier(new Texture.Barrier(this.texture, Texture.StateFlags.Pixel
 > commandBuffer.Barrier(barrier);
 > ```
 
-Only the Vulkan backend honours the subresource range. DirectX 12 transitions the whole resource regardless of what you ask for, which is conservative and therefore safe.
+The range narrows what you are asking for, not what you are guaranteed. A backend may transition more of the resource than you named, so write the range you need and do not rely on the rest of the texture keeping its previous state.
 
 > [!NOTE]
-> Both `StateFlags` enums are bit flags, but neither carries the `[Flags]` attribute. Combining them with `|` works, and is what the engine does internally when a texture is read by both pixel and non-pixel stages.
+> The state values are bit flags and combine with `|`, which is what the engine does internally when a texture is read by both pixel and non-pixel stages.
 
 ## Batching
 
@@ -160,18 +160,13 @@ commandBuffer.Dispatch2D(width, height);
 
 Without it, the second dispatch is free to begin before the first has finished writing, and each reads whatever happens to be there. There is one overload for a `Buffer` and one for a `Texture`.
 
-> [!NOTE]
-> The XML documentation on the `Buffer` overload says "texture". It applies to buffers.
-
-DirectX 12 forwards this to a native UAV barrier and Vulkan to a full pipeline barrier. DirectX 11 has no equivalent, so the backend unbinds the view and lets the driver's own read-after-write hazard detection insert one. On OpenGL, Metal and WebGPU it does nothing.
+Record it for the same reason you record a state transition: the backends that need the ordering get it, and the ones that already guarantee it ignore the call.
 
 ## Getting it wrong
 
-Barriers fail quietly, and the way they fail depends on the backend:
+A missing barrier fails quietly. Where the backend does not need one, everything draws as though the code were correct, so the defect travels undetected until it reaches a machine that does.
 
-* **DirectX 12** reports the mismatch through the debug layer as a resource state error. Create the device with a `ValidationLayer` and the message names the resource and both states. See [GraphicsContext](graphicscontext.md).
-* **Vulkan** reports it through validation layers as an image layout error, usually naming the layout it expected.
-* **Everything else** renders as though nothing were wrong, which is why a missing barrier normally reaches you as a bug report from someone running a different backend.
+Two habits catch it early:
 
-> [!TIP]
-> Develop against DirectX 12 or Vulkan with the validation layer enabled, even when your application ships on another backend. It is the only configuration that tells you a barrier is missing.
+* Create the device with a `ValidationLayer`. A resource left in the wrong state is then reported as an error naming the resource, rather than as a picture that looks slightly wrong. See [GraphicsContext](graphicscontext.md).
+* Run the application on more than one backend before shipping. The backend is decided by the `GraphicsContext` class you instantiate, so trying another is a one-line change.

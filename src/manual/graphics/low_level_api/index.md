@@ -97,17 +97,17 @@ this.commandQueue.WaitIdle();
 
 Query these at runtime through `graphicsContext.Capabilities` rather than testing `BackendType`, since ray tracing and mesh shaders depend on the physical device and not only on the API.
 
-| Backend | Context class | Compute | Ray tracing | Mesh shaders | Barriers |
-| --- | --- | --- | --- | --- | --- |
-| **DirectX 11** | `DX11GraphicsContext` | Yes | No | No | Ignored |
-| **DirectX 12** | `DX12GraphicsContext` | Yes | Device dependent | Device dependent | **Enforced** |
-| **Vulkan** | `VKGraphicsContext` | Yes | Device dependent | Device dependent | **Enforced** |
-| **Metal** | `MTLGraphicsContext` | Yes | No | No | Ignored |
-| **OpenGL / OpenGL ES** | `GLGraphicsContext` | No | No | No | Ignored |
-| **WebGPU** | `WGPUGraphicsContext` | Yes | No | No | Ignored |
+| Backend | Context class | Compute | Ray tracing | Mesh shaders |
+| --- | --- | --- | --- | --- |
+| **DirectX 11** | `DX11GraphicsContext` | Yes | No | No |
+| **DirectX 12** | `DX12GraphicsContext` | Yes | Device dependent | Device dependent |
+| **Vulkan** | `VKGraphicsContext` | Yes | Device dependent | Device dependent |
+| **Metal** | `MTLGraphicsContext` | Yes | No | No |
+| **OpenGL / OpenGL ES** | `GLGraphicsContext` | No | No | No |
+| **WebGPU** | `WGPUGraphicsContext` | Yes | No | No |
 
 > [!IMPORTANT]
-> "Ignored" in the last column means the backend implements `Barrier` as an empty method, not that barriers are unnecessary. Code that omits them still runs on DirectX 11, Metal, OpenGL and WebGPU, and then renders incorrectly on DirectX 12 and Vulkan. Write them everywhere.
+> Capabilities are the portable way to ask. Branching on `BackendType` instead bakes today's answer into your code, and the answer changes with the device as well as with the backend.
 
 ## In this section
 

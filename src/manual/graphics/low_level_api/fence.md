@@ -11,7 +11,7 @@ Without a fence the only completion signal is `CommandQueue.WaitIdle()`, which b
 With N sets of per-frame resources and N fences, the CPU keeps recording while the GPU stays up to N-1 frames behind, and blocks only when it comes back round to a set the GPU has not released yet.
 
 > [!NOTE]
-> Measured by `FencesTest` on an RTX-class GPU at 10,000 draw calls with vertical sync off, replacing `WaitIdle` with fences takes DirectX 12 from 1,076 to 1,916 frames per second, and Vulkan from 557 to 1,668.
+> Measured by `FencesTest` on an RTX-class GPU at 10,000 draw calls with vertical sync off, replacing `WaitIdle` with fences raised the frame rate by between 1.8 and 3 times.
 
 ## Creation
 
@@ -115,7 +115,7 @@ The primitive is the same everywhere, but two backends behave differently enough
 | **WebGPU** | A submitted-work-done callback. |
 
 > [!WARNING]
-> On the web, `Wait` cannot block, because blocking the browser's event loop would deadlock the page. It returns the fence's current state instead. Poll `IsSignaled` across frames rather than waiting, if your application targets WebGPU.
+> A platform whose main loop must not be blocked, a browser being the usual one, returns the current state instead of waiting. Poll `IsSignaled` across frames rather than calling `Wait`, and the same code then behaves the same everywhere.
 
 ## Frames in flight need duplicated resources
 

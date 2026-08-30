@@ -29,9 +29,6 @@ var computePipelineState = this.graphicsContext.Factory.CreateComputePipeline(re
 | **ThreadGroupSizeY** | `uint` | Threads per group in Y. `1` by default. |
 | **ThreadGroupSizeZ** | `uint` | Threads per group in Z. `1` by default. |
 
-> [!NOTE]
-> `shaderDescription` starts with a lower case letter, unlike every other property on this struct. That is how the field is declared.
-
 > [!IMPORTANT]
 > The three `ThreadGroupSize` values have to match the `[numthreads(x, y, z)]` attribute in the shader source. Nothing checks the two against each other, and a mismatch produces wrong results rather than an error.
 
@@ -62,7 +59,7 @@ Because the grid is rounded up, threads can run past the edge of your data. Guar
 
 ## Compute writes, graphics reads
 
-The pattern that breaks on DirectX 12 and Vulkan, and works everywhere else, is writing a texture from compute and then sampling it in a pixel shader without saying so. Each side needs a barrier: one to put the texture into `UnorderedAccess` before the dispatch, one to put it back into `PixelShaderResource` before the draw.
+The pattern that breaks is writing a texture from compute and then sampling it in a pixel shader without declaring the change. Each side needs a barrier: one to put the texture into `UnorderedAccess` before the dispatch, one to put it back into `PixelShaderResource` before the draw.
 
 ```csharp
 // The compute pass writes the texture...
@@ -120,7 +117,7 @@ A command buffer belongs to the queue that produced it, so take it from the same
 
 ## Support
 
-`IsComputeShaderSupported` is `false` on the OpenGL backend. Check it before creating a compute pipeline if your application targets desktop OpenGL or WebGL:
+Compute is not available on every backend. Ask the device before creating a compute pipeline:
 
 ```csharp
 if (this.graphicsContext.Capabilities.IsComputeShaderSupported)

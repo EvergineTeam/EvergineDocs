@@ -2,7 +2,7 @@
 
 A `RaytracingPipelineState` traces rays against a scene instead of rasterising triangles. It replaces the vertex and pixel stages with a set of shaders the hardware calls as a ray travels: one to generate rays, one for the closest surface hit, one for rays that hit nothing, and optionally shaders for transparency tests and custom intersection shapes.
 
-Ray tracing needs hardware support, and it runs only on the DirectX 12 and Vulkan backends. Everything on this page is unavailable elsewhere.
+Ray tracing needs both a backend and a device that support it, so everything on this page is conditional. Ask before building any of it:
 
 ```csharp
 if (!this.graphicsContext.Capabilities.IsRaytracingSupported)
@@ -12,7 +12,7 @@ if (!this.graphicsContext.Capabilities.IsRaytracingSupported)
 ```
 
 > [!NOTE]
-> The API spells this one with a lower case `t`: `CreateRaytracingPipeline`, `RaytracingPipelineState`, `RaytracingShaderStateDescription`, and the namespace `Evergine.Common.Graphics.Raytracing`.
+> The names to search for are `CreateRaytracingPipeline`, `RaytracingPipelineState` and `RaytracingShaderStateDescription`, in the namespace `Evergine.Common.Graphics.Raytracing`.
 
 ## Acceleration structures
 
@@ -74,9 +74,6 @@ var vertexBufferDescription = new BufferDescription(
 ```
 
 Use `AccelerationStructureAABBs` in place of `AccelerationStructureTriangles` for procedural geometry, which is intersected by your own shader rather than by fixed-function triangle tests.
-
-> [!WARNING]
-> The field naming the bottom level structure on an instance is spelled `BottonLevel`. That is the name in the API.
 
 Only the top level structure moves. When instances change position you rebuild it with `UpdateRaytracingAccelerationStructure` and leave the bottom level structures alone, which is far cheaper than rebuilding geometry every frame.
 

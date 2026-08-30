@@ -68,11 +68,11 @@ for (int i = 0; i < instanceCount; i++)
 The offsets array carries one entry per element of the layout that allows a dynamic offset, in the order those elements appear. `ResourceLayoutDescription.DynamicConstantBufferCount` tells you how many the layout expects.
 
 > [!NOTE]
-> Every backend requires dynamic offsets to be a multiple of its own constant buffer alignment, which is 256 bytes on DirectX 12 and reported by the device on Vulkan. Round your stride up rather than packing structures tightly.
+> A dynamic offset has to be a multiple of the constant buffer alignment the device reports, and that figure is not the same everywhere. Round your stride up to a power of two large enough for every device you target rather than packing structures tightly.
 
 ## Sets carry their own barriers
 
-Creating a set records, for every resource in it, the state that resource has to be in for the shader to read it. On DirectX 12 and Vulkan the render pipeline uses that precomputed list to transition resources without walking the set again each frame.
+Creating a set records, for every resource in it, the state that resource has to be in for the shader to read it. The render pipeline uses that precomputed list to transition resources without walking the set again each frame.
 
 | Layout declares | State the resource is transitioned to |
 | --- | --- |

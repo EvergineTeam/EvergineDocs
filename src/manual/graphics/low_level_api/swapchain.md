@@ -83,7 +83,7 @@ this.swapChain.Present();
 `InitFrame()` acquires the next buffer, which is why it comes before any recording. `swapChain.FrameBuffer` is the [Framebuffer](framebuffer.md) for the buffer it handed you, so read it after `InitFrame` rather than caching it across frames.
 
 > [!IMPORTANT]
-> On DirectX 12 and Vulkan a swapchain texture you wrote to yourself, rather than through a render pass, has to be transitioned into `Texture.StateFlags.PresentSrc` before `Present()`. A pass that ends with a copy into the swapchain is the usual case. See [Barriers](barriers.md).
+> A swapchain texture you wrote to yourself, rather than through a render pass, has to be transitioned into `Texture.StateFlags.PresentSrc` before `Present()`. A pass that ends with a copy into the swapchain is the usual case. See [Barriers](barriers.md).
 >
 > ```csharp
 > commandBuffer.Barrier(new Texture.Barrier(swapchainColor, Texture.StateFlags.PresentSrc));
