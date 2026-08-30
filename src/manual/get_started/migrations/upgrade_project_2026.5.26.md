@@ -11,7 +11,7 @@ To automate most of the changes described in this guide, a PowerShell migration 
 > ⚠️ **Important** ⚠️  
 > This script modifies files in your project directly. We strongly recommend using a version control system like Git to track and review the changes. Make sure your project is committed or backed up before running the script so you can verify or revert any changes if necessary.
 
-Download: [migration-2026.5.26.zip](https://github.com/EvergineTeam/EvergineDocs/tree/master/src/manual/get_started/migrations/migration-2026.5.26.zip)
+Download: [migration-2026.5.26.zip](https://github.com/EvergineTeam/EvergineDocs/tree/main/src/manual/get_started/migrations/migration-2026.5.26.zip)
 
 Basic usage:
 ```powershell

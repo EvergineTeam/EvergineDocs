@@ -26,6 +26,6 @@ To automate these updates, we've provided a script that will carry out the neces
 > ⚠️ **Important** ⚠️ 
 This script modifies the files in your project directly. We highly recommend using a version control system like Git to track and review the changes made. Ensure you have your project committed or backed up before running the script, so you can easily verify or revert any modifications if necessary.
 
-https://github.com/EvergineTeam/EvergineDocs/tree/master/src/manual/get_started/migrations/migration-2024.10.24.ps1
+https://github.com/EvergineTeam/EvergineDocs/tree/main/src/manual/get_started/migrations/migration-2024.10.24.ps1
 
 Simply run the script in your project directory, and it will apply all the changes mentioned above, including framework updates, namespace adjustments, and removal of unsupported platforms.
