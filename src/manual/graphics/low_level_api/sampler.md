@@ -1,10 +1,12 @@
 # Sampler
 
-A **Sampler State** is a low-level object that encapsulates how a texture will be sampled in your application.
+A `SamplerState` says how a [Texture](texture.md) is read: how texels are blended when the sampling rate does not match the texture size, what happens to coordinates outside the zero to one range, and how far the filtering follows a surface seen at an angle.
+
+It carries no image data, so one sampler serves any number of textures. It is bound through a [ResourceSet](resourceset.md), in a slot the layout declares as `ResourceType.Sampler`.
 
 ## Creation
 
-To create a sampler, you first need to create the `SamplerStateDescription` struct:
+To create a sampler, first create the `SamplerStateDescription` struct:
 
 ```csharp
 // Linear clamp sampler state
@@ -44,7 +46,7 @@ var samplerState = this.graphicsContext.Factory.CreateSamplerState(ref samplerDe
 
 Defines texture filtering modes for a texture stage.
 
-![Graphics](images/Sampler_TextureFilter.jpg)
+![Point sampling against bilinear filtering on the same texture](images/Sampler_TextureFilter.jpg)
 
 | Value | Description |
 |-------|-------------|
@@ -60,7 +62,7 @@ Defines texture filtering modes for a texture stage.
 
 ### TextureAddressMode
 
-Your application can assign texture coordinates to any vertex of any primitive. Typically, the u- and v-texture coordinates that you assign to a vertex are in the range of 0.0 to 1.0 inclusive. However, by assigning texture coordinates outside that range, you can create certain special texturing effects.
+Texture coordinates usually run from 0.0 to 1.0. The address mode decides what a coordinate outside that range samples, which is what makes tiling and mirroring possible.
 
 | Value | Description |
 |-------|-------------|
@@ -70,18 +72,18 @@ Your application can assign texture coordinates to any vertex of any primitive. 
 | **Border** | Texture coordinates outside the range [0.0, 1.0] are set to the border color specified in SamplerStateDescription. |
 | **Mirror_One** | Takes the absolute value of the texture coordinate (thus, mirroring around 0), and then clamps to the maximum value. |
 
-![Graphics](images/Sampler_TextureAddressMode.jpg)
+![How each address mode resolves coordinates outside the zero to one range](images/Sampler_TextureAddressMode.jpg)
 
 ### MaxAnisotropy
 
 Retrieves a value that indicates the maximum valid value for anisotropic filtering.
 Valid values are between 1 and 16.
 
-![Graphics](images/Sampler_Anisotropy.jpg)
+![A surface at a grazing angle with anisotropic filtering off and on](images/Sampler_Anisotropy.jpg)
 
 ## Presets
 
-To simplify sampler construction, you can use `Evergine.Common.SamplerStates` to describe the most common sampler descriptions:
+`Evergine.Common.SamplerStates` holds the combinations you would otherwise write out by hand:
 
 | Value |
 |-------|
@@ -113,7 +115,7 @@ public void SetDefault()
 }
 ```
 
-### Presets Initialization
+### Initialising the presets
 
 ```csharp
 PointClamp = SamplerStateDescription.Default;
