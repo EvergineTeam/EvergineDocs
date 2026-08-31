@@ -131,7 +131,7 @@ protected override void OnResized(uint width, uint height)
 `ResizeSwapChain` recreates the underlying textures, so anything that captured the old ones has to be rebuilt: your own framebuffers over swapchain textures, and resource sets that sampled them. Pipelines survive, because a resize does not change formats.
 
 > [!WARNING]
-> Wait for the GPU to finish with the old buffers before resizing, with `commandQueue.WaitIdle()` or a [Fence](fence.md). Resizing under a frame that is still in flight destroys textures the GPU is reading.
+> Wait for the GPU to finish with the old buffers before resizing, with `commandQueue.WaitIdle()`. Resizing under a frame that is still in flight destroys textures the GPU is reading.
 
 ## Cleaning up
 

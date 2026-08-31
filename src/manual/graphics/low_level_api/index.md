@@ -71,7 +71,7 @@ this.commandQueue.WaitIdle();
 *What those thirty lines produce: a cleared frame and one triangle whose colours are interpolated between its vertices.*
 
 > [!TIP]
-> That final `WaitIdle()` blocks the CPU until the GPU has drained the whole queue, which is the simplest thing that is correct and the slowest thing that works. [Fence](fence.md) shows how to replace it once the rest of the frame is in place.
+> That final `WaitIdle()` blocks the CPU until the GPU has drained the whole queue, which is the simplest thing that is correct and the slowest thing that works.
 
 ## Which object do I need
 
@@ -90,7 +90,6 @@ this.commandQueue.WaitIdle();
 | Get a command buffer and submit it | [CommandQueue](commandqueue.md) |
 | Record draws, dispatches and copies | [CommandBuffer](commandbuffer.md) |
 | Declare that a resource changed use | [Barriers](barriers.md) |
-| Know when the GPU finished a batch | [Fence](fence.md) |
 | Measure GPU time or count samples | [QueryHeap](queryheap.md) |
 
 ## What each backend supports
@@ -127,5 +126,4 @@ Query these at runtime through `graphicsContext.Capabilities` rather than testin
 * [CommandQueue](commandqueue.md)
 * [CommandBuffer](commandbuffer.md)
 * [Barriers](barriers.md)
-* [Fence](fence.md)
 * [QueryHeap](queryheap.md)
