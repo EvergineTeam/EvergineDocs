@@ -83,7 +83,273 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="shader">Shader</h1>
 
-<p>Coming Soon</p>
+<p>A <code>Shader</code> is one compiled shader program: a single stage, with a single entry point, in a form the current backend can execute. You create one per stage and hand them to a pipeline, which is what binds them together into something the GPU can run.</p>
+<p>Compiling and creating are separate steps. <code>GraphicsContext.ShaderCompile</code> turns source text into bytecode, and <code>ResourceFactory.CreateShader</code> turns that bytecode into a <code>Shader</code>.</p>
+<h2 id="compiling-from-source">Compiling from source</h2>
+<pre><code class="lang-csharp">string source = File.ReadAllText(&quot;Shaders/HLSL/VertexShader.fx&quot;);
+
+CompilationResult result = this.graphicsContext.ShaderCompile(source, &quot;VS&quot;, ShaderStages.Vertex);
+if (result.HasErrors)
+{
+    throw new InvalidOperationException($&quot;Line {result.ErrorLine}: {result.Message}&quot;);
+}
+
+var shaderDescription = new ShaderDescription(ShaderStages.Vertex, &quot;VS&quot;, result.ByteCode);
+var vertexShader = this.graphicsContext.Factory.CreateShader(ref shaderDescription);
+</code></pre>
+<h3 id="compilationresult">CompilationResult</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ByteCode</strong></td>
+<td><code>byte[]</code></td>
+<td>The compiled bytecode. Pass it to <code>ShaderDescription</code>.</td>
+</tr>
+<tr>
+<td><strong>HasErrors</strong></td>
+<td><code>bool</code></td>
+<td><code>true</code> when compilation failed. Check it before using <code>ByteCode</code>.</td>
+</tr>
+<tr>
+<td><strong>ErrorLine</strong></td>
+<td><code>uint</code></td>
+<td>The line the compiler stopped on, when <code>HasErrors</code> is <code>true</code>.</td>
+</tr>
+<tr>
+<td><strong>Message</strong></td>
+<td><code>string</code></td>
+<td>The compiler's message, when <code>HasErrors</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="WARNING">
+<h5>Warning</h5>
+<p><code>ShaderCompile</code> reports failure through <code>HasErrors</code> rather than by throwing. A shader that failed to compile has a null or empty <code>ByteCode</code>, and <code>CreateShader</code> will then fail somewhere less obvious. Check the result at the point of compilation.</p>
+</div>
+<h3 id="compilerparameters">CompilerParameters</h3>
+<p>The three-argument overload of <code>ShaderCompile</code> uses <code>CompilerParameters.Default</code>. Pass your own to change the target profile or ask for debug information:</p>
+<pre><code class="lang-csharp">var parameters = new CompilerParameters()
+{
+    Profile = GraphicsProfile.Level_11_0,
+    CompilationMode = CompilationMode.Debug,
+};
+
+var result = this.graphicsContext.ShaderCompile(source, &quot;VS&quot;, ShaderStages.Vertex, parameters);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Profile</strong></td>
+<td><code>GraphicsProfile</code></td>
+<td>The feature level to compile against. <code>Level_10_0</code> by default.</td>
+</tr>
+<tr>
+<td><strong>CompilationMode</strong></td>
+<td><code>CompilationMode</code></td>
+<td><code>None</code> by default. <code>Debug</code> keeps debugging information, <code>Release</code> optimises.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="graphicsprofile">GraphicsProfile</h3>
+<p>The profile you compile against has to be one the target device actually supports. Ray tracing needs <code>Level_12_0</code> or above, and mesh shaders need <code>Level_12_5</code>.</p>
+<table>
+<thead>
+<tr>
+<th>GraphicsProfile</th>
+<th>Target</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Level_9_1</strong>, <strong>Level_9_2</strong>, <strong>Level_9_3</strong></td>
+<td>DirectX 9, HLSL 3.0, OpenGL ES 2.0</td>
+</tr>
+<tr>
+<td><strong>Level_10_0</strong></td>
+<td>DirectX 10, HLSL 4.0, OpenGL ES 3.0. <strong>Default value.</strong></td>
+</tr>
+<tr>
+<td><strong>Level_10_1</strong></td>
+<td>DirectX 10.1, HLSL 4.1, OpenGL ES 3.0</td>
+</tr>
+<tr>
+<td><strong>Level_11_0</strong></td>
+<td>DirectX 11, HLSL 5.0, OpenGL ES 3.1, OpenGL 4.0</td>
+</tr>
+<tr>
+<td><strong>Level_11_1</strong></td>
+<td>DirectX 11, HLSL 5.0, OpenGL ES 3.1, OpenGL 4.1</td>
+</tr>
+<tr>
+<td><strong>Level_12_0</strong></td>
+<td>Shader Model 6.0. Wave intrinsics, basic ray tracing.</td>
+</tr>
+<tr>
+<td><strong>Level_12_1</strong></td>
+<td>Shader Model 6.1. Ray tracing functions and structures.</td>
+</tr>
+<tr>
+<td><strong>Level_12_2</strong></td>
+<td>Shader Model 6.2. 16-bit scalar types.</td>
+</tr>
+<tr>
+<td><strong>Level_12_3</strong></td>
+<td>Shader Model 6.3. Ray tracing enhancements.</td>
+</tr>
+<tr>
+<td><strong>Level_12_4</strong></td>
+<td>Shader Model 6.4. Wave matrix intrinsics.</td>
+</tr>
+<tr>
+<td><strong>Level_12_5</strong></td>
+<td>Shader Model 6.5. Mesh and amplification shaders.</td>
+</tr>
+<tr>
+<td><strong>Level_12_6</strong></td>
+<td>Shader Model 6.6. 64-bit atomics, packed intrinsics.</td>
+</tr>
+<tr>
+<td><strong>Level_12_7</strong></td>
+<td>Shader Model 6.7. QuadAny and QuadAll, writable MSAA.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="creating-the-shader">Creating the shader</h2>
+<h3 id="shaderdescription">ShaderDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stage</strong></td>
+<td><code>ShaderStages</code></td>
+<td>The single stage this program is for. See the <a href="resourcelayout.html#shaderstages">ShaderStages table</a>.</td>
+</tr>
+<tr>
+<td><strong>EntryPoint</strong></td>
+<td><code>string</code></td>
+<td>The name of the function to run, such as <code>VS</code> or <code>PS</code>. It has to match the source.</td>
+</tr>
+<tr>
+<td><strong>ShaderBytes</strong></td>
+<td><code>byte[]</code></td>
+<td>The bytecode, normally <code>CompilationResult.ByteCode</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>All three fields are read only, so a description is fixed once constructed.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>Stage</code> takes a single value here, not a combination. One <code>Shader</code> covers one stage, and a pipeline lists them separately through <code>GraphicsShaderStateDescription</code>.</p>
+</div>
+<h2 id="one-shader-six-languages">One shader, six languages</h2>
+<p>There is no single shader language across backends. Each one wants its own source, and two of them want bytecode that was produced ahead of time rather than compiled at runtime:</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Language</th>
+<th>Extension</th>
+<th>How it is loaded</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DirectX 11</strong>, <strong>DirectX 12</strong></td>
+<td>HLSL</td>
+<td><code>.fx</code></td>
+<td>Compiled at runtime by <code>ShaderCompile</code></td>
+</tr>
+<tr>
+<td><strong>OpenGL</strong></td>
+<td>GLSL</td>
+<td><code>.glsl</code></td>
+<td>Compiled at runtime by <code>ShaderCompile</code></td>
+</tr>
+<tr>
+<td><strong>OpenGL ES</strong>, <strong>WebGL</strong></td>
+<td>GLSL ES</td>
+<td><code>.essl</code></td>
+<td>Compiled at runtime by <code>ShaderCompile</code></td>
+</tr>
+<tr>
+<td><strong>Metal</strong></td>
+<td>MSL</td>
+<td><code>.msl</code></td>
+<td>Compiled at runtime by <code>ShaderCompile</code></td>
+</tr>
+<tr>
+<td><strong>Vulkan</strong></td>
+<td>SPIR-V</td>
+<td><code>.spirv</code></td>
+<td>Read as bytes, already compiled</td>
+</tr>
+<tr>
+<td><strong>WebGPU</strong></td>
+<td>WGSL</td>
+<td><code>.wgsl</code></td>
+<td>Read as bytes, no compilation step</td>
+</tr>
+</tbody>
+</table>
+<p>The usual arrangement is to write HLSL, cross-compile it to the other five as a build step, and pick the right file at load time from <code>graphicsContext.BackendType</code>:</p>
+<pre><code class="lang-csharp">GraphicsBackend backend = this.graphicsContext.BackendType;
+
+switch (backend)
+{
+    case GraphicsBackend.DirectX11:
+    case GraphicsBackend.DirectX12:
+        source = await this.assetsDirectory.ReadAsStringAsync($&quot;Shaders/HLSL/{fileName}.fx&quot;);
+        bytecode = this.graphicsContext.ShaderCompile(source, entryPoint, stage, parameters).ByteCode;
+        break;
+
+    case GraphicsBackend.Vulkan:
+        using (var stream = this.assetsDirectory.Open($&quot;Shaders/VK/{fileName}.spirv&quot;))
+        using (var memstream = new MemoryStream())
+        {
+            stream.CopyTo(memstream);
+            bytecode = memstream.ToArray();
+        }
+
+        break;
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The <a href="https://github.com/evergineteam/LowLevelAPIDemo">Low-Level API samples</a> keep one folder per language under <code>Shaders/</code>, and ship a translation script that regenerates the other five from the HLSL. <code>TestHelpers.ReadAndCompileShader</code> in those samples is the complete version of the switch above.</p>
+</div>
+<h2 id="where-the-shader-meets-its-resources">Where the shader meets its resources</h2>
+<p>Nothing in a <code>Shader</code> says which registers it reads. That is declared separately, in a <a href="resourcelayout.html">ResourceLayout</a>, and the pipeline checks that the two agree. Two rules follow from that split:</p>
+<ul>
+<li>The slot numbers in the layout have to match the register numbers in the source. Nothing warns you when they drift apart.</li>
+<li>The index passed to <code>SetResourceSet</code> becomes the register space, so a shader that uses <code>space2</code> needs its set bound at index 2.</li>
+</ul>
+<h2 id="cleaning-up">Cleaning up</h2>
+<p>A pipeline keeps its <code>GraphicsPipelineDescription</code>, and that description holds references to the shaders it was built from. Keep a shader alive for as long as any pipeline that uses it, and dispose it after those pipelines:</p>
+<pre><code class="lang-csharp">pipelineState.Dispose();
+
+vertexShader.Dispose();
+pixelShader.Dispose();
+</code></pre>
 
 </article>
           </div>

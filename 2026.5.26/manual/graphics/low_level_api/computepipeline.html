@@ -83,7 +83,317 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="computepipeline">ComputePipeline</h1>
 
-<p>Coming soon.</p>
+<p>A <code>ComputePipelineState</code> runs a compute shader. It is the same idea as a <a href="graphicspipeline.html">GraphicsPipeline</a> with most of it removed: no vertex format, no raster or blend state, no output attachments. What remains is a single shader, the resource layouts it reads, and the size of a thread group.</p>
+<p>Compute work does not go through a render pass. You record it directly on the command buffer, between <code>Begin()</code> and <code>End()</code>.</p>
+<h2 id="creation">Creation</h2>
+<pre><code class="lang-csharp">var computePipelineDescription = new ComputePipelineDescription()
+{
+    ResourceLayouts = new[] { computeResourceLayout },
+    shaderDescription = new ComputeShaderStateDescription() { ComputeShader = computeShader },
+    ThreadGroupSizeX = GroupSizeX,
+    ThreadGroupSizeY = GroupSizeY,
+    ThreadGroupSizeZ = 1,
+};
+
+var computePipelineState = this.graphicsContext.Factory.CreateComputePipeline(ref computePipelineDescription);
+</code></pre>
+<h3 id="computepipelinedescription">ComputePipelineDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ResourceLayouts</strong></td>
+<td><code>ResourceLayout[]</code></td>
+<td>The layouts the compute shader reads, in the order their sets will be bound.</td>
+</tr>
+<tr>
+<td><strong>shaderDescription</strong></td>
+<td><code>ComputeShaderStateDescription</code></td>
+<td>Holds the single <code>ComputeShader</code>.</td>
+</tr>
+<tr>
+<td><strong>ThreadGroupSizeX</strong></td>
+<td><code>uint</code></td>
+<td>Threads per group in X. <code>1</code> by default.</td>
+</tr>
+<tr>
+<td><strong>ThreadGroupSizeY</strong></td>
+<td><code>uint</code></td>
+<td>Threads per group in Y. <code>1</code> by default.</td>
+</tr>
+<tr>
+<td><strong>ThreadGroupSizeZ</strong></td>
+<td><code>uint</code></td>
+<td>Threads per group in Z. <code>1</code> by default.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The three <code>ThreadGroupSize</code> values have to match the <code>[numthreads(x, y, z)]</code> attribute in the shader source. Nothing checks the two against each other, and a mismatch produces wrong results rather than an error.</p>
+</div>
+<h2 id="dispatching">Dispatching</h2>
+<p>A compute shader does not run once. It runs once per thread, and the threads are arranged in two levels:</p>
+<ul>
+<li>A <strong>thread group</strong> is a fixed block of threads that run together and can share memory. Its size is decided in the shader source and cannot change at run time.</li>
+<li>A <strong>dispatch</strong> launches a grid of those groups. How many groups it launches is what you decide at the call site.</li>
+</ul>
+<p>The number of threads along an axis is therefore the group count multiplied by the group size, and a shader reads its own position in that grid from the dispatch thread ID.</p>
+<h3 id="the-group-size-is-written-in-three-places">The group size is written in three places</h3>
+<p>The same three numbers appear in the shader, in the pipeline description and, if you use the helpers, at the call site. Nothing compares them:</p>
+<table>
+<thead>
+<tr>
+<th>Where</th>
+<th>How it looks with a group of 8 by 8</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The shader source</td>
+<td><code>[numthreads(8, 8, 1)]</code></td>
+</tr>
+<tr>
+<td><code>ComputePipelineDescription</code></td>
+<td><code>ThreadGroupSizeX = 8</code>, <code>ThreadGroupSizeY = 8</code>, <code>ThreadGroupSizeZ = 1</code></td>
+</tr>
+<tr>
+<td><code>Dispatch2D</code></td>
+<td><code>commandBuffer.Dispatch2D(width, height, 8, 8)</code></td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>A mismatch between the three is not an error. The shader keeps its own <code>numthreads</code> and the dispatch keeps its own arithmetic, so the result is a grid that covers the wrong amount of work: too small and part of the problem is skipped, too large and threads run off the end. Declare the group size once as a constant and use it in all three.</p>
+</div>
+<h3 id="dispatch-takes-group-counts">Dispatch takes group counts</h3>
+<p><code>Dispatch</code> is the raw form. It takes the number of groups, not the number of threads:</p>
+<pre><code class="lang-csharp">commandBuffer.SetComputePipelineState(this.computePipelineState);
+commandBuffer.SetResourceSet(this.computeResourceSet);
+commandBuffer.Dispatch(groupCountX, groupCountY, groupCountZ);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>groupCountX</strong></td>
+<td><code>uint</code></td>
+<td>Groups launched along X.</td>
+</tr>
+<tr>
+<td><strong>groupCountY</strong></td>
+<td><code>uint</code></td>
+<td>Groups launched along Y. Pass <code>1</code> for a one dimensional problem.</td>
+</tr>
+<tr>
+<td><strong>groupCountZ</strong></td>
+<td><code>uint</code></td>
+<td>Groups launched along Z. Pass <code>1</code> unless the problem is a volume.</td>
+</tr>
+</tbody>
+</table>
+<p>Every count is at least <code>1</code>. Passing <code>0</code> on any axis launches nothing at all, silently, which is worth remembering when a count is computed from a collection that happens to be empty.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Keep each count at or below 65535. Devices differ in what they allow above that, so staying under it is what keeps the same dispatch working everywhere.</p>
+</div>
+<h3 id="the-helpers-take-problem-sizes">The helpers take problem sizes</h3>
+<p>You usually know how big the problem is rather than how many groups that needs. The three helpers do the division:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Parameters</th>
+<th>Default group size</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Dispatch1D</code></td>
+<td><code>threadCountX</code>, <code>groupSizeX</code></td>
+<td>64</td>
+</tr>
+<tr>
+<td><code>Dispatch2D</code></td>
+<td><code>threadCountX</code>, <code>threadCountY</code>, <code>groupSizeX</code>, <code>groupSizeY</code></td>
+<td>8 by 8</td>
+</tr>
+<tr>
+<td><code>Dispatch3D</code></td>
+<td><code>threadCountX</code>, <code>threadCountY</code>, <code>threadCountZ</code>, <code>groupSizeX</code>, <code>groupSizeY</code>, <code>groupSizeZ</code></td>
+<td>none, all three are required</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>threadCount</strong></td>
+<td>The size of the problem on that axis: pixels across, elements in the array, voxels deep.</td>
+</tr>
+<tr>
+<td><strong>groupSize</strong></td>
+<td>The matching value from <code>[numthreads]</code> on that axis.</td>
+</tr>
+</tbody>
+</table>
+<p>Each one reduces to <code>Dispatch</code> through a division that rounds up, so the last partial group still runs:</p>
+<pre><code>groupCount = (threadCount + groupSize - 1) / groupSize
+</code></pre>
+<pre><code class="lang-csharp">// Cover a width by height image with groups of 8 by 8...
+commandBuffer.Dispatch2D(this.width, this.height, GroupSizeX, GroupSizeY);
+</code></pre>
+<p><code>Dispatch1D</code> and <code>Dispatch2D</code> default to 64 and to 8 by 8. Those defaults are only correct if the shader says the same thing, so pass the value explicitly unless you are certain it matches.</p>
+<h3 id="the-grid-usually-covers-more-than-the-problem">The grid usually covers more than the problem</h3>
+<p>Rounding up means the grid is at least as large as the problem and often larger.</p>
+<p><img src="images/dispatch_grid.png" alt="How a problem size, a group size and a group count relate, and the threads that fall outside"></p>
+<p>A 1920 by 1080 image with groups of 16 by 16 needs 120 groups across and 68 down, because 1080 divided by 16 is 67.5. That is 1920 by 1088 threads, so 15,360 of them fall past the bottom edge of the image.</p>
+<p>Those threads still run. Without a guard they read and write outside the data:</p>
+<pre><code class="lang-hlsl">[numthreads(16, 16, 1)]
+void CS(uint3 threadID : SV_DispatchThreadID)
+{
+    if (threadID.x &gt;= data.width || threadID.y &gt;= data.height)
+    {
+        return;
+    }
+
+    // ...the real work...
+}
+</code></pre>
+<p>The size the shader compares against has to reach it somehow, which is why compute shaders so often take a small constant buffer holding nothing but the dimensions.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Group sizes work out best as multiples of 32 or 64, since that is the granularity hardware schedules threads in. A group of 8 by 8 is 64 threads, and a group of 16 by 16 is 256. A group of 10 by 10 is 100, which wastes part of every scheduling unit.</p>
+</div>
+<h3 id="letting-the-gpu-decide-how-much-to-run">Letting the GPU decide how much to run</h3>
+<p><code>DispatchIndirect</code> reads the three counts out of a buffer instead of taking them as arguments, so work produced by one pass can size the next one without the numbers travelling back to the CPU:</p>
+<pre><code class="lang-csharp">commandBuffer.DispatchIndirect(this.argBuffer, 0);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>argBuffer</strong></td>
+<td><code>Buffer</code></td>
+<td>Holds the group counts. Create it with <code>BufferFlags.IndirectBuffer</code>.</td>
+</tr>
+<tr>
+<td><strong>offset</strong></td>
+<td><code>uint</code></td>
+<td>Byte offset of the arguments inside that buffer, so one buffer can hold several sets.</td>
+</tr>
+</tbody>
+</table>
+<p>The layout the buffer has to contain is <code>IndirectDispatchArgs</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ThreadGroupCountX</strong></td>
+<td><code>uint</code></td>
+<td>Groups along X.</td>
+</tr>
+<tr>
+<td><strong>ThreadGroupCountY</strong></td>
+<td><code>uint</code></td>
+<td>Groups along Y.</td>
+</tr>
+<tr>
+<td><strong>ThreadGroupCountZ</strong></td>
+<td><code>uint</code></td>
+<td>Groups along Z.</td>
+</tr>
+</tbody>
+</table>
+<p>Whatever writes those counts, a compute shader or the CPU, is writing group counts and not thread counts. There is no helper that divides for you here, so the shader that fills the buffer does the same rounding up itself.</p>
+<h2 id="compute-writes-graphics-reads">Compute writes, graphics reads</h2>
+<p>The pattern that breaks is writing a texture from compute and then sampling it in a pixel shader without declaring the change. Each side needs a barrier: one to put the texture into <code>UnorderedAccess</code> before the dispatch, one to put it back into <code>PixelShaderResource</code> before the draw.</p>
+<pre><code class="lang-csharp">// The compute pass writes the texture...
+var computeCommandBuffer = this.computeCommandQueue.CommandBuffer();
+computeCommandBuffer.Begin();
+
+computeCommandBuffer.Barrier(new Texture.Barrier(this.texture, Texture.StateFlags.UnorderedAccess));
+
+computeCommandBuffer.UpdateBufferData(this.constantBuffer, ref this.computeData);
+computeCommandBuffer.SetComputePipelineState(this.computePipelineState);
+computeCommandBuffer.SetResourceSet(this.computeResourceSet);
+computeCommandBuffer.Dispatch2D(this.width, this.height, GroupSizeX, GroupSizeY);
+
+computeCommandBuffer.End();
+computeCommandBuffer.Commit();
+this.computeCommandQueue.Submit();
+this.computeCommandQueue.WaitIdle();
+
+// ...and the graphics pass samples it.
+var graphicsCommandBuffer = this.graphicsCommandQueue.CommandBuffer();
+graphicsCommandBuffer.Begin();
+
+graphicsCommandBuffer.Barrier(new Texture.Barrier(this.texture, Texture.StateFlags.PixelShaderResource));
+
+RenderPassDescription renderPassDescription = new RenderPassDescription(this.frameBuffer, ClearValue.Default);
+graphicsCommandBuffer.BeginRenderPass(ref renderPassDescription);
+
+graphicsCommandBuffer.SetGraphicsPipelineState(this.graphicsPipelineState);
+graphicsCommandBuffer.SetResourceSet(this.resourceSet);
+graphicsCommandBuffer.SetViewports(this.viewports);
+graphicsCommandBuffer.SetScissorRectangles(this.scissors);
+graphicsCommandBuffer.Draw(3);
+
+graphicsCommandBuffer.EndRenderPass();
+graphicsCommandBuffer.End();
+graphicsCommandBuffer.Commit();
+
+this.graphicsCommandQueue.Submit();
+this.graphicsCommandQueue.WaitIdle();
+</code></pre>
+<p>The texture in that example was created with both <code>TextureFlags.UnorderedAccess</code> and <code>TextureFlags.ShaderResource</code>, and it appears in two resource layouts: as <code>TextureViewReadWrite</code> for the compute side, and as <code>TextureView</code> for the graphics side.</p>
+<p>See <a href="barriers.html">Barriers</a> for the full set of states, and for the separate case of two dispatches writing the same resource one after the other.</p>
+<h2 id="a-dedicated-compute-queue">A dedicated compute queue</h2>
+<p>Compute work can go on its own queue, which lets the driver overlap it with graphics work:</p>
+<pre><code class="lang-csharp">this.computeCommandQueue = this.graphicsContext.Factory.CreateCommandQueue(CommandQueueType.Compute);
+</code></pre>
+<p>A command buffer belongs to the queue that produced it, so take it from the same queue you will submit it on. See <a href="commandqueue.html">CommandQueue</a>.</p>
+<h2 id="support">Support</h2>
+<p>Compute is not available on every backend. Ask the device before creating a compute pipeline:</p>
+<pre><code class="lang-csharp">if (this.graphicsContext.Capabilities.IsComputeShaderSupported)
+{
+    // ...
+}
+</code></pre>
+<h2 id="cleaning-up">Cleaning up</h2>
+<pre><code class="lang-csharp">computePipelineState.Dispose();
+</code></pre>
 
 </article>
           </div>

@@ -83,7 +83,145 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="resourceset">ResourceSet</h1>
 
-<p>Coming soon</p>
+<p>A <code>ResourceSet</code> is the other half of a binding. Where a <a href="resourcelayout.html">ResourceLayout</a> declares which slots exist, a resource set puts real objects in them. You create one per combination of resources you want to bind, and swap between them at draw time.</p>
+<p>Sets are immutable once created. To point a slot at a different texture, create another set rather than editing this one.</p>
+<h2 id="creation">Creation</h2>
+<p>A set is built from the layout it fills and the resources that fill it:</p>
+<pre><code class="lang-csharp">var resourceSetDescription = new ResourceSetDescription(resourceLayout, constantBuffer, texture, sampler);
+var resourceSet = this.graphicsContext.Factory.CreateResourceSet(ref resourceSetDescription);
+</code></pre>
+<h3 id="resourcesetdescription">ResourceSetDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layout</strong></td>
+<td><code>ResourceLayout</code></td>
+<td>The layout this set fills. Required.</td>
+</tr>
+<tr>
+<td><strong>Resources</strong></td>
+<td><code>GraphicsResource[]</code></td>
+<td>One resource per element of the layout, in the same order.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-goes-in-each-slot">What goes in each slot</h2>
+<p>The type declared on the layout element decides which object the set expects:</p>
+<table>
+<thead>
+<tr>
+<th>Layout declares</th>
+<th>Pass an instance of</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ConstantBuffer</code></td>
+<td><a href="buffer.html">Buffer</a> created with <code>BufferFlags.ConstantBuffer</code></td>
+</tr>
+<tr>
+<td><code>StructuredBuffer</code></td>
+<td><a href="buffer.html">Buffer</a> created with <code>BufferFlags.ShaderResource</code> and <code>BufferFlags.BufferStructured</code></td>
+</tr>
+<tr>
+<td><code>StructuredBufferReadWrite</code></td>
+<td><a href="buffer.html">Buffer</a> created with <code>BufferFlags.UnorderedAccess</code></td>
+</tr>
+<tr>
+<td><code>TextureView</code></td>
+<td><a href="texture.html">Texture</a>, or a <code>TextureView</code> over one</td>
+</tr>
+<tr>
+<td><code>TextureViewReadWrite</code></td>
+<td><a href="texture.html">Texture</a> created with <code>TextureFlags.UnorderedAccess</code>, or a <code>TextureView</code> over one</td>
+</tr>
+<tr>
+<td><code>Sampler</code></td>
+<td><a href="sampler.html">SamplerState</a></td>
+</tr>
+<tr>
+<td><code>AccelerationStructure</code></td>
+<td><code>TopLevelAS</code>. See <a href="raytracingpipeline.html">RaytracingPipeline</a></td>
+</tr>
+</tbody>
+</table>
+<p>Passing a <code>Texture</code> where the layout says <code>TextureView</code> is the common case, and the backend uses that texture's <code>DefaultView</code>. Create an explicit view when you need a subrange of mip levels or array slices, or a different but compatible pixel format.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Resources are matched to layout elements by position. The set does not look at slot numbers to work out where each resource belongs, so the two arrays have to be written in the same order.</p>
+</div>
+<p>A slot may be left empty by passing <code>null</code>, which is useful when one layout serves several materials and some of them have no texture in a given slot. The shader still has to cope with reading nothing there.</p>
+<h2 id="binding">Binding</h2>
+<p>Bind a set to the index of the layout it was built from, counting positions in the pipeline's <code>ResourceLayouts</code> array:</p>
+<pre><code class="lang-csharp">commandBuffer.SetResourceSet(this.resourceSetPerDraw, 0);
+commandBuffer.SetResourceSet(this.resourceSetPerView, 1);
+commandBuffer.SetResourceSet(this.resourceSetPerMat, 2);
+</code></pre>
+<p>When a set is bound to index <code>0</code> and its layout has no other consumer, the index can be left out.</p>
+<h3 id="dynamic-offsets">Dynamic offsets</h3>
+<p>An element declared with <code>AllowDynamicOffset</code> takes a byte offset at bind time, so one large constant buffer can serve many draws:</p>
+<pre><code class="lang-csharp">for (int i = 0; i &lt; instanceCount; i++)
+{
+    commandBuffer.SetResourceSet(this.resourceSet, 0, new uint[] { this.stride * (uint)i });
+    commandBuffer.Draw(vertexCount);
+}
+</code></pre>
+<p>The offsets array carries one entry per element of the layout that allows a dynamic offset, in the order those elements appear. <code>ResourceLayoutDescription.DynamicConstantBufferCount</code> tells you how many the layout expects.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A dynamic offset has to be a multiple of the constant buffer alignment the device reports, and that figure is not the same everywhere. Round your stride up to a power of two large enough for every device you target rather than packing structures tightly.</p>
+</div>
+<h2 id="sets-carry-their-own-barriers">Sets carry their own barriers</h2>
+<p>Creating a set records, for every resource in it, the state that resource has to be in for the shader to read it. The render pipeline uses that precomputed list to transition resources without walking the set again each frame.</p>
+<table>
+<thead>
+<tr>
+<th>Layout declares</th>
+<th>State the resource is transitioned to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ConstantBuffer</code></td>
+<td><code>Buffer.StateFlags.UniformBuffer</code></td>
+</tr>
+<tr>
+<td><code>StructuredBuffer</code>, <code>AccelerationStructure</code></td>
+<td><code>Buffer.StateFlags.ShaderResource</code></td>
+</tr>
+<tr>
+<td><code>StructuredBufferReadWrite</code></td>
+<td><code>Buffer.StateFlags.UnorderedAccess</code></td>
+</tr>
+<tr>
+<td><code>TextureView</code></td>
+<td><code>Texture.StateFlags.PixelShaderResource</code>, <code>NonPixelShaderResource</code>, or both, depending on the element's <code>Stages</code></td>
+</tr>
+<tr>
+<td><code>TextureViewReadWrite</code></td>
+<td><code>Texture.StateFlags.UnorderedAccess</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>CollectBarriers</code> exposes that list if you are writing your own submission code:</p>
+<pre><code class="lang-csharp">var bufferBarriers = new List&lt;Buffer.Barrier&gt;();
+var textureBarriers = new List&lt;Texture.Barrier&gt;();
+resourceSet.CollectBarriers(bufferBarriers, textureBarriers);
+
+commandBuffer.Barrier(CollectionsMarshal.AsSpan(bufferBarriers), CollectionsMarshal.AsSpan(textureBarriers));
+</code></pre>
+<p>See <a href="barriers.html">Barriers</a> for when those transitions have to be recorded.</p>
+<h2 id="cleaning-up">Cleaning up</h2>
+<p>A set does not own the resources inside it. Disposing it leaves the buffers, textures and samplers alive for other sets to use.</p>
+<pre><code class="lang-csharp">resourceSet.Dispose();
+</code></pre>
 
 </article>
           </div>

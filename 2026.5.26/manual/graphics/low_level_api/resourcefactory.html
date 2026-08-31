@@ -83,31 +83,143 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="resourcefactory">ResourceFactory</h1>
 
-<p><strong>ResourceFactory</strong> is the factory class responsible for creating all low-level objects such as a native Texture, Sampler, GraphicsPipeline, among other things.</p>
-<p>Once you have the <a href="graphicscontext.html">GraphicsContext</a> instance, you can use it to access the ResourceFactory and start creating low-level objects. In this example, to create a VertexBuffer object:</p>
-<pre><code class="lang-csharp">var vertexBufferDescription = 
-    new BufferDescription((uint)Unsafe.SizeOf&lt;VertexPositionNormalTexture&gt;() * (uint)vertexData.Length, BufferFlags.VertexBuffer, ResourceUsage.Default);
+<p>The <code>ResourceFactory</code> creates every GPU object. You reach it through the <a href="graphicscontext.html">GraphicsContext</a>, and from then on it is the only allocator you use:</p>
+<pre><code class="lang-csharp">var vertexBufferDescription = new BufferDescription(
+    (uint)Unsafe.SizeOf&lt;VertexPositionNormalTexture&gt;() * (uint)vertexData.Length,
+    BufferFlags.VertexBuffer,
+    ResourceUsage.Default);
 
 var vertexBuffer = this.graphicsContext.Factory.CreateBuffer(vertexData, ref vertexBufferDescription);
 </code></pre>
-<p>All the common low-level objects (textures, buffers, etc.) are represented by abstract classes, and ResourceFactory allows you to create them in the same way for all the supported APIs. For example, a ResourceFactory of <code>DX11GraphicsContext</code> will always create DX11 graphics resources (<code>DX11Texture</code>, <code>DX11Buffer</code>, and so on).</p>
-<h2 id="objects">Objects</h2>
-<p>The complete list of objects that you can create using the ResourceFactory includes:</p>
-<ul>
-<li><a href="buffer.html">Buffer</a></li>
-<li><a href="texture.html">Texture</a></li>
-<li><a href="sampler.html">Sampler</a></li>
-<li><a href="framebuffer.html">Framebuffer</a></li>
-<li><a href="shader.html">Shader</a></li>
-<li><a href="queryheap.html">QueryHeap</a></li>
-<li><a href="resourcelayout.html">ResourceLayout</a></li>
-<li><a href="graphicspipeline.html">GraphicsPipeline</a></li>
-<li><a href="computepipeline.html">ComputePipeline</a></li>
-<li><a href="raytracingpipeline.html">RayTracingPipeline</a></li>
-<li><a href="resourceset.html">ResourceSet</a></li>
-<li><a href="commandqueue.html">CommandQueue</a></li>
-<li><a href="commandbuffer.html">CommandBuffer</a></li>
-</ul>
+<p>Every object it returns is an abstract type, and the concrete class matches the backend the context was created for. The factory of a <code>DX11GraphicsContext</code> always returns DirectX 11 resources (<code>DX11Texture</code>, <code>DX11Buffer</code>, and so on), and your code never names them. That is what lets one set of resource creation calls run on every backend.</p>
+<h2 id="what-it-creates">What it creates</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Returns</th>
+<th>Page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CreateBuffer</code></td>
+<td><code>Buffer</code></td>
+<td><a href="buffer.html">Buffer</a></td>
+</tr>
+<tr>
+<td><code>CreateTexture</code></td>
+<td><code>Texture</code></td>
+<td><a href="texture.html">Texture</a></td>
+</tr>
+<tr>
+<td><code>CreateTextureView</code></td>
+<td><code>TextureView</code></td>
+<td><a href="texture.html">Texture</a></td>
+</tr>
+<tr>
+<td><code>CreateSamplerState</code></td>
+<td><code>SamplerState</code></td>
+<td><a href="sampler.html">Sampler</a></td>
+</tr>
+<tr>
+<td><code>CreateShader</code></td>
+<td><code>Shader</code></td>
+<td><a href="shader.html">Shader</a></td>
+</tr>
+<tr>
+<td><code>CreateResourceLayout</code></td>
+<td><code>ResourceLayout</code></td>
+<td><a href="resourcelayout.html">ResourceLayout</a></td>
+</tr>
+<tr>
+<td><code>CreateResourceSet</code></td>
+<td><code>ResourceSet</code></td>
+<td><a href="resourceset.html">ResourceSet</a></td>
+</tr>
+<tr>
+<td><code>CreateFrameBuffer</code></td>
+<td><code>FrameBuffer</code></td>
+<td><a href="framebuffer.html">Framebuffer</a></td>
+</tr>
+<tr>
+<td><code>CreateGraphicsPipeline</code></td>
+<td><code>GraphicsPipelineState</code></td>
+<td><a href="graphicspipeline.html">GraphicsPipeline</a></td>
+</tr>
+<tr>
+<td><code>CreateComputePipeline</code></td>
+<td><code>ComputePipelineState</code></td>
+<td><a href="computepipeline.html">ComputePipeline</a></td>
+</tr>
+<tr>
+<td><code>CreateRaytracingPipeline</code></td>
+<td><code>RaytracingPipelineState</code></td>
+<td><a href="raytracingpipeline.html">RaytracingPipeline</a></td>
+</tr>
+<tr>
+<td><code>CreateMeshShaderPipeline</code></td>
+<td><code>MeshShaderPipelineState</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>CreateCommandQueue</code></td>
+<td><code>CommandQueue</code></td>
+<td><a href="commandqueue.html">CommandQueue</a></td>
+</tr>
+<tr>
+<td><code>CreateQueryHeap</code></td>
+<td><code>QueryHeap</code></td>
+<td><a href="queryheap.html">QueryHeap</a></td>
+</tr>
+<tr>
+<td><code>CreateFence</code></td>
+<td><code>Fence</code></td>
+<td><a href="fence.html">Fence</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="two-objects-the-factory-does-not-create">Two objects the factory does not create</h2>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Where it comes from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CommandBuffer</code></td>
+<td><code>commandQueue.CommandBuffer()</code>. See <a href="commandbuffer.html">CommandBuffer</a>.</td>
+</tr>
+<tr>
+<td><code>SwapChain</code></td>
+<td><code>graphicsContext.CreateSwapChain(description)</code>. See <a href="swapchain.html">Swapchain</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>A command buffer is drawn from its queue's pool rather than allocated, which is what makes it single use. A swapchain is tied to a surface rather than to the device alone, so it is created from the context.</p>
+<h2 id="descriptions-are-passed-by-reference">Descriptions are passed by reference</h2>
+<p>Most <code>Create</code> methods take their description with <code>ref</code>:</p>
+<pre><code class="lang-csharp">var textureDescription = new TextureDescription() { /* ... */ };
+var texture = this.graphicsContext.Factory.CreateTexture(ref textureDescription);
+</code></pre>
+<p>The description is a struct, and <code>ref</code> avoids copying it. It is not modified, so the same description can create several resources.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This means you cannot pass a description inline as <code>CreateTexture(ref new TextureDescription())</code>. Assign it to a local first.</p>
+</div>
+<h2 id="validation">Validation</h2>
+<p>Every <code>Create</code> method has a validation step that runs when the device was created with a <code>ValidationLayer</code>. It checks descriptions for combinations the backend would reject later, at a point where the error still names what you asked for:</p>
+<pre><code class="lang-csharp">graphicsContext.CreateDevice(new ValidationLayer());
+</code></pre>
+<p>Turn it on during development. See <a href="graphicscontext.html">GraphicsContext</a> for the ways it can report.</p>
+<h2 id="disposing">Disposing</h2>
+<p>Every object the factory returns implements <code>IDisposable</code>, and none of them is collected for you. Dispose in reverse order of dependency: pipelines before the shaders they were built from, resource sets before the layouts they fill, and everything before the context.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Wait for the GPU before disposing anything it may still be reading, with <code>commandQueue.WaitIdle()</code> or by waiting on the <a href="fence.html">Fence</a> of the submission that used it. Freeing a resource that is still in flight is a use after free on the GPU, and it usually shows up as a device removed error rather than as anything that names the resource.</p>
+</div>
 
 </article>
           </div>

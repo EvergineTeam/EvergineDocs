@@ -137,6 +137,30 @@
       </tr>
     </tbody>
   </table>
+  <a id="Evergine_Common_Graphics_WindowsSystem_Orientation_" data-uid="Evergine.Common.Graphics.WindowsSystem.Orientation*"></a>
+  <h4 id="Evergine_Common_Graphics_WindowsSystem_Orientation" data-uid="Evergine.Common.Graphics.WindowsSystem.Orientation">Orientation</h4>
+  <div class="markdown level1 summary"><p>Gets the current device display orientation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public DisplayOrientation Orientation { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.DisplayOrientation.html">DisplayOrientation</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
 </h3>
   <a id="Evergine_Common_Graphics_WindowsSystem_CreateLoopThread_" data-uid="Evergine.Common.Graphics.WindowsSystem.CreateLoopThread*"></a>
@@ -343,6 +367,31 @@
   <div class="codewrapper">
     <pre><code class="lang-csharp hljs">public void Dispose()</code></pre>
   </div>
+  <a id="Evergine_Common_Graphics_WindowsSystem_GetCurrentOrientation_" data-uid="Evergine.Common.Graphics.WindowsSystem.GetCurrentOrientation*"></a>
+  <h4 id="Evergine_Common_Graphics_WindowsSystem_GetCurrentOrientation" data-uid="Evergine.Common.Graphics.WindowsSystem.GetCurrentOrientation">GetCurrentOrientation()</h4>
+  <div class="markdown level1 summary"><p>Gets the current device display orientation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual DisplayOrientation GetCurrentOrientation()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Common.Input.DisplayOrientation.html">DisplayOrientation</a></td>
+        <td><p>The current device display orientation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
   <a id="Evergine_Common_Graphics_WindowsSystem_GetNativePointer_" data-uid="Evergine.Common.Graphics.WindowsSystem.GetNativePointer*"></a>
   <h4 id="Evergine_Common_Graphics_WindowsSystem_GetNativePointer_System_String_System_IntPtr__" data-uid="Evergine.Common.Graphics.WindowsSystem.GetNativePointer(System.String,System.IntPtr@)">GetNativePointer(string, out nint)</h4>
   <div class="markdown level1 summary"><p>Obtains a native pointer for this graphics context using the given key.</p>
@@ -422,6 +471,40 @@
         <td><span class="parametername">renderCallback</span></td>
         <td><p>Action to be executed every render loop.</p>
 </td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Common_Graphics_WindowsSystem_UpdateOrientation_" data-uid="Evergine.Common.Graphics.WindowsSystem.UpdateOrientation*"></a>
+  <h4 id="Evergine_Common_Graphics_WindowsSystem_UpdateOrientation" data-uid="Evergine.Common.Graphics.WindowsSystem.UpdateOrientation">UpdateOrientation()</h4>
+  <div class="markdown level1 summary"><p>Updates the device display orientation and raises the orientation changed event when needed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void UpdateOrientation()</code></pre>
+  </div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Common_Graphics_WindowsSystem_OrientationChanged" data-uid="Evergine.Common.Graphics.WindowsSystem.OrientationChanged">OrientationChanged</h4>
+  <div class="markdown level1 summary"><p>Occurs when the device display orientation changes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;OrientationChangedArgs&gt; OrientationChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Common.Input.OrientationChangedArgs.html">OrientationChangedArgs</a>&gt;</td>
+        <td></td>
       </tr>
     </tbody>
   </table>

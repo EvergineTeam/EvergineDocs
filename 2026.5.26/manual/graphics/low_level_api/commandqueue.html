@@ -83,7 +83,115 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="commandqueue">CommandQueue</h1>
 
-<p>Coming Soon</p>
+<p>A <code>CommandQueue</code> is a pool of <a href="commandbuffer.html">CommandBuffer</a> objects and the channel that sends their recorded work to the GPU. You ask it for a buffer, record into that buffer, and give it back. Nothing reaches the device until the queue submits.</p>
+<p>Most applications need one graphics queue. A second queue is worth adding when compute or transfer work can proceed independently of drawing, because the driver is then free to overlap them.</p>
+<p><img src="images/queue_types.png" alt="The three queue types, each with its own pool of command buffers, feeding one device"></p>
+<h2 id="creation">Creation</h2>
+<pre><code class="lang-csharp">this.commandQueue = this.graphicsContext.Factory.CreateCommandQueue();
+</code></pre>
+<p>The parameterless call creates a graphics queue. Pass a <code>CommandQueueType</code> for anything else:</p>
+<pre><code class="lang-csharp">this.computeCommandQueue = this.graphicsContext.Factory.CreateCommandQueue(CommandQueueType.Compute);
+</code></pre>
+<h3 id="commandqueuetype">CommandQueueType</h3>
+<table>
+<thead>
+<tr>
+<th>CommandQueueType</th>
+<th>Value</th>
+<th>Accepts</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Graphics</strong></td>
+<td>0</td>
+<td>Draws, dispatches and copies. The general purpose queue.</td>
+</tr>
+<tr>
+<td><strong>Compute</strong></td>
+<td>2</td>
+<td>Dispatches and copies, no draws.</td>
+</tr>
+<tr>
+<td><strong>Copy</strong></td>
+<td>3</td>
+<td>Transfers only.</td>
+</tr>
+</tbody>
+</table>
+<p>The three form a hierarchy: anything a copy queue accepts, a compute queue also accepts, and a graphics queue accepts everything. A narrower queue is not faster on its own. What it buys you is the chance for the driver to run its work alongside the graphics queue instead of behind it.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Ordering is guaranteed inside one queue and nowhere else. Two queues run independently, so work submitted to a compute queue may finish before or after graphics work submitted earlier. Use a <a href="fence.html">Fence</a> when one has to wait for the other.</p>
+</div>
+<h2 id="members">Members</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CommandBuffer()</strong></td>
+<td>Returns the next available command buffer from the pool, ready to <code>Begin()</code>.</td>
+</tr>
+<tr>
+<td><strong>Submit()</strong></td>
+<td>Sends every committed command buffer to the GPU and empties the pending list.</td>
+</tr>
+<tr>
+<td><strong>WaitIdle()</strong></td>
+<td>Blocks the calling thread until the GPU has finished everything submitted on this queue.</td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td>A debug name, shown in graphics debugging tools.</td>
+</tr>
+<tr>
+<td><strong>CommandBufferArraySize</strong></td>
+<td>The pool size, a constant of 64.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="getting-a-buffer-and-submitting-it">Getting a buffer and submitting it</h2>
+<pre><code class="lang-csharp">var commandBuffer = this.commandQueue.CommandBuffer();
+
+commandBuffer.Begin();
+// ...record...
+commandBuffer.End();
+
+commandBuffer.Commit();
+
+this.commandQueue.Submit();
+</code></pre>
+<p><code>Commit()</code> moves a finished buffer into the queue's pending list. <code>Submit()</code> sends everything pending at once, so recording several buffers and committing each of them costs one submission rather than several.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A command buffer belongs to the queue that produced it. Take a buffer from the queue you intend to submit it on, especially when you have more than one queue in play.</p>
+</div>
+<h2 id="naming-a-queue">Naming a queue</h2>
+<p>Set <code>Name</code> on every queue you create. It costs nothing and it is the difference between a readable capture and a wall of unnamed objects in RenderDoc, PIX or Xcode:</p>
+<pre><code class="lang-csharp">this.commandQueue.Name = &quot;Main graphics queue&quot;;
+this.computeCommandQueue.Name = &quot;Particle simulation&quot;;
+</code></pre>
+<h2 id="waiting-for-the-gpu">Waiting for the GPU</h2>
+<p><code>WaitIdle()</code> drains the whole queue and blocks until the GPU has caught up:</p>
+<pre><code class="lang-csharp">this.commandQueue.Submit();
+this.commandQueue.WaitIdle();
+</code></pre>
+<p>That is correct, and it is what every sample does because it keeps the sample short. It also means the CPU spends the rest of the frame doing nothing while the GPU works, and then the GPU idles while the CPU records the next frame. Neither is ever busy at the same time as the other.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p><a href="fence.html">Fence</a> replaces <code>WaitIdle()</code> with a wait on one specific submission, which is what lets the CPU run ahead of the GPU by a frame or two. It is the single biggest change you can make to a low-level render loop that is CPU bound.</p>
+</div>
+<p><code>WaitIdle()</code> remains the right call in two places: before destroying resources the GPU might still be reading, and at shutdown.</p>
+<h2 id="cleaning-up">Cleaning up</h2>
+<p>Wait for the queue to drain before disposing anything it might still be using:</p>
+<pre><code class="lang-csharp">this.commandQueue.WaitIdle();
+this.commandQueue.Dispose();
+</code></pre>
 
 </article>
           </div>

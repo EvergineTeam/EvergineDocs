@@ -83,10 +83,11 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="texture">Texture</h1>
 
-<p>A <strong>Texture</strong> object in a low-level API is a 2D object (1D and 3D textures also exist) used to provide details to objects or to map information.</p>
-<p>Please read the <a href="../textures/index.html">Graphics Texture</a> section for high-level asset information and usage in Evergine Studio.</p>
+<p>A <code>Texture</code> is an image in GPU memory. It can be 1D, 2D or 3D, an array of any of those, or a cubemap, and it holds anything addressable by coordinates: surface colour, normals, height, a lookup table, or the output of a compute pass.</p>
+<p>A texture is read through a <a href="sampler.html">Sampler</a>, bound through a <a href="resourceset.html">ResourceSet</a>, and drawn into through a <a href="framebuffer.html">Framebuffer</a>. Its <code>TextureFlags</code> decide which of those are allowed.</p>
+<p>Read the <a href="../textures/index.html">Graphics Texture</a> section for the high-level asset and how it is used in Evergine Studio.</p>
 <h2 id="creation">Creation</h2>
-<p>To create a texture, you first need to create the <code>TextureDescription</code> struct:</p>
+<p>To create a texture, first create the <code>TextureDescription</code> struct:</p>
 <pre><code class="lang-csharp">uint expectedSize = 256;
 ResourceUsage expectedUsage = ResourceUsage.Default;
 
@@ -105,7 +106,7 @@ var description = new TextureDescription()
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 </code></pre>
 <h3 id="texturedescription">TextureDescription</h3>
 <table>
@@ -398,6 +399,7 @@ var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
 </tr>
 </tbody>
 </table>
+<p><code>Dynamic</code> and <code>Staging</code> move data in opposite directions and are not interchangeable. A dynamic texture is written by the CPU and read by the GPU, which is how you upload. A staging texture is written by the GPU through a copy and read by the CPU, which is how you read back.</p>
 <h3 id="texturesamplecount">TextureSampleCount</h3>
 <p>Describes the number of samples to use in a texture.</p>
 <table>
@@ -486,7 +488,7 @@ var pinnedHandle = GCHandle.Alloc(data, GCHandleType.Pinned);
 IntPtr dataPointer = Marshal.UnsafeAddrOfPinnedArrayElement(data, 0);
 var databox = new DataBox[] { new DataBox(dataPointer, rowPitch, slicePitch) };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(databox, ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(databox, ref description);
 
 pinnedHandle.Free();
 </code></pre>
@@ -510,11 +512,11 @@ var description = new TextureDescription()
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
 float[] data = Enumerable.Range(0, (int)(expectedSize * expectedSize)).Select(i =&gt; (float)i).ToArray();
 
-this.GraphicsContext.UpdateTextureData(texture, data);
+this.graphicsContext.UpdateTextureData(texture, data);
 texture.Dispose();
 </code></pre>
 <h3 id="how-to-copy-from-another-device-texture">How to copy from another device texture</h3>
@@ -535,14 +537,14 @@ var description = new TextureDescription()
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
 float[] data = Enumerable.Range(0, 256 * 256).Select(i =&gt; (float)i).ToArray();
-this.GraphicsContext.UpdateTextureData(texture, data);
+this.graphicsContext.UpdateTextureData(texture, data);
 
-var textureCopy = this.GraphicsContext.Factory.CreateTexture(ref description);
+var textureCopy = this.graphicsContext.Factory.CreateTexture(ref description);
 
-var queue = this.GraphicsContext.Factory.CreateCommandQueue();
+var queue = this.graphicsContext.Factory.CreateCommandQueue();
 var command = queue.CommandBuffer();
 
 command.Begin();
@@ -556,7 +558,8 @@ texture.Dispose();
 textureCopy.Dispose();
 queue.Dispose();
 </code></pre>
-<h3 id="how-to-set-data-in-a-staging-texture">How to set data in a staging texture</h3>
+<h3 id="how-to-update-a-dynamic-texture">How to update a dynamic texture</h3>
+<p>Reach for a dynamic texture when the CPU writes its contents, whether once during loading or again every frame:</p>
 <pre><code class="lang-csharp">uint expectedSize = 256;
 
 var description = new TextureDescription()
@@ -566,23 +569,25 @@ var description = new TextureDescription()
     Height = expectedSize,
     Depth = 1,
     Layers = 1,
-    Usage = ResourceUsage.Staging,
-    CpuAccess = ResourceCpuAccess.Write | ResourceCpuAccess.Read,
-    Flags = TextureFlags.None,
+    Usage = ResourceUsage.Dynamic,
+    CpuAccess = ResourceCpuAccess.Write,
+    Flags = TextureFlags.ShaderResource,
     Format = PixelFormat.R8G8B8A8_UNorm,
     MipLevels = 1,
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
 float[] data = Enumerable.Range(0, (int)(expectedSize * expectedSize)).Select(i =&gt; (float)i).ToArray();
 
-this.GraphicsContext.UpdateTextureData(texture, data);
+// This is the call to repeat each frame...
+this.graphicsContext.UpdateTextureData(texture, data);
 
 texture.Dispose();
 </code></pre>
-<h3 id="how-to-map-and-read-a-staging-texture">How to map and read a staging texture</h3>
+<h3 id="how-to-read-a-texture-back-through-a-staging-texture">How to read a texture back through a staging texture</h3>
+<p>A texture the GPU draws into lives in memory the CPU cannot reach. Reading it takes two steps: copy it into a staging texture, then map that one.</p>
 <pre><code class="lang-csharp">uint expectedSize = 256;
 
 var description = new TextureDescription()
@@ -592,36 +597,63 @@ var description = new TextureDescription()
     Height = expectedSize,
     Depth = 1,
     Layers = 1,
-    Usage = ResourceUsage.Staging,
-    CpuAccess = ResourceCpuAccess.Write | ResourceCpuAccess.Read,
-    Flags = TextureFlags.None,
+    Usage = ResourceUsage.Default,
+    CpuAccess = ResourceCpuAccess.None,
+    Flags = TextureFlags.RenderTarget,
     Format = PixelFormat.R8G8B8A8_UNorm,
     MipLevels = 1,
     SampleCount = TextureSampleCount.None,
 };
 
-var texture = this.GraphicsContext.Factory.CreateTexture(ref description);
+// The texture the GPU rendered into...
+var texture = this.graphicsContext.Factory.CreateTexture(ref description);
 
-float[] data = Enumerable.Range(0, (int)(expectedSize * expectedSize)).Select(i =&gt; (float)i).ToArray();
+// ...and the staging texture that will receive a copy of it.
+var stagingDescription = description;
+stagingDescription.Usage = ResourceUsage.Staging;
+stagingDescription.CpuAccess = ResourceCpuAccess.Read;
+stagingDescription.Flags = TextureFlags.None;
 
-this.GraphicsContext.UpdateTextureData(texture, data);
+var stagingTexture = this.graphicsContext.Factory.CreateTexture(ref stagingDescription);
 
-var mappedResource = this.GraphicsContext.MapMemory(texture, MapMode.Read);
-for (int y = 0; y &lt; expectedSize; y++)
+var queue = this.graphicsContext.Factory.CreateCommandQueue();
+var command = queue.CommandBuffer();
+
+command.Begin();
+command.CopyTextureDataTo(texture, stagingTexture);
+command.End();
+command.Commit();
+queue.Submit();
+queue.WaitIdle();
+
+var mappedResource = this.graphicsContext.MapMemory(stagingTexture, MapMode.Read);
+var readBack = new float[expectedSize * expectedSize];
+
+// Rows are padded to RowPitch, which is not the same as width times pixel size.
+// Reading through a pointer needs an unsafe context...
+unsafe
 {
-    for (int x = 0; x &lt; expectedSize; x++)
+    for (int y = 0; y &lt; expectedSize; y++)
     {
-        int offset = ((y * ((int)mappedResource.RowPitch / sizeof(float))) + x) * sizeof(float);
-        float* pointer = (float*)(mappedResource.Data + offset);
-        int index = (y * (int)expectedSize) + x;
-        Assert.Equal(data[index], *pointer);
+        for (int x = 0; x &lt; expectedSize; x++)
+        {
+            int offset = ((y * ((int)mappedResource.RowPitch / sizeof(float))) + x) * sizeof(float);
+            float* pointer = (float*)(mappedResource.Data + offset);
+            readBack[(y * (int)expectedSize) + x] = *pointer;
+        }
     }
 }
 
-this.GraphicsContext.UnmapMemory(texture);
+this.graphicsContext.UnmapMemory(stagingTexture);
 
 texture.Dispose();
+stagingTexture.Dispose();
+queue.Dispose();
 </code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>WaitIdle()</code> blocks until the copy has finished, which is the simplest thing that is correct. A <a href="fence.html">Fence</a> lets you poll instead and collect the result on a later frame, without stopping the CPU.</p>
+</div>
 
 </article>
           </div>

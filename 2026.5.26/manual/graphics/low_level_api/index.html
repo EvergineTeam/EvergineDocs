@@ -84,9 +84,196 @@
 <h1 id="low-level-api">Low-level API</h1>
 
 <hr>
-<p><img src="images/low_level_api.png" alt="Graphics"></p>
+<p><img src="images/low_level_api.png" alt="Evergine low-level graphics API"></p>
 <p><strong>Evergine</strong> uses a custom low-level graphics API to send commands to the GPU.</p>
-<p>This is a cross-platform agnostic library that runs on top of DirectX, Vulkan, OpenGL, and Metal. In this section, we will take a look at all the classes and objects used by <strong>Evergine</strong> to share data with the GPU. It is a new graphics API inspired by the latest advances in DirectX 12, Vulkan, and Metal to achieve the maximum graphics performance when using any of these APIs. It also maintains backward compatibility to support APIs like DirectX 11, OpenGL, and WebGL.</p>
+<p>It is a cross-platform, backend-agnostic library that runs on top of DirectX, Vulkan, OpenGL, Metal and WebGPU. Its shape follows the explicit APIs (DirectX 12, Vulkan and Metal) so that nothing is hidden from you and nothing is guessed on your behalf, while staying compatible with the older implicit ones (DirectX 11, OpenGL and WebGL).</p>
+<p>Everything in this section sits below the component layer. You do not need any of it to build a scene with entities and components, and most applications never touch it. Reach for it when you are writing a custom render pipeline, a compute pass, or an application that has no scene at all.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <a href="https://github.com/evergineteam/LowLevelAPIDemo">Low-Level API samples repository</a> contains complete applications built directly on this API, without the component layer.</p>
+</div>
+<h2 id="the-object-graph">The object graph</h2>
+<p>Two objects create everything else. The <code>GraphicsContext</code> is the device, and its <code>Factory</code> is the only way to allocate GPU objects. Everything else is either a resource the factory made or a way to describe how those resources are used.</p>
+<p><img src="images/object_graph.png" alt="How the low-level graphics objects relate to each other"></p>
+<p>Reading the diagram from the top:</p>
+<ul>
+<li>The <strong>GraphicsContext</strong> owns the device and the <code>Factory</code>. You create one per application, choosing the concrete class for the backend you want.</li>
+<li>The <strong>resources</strong> hold data. A <code>Buffer</code> is a block of memory, a <code>Texture</code> is an image, and a <code>SamplerState</code> says how that image is read.</li>
+<li>The <strong>binding</strong> objects connect resources to shaders. A <code>ResourceLayout</code> declares which slots a shader reads. A <code>ResourceSet</code> fills those slots with actual resources.</li>
+<li>The <strong>render targets</strong> say where drawing lands. A <code>FrameBuffer</code> is a set of attachments, and a <code>SwapChain</code> is the one whose result reaches the screen.</li>
+<li>A <strong>pipeline</strong> freezes the whole configuration of a draw into one immutable object: input layout, shaders, render states, resource layouts and output formats.</li>
+<li>Work reaches the GPU through a <strong>CommandBuffer</strong>, which you get from a <strong>CommandQueue</strong> and give back to it.</li>
+</ul>
+<h2 id="the-shape-of-a-frame">The shape of a frame</h2>
+<p>Nothing you record executes when you call it. A command buffer accumulates commands, and the GPU sees them only after the queue submits the batch.</p>
+<p><img src="images/frame_lifecycle.png" alt="The order of calls in one frame, showing that barriers sit outside the render pass"></p>
+<p>That ordering has three rules worth memorising:</p>
+<ol>
+<li>A command buffer is <strong>single use</strong>. Ask the queue for a new one every frame instead of keeping one around.</li>
+<li><strong>Barriers go outside the render pass.</strong> Record them between <code>Begin()</code> and <code>BeginRenderPass()</code>, or after <code>EndRenderPass()</code>.</li>
+<li><code>Commit()</code> hands the buffer to its queue. <code>Submit()</code> is what actually starts GPU work.</li>
+</ol>
+<p>Here is the whole of a frame that draws one triangle, from <code>DrawTriangleTest</code>:</p>
+<pre><code class="lang-csharp">var commandBuffer = this.commandQueue.CommandBuffer();
+
+commandBuffer.Begin();
+
+RenderPassDescription renderPassDescription = new RenderPassDescription(this.frameBuffer, new ClearValue(ClearFlags.All, Color.CornflowerBlue));
+commandBuffer.BeginRenderPass(ref renderPassDescription);
+
+commandBuffer.SetViewports(this.viewports);
+commandBuffer.SetScissorRectangles(this.scissors);
+commandBuffer.SetGraphicsPipelineState(this.pipelineState);
+commandBuffer.SetVertexBuffers(this.vertexBuffers);
+
+commandBuffer.Draw((uint)this.vertexData.Length / 2);
+
+commandBuffer.EndRenderPass();
+commandBuffer.End();
+
+commandBuffer.Commit();
+
+this.commandQueue.Submit();
+this.commandQueue.WaitIdle();
+</code></pre>
+<p><img src="images/draw_triangle.png" alt="The triangle that code draws, on the cornflower blue it clears to"></p>
+<p><em>What those thirty lines produce: a cleared frame and one triangle whose colours are interpolated between its vertices.</em></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>That final <code>WaitIdle()</code> blocks the CPU until the GPU has drained the whole queue, which is the simplest thing that is correct and the slowest thing that works. <a href="fence.html">Fence</a> shows how to replace it once the rest of the frame is in place.</p>
+</div>
+<h2 id="which-object-do-i-need">Which object do I need</h2>
+<table>
+<thead>
+<tr>
+<th>To do this</th>
+<th>Create</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Upload vertices, indices or constants</td>
+<td><a href="buffer.html">Buffer</a></td>
+</tr>
+<tr>
+<td>Store or sample an image</td>
+<td><a href="texture.html">Texture</a> and <a href="sampler.html">SamplerState</a></td>
+</tr>
+<tr>
+<td>Compile and load shader code</td>
+<td><a href="shader.html">Shader</a></td>
+</tr>
+<tr>
+<td>Declare which slots a shader reads</td>
+<td><a href="resourcelayout.html">ResourceLayout</a></td>
+</tr>
+<tr>
+<td>Put actual resources in those slots</td>
+<td><a href="resourceset.html">ResourceSet</a></td>
+</tr>
+<tr>
+<td>Choose where the drawing lands</td>
+<td><a href="framebuffer.html">FrameBuffer</a></td>
+</tr>
+<tr>
+<td>Put the result on screen</td>
+<td><a href="swapchain.html">SwapChain</a></td>
+</tr>
+<tr>
+<td>Fix the configuration of a draw</td>
+<td><a href="graphicspipeline.html">GraphicsPipeline</a></td>
+</tr>
+<tr>
+<td>Run work without rasterising anything</td>
+<td><a href="computepipeline.html">ComputePipeline</a></td>
+</tr>
+<tr>
+<td>Trace rays against a scene</td>
+<td><a href="raytracingpipeline.html">RaytracingPipeline</a></td>
+</tr>
+<tr>
+<td>Get a command buffer and submit it</td>
+<td><a href="commandqueue.html">CommandQueue</a></td>
+</tr>
+<tr>
+<td>Record draws, dispatches and copies</td>
+<td><a href="commandbuffer.html">CommandBuffer</a></td>
+</tr>
+<tr>
+<td>Declare that a resource changed use</td>
+<td><a href="barriers.html">Barriers</a></td>
+</tr>
+<tr>
+<td>Know when the GPU finished a batch</td>
+<td><a href="fence.html">Fence</a></td>
+</tr>
+<tr>
+<td>Measure GPU time or count samples</td>
+<td><a href="queryheap.html">QueryHeap</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-each-backend-supports">What each backend supports</h2>
+<p>Query these at runtime through <code>graphicsContext.Capabilities</code> rather than testing <code>BackendType</code>, since ray tracing and mesh shaders depend on the physical device and not only on the API.</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Context class</th>
+<th>Compute</th>
+<th>Ray tracing</th>
+<th>Mesh shaders</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DirectX 11</strong></td>
+<td><code>DX11GraphicsContext</code></td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>DirectX 12</strong></td>
+<td><code>DX12GraphicsContext</code></td>
+<td>Yes</td>
+<td>Device dependent</td>
+<td>Device dependent</td>
+</tr>
+<tr>
+<td><strong>Vulkan</strong></td>
+<td><code>VKGraphicsContext</code></td>
+<td>Yes</td>
+<td>Device dependent</td>
+<td>Device dependent</td>
+</tr>
+<tr>
+<td><strong>Metal</strong></td>
+<td><code>MTLGraphicsContext</code></td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>OpenGL / OpenGL ES</strong></td>
+<td><code>GLGraphicsContext</code></td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><strong>WebGPU</strong></td>
+<td><code>WGPUGraphicsContext</code></td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Capabilities are the portable way to ask. Branching on <code>BackendType</code> instead bakes today's answer into your code, and the answer changes with the device as well as with the backend.</p>
+</div>
 <h2 id="in-this-section">In this section</h2>
 <ul>
 <li><a href="graphicscontext.html">GraphicsContext</a></li>
@@ -94,18 +281,20 @@
 <li><a href="buffer.html">Buffer</a></li>
 <li><a href="texture.html">Texture</a></li>
 <li><a href="sampler.html">Sampler</a></li>
-<li><a href="swapchain.html">Swapchain</a></li>
+<li><a href="shader.html">Shader</a></li>
+<li><a href="resourcelayout.html">ResourceLayout</a></li>
+<li><a href="resourceset.html">ResourceSet</a></li>
 <li><a href="framebuffer.html">Framebuffer</a></li>
+<li><a href="swapchain.html">Swapchain</a></li>
+<li><a href="graphicspipeline.html">GraphicsPipeline</a></li>
+<li><a href="computepipeline.html">ComputePipeline</a></li>
+<li><a href="raytracingpipeline.html">RaytracingPipeline</a></li>
+<li><a href="commandqueue.html">CommandQueue</a></li>
+<li><a href="commandbuffer.html">CommandBuffer</a></li>
+<li><a href="barriers.html">Barriers</a></li>
+<li><a href="fence.html">Fence</a></li>
 <li><a href="queryheap.html">QueryHeap</a></li>
 </ul>
-<!-- * [Shader](shader.md)
-* [ResourceLayout](resourcelayout.md)
-* [GraphicsPipeline](graphicspipeline.md)
-* [ComputePipeline](computepipeline.md)
-* [RayTracingPipeline](raytracingpipeline.md)
-* [ResourceSet](resourceset.md)
-* [CommandQueue](commandqueue.md)
-* [CommandBuffer](commandbuffer.md) -->
 
 </article>
           </div>

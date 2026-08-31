@@ -104,6 +104,12 @@
       <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_TimestampFrequency">GraphicsContext.TimestampFrequency</a>
     </div>
     <div>
+      <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_UploadSyncLock">GraphicsContext.UploadSyncLock</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_CopyCommandBufferLock">GraphicsContext.CopyCommandBufferLock</a>
+    </div>
+    <div>
       <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_DefaultSampler">GraphicsContext.DefaultSampler</a>
     </div>
     <div>
@@ -732,6 +738,17 @@
   <a id="Evergine_DirectX12_DX12GraphicsContext_SyncUpcopyQueue_" data-uid="Evergine.DirectX12.DX12GraphicsContext.SyncUpcopyQueue*"></a>
   <h4 id="Evergine_DirectX12_DX12GraphicsContext_SyncUpcopyQueue" data-uid="Evergine.DirectX12.DX12GraphicsContext.SyncUpcopyQueue">SyncUpcopyQueue()</h4>
   <div class="markdown level1 summary"><p>Syncs the current buffer data in the copyQueue. Internal function used in the <a class="xref" href="Evergine.Common.Graphics.UploadBuffer.html">UploadBuffer</a> strategy.</p>
+<p>Please, note that this function is designed to work together with the <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_UploadSyncLock">UploadSyncLock</a> synchronization lock, so it should be called inside a write lock of the <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_UploadSyncLock">UploadSyncLock</a> lock.
+While this is not a writer, entering write lock gives us what we wanted:
+it makes sure that no more copy operations are being recorded while we submit the copy command buffer and wait for it to finish,
+and also make sure that no more copy operations are being recorded while we destroy the pending resources.
+Upload operations recording are getting reader lock, so they will be able to run in parallel and this thread will stop if any of them are still running,
+but once we enter here, every copy operation that one to run in any other thread will wait until we release the lock.</p>
+<p>Thread A:      | |-- copy --|
+Thread B:      |      |----- copy -----|
+Thread C:      |                     |---- Waits to Render Thread ----||-- copy --|
+Render Thread: |             |= Waits for B =||= Submit and releases =|
+.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>

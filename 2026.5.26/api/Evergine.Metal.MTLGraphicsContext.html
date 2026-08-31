@@ -104,6 +104,12 @@
       <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_TimestampFrequency">GraphicsContext.TimestampFrequency</a>
     </div>
     <div>
+      <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_UploadSyncLock">GraphicsContext.UploadSyncLock</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_CopyCommandBufferLock">GraphicsContext.CopyCommandBufferLock</a>
+    </div>
+    <div>
       <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_DefaultSampler">GraphicsContext.DefaultSampler</a>
     </div>
     <div>
@@ -315,6 +321,30 @@
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_NativeDevicePointer">GraphicsContext.NativeDevicePointer</a></div>
+  <a id="Evergine_Metal_MTLGraphicsContext_captureManager_" data-uid="Evergine.Metal.MTLGraphicsContext.captureManager*"></a>
+  <h4 id="Evergine_Metal_MTLGraphicsContext_captureManager" data-uid="Evergine.Metal.MTLGraphicsContext.captureManager">captureManager</h4>
+  <div class="markdown level1 summary"><p>Gets the shared Metal capture manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MTLCaptureManager captureManager { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">MTLCaptureManager</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
   <h3 id="methods">Methods
 </h3>
   <a id="Evergine_Metal_MTLGraphicsContext_CreateDeviceInternal_" data-uid="Evergine.Metal.MTLGraphicsContext.CreateDeviceInternal*"></a>
@@ -614,9 +644,84 @@
   </table>
   <h5 class="overrides">Overrides</h5>
   <div><a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_ShaderCompile_System_String_System_String_Evergine_Common_Graphics_ShaderStages_Evergine_Common_Graphics_CompilerParameters_">GraphicsContext.ShaderCompile(string, string, ShaderStages, CompilerParameters)</a></div>
+  <a id="Evergine_Metal_MTLGraphicsContext_StartCapture_" data-uid="Evergine.Metal.MTLGraphicsContext.StartCapture*"></a>
+  <h4 id="Evergine_Metal_MTLGraphicsContext_StartCapture_System_String_System_String_System_Boolean_" data-uid="Evergine.Metal.MTLGraphicsContext.StartCapture(System.String,System.String,System.Boolean)">StartCapture(string, string, bool)</h4>
+  <div class="markdown level1 summary"><p>Starts a capture of the graphics commands for debugging purposes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string StartCapture(string outputDirectory = null, string captureName = null, bool appendTimestamp = true)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">outputDirectory</span></td>
+        <td><p>The directory where the capture file will be written. If null, /tmp is used.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">captureName</span></td>
+        <td><p>The capture file name without extension. If null, the application name is used.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">appendTimestamp</span></td>
+        <td><p>Indicates whether a timestamp should be appended to the capture file name.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>The full path where the capture document will be written.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Metal_MTLGraphicsContext_StopCapture_" data-uid="Evergine.Metal.MTLGraphicsContext.StopCapture*"></a>
+  <h4 id="Evergine_Metal_MTLGraphicsContext_StopCapture" data-uid="Evergine.Metal.MTLGraphicsContext.StopCapture">StopCapture()</h4>
+  <div class="markdown level1 summary"><p>Ends the capture of the graphics commands for debugging purposes.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StopCapture()</code></pre>
+  </div>
   <a id="Evergine_Metal_MTLGraphicsContext_SyncUpcopyQueue_" data-uid="Evergine.Metal.MTLGraphicsContext.SyncUpcopyQueue*"></a>
   <h4 id="Evergine_Metal_MTLGraphicsContext_SyncUpcopyQueue" data-uid="Evergine.Metal.MTLGraphicsContext.SyncUpcopyQueue">SyncUpcopyQueue()</h4>
   <div class="markdown level1 summary"><p>Syncs the current buffer data in the copyQueue. Internal function used in the <a class="xref" href="Evergine.Common.Graphics.UploadBuffer.html">UploadBuffer</a> strategy.</p>
+<p>Please, note that this function is designed to work together with the <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_UploadSyncLock">UploadSyncLock</a> synchronization lock, so it should be called inside a write lock of the <a class="xref" href="Evergine.Common.Graphics.GraphicsContext.html#Evergine_Common_Graphics_GraphicsContext_UploadSyncLock">UploadSyncLock</a> lock.
+While this is not a writer, entering write lock gives us what we wanted:
+it makes sure that no more copy operations are being recorded while we submit the copy command buffer and wait for it to finish,
+and also make sure that no more copy operations are being recorded while we destroy the pending resources.
+Upload operations recording are getting reader lock, so they will be able to run in parallel and this thread will stop if any of them are still running,
+but once we enter here, every copy operation that one to run in any other thread will wait until we release the lock.</p>
+<p>Thread A:      | |-- copy --|
+Thread B:      |      |----- copy -----|
+Thread C:      |                     |---- Waits to Render Thread ----||-- copy --|
+Render Thread: |             |= Waits for B =||= Submit and releases =|
+.</p>
 </div>
   <div class="markdown level1 conceptual"></div>
   <h5 class="declaration">Declaration</h5>

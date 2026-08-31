@@ -83,7 +83,271 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="graphicspipeline">GraphicsPipeline</h1>
 
-<p>Coming soon</p>
+<p>A <code>GraphicsPipelineState</code> holds everything the GPU needs to know about a draw, fixed at creation time: the shaders, the vertex format, the raster and blend and depth settings, the resource layouts, and the formats it will draw into. Binding one is the only per-draw cost, because none of it can change afterwards.</p>
+<p>That immutability is the point. The older implicit APIs let you flip individual states between draws, and the driver then recompiled behind your back at unpredictable moments. Here the compilation happens once, when you create the object.</p>
+<p><img src="images/pipeline_state.png" alt="The six parts of a graphics pipeline description and the state they produce"></p>
+<h2 id="creation">Creation</h2>
+<pre><code class="lang-csharp">var pipelineDescription = new GraphicsPipelineDescription()
+{
+    PrimitiveTopology = PrimitiveTopology.TriangleList,
+    InputLayouts = vertexLayouts,
+    ResourceLayouts = new[] { resourceLayout },
+    Shaders = new GraphicsShaderStateDescription()
+    {
+        VertexShader = vertexShader,
+        PixelShader = pixelShader,
+    },
+    RenderStates = new RenderStateDescription()
+    {
+        RasterizerState = RasterizerStates.CullBack,
+        BlendState = BlendStates.Opaque,
+        DepthStencilState = DepthStencilStates.ReadWrite,
+    },
+    Outputs = this.frameBuffer.OutputDescription,
+};
+
+var pipelineState = this.graphicsContext.Factory.CreateGraphicsPipeline(ref pipelineDescription);
+</code></pre>
+<h3 id="graphicspipelinedescription">GraphicsPipelineDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PrimitiveTopology</strong></td>
+<td><code>PrimitiveTopology</code></td>
+<td>How the vertex stream is assembled into primitives.</td>
+</tr>
+<tr>
+<td><strong>InputLayouts</strong></td>
+<td><code>InputLayouts</code></td>
+<td>The layout of each vertex buffer that will be bound.</td>
+</tr>
+<tr>
+<td><strong>ResourceLayouts</strong></td>
+<td><code>ResourceLayout[]</code></td>
+<td>The layouts the shaders read, in the order their sets will be bound.</td>
+</tr>
+<tr>
+<td><strong>Shaders</strong></td>
+<td><code>GraphicsShaderStateDescription</code></td>
+<td>One <code>Shader</code> per stage in use.</td>
+</tr>
+<tr>
+<td><strong>RenderStates</strong></td>
+<td><code>RenderStateDescription</code></td>
+<td>Rasterizer, depth and stencil, and blend configuration.</td>
+</tr>
+<tr>
+<td><strong>Outputs</strong></td>
+<td><code>OutputDescription</code></td>
+<td>The attachment formats this pipeline draws into. Take it from the <a href="framebuffer.html">FrameBuffer</a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>Outputs</code> has to describe the same formats and sample count as the framebuffer bound when the pipeline runs. Take it from <code>frameBuffer.OutputDescription</code> rather than building one by hand, and create a separate pipeline for each framebuffer whose format differs.</p>
+</div>
+<h3 id="graphicsshaderstatedescription">GraphicsShaderStateDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VertexShader</strong></td>
+<td><code>Shader</code></td>
+<td>The vertex stage.</td>
+</tr>
+<tr>
+<td><strong>HullShader</strong></td>
+<td><code>Shader</code></td>
+<td>The hull stage, for tessellation.</td>
+</tr>
+<tr>
+<td><strong>DomainShader</strong></td>
+<td><code>Shader</code></td>
+<td>The domain stage, for tessellation.</td>
+</tr>
+<tr>
+<td><strong>GeometryShader</strong></td>
+<td><code>Shader</code></td>
+<td>The geometry stage.</td>
+</tr>
+<tr>
+<td><strong>PixelShader</strong></td>
+<td><code>Shader</code></td>
+<td>The pixel stage.</td>
+</tr>
+<tr>
+<td><strong>ShaderInputLayout</strong></td>
+<td><code>InputLayouts</code></td>
+<td>Maps vertex semantics to shader locations, where a backend needs that mapping stated.</td>
+</tr>
+</tbody>
+</table>
+<p>Leave a stage <code>null</code> when you do not use it. See <a href="shader.html">Shader</a> for how each one is compiled.</p>
+<h3 id="primitivetopology">PrimitiveTopology</h3>
+<table>
+<thead>
+<tr>
+<th>PrimitiveTopology</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Undefined</strong></td>
+<td>No topology set.</td>
+</tr>
+<tr>
+<td><strong>PointList</strong></td>
+<td>Each vertex is a point.</td>
+</tr>
+<tr>
+<td><strong>LineList</strong></td>
+<td>Each pair of vertices is a separate line.</td>
+</tr>
+<tr>
+<td><strong>LineStrip</strong></td>
+<td>Each vertex continues the line from the previous one.</td>
+</tr>
+<tr>
+<td><strong>TriangleList</strong></td>
+<td>Each group of three vertices is a separate triangle.</td>
+</tr>
+<tr>
+<td><strong>TriangleStrip</strong></td>
+<td>Each vertex forms a triangle with the previous two.</td>
+</tr>
+<tr>
+<td><strong>LineListWithAdjacency</strong></td>
+<td>Line list with adjacent vertices, readable from a geometry shader.</td>
+</tr>
+<tr>
+<td><strong>LineStripWithAdjacency</strong></td>
+<td>Line strip with adjacent vertices.</td>
+</tr>
+<tr>
+<td><strong>TriangleListWithAdjacency</strong></td>
+<td>Triangle list with adjacent vertices.</td>
+</tr>
+<tr>
+<td><strong>TriangleStripWithAdjacency</strong></td>
+<td>Triangle strip with adjacent vertices.</td>
+</tr>
+<tr>
+<td><strong>Patch_List</strong></td>
+<td>Control point patches, for the tessellation stages.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="render-states">Render states</h2>
+<p><code>RenderStateDescription</code> groups the three fixed-function state blocks. <code>RenderStateDescription.Default</code> gives you a sensible starting point, and the preset classes cover the common combinations without building a description by hand.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RasterizerState</strong></td>
+<td><code>RasterizerStateDescription</code></td>
+<td>Fill mode, cull mode, depth bias, scissor.</td>
+</tr>
+<tr>
+<td><strong>DepthStencilState</strong></td>
+<td><code>DepthStencilStateDescription</code></td>
+<td>Depth test and write, stencil operations.</td>
+</tr>
+<tr>
+<td><strong>BlendState</strong></td>
+<td><code>BlendStateDescription</code></td>
+<td>Per render target blending and colour write mask.</td>
+</tr>
+<tr>
+<td><strong>StencilReference</strong></td>
+<td><code>int</code></td>
+<td>The reference value for the stencil test. <code>0</code> by default.</td>
+</tr>
+<tr>
+<td><strong>BlendFactor</strong></td>
+<td><code>Vector4?</code></td>
+<td>The constant used by the blend factor modes. <code>null</code> means <code>{ 1, 1, 1, 1 }</code>.</td>
+</tr>
+<tr>
+<td><strong>SampleMask</strong></td>
+<td><code>int?</code></td>
+<td>Sample coverage mask. <code>0xFFFFFF</code> by default.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="presets">Presets</h3>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Values</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RasterizerStates</strong></td>
+<td><code>CullFront</code>, <code>CullBack</code>, <code>None</code>, <code>WireframeCullFront</code>, <code>WireframeCullBack</code>, <code>WireframeCullNone</code></td>
+</tr>
+<tr>
+<td><strong>BlendStates</strong></td>
+<td><code>Opaque</code>, <code>AlphaBlend</code>, <code>Additive</code>, <code>Multiplicative</code>, <code>NonPremultiplied</code></td>
+</tr>
+<tr>
+<td><strong>DepthStencilStates</strong></td>
+<td><code>None</code>, <code>ReadWrite</code>, <code>Read</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>DepthStencilStates.Read</code> tests depth without writing it, which is what transparent geometry wants. <code>DepthStencilStates.None</code> skips the test altogether, for full screen passes.</p>
+<h2 id="describing-the-vertex-format">Describing the vertex format</h2>
+<p><code>InputLayouts</code> is built fluently. Each <code>LayoutDescription</code> corresponds to one vertex buffer, and each <code>ElementDescription</code> to one attribute inside it, in memory order:</p>
+<pre><code class="lang-csharp">var vertexLayouts = new InputLayouts()
+      .Add(new LayoutDescription()
+                  .Add(new ElementDescription(ElementFormat.Float4, ElementSemanticType.Position))
+                  .Add(new ElementDescription(ElementFormat.Float4, ElementSemanticType.Color)));
+</code></pre>
+<p>Offsets are computed from the order and the formats, so the elements have to be listed exactly as they are packed in the buffer. Add a second <code>LayoutDescription</code> when you bind a second vertex buffer, for instance to keep per-instance data separate from per-vertex data.</p>
+<h2 id="using-the-pipeline">Using the pipeline</h2>
+<p>Bind the pipeline inside the render pass, before the draw:</p>
+<pre><code class="lang-csharp">commandBuffer.BeginRenderPass(ref renderPassDescription);
+
+commandBuffer.SetViewports(this.viewports);
+commandBuffer.SetScissorRectangles(this.scissors);
+commandBuffer.SetGraphicsPipelineState(this.pipelineState);
+commandBuffer.SetResourceSet(this.resourceSet);
+commandBuffer.SetVertexBuffers(this.vertexBuffers);
+
+commandBuffer.Draw(vertexCount);
+
+commandBuffer.EndRenderPass();
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Create every pipeline you need during loading. Creating one mid-frame compiles shaders on the spot, and that shows up as a stall in exactly the frame you least want it.</p>
+</div>
+<h2 id="cleaning-up">Cleaning up</h2>
+<pre><code class="lang-csharp">pipelineState.Dispose();
+</code></pre>
 
 </article>
           </div>

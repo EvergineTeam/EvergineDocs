@@ -83,7 +83,237 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="resourcelayout">ResourceLayout</h1>
 
-<p>Coming Soon</p>
+<p>A <code>ResourceLayout</code> declares the shape of a binding: which slots a shader reads, what kind of resource sits in each one, and which stages can see them. It carries no data of its own. The data arrives later, in a <a href="resourceset.html">ResourceSet</a> built against this layout.</p>
+<p>The same layout is referenced twice: once by the <a href="graphicspipeline.html">GraphicsPipeline</a> or <a href="computepipeline.html">ComputePipeline</a> that will run the shader, and once by every resource set you bind at draw time. That shared reference is how the backend knows a binding is valid before any command is recorded.</p>
+<h2 id="creation">Creation</h2>
+<p>Build a <code>ResourceLayoutDescription</code> from one <code>LayoutElementDescription</code> per slot, then hand it to the factory:</p>
+<pre><code class="lang-csharp">var layoutDescription = new ResourceLayoutDescription(
+    new LayoutElementDescription(0, ResourceType.ConstantBuffer, ShaderStages.Vertex),
+    new LayoutElementDescription(0, ResourceType.TextureView, ShaderStages.Pixel),
+    new LayoutElementDescription(0, ResourceType.Sampler, ShaderStages.Pixel));
+
+var resourceLayout = this.graphicsContext.Factory.CreateResourceLayout(ref layoutDescription);
+</code></pre>
+<h3 id="resourcelayoutdescription">ResourceLayoutDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Elements</strong></td>
+<td><code>LayoutElementDescription[]</code></td>
+<td>One entry per slot the shader reads. Order matters, because a resource set fills these by position.</td>
+</tr>
+<tr>
+<td><strong>DynamicConstantBufferCount</strong></td>
+<td><code>int</code></td>
+<td>Set by the constructor, which counts the elements that have <code>AllowDynamicOffset</code>. You do not assign it yourself.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="layoutelementdescription">LayoutElementDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Slot</strong></td>
+<td><code>uint</code></td>
+<td>The register number inside its own namespace. A <code>TextureView</code> and a <code>Sampler</code> can both be slot 0.</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td><code>ResourceType</code></td>
+<td>What kind of resource fills this slot.</td>
+</tr>
+<tr>
+<td><strong>Stages</strong></td>
+<td><code>ShaderStages</code></td>
+<td>The stages that can read it. Combine flags to expose one resource to several stages.</td>
+</tr>
+<tr>
+<td><strong>AllowDynamicOffset</strong></td>
+<td><code>bool</code></td>
+<td>Lets you pass a byte offset when binding, instead of creating one buffer per draw. Constant buffers only. <code>false</code> by default.</td>
+</tr>
+<tr>
+<td><strong>Range</strong></td>
+<td><code>uint</code></td>
+<td>Overrides the size in bytes of this binding. <code>0</code> binds the whole buffer. Constant buffers only. Set through the constructor's <code>size</code> parameter.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resourcetype">ResourceType</h3>
+<table>
+<thead>
+<tr>
+<th>ResourceType</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ConstantBuffer</strong></td>
+<td>A <a href="buffer.html">Buffer</a> read as a uniform buffer.</td>
+</tr>
+<tr>
+<td><strong>StructuredBuffer</strong></td>
+<td>A <a href="buffer.html">Buffer</a> read as a read-only storage buffer.</td>
+</tr>
+<tr>
+<td><strong>StructuredBufferReadWrite</strong></td>
+<td>A <a href="buffer.html">Buffer</a> a shader can also write to.</td>
+</tr>
+<tr>
+<td><strong>TextureView</strong></td>
+<td>A read-only view of a <a href="texture.html">Texture</a>.</td>
+</tr>
+<tr>
+<td><strong>TextureViewReadWrite</strong></td>
+<td>A view of a <a href="texture.html">Texture</a> a shader can also write to.</td>
+</tr>
+<tr>
+<td><strong>Sampler</strong></td>
+<td>A <a href="sampler.html">SamplerState</a>.</td>
+</tr>
+<tr>
+<td><strong>AccelerationStructure</strong></td>
+<td>A ray tracing acceleration structure. See <a href="raytracingpipeline.html">RaytracingPipeline</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="shaderstages">ShaderStages</h3>
+<p><code>ShaderStages</code> is a flags enum, so one element can be visible to several stages at once, as in <code>ShaderStages.Vertex | ShaderStages.Pixel</code>.</p>
+<table>
+<thead>
+<tr>
+<th>ShaderStages</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Undefined</strong></td>
+<td>0</td>
+<td>No stage.</td>
+</tr>
+<tr>
+<td><strong>Vertex</strong></td>
+<td>1</td>
+<td>Vertex shader.</td>
+</tr>
+<tr>
+<td><strong>Hull</strong></td>
+<td>2</td>
+<td>Hull shader.</td>
+</tr>
+<tr>
+<td><strong>Domain</strong></td>
+<td>4</td>
+<td>Domain shader.</td>
+</tr>
+<tr>
+<td><strong>Geometry</strong></td>
+<td>8</td>
+<td>Geometry shader.</td>
+</tr>
+<tr>
+<td><strong>Pixel</strong></td>
+<td>16</td>
+<td>Pixel shader.</td>
+</tr>
+<tr>
+<td><strong>Compute</strong></td>
+<td>32</td>
+<td>Compute shader.</td>
+</tr>
+<tr>
+<td><strong>RayGeneration</strong></td>
+<td>64</td>
+<td>Ray generation shader.</td>
+</tr>
+<tr>
+<td><strong>Miss</strong></td>
+<td>128</td>
+<td>Ray miss shader.</td>
+</tr>
+<tr>
+<td><strong>ClosestHit</strong></td>
+<td>256</td>
+<td>Closest hit shader.</td>
+</tr>
+<tr>
+<td><strong>AnyHit</strong></td>
+<td>512</td>
+<td>Any hit shader.</td>
+</tr>
+<tr>
+<td><strong>Intersection</strong></td>
+<td>1024</td>
+<td>Intersection shader.</td>
+</tr>
+<tr>
+<td><strong>Mesh</strong></td>
+<td>2048</td>
+<td>Mesh shader, from Shader Model 6.5.</td>
+</tr>
+<tr>
+<td><strong>Amplification</strong></td>
+<td>4096</td>
+<td>Amplification shader, from Shader Model 6.5.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-a-slot-reaches-the-shader">How a slot reaches the shader</h2>
+<p>Two numbers decide where a resource lands. The <code>Slot</code> on the layout element is the register number, and the index you pass to <code>SetResourceSet</code> is the register space.</p>
+<p><img src="images/resource_binding.png" alt="How a resource set, a resource layout and the shader registers line up"></p>
+<p>Each resource type has its own register namespace, so slot numbers only ever collide within a type. In HLSL those namespaces are <code>b</code> for constant buffers, <code>t</code> for read-only reads, <code>u</code> for read-write access and <code>s</code> for samplers.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The elements in a layout and the resources in the set that fills it are matched <strong>by position</strong>, not by slot number. Reordering one array without the other silently binds the wrong resource.</p>
+</div>
+<h2 id="group-elements-by-how-often-they-change">Group elements by how often they change</h2>
+<p>A pipeline can take several layouts, and you bind each one to its own space. Splitting them by update frequency means the per-frame data is not rebound with every material:</p>
+<pre><code class="lang-csharp">// One layout per update frequency...
+var perDrawDescription = new ResourceLayoutDescription(
+    new LayoutElementDescription(0, ResourceType.ConstantBuffer, ShaderStages.Vertex, true, (uint)Unsafe.SizeOf&lt;Matrix4x4&gt;()));
+var perViewDescription = new ResourceLayoutDescription(
+    new LayoutElementDescription(1, ResourceType.ConstantBuffer, ShaderStages.Vertex));
+var perMaterialDescription = new ResourceLayoutDescription(
+    new LayoutElementDescription(2, ResourceType.ConstantBuffer, ShaderStages.Pixel),
+    new LayoutElementDescription(0, ResourceType.TextureView, ShaderStages.Pixel),
+    new LayoutElementDescription(0, ResourceType.Sampler, ShaderStages.Pixel));
+
+// ...and the pipeline lists them in the order they will be bound.
+var pipelineDescription = new GraphicsPipelineDescription()
+{
+    ResourceLayouts = new[] { perDraw, perView, perMaterial },
+    // ...
+};
+</code></pre>
+<p>At draw time each set goes to the index that matches its position in that array:</p>
+<pre><code class="lang-csharp">commandBuffer.SetResourceSet(this.resourceSetPerDraw, 0, new uint[] { this.stride * (uint)i });
+commandBuffer.SetResourceSet(this.resourceSetPerView, 1);
+commandBuffer.SetResourceSet(this.resourceSetPerMat, 2);
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The first element above was declared with <code>AllowDynamicOffset</code> and an explicit size, which is what lets the third argument of <code>SetResourceSet</code> walk one shared constant buffer instead of allocating one per draw.</p>
+</div>
+<h2 id="cleaning-up">Cleaning up</h2>
+<pre><code class="lang-csharp">resourceLayout.Dispose();
+</code></pre>
 
 </article>
           </div>

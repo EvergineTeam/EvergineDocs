@@ -83,11 +83,14 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="framebuffer">Framebuffer</h1>
 
-<p>Framebuffers represent a collection of memory attachments that are used by a render pass instance. Examples of these memory attachments include color textures and a depth texture.</p>
+<p>A <code>FrameBuffer</code> is the set of textures a render pass draws into: one or more colour attachments and, usually, a depth attachment. It says where the output goes, and its <code>OutputDescription</code> says what format that output is in.</p>
+<p>Every application already has one without creating it. <code>swapChain.FrameBuffer</code> is the framebuffer whose contents reach the screen. You create your own when drawing somewhere else: a shadow map, a G-buffer, an offscreen target you will sample later.</p>
+<h2 id="why-it-appears-in-two-places">Why it appears in two places</h2>
+<p><img src="images/render_pass.png" alt="A framebuffer feeding both the render pass and the pipeline's output description"></p>
+<p>A framebuffer is named by the render pass that draws into it, and its <code>OutputDescription</code> is named by the pipeline that draws. Both have to agree on formats, sample count and attachment count, which is why you take the pipeline's <code>Outputs</code> from the framebuffer rather than describing it separately.</p>
 <h2 id="creation">Creation</h2>
-<p>A framebuffer provides the attachments that a RenderPass needs while rendering.</p>
-<pre><code class="lang-csharp">// Create Render Target FrameBuffer
-var rTColorTargetDescription = new TextureDescription()
+<p>Create the textures first. A colour attachment needs <code>TextureFlags.RenderTarget</code>, plus <code>ShaderResource</code> if you intend to sample it afterwards. A depth attachment needs <code>TextureFlags.DepthStencil</code>:</p>
+<pre><code class="lang-csharp">var colorTargetDescription = new TextureDescription()
 {
     Format = PixelFormat.R8G8B8A8_UNorm,
     Width = rtSize,
@@ -101,31 +104,126 @@ var rTColorTargetDescription = new TextureDescription()
     Usage = ResourceUsage.Default,
     SampleCount = TextureSampleCount.None,
 };
-var rTColorTarget = this.graphicsContext.Factory.CreateTexture(ref rTColorTargetDescription);
+var colorTarget = this.graphicsContext.Factory.CreateTexture(ref colorTargetDescription);
 
-var rTDepthTargetDescription = new TextureDescription()
-{
-    Format = PixelFormat.D24_UNorm_S8_UInt,
-    Width = rtSize,
-    Height = rtSize,
-    Depth = 1,
-    Layers = 1,
-    Flags = TextureFlags.DepthStencil,
-    CpuAccess = ResourceCpuAccess.None,
-    MipLevels = 1,
-    Type = TextureType.Texture2D,
-    Usage = ResourceUsage.Default,
-    SampleCount = TextureSampleCount.None,
-};
+var depthTargetDescription = colorTargetDescription;
+depthTargetDescription.Format = PixelFormat.D24_UNorm_S8_UInt;
+depthTargetDescription.Flags = TextureFlags.DepthStencil;
+var depthTarget = this.graphicsContext.Factory.CreateTexture(ref depthTargetDescription);
 
-var rTDepthTarget = this.graphicsContext.Factory.CreateTexture(ref rTDepthTargetDescription);
-var depthAttachment = new FrameBufferAttachment(rTDepthTarget, 0, 1);
-var colorAttachments = new[] { new FrameBufferAttachment(rTColorTarget, 0, 1) };
-this.rTFrameBuffer = this.graphicsContext.Factory.CreateFrameBuffer(depthAttachment, colorAttachments);
+// Wrap each texture in an attachment, then build the framebuffer...
+var depthAttachment = new FrameBufferAttachment(depthTarget, 0, 1);
+var colorAttachments = new[] { new FrameBufferAttachment(colorTarget, 0, 1) };
+
+this.frameBuffer = this.graphicsContext.Factory.CreateFrameBuffer(depthAttachment, colorAttachments);
 </code></pre>
-<h2 id="how-to-use">How to Use</h2>
-<p>First, you need to create a graphics pipeline that uses the framebuffer output description:</p>
-<pre><code class="lang-csharp">var trianglePipelineDescription = new GraphicsPipelineDescription()
+<p>See <a href="texture.html">Texture</a> for the full set of description properties.</p>
+<h3 id="framebufferattachment">FrameBufferAttachment</h3>
+<p>An attachment is a texture plus the slice of it being drawn into:</p>
+<pre><code class="lang-csharp">new FrameBufferAttachment(texture, arraySlice, sliceCount);
+</code></pre>
+<p><code>arraySlice</code> and <code>sliceCount</code> select part of a texture array or a cubemap. Pass <code>0, 1</code> for an ordinary 2D texture. Rendering into all six faces of a cubemap in one pass, for instance, uses <code>0, 6</code>.</p>
+<h3 id="framebuffer-members">FrameBuffer members</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorTargets</strong></td>
+<td><code>FrameBufferAttachment[]</code></td>
+<td>The colour attachments, in the order the pixel shader writes them.</td>
+</tr>
+<tr>
+<td><strong>DepthStencilTarget</strong></td>
+<td><code>FrameBufferAttachment?</code></td>
+<td>The depth attachment, or <code>null</code> for a colour only pass.</td>
+</tr>
+<tr>
+<td><strong>OutputDescription</strong></td>
+<td><code>OutputDescription</code></td>
+<td>The formats and sample count, for a pipeline to compile against.</td>
+</tr>
+<tr>
+<td><strong>Width</strong>, <strong>Height</strong></td>
+<td><code>uint</code></td>
+<td>Dimensions, taken from the attachments.</td>
+</tr>
+<tr>
+<td><strong>ArraySize</strong></td>
+<td><code>uint</code></td>
+<td>Number of array slices rendered at once. <code>1</code> by default.</td>
+</tr>
+<tr>
+<td><strong>SampleCount</strong></td>
+<td><code>TextureSampleCount</code></td>
+<td>Multisample count shared by every attachment.</td>
+</tr>
+<tr>
+<td><strong>RequireFlipProjection</strong></td>
+<td><code>bool</code></td>
+<td>Whether the backend needs the projection flipped vertically when drawing into this target.</td>
+</tr>
+<tr>
+<td><strong>BelongsToSwapChain</strong></td>
+<td><code>bool</code></td>
+<td><code>true</code> for the framebuffer a swapchain owns.</td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td><code>string</code></td>
+<td>Debug name, shown in graphics debugging tools.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Every attachment has to share the same width, height and sample count. Multiple render targets also need the backend to support them, which <code>graphicsContext.Capabilities.IsMRTSupported</code> reports.</p>
+</div>
+<h3 id="outputdescription">OutputDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorAttachments</strong></td>
+<td><code>OutputAttachmentDescription[]</code></td>
+<td>One entry per colour attachment, carrying its format.</td>
+</tr>
+<tr>
+<td><strong>DepthAttachment</strong></td>
+<td><code>OutputAttachmentDescription?</code></td>
+<td>The depth format, or <code>null</code>.</td>
+</tr>
+<tr>
+<td><strong>SampleCount</strong></td>
+<td><code>TextureSampleCount</code></td>
+<td>Samples per attachment.</td>
+</tr>
+<tr>
+<td><strong>ArraySliceCount</strong></td>
+<td><code>uint</code></td>
+<td>Number of views rendered.</td>
+</tr>
+<tr>
+<td><strong>CachedHashCode</strong></td>
+<td><code>int</code></td>
+<td>Precomputed hash, so pipeline compatibility checks are cheap.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="drawing-into-it">Drawing into it</h2>
+<p>Build the pipeline against the framebuffer's output description:</p>
+<pre><code class="lang-csharp">var pipelineDescription = new GraphicsPipelineDescription()
 {
     PrimitiveTopology = PrimitiveTopology.TriangleList,
     InputLayouts = triangleVertexLayouts,
@@ -141,18 +239,17 @@ this.rTFrameBuffer = this.graphicsContext.Factory.CreateFrameBuffer(depthAttachm
         BlendState = BlendStates.Opaque,
         DepthStencilState = DepthStencilStates.None,
     },
-    Outputs = this.rTFrameBuffer.OutputDescription,
+    Outputs = this.frameBuffer.OutputDescription,
 };
 
-this.trianglePipelineState = this.graphicsContext.Factory.CreateGraphicsPipeline(ref trianglePipelineDescription);
+this.trianglePipelineState = this.graphicsContext.Factory.CreateGraphicsPipeline(ref pipelineDescription);
 </code></pre>
-<p>Finally, you can use it to start a render pass:</p>
-<pre><code class="lang-csharp">// Render to texture
-var commandBuffer = this.commandQueue.CommandBuffer();
+<p>Then open a render pass on it:</p>
+<pre><code class="lang-csharp">var commandBuffer = this.commandQueue.CommandBuffer();
 
 commandBuffer.Begin();
 
-RenderPassDescription renderPassDescription = new RenderPassDescription(this.rTFrameBuffer, new ClearValue(ClearFlags.Target, Color.CornflowerBlue));
+RenderPassDescription renderPassDescription = new RenderPassDescription(this.frameBuffer, new ClearValue(ClearFlags.Target, Color.CornflowerBlue));
 commandBuffer.BeginRenderPass(ref renderPassDescription);
 
 commandBuffer.SetViewports(this.rTViewports);
@@ -169,6 +266,22 @@ commandBuffer.Commit();
 
 this.commandQueue.Submit();
 this.commandQueue.WaitIdle();
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The viewport is not part of the framebuffer or of the pipeline, so it has to be set inside every pass. Drawing into a 512 by 512 target with a viewport still sized for the window renders into the corner of it.</p>
+</div>
+<h2 id="sampling-the-result">Sampling the result</h2>
+<p>To read a render target afterwards, transition it out of <code>RenderTarget</code> and into a shader resource state, outside the render pass:</p>
+<pre><code class="lang-csharp">commandBuffer.EndRenderPass();
+commandBuffer.Barrier(new Texture.Barrier(colorTarget, Texture.StateFlags.PixelShaderResource));
+</code></pre>
+<p>The texture also needs <code>TextureFlags.ShaderResource</code> at creation, and a slot declared as <code>ResourceType.TextureView</code> in the <a href="resourcelayout.html">ResourceLayout</a> of whatever samples it. See <a href="barriers.html">Barriers</a>.</p>
+<h2 id="cleaning-up">Cleaning up</h2>
+<p>A framebuffer does not own its attachments, so disposing it leaves the textures alive:</p>
+<pre><code class="lang-csharp">frameBuffer.Dispose();
+colorTarget.Dispose();
+depthTarget.Dispose();
 </code></pre>
 
 </article>

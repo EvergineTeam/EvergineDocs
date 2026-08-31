@@ -83,9 +83,10 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="sampler">Sampler</h1>
 
-<p>A <strong>Sampler State</strong> is a low-level object that encapsulates how a texture will be sampled in your application.</p>
+<p>A <code>SamplerState</code> says how a <a href="texture.html">Texture</a> is read: how texels are blended when the sampling rate does not match the texture size, what happens to coordinates outside the zero to one range, and how far the filtering follows a surface seen at an angle.</p>
+<p>It carries no image data, so one sampler serves any number of textures. It is bound through a <a href="resourceset.html">ResourceSet</a>, in a slot the layout declares as <code>ResourceType.Sampler</code>.</p>
 <h2 id="creation">Creation</h2>
-<p>To create a sampler, you first need to create the <code>SamplerStateDescription</code> struct:</p>
+<p>To create a sampler, first create the <code>SamplerStateDescription</code> struct:</p>
 <pre><code class="lang-csharp">// Linear clamp sampler state
 var samplerDescription = new SamplerStateDescription()
 {
@@ -167,7 +168,7 @@ var samplerState = this.graphicsContext.Factory.CreateSamplerState(ref samplerDe
 </table>
 <h3 id="texturefilter">TextureFilter</h3>
 <p>Defines texture filtering modes for a texture stage.</p>
-<p><img src="images/Sampler_TextureFilter.jpg" alt="Graphics"></p>
+<p><img src="images/Sampler_TextureFilter.jpg" alt="Point sampling against bilinear filtering on the same texture"></p>
 <table>
 <thead>
 <tr>
@@ -215,7 +216,7 @@ var samplerState = this.graphicsContext.Factory.CreateSamplerState(ref samplerDe
 </tbody>
 </table>
 <h3 id="textureaddressmode">TextureAddressMode</h3>
-<p>Your application can assign texture coordinates to any vertex of any primitive. Typically, the u- and v-texture coordinates that you assign to a vertex are in the range of 0.0 to 1.0 inclusive. However, by assigning texture coordinates outside that range, you can create certain special texturing effects.</p>
+<p>Texture coordinates usually run from 0.0 to 1.0. The address mode decides what a coordinate outside that range samples, which is what makes tiling and mirroring possible.</p>
 <table>
 <thead>
 <tr>
@@ -246,13 +247,13 @@ var samplerState = this.graphicsContext.Factory.CreateSamplerState(ref samplerDe
 </tr>
 </tbody>
 </table>
-<p><img src="images/Sampler_TextureAddressMode.jpg" alt="Graphics"></p>
+<p><img src="images/Sampler_TextureAddressMode.jpg" alt="How each address mode resolves coordinates outside the zero to one range"></p>
 <h3 id="maxanisotropy">MaxAnisotropy</h3>
 <p>Retrieves a value that indicates the maximum valid value for anisotropic filtering.
 Valid values are between 1 and 16.</p>
-<p><img src="images/Sampler_Anisotropy.jpg" alt="Graphics"></p>
+<p><img src="images/Sampler_Anisotropy.jpg" alt="A surface at a grazing angle with anisotropic filtering off and on"></p>
 <h2 id="presets">Presets</h2>
-<p>To simplify sampler construction, you can use <code>Evergine.Common.SamplerStates</code> to describe the most common sampler descriptions:</p>
+<p><code>Evergine.Common.SamplerStates</code> holds the combinations you would otherwise write out by hand:</p>
 <table>
 <thead>
 <tr>
@@ -304,7 +305,7 @@ Valid values are between 1 and 16.</p>
     this.BorderColor = SamplerBorderColor.OpaqueWhite;
 }
 </code></pre>
-<h3 id="presets-initialization">Presets Initialization</h3>
+<h3 id="initialising-the-presets">Initialising the presets</h3>
 <pre><code class="lang-csharp">PointClamp = SamplerStateDescription.Default;
 PointClamp.Filter = TextureFilter.MinPoint_MagPoint_MipPoint;
 

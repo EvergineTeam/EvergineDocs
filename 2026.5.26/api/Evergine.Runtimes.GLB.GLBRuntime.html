@@ -196,6 +196,15 @@
   <div><a class="xref" href="Evergine.Framework.Runtimes.ModelRuntime.html#Evergine_Framework_Runtimes_ModelRuntime_Extension">ModelRuntime.Extension</a></div>
   <h3 id="methods">Methods
 </h3>
+  <a id="Evergine_Runtimes_GLB_GLBRuntime_LoadStaticResources_" data-uid="Evergine.Runtimes.GLB.GLBRuntime.LoadStaticResources*"></a>
+  <h4 id="Evergine_Runtimes_GLB_GLBRuntime_LoadStaticResources" data-uid="Evergine.Runtimes.GLB.GLBRuntime.LoadStaticResources">LoadStaticResources()</h4>
+  <div class="markdown level1 summary"><p>Loads the static resources required for the GLB runtime.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void LoadStaticResources()</code></pre>
+  </div>
   <a id="Evergine_Runtimes_GLB_GLBRuntime_Read_" data-uid="Evergine.Runtimes.GLB.GLBRuntime.Read*"></a>
   <h4 id="Evergine_Runtimes_GLB_GLBRuntime_Read_System_IO_Stream_System_Func_Evergine_Framework_Runtimes_MaterialData_System_Threading_Tasks_Task_Evergine_Framework_Graphics_Material___" data-uid="Evergine.Runtimes.GLB.GLBRuntime.Read(System.IO.Stream,System.Func{Evergine.Framework.Runtimes.MaterialData,System.Threading.Tasks.Task{Evergine.Framework.Graphics.Material}})">Read(Stream, Func&lt;MaterialData, Task&lt;Material&gt;&gt;)</h4>
   <div class="markdown level1 summary"><p>Reads a GLB file from the stream and returns a model asset.</p>
@@ -292,55 +301,6 @@
       <tr>
         <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Evergine.Framework.Graphics.Model.html">Model</a>&gt;</td>
         <td><p>The model asset.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <a id="Evergine_Runtimes_GLB_GLBRuntime_ReadTexture_" data-uid="Evergine.Runtimes.GLB.GLBRuntime.ReadTexture*"></a>
-  <h4 id="Evergine_Runtimes_GLB_GLBRuntime_ReadTexture_System_Int32_System_Boolean_" data-uid="Evergine.Runtimes.GLB.GLBRuntime.ReadTexture(System.Int32,System.Boolean)">ReadTexture(int, bool)</h4>
-  <div class="markdown level1 summary"><p>Allows loading a texture from the glTF texture ID.</p>
-</div>
-  <div class="markdown level1 conceptual"></div>
-  <h5 class="declaration">Declaration</h5>
-  <div class="codewrapper">
-    <pre><code class="lang-csharp hljs">public Task&lt;(Texture texture, SamplerState sampler)&gt; ReadTexture(int textureId, bool isGamma)</code></pre>
-  </div>
-  <h5 class="parameters">Parameters</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Name</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
-        <td><span class="parametername">textureId</span></td>
-        <td><p>The texture ID.</p>
-</td>
-      </tr>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
-        <td><span class="parametername">isGamma</span></td>
-        <td><p>Specifies if the texture has gamma correction.</p>
-</td>
-      </tr>
-    </tbody>
-  </table>
-  <h5 class="returns">Returns</h5>
-  <table class="table table-bordered table-condensed">
-    <thead>
-      <tr>
-        <th>Type</th>
-        <th>Description</th>
-      </tr>
-    </thead>
-    <tbody>
-      <tr>
-        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;(<a class="xref" href="Evergine.Common.Graphics.Texture.html">Texture</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-evergine.common.graphics.texture,evergine.common.graphics.samplerstate-.texture">Texture</a>, <a class="xref" href="Evergine.Common.Graphics.SamplerState.html">SamplerState</a> <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.valuetuple-evergine.common.graphics.texture,evergine.common.graphics.samplerstate-.sampler">Sampler</a>)&gt;</td>
-        <td><p>The loaded texture.</p>
 </td>
       </tr>
     </tbody>

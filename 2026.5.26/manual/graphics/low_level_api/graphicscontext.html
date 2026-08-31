@@ -83,153 +83,258 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="graphicscontext">GraphicsContext</h1>
 
-<p>The GraphicsContext is the central class for displaying your application. It's used to create and manage graphic resources.</p>
-<p>Like the majority of Low-level-API classes, GraphicsContext is an abstract class that exposes the common functionality of each graphics API (e.g. DirectX, Vulkan, Metal...). To use this API, you just need to create or access the GraphicsContext instance, indicating the appropriate implementation depending on which graphic backend you are interested in.</p>
-<p>In the following example, we are creating a DirectX11 GraphicsContext:</p>
+<p>The <code>GraphicsContext</code> is the device. It is the first object you create and the last one you dispose, it owns the <a href="resourcefactory.html">ResourceFactory</a> that allocates everything else, and it reports what the hardware underneath can do.</p>
+<p>Like most classes in this section it is abstract, and the concrete class you instantiate is the one decision in your application that names a backend. Everything after that point is written once and runs on all of them.</p>
 <pre><code class="lang-csharp">var graphicsContext = new Evergine.DirectX11.DX11GraphicsContext();
 </code></pre>
-<p>Use the specified constructor to initialize a concrete graphics API.</p>
 <table>
 <thead>
 <tr>
-<th>API</th>
+<th>Backend</th>
 <th>Class</th>
 </tr>
 </thead>
 <tbody>
 <tr>
-<td>DirectX 11</td>
+<td><strong>DirectX 11</strong></td>
 <td><code>new DX11GraphicsContext()</code></td>
 </tr>
 <tr>
-<td>DirectX 12</td>
+<td><strong>DirectX 12</strong></td>
 <td><code>new DX12GraphicsContext()</code></td>
 </tr>
 <tr>
-<td>Vulkan</td>
+<td><strong>Vulkan</strong></td>
 <td><code>new VKGraphicsContext()</code></td>
 </tr>
 <tr>
-<td>OpenGL</td>
+<td><strong>Metal</strong></td>
+<td><code>new MTLGraphicsContext()</code></td>
+</tr>
+<tr>
+<td><strong>OpenGL and OpenGL ES</strong></td>
 <td><code>new GLGraphicsContext()</code></td>
 </tr>
 <tr>
-<td>Metal</td>
-<td><code>new MTLGraphicsContext()</code></td>
+<td><strong>WebGPU</strong></td>
+<td><code>new WGPUGraphicsContext()</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="initialize-the-device">Initialize the Device</h2>
-<p>Once you have created the GraphicsContext, to create resources and render your content, you need to create the graphics device:</p>
+<h2 id="creating-the-device">Creating the device</h2>
+<p>Nothing can be allocated until the device exists:</p>
 <pre><code class="lang-csharp">graphicsContext.CreateDevice();
 </code></pre>
-<h3 id="validation-layer">Validation Layer</h3>
-<p>To enable debug graphics mode, you must add the ValidationLayer object to the device constructor. This will show you the native and internal errors:</p>
-<pre><code class="lang-csharp">// Add a ValidationLayer instance in the CreateDevice invocation...
-graphicsContext.CreateDevice(new ValidationLayer());
+<h3 id="validation-layer">Validation layer</h3>
+<p>Pass a <code>ValidationLayer</code> to have the backend check what you ask of it and report native and internal errors:</p>
+<pre><code class="lang-csharp">graphicsContext.CreateDevice(new ValidationLayer());
 </code></pre>
-<p>By default, the ValidationLayer uses exceptions to notify any issue, but it is possible to change it:</p>
 <table>
 <thead>
 <tr>
-<th>Notify Method</th>
+<th>Notify method</th>
 <th>Declaration</th>
-<th>Description</th>
+<th>Behaviour</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Exception</strong></td>
 <td><code>new ValidationLayer()</code></td>
-<td>Throws exceptions for each internal error and stops the execution.</td>
+<td>Throws on each error and stops execution. <strong>Default value.</strong></td>
 </tr>
 <tr>
 <td><strong>Trace</strong></td>
 <td><code>new ValidationLayer(ValidationLayer.NotifyMethod.Trace)</code></td>
-<td>Displays all errors in the console without stopping the execution.</td>
+<td>Writes errors to the console and keeps going.</td>
 </tr>
 <tr>
 <td><strong>Event</strong></td>
 <td><code>new ValidationLayer(ValidationLayer.NotifyMethod.Event)</code></td>
-<td>The ValidationLayer.Error event allows you to obtain the error messages.</td>
+<td>Raises <code>ValidationLayer.Error</code> so you can route the message yourself.</td>
 </tr>
 </tbody>
 </table>
-<h2 id="initialize-swapchain">Initialize Swapchain</h2>
-<p>Once you have the GraphicsContext, you can use it to create the swapchain and render on a surface.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The validation layer is the only thing that reports a missing or wrong <a href="barriers.html">barrier</a>. Without it, a resource left in the wrong state renders incorrectly and says nothing. Develop with it on, even when the application ships without it.</p>
+</div>
+<h2 id="asking-what-the-hardware-supports">Asking what the hardware supports</h2>
+<p><code>Capabilities</code> answers per device, not per backend, so query it rather than testing <code>BackendType</code>:</p>
+<pre><code class="lang-csharp">if (this.graphicsContext.Capabilities.IsRaytracingSupported)
+{
+    // ...
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsComputeShaderSupported</strong></td>
+<td>Whether <a href="computepipeline.html">compute pipelines</a> can run.</td>
+</tr>
+<tr>
+<td><strong>IsRaytracingSupported</strong></td>
+<td>Whether <a href="raytracingpipeline.html">ray tracing</a> is available. Depends on the device as well as on the backend.</td>
+</tr>
+<tr>
+<td><strong>IsMeshShaderSupported</strong></td>
+<td>Whether mesh and amplification shaders are available.</td>
+</tr>
+<tr>
+<td><strong>IsMRTSupported</strong></td>
+<td>Whether a <a href="framebuffer.html">framebuffer</a> may have several colour targets.</td>
+</tr>
+<tr>
+<td><strong>IsShadowMapSupported</strong></td>
+<td>Whether depth textures can be sampled as shadow maps.</td>
+</tr>
+<tr>
+<td><strong>IsTextureFormatSupported(format)</strong></td>
+<td>Whether one <code>PixelFormat</code> is usable on this device.</td>
+</tr>
+<tr>
+<td><strong>FlipProjectionRequired</strong></td>
+<td>Whether the projection matrix needs flipping vertically for this backend.</td>
+</tr>
+<tr>
+<td><strong>MatrixMajorness</strong></td>
+<td>Row or column major, which decides how matrices are uploaded.</td>
+</tr>
+<tr>
+<td><strong>ClipDepth</strong></td>
+<td>The depth range of clip space, which is not the same on every backend.</td>
+</tr>
+</tbody>
+</table>
+<p><code>BackendType</code> returns the <code>GraphicsBackend</code> in use. Its one honest use is picking which <a href="shader.html">shader</a> language to load, since that is the only thing the abstraction cannot hide. For anything else, ask <code>Capabilities</code>.</p>
+<h2 id="creating-a-swapchain">Creating a swapchain</h2>
+<p>A window comes first, because the swapchain binds to its surface:</p>
 <pre><code class="lang-csharp">// Create a window...
-var windowSystem = new Evergine.WindowsForms.FormsWindowsSystem();
+var windowSystem = new Evergine.Forms.FormsWindowsSystem();
 var window = windowSystem.CreateWindow(windowTitle, width, height);
 
-// Create a swapchain descriptor and assign the surface info...
+// Describe the buffers and point them at that window's surface...
 var swapChainDescriptor = new SwapChainDescription()
 {
     Width = window.Width,
     Height = window.Height,
-    SurfaceInfo = info,
+    SurfaceInfo = window.SurfaceInfo,
     ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm,
     ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
     DepthStencilTargetFormat = PixelFormat.D24_UNorm_S8_UInt,
     DepthStencilTargetFlags = TextureFlags.DepthStencil,
-    SampleCount = this.SampleCount,
+    SampleCount = TextureSampleCount.None,
     IsWindowed = true,
     RefreshRate = 60,
-    SurfaceInfo = window.SurfaceInfo
 };
 
 // Finally, create the swapchain...
 var swapChain = this.graphicsContext.CreateSwapChain(swapChainDescriptor);
 swapChain.VerticalSync = false;
 </code></pre>
-<p>To create the surface, first, you need to select a UI technology:</p>
+<p>See <a href="swapchain.html">Swapchain</a> for the description properties and for how a frame is presented.</p>
+<h3 id="windowing-systems">Windowing systems</h3>
 <table>
 <thead>
 <tr>
-<th>UI</th>
+<th>Platform or UI</th>
 <th>Class</th>
 </tr>
 </thead>
 <tbody>
 <tr>
 <td><strong>Windows Forms</strong></td>
-<td>Evergine.Forms.FormsWindowsSystem</td>
+<td><code>Evergine.Forms.FormsWindowsSystem</code></td>
 </tr>
 <tr>
 <td><strong>WPF</strong></td>
-<td>Evergine.WPF.WPFWindowsSystem</td>
-</tr>
-<tr>
-<td><strong>SDL</strong></td>
-<td>Evergine.SDL.SDLWindowsSystem</td>
-</tr>
-<tr>
-<td><strong>Android</strong></td>
-<td>Evergine.AndroidView.AndroidWindowsSystem</td>
-</tr>
-<tr>
-<td><strong>iOS</strong></td>
-<td>Evergine.iOSView.iOSWindowsSystem</td>
-</tr>
-<tr>
-<td><strong>UWP</strong></td>
-<td>Evergine.UWPView.UWPWindowsSystem</td>
+<td><code>Evergine.WPF.WPFWindowsSystem</code></td>
 </tr>
 <tr>
 <td><strong>WinUI</strong></td>
-<td>Evergine.WinUI.WinUIWindowsSystem</td>
+<td><code>Evergine.WinUI.WinUIWindowsSystem</code></td>
 </tr>
 <tr>
-<td><strong>MixedReality</strong></td>
-<td>Evergine.MixedReality.MixedRealityWindowsSystem</td>
+<td><strong>Avalonia</strong></td>
+<td><code>Evergine.Avalonia.AvaloniaWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>SDL</strong></td>
+<td><code>Evergine.SDL.SDLWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>Android</strong></td>
+<td><code>Evergine.Android.AndroidWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>iOS</strong></td>
+<td><code>Evergine.iOS.IOSWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>macOS</strong></td>
+<td><code>Evergine.MacOS.MacWindowsSystem</code></td>
 </tr>
 <tr>
 <td><strong>Web</strong></td>
-<td>Evergine.Web.WebWindowsSystem</td>
+<td><code>Evergine.Web.WebWindowsSystem</code></td>
 </tr>
 </tbody>
 </table>
-<h2 id="create-from-scratch">Create from scratch</h2>
-<p>Visit the <a href="https://github.com/evergineteam/LowLevelAPIDemo">Low-Level test samples</a> to learn how to create an application from scratch using this cross-platform API.</p>
+<h2 id="other-members">Other members</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Factory</strong></td>
+<td>The <a href="resourcefactory.html">ResourceFactory</a>.</td>
+</tr>
+<tr>
+<td><strong>UpdateBufferData</strong></td>
+<td>Writes CPU data into a <a href="buffer.html">Buffer</a> outside a command buffer.</td>
+</tr>
+<tr>
+<td><strong>UpdateTextureData</strong></td>
+<td>Writes CPU data into a <a href="texture.html">Texture</a>.</td>
+</tr>
+<tr>
+<td><strong>MapMemory(resource, mode)</strong></td>
+<td>Maps a resource for CPU access and returns a <code>MappedResource</code>.</td>
+</tr>
+<tr>
+<td><strong>UnmapMemory(resource, subResource)</strong></td>
+<td>Releases a mapping.</td>
+</tr>
+<tr>
+<td><strong>ShaderCompile(source, entryPoint, stage, parameters)</strong></td>
+<td>Compiles shader source to bytecode. See <a href="shader.html">Shader</a>.</td>
+</tr>
+<tr>
+<td><strong>GenerateTextureMipmapping(texture)</strong></td>
+<td>Fills a texture's mip chain.</td>
+</tr>
+<tr>
+<td><strong>NativeDevicePointer</strong></td>
+<td>The underlying device handle, for interop with native libraries.</td>
+</tr>
+<tr>
+<td><strong>ReverseZBuffer</strong></td>
+<td>Whether depth runs from 1 at the near plane to 0 at the far plane.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="building-on-this-api-directly">Building on this API directly</h2>
+<p>The <a href="https://github.com/evergineteam/LowLevelAPIDemo">Low-Level API samples repository</a> contains complete applications written against this API, with no scene, entities or components involved.</p>
 
 </article>
           </div>

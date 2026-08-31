@@ -83,7 +83,380 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="commandbuffer">CommandBuffer</h1>
 
-<p>Coming soon</p>
+<p>A <code>CommandBuffer</code> stores commands until they are committed for execution by the GPU. Nothing you record runs at the moment you call it. The buffer accumulates a list, and the GPU sees that list only after its <a href="commandqueue.html">CommandQueue</a> submits.</p>
+<p>Command buffers are transient and single use. Ask the queue for a new one each frame rather than holding on to one.</p>
+<h2 id="the-states-a-buffer-passes-through">The states a buffer passes through</h2>
+<p><img src="images/commandbuffer_states.png" alt="The command buffer state machine, from Initial through Recording and Executable to Commited"></p>
+<table>
+<thead>
+<tr>
+<th>CommandBufferState</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Initial</strong></td>
+<td>Before <code>Begin</code> has been called, or after <code>Reset</code>.</td>
+</tr>
+<tr>
+<td><strong>Recording</strong></td>
+<td>Between <code>Begin</code> and <code>End</code>, where commands are accepted.</td>
+</tr>
+<tr>
+<td><strong>Executable</strong></td>
+<td>After <code>End</code>. Recording has finished and the buffer can be committed.</td>
+</tr>
+<tr>
+<td><strong>Commited</strong></td>
+<td>After <code>Commit</code>. The buffer is waiting for the queue to submit it.</td>
+</tr>
+</tbody>
+</table>
+<p><code>State</code> is readable at any time, which is useful when a helper method has to know whether recording is already open.</p>
+<h2 id="recording">Recording</h2>
+<pre><code class="lang-csharp">var commandBuffer = this.commandQueue.CommandBuffer();
+
+commandBuffer.Begin();
+
+// ...record commands here...
+
+commandBuffer.End();
+commandBuffer.Commit();
+
+this.commandQueue.Submit();
+</code></pre>
+<p><code>Begin()</code> has to be called before any other command. <code>End()</code> closes recording, <code>Commit()</code> hands the buffer to its queue, and <code>Submit()</code> on the queue starts the GPU work.</p>
+<h2 id="render-passes">Render passes</h2>
+<p>Draw commands only make sense inside a render pass, which names the <a href="framebuffer.html">FrameBuffer</a> being drawn into and what to clear it to:</p>
+<pre><code class="lang-csharp">RenderPassDescription renderPassDescription = new RenderPassDescription(
+    this.frameBuffer,
+    new ClearValue(ClearFlags.All, Color.CornflowerBlue));
+
+commandBuffer.BeginRenderPass(ref renderPassDescription);
+
+// ...draws...
+
+commandBuffer.EndRenderPass();
+</code></pre>
+<h3 id="renderpassdescription">RenderPassDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FrameBuffer</strong></td>
+<td><code>FrameBuffer</code></td>
+<td>The attachments this pass renders into.</td>
+</tr>
+<tr>
+<td><strong>ClearValue</strong></td>
+<td><code>ClearValue</code></td>
+<td>What each attachment is cleared to when the pass opens.</td>
+</tr>
+</tbody>
+</table>
+<p>The constructor throws <code>ArgumentException</code> when the number of colour clear values does not match the number of colour targets on the framebuffer.</p>
+<h3 id="clearvalue">ClearValue</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Flags</strong></td>
+<td><code>ClearFlags</code></td>
+<td>Which attachments to clear.</td>
+</tr>
+<tr>
+<td><strong>ColorValues</strong></td>
+<td><code>Vector4[]</code></td>
+<td>One clear colour per colour attachment.</td>
+</tr>
+<tr>
+<td><strong>Depth</strong></td>
+<td><code>float</code></td>
+<td>Depth clear value.</td>
+</tr>
+<tr>
+<td><strong>Stencil</strong></td>
+<td><code>byte</code></td>
+<td>Stencil clear value.</td>
+</tr>
+</tbody>
+</table>
+<p><code>ClearValue.Default</code> clears one colour attachment to <code>CornflowerBlue</code>, depth to 1 and stencil to 0. <code>ClearValue.None</code> clears nothing, which is what a pass that draws on top of existing content wants.</p>
+<h3 id="clearflags">ClearFlags</h3>
+<table>
+<thead>
+<tr>
+<th>ClearFlags</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>0</td>
+<td>Clear nothing.</td>
+</tr>
+<tr>
+<td><strong>Target</strong></td>
+<td>1</td>
+<td>Clear the colour attachments.</td>
+</tr>
+<tr>
+<td><strong>Depth</strong></td>
+<td>2</td>
+<td>Clear the depth attachment.</td>
+</tr>
+<tr>
+<td><strong>Stencil</strong></td>
+<td>4</td>
+<td>Clear the stencil attachment.</td>
+</tr>
+<tr>
+<td><strong>All</strong></td>
+<td>7</td>
+<td><code>Target</code>, <code>Depth</code> and <code>Stencil</code> together.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Barriers, buffer updates and copies belong outside the render pass. Record them between <code>Begin()</code> and <code>BeginRenderPass()</code>, or after <code>EndRenderPass()</code>. See <a href="barriers.html">Barriers</a>.</p>
+</div>
+<h2 id="setting-state-before-a-draw">Setting state before a draw</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetGraphicsPipelineState(pipeline)</code></td>
+<td>Binds a <a href="graphicspipeline.html">GraphicsPipeline</a>.</td>
+</tr>
+<tr>
+<td><code>SetResourceSet(set, index, offsets)</code></td>
+<td>Binds a <a href="resourceset.html">ResourceSet</a> to a register space.</td>
+</tr>
+<tr>
+<td><code>SetVertexBuffers(buffers)</code></td>
+<td>Binds the vertex buffers, matching the pipeline's <code>InputLayouts</code>.</td>
+</tr>
+<tr>
+<td><code>SetVertexBuffer(slot, buffer, offset)</code></td>
+<td>Binds one vertex buffer at a given slot.</td>
+</tr>
+<tr>
+<td><code>SetIndexBuffer(buffer, format, offset)</code></td>
+<td>Binds an index buffer. <code>IndexFormat.UInt16</code> by default.</td>
+</tr>
+<tr>
+<td><code>SetViewports(viewports)</code></td>
+<td>Sets the viewport rectangles.</td>
+</tr>
+<tr>
+<td><code>SetScissorRectangles(rectangles)</code></td>
+<td>Sets the scissor rectangles.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Viewports and scissor rectangles are not part of the pipeline state, so they have to be set inside every render pass. Forgetting the scissor rectangle produces a pass that clears correctly and then draws nothing.</p>
+</div>
+<h2 id="drawing">Drawing</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Draw(vertexCount, startVertexLocation)</code></td>
+<td>Draws from the vertex buffer directly.</td>
+</tr>
+<tr>
+<td><code>DrawIndexed(indexCount, startIndexLocation, baseVertexLocation)</code></td>
+<td>Draws through the index buffer.</td>
+</tr>
+<tr>
+<td><code>DrawInstanced(...)</code></td>
+<td>Draws the same geometry many times.</td>
+</tr>
+<tr>
+<td><code>DrawIndexedInstanced(...)</code></td>
+<td>Indexed and instanced together.</td>
+</tr>
+<tr>
+<td><code>DrawInstancedIndirect(argBuffer, offset, drawCount, stride)</code></td>
+<td>Reads the draw arguments from a GPU buffer.</td>
+</tr>
+<tr>
+<td><code>DrawIndexedInstancedIndirect(...)</code></td>
+<td>Indexed version of the same.</td>
+</tr>
+</tbody>
+</table>
+<p>The indirect variants take their arguments from a <code>Buffer</code> created with <code>BufferFlags.IndirectBuffer</code>, which lets a compute shader decide how much to draw without the result travelling back to the CPU.</p>
+<h2 id="compute-and-ray-tracing">Compute and ray tracing</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SetComputePipelineState(pipeline)</code></td>
+<td>Binds a <a href="computepipeline.html">ComputePipeline</a>.</td>
+</tr>
+<tr>
+<td><code>Dispatch(groupCountX, groupCountY, groupCountZ)</code></td>
+<td>Launches a grid of thread groups.</td>
+</tr>
+<tr>
+<td><code>Dispatch1D</code>, <code>Dispatch2D</code>, <code>Dispatch3D</code></td>
+<td>Take the problem size and compute the group count for you.</td>
+</tr>
+<tr>
+<td><code>DispatchIndirect(argBuffer, offset)</code></td>
+<td>Reads the group counts from a GPU buffer.</td>
+</tr>
+<tr>
+<td><code>SetRaytracingPipelineState(pipeline)</code></td>
+<td>Binds a <a href="raytracingpipeline.html">RaytracingPipeline</a>.</td>
+</tr>
+<tr>
+<td><code>DispatchRays(description)</code></td>
+<td>Launches the ray generation grid.</td>
+</tr>
+<tr>
+<td><code>BuildRaytracingAccelerationStructure(...)</code></td>
+<td>Builds a bottom or top level structure.</td>
+</tr>
+<tr>
+<td><code>UpdateRaytracingAccelerationStructure(ref tlas, description)</code></td>
+<td>Rebuilds a top level structure in place.</td>
+</tr>
+<tr>
+<td><code>SetMeshShaderPipelineState(pipeline)</code></td>
+<td>Binds a mesh shader pipeline.</td>
+</tr>
+<tr>
+<td><code>DispatchMesh(groupCountX, groupCountY, groupCountZ)</code></td>
+<td>Launches mesh shader groups.</td>
+</tr>
+</tbody>
+</table>
+<p>These are recorded outside a render pass, the same as copies and barriers.</p>
+<h2 id="moving-data">Moving data</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>UpdateBufferData(buffer, data, ...)</code></td>
+<td>Writes CPU data into a buffer as part of the recorded stream.</td>
+</tr>
+<tr>
+<td><code>CopyBufferDataTo(origin, destination, sizeInBytes, ...)</code></td>
+<td>Copies between two buffers on the GPU.</td>
+</tr>
+<tr>
+<td><code>CopyTextureDataTo(source, destination)</code></td>
+<td>Copies a whole texture, or one mip level and array layer, or a region.</td>
+</tr>
+<tr>
+<td><code>Blit(source, destination)</code></td>
+<td>Copies with scaling and format conversion.</td>
+</tr>
+<tr>
+<td><code>ResolveTexture(source, destination)</code></td>
+<td>Resolves a multisampled texture into a single sampled one.</td>
+</tr>
+<tr>
+<td><code>GenerateMipmaps(texture)</code></td>
+<td>Fills the mip chain from level 0.</td>
+</tr>
+</tbody>
+</table>
+<p>Copies need their source and destination in the <code>CopySrc</code> and <code>CopyDst</code> states first. See <a href="barriers.html">Barriers</a>.</p>
+<h2 id="barriers">Barriers</h2>
+<p>Five overloads, all recording the same operation. See <a href="barriers.html">Barriers</a> for what to pass and when.</p>
+<pre><code class="lang-csharp">commandBuffer.Barrier(new Texture.Barrier(this.texture, Texture.StateFlags.PixelShaderResource));
+</code></pre>
+<h2 id="queries">Queries</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WriteTimestamp(heap, index)</code></td>
+<td>Records a GPU timestamp into a <a href="queryheap.html">QueryHeap</a>.</td>
+</tr>
+<tr>
+<td><code>BeginQuery(heap, index)</code></td>
+<td>Opens an occlusion query.</td>
+</tr>
+<tr>
+<td><code>EndQuery(heap, index)</code></td>
+<td>Closes it.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="debug-markers">Debug markers</h2>
+<p>Markers group commands in a graphics debugger, and cost nothing in a release build:</p>
+<pre><code class="lang-csharp">commandBuffer.BeginDebugMarker(&quot;Shadow pass&quot;);
+// ...draws...
+commandBuffer.EndDebugMarker();
+
+commandBuffer.InsertDebugMarker(&quot;Lights uploaded&quot;);
+</code></pre>
+<p>Setting <code>commandBuffer.Name</code> labels the buffer itself in the same tools.</p>
+<h2 id="recording-on-several-threads">Recording on several threads</h2>
+<p>Each command buffer records independently, so several threads can record at the same time as long as no two share a buffer. Commit them all and submit once:</p>
+<pre><code class="lang-csharp">Parallel.For(0, threadCount, i =&gt;
+{
+    var commandBuffer = this.commandQueue.CommandBuffer();
+    commandBuffer.Begin();
+    // ...record this thread's slice...
+    commandBuffer.End();
+    commandBuffer.Commit();
+});
+
+this.commandQueue.Submit();
+</code></pre>
+<p>The queue's pool holds 64 buffers, so a frame cannot have more than 64 uncommitted buffers alive on one queue.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p><code>GraphicsContext</code> operations that record onto a shared internal copy buffer, such as <code>UpdateBufferData</code> on the context rather than on your own command buffer, are not free to run concurrently. A barrier and the copy that follows it have to stay sequential.</p>
+</div>
 
 </article>
           </div>

@@ -83,9 +83,10 @@
             <article class="content wrap" id="_content" data-uid="">
 <h1 id="queryheap">QueryHeap</h1>
 
-<p>A query heap contains an array of GPU queries. A query heap allows batching a set of GPU queries to achieve better performance.</p>
+<p>A <code>QueryHeap</code> is a fixed array of slots the GPU writes answers into. You allocate the slots up front, record queries against them by index, and read the results back later. Batching them into one heap costs less than asking one question at a time.</p>
+<p>Two kinds of question are worth asking: how long a piece of GPU work took, and whether anything was drawn.</p>
 <h2 id="creation">Creation</h2>
-<p>To create a <code>QueryHeap</code>, you first need to construct a <code>QueryHeapDescription</code>:</p>
+<p>A heap has one <code>QueryType</code> for all of its slots, so timestamps and occlusion queries need separate heaps:</p>
 <pre><code class="lang-csharp">QueryHeap queryHeap;
 uint maxQueries = 4;
 
@@ -120,9 +121,42 @@ this.queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
 </tr>
 </tbody>
 </table>
+<h3 id="queryheapdescription">QueryHeapDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Type</strong></td>
+<td><code>QueryType</code></td>
+<td>The kind of query every slot in this heap holds.</td>
+</tr>
+<tr>
+<td><strong>QueryCount</strong></td>
+<td><code>uint</code></td>
+<td>How many slots to allocate. Indices passed to the command buffer run from <code>0</code> to <code>QueryCount - 1</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Timestamp queries are not available everywhere, and on some platforms they depend on what the host chooses to expose. Ask before creating the heap:</p>
+<pre><code class="lang-csharp">if (this.graphicsContext.Capabilities.IsTimestampQuerySupported)
+{
+    this.queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
+}
+</code></pre>
+</div>
+<p><img src="images/timestamp_query.png" alt="A rotating cube with an overlay reporting the GPU time of the draw and of the interface"></p>
+<p><em><code>TimestampQueryTest</code> reading its own GPU cost back: the draw took 0.0164 ms and the interface 0.0143 ms on this frame.</em></p>
 <h2 id="timestamp-queries">Timestamp Queries</h2>
-<p>You can obtain timestamps as part of a command list (rather than via a CPU-side call on a command queue) using timestamp queries.</p>
-<h3 id="how-to-use-timestamp-queries">How to Use Timestamp Queries</h3>
+<p>A timestamp is written by the GPU as it reaches that point in the recorded command stream, so the interval between two of them measures GPU work rather than the CPU time spent submitting it.</p>
+<h3 id="how-to-use-timestamp-queries">How to use timestamp queries</h3>
 <pre><code class="lang-csharp">ulong[] results;
 
 var commandBuffer = this.commandQueue.CommandBuffer();
@@ -153,7 +187,7 @@ this.commandQueue.WaitIdle();
 
 this.queryHeap.ReadData(0, 4, this.results);
 </code></pre>
-<h3 id="how-to-show-timestamp-results">How to Show Timestamp Results</h3>
+<h3 id="how-to-show-timestamp-results">How to show timestamp results</h3>
 <pre><code class="lang-csharp">this.surface.MouseDispatcher.DispatchEvents();
 this.surface.KeyboardDispatcher.DispatchEvents();
 
@@ -175,8 +209,8 @@ ImGui.End();
 this.uiRenderer.Render(commandBuffer);
 </code></pre>
 <h2 id="occlusion-queries">Occlusion Queries</h2>
-<p>Hardware occlusion queries have been one of the most eagerly awaited graphics hardware features for a long time. This feature allows an application to ask the 3D API whether any pixels would be drawn if a particular object were rendered. With this feature, applications can check whether the bounding boxes of complex objects are visible; if the bounds are occluded, the application can skip drawing those objects.</p>
-<h3 id="queryheap-creation">QueryHeap Creation</h3>
+<p>An occlusion query counts the pixels a draw would actually write. Render the bounding box of an expensive object, read the count back, and skip the object itself when nothing would have been visible.</p>
+<h3 id="creating-the-heap">Creating the heap</h3>
 <pre><code class="lang-csharp">uint maxQueries = 4;
 QueryHeapDescription desc = new QueryHeapDescription()
 {
@@ -186,7 +220,7 @@ QueryHeapDescription desc = new QueryHeapDescription()
 
 var queryHeap = this.graphicsContext.Factory.CreateQueryHeap(ref desc);
 </code></pre>
-<h3 id="how-to-use-occlusion-queries">How to Use Occlusion Queries</h3>
+<h3 id="how-to-use-occlusion-queries">How to use occlusion queries</h3>
 <pre><code class="lang-csharp">// Draw
 var commandBuffer = this.commandQueue.CommandBuffer();
 
@@ -217,7 +251,7 @@ this.commandQueue.WaitIdle();
 
 this.queryHeap.ReadData(0, 1, this.results);
 </code></pre>
-<h3 id="how-to-show-occlusion-results">How to Show Occlusion Results</h3>
+<h3 id="how-to-show-occlusion-results">How to show occlusion results</h3>
 <pre><code class="lang-csharp">this.surface.MouseDispatcher.DispatchEvents();
 this.surface.KeyboardDispatcher.DispatchEvents();
 
