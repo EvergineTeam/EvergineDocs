@@ -140,7 +140,7 @@ this.commandQueue.WaitIdle();
 <p><em>What those thirty lines produce: a cleared frame and one triangle whose colours are interpolated between its vertices.</em></p>
 <div class="TIP">
 <h5>Tip</h5>
-<p>That final <code>WaitIdle()</code> blocks the CPU until the GPU has drained the whole queue, which is the simplest thing that is correct and the slowest thing that works. <a href="fence.html">Fence</a> shows how to replace it once the rest of the frame is in place.</p>
+<p>That final <code>WaitIdle()</code> blocks the CPU until the GPU has drained the whole queue, which is the simplest thing that is correct and the slowest thing that works.</p>
 </div>
 <h2 id="which-object-do-i-need">Which object do I need</h2>
 <table>
@@ -202,10 +202,6 @@ this.commandQueue.WaitIdle();
 <tr>
 <td>Declare that a resource changed use</td>
 <td><a href="barriers.html">Barriers</a></td>
-</tr>
-<tr>
-<td>Know when the GPU finished a batch</td>
-<td><a href="fence.html">Fence</a></td>
 </tr>
 <tr>
 <td>Measure GPU time or count samples</td>
@@ -292,7 +288,6 @@ this.commandQueue.WaitIdle();
 <li><a href="commandqueue.html">CommandQueue</a></li>
 <li><a href="commandbuffer.html">CommandBuffer</a></li>
 <li><a href="barriers.html">Barriers</a></li>
-<li><a href="fence.html">Fence</a></li>
 <li><a href="queryheap.html">QueryHeap</a></li>
 </ul>
 

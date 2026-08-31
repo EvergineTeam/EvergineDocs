@@ -275,7 +275,7 @@ this.swapChain.Present();
 <p><code>ResizeSwapChain</code> recreates the underlying textures, so anything that captured the old ones has to be rebuilt: your own framebuffers over swapchain textures, and resource sets that sampled them. Pipelines survive, because a resize does not change formats.</p>
 <div class="WARNING">
 <h5>Warning</h5>
-<p>Wait for the GPU to finish with the old buffers before resizing, with <code>commandQueue.WaitIdle()</code> or a <a href="fence.html">Fence</a>. Resizing under a frame that is still in flight destroys textures the GPU is reading.</p>
+<p>Wait for the GPU to finish with the old buffers before resizing, with <code>commandQueue.WaitIdle()</code>. Resizing under a frame that is still in flight destroys textures the GPU is reading.</p>
 </div>
 <h2 id="cleaning-up">Cleaning up</h2>
 <pre><code class="lang-csharp">this.commandQueue.WaitIdle();

@@ -172,11 +172,6 @@ var vertexBuffer = this.graphicsContext.Factory.CreateBuffer(vertexData, ref ver
 <td><code>QueryHeap</code></td>
 <td><a href="queryheap.html">QueryHeap</a></td>
 </tr>
-<tr>
-<td><code>CreateFence</code></td>
-<td><code>Fence</code></td>
-<td><a href="fence.html">Fence</a></td>
-</tr>
 </tbody>
 </table>
 <h2 id="two-objects-the-factory-does-not-create">Two objects the factory does not create</h2>
@@ -218,7 +213,7 @@ var texture = this.graphicsContext.Factory.CreateTexture(ref textureDescription)
 <p>Every object the factory returns implements <code>IDisposable</code>, and none of them is collected for you. Dispose in reverse order of dependency: pipelines before the shaders they were built from, resource sets before the layouts they fill, and everything before the context.</p>
 <div class="IMPORTANT">
 <h5>Important</h5>
-<p>Wait for the GPU before disposing anything it may still be reading, with <code>commandQueue.WaitIdle()</code> or by waiting on the <a href="fence.html">Fence</a> of the submission that used it. Freeing a resource that is still in flight is a use after free on the GPU, and it usually shows up as a device removed error rather than as anything that names the resource.</p>
+<p>Wait for the GPU before disposing anything it may still be reading, with <code>commandQueue.WaitIdle()</code>. Freeing a resource that is still in flight is a use after free on the GPU, and it usually shows up as a device removed error rather than as anything that names the resource.</p>
 </div>
 
 </article>
