@@ -31,6 +31,7 @@ Every object it returns is an abstract type, and the concrete class matches the 
 | `CreateMeshShaderPipeline` | `MeshShaderPipelineState` | |
 | `CreateCommandQueue` | `CommandQueue` | [CommandQueue](commandqueue.md) |
 | `CreateQueryHeap` | `QueryHeap` | [QueryHeap](queryheap.md) |
+| `CreateFence` | `Fence` | [Fence](fence.md) |
 
 ## Two objects the factory does not create
 
@@ -70,4 +71,4 @@ Turn it on during development. See [GraphicsContext](graphicscontext.md) for the
 Every object the factory returns implements `IDisposable`, and none of them is collected for you. Dispose in reverse order of dependency: pipelines before the shaders they were built from, resource sets before the layouts they fill, and everything before the context.
 
 > [!IMPORTANT]
-> Wait for the GPU before disposing anything it may still be reading, with `commandQueue.WaitIdle()`. Freeing a resource that is still in flight is a use after free on the GPU, and it usually shows up as a device removed error rather than as anything that names the resource.
+> Wait for the GPU before disposing anything it may still be reading, with `commandQueue.WaitIdle()` or by waiting on the [Fence](fence.md) of the submission that used it. Freeing a resource that is still in flight is a use after free on the GPU, and it usually shows up as a device removed error rather than as anything that names the resource.

@@ -29,7 +29,7 @@ this.computeCommandQueue = this.graphicsContext.Factory.CreateCommandQueue(Comma
 The three form a hierarchy: anything a copy queue accepts, a compute queue also accepts, and a graphics queue accepts everything. A narrower queue is not faster on its own. What it buys you is the chance for the driver to run its work alongside the graphics queue instead of behind it.
 
 > [!IMPORTANT]
-> Ordering is guaranteed inside one queue and nowhere else. Two queues run independently, so work submitted to a compute queue may finish before or after graphics work submitted earlier.
+> Ordering is guaranteed inside one queue and nowhere else. Two queues run independently, so work submitted to a compute queue may finish before or after graphics work submitted earlier. Use a [Fence](fence.md) when one has to wait for the other.
 
 ## Members
 
@@ -79,6 +79,9 @@ this.commandQueue.WaitIdle();
 ```
 
 That is correct, and it is what every sample does because it keeps the sample short. It also means the CPU spends the rest of the frame doing nothing while the GPU works, and then the GPU idles while the CPU records the next frame. Neither is ever busy at the same time as the other.
+
+> [!TIP]
+> [Fence](fence.md) replaces `WaitIdle()` with a wait on one specific submission, which is what lets the CPU run ahead of the GPU by a frame or two. It is the single biggest change you can make to a low-level render loop that is CPU bound.
 
 `WaitIdle()` remains the right call in two places: before destroying resources the GPU might still be reading, and at shutdown.
 

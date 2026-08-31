@@ -356,4 +356,4 @@ queue.Dispose();
 ```
 
 > [!NOTE]
-> `WaitIdle()` blocks until the copy has finished, which is the simplest thing that is correct.
+> `WaitIdle()` blocks until the copy has finished, which is the simplest thing that is correct. A [Fence](fence.md) lets you poll instead and collect the result on a later frame, without stopping the CPU.
