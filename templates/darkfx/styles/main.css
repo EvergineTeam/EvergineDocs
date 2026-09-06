@@ -274,6 +274,10 @@ code {
   background: inherit !important;
 }
 
+/* highlight.js only adds .hljs to blocks whose language it recognises. Without the
+   pre code selector here, a block tagged with any other language keeps the base
+   colour, which is unreadable on the dark theme. */
+pre code,
 .hljs {
   color: var(--color-foreground) !important;
 }

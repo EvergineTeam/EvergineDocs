@@ -11,14 +11,14 @@
       },
       {
         "files": ["manual/**.md", "manual/**/toc.yml", "toc.yml", "*.md"],
-        "exclude": ["obj/**", "_site/**"],
+        "exclude": ["obj/**", "_site/**", "manual/graphics/low_level_api/fence.md"],
         "src": "src"
       }
     ],
     "resource": [
       {
         "files": ["manual/**/images/**", "images/**"],
-        "exclude": ["obj/**", "_site/**"],
+        "exclude": ["obj/**", "_site/**", "manual/graphics/low_level_api/images/frames_in_flight.png"],
         "src": "src"
       }
     ],
