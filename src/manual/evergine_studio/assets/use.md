@@ -103,6 +103,45 @@ assetSceneManager.Unload(EvergineContent.Textures.SampleTexture_png);
 assetSceneManager.Unload("SampleTexture.wetx");
 ```
 
+### Raw assets loading
+
+**Raw assets** are files that are included in the application output without being processed or converted to an Evergine asset format. They can also be accessed at runtime using their generated **EvergineContent** ID.
+
+Unlike regular assets, Evergine does not know how the contents of a raw asset should be interpreted. For this reason, raw assets are loaded using the `LoadRaw<T>` method, which receives a loader function responsible for reading the asset from a `Stream` and returning the desired object.
+
+For example, a raw text file can be loaded as follows:
+
+```csharp
+var assetsService = Application.Current.Container.Resolve<AssetsService>();
+
+string text = assetsService.LoadRaw(
+    EvergineContent.Data.Sample_txt,
+    stream =>
+    {
+        using var reader = new StreamReader(stream, leaveOpen: true);
+        return reader.ReadToEnd();
+    });
+```
+
+The loader can return any type, so the same mechanism can be used to deserialize JSON files, read binary data, or pass the stream to a custom file reader:
+
+```csharp
+MyConfiguration configuration = assetsService.LoadRaw(
+    EvergineContent.Data.Configuration_json,
+    stream => JsonSerializer.Deserialize<MyConfiguration>(stream));
+```
+
+> [!IMPORTANT]
+> Raw assets are **not cached** by `AssetsService`. Every call to `LoadRaw<T>` opens the raw asset and executes the provided loader again.
+>
+> If the loaded data needs to be reused, the application is responsible for caching the returned value and managing its lifetime. This avoids keeping potentially large raw files or their resulting objects in memory unnecessarily.
+
+> [!NOTE]
+> The `Stream` passed to the loader is owned and managed by Evergine and is only valid while the loader is being executed. The loader should consume the stream and return the resulting value instead of storing or returning the stream itself.
+
+Raw assets do not use the regular Evergine asset loading pipeline and therefore do not need to be unloaded using `AssetsService.Unload`.
+
+
 ### Force new instance when loading
 
 By default, when an asset is loaded either in the **AssetsService** or the **AssetsSceneManager**, only one instance of the asset is generated. This saves _GPU memory_ and time. 
