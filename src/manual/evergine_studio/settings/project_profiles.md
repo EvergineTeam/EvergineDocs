@@ -1,4 +1,4 @@
-# Project Settings & Manage Profiles
+# Manage Profiles
 
 As a cross-platform engine, _Evergine_ provides a way to create different launcher projects for supported platforms. For each platform, a _C#_ project will be added to your filesystem. You can create more than one project for a given platform, but each one of these projects will be considered a different profile.
 
