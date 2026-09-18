@@ -28,6 +28,21 @@ The scene toolbar contains useful controls for adjusting the scene during editin
 | ![Scale Snap](images/scaleSnap.png) | When enabled, scale manipulation is done by steps of a custom value (0.001, 0.01, 0.1, 0.5, 1, 5, and 10). |
 | ![Camera](images/cameraIcon.png) | Opens a dialog with the properties of the editor scene camera (more details below). |
 | ![Grid](images/gridIcon.png) | Toggles the visibility of the grid in the viewport. |
+| ![Play](images/play.png) | Starts **Play Mode**, running the current scene directly in the Scene Viewport. |
+| ![Pause](images/pause.png) | Pauses or resumes the scene while preserving its current runtime state. |
+| ![Stop](images/stop.png) | Stops **Play Mode** and returns to the editable scene. Runtime changes are discarded. |
+| ![Step](images/step.png) | While paused, advances the scene simulation by one frame. |
+| ![RenderDoc](images/renderDoc.png) | Captures the current frame using the RenderDoc integration. |
+| ![AI Rendering](images/aiRendering.png) | Opens the **AI Rendering** functionality for generating an AI-rendered image from the current scene. |
+
+### Play Mode
+
+**Play Mode** allows running the current scene directly inside Evergine Studio, making it possible to preview runtime behavior such as physics, animations, behaviors, and particle systems without launching the application separately.
+
+While the scene is running, it can be **paused/resumed** or advanced **frame by frame** using the Step control. Stopping Play Mode returns to the editable scene and discards any changes produced during runtime execution.
+
+> [!NOTE]
+> Scene editing and manipulation are not currently available while Play Mode is active.
 
 ### Editor Camera Properties
 
