@@ -2,9 +2,7 @@
 
 ---
 
-![Scene Editor](images/sceneEditor.png)
-
-<!-- CAPTURE: scene_editor_annotated.png; the Scene Editor of Evergine Studio with the template scene open, annotated with numbered callouts on the Scene Toolbar, the Scene Viewport, the Entities Hierarchy and the Entity Details panels -->
+![The Scene Editor: (1) Scene Toolbar, (2) Scene Viewport, (3) Entities Hierarchy, (4) Entity Details](images/scene_editor_annotated.png)
 
 The **Scene Editor** is where you build a scene in Evergine Studio. It opens when you double-click a scene asset, and it lets you create entities, arrange them in the scene, and add, remove and edit their components while the scene renders exactly as it will at runtime. It has four areas:
 
@@ -49,7 +47,11 @@ At the top of the viewport is the **Scene Toolbar**, where the user can adjust h
 
 ### Controls
 
-<!-- CAPTURE: scene_editor_navigation.mp4; 15 s video in the Scene Viewport: right-drag to look around while moving with W A S D, middle-drag to pan, Shift + middle-drag to orbit, mouse wheel to dolly, then select an entity and use the translation, rotation and scale gizmos with move snap enabled -->
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/scene_editor_navigation.mp4" type="video/mp4">
+</video>
+
+*Looking around with the right mouse button, flying with W, A, S and D, and moving closer and back with the wheel.*
 
 | Action | Description |
 | ------ | ----------- |

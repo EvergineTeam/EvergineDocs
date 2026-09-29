@@ -153,7 +153,7 @@ EntityManager entityManager = this.Managers.EntityManager;
 
 Evergine Studio shows the managers of the open scene in the **Scene Managers** panel. It works like the **Entity Details** panel does for components: select a manager to edit its properties, and the values are saved with the scene.
 
-<!-- CAPTURE: scene_managers_panel.png; the Scene Managers panel of Evergine Studio with the default managers of the template scene listed and the RenderManager selected, showing its properties -->
+![The Scene Managers panel with the managers of the default scene](images/scene_managers_panel.png)
 
 To add a manager, click the add button and search for it. The list includes the managers of Evergine and every manager in your project.
 

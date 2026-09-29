@@ -6,7 +6,9 @@
 
 A **prefab** is an asset that stores an entity together with its components and its descendants, so that you can place the same object many times, in one scene or in several. Every placed copy is a **prefab instance** linked to the asset: change the prefab and every instance changes with it. Use prefabs instead of copying and pasting entities, which leaves you with many independent copies to keep in sync by hand.
 
-<!-- CAPTURE: prefabs.mp4; 20 s video in Evergine Studio: right-click an entity hierarchy and select Create prefab, drag the new .weprefab asset into the scene twice, double-click the asset to open the prefab editor, change a component value, save, and show both instances updated; then drag another prefab asset inside the prefab editor to nest it -->
+![A prefab instance in a scene: Entity Details shows the Prefab Instance bar above its components](images/prefab_instance.png)
+
+![The same prefab open in the Prefab Editor, with its own Prefab Hierarchy](images/prefab_editor.png)
 
 ## Create a Prefab
 
