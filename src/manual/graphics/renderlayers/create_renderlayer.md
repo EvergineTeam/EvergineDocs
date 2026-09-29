@@ -1,5 +1,7 @@
-# Create RenderLayer
+# Create a Render Layer
+
 ---
+
 ![RenderLayer header](images/renderlayer.jpg)
 
 `RenderLayers` control the drawing order of your meshes and allow configuration of the rasterizer state, blend state, and depth-stencil parameters for each draw call that renders your mesh.
@@ -25,47 +27,54 @@ Once created, you can view and edit `RenderLayer` assets in the [**Assets Detail
 
 ![RenderLayer file](images/renderLayerFile.jpg)
 
-## Creating a RenderLayer Programmatically
-The following sample code demonstrates how to create a custom `RenderLayer` programmatically and apply it to an entity in your scene. In this example, the `RenderLayer` is created using the `StandardEffect` and configured with an opaque rendering state:
+## Create a render layer from code
+This scene creates a render layer that draws in wireframe, and a Standard material that uses it:
 
 ```csharp
-protected override void CreateScene()
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
 {
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
-
-    // Create a custom RenderLayer with specified render states
-    RenderLayerDescription customLayer = new RenderLayerDescription()
+    protected override void CreateScene()
     {
-        RenderState = new RenderStateDescription()
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
+
+        // Create a custom RenderLayer with specified render states
+        RenderLayerDescription customLayer = new RenderLayerDescription()
         {
-            RasterizerState = new RasterizerStateDescription()
+            RenderState = new RenderStateDescription()
             {
-                CullMode = CullMode.Back,
-                FillMode = FillMode.Wireframe,
+                // Start from a preset so every other rasterizer field keeps a sensible value.
+                RasterizerState = RasterizerStates.WireframeCullBack,
+                BlendState = BlendStates.Opaque,
+                DepthStencilState = DepthStencilStates.ReadWrite,
             },
-            BlendState = BlendStates.Opaque,
-            DepthStencilState = DepthStencilStates.ReadWrite,
-        },
-        Order = 0,
-        SortMode = SortMode.FrontToBack,
-    };
+            Order = 0,
+            SortMode = SortMode.FrontToBack,
+        };
 
-    // Load the standard effect
-    Effect standardEffect = assetsService.Load<Effect>(EvergineContent.Effects.StandardEffect);
+        // Load the standard effect
+        Effect standardEffect = assetsService.Load<Effect>(DefaultResourcesIDs.StandardEffectID);
 
-    // Create a material using the custom RenderLayer
-    Material material = new Material(standardEffect)
-    {
-        LayerDescription = customLayer
-    };
+        // Create a material using the custom RenderLayer
+        Material material = new Material(standardEffect)
+        {
+            LayerDescription = customLayer
+        };
 
-    // Apply the material to an entity
-    Entity primitive = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new MaterialComponent() { Material = material })
-        .AddComponent(new TeapotMesh())
-        .AddComponent(new MeshRenderer());
+        // Apply the material to an entity
+        Entity primitive = new Entity()
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new TeapotMesh())
+            .AddComponent(new MeshRenderer());
 
-    this.Managers.EntityManager.Add(primitive);
+        this.Managers.EntityManager.Add(primitive);
+    }
 }
 ```

@@ -1,7 +1,12 @@
 # Model Editor
+
+---
+
 ![Model Editor](images/ModelEditor.jpg)
 
-The **Model Editor** allows the editing of model assets. Double-clicking a **Model** asset shown in [Assets Details](../../evergine_studio/interface.md) will open this editor. The editor is composed of five main parts:
+<!-- CAPTURE: images/ModelEditor.png; the Model Editor of the develop Evergine Studio with an animated model, showing the viewport, the toolbar, the playback controls and the properties, to replace the 2024 screenshot above -->
+
+The **Model Editor** previews a model and edits its import settings. Double-click a model in [Assets Details](../../evergine_studio/interface.md) to open it. It has four parts: the viewport, the toolbar, the playback controls and the properties.
 
 ## Viewport
 Shows the **Model** with the current configuration. If the model is animated, it will show the current animation state on the *animation toolbar*.
@@ -36,14 +41,14 @@ If the model has animations, the *Playback Toolbar* allows playing the selected 
 | ![speed](images/velocity.png) | Controls the **Speed Factor** of the reproduction. The default is **1.00**. |
 
 ## Properties
-Panel with all the **Model** properties. They don't depend on the profile.
+The import settings of the model, shared by every profile:
 
 | Property | Description |
 |----------|-------------|
-| **Swap Swinding Order** | Flips the normals of the model when activated. |
-| **Generate Tangent Space** | When checked, generates the tangent coordinates of every vertex. Useful when dealing with normal mapping. |
-| **Export Animations** | For exporting the animation information of the model. |
-| **Export As Raw** | Will export the model as the source file (e.g., `.fbx`), instead of creating a binary **Evergine** asset.
+| **Swap Winding Order** | Reverses the winding of every triangle, which flips which side faces outwards. Use it when a model shows its inside, as happens with some exporters. Off by default. |
+| **Generate Tangent Space** | Generates tangents for every vertex, which normal maps need. On by default. |
+| **Export Animations** | Exports the animation clips of the model. On by default. |
+| **Export As Raw** | Exports the source file (for example the `.fbx`) as is, instead of converting it to an Evergine asset. |
 
 ## Animation Clip Properties
 For every animation contained in the model, the following information will be shown:

@@ -1,4 +1,6 @@
-# Level of Detail (LOD) for Models
+# Level of Detail (LOD)
+
+---
 
 ![LoD](images/LoD.png)
 
@@ -38,27 +40,25 @@ To set up LOD in your entities, you need to use `LODGroup` and `LODEntry` compon
 
 The LODGroup component manages the Level of Detail of the owner's entity.
 
-It will collect all LODEntry components defined in the entity hierarchy to conform the meshes assigned to each LOD Level. They will calculate the screen coverage of the meshes in the camera and select the proper level accordingly.
+It collects the `LODEntry` components of its entity and its descendants, groups them by level, measures how much of the screen the model's bounds cover and enables the matching level.
 
 ![LODGroup](images/lodgroup.png)
 
 | Property | Default | Description |
 | --- | --- | --- |
-| **LOD Levels** | 0.25, 12.5, 6.25, ... | Indicates the minimum screen coverage required per each LOD Level (for example, by default, LOD 0 requires that the entity cover at least 25% of the screen). |
+| **LOD** | 0.25, 0.125, 0.0625, ... and 0.005 for the last level | Minimum screen coverage of each level: level *i* defaults to 1/2^(i+2), so LOD 0 is used while the model covers at least 25% of the screen, LOD 1 down to 12.5%, and so on. The last level is kept down to 0.5%; below that the model is not drawn. |
 | **LOD Bias** | 1 | This property is used as a factor to the calculated screen coverage. It will be used to increase or reduce the overall LOD levels. For example, an LOD Bias of 0.5 causes a model with a screen coverage of 40% to be processed as 20%. In general terms, values lower than 1 tend to increase the LOD levels, and values greater than 1 will produce lower LOD levels. |
 
 ### LODEntry
 
-You need to add an **LODEntry** component to assign an LOD level to a specified entity with a Mesh. This component requires a `MeshRenderer` component, which will be enabled or disabled depending on the overall LOD Level.
-
-By default, when an LOD Level is selected, it will enable all LODEntry `MeshRenderer` associated components, and they will disable the other LODEntry MeshRenderers.
+An **LODEntry** assigns an entity to a level. When the group selects a level, it enables the drawables (such as `MeshRenderer` or `SkinnedMeshRenderer`) of the entries of that level and disables those of every other level.
 
 ![LODEntry](images/lodentry.png)
 
 | Property | Default | Description |
 | --- | --- | --- |
 | **LOD** | 0 | Indicates the LOD Level assigned to this entity. |
-| **DisableEntity** | false | If this value is true, it will disable or enable the entire Entity, instead of only enabling or disabling the MeshRenderer. |
+| **DisableEntity** | false | Enable and disable the whole entity, children included, instead of only its drawables. |
 
 ## Importing LOD Models
 
