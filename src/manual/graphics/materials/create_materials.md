@@ -23,27 +23,37 @@ The material file has the `.wemt` extension.
 The following sample code can be used to create a new material and apply it to an entity in your scene. In this case, the material will be created using the **StandardEffect** effect and the **Opaque** render layer:
 
 ```csharp
-protected override void CreateScene()
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
 {
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-    // Load the effect
-    Effect standardEffect = assetsService.Load<Effect>(EvergineContent.Effects.StandardEffect);
+        // Load the effect
+        Effect standardEffect = assetsService.Load<Effect>(DefaultResourcesIDs.StandardEffectID);
 
-    // Load a Render Layer description
-    RenderLayerDescription layer = assetsService.Load<RenderLayerDescription>(EvergineContent.RenderLayers.Opaque);
+        // Load a Render Layer description
+        RenderLayerDescription layer = assetsService.Load<RenderLayerDescription>(DefaultResourcesIDs.OpaqueRenderLayerID);
 
-    // Create your own material
-    Material material = new Material(standardEffect);
-    material.LayerDescription = layer;
+        // Create your own material
+        Material material = new Material(standardEffect);
+        material.LayerDescription = layer;
 
-    // Apply to an entity
-    Entity primitive = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new MaterialComponent() { Material = material })  
-        .AddComponent(new SphereMesh())
-        .AddComponent(new MeshRenderer());
+        // Apply to an entity
+        Entity primitive = new Entity()
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })  
+            .AddComponent(new SphereMesh())
+            .AddComponent(new MeshRenderer());
 
-    this.Managers.EntityManager.Add(primitive);
+        this.Managers.EntityManager.Add(primitive);
+    }
 }
 ```

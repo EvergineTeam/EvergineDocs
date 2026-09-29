@@ -1,46 +1,47 @@
 # Texture Editor
 
+---
+
 ![Texture Editor](Images/textureEditorHighlight.png)
 
-The **Texture Editor** allows the editing of texture assets. Double-clicking on a **Texture** asset shown in [Assets Details](../../evergine_studio/interface.md) will open this editor. The editor is composed of three main parts:
+<!-- CAPTURE: Images/textureEditor.png; the Texture Editor of the develop Evergine Studio with an HDR texture open, showing the toolbox (channels, mip level, slice, range) and the properties, to replace the 2024 screenshot above -->
+
+The **Texture Editor** previews a texture and edits its import settings. Double-click a texture in [Assets Details](../../evergine_studio/interface.md) to open it. It has three parts: the viewport, the toolbox and the properties.
 
 ## Viewport
-Shows the **Texture** with the current configuration. It contains a label with the following information:
 
-- Texture Type
-- Resolution in pixels
-- Pixel Format
-- Size of the texture on disk
-
-> [!NOTE]
-> An example of descriptive text would be _Texture2D 4096x4096 px R8G8B8A8_Unorm_.
+Shows the texture with the current settings, and a label with its type, size in pixels, pixel format and size on disk, for example _Texture2D 4096x4096 px R8G8B8A8_UNorm_.
 
 ## Toolbox
-Helps with the texture visualization. It has the following options:
 
 | Item | Description |
 | ---- | ----------- |
-| ![channel selector](Images/toolboxChannelSelector.png) | Each button enables or disables the **Texture** channels. |
-| ![mipmap selector](Images/toolboxMipmapping.png) | Slider that sets the current **Mipmap level** of the texture. This control will be hidden in the case of textures without mipmapping. |
-| ![background selector](Images/toolboxBackground.png) | Sets the background color in the **Viewport**. |
+| ![Channel buttons](Images/toolboxChannelSelector.png) | Show or hide the red, green, blue and alpha channels. |
+| ![Mip level slider](Images/toolboxMipmapping.png) | Mip level to show. Hidden for textures without mipmaps. |
+| Slice | Array slice or depth slice to show, for array and 3D textures. |
+| Range | Range of values mapped to black and white. Use it to inspect HDR textures, whose values go beyond 1, and data textures that use a small part of the range. |
+| ![Background color](Images/toolboxBackground.png) | Background color of the viewport, to judge transparency. |
+| RenderDoc | Capture a frame of the viewport with [RenderDoc](../../evergine_studio/renderdoc.md). |
 
 ## Properties
-Panel with all the **Texture** properties. They don't depend on the profile.
 
-| Property | Description |
-|----------|-------------|
-| **GenerateMipmaps** | If **Evergine** will generate all the mipmaps for the **Texture**. |
-| **PremultipliedAlpha** | If the **RGB** channels are multiplied by the **Alpha (A)** channel. |
-| **Sampler** | The **SamplerState** asset that defines how the **Texture** is sampled and filtered. |
-| **NinePathType** | **(Currently not supported)** Sets the nine-path information of the image. It defines how the texture can stretch in a UI component. |
+These settings are the same for every profile:
 
-## Profile Properties
-Properties that can be changed in every app profile.
+| Property | Default | Description |
+| -------- | ------- | ----------- |
+| **GenerateMipmaps** | true | Generate the mipmap chain on import. Turn it off for UI images and textures always shown at their full size. |
+| **PremultipliedAlpha** | true | Multiply the color channels by alpha on import, which gives correct filtering and blending at transparent edges. |
+| **Sampler** | | The [sampler](../samplers.md) the texture uses by default. |
+| **NinePatchType** | `None` | `None` or `FromTexture`. Reserved for nine-patch scaling of UI images; the engine does not use it yet. |
 
-| Property | Description |
-|----------|-------------|
-| ScalingType | Sets how the texture will be scaled: <ul><li>**Original:** Doesn't affect the image size.</li><li>**Percentage:** Scales the image using the **ScaledPercentage** value.</li><li>**FreeForm:** Sets the **Texture** size directly using **ScaledWidth** and **ScaledHeight**.</li><li>**PowerOfTwo:** Scales to the smallest power of two size per dimension.</li><li>**SquarePowerOfTwo:** Scales to the smallest **square** power of two size per dimension.</li></ul> |
-| ScaledPercentage | Defines the scale factor of the texture when using the **Percentage** scaling type. **1.0 by default**. |
-| ScaledWidth | Defines the width of the **Texture** when using the **FreeForm** scaling type. |
-| ScaledHeight | Defines the height of the **Texture** when using the **FreeForm** scaling type. |
-| PixelFormat | Defines the size, elements, and name of **Texture** pixels.
+## Profile properties
+
+These settings can differ per [profile](../../evergine_studio/settings/project_profiles.md):
+
+| Property | Default | Description |
+| -------- | ------- | ----------- |
+| **ScalingType** | `Original` | How the image is resized on export: `Original` keeps its size; `Percentage` scales it by **ScaledPercentage**; `Freeform` sets **ScaledWidth** and **ScaledHeight**; `PowerOfTwo` rounds each side to a power of two; `SquarePowerOfTwo` makes it a square power of two. |
+| **ScaledPercentage** | 1 | Scale factor for `Percentage`, from 0.1 to 2. |
+| **ScaledWidth** | image width | Width for `Freeform`. |
+| **ScaledHeight** | image height | Height for `Freeform`. |
+| **PixelFormat** | from the image | Pixel format of the exported texture, for example `R8G8B8A8_UNorm` or a block-compressed format. Choosing an sRGB format tells the GPU the texture holds gamma-encoded color. |
