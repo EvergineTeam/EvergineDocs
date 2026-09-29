@@ -6,13 +6,13 @@ To integrate AI-driven 3D model generation within Evergine Studio, a dedicated t
 
 Navigate to the AI Generation Tab by clicking on the "Generative assets" menu item located under the "Assets" menu of the main toolbar.
 
-![Assets](images/generativeAssets.png)
+![Assets](Images/generativeAssets.png)
 
 ## Gallery
 
 The first screen is the Gallery, where you can find the generated assets you have saved.
 
-![Assets](images/generateGallery.jpg)
+![Assets](Images/generateGallery.jpg)
 
 ### Filter and sort
 
@@ -30,7 +30,7 @@ The right button of a gallery item adds the item to the current project. Clickin
 
 Currently, Evergine supports the creation of 3D models using Tripo AI. Future updates may introduce support for additional AI providers and the possibility to generate other types of assets such as textures, cubemaps, and more.
 
-![Assets](images/generateCreate.jpg)
+![Assets](Images/generateCreate.jpg)
 
 ### Initial Setup
 
@@ -40,7 +40,7 @@ Enter Your TripoAI API Key:
    - Create a Tripo AI API key from its platform: https://platform.tripo3d.ai/api-keys
    - Input your TripoAI API key in the designated field and click "Save key".
 
-![Assets](images/generateTripoAI.png)
+![Assets](Images/generateTripoAI.png)
 
 ### Monitoring TripoAI Credits
 
@@ -64,7 +64,7 @@ Evergine offers three methods for AI-driven 3D model generation:
    - Choose the "Multiview" tab.
    - Upload up to 4 images from your device using the upload function or by dragging and dropping the image into the designated area.
 
-![Assets](images/generateTripoAI2.png)
+![Assets](Images/generateTripoAI2.png)
 
 #### Additional options
 
@@ -73,7 +73,7 @@ Evergine offers three methods for AI-driven 3D model generation:
 
 #### Generating Multiple Proposals
 
-![Assets](images/generateProposals.png)
+![Assets](Images/generateProposals.png)
 
 - To expedite the creative process, Evergine allows simultaneous generation of multiple proposals (1, 2, or 4).
 - Each proposal is processed in parallel with individual progress indicators.

@@ -32,7 +32,7 @@ Import an asset by dragging and dropping a resource file from your _File Explore
 You can also import a resource file by selecting the **Import Asset** menu item located in:
 
 * The **Assets** main menu.
-* The ![Plus Icon](images/plusIcon.jpg) button on the **Assets Details** panel.
+* The ![Plus Icon](Images/plusIcon.jpg) button on the **Assets Details** panel.
 * The **Asset Details** panel contextual menu.
 
 ![Import menu item](Images/menuImport.jpg)
@@ -42,7 +42,7 @@ You can also import a resource file by selecting the **Import Asset** menu item 
 **Evergine** uses a variety of assets that don't require external resource files. These assets can be created directly from **Evergine Studio**. Like in the previous section, you can access the Assets menu items in three places:
 
 * The **Assets** item in the main menu.
-* The ![Plus Icon](images/plusIcon.jpg) button on the **Assets Details** panel.
+* The ![Plus Icon](Images/plusIcon.jpg) button on the **Assets Details** panel.
 * The **Assets Details** contextual menu.
 
 ![Assets menu](Images/assetsMenu.jpg)

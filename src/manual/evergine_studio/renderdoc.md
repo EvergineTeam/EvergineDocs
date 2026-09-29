@@ -1,7 +1,7 @@
 # Profile with RenderDoc
 
 ---
-![Graphics](images/RenderDoc_0.jpg)
+![Graphics](Images/RenderDoc_0.JPG)
 
 RenderDoc is a graphics debugger currently available for Vulkan, DirectX 11/12, and OpenGL development on Windows, Linux, and Android. It is integrated into **Evergine Studio** to make it easy to debug your application during the development process.
 
@@ -11,17 +11,17 @@ To install the latest RenderDoc version, visit the project's [website](https://r
 
 First, you need to load the RenderDoc assembly to allow the graphical commands sent to the GPU to be captured. In the settings menu of the Editor, you will find an option called "Enable RenderDoc." This will reload the graphics device, so you must save any changes. Afterward, RenderDoc will be ready to capture the scene.
 
-![Graphics](images/RenderDoc_1.jpg)
+![Graphics](Images/RenderDoc_1.JPG)
 
 ## Capturing a frame with RenderDoc
 
 Once RenderDoc is enabled in **Evergine Studio**, a new button will appear on the right side of the toolbar in the scene view.
 
-![Graphics](images/RenderDoc_2.jpg)
+![Graphics](Images/RenderDoc_2.JPG)
 
 Pressing this button will trigger a capture of the next frame of rendering for the view, and a new RenderDoc instance will be launched to show the capture. From there, you can open the capture and debug using the tool.
 
-![Graphics](images/RenderDoc_3.jpg)
+![Graphics](Images/RenderDoc_3.JPG)
 
 ## Naming objects
 
@@ -39,7 +39,7 @@ or
 buffer.Name = "Buffer_Name";
 ```
 
-![Graphics](images/RenderDoc_4.jpg)
+![Graphics](Images/RenderDoc_4.JPG)
 
 ## Debug markers and regions
 
@@ -54,7 +54,7 @@ commandBuffer.BeginDebugMarker("Region_Name");
 commandBuffer.EndDebugMarker();
 ```
 
-![Graphics](images/RenderDoc_5.jpg)
+![Graphics](Images/RenderDoc_5.JPG)
 
 ## Including shader debug information
 

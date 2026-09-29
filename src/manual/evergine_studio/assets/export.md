@@ -1,6 +1,6 @@
 # Exporting Assets
 
-![Assets](images/assets.jpg)
+![Assets](Images/assets.jpg)
 
 **Evergine** usually doesn't load resource files (`.jpg`, `.fbx`, etc.) directly at runtime. Instead, it processes these files and compiles or exports them into binary files that can be properly and efficiently loaded into **Evergine**.
 

@@ -1,6 +1,6 @@
 # Assets
 ---
-![Assets](images/assets.jpg)
+![Assets](Images/assets.jpg)
 
 An **asset** is an item that represents an element in **Evergine Studio** and can be used in your project. It can represent visual or graphic elements like **3D models**, **textures**, or more abstract engine elements like **sampler states**, **materials**, and **render layers**. 
 

@@ -1,6 +1,6 @@
 # Interface
 ---
-![Graphics](images/interface.jpg)
+![Graphics](Images/Interface.jpg)
 
 Evergine Studio's interface uses dockable panels to organize different sections, allowing you to create your own layout with the panel locations that you prefer. The above image shows the default layout, and its main panels are:
 
@@ -29,4 +29,4 @@ As mentioned earlier, the Evergine Studio layout is customizable.
 
 By clicking on the Window menu, you can manage the Evergine Studio layout:
 
-![Graphics](images/RestoreLayout.jpg)
+![Graphics](Images/RestoreLayout.jpg)
