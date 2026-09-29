@@ -47,9 +47,9 @@ A `VertexBuffer` pairs a GPU `Buffer` holding the raw vertex data with a `Layout
 
 A mesh can store all the attributes of a vertex together in one buffer (**interleaved**), or keep each attribute in its own buffer (**non-interleaved**), with one vertex buffer per stream.
 
-![Interleaved vertex data: one buffer, each vertex stores position, normal and texture coordinates next to each other](images/InterleavedData.png)
+![Interleaved vertex data: one buffer in which each vertex stores its position and color next to each other](images/InterleavedData.png)
 
-![Non-interleaved vertex data: one buffer per attribute, so positions, normals and texture coordinates each form a contiguous stream](images/NonInterleavedData.png)
+![Non-interleaved vertex data: one buffer of positions and another of colors, each a contiguous stream](images/NonInterleavedData.png)
 
 *Interleaved data is compact and simple. Separate streams let a pass read only what it needs: a shadow map pass that only reads positions touches far less memory.*
 
