@@ -1,20 +1,25 @@
-# Create Postprocessing Graph
+# Create a Post-Processing Graph
+
 ---
-![Postprocessing header](images/PostProcessingGraph.jpg)
 
-The Post-Processing graph is a set of nodes connected to apply visual effects to the output render before displaying it on the screen. Each node is a compute [effect](../effects/index.md). 
+![Post-processing header](images/PostProcessingGraph.jpg)
 
-## Create a Postprocessing Graph Asset in Evergine Studio
-You can create a postprocessing graph by clicking the ![Plus Icon](../images/plusIcon.jpg) button in the [Assets Details](../../evergine_studio/interface.md) panel. This will open the create menu options, where you can select the option _"Create Post-Processing Graph"_.
+A post-processing graph is an asset: a set of connected nodes, each a compute [effect](../effects/index.md), that turns the rendered image into the final one. Create your own when the [default graph](default_postprocessing_graph/index.md) does not have the effect you need, or to keep only the effects you use.
+
+## Create a post-processing graph asset in Evergine Studio
+
+Click the ![Plus Icon](../images/plusIcon.jpg) button in the [Assets Details](../../evergine_studio/interface.md) panel and choose **Create Post-Processing Graph**.
 
 ![Create new postprocessing graph menu option](images/AssetsDetailsMenu.jpg)
 
-### Inspect Postprocessing Graph in Asset Details
-You can find the postprocessing graph assets in the [**Assets Details**](../../evergine_studio/interface.md) panel when you select a folder in the [**Project Explorer**](../../evergine_studio/interface.md).
+### Post-processing graphs in Assets Details
+
+Post-processing graph assets appear in the [**Assets Details**](../../evergine_studio/interface.md) panel when you select their folder in the [**Project Explorer**](../../evergine_studio/interface.md). Double-click one to open the [Post-Processing Graph Editor](postprocessing_graph_editor.md).
 
 ![Postprocessing Graph asset](images/postProcessinGraphAsset.jpg)
 
-### Postprocessing Graph Files in Content Directory
-The postprocessing graph file has the `.wepp` extension.
+### Post-processing graph files in the Content folder
+
+A post-processing graph is stored in a file with the `.wepp` extension.
 
 ![Postprocessing Graph file](images/postProcessingGraphFile.jpg)

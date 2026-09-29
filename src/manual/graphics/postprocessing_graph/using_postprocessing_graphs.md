@@ -1,30 +1,44 @@
-# Using Postprocessing Graph
+# Using the Post-Processing Graph
 
-![Postprocessing Graph header](images/PostProcessingGraph.jpg)
+---
 
-In this document, you will learn how to load and use the **Postprocessing Graph** in your applications.
+![Post-processing graph header](images/PostProcessingGraph.jpg)
 
-## Load Postprocessing Graph from Code
-The following sample code can be used to instantiate an existing postprocessing graph asset and apply it in your scene.
+A post-processing graph affects a scene through a **post-processing volume**: an entity with a `PostProcessingGraphRenderer` component that references the graph. This page shows how to add one in Evergine Studio and from code, and how volumes decide which cameras they affect.
+
+## Load a post-processing graph from code
+
+Load the graph asset and add a volume that uses it:
+
 ```csharp
-protected override void CreateScene()
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
 {
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-    var graph = assetsService.Load<PostProcessingGraph>(EvergineContent.PostprocessingGraph.MyPostProcessingGraph);
+        var graph = assetsService.Load<PostProcessingGraph>(EvergineContent.PostprocessingGraph.MyPostProcessingGraph);
 
-    // Add postprocessing graph to the scene
-    Entity postprocessingVolume = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new PostProcessingGraphRenderer() { ppGraph = graph });
+        // A global volume affects every camera, so it needs no position or collider.
+        Entity postprocessingVolume = new Entity("postProcessingVolume")
+            .AddComponent(new Transform3D())
+            .AddComponent(new PostProcessingGraphRenderer() { ppGraph = graph, IsGlobal = true });
 
-    this.Managers.EntityManager.Add(postprocessingVolume);
+        this.Managers.EntityManager.Add(postprocessingVolume);
+    }
 }
 ```
 
-## How to Apply Postprocessing Graph to a Scene from Evergine Studio
+Without a `ppGraph`, the component uses the default post-processing graph of Evergine.Core.
 
-You can apply a postprocessing graph to your scene by clicking on the ![Plus Icon](../images/plusIcon.jpg) button from the [Entities Hierarchy](../../evergine_studio/interface.md) panel and selecting _Post-processing Volume_.
+## Add a post-processing volume in Evergine Studio
+
+Click the ![Plus Icon](../images/plusIcon.jpg) button in the [Entities Hierarchy](../../evergine_studio/interface.md) panel and select **Post-processing Volume**. The new volume uses the default post-processing graph.
 
 ![Create Postprocessing Volume](images/CreatePostprocessingGraph.jpg)
 
@@ -33,15 +47,14 @@ A Postprocessing Volume is an entity in your scene composed of 3 components:
 * `PostProcessingGraphRenderer`
 * `BoxCollider`
 
-With the `PostProcessingGraphRenderer` component, you can configure it to work in two modes.
+## PostProcessingGraphRenderer
 
-| Mode | Description |
-| ---- | ----------- |
-| **Global** | All cameras in your scene will be affected by the postprocessing graph. |
-| **Volume** | The cameras that enter into the volume defined by a BoxCollider will be affected by the postprocessing graph. |
+| Property | Default | Description |
+| --- | --- | --- |
+| **ppGraph** | Default post-processing graph | The graph asset the volume applies. |
+| **IsGlobal** | true | When true, the graph applies to every camera. When false, it applies only to cameras whose position is inside the volume's box collider, so you can change the look of a room or a cave. |
+| **LayerOrder** | 10 | When the graph runs, compared with the `Order` of the [render layers](../renderlayers/index.md). The graph runs after every layer with a lower order, so the default of 10 runs it after opaque (0), alpha (2) and additive (3) objects. Give a UI layer an order above it to keep the UI out of post-processing. |
 
-In addition, you can configure the _LayerOrder_ to execute the postprocessing in your scene. For example, you can execute the postprocessing after drawing all entities in your scene but before the UI entities.
-
-Finally, the PostProcessingGraphRenderer allows you to load a Postprocessing Graph asset and displays all its nodes or its associated [decorator](custom_postprocessing_graph.md).
+Below these properties, the component shows the parameters of the graph: either all of its node inputs or, when the graph has one, the panels of its [decorator](custom_postprocessing_graph.md#post-processing-graph-decorator).
 
 ![Postprocessing Renderer](images/PostprocessingGraphRenderer.jpg)

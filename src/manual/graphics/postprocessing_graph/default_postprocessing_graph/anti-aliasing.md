@@ -1,7 +1,16 @@
 # Fast Approximate Anti-Aliasing (FXAA)
 
-**Fast approximate anti-aliasing** is a screen-space anti-aliasing algorithm created by Timothy Lottes at Nvidia.
+---
 
-The main advantage of this technique over conventional spatial anti-aliasing is that it does not require large amounts of computing power. It achieves this by smoothing undesirable jagged edges ("jaggies") as pixels, according to how they appear on-screen, rather than analyzing the 3D model itself, as in conventional spatial anti-aliasing. Since it is not based on the actual geometry, it will smooth not only edges between triangles but also edges inside alpha-blended textures or those resulting from pixel shader effects, which are immune to the effects of multisample anti-aliasing (MSAA).
+<!-- CAPTURE: images/fxaa.png; a close-up of diagonal edges without and with FXAA, with TAA off -->
 
-The downsides are that high contrast texture maps are blurred, FXAA must be applied before rendering the HUD elements of a game lest it affect them too, and polygonal details smaller than one pixel that would have been captured and rendered by MSAA and SSAA will not be captured and rendered by FXAA alone.
+**Fast Approximate Anti-Aliasing** smooths jagged edges in a single full-screen pass. It finds edges by their contrast in the final image and blends across them, so it works on any edge, including those inside textures and alpha-tested geometry, and needs no extra buffers.
+
+Because it only sees the final pixels, FXAA cannot recover detail smaller than a pixel, can soften high-contrast textures, and does not remove shimmering in motion. [TAA](temporal_anti_aliasing.md) handles those better; the default graph runs both.
+
+## Parameters
+
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Enabled** | On | Turns the effect on. |
+| **Quality** | `Default` | Search quality: `Performance`, `Default` or `Extreme`. Higher quality follows edges farther, which smooths long, shallow edges better at a higher cost. |

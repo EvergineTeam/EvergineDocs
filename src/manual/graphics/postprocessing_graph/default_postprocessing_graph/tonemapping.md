@@ -1,61 +1,76 @@
-# Tonemapping, Chromatic Aberration, Vignette, Grain, Distortion
+# Tone Mapping, Chromatic Aberration, Grain, Vignette and Distortion
 
 ---
 
-In this section, multiple effects are explained because the process steps to calculate them are similar and they were implemented together for performance reasons.
+These effects are applied by a single node, `ToneMapping`, that reads each pixel once and applies all of them, which is cheaper than running them one after another. Each can be switched on independently.
 
-## Tonemapping
+## Tone Mapping
 
-**Tonemapping** is a technique used in image processing and computer graphics to map one set of colors to another to approximate the appearance of high-dynamic-range images in a medium that has a more limited dynamic range.
+**Tone mapping** converts the HDR image the camera renders, where values can be far above 1, into the limited range of the display, compressing highlights so bright areas keep their detail instead of clipping to white.
 
 ![Tonemapping](images/Tonemapping.jpg)
 
-In the above image, the left side is the render without tonemapping applied, and the right side is the result of applying tonemapping to the left side.
+*Left, the render without tone mapping; right, with it.*
 
-| Parameter  | Description |
-| ---------- | ----------- |
-| HDR Enabled | Enables/Disables mapping of High Dynamic Range (HDR) to Low Dynamic Range (LDR). |
-| Curve       | Defines how to map the image color to the output image. The following curves are available: Reinhard, ReinhardSQ, LumaReinhard, Filmic, ACES, RombindAHouse. The default curve is ACES. |
-| LUT Enable  | Enables/Disables the use of the Lookup Table (LUT) texture to map the colors. |
-| LUT Texture | Represents a Lookup Table (LUT) 16x16x16 color neutral unwrapped to a 256x16 texture. <br> There are two LUT Texture samples: <br>  <p>HDR:</p>![LUT HDR](images/LUTHDR.png)<p></p> <p>Vintage:</p>![LUT Vintage](images/LUTVintage.png)<p></p> |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Enabled** | On | Turns the node, and every effect on this page, on. |
+| **HDR Enabled** | On | Map HDR to the display range with the curve below. Turn it off only when the camera renders in LDR. |
+| **Curve** | `ACES` | The mapping curve: `REINHARD`, `REINHARDSQ`, `LUMAREINHARD`, `FILMIC`, `ACES` or `ROMBINDAHOUSE`. ACES gives the filmic contrast and color most people expect. |
+| **LUT Enabled** | Off | Color-grade the result with a lookup table. |
+| **LUT Texture** | none | A 16x16x16 color lookup table unwrapped into a 256x16 texture. Start from a neutral table, grade it in an image editor together with a screenshot, and use the result. |
+| **Dither Enabled** | Off | Add a small amount of noise to hide banding in smooth gradients. |
+
+Two sample lookup tables, HDR and vintage:
+
+![HDR lookup table](images/LUTHDR.png)
+
+![Vintage lookup table](images/LUTVintage.png)
 
 ## Chromatic Aberration
 
-Chromatic aberration, also known as “color fringing” or “purple fringing,” is a common optical problem that occurs when a lens is either unable to bring all wavelengths of color to the same focal plane, and/or when wavelengths of color are focused at different positions in the focal plane. Chromatic aberration is caused by lens dispersion, with different colors of light traveling at different speeds while passing through a lens. As a result, the image can look blurred or noticeable colored edges (red, green, blue, yellow, purple, magenta) can appear around objects, especially in high-contrast situations.
+**Chromatic aberration** is the color fringing a lens produces because it bends each wavelength slightly differently. The effect shifts the red, green and blue channels apart, most visibly towards the edges of the image.
 
 ![Chromatic aberration](images/ChromaticAberration.jpg)
 
-In the above image, the left side is the render without chromatic aberration applied, and the right side is the result of applying chromatic aberration to the left side.
+*Left, without chromatic aberration; right, with it.*
 
-| Parameter  | Description |
-| ---------- | ----------- |
-| Strength   | Defines the distance between color bands. |
-| Offset     | Defines the vector direction of the aberration. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Chromatic Aberration** | Off | Turns the effect on. |
+| **Strength** | 5 | Distance between the color channels. |
+| **Offset** | (0.005, 0.005) | Direction and base amount of the shift. |
 
 ## Grain
 
-If you’ve watched a film and seen speckles on the screen in random patterns, you’ve seen film grain. Originally, the actual grains in film grain were small particles of silver halide, the primary photosensitive substance used in chemical film. These particles are randomly distributed artifacts throughout the image.
+**Grain** adds the fine, moving noise of photographic film.
 
 ![Grain](images/Grain.jpg)
 
-| Parameter  | Description |
-| ---------- | ----------- |
-| Intensity | Defines the intensity of the grain effect. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Grain Enabled** | Off | Turns the effect on. |
+| **Intensity** | 0.5 | Strength of the grain, from 0 to 1. |
 
 ## Vignette
 
-A vignette is a decrease in brightness of a photograph towards its edges compared to the image center. Vignetting is often an undesired effect caused by camera settings that are not suitable for the given light situation. However, the effect can also be added subsequently to create noticeable changes in the picture’s mood and perception by making subtle changes.
+A **vignette** darkens the image towards its corners, drawing the eye to the center.
 
-| Parameter  | Description |
-| ---------- | ----------- |
-| Power      | Defines the intensity of the vignette effect. |
-| Ratio      | Defines the ratio of the effect with respect to the center of the image. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Vignette Enabled** | Off | Turns the effect on. |
+| **Power** | 1 | How dark the corners get. |
+| **Radio** | 1.25 | Scale applied to the distance from the center before darkening. Larger values bring the darkening closer to the center. Evergine Studio displays this value converted as if it were an angle, so the default reads 71.6. |
 
 ## Distortion
 
-This is a visual effect that simulates the effect produced by the refraction of light. Examples of this effect include looking through glass or fire smoke.
+**Distortion** bends the image behind refractive objects, such as heat haze, glass or water. Objects write how much to bend the image into the distortion target of the GBuffer, and this effect offsets the pixels accordingly.
 
-> [!Tip]
-> This effect requires the use of the **[Distortion Material](../../effects/builtin_effects.md)** included in the [**Evergine.core** package](../../../addons/index.md).
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Distortion** | Off | Turns the effect on. |
+
+> [!TIP]
+> Only materials that write distortion produce it, such as those made with the **Distortion** effect of Evergine.Core. See [Built-in Effects](../../effects/builtin_effects.md).
 
 ![Distortion effect](images/Distortion.jpg)
