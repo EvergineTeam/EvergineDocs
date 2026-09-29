@@ -145,7 +145,7 @@ public class PinchDetector : Behavior
 
 <video autoplay loop muted playsinline width="512" height="512"><source src="images/renderhandsvideo.mp4" type="video/mp4"></video>
 
-<!-- CAPTURE: xrdevicerenderablemodel.png; Entity Details panel of Evergine Studio from develop showing an entity with TrackXRArticulatedHand, MaterialComponent and XRDeviceRenderableModel (403x477 crop, TrackXRArticulatedHand and XRDeviceRenderableModel expanded) -->
+![TrackXRArticulatedHand, MaterialComponent and XRDeviceRenderableModel in Evergine Studio](images/xrdevicerenderablemodel.png)
 
 | Member | Description |
 | --- | --- |

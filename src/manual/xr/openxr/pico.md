@@ -12,7 +12,6 @@ Select the **Android Pico (OpenXR)** template when you create a project:
 
 To add Pico to an existing project, open **Project Settings**, add a profile and choose the same template. The profile is named **Pico** by default.
 
-<!-- CAPTURE: openxr_addpicoprofile.png (replace the current one); Project Settings > Profiles > Add dialog in Evergine Studio from develop, with "Android Pico (OpenXR)" selected (Android filter) and the Name field showing "Pico" -->
 ![Adding the Pico profile in Project Settings](images/openxr_addpicoprofile.png)
 
 ## What the template contains

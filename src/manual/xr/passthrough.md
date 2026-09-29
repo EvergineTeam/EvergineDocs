@@ -51,8 +51,7 @@ Keep the headset's operating system up to date: passthrough capabilities, such a
 
 Add an `XRPassthroughLayerComponent` to any entity to create a passthrough layer. It needs no other component.
 
-<!-- CAPTURE: xrpassthroughlayercomponent.jpg (replace the current one); Entity Details panel of Evergine Studio from develop with XRPassthroughLayerComponent expanded (403x477 crop, other components collapsed), EdgeRendering on so EdgeColor shows, ColorControl set to ColorAdjustment so Brightness, Contrast and Saturation show -->
-![XRPassthroughLayerComponent in Evergine Studio](images/xrpassthroughlayercomponent.jpg)
+![XRPassthroughLayerComponent in Evergine Studio](images/xrpassthroughlayercomponent.png)
 
 The layer is created when the component attaches and starts when it activates. Disabling the component or its entity pauses the layer, and removing it destroys the layer.
 

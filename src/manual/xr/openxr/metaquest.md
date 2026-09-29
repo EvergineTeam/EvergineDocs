@@ -12,7 +12,6 @@ Select the **Android Meta Quest (OpenXR)** template when you create a project:
 
 To add Meta Quest to an existing project, open **Project Settings**, add a profile and choose the same template. The profile is named **Quest** by default.
 
-<!-- CAPTURE: openxr_addprofile.png (replace the current one); Project Settings > Profiles > Add dialog in Evergine Studio from develop, with "Android Meta Quest (OpenXR)" selected (Android filter) and the Name field showing "Quest" -->
 ![Adding the Meta Quest profile in Project Settings](images/openxr_addprofile.png)
 
 ![The four steps from choosing a profile to running the frame loop](images/openxr_project_setup.png)

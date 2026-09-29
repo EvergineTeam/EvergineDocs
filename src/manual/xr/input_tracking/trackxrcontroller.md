@@ -10,7 +10,6 @@ Use it for anything held in the hand: a rendered controller, a tool, a laser poi
 
 When you add the component to an entity in Evergine Studio, it shows these properties:
 
-<!-- CAPTURE: trackxrcontroller.png (replace the current one); Entity Details panel of Evergine Studio from develop with TrackXRController expanded (403x477 crop, other components collapsed), Handedness RightHand -->
 ![TrackXRController in Evergine Studio](images/trackxrcontroller.png)
 
 | Property | Default | Description |
