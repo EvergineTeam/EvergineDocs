@@ -4,7 +4,7 @@
 
 This is the default method to create environment lighting in Evergine. When you create a new scene in Evergine Studio, it will use this method to provide the environmental lighting.
 
-It creates an HDR sky texture that physically simulates the properties of the atmosphere. Additionally, it uses a [Directional Light](../lights.md#directional-lights--photometric-directional-light) to control the atmosphere light dispersion, as well as the light intensity and color.
+It creates an HDR sky texture that physically simulates the properties of the atmosphere. Additionally, it uses a [Directional Light](../lights.md#directional-light) to control the atmosphere light dispersion, as well as the light intensity and color.
 
 # SunComponent
 
