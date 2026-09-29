@@ -189,7 +189,7 @@ These features are optional. Existing projects keep working without them.
 
 ### Fence
 
-`Fence` tells the CPU when one particular submission has finished on the GPU, instead of waiting for the whole queue with `WaitIdle()`. Create one with `Factory.CreateFence()`, pass it to `CommandQueue.Submit(fence)`, and use `IsSignaled`, `Wait` and `Reset`. It is implemented on DirectX 12, DirectX 11, Vulkan, OpenGL, Metal and WebGPU. See [Fence](../../graphics/low_level_api/fence.md).
+`Fence` tells the CPU when one particular submission has finished on the GPU, instead of waiting for the whole queue with `WaitIdle()`. Create one with `Factory.CreateFence()`, pass it to `CommandQueue.Submit(fence)`, and use `IsSignaled`, `Wait` and `Reset`. It is implemented on DirectX 12, DirectX 11, Vulkan, OpenGL, Metal and WebGPU. See [CommandQueue](../../graphics/low_level_api/commandqueue.md) for how submission works.
 
 `GraphicsContext.FramesInFlight` (0 by default, which disables it) builds on fences: when it is greater than zero, `GraphicsPresenter` creates one fence per frame and lets that many frames be in progress at once.
 
