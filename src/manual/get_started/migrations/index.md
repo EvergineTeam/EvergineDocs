@@ -15,8 +15,6 @@ Each Evergine release brings new features, performance work and bug fixes. Most 
 4. Review the package list and accept the changes.
 5. Open the project in Evergine Studio and in Visual Studio, rebuild it, and fix any compilation errors with the help of the migration guide for that version.
 
-<!-- CAPTURE: images/launcher_update_project.png; Evergine Launcher "My projects" list with a project row showing the version selector open on a newer version and the Update button enabled -->
-
 ## Migration guides
 
 | Guide | Main changes |

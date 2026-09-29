@@ -13,9 +13,7 @@ In Evergine Studio, select **File > Open C# editor**.
 
 Evergine Studio opens the `.sln` file with the application Windows associates with solutions, normally Visual Studio. You can also open the solution yourself: **File > Open project folder** shows the project folder in the file explorer, and every `.sln` file sits at its root.
 
-<!-- CAPTURE: images/visual_studio_2026_solution.png; Visual Studio 2026 with MyGame.Windows.sln open, Solution Explorer expanded to show MyGame (EvergineContent.cs, MyApplication.cs, MyScene.cs), MyGame.Editor (MyCustomClassEditor.cs) and MyGame.Windows (Program.cs) with Program.cs open on the DX12GraphicsContext line -->
-
-![Visual Studio with the Windows solution of a new project open](images/VisualStudio_2.JPG)
+![Visual Studio 2026 with the Windows solution of a project open: the shared project, the Editor project and the Windows launcher](images/visual_studio_2026_solution.png)
 
 ## One solution per profile
 

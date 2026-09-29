@@ -39,8 +39,6 @@ The installer checks the .NET SDK and Visual Studio before it copies any file, a
 
 The **Evergine Launcher** is a standalone Windows app. From it you install and remove Evergine versions, create and open projects, update projects to a newer version, and find samples, learning materials and support.
 
-<!-- CAPTURE: images/launcher_home.png; Evergine Launcher home ("My projects") with two or three recent projects on the current release, the Add new project button and the side menu (My projects, Versions, Samples, Learning, Support) visible -->
-
 ![Evergine Launcher](../evergine_launcher/images/Launcher.jpg)
 
 ## Troubleshooting
