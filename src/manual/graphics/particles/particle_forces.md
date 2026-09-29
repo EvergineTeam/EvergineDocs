@@ -36,7 +36,7 @@ protected override void CreateScene()
         .AddComponent(new Transform3D())
         .AddComponent(new PointAttractorForce()
         {
-            ForceCategory = CollisionCategory3D.All
+            ForceCategory = CollisionCategory.All
         });
 
     this.Managers.EntityManager.Add(particleForce);

@@ -71,7 +71,7 @@ Plus everything in [Vehicles](index.md): the engine, the gearbox, the chassis ax
 ## Driving the Vehicle
 
 ```csharp
-tank.SetDriverInput(forward, leftRatio, rightRatio, brake);
+tank.FindComponent<TrackedVehicleController>().SetDriverInput(forward, leftRatio, rightRatio, brake);
 ```
 
 | Argument | Range | Meaning |

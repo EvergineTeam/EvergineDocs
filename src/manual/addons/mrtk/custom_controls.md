@@ -1,6 +1,6 @@
 # Creating Custom Controls
 ---
-MRTK controls utilize custom interfaces to handle user interaction events. Most controls should be added to an entity equipped with a _BoxCollider_ component and a _StaticBody_ component to ensure correct behavior within the physics engine.
+MRTK controls utilize custom interfaces to handle user interaction events. Most controls should be added to an entity equipped with a [`BoxCollider`](../../physics/colliders/box_collider.md) component and a [`StaticBody`](../../physics/physics_bodies/static_body.md) component to ensure correct behavior within the physics engine.
 
 ## Focus Events
 Controls implementing the _IMixedRealityFocusHandler_ interface receive focus events under the following conditions:

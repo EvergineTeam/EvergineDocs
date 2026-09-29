@@ -2,7 +2,7 @@
 
 ![Collisions](../images/physics.png)
 
-Every [`RigidBody`](rigid_body.md) reports what it touches. The three collision events are how gameplay hangs off the simulation: a shot registers a hit, a trigger opens a door, a car scrapes a wall and plays a sound.
+Every [physics body](index.md) reports what it touches, `StaticBody` and `RigidBody` alike. The three collision events are how gameplay hangs off the simulation: a shot registers a hit, a trigger opens a door, a car scrapes a wall and plays a sound.
 
 ## Collision Events
 
@@ -21,7 +21,7 @@ Two things are worth knowing about how they are delivered:
 
 | Property | Description |
 | --- | --- |
-| **OtherBody** | The body on the other side of the contact. |
+| **OtherBody** | The body on the other side of the contact, as a `PhysicsBody`. Test it with `as RigidBody` when you need its velocity. |
 | **OtherEntity** | Its entity, which is usually what gameplay code wants. |
 | **ThisCollider** | Which of this body's colliders took part, when it can be resolved. |
 | **OtherCollider** | The same for the other body. |
@@ -62,7 +62,9 @@ public class Breakable : Behavior
     {
         // How hard the hit was, rather than that there was one at all: everything resting on the floor
         // raises this event once, and a crate that shatters when it is set down is not a crate.
-        float speed = (this.body.LinearVelocity - info.OtherBody.LinearVelocity).Length();
+        // The other body may be static, in which case it has no velocity to subtract.
+        Vector3 otherVelocity = info.OtherBody is RigidBody other ? other.LinearVelocity : Vector3.Zero;
+        float speed = (this.body.LinearVelocity - otherVelocity).Length();
 
         if (speed < this.ImpactThreshold)
         {
@@ -83,15 +85,16 @@ The [collision matrix](../collision_filtering.md) decides which pairs of categor
 // A platform solid only from above: a contact is allowed when the other body is moving downwards.
 this.physicsManager.ContactValidator = (first, second) =>
 {
-    RigidBody platform = first.Owner.Tag == "oneway" ? first : second;
-    RigidBody other = ReferenceEquals(platform, first) ? second : first;
+    PhysicsBody platform = first.Owner.Tag == "oneway" ? first : second;
+    PhysicsBody other = ReferenceEquals(platform, first) ? second : first;
 
     if (platform.Owner.Tag != "oneway")
     {
         return true;
     }
 
-    return other.LinearVelocity.Y <= 0f;
+    // Both arguments are PhysicsBody; only a RigidBody has a velocity to look at.
+    return other is not RigidBody moving || moving.LinearVelocity.Y <= 0f;
 };
 ```
 

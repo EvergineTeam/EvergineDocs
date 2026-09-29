@@ -102,4 +102,4 @@ decide whether it holds together, and how to switch a character from its animati
 run time.
 
 > [!TIP]
-> Turn on `PhysicsDebugFlags.Constraints` while tuning a ragdoll. The swing cones and twist arcs are drawn in place, so a limit that is wrong is visible rather than merely suspicious. See [Debug Rendering](../debug_rendering.md).
+> Turn on `RenderManager.DebugLines` with `PhysicsDebugFlags.Constraints` while tuning a ragdoll. The swing cones and twist arcs are drawn in place, so a limit that is wrong is visible rather than merely suspicious. See [Debug Rendering](../debug_rendering.md).

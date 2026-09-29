@@ -13,7 +13,7 @@ It has no geometry to draw. The picture above is the bodies resting on it and th
 ```csharp
 Entity ground = new Entity("ground")
     .AddComponent(new Transform3D())
-    .AddComponent(new RigidBody() { BodyType = RigidBodyType.Static, Friction = 0.6f })
+    .AddComponent(new StaticBody() { Friction = 0.6f })
     .AddComponent(new PlaneCollider()
     {
         Normal = Vector3.Up,
@@ -39,7 +39,7 @@ this.Managers.EntityManager.Add(ground);
 | **Density** | 1000 | Unused: a plane has no volume, so it can carry no mass. |
 
 > [!IMPORTANT]
-> A plane collider cannot back a **dynamic** body: static and kinematic only. Like a triangle mesh it is a surface with no volume, so it has no mass and no inside. A dynamic body given one traces a warning and ignores it.
+> A plane collider cannot back a **dynamic** body: a [`StaticBody`](../physics_bodies/static_body.md) or a kinematic `RigidBody` only. Like a triangle mesh it is a surface with no volume, so it has no mass and no inside. A dynamic body given one traces a warning and ignores it.
 
 > [!TIP]
 > Leave `HalfExtent` alone unless the scene is very large. It costs nothing to have it bigger than the level, and a value smaller than the area bodies actually reach means they stop being tested against the plane once they leave it, which looks exactly like the floor having a hole in it.

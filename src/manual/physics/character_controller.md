@@ -104,7 +104,7 @@ this.Managers.EntityManager.Add(player);
 | **IsOnGround** | Shorthand for `GroundState == OnGround`. |
 | **GroundNormal** | The normal of whatever it is standing on. |
 | **GroundVelocity** | How fast that surface is moving, which is what carries the character on a moving platform. |
-| **GroundBody** | The body it is standing on, if there is one. |
+| **GroundBody** | The body it is standing on, if there is one, as a `PhysicsBody`. A floor is a `StaticBody`; a platform is a `RigidBody`. |
 | **IsCrouching** | Whether it is currently crouched. |
 
 ## Methods and Events

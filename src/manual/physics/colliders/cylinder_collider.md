@@ -26,6 +26,7 @@ this.Managers.EntityManager.Add(column);
 | --- | --- | --- |
 | **Radius** | 0.5 | The radius of the cylinder. A `CylinderMesh` is measured by its **diameter**, so a mesh of diameter 1 matches a collider of radius 0.5.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/cylinder_collider_radius.mp4" type="video/mp4"></video> |
 | **Height** | 1 | The full height along Y. The mesh and the collider agree about this one.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/cylinder_collider_height.mp4" type="video/mp4"></video> |
+| **UseModelBounds** | false | Reads `Radius` as a factor of the larger of the model's X and Z extents, and `Height` as a factor of its Y extent, instead of local units. See [Local Units or Model Bounds](index.md#local-units-or-model-bounds). |
 | **ConvexRadius** | 0.05 | Rounds the rim where the caps meet the side. |
 | **Offset** | 0,0,0 | Moves the shape relative to the entity. |
 | **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. A cylinder stands along Y, so this is how one is laid on its side to become a wheel or a roller. |

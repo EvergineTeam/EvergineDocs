@@ -31,6 +31,7 @@ this.Managers.EntityManager.Add(barrel);
 | --- | --- | --- |
 | **Radius** | 0.5 | The radius of the cylinder and of both caps.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/capsule_collider_radius.mp4" type="video/mp4"></video> |
 | **Height** | 2 | The **total** height, caps included, from the bottom of the lower hemisphere to the top of the upper one.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/capsule_collider_height.mp4" type="video/mp4"></video> |
+| **UseModelBounds** | false | Reads `Radius` as a factor of the larger of the model's X and Z extents, and `Height` as a factor of its Y extent, instead of local units. See [Local Units or Model Bounds](index.md#local-units-or-model-bounds). |
 | **Offset** | 0,0,0 | Moves the shape relative to the entity. |
 | **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. A capsule stands along Y, so this is how a capsule is laid on its side. |
 | **Density** | 1000 | Density in kg/m³, used to compute the body's mass when its `Mass` is 0. |

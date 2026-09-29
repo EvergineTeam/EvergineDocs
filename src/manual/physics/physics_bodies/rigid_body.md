@@ -4,9 +4,9 @@
   <source src="images/body_types.mp4" type="video/mp4">
 </video>
 
-`RigidBody` is the component that puts an entity into the physics simulation. Everything the solver moves is one: the crates, the floor they land on, and the platform carrying them.
+`RigidBody` is the component that puts a **moving** entity into the physics simulation. Everything the solver moves is one: the crates, and the platform carrying them. The floor they land on is a [`StaticBody`](static_body.md).
 
-The three kinds of body are the same component with a different `BodyType`, because the difference between them is one of behaviour and not of capability. A crate that becomes scenery, or scenery that starts to move, is a property change rather than a different component.
+A `RigidBody` is **dynamic** by default, moved by gravity, collisions and forces. With `IsKinematic` set it is **kinematic** instead: moved by your code, pushing everything else out of the way. The two are one component with one flag, because a body can switch between them while the game runs.
 
 ## RigidBody Component
 
@@ -38,14 +38,16 @@ The shape is collected from the colliders on the entity **and on its descendants
 
 *Which is what "one body" means in practice: shoved over, the table tips as a single object rather than coming apart into a top and four legs.*
 
-### Body Type
+### Kinematic or Dynamic
 
 | Property | Default | Description |
 | --- | --- | --- |
-| **BodyType** | `Dynamic` | <ul><li>**Static**: never moves. Two static bodies never collide with each other, whatever the collision matrix says.</li><li>**Kinematic**: moved by your code through `MoveTo`. Pushes dynamic bodies and carries them; nothing pushes it back.</li><li>**Dynamic**: moved by the solver, through gravity, collisions and forces.</li></ul> |
+| **IsKinematic** | false | Off, the body is **dynamic**: the solver moves it through gravity, collisions and forces. On, it is **kinematic**: your code moves it through `MoveTo`, it pushes dynamic bodies and carries them, and nothing pushes it back. |
+
+The flag can be changed at any time without recreating the body. A body that stops being kinematic simply falls from wherever it was; a body that becomes kinematic stops answering to gravity and contacts and goes where `MoveTo` sends it. This is how a [ragdoll](../ragdolls.md) follows its animation and then drops.
 
 > [!NOTE]
-> Switching between static and non-static recreates the body internally. It is not something to do every frame.
+> There is no static setting here. A body that never moves is a [`StaticBody`](static_body.md), which is a different component with none of the motion properties below.
 
 ### Mass and Surface Properties
 
@@ -56,6 +58,8 @@ The shape is collected from the colliders on the entity **and on its descendants
 | **CenterOfMassOffset** | 0,0,0 | Moves the centre of mass away from the shape's own. Lowering it is what keeps a vehicle from rolling over. |
 | **Friction** | 0.2 | Surface friction. The value used for a contact is combined from both bodies. |
 | **Restitution** | 0 | Bounciness, from 0 (all energy lost on impact) to 1 (none). |
+
+`Friction` and `Restitution` are shared with `StaticBody`; the rest only exist on a body that moves.
 
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/rigidbody_restitution.mp4" type="video/mp4">
@@ -109,11 +113,13 @@ The shape is collected from the colliders on the entity **and on its descendants
 | **SolverVelocityIterationsOverride** | 0 | Per-body override of the world's solver settings. `0` uses the world's. |
 | **SolverPositionIterationsOverride** | 0 | The same for position iterations. |
 
+`CollisionCategory`, `IsSensor`, `SurfaceVelocity` and `EnhancedInternalEdgeRemoval` are shared with `StaticBody`.
+
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/conveyor_surface_velocity.mp4" type="video/mp4">
 </video>
 
-*`SurfaceVelocity` on a static body. Nothing in the scene turns, and the parcels are carried anyway.*
+*`SurfaceVelocity` on a `StaticBody`. Nothing in the scene turns, and the parcels are carried anyway.*
 
 ### Read-only State
 
@@ -140,7 +146,7 @@ The shape is collected from the colliders on the entity **and on its descendants
 | **MoveTo(position, orientation)** | Moves a **kinematic** body by generating the velocity needed to get there this step, so it pushes and carries properly. |
 | **Teleport(position, orientation)** | Puts the body somewhere immediately, discarding its contacts. |
 | **WakeUp()** / **Sleep()** | Force the body awake or asleep. |
-| **InvalidateShape()** | Rebuilds the shape now, after changing colliders at run time. |
+| **InvalidateShape()** | Rebuilds the shape now. Colliders added, removed or edited, and child colliders moved, rebuild it on their own; this is for the cases the body cannot observe. |
 
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/kinematic_platforms.mp4" type="video/mp4">
@@ -220,7 +226,7 @@ public class Platform : Behavior
         }
 
         this.origin = this.transform.Position;
-        this.body.BodyType = RigidBodyType.Kinematic;
+        this.body.IsKinematic = true;
 
         return true;
     }

@@ -33,6 +33,7 @@ this.Managers.EntityManager.Add(cone);
 | **BottomRadius** | 0.5 | The radius of the lower cap. |
 | **TopRadius** | 0 | The radius of the upper cap. **Zero makes a cone.**<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/tapered_cylinder_collider_top_radius.mp4" type="video/mp4"></video> |
 | **Height** | 1 | The full height along Y. |
+| **UseModelBounds** | false | Reads both radii as factors of the larger of the model's X and Z extents, and `Height` as a factor of its Y extent, instead of local units. See [Local Units or Model Bounds](index.md#local-units-or-model-bounds). |
 | **ConvexRadius** | 0.05 | Rounds the rims. |
 | **Offset** | 0,0,0 | Moves the shape relative to the entity. |
 | **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. |
@@ -41,7 +42,7 @@ this.Managers.EntityManager.Add(cone);
 The clip above sweeps `TopRadius` from 0 to the bottom radius and back: a cone at one end of the swing, a plain cylinder at the other, and every truncated cone in between.
 
 > [!NOTE]
-> This shape replaces the `ConeCollider3D` of the previous API. A cone is a tapered cylinder whose top radius happens to be zero, so one component covers both and the awkward middle ground between them. See [Migrating from Bullet](../migrating_from_bullet.md).
+> This shape replaces the `ConeCollider3D` of the previous API. A cone is a tapered cylinder whose top radius happens to be zero, so one component covers both and the awkward middle ground between them. The [migration tool](../migrating_from_bullet.md#migration-tool) maps the old radius to `BottomRadius` and leaves `TopRadius` at zero.
 
 > [!NOTE]
 > There is no tapered cylinder primitive mesh. The picture above is the collider's own wireframe from [debug rendering](../debug_rendering.md); the hero image is a `ConeMesh`, which matches only the `TopRadius = 0` case.

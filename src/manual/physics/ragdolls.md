@@ -70,7 +70,7 @@ Almost every ragdoll that explodes, jitters or folds through itself breaks one o
 
 **Build the figure inside its own limits.** A constraint measures its angles from the pose the two bodies were in when it was created. Assemble the figure with an elbow already bent past its stop and the solver's first job is to force it back, which reads as a limb snapping.
 
-**Keep neighbouring masses within about 5:1.** The torso here is 22 kg and the upper arms are 2.5 kg, which is under 9:1 and about as far as it is worth going. A light limb bolted to a very heavy one is a stiff problem: the solver has to move the light body a long way to satisfy a constraint the heavy one barely notices, and it shows up as jitter at the shoulder before it shows up anywhere else.
+**Keep neighbouring masses within about 10:1.** The torso here is 22 kg and the upper arms are 2.5 kg, which is under 9:1 and about as far as it is worth going; 5:1 is comfortable. A light limb bolted to a very heavy one is a stiff problem: the solver has to move the light body a long way to satisfy a constraint the heavy one barely notices, and it shows up as jitter at the shoulder before it shows up anywhere else.
 
 ## Tuning It: Draw the Joints
 
@@ -81,6 +81,7 @@ Almost every ragdoll that explodes, jitters or folds through itself breaks one o
 `PhysicsDebugFlags.Constraints` draws every joint's frame in place on the figure, with the cone a swing twist allows and the arc a hinge allows. This is how a ragdoll is tuned: a limb that reaches somewhere it should not is a cone drawn too wide, and it is visible before the figure has finished falling.
 
 ```csharp
+this.Managers.RenderManager.DebugLines = true;
 this.Managers.FindManager<PhysicsManager>().DebugFlags = PhysicsDebugFlags.Constraints;
 ```
 
@@ -135,7 +136,7 @@ Vector3 localPosition = Vector3.Transform(centre - bone.Position, boneInverse);
 Quaternion localRotation = boneInverse * rotation;
 ```
 
-**While animated, the bodies are kinematic and follow.** `MoveTo` rather than a transform write, because that is what gives a kinematic body the velocity the contact solver needs:
+**While animated, the bodies are kinematic and follow.** Every limb is a `RigidBody` built with `IsKinematic = true`, and moved with `MoveTo` rather than a transform write, because that is what gives a kinematic body the velocity the contact solver needs:
 
 ```csharp
 private void OnPhysicsStepStarting(object sender, float fixedTimeStep)
@@ -158,12 +159,12 @@ this.animation.IsEnabled = false;
 
 foreach (Limb limb in this.limbs)
 {
-    limb.Body.BodyType = RigidBodyType.Dynamic;
+    limb.Body.IsKinematic = false;
 }
 ```
 
 > [!TIP]
-> Changing `BodyType` from kinematic to dynamic does **not** recreate the body: it keeps its velocity, its constraints and its place in the world. That is what makes this transition look right: every limb inherits the velocity the animation had just given it, so the figure is thrown forward by the stride it was in the middle of instead of dropping straight down like a plank.
+> Clearing `IsKinematic` does **not** recreate the body: it keeps its velocity, its constraints and its place in the world. That is what makes this transition look right: every limb inherits the velocity the animation had just given it, so the figure is thrown forward by the stride it was in the middle of instead of dropping straight down like a plank.
 
 **And from there the coupling runs the other way.** Until the switch the bones led and the bodies followed. After it the bodies lead, and their pose has to be written back onto the bones every frame, or the figure lies on the floor as a simulation while its skin stands where the animation left it.
 
