@@ -1,6 +1,6 @@
 # Postprocessing Graph
 ---
-![PostProcessing graph](images/postProcessingGraph.jpg)
+![PostProcessing graph](images/PostProcessingGraph.jpg)
 
 The Post-Processing graph allows you to apply visual effects like Tonemapping, Depth of Field, Temporal Anti-Aliasing, SSAO, SSR, etc., to your scene's final render. The Post-Processing graph is composed of interconnected nodes that apply visual effects to the output render before displaying it on the screen. Each node is a compute [effect](../effects/index.md).
 

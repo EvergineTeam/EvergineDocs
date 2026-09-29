@@ -1,6 +1,6 @@
 # Lights
 
-![Lights](images/Lights.jpg)
+![Lights](images/lights.jpg)
 
 **Evergine** uses an advanced lighting model to simulate how light affects geometries. It also supports multiple lights in the scene, allowing a wide range of environments and possibilities.
 
@@ -125,13 +125,13 @@ In the case of using Volume Photometric Lights, the intensity is measured using 
 
 #### Point Light / Photometric Point Light
 
-![Point Light](images/PointLight.jpg)
+![Point Light](images/pointLight.jpg)
 
 A **point light** is located at a point in space and emits light equally in all directions within its sphere range. Its intensity decays with distance from the light, reaching zero at its maximum range. It's useful for local lights like lamps.
 
 #### Spot Light / Photometric Spot Light
 
-![Spot Light](images/SpotLight.jpg)
+![Spot Light](images/spotLight.jpg)
 
 A **spot light** is also placed in a specific location and has a range over which the light decays. However, spot lights are constrained by an angle, defining a cone-shaped light.
 

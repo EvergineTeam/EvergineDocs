@@ -6,7 +6,7 @@ In this section, multiple effects are explained because the process steps to cal
 
 This effect produces fringes (or feathers) of light extending from the borders of bright areas in an image, contributing to the illusion of an extremely bright light overwhelming the camera or eye capturing the scene.
 
-![Bloom](images/bloom.jpg)
+![Bloom](images/Bloom.jpg)
 
 | Parameter        | Description                                                                 |
 | ---------------- | --------------------------------------------------------------------------- |
@@ -38,7 +38,7 @@ This effect tries to simulate when the camera lens is dirty and some lens stains
 
 A **Lens Flare** happens when light is scattered or flared in a lens system, often in response to bright light, producing a sometimes undesirable artifact in the image. This occurs through light scattered by the imaging mechanism itself, for example through internal reflection and forward scatter from material imperfections in the lens.
 
-![Lens Flare](images/lensFlare.jpg)
+![Lens Flare](images/LensFlare.jpg)
 
 | Parameter               | Description                                                                   |
 | ----------------------- | ----------------------------------------------------------------------------- |

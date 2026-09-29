@@ -21,10 +21,10 @@ Helps with the model visualization. It includes the following options:
 | Item | Description |
 | ---- | ----------- |
 | ![toggle grid](images/toggleGrid.png) | Toggles the **Grid** visualization. |
-| ![toggle_gizmo](Images/toggle_gizmo.png) | Toggles the **Emitter shape gizmo** visualization. |
-| ![bounding box](Images/toggle_force_cpu.png) | Forces particle simulation to use the **CPU** instead of the **GPU** when this option is activated, even if GPU particles are available. |
-| ![reset camera](Images/resetCameraIcon.png) | Resets the camera position. |
-| ![change background](Images/changeBackground.png) | Changes the background color. |
+| ![toggle_gizmo](images/toggle_gizmo.png) | Toggles the **Emitter shape gizmo** visualization. |
+| ![bounding box](images/toggle_force_cpu.png) | Forces particle simulation to use the **CPU** instead of the **GPU** when this option is activated, even if GPU particles are available. |
+| ![reset camera](images/resetCameraIcon.png) | Resets the camera position. |
+| ![change background](images/changeBackground.png) | Changes the background color. |
 
 ## Playback Controls
 ![Simulation controls](images/particle_simulation_controls.png)
@@ -35,7 +35,7 @@ This bar controls some aspects of the particle simulation life.
 | ---- | ----------- |
 | ![reset](images/reset_icon.png) | Resets the particle system. |
 | ![play](images/play_icon.png) / ![stop](images/stop_icon.png) | The timeline slider. The handle marks the current time in the animation, and its position can be modified. |
-| ![Time factor](Images/time_factor.png) | Controls the **Time Factor** of the particle system, similar to the **Particles Component** property. |
+| ![Time factor](images/time_factor.png) | Controls the **Time Factor** of the particle system, similar to the **Particles Component** property. |
 
 ## Particle Properties
 A panel with all the **Particle System** properties. These properties do not depend on the profile.

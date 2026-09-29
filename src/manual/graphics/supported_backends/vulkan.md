@@ -38,14 +38,14 @@ You can select **Vulkan** API support during new project creation from the **Eve
 
 If the project already exists, you can add **Vulkan** support from **Evergine Studio** by clicking on Settings -> Project Settings.
 
-![Settings](images/dx12_support_0.jpg)
+![Settings](images/dx12_support_0.JPG)
 
 Select and add the profile for Windows (Vulkan).
 
-![Settings](images/vk_support_1.jpg)
+![Settings](images/vk_support_1.JPG)
 
-![Settings](images/vk_support_2.jpg)
+![Settings](images/vk_support_2.JPG)
 
 You can run on **Vulkan** by clicking on File -> Build & Run -> Windows.Vulkan.
 
-![Settings](images/vk_support_3.jpg)
+![Settings](images/vk_support_3.JPG)

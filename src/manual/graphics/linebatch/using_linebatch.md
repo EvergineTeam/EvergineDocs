@@ -81,7 +81,7 @@ this.RenderManager.LineBatch3D.DrawBoundingSphere(new BoundingSphere(Vector3.Zer
 ```csharp
 this.RenderManager.LineBatch3D.DrawRectangle(Vector3.Zero, Vector3.One, Color.White);
 ``` 
-![Box](images/box.jpg)
+![Box](images/Box.jpg)
 
 **DrawCircle**
 ```csharp

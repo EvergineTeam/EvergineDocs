@@ -101,7 +101,7 @@ You can select **WebGPU** API support when creating a new project from the **Eve
 
 If the project already exists, you can add **WebGPU** support from **Evergine Studio** by clicking on Settings -> Project Settings.
 
-![Settings](images/dx12_support_0.jpg)
+![Settings](images/dx12_support_0.JPG)
 
 Select and add the profile for **Web (Experimental WebGPU)**.
 

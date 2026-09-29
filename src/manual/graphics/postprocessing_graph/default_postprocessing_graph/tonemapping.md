@@ -36,7 +36,7 @@ In the above image, the left side is the render without chromatic aberration app
 
 If you’ve watched a film and seen speckles on the screen in random patterns, you’ve seen film grain. Originally, the actual grains in film grain were small particles of silver halide, the primary photosensitive substance used in chemical film. These particles are randomly distributed artifacts throughout the image.
 
-![Grain](images/grain.jpg)
+![Grain](images/Grain.jpg)
 
 | Parameter  | Description |
 | ---------- | ----------- |

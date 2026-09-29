@@ -30,14 +30,14 @@ You can select **DirectX 12** API support during the new project creation from t
 
 If the project already exists, you can add **DirectX 12** support from **Evergine Studio** by clicking on Settings -> Project Settings.
 
-![Settings](images/dx12_support_0.jpg)
+![Settings](images/dx12_support_0.JPG)
 
 Select and add the profile for Windows (DirectX 12).
 
-![Settings](images/dx12_support_1.jpg)
+![Settings](images/dx12_support_1.JPG)
 
-![Settings](images/dx12_support_2.jpg)
+![Settings](images/dx12_support_2.JPG)
 
 You can run on **DirectX 12** by clicking on File -> Build & Run -> Windows.DirectX12.
 
-![Settings](images/dx12_support_3.jpg)
+![Settings](images/dx12_support_3.JPG)

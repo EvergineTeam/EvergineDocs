@@ -37,4 +37,4 @@ DirectX 11 is used by default for **Evergine**, so no actions are required to ac
 
 You can run on **DirectX 11** by clicking on File -> Build & Run -> Windows.DirectX11 or just pressing F5 inside **Evergine Studio**.
 
-![Settings](images/dx11_support.jpg)
+![Settings](images/dx11_support.JPG)

@@ -10,7 +10,7 @@ You can create a Text3D by clicking the ![Plus Icon](../images/plusIcon.jpg) but
 
 A Text3D entity will be added to your scene.
 
-![Text3D entity](images/text3DEntity.jpg)
+![Text3D entity](images/Text3DEntity.jpg)
 
 In the **Text3DMesh** component of your Text3D entity, you will find the following properties:
 

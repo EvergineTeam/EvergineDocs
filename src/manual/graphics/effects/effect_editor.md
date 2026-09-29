@@ -40,7 +40,7 @@ The shader text editor has a toolbox that helps you with several important tasks
 
 The translation panel is shown below the shader text editor after clicking on the ![Translate](images/TranslationIcon.jpg) button. It shows the result of translating the current HLSL pass and directive combinations to other languages. The panel includes two combo boxes to select the translation languages: `GLSL`, `ESSL`, `WebGL1`, `WebGL2`, `MSL`, or `SPIRV`, and another to select the stage to translate: _Vertex_, _Geometry_, _Hull_, _Domain_, or _Compute_.
 
-![Translation Panel](images/translationPanel.jpg)
+![Translation Panel](images/TranslationPanel.jpg)
 
 ### Profile Panel
 

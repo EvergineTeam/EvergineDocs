@@ -46,20 +46,20 @@ You can select **OpenGL** API support during the new project creation from the *
 
 If the project already exists, you can add **OpenGL** support from **Evergine Studio** by clicking on Settings -> Project Settings.
 
-![Settings](images/dx12_support_0.jpg)
+![Settings](images/dx12_support_0.JPG)
 
 Select and add the profile for Windows (OpenGL).
 
-![Settings](images/gl_support_1.jpg)
+![Settings](images/gl_support_1.JPG)
 
-![Settings](images/gl_support_2.jpg)
+![Settings](images/gl_support_2.JPG)
 
 You can run on **OpenGL** by clicking on File -> Build & Run -> Windows.OpenGL.
 
-![Settings](images/gl_support_3.jpg)
+![Settings](images/gl_support_3.JPG)
 
 ### WebGL
 
 To support Web platforms based on **WebGL** versions, you also need to add the WebGL Template from the project settings, selecting WebGL 2.0 or 1.0 depending on your project needs.
 
-![Settings](images/gl_support_4.jpg)
+![Settings](images/gl_support_4.JPG)
