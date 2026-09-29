@@ -10,7 +10,7 @@ An Evergine project is one shared application project plus one small **launcher 
 
 Each launcher comes from a template. You pick templates when you create the project in Evergine Launcher, or later from **Settings > Project Settings** in Evergine Studio. Each template adds one or more **profiles**, and each profile has its own export settings for textures and shaders.
 
-<!-- CAPTURE: images/launcher_platform_templates.png; Evergine Launcher "Configure your new project" dialog with the Initial platforms list scrolled to show several templates (Windows DirectX12, Web WebGL2.0, Android, MAUI), the platform filter set to "All platforms" -->
+![The Initial platforms list of the Evergine Launcher new project dialog](images/launcher_platform_templates.png)
 
 ## Platform matrix
 
@@ -59,7 +59,7 @@ Each profile stores how its assets are exported: the texture compression formats
 
 When **Compile effects** is off, effects are compiled at runtime the first time a material needs them, which is fine on a desktop GPU. When it is on, the exporter compiles every directive combination that your materials use, plus the ones listed in the profile, and ships the compiled bytecode. Mobile and web profiles also add `LOW_PROFILE` and `GAMMA_COLORSPACE` combinations, and the XR profiles add `MULTIVIEW_VI` for single-pass stereo rendering.
 
-<!-- CAPTURE: images/project_settings_profiles.png; Evergine Studio Settings > Project Settings dialog with several profiles in the list (Windows, Web, Android, Quest) and the Web profile selected, showing its Textures and Shaders sections -->
+![The profiles of a project in Evergine Studio: Settings > Project Settings > Profiles](images/project_settings_profiles.png)
 
 ## How a launcher starts your application
 

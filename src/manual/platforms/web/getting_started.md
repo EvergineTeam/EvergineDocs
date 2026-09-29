@@ -2,8 +2,6 @@
 
 ---
 
-<!-- CAPTURE: images/web_app_browser.png; the default Web (WebGL2.0) template running at https://localhost:5001 in the integrated browser (Edge), address bar visible, scene fully loaded after the splash screen -->
-
 This page creates an Evergine web application, explains what each file of the two main templates does, and shows how to call C# from JavaScript and JavaScript from C#. Read [Web](index.md) first for the prerequisites and the overall architecture.
 
 ## Create the project
