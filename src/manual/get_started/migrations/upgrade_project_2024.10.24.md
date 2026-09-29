@@ -4,7 +4,7 @@ Since Evergine 2024.6.28, there are some changes that should be applied to alrea
 
 ## Steps to migrate to the new version:
 - Apply the changes outlined in this article (a script is provided to simplify the process).
-- Update your Evergine version using Evergine Studio.
+- Update your Evergine version using the Evergine Launcher.
 
 ## List of changes
 
@@ -23,9 +23,9 @@ Since Evergine 2024.6.28, there are some changes that should be applied to alrea
 
 To automate these updates, we've provided a script that will carry out the necessary changes for you. You can download and run the script using the link below:
 
-> ⚠️ **Important** ⚠️ 
-This script modifies the files in your project directly. We highly recommend using a version control system like Git to track and review the changes made. Ensure you have your project committed or backed up before running the script, so you can easily verify or revert any modifications if necessary.
+> [!IMPORTANT]
+> This script modifies the files in your project directly. Commit your project to a version control system such as Git, or back it up, before you run the script, so you can review or revert every change.
 
-https://github.com/EvergineTeam/EvergineDocs/tree/main/src/manual/get_started/migrations/migration-2024.10.24.ps1
+Download [migration-2024.10.24.ps1](https://github.com/EvergineTeam/EvergineDocs/raw/main/src/manual/get_started/migrations/migration-2024.10.24.ps1).
 
 Simply run the script in your project directory, and it will apply all the changes mentioned above, including framework updates, namespace adjustments, and removal of unsupported platforms.

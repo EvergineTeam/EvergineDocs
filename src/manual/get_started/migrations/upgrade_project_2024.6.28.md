@@ -6,9 +6,9 @@ When upgrading to Evergine 2024.6, a few manual adjustments are required to ensu
 - Removal of the 2D API.
 - Many engine packages are now compatible only with .NET 8.
 
-If you update your project using the Evergine launcher, you might encounter errors such as:
+If you update your project using the Evergine Launcher, you might encounter errors such as:
 
-```
+```text
 <PATH_TO_OUR_PROJECT>\MyScene.wescene(195,18): error WESC000: Unknown node type, check the visibility of the member. [<PATH_TO_OUR_PROJECT>\MigrateSample.csproj]
 ```
 
@@ -102,6 +102,9 @@ Get-ChildItem -Path $path -Recurse -Filter '*.wescene' |
 ```
 
 ### Additional Changes for UWP Projects
+
+> [!NOTE]
+> UWP support ended in Evergine 2024.10.24. Apply this step only if you need Release builds of a UWP project on 2024.6.28. If you continue to 2024.10.24 or later, remove the UWP projects and profile instead, as described in [Update from Evergine 2024.6.28 to Evergine 2024.10.24](upgrade_project_2024.10.24.md).
 
 If your solution includes UWP projects, update the Default.rd.xml files to create _Release_ builds and avoid _.NET Native_ compiler errors.
 

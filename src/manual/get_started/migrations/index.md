@@ -1,39 +1,38 @@
 # Upgrade My Project to the Latest Evergine Release
 
-In this article, you will find detailed instructions on how to upgrade your project to the latest Evergine releases. Keeping your project updated is essential for accessing new features, improvements, and bug fixes. 
+Each Evergine release brings new features, performance work and bug fixes. Most releases update with a few clicks in the Evergine Launcher. Some also change project files or APIs, and those have a migration guide in this section with the exact steps.
 
-## Why Upgrade?
+## Before you upgrade
 
-Upgrading to the latest version ensures that your project benefits from:
-- **Enhanced Performance:** New releases often include optimizations that improve application speed and responsiveness.
-- **New Features:** Access to the latest tools and functionalities that can enhance your development experience.
-- **Bug Fixes:** Address known issues from previous versions to ensure a smoother workflow.
-- **Compatibility:** Stay aligned with the Evergine ecosystem and its evolving standards.
+- **Back up your project.** Commit it to a version control system such as Git, or copy the folder. Upgrading changes package versions, project files and sometimes assets.
+- **Read the guides for every version you skip.** If you jump across several releases, apply the migration steps of each intermediate release in order, oldest first. Skipping one can leave the project with errors that the later guides do not cover.
 
-## Important Considerations
+## General upgrade steps
 
-Before proceeding with the upgrade:
-- **Backup Your Project:** Always create a backup of your current project to prevent data loss.
-- **Review Migration Steps:** Carefully follow the migration steps provided for each version to ensure a seamless transition.
+1. Install the new Evergine version from the **Evergine Launcher**. See [Manage Evergine Versions](../../evergine_launcher/manage_versions.md).
+2. In the Launcher project list, find your project and select the new version in its version selector.
+3. Click **Update**. The Launcher analyzes the project and lists the packages it will update.
+4. Review the package list and accept the changes.
+5. Open the project in Evergine Studio and in Visual Studio, rebuild it, and fix any compilation errors with the help of the migration guide for that version.
 
-## Specific upgrade instructions
+<!-- CAPTURE: images/launcher_update_project.png; Evergine Launcher "My projects" list with a project row showing the version selector open on a newer version and the Update button enabled -->
 
-Once you have completed the necessary preparations, check the links below for specific instructions on upgrading to versions that require additional steps.
+## Migration guides
 
-If you are upgrading a project across multiple versions and one or more of them have specific migration instructions, make sure to follow those steps first before proceeding with the rest of the upgrade. Skipping an intermediate version's migration steps could lead to compatibility issues or unexpected errors.
+| Guide | Main changes |
+| --- | --- |
+| [2026.5.26 to 2026.10](upgrade_project_2026.10.md) | DirectX 12 as the default backend, Vulkan query results, timestamp query capability. |
+| [2025.10.21 to 2026.5.26](upgrade_project_2026.5.26.md) | .NET 10, Reverse-Z depth, `TextureDescription.Faces` removed. Migration script provided. |
+| [2025.3.18 to 2025.10.21](upgrade_project_2025.10.21.md) | sRGB textures and framebuffers, web template updates. Migration script provided. |
+| [2024.10.24 to 2025.3.18](upgrade_project_2025.3.18.md) | `RenderManager` binding, HLSL 2021. |
+| [2024.6.28 to 2024.10.24](upgrade_project_2024.10.24.md) | .NET 8, package renames, end of UWP. Migration script provided. |
+| [2023.9.28 to 2024.6.28](upgrade_project_2024.6.28.md) | Prefab serialization, removal of the 2D API. |
 
-* [Update from Evergine 2023.9.28 to Evergine 2024.6.28](upgrade_project_2024.6.28.md)
-* [Update from Evergine 2024.6.28 to Evergine 2024.10.24](upgrade_project_2024.10.24.md)
-* [Update from Evergine 2024.10.24 to Evergine 2025.3.18](upgrade_project_2025.3.18.md)
-* [Update from Evergine 2025.3.18 to Evergine 2025.10.21](upgrade_project_2025.10.21.md)
+## In this section
+
+* [Update from Evergine 2026.5.26 to Evergine 2026.10](upgrade_project_2026.10.md)
 * [Update from Evergine 2025.10.21 to Evergine 2026.5.26](upgrade_project_2026.5.26.md)
-
-## General Upgrade Steps
-
-To upgrade your project to the latest Evergine version, follow these general steps:
-
-- Install the new version of Evergine using the **Evergine Launcher**.
-- Select the new version in the project list. Open Evergine Launcher, search your project, and choose the newly installed version from the available options.
-- Click the "Update" button. This will prompt Evergine to analyze your project and display a list of packages that need to be updated.
-- Review the package list and accept the changes. It is recommended to carefully check the list of updates to ensure that all necessary dependencies are included.
-- Open your project and resolve any compilation errors. After updating, your project may require minor adjustments to align with the latest version. If you encounter any issues, refer to the migration guide for troubleshooting tips.
+* [Update from Evergine 2025.3.18 to Evergine 2025.10.21](upgrade_project_2025.10.21.md)
+* [Update from Evergine 2024.10.24 to Evergine 2025.3.18](upgrade_project_2025.3.18.md)
+* [Update from Evergine 2024.6.28 to Evergine 2024.10.24](upgrade_project_2024.10.24.md)
+* [Update from Evergine 2023.9.28 to Evergine 2024.6.28](upgrade_project_2024.6.28.md)

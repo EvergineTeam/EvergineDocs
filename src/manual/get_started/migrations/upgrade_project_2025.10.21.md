@@ -1,13 +1,11 @@
 # Update from Evergine 2025.3.18 to Evergine 2025.10.21
 
-This guide describes the steps required to update your existing Evergine projects to the latest version.  
-There are no major breaking changes in this release, and only a few manual updates are needed.
+This guide describes the steps required to update an existing Evergine 2025.3.18 project to Evergine 2025.10.21. The main breaking change is in **gamma correction**: sRGB textures must now be marked as sRGB. A script fixes existing textures, and the rest of the guide covers package and web template updates.
 
 ---
 
-## ⚠️ Breaking Changes: Gamma Correction
+## Breaking change: gamma correction
 
-There are major breaking changes related to **gamma correction**.  
 After updating, you may notice that **textures look brighter** than before and some textures may **fail to load**.
 
 **Previous behavior:**  
@@ -24,12 +22,12 @@ It detects texture usage and sets **sRGB** only where needed.
 **Steps:**
 1) Update your project from the launcher as usual.  
 2) Open the project and verify that textures look brighter than usual.  
-3) Download the script **[migration-2025.10.21.py](https://github.com/EvergineTeam/EvergineDocs/tree/main/src/manual/get_started/migrations/migration-2025.10.21.py)** to a folder.  
+3) Download the script **[migration-2025.10.21.py](https://github.com/EvergineTeam/EvergineDocs/raw/main/src/manual/get_started/migrations/migration-2025.10.21.py)** to a folder.  
 4) Run:  
    ```bash
    python3 migration-2025.10.21.py path/to/my_evergine.weproj
    ```  
-5) Reopen your project — textures should now look correct.
+5) Reopen your project. Textures should now look correct.
 
 ### Gamma framebuffers (recommended optimization)
 
@@ -134,7 +132,10 @@ waitAndRun() {
 
 ## React Template Adjustments
 
-The new version introduces a simplified communication layer between Evergine and React, improves initialization flow, and updates several dependencies to ensure long-term compatibility with .NET 8 and the latest Evergine React package.
+The new version introduces a simplified communication layer between Evergine and React, improves the initialization flow, and updates several dependencies for .NET 8 and the latest Evergine React package.
+
+> [!NOTE]
+> This section describes the React template as it was in Evergine 2025.10.21. Later releases changed the template again (for example, 2026.5.26 moved it to .NET 10). Use it to migrate a 2025.3.18 project; to compare with the current template, create a new project with the **React SPA (WebGL2.0)** template.
 
 ---
 
@@ -180,7 +181,7 @@ Remove the following constants:
 
 ```ts
 export const EVERGINE_LOADING_BAR_ID = "evergine-loading-bar";
-export const EVERGINE_CLASS_NAME = `${EVERGINE_ASSEMBLY_NAME}.WebFacade";
+export const EVERGINE_CLASS_NAME = `${EVERGINE_ASSEMBLY_NAME}.WebFacade`;
 ```
 
 Keep only:
