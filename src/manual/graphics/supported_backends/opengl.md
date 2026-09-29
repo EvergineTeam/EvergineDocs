@@ -1,37 +1,33 @@
 # OpenGL
 
+---
+
 ![OpenGL API](images/opengl.jpg)
 
-Open Graphics Library (OpenGL) is the most widely adopted 2D and 3D graphics API in the industry, cross-platform. Silicon Graphics Inc. began developing OpenGL in 1991 and released it on June 30, 1992. Now, it is a technology maintained by the **Khronos Group**.
+**OpenGL** is the veteran cross-platform graphics API of the **Khronos Group**. Evergine uses it in two forms:
 
-**Evergine** uses the OpenGL graphics API on the Web platform and Windows desktop but is deprecating this technology in favor of [Vulkan](vulkan.md), the new modern graphics API created by the **Khronos Group**.
+* **WebGL 2**, the OpenGL ES 3.0 based API of web browsers, is the **default backend for the web**: the **Web**, **React SPA** and **WebXR** templates use it.
+* Desktop **OpenGL** on Windows, through the **Windows (OpenGL)** template.
 
-**OpenGL** is used on the Web platform by **Evergine** through a version named **WebGL**, which is the default version supported in the most popular browsers.
+OpenGL does not support compute shaders in Evergine, so features built on them, such as GPU particles and most post-processing effects, are not available. For new desktop work prefer [DirectX 12](directx12.md) or [Vulkan](vulkan.md); for the web, consider [WebGPU](webgpu.md).
 
-* Chrome, Edge, and Firefox support WebGL 2.0.
-* Safari supports WebGL 1.0.
+## Supported devices
 
-## Supported OpenGL devices
+* Current Chrome, Edge, Firefox and Safari browsers on desktop and mobile (WebGL 2).
+* Windows 10 and 11 PCs (OpenGL).
 
-* Windows 8/10/11 x64/x86 desktop
-* Web Browsers on desktop, tablet, and mobile devices.
+## Check your OpenGL version
 
-## Checking OpenGL version
+On Windows, OpenGL comes with the graphics driver; the [OpenGL Hardware Capability Viewer](https://opengl.gpuinfo.org/download.php) shows the version it supports. For browsers, [caniuse.com/webgl2](https://caniuse.com/webgl2) shows WebGL 2 support.
 
-If you are running Windows 7 or later, the **OpenGL** library has already been installed on your system.
-
-To check the **OpenGL** version available on your system, locate the control panel of your graphics card or download the [OpenGL Hardware Capability Viewer](https://opengl.gpuinfo.org/download.php).
-
-## Create a Graphics Context
-
-To create a graphics context based on **OpenGL**, simply write:
+## Create a graphics context
 
 ```csharp
 GraphicsContext graphicsContext = new Evergine.OpenGL.GLGraphicsContext();
 graphicsContext.CreateDevice();
 ```
 
-To create a graphics context based on **WebGL**, simply write:
+For WebGL 2, pass the backend explicitly:
 
 ```csharp
 GraphicsContext graphicsContext = new Evergine.OpenGL.GLGraphicsContext(GraphicsBackend.WebGL2);
@@ -40,26 +36,20 @@ graphicsContext.CreateDevice();
 
 ## Build & Run
 
-You can select **OpenGL** API support during the new project creation from the **Evergine** launcher.
-
 ### Desktop
 
-If the project already exists, you can add **OpenGL** support from **Evergine Studio** by clicking on Settings -> Project Settings.
+Add a profile with the **Windows (OpenGL)** template from **Settings > Project Settings** (see [DirectX 12](directx12.md#build--run) for the steps):
 
-![Settings](images/dx12_support_0.JPG)
+![Adding the OpenGL template](images/gl_support_1.JPG)
 
-Select and add the profile for Windows (OpenGL).
+![The new profile](images/gl_support_2.JPG)
 
-![Settings](images/gl_support_1.JPG)
+Then run it from **File > Build & Run > Windows.OpenGL**:
 
-![Settings](images/gl_support_2.JPG)
+![Build and run on OpenGL](images/gl_support_3.JPG)
 
-You can run on **OpenGL** by clicking on File -> Build & Run -> Windows.OpenGL.
+### Web
 
-![Settings](images/gl_support_3.JPG)
+Add a profile with the **Web (WebGL2.0)** template to target browsers with WebGL 2:
 
-### WebGL
-
-To support Web platforms based on **WebGL** versions, you also need to add the WebGL Template from the project settings, selecting WebGL 2.0 or 1.0 depending on your project needs.
-
-![Settings](images/gl_support_4.JPG)
+![Adding the web template](images/gl_support_4.JPG)
