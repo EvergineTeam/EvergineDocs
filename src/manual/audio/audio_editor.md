@@ -2,9 +2,7 @@
 
 ---
 
-![Audio Editor Interface](images/audioEditor.jpg)
-
-<!-- CAPTURE: audio_editor.png; the Audio Editor at 1440x900 with a stereo .wav sound asset open, waveform visible, the default profile tab selected showing ChannelFormat, SampleRateMode, Encoding and ExcludeAsset -->
+![The Audio Editor with a sound asset open: waveform and playback toolbox on the left, export profiles on the right](images/audio_editor.png)
 
 The **Audio Editor** is where you listen to a sound asset and choose the format it is exported with. Double-click a sound asset in [Assets Details](../evergine_studio/interface.md) to open it. The editor has two parts: the **viewport**, with the waveform and a playback toolbox, and the **properties** panel, with the asset profiles.
 

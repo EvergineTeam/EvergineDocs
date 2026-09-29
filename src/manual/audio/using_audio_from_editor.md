@@ -38,11 +38,9 @@ Every frame, the listener copies the world transform of its entity to the device
 
 Select an entity, click ![plus icon](images/plusIcon.jpg) in the **Entity Details** panel, and search for `SoundEmitter3D`.
 
-<!-- CAPTURE: add_component_sound.png; the Add Component dialog with "Sound" typed in the search box, listing SoundEmitter3D and SoundListener3D under Evergine.Components.Sound -->
+![The Add Component dialog filtered by "Sound", listing SoundEmitter3D and SoundListener3D](images/add_component_sound.png)
 
-![Add emitter component](images/AddSoundEmitter.jpg)
-
-<!-- CAPTURE: soundemitter3d_inspector.png; 403x477 crop of Entity Details for an entity with SoundEmitter3D (other components collapsed): Audio set to a mono sound asset, Volume, Pitch, IsMuted, DistanceScaleFactor, PlayAutomatically, Loop, Apply3D -->
+![SoundEmitter3D in Entity Details, with a sound asset assigned](images/soundemitter3d_inspector.png)
 
 | Property | Default | Description |
 | --- | --- | --- |
