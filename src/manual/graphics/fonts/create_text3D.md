@@ -1,6 +1,9 @@
 # Create Text3D
 
+---
+
 ![Text3D header](images/createText3D.jpg)
+
 **Text3D** is a component that allows you to render text in 3D space. You can render anything from a simple header to a large paragraph, and configure text limits, wrapping, and ellipsis.
 
 ## Create a Text3D in Evergine Studio
@@ -18,7 +21,7 @@ In the **Text3DMesh** component of your Text3D entity, you will find the followi
 |-------------------------------|-------------|
 | **Font**           | The font asset used (Font family). |
 | **Layer**          | RenderLayer used to render the text. |
-| **Text**           | The text to be drawn. Use **/n** to insert a line break. |
+| **Text**           | The text to draw. Line breaks (`\n`, `\r\n`) start a new line; in Evergine Studio, where you cannot type one, write `/n` instead. |
 | **Color**          | The text color. |
 | **Size**           | The canvas size or area. Enable the _DebugMode_ property in the **Text3DRenderer** component to show this area _(blue rectangle)_. |
 | **ScaleFactor**    | The text scale factor. |
@@ -28,7 +31,7 @@ In the **Text3DMesh** component of your Text3D entity, you will find the followi
 | **VerticalAlignment**   | Align the text vertically. The available values are: _Top_, _Center_, and _Bottom_. |
 | **Origin**              | Configure the origin of the Text3D entity. The value is a vector2 with values between [0-1]. |
 | **LineSpacing**         | Configure the space between text lines. |
-| **Softness**            | Configure the anti-aliasing effect. The value is a float between [0-2]. |
+| **Softness**            | Softness of the glyph edges, from 0 to 2. The default, 0.75, gives clean anti-aliased edges. |
 
 ## Create a Text3D from code
 The following code shows the list of components necessary to convert an entity into a Text3D entity.

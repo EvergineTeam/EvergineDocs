@@ -25,9 +25,9 @@ This will create a new entity in the **Scene**.
 
 The newly created entity has a **Transform3D** component and a new component, depending on the type of force (see below).
 
-## Creating Forces by Code
+## Creating Forces from Code
 
-The following sample code can be used to instantiate an existing material asset and apply it to an entity in your scene.
+This scene adds a point attractor. A force is an ordinary component, so its entity can also be moved or animated like any other:
 ```csharp
 protected override void CreateScene()
 {
@@ -72,8 +72,8 @@ The cutout effect is a behavior affecting particles that get closer to the attra
 | Property        | Default value | Description                                                               |
 |-----------------|----------------|---------------------------------------------------------------------------|
 | Cutout Enabled  | _false_        | Enables the _cutout_ behavior of the force.                               |
-| Cutout Strength | _All_          | The intensity at which the particles are dragged into a vortex pit.       |
-| Cutout Range    | _true_         | The range within which the particles start falling into the force center. |
+| Cutout Strength | _1_            | How strongly particles inside the cutout range are pulled into the center. |
+| Cutout Range    | _1_            | Distance from the center at which particles start falling into it.        |
 
 ### Entity Attractor Force
 

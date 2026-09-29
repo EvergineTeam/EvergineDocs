@@ -12,7 +12,7 @@ Every [material](../materials/index.md) references one render layer through its 
 
 ## Default render layers
 
-The Evergine.Core package includes five render layers. Layers are drawn in increasing `Order`, and objects inside a layer are sorted by `SortMode`:
+The [Evergine.Core package](../evergine_core.md) includes five render layers. Layers are drawn in increasing `Order`, and objects inside a layer are sorted by `SortMode`:
 
 | Layer | Order | Sort | Cull | Depth write | Blending | Use for |
 | --- | --- | --- | --- | --- | --- | --- |

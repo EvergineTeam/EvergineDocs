@@ -4,7 +4,7 @@
 
 ![Default post-processing graph](images/defaultPostprocessingGraph.jpg)
 
-The Evergine.Core package includes the **default post-processing graph**, which chains the most common effects in the order that gives correct results. Every effect sits behind an **Enabled** node, so you can turn it on or off without editing the graph, and the nodes of disabled effects are skipped.
+The [Evergine.Core package](../../evergine_core.md) includes the **default post-processing graph**, which chains the most common effects in the order that gives correct results. Every effect sits behind an **Enabled** node, so you can turn it on or off without editing the graph, and the nodes of disabled effects are skipped.
 
 ![The default graph runs SSAO, SSR, SSS, fog, TAA, motion blur, depth of field, bloom, FSR, sharpen, tone mapping and FXAA, in that order](images/default_graph_chain.png)
 

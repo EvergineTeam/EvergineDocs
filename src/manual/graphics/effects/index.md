@@ -12,7 +12,7 @@ Effects are written in [HLSL](https://learn.microsoft.com/windows/win32/direct3d
 
 ## Built-in effects
 
-The Evergine.Core package, which every project references, includes the effects the engine needs. The most important is the [Standard effect](builtin_effects.md#standard-effect), a physically based shader used by the default material. See [Built-in Effects](builtin_effects.md) for all of them.
+The [Evergine.Core package](../evergine_core.md), which every project references, includes the effects the engine needs. The most important is the [Standard effect](builtin_effects.md#standard-effect), a physically based shader used by the default material. See [Built-in Effects](builtin_effects.md) for all of them.
 
 Effects are assets with their own editor, the [Effect Editor](effect_editor.md).
 

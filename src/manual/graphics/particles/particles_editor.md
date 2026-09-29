@@ -1,5 +1,10 @@
 # Particle System Editor
+
+---
+
 ![Particles Editor](images/particles_editor.png)
+
+<!-- CAPTURE: images/particles_editor_develop.png; the Particle System Editor of the develop Evergine Studio with a fire particle system playing, the toolbar, the playback controls and the properties panel -->
 
 The **Particle System Editor** allows the editing of particle system assets. Double-clicking on a **Particle System** asset shown in [Assets Details](../../evergine_studio/interface.md) will open this editor. The editor is composed of 4 main parts:
 
@@ -16,7 +21,7 @@ Shows the **Particle System** with the current configuration. The user can orbit
 ## Toolbar
 ![Toolbar controls](images/particles_toolbar.png)
 
-Helps with the model visualization. It includes the following options:
+Controls what the viewport shows:
 
 | Item | Description |
 | ---- | ----------- |
@@ -34,7 +39,7 @@ This bar controls some aspects of the particle simulation life.
 | Control | Description |
 | ---- | ----------- |
 | ![reset](images/reset_icon.png) | Resets the particle system. |
-| ![play](images/play_icon.png) / ![stop](images/stop_icon.png) | The timeline slider. The handle marks the current time in the animation, and its position can be modified. |
+| ![play](images/play_icon.png) / ![stop](images/stop_icon.png) | Starts or stops the emission. |
 | ![Time factor](images/time_factor.png) | Controls the **Time Factor** of the particle system, similar to the **Particles Component** property. |
 
 ## Particle Properties

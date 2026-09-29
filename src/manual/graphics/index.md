@@ -13,7 +13,7 @@ Evergine renders with a physically based, forward rendering pipeline that runs o
 *You work at the top two layers. Components reference assets; the render manager and the render pipeline turn them into GPU work through the low-level API, which each backend implements.*
 
 * The **scene** holds entities with graphics components: a [camera](cameras.md) to look through, [lights](lights.md), and drawables such as `MeshRenderer`, [particles](particles/index.md), [billboards](billboard/index.md), [lines](lines_3d.md) and [text](fonts/index.md).
-* Those components reference **assets**: [models](models/index.md) and [meshes](meshes/index.md) for geometry, [materials](materials/index.md) built from [effects](effects/index.md) for the surface, [textures](textures/index.md) and [samplers](samplers.md), and [render layers](renderlayers/index.md) that set blending and draw order.
+* Those components reference **assets**, many of them provided by the [Evergine.Core package](evergine_core.md): [models](models/index.md) and [meshes](meshes/index.md) for geometry, [materials](materials/index.md) built from [effects](effects/index.md) for the surface, [textures](textures/index.md) and [samplers](samplers.md), and [render layers](renderlayers/index.md) that set blending and draw order.
 * The **render manager** of the scene collects everything that can be drawn, and the **render pipeline** renders it for each camera, with shadow maps for the lights and the [post-processing graph](postprocessing_graph/index.md) at the end. [Rendering Overview](rendering_overview.md) explains a frame step by step.
 * Everything reaches the GPU through the [low-level API](low_level_api/index.md), which runs on each of the [supported graphics backends](supported_backends/index.md).
 
@@ -39,4 +39,5 @@ Evergine renders with a physically based, forward rendering pipeline that runs o
 * [Lines 3D](lines_3d.md)
 * [Billboards](billboard/index.md)
 * [Fonts and Texts](fonts/index.md)
+* [Evergine.Core Package](evergine_core.md)
 * [Low-level API](low_level_api/index.md)

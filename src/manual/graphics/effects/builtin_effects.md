@@ -2,7 +2,7 @@
 
 ---
 
-The Evergine.Core package, which every project references, includes the effects the engine and its components need. You use most of them indirectly: the Standard effect through the default material, the particle effect through particle systems, the text effect through `Text3D`. This page describes what each one is for and the parameters you can set on its materials.
+The [Evergine.Core package](../evergine_core.md), which every project references, includes the effects the engine and its components need. You use most of them indirectly: the Standard effect through the default material, the particle effect through particle systems, the text effect through `Text3D`. This page describes what each one is for and the parameters you can set on its materials.
 
 | Effect | Used by |
 | --- | --- |

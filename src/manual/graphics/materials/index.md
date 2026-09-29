@@ -12,7 +12,7 @@ Every material is based on an [effect](../effects/index.md). The effect defines 
 
 ## The default material
 
-Every project references the Evergine.Core package, which includes **DefaultMaterial**, a material of the [Standard effect](../effects/builtin_effects.md#standard-effect) that primitives and imported models use until you assign another. Materials are [assets](../../evergine_studio/assets/index.md) with their own editor, the [Material Editor](material_editor.md).
+Every project references the [Evergine.Core package](../evergine_core.md), which includes **DefaultMaterial**, a material of the [Standard effect](../effects/builtin_effects.md#standard-effect) that primitives and imported models use until you assign another. Materials are [assets](../../evergine_studio/assets/index.md) with their own editor, the [Material Editor](material_editor.md).
 
 ## In this section
 
