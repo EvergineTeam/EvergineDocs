@@ -1,27 +1,29 @@
-# Getting Started
+# Getting started with Cesium
 
 ---
 
-Follow these steps to begin working with **Evergine.Cesium** in your project.
+![Add-on installation](images/addon_installation.png)
 
-## Project Setup
+This page adds Cesium to a project and streams terrain and buildings into a scene. Everything goes through `CesiumCoordinator`, a scene manager that connects to Cesium ion, streams the tilesets you configure, drives the camera, and places your entities on the globe.
 
-### 1. Create a New Project
+<!-- CAPTURE: cesium_demo.png; Evergine.Cesium.Demo running in the Windows profile over a city with the terrain, the imagery overlay and the 3D buildings tileset loaded, and one placed marker -->
 
-Use [Evergine Launcher](../../evergine_launcher/create_project.md) to start a new project. Select **Windows** or another supported desktop/mobile platform.
+## Project setup
 
-> [!NOTE]
-> Evergine.Cesium does **not** support Web platforms (WebGL / WebGPU). Please choose a different platform profile.
+### 1. Create a project
 
-### 2. Add the Evergine.Cesium Add-on
-
-Open Evergine Studio and add the **Evergine.Cesium** add-on to your project. Refer to [this guide](../../addons/index.md) for instructions on adding add-ons.
-
-![Add-on installation](./images/addon_installation.png)
+Create a project with [Evergine Launcher](../../evergine_launcher/create_project.md) with a **Windows** profile.
 
 > [!NOTE]
-> Evergine.Cesium is distributed as a NuGet package. For nightly builds, add the Evergine nightly feed to your `nuget.config`:
-> 
+> Evergine Cesium does not support Web platforms (WebGL and WebGPU).
+
+### 2. Install the add-on
+
+In Evergine Studio, open the [Add-ons Manager](../index.md#add-ons-manager) and install **Evergine.Cesium**.
+
+> [!NOTE]
+> The add-on references NuGet packages. To use nightly builds, add the Evergine nightly feed to your `nuget.config`:
+>
 > ```xml
 > <?xml version="1.0" encoding="utf-8"?>
 > <configuration>
@@ -32,12 +34,13 @@ Open Evergine Studio and add the **Evergine.Cesium** add-on to your project. Ref
 > </configuration>
 > ```
 
-### 3. Set Up the CesiumCoordinator
+### 3. Register the CesiumCoordinator
 
-`CesiumCoordinator` is the central scene manager that drives terrain streaming, camera navigation, and optional geocoding. Register it inside your scene's `RegisterManagers()` override:
+Create the coordinator in your scene's `RegisterManagers`, add the tilesets to stream, and register it. The tilesets must be added before the coordinator starts, because it creates their streams when the scene starts.
 
 ```csharp
 using Evergine.Cesium;
+using Evergine.Cesium.Utils;
 using Evergine.Framework;
 
 public class MyScene : Scene
@@ -48,110 +51,184 @@ public class MyScene : Scene
 
         var cesium = new CesiumCoordinator
         {
+            // Read the token from your configuration; do not commit it to source control.
             AccessToken = "<CESIUM_ION_TOKEN>",
-            AzureMapsKey = "<OPTIONAL_AZURE_MAPS_KEY>",  // leave null if not needed
-            EntityManager = this.Managers.EntityManager,
-            OverlayProvider = TerrainOverlayProvider.BingAerial,
+
+            // Optional: enables GeocodeAsync, ReverseGeocodeAsync and AutocompleteAsync.
+            GeocodingService = new AzureMapsGeocodingService("<AZURE_MAPS_KEY>"),
         };
 
-        this.Managers.AddManager(cesium);
+        // Cesium World Terrain (asset 1) with Bing aerial imagery.
+        cesium.AddOverlayedTileset(1, RasterOverlayProvider.BingAerial, "Terrain");
 
-        // Optional: fly to a starting location on scene load
-        // cesium.FlyTo(40.4168, -3.7038, 3.0);
+        // Cesium OSM Buildings (asset 96188), geometry only.
+        cesium.AddGeometryTileset(96188, "Buildings");
+
+        this.Managers.AddManager(cesium);
     }
 }
 ```
 
----
+When the scene starts, the coordinator checks the internet connection and the token, finds the active camera, adds a `WorldCamera` component to it if it has none, and creates a `CesiumRoot` entity that holds the tiles.
 
-## Core Runtime API
+> [!IMPORTANT]
+> The scene must have an active camera with a `Camera3D` component. The token needs the `assets:read` scope.
 
-Once registered, you can access `CesiumCoordinator` from anywhere in your scene via `this.Managers.FindManager<CesiumCoordinator>()`.
+## CesiumCoordinator
 
-### Initialization & Status
+Find the coordinator from any component or manager with `this.Managers.FindManager<CesiumCoordinator>()`.
 
-| Member | Type | Description |
-|---|---|---|
-| `IsInitialized` | `bool` | `true` once the coordinator has successfully connected to Cesium ion. |
-| `CurrentStatus` | `CesiumStatus` | Detailed loader state including connectivity and authentication results. |
+### Configuration and status
 
-### Camera & Navigation
+| Member | Default | Description |
+| --- | --- | --- |
+| `AccessToken` | `""` | Cesium ion access token. It can only be set when the coordinator is created. |
+| `GeocodingService` | `null` | Service used for geocoding: `AzureMapsGeocodingService`, `GoogleMapsGeocodingService`, or your own `IGeocodingService`. |
+| `OverlayProvider` | `RasterOverlayProvider.BingAerial` | Imagery of the overlayed tilesets. Changing it reloads their imagery. |
+| `CurrentStatus` | `Status.Uninitialized` | Read-only. Connection state: `Ready`, `ReadyWithErrors`, `NoInternetConnection`, `CantReachEndpoint`, `CantAuthenticate`, `MissingTokenPermissions`, and others. |
+| `IsInitialized` | `false` | Read-only. `true` when `CurrentStatus` is `Ready` or `ReadyWithErrors`. |
+| `IsGeocodingConfigured` | `false` | Read-only. `true` when `GeocodingService` is set. |
+| `WorldCamera` | | Read-only. The `WorldCamera` component of the active camera. |
+| `Camera` | | Read-only. The `Camera3D` the coordinator drives. |
+| `Root` | | Read-only. The `CesiumRoot` entity that contains the tiles. |
+| `FetcherNames` | | Read-only. Names of the tilesets that are streaming. |
 
-| Member | Description |
-|---|---|
-| `FlyTo(latitude, longitude, seconds)` | Smoothly animates the camera to the given geodetic position over the specified duration. |
-| `WorldCamera` | Returns the current geospatial camera state (latitude, longitude, altitude, heading, pitch). |
+### Tilesets
 
-### Terrain
+| Method | Description |
+| --- | --- |
+| `AddOverlayedTileset(int assetId, RasterOverlayProvider overlayProvider, string name = "Overlayed")` | Adds a Cesium ion tileset, usually terrain, drawn with an imagery overlay. |
+| `AddGeometryTileset(int assetId, string name = "Geometry")` | Adds a tileset that is drawn with its own materials, such as 3D buildings. |
+| `RemoveTileset(string name)` | Removes a configured tileset by name. |
 
-| Member | Description |
-|---|---|
-| `QueryTerrainMinHeight(latitude, longitude, callback)` | Asynchronously samples terrain height at the given coordinates and invokes the callback with the result. |
+These methods configure the tilesets that the coordinator creates when it initializes, so call them before the scene starts.
 
-### Geocoding *(requires Azure Maps key)*
+`RasterOverlayProvider` values: `BingAerial`, `BingAerialWithLabels`, `BingRoads`, `GoogleMapsSatellite`, `GoogleMapsSatelliteWithLabels`, `GoogleMapsRoads`, `GoogleMapsLabelsOnly`, and `GoogleMapsContours`.
 
-| Member | Description |
-|---|---|
-| `GeocodeAsync(query)` | Searches for a place by address or name and returns matching results. |
-| `ReverseGeocodeAsync(latitude, longitude)` | Returns the address for the given coordinates. |
-| `AutocompleteAsync(query, maxResults)` | Returns autocomplete suggestions for a partial address or place name. |
+### Camera and terrain
+
+| Method | Description |
+| --- | --- |
+| `FlyTo(double latitude, double longitude, double seconds)` | Animates the camera to a latitude and longitude, in degrees, over the given time. |
+| `QueryTerrainMinHeight(double latitude, double longitude, Action<double?> callback)` | Samples the terrain height at a latitude and longitude, in degrees, and calls the callback with the result, or `null` if it is not available yet. |
+
+`FlyTo` needs the `WorldCamera`, which exists once the coordinator is initialized. For example, from a component:
+
+```csharp
+using System;
+using Evergine.Cesium;
+using Evergine.Framework;
+
+public class FlyToMadrid : Behavior
+{
+    private bool done;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        var cesium = this.Managers.FindManager<CesiumCoordinator>();
+        if (!this.done && cesium?.IsInitialized == true)
+        {
+            cesium.FlyTo(40.4168, -3.7038, 3.0);
+            this.done = true;
+        }
+    }
+}
+```
+
+### Geocoding
+
+These methods use the configured `GeocodingService`. Without one, they return a result with the `GeocodingStatus.NotConfigured` status.
+
+| Method | Returns |
+| --- | --- |
+| `GeocodeAsync(string query)` | `GeocodingLookupResult` with the places that match an address or name. `FirstResult` gives the best match. |
+| `ReverseGeocodeAsync(double latitude, double longitude)` | `ReverseGeocodingLookupResult` with the address at a position. |
+| `AutocompleteAsync(string query, int maxResults = 5)` | `GeocodingAutocompleteResult` with suggestions for a partial query. |
+
+```csharp
+var result = await cesium.GeocodeAsync("Eiffel Tower, Paris");
+if (result.Status == GeocodingStatus.Success && result.FirstResult is { } place)
+{
+    cesium.FlyTo(place.Latitude, place.Longitude, 3.0);
+}
+```
 
 ### Diagnostics
 
 | Member | Description |
-|---|---|
-| `Diagnostics` | Exposes tile queue and streaming counters (tiles loaded, pending, cancelled…). |
-| `UnmanagedDiagnostics` | Exposes native memory allocation and free counters for low-level profiling. |
+| --- | --- |
+| `Diagnostics` | `CesiumDiagnostics` with the loaded, visible, and newly loaded tiles per tileset, and the queued entities and textures. |
+| `UnmanagedDiagnostics` | `UnmanagedAllocationDiagnostics` with the native memory allocation counters per tileset. |
 
----
+## WorldCamera
 
-## Placing Entities on Earth
+`WorldCamera` moves the camera around the globe. With the mouse, drag with the left button to pan, drag with the middle button to tilt, and use the wheel to change the height. When the camera is low, it keeps a minimum height above the terrain.
 
-Attach a `CesiumPlacerComponent` to any entity to position it using geodetic coordinates. The component automatically converts coordinates to world space each frame and aligns the entity's orientation to the local up vector.
+| Member | Default | Description |
+| --- | --- | --- |
+| `latitude` | `40.41` | Latitude of the camera, in degrees. |
+| `longitude` | `-3.71` | Longitude of the camera, in degrees. |
+| `height` | `1000` | Height of the camera above the ellipsoid, in meters. |
+| `Heading`, `Tilt` | `0` | Read-only. Orientation of the camera, in radians. |
+| `UIHasFocus` | `false` | Set it to `true` while your UI uses the mouse, so the camera ignores it. |
 
-| Property | Type | Description |
-|---|---|---|
-| `Latitude` | `double` | Latitude in decimal degrees (−90 to 90). |
-| `Longitude` | `double` | Longitude in decimal degrees (−180 to 180). |
-| `Height` | `double` | Height in metres. |
-| `HeightIsRelativeToTerrain` | `bool` | When `true`, `Height` is measured above the terrain surface. When `false`, it is measured above the WGS84 ellipsoid. |
-| `Rotation` | `Vector3` | Local orientation offset applied after aligning to the Earth's surface. |
+## Place entities on the globe
+
+Add a `CesiumPlacerComponent` (namespace `Evergine.Cesium.Components`) to an entity to place it at geodetic coordinates. Every frame, the coordinator converts the coordinates to world space and aligns the entity with the local up direction of the globe.
+
+| Field | Default | Description |
+| --- | --- | --- |
+| `Latitude` | `0` | Latitude, in **radians**. Evergine Studio shows and edits it in degrees. |
+| `Longitude` | `0` | Longitude, in **radians**. Evergine Studio shows and edits it in degrees. |
+| `Height` | `0` | Height, in meters. |
+| `HeightIsRelativeToTerrain` | `false` | When `true`, `Height` is measured from the terrain surface; otherwise, from the WGS84 ellipsoid. |
+| `Rotation` | | `Quaternion` applied after aligning the entity with the surface. Set it to `Quaternion.Identity` when you create the component from code. |
 
 ```csharp
-// Example: place a marker at the Eiffel Tower, 10 m above ground
+using System;
+using Evergine.Cesium.Components;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+const double DegreesToRadians = Math.PI / 180.0;
+
+// A marker 10 m above the ground at the Eiffel Tower.
 var marker = new Entity("EiffelTower")
     .AddComponent(new Transform3D())
     .AddComponent(new CesiumPlacerComponent
     {
-        Latitude  = 48.8584,
-        Longitude =  2.2945,
-        Height    = 10.0,
+        Latitude = 48.8584 * DegreesToRadians,
+        Longitude = 2.2945 * DegreesToRadians,
+        Height = 10.0,
         HeightIsRelativeToTerrain = true,
+        Rotation = Quaternion.Identity,
     })
-    .AddComponent(new SphereMesh())
+    .AddComponent(new MaterialComponent())
+    .AddComponent(new SphereMesh() { Diameter = 5 })
     .AddComponent(new MeshRenderer());
 
 this.Managers.EntityManager.Add(marker);
 ```
 
----
-
 ## FAQ
 
-**Q: Can I change the imagery overlay at runtime?**
+**Can I change the imagery at runtime?**
 
-Yes. Set `CesiumCoordinator.OverlayProvider` to any `TerrainOverlayProvider` value at any time. Terrain tiles are automatically reset and reloaded with the new imagery.
+Yes. Set `CesiumCoordinator.OverlayProvider` to another `RasterOverlayProvider` value. The overlayed tilesets reload their imagery.
 
-**Q: Do I need to manage tile or texture memory manually?**
+**Do I have to manage tile or texture memory?**
 
-No. The add-on handles all tile lifecycle management — loading, caching, and eviction — automatically.
+No. The add-on loads, caches, and evicts tiles automatically.
 
-**Q: What happens if I don't provide an Azure Maps key?**
+**What happens without a geocoding service?**
 
-Geocoding methods (`GeocodeAsync`, `ReverseGeocodeAsync`, `AutocompleteAsync`) will not work. All other features — terrain, buildings, imagery, camera navigation, and entity placement — remain fully functional.
+The geocoding methods return results with the `NotConfigured` status. Terrain, buildings, imagery, camera navigation, and entity placement work normally.
 
-**Q: My scene loads but the terrain is blank. What should I check?**
+**The scene loads but there is no terrain. What should I check?**
 
-1. Verify that your Cesium ion access token has the correct permissions for **Cesium World Terrain** and **3D Tiles**.
-2. Check `CesiumCoordinator.CurrentStatus` for connectivity or authentication errors.
-3. Ensure the scene has a **MainCamera** entity with a `Camera3D` component.
+1. `CesiumCoordinator.CurrentStatus`: it tells you whether the connection or the token failed.
+2. That you added at least one tileset with `AddOverlayedTileset` or `AddGeometryTileset` before the scene started.
+3. That your Cesium ion token has the `assets:read` scope and access to those assets.
+4. That the scene has an active camera with a `Camera3D` component.
