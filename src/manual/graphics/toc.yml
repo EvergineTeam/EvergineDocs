@@ -1,4 +1,6 @@
-- name: Supported Graphic Backends  
+- name: Rendering Overview
+  href: rendering_overview.md
+- name: Supported Graphics Backends
   href: supported_backends/toc.yml
   homepage: supported_backends/index.md
 - name: Cameras
@@ -14,7 +16,9 @@
 - name: Textures
   href: textures/toc.yml
   homepage: textures/index.md
-- name: RenderLayer
+- name: Samplers
+  href: samplers.md
+- name: Render Layers
   href: renderlayers/toc.yml
   homepage: renderlayers/index.md
 - name: Models
@@ -24,11 +28,7 @@
   href: meshes/index.md
 - name: Primitives
   href: primitives.md
-# - name: Render Layers
-#   href: render_layers.md
-# - name: Samplers
-#   href: samplers.md
-- name: Post Processing Graph
+- name: Post-Processing Graph
   href: postprocessing_graph/toc.yml
   homepage: postprocessing_graph/index.md
 - name: Particle System
@@ -43,8 +43,8 @@
 - name: Line Batch
   href: linebatch/toc.yml
   homepage: linebatch/index.md
-# - name: Lines 3D
-#   href: lines_3d.md
+- name: Lines 3D
+  href: lines_3d.md
 - name: Billboards
   href: billboard/toc.yml
   homepage: billboard/index.md
