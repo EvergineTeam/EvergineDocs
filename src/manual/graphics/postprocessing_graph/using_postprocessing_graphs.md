@@ -52,7 +52,7 @@ A Postprocessing Volume is an entity in your scene composed of 3 components:
 | Property | Default | Description |
 | --- | --- | --- |
 | **ppGraph** | Default post-processing graph | The graph asset the volume applies. |
-| **IsGlobal** | true | When true, the graph applies to every camera. When false, it applies only to cameras whose position is inside the volume's box collider, so you can change the look of a room or a cave. |
+| **IsGlobal** | true | When true, the graph applies to every camera. When false, it applies only to the cameras that enter the volume defined by a BoxCollider, so you can change the look of a room or a cave. |
 | **LayerOrder** | 10 | When the graph runs, compared with the `Order` of the [render layers](../renderlayers/index.md). The graph runs after every layer with a lower order, so the default of 10 runs it after opaque (0), alpha (2) and additive (3) objects. Give a UI layer an order above it to keep the UI out of post-processing. |
 
 Below these properties, the component shows the parameters of the graph: either all of its node inputs or, when the graph has one, the panels of its [decorator](custom_postprocessing_graph.md#post-processing-graph-decorator).
