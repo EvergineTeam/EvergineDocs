@@ -1,529 +1,465 @@
 # Features
+
 ---
 
-Here is a list of different controls that you can create with just a few lines of code. Here is the complete list:
+This page is a tour of the Dear ImGui widgets you will use most, each with a complete `Behavior` you can drop on an entity. Every example follows the same three rules:
+
+* The UI is declared in `Update()`, every frame.
+* Anything a widget edits is a **field** of the behavior, so its value survives to the next frame.
+* Every `igBegin` is paired with an `igEnd`, whatever `igBegin` returned.
+
+All the examples need these namespaces, and a class declared `unsafe` because widgets take pointers:
+
+```csharp
+using Evergine.Bindings.Imgui;
+using Evergine.Framework;
+using Evergine.Mathematics;
+using Evergine.UI;
+using System;
+```
+
+For widgets that are not covered here, open the built-in demo window with `igShowDemoWindow` (see [Getting Started](setup.md#the-built-in-demo-window)) and look for the function name in `ImguiNative`.
 
 ## Window
 
-**Windows** are draggable containers of controls. They can receive and lose focus when clicked. Because of this, they are implemented slightly differently from the other controls. Each Window has an ID number, and its contents are declared inside a separate function that is called when the Window has focus.
+A window is the container every other widget goes into. `igBegin` opens it and `igEnd` closes it, and the widgets declared between the two calls are laid out top to bottom inside it. The title doubles as the window's identity: ImGui keeps the position, size and collapsed state of each title from one frame to the next, and lets the user move and resize it.
+
+The `igSetNextWindow*` functions configure the window that the next `igBegin` opens. The `ImGuiCond` argument says when the value applies: `FirstUseEver` only the first time the window is created, `Appearing` every time it becomes visible, and `Always` on every frame, which also stops the user from changing it.
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-using Evergine.Mathematics;
-
-namespace ImGUI
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private bool open = true;
+
+    protected override void Update(TimeSpan gameTime)
     {
-        bool open = true;
-
-        protected override void Update(TimeSpan gameTime)
+        if (!this.open)
         {
-            ImguiNative.igSetNextWindowPos(new Vector2(420, 120), ImGuiCond.Appearing, new Vector2(1, 0.5f));
-            ImguiNative.igSetNextWindowSize(new Vector2(400, 100), ImGuiCond.Appearing);
-            ImguiNative.igBegin("MyWindow", open.Pointer(), ImGuiWindowFlags.None);
-
-            // Controls
-
-            ImguiNative.igEnd();
+            return;
         }
+
+        // Anchor the window by its right edge (pivot 1, 0.5) at x = 420.
+        ImguiNative.igSetNextWindowPos(new Vector2(420, 120), ImGuiCond.Appearing, new Vector2(1, 0.5f));
+        ImguiNative.igSetNextWindowSize(new Vector2(400, 100), ImGuiCond.Appearing);
+
+        // Passing a pointer to 'open' adds a close button that sets it to false.
+        if (ImguiNative.igBegin("MyWindow", this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            // Widgets go here.
+        }
+
+        ImguiNative.igEnd();
     }
 }
 ```
 
-![Window](images/Features_Window.png)
+![An empty window titled MyWindow](images/Features_Window.png)
 
-## LabelText
+`ImGuiWindowFlags` changes the window's behaviour: `NoTitleBar`, `NoResize`, `NoMove`, `NoCollapse`, `AlwaysAutoResize` and `NoBackground` are the most common, and can be combined with `|`.
 
-The **LabelText** is non-interactive. It is for display only. It cannot be clicked or otherwise moved. It is best for displaying information only.
+## Label text
+
+`igLabelText` draws a value next to a label, aligned in two columns like the rest of the form widgets. It is read-only, which makes it the right choice for showing values the user should see but not edit.
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-
-namespace ImGUI
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private bool open = true;
+
+    protected override void Update(TimeSpan gameTime)
     {
-        bool open = true;
-
-        protected override void Update(TimeSpan gameTime)
+        if (ImguiNative.igBegin("MyWindow", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            ImguiNative.igBegin("MyWindow", open.Pointer(), ImGuiWindowFlags.None);
-
+            // The first argument is the label on the right, the second the value on the left.
             ImguiNative.igLabelText("This is a label", "Value1");
             ImguiNative.igLabelText("This is another label", "Value2");
-
-            ImguiNative.igEnd();
         }
+
+        ImguiNative.igEnd();
     }
 }
 ```
 
-![Label](images/Features_Label.png)
+![Two label and value pairs](images/Features_Label.png)
 
 ## Button
 
-The **Button** is a typical interactive button. It will respond a single time when clicked, no matter how long the mouse remains depressed. The response occurs as soon as the mouse button is released.
+`igButton` draws a button and returns `true` on the one frame in which the user releases the mouse over it. React to the click inside the `if`, and keep any consequence of the click in a field. A size of `Vector2.Zero` fits the button to its label.
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-using Evergine.Mathematics;
-
-namespace ImGUI
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private bool open = true;
+    private int clickCount;
+
+    protected override void Update(TimeSpan gameTime)
     {
-        uint clicked;
-        bool open = true;
-
-        protected override void Update(TimeSpan gameTime)
+        if (ImguiNative.igBegin("MyWindow", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            ImguiNative.igBegin("MyWindow", open.Pointer(), ImGuiWindowFlags.None);
-
             if (ImguiNative.igButton("Press me", new Vector2(100, 25)))
             {
-                clicked++;
+                this.clickCount++;
             }
 
-            if (clicked > 0)
+            // Drawn on every frame after the first click, not only on the frame of the click.
+            if (this.clickCount > 0)
             {
                 ImguiNative.igText("Thanks for clicking me!");
             }
-
-            ImguiNative.igEnd();
         }
+
+        ImguiNative.igEnd();
     }
 }
 ```
 
-![button](images/Features_Button.png)
+![A button and the text shown after it is clicked](images/Features_Button.png)
 
 ## Text
 
-The **Text** Control is an interactive, editable single-line field containing a text string.
+`igText` draws a line of static text. It is not editable; for that, see [Input text](#input-text). Related functions cover the usual variations: `igTextColored` takes a colour, `igTextWrapped` wraps at the window edge, `igBulletText` adds a bullet, and `igSeparatorText` draws a heading with a line.
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-
-namespace ImGUI
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private bool open = true;
+
+    protected override void Update(TimeSpan gameTime)
     {
-        bool open = true;
-
-        protected override void Update(TimeSpan gameTime)
+        if (ImguiNative.igBegin("MyWindow", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            ImguiNative.igBegin("MyWindow", open.Pointer(), ImGuiWindowFlags.None);
-
             ImguiNative.igText("This is a text control");
-
-            ImguiNative.igEnd();
         }
+
+        ImguiNative.igEnd();
     }
 }
-
 ```
 
-![Text](images/Features_Text.png)
+![A window with one line of text](images/Features_Text.png)
 
-## InputText
+> [!TIP]
+> The text functions interpret their argument as a printf-style format. Escape percent signs as `%%`, or pass text you do not control to `igTextUnformatted(text, null)`.
 
-The **InputText** Control is an interactive, editable area containing a text string.
+## Input text
+
+`igInputText` is an editable single-line text field. Dear ImGui edits a byte buffer in place, so you own a buffer of the maximum length you accept and convert it to a `string` when the widget reports a change. Allocate the buffer once, in a field: a buffer created inside `Update()` would lose the user's typing on the next frame.
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-using Evergine.Mathematics;
 using System.Text;
 
-namespace ImGUI
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private bool open = true;
+
+    // UTF-8 bytes edited in place by ImGui. The text ends at the first zero byte.
+    private byte[] buffer = new byte[256];
+    private string text = string.Empty;
+
+    protected override void Update(TimeSpan gameTime)
     {
-        bool open = true;
+        ImguiNative.igSetNextWindowSize(new Vector2(400, 110), ImGuiCond.FirstUseEver);
 
-        // Create a StringBuilder to hold the input text
-        StringBuilder inputText = new StringBuilder(256);
-
-        protected override void Update(TimeSpan gameTime)
+        if (ImguiNative.igBegin("Input Text Example", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            ImguiNative.igBegin("Input Text Example", open.Pointer(), ImGuiWindowFlags.None);
-
-            // Set window size
-            ImguiNative.igSetNextWindowSize(new Vector2(400, 150), ImGuiCond.FirstUseEver);
-
-            // Create the input text field
-            fixed (byte* buffer = Encoding.UTF8.GetBytes(inputText.ToString().PadRight(256, '\0')))
+            fixed (byte* bufferPointer = this.buffer)
             {
-                if (ImguiNative.igInputText("Enter text:", buffer, 256, ImGuiInputTextFlags.None, null, null))
+                if (ImguiNative.igInputText("Enter text:", bufferPointer, (uint)this.buffer.Length, ImGuiInputTextFlags.None, null, null))
                 {
-                    inputText.Clear();
-                    inputText.Append(Encoding.UTF8.GetString(buffer, 256).TrimEnd('\0'));
+                    int length = Array.IndexOf(this.buffer, (byte)0);
+                    this.text = Encoding.UTF8.GetString(this.buffer, 0, length < 0 ? this.buffer.Length : length);
                 }
             }
 
-            // Display the current input text
-            ImguiNative.igText($"Current text: {inputText}");
+            ImguiNative.igTextUnformatted($"Current text: {this.text}", null);
 
-            // Add a button to clear the input
             if (ImguiNative.igButton("Clear", new Vector2(100, 30)))
             {
-                inputText.Clear();
+                Array.Clear(this.buffer, 0, this.buffer.Length);
+                this.text = string.Empty;
             }
-
-            ImguiNative.igEnd();
         }
+
+        ImguiNative.igEnd();
     }
 }
 ```
-![Text](images/Features_InputText.png)
 
-## Toggle
+![A text field with the text Evergine, the current value below it and a Clear button](images/Features_InputText.png)
 
-The **Toggle** Control creates a checkbox with a persistent on/off state. The user can change the state by clicking on it.
+`ImGuiInputTextFlags` adds behaviour such as `CharsDecimal` (digits only), `Password` (hidden characters) and `EnterReturnsTrue` (report the change only when the user presses Enter).
+
+## Checkbox
+
+`igCheckbox` toggles a `bool`. It takes a pointer to the field, flips it when clicked, and returns `true` on the frame the value changed, so you can react to the change without comparing with the previous value. The `Pointer()` extension method from `Evergine.UI` converts a `bool` field into the `byte*` that the C API expects.
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-
-namespace ImGUI
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private bool open = true;
+    private bool isToggled;
+
+    protected override void Update(TimeSpan gameTime)
     {
-        bool open = true;
-
-        // Create a boolean to hold the state of the toggle
-        bool isToggled = false;
-
-        protected override void Update(TimeSpan gameTime)
+        if (ImguiNative.igBegin("MyWindow", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            ImguiNative.igBegin("MyWindow", open.Pointer(), ImGuiWindowFlags.None);
-
-            // Create the toggle button
-            if (ImguiNative.igCheckbox("Toggle me", isToggled.Pointer()))
+            if (ImguiNative.igCheckbox("Toggle me", this.isToggled.Pointer()))
             {
-                // This code block will run when the toggle state changes
-                System.Console.WriteLine($"Toggle state changed to: {isToggled}");
+                Console.WriteLine($"Toggle state changed to: {this.isToggled}");
             }
 
-            // Display the current state of the toggle
-            ImguiNative.igText($"Toggle state: {(isToggled ? "ON" : "OFF")}");
-
-            ImguiNative.igEnd();
+            ImguiNative.igText($"Toggle state: {(this.isToggled ? "ON" : "OFF")}");
         }
+
+        ImguiNative.igEnd();
     }
 }
 ```
 
-![Text](images/Features_Toggle.png)
+![A checkbox and the text that shows its state](images/Features_Toggle.png)
 
-## Toolbar
+## Buttons in a row
 
-A **Toolbar** is a graphical control element that displays a row of selectable items, typically represented as icons or buttons. It provides quick access to frequently used commands or options within an application.
+Widgets are placed one below the other unless you call `igSameLine` between them, which puts the next widget on the same line after an optional gap. Combined with `igIsItemHovered` and `igSetTooltip`, which act on the widget declared just before them, this is how you build a toolbar. `igPushStyleColor_Vec4` changes a style colour for the widgets that follow until the matching `igPopStyleColor`, which here marks the active toggles.
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-using Evergine.Mathematics;
-using System.Text;
-
-namespace ImGUI
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private bool open = true;
+
+    private bool isBold;
+    private bool isItalic;
+    private bool isUnderline;
+    private int fontSize = 12;
+    private string alignment = "Left";
+
+    protected override void Update(TimeSpan gameTime)
     {
-        bool open = true;
+        ImguiNative.igSetNextWindowSize(new Vector2(390, 110), ImGuiCond.FirstUseEver);
 
-        // Toolbar state
-        bool isBold = false;
-        bool isItalic = false;
-        bool isUnderline = false;
-        int fontSize = 12;
-        int alignmentState = 0; // 0: Left, 1: Center, 2: Right
-
-        protected override void Update(TimeSpan gameTime)
+        if (ImguiNative.igBegin("Text Editor Toolbar", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            ImguiNative.igBegin("Text Editor Toolbar", open.Pointer(), ImGuiWindowFlags.None);
-
-            // Set window size
-            ImguiNative.igSetNextWindowSize(new Vector2(600, 100), ImGuiCond.FirstUseEver);
-
-            // Begin a horizontal layout for the toolbar
-            ImguiNative.igBeginGroup();
-
-            // Text style toggles
-            if (ToggleButton("B", isBold, new Vector2(30, 30))) isBold = !isBold;
-            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip("Toggle Bold");
+            if (this.ToggleButton("B", this.isBold, "Toggle Bold")) this.isBold = !this.isBold;
             ImguiNative.igSameLine(0, 5);
-
-            if (ToggleButton("I", isItalic, new Vector2(30, 30))) isItalic = !isItalic;
-            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip("Toggle Italic");
+            if (this.ToggleButton("I", this.isItalic, "Toggle Italic")) this.isItalic = !this.isItalic;
             ImguiNative.igSameLine(0, 5);
-
-            if (ToggleButton("U", isUnderline, new Vector2(30, 30))) isUnderline = !isUnderline;
-            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip("Toggle Underline");
+            if (this.ToggleButton("U", this.isUnderline, "Toggle Underline")) this.isUnderline = !this.isUnderline;
             ImguiNative.igSameLine(0, 15);
 
-            // Font size adjustment
-            if (ImguiNative.igButton("-", new Vector2(30, 30)) && fontSize > 8) fontSize--;
-            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip("Decrease Font Size");
+            if (ImguiNative.igButton("-", new Vector2(30, 30)) && this.fontSize > 8) this.fontSize--;
             ImguiNative.igSameLine(0, 5);
-
-            ImguiNative.igText($"{fontSize}");
+            ImguiNative.igText($"{this.fontSize}");
             ImguiNative.igSameLine(0, 5);
-
-            if (ImguiNative.igButton("+", new Vector2(30, 30)) && fontSize < 72) fontSize++;
-            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip("Increase Font Size");
+            if (ImguiNative.igButton("+", new Vector2(30, 30)) && this.fontSize < 72) this.fontSize++;
             ImguiNative.igSameLine(0, 15);
 
-            // Text alignment
-            if (ImguiNative.igButton("Left", new Vector2(50, 30))) alignmentState = 0;
-            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip("Align Left");
-            ImguiNative.igSameLine(0, 5);
+            foreach (var option in new[] { "Left", "Center", "Right" })
+            {
+                if (ImguiNative.igButton(option, new Vector2(50, 30))) this.alignment = option;
+                ImguiNative.igSameLine(0, 5);
+            }
 
-            if (ImguiNative.igButton("Center", new Vector2(50, 30))) alignmentState = 1;
-            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip("Align Center");
-            ImguiNative.igSameLine(0, 5);
+            // Ends the row started by the last igSameLine.
+            ImguiNative.igNewLine();
 
-            if (ImguiNative.igButton("Right", new Vector2(50, 30))) alignmentState = 2;
-            if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None)) ImguiNative.igSetTooltip("Align Right");
-
-            ImguiNative.igEndGroup();
-
-            // Display the current text style
-            ImguiNative.igText($"Text Style: {(isBold ? "Bold " : "")}{(isItalic ? "Italic " : "")}{(isUnderline ? "Underline " : "")}");
-            ImguiNative.igText($"Font Size: {fontSize}");
-            ImguiNative.igText($"Alignment: {(alignmentState == 0 ? "Left" : alignmentState == 1 ? "Center" : "Right")}");
-
-            ImguiNative.igEnd();
+            ImguiNative.igText($"Text Style: {(this.isBold ? "Bold " : "")}{(this.isItalic ? "Italic " : "")}{(this.isUnderline ? "Underline" : "")}");
+            ImguiNative.igText($"Font Size: {this.fontSize}");
+            ImguiNative.igText($"Alignment: {this.alignment}");
         }
 
-        // Helper method to create a toggle button
-        private bool ToggleButton(string label, bool isActive, Vector2 size)
+        ImguiNative.igEnd();
+    }
+
+    private bool ToggleButton(string label, bool isActive, string tooltip)
+    {
+        var color = isActive ? new Vector4(0.2f, 0.7f, 0.2f, 1.0f) : new Vector4(0.2f, 0.2f, 0.2f, 1.0f);
+        ImguiNative.igPushStyleColor_Vec4(ImGuiCol.Button, color);
+        bool clicked = ImguiNative.igButton(label, new Vector2(30, 30));
+        ImguiNative.igPopStyleColor(1);
+
+        if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None))
         {
-            ImguiNative.igPushStyleColor_Vec4(ImGuiCol.Button, isActive ? new Vector4(0.2f, 0.7f, 0.2f, 1.0f) : new Vector4(0.2f, 0.2f, 0.2f, 1.0f));
-            bool clicked = ImguiNative.igButton(label, size);
-            ImguiNative.igPopStyleColor(1);
-            return clicked;
+            ImguiNative.igSetTooltip(tooltip);
         }
+
+        return clicked;
     }
 }
-
 ```
 
-![Text](images/Features_Toolbar.png)
+![A toolbar with style toggles, a font size stepper and alignment buttons](images/Features_Toolbar.png)
 
-## Images
+## Image
 
-**Image** controls in ImGui allow you to display images within your user interface. When working with ImGui in C# using Evergine bindings, you can use these controls to show textures, icons, or any other graphical elements.
+`igImage` draws an Evergine texture. ImGui does not know about Evergine textures, so you first ask `ImGuiManager` for a binding with `CreateImGuiBinding`, which returns the `ImTextureRef` that identifies the texture in the draw data. Create the binding once and keep it in a field; release it with `RemoveImGuiBinding` when the component goes away.
+
+This behavior exposes a `Texture` property, so you can assign any texture asset of the project from Evergine Studio:
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-using Evergine.Mathematics;
-using System.Threading.Tasks;
+using Evergine.Common.Graphics;
 
-namespace LoadingImages
+public unsafe class ImageViewer : Behavior
 {
-    public class MyUI : Behavior
+    [BindSceneManager]
+    private ImGuiManager imGuiManager = null;
+
+    private bool open = true;
+    private ImTextureRef imageRef;
+
+    // Assign a texture asset to this property in Evergine Studio.
+    public Texture Texture { get; set; }
+
+    protected override void Start()
     {
-        bool open = true;
-        IntPtr image;
+        base.Start();
 
-        [BindSceneManager]
-        ImGuiManager imguiManager;
-
-        protected override void Start()
+        if (this.Texture != null)
         {
-            base.Start();
-            DownloadImage();
+            this.imageRef = this.imGuiManager.CreateImGuiBinding(this.Texture);
         }
+    }
 
-        private async void DownloadImage()
+    protected override void OnDetach()
+    {
+        base.OnDetach();
+
+        if (this.Texture != null)
         {
-            string url = $"https://pbs.twimg.com/profile_images/1460919352862158851/T0aHus0C_400x400.jpg";
-            var textureimage = await ImGUIHelpers.DownloadTextureFromUrl(url);
-            image = imguiManager.CreateImGuiBinding(textureimage);
+            this.imGuiManager.RemoveImGuiBinding(this.Texture);
         }
+    }
 
-        protected override unsafe void Update(TimeSpan gameTime)
+    protected override void Update(TimeSpan gameTime)
+    {
+        ImguiNative.igSetNextWindowSize(new Vector2(420, 480), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin("Debug", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            ImguiNative.igBegin("Debug", open.Pointer(), ImGuiWindowFlags.None);
-
-            // Set window size
-            ImguiNative.igSetNextWindowSize(new Vector2(500, 500), ImGuiCond.FirstUseEver);
-
             ImguiNative.igText("Image Display:");
 
-            if (image != IntPtr.Zero)
+            if (this.Texture != null)
             {
-                Vector2 imageSize = new Vector2(400, 400);
-                ImguiNative.igImage(image, imageSize, new Vector2(0, 0), new Vector2(1, 1), new Vector4(1, 1, 1, 1), new Vector4(0, 0, 0, 0));
-                ImguiNative.igText($"Image Size: {imageSize.X}x{imageSize.Y}");
+                var size = new Vector2(400, 400);
+
+                // uv0 and uv1 select the part of the texture to draw: here, all of it.
+                ImguiNative.igImage(this.imageRef, size, Vector2.Zero, Vector2.One);
+                ImguiNative.igText($"Image Size: {this.Texture.Description.Width}x{this.Texture.Description.Height}");
             }
             else
             {
-                ImguiNative.igTextColored(new Vector4(1, 0, 0, 1), "Failed to load image");
+                ImguiNative.igTextColored(new Vector4(1, 0, 0, 1), "No texture assigned");
             }
-
-            ImguiNative.igEnd();
         }
+
+        ImguiNative.igEnd();
     }
 }
 ```
 
-![Text](images/Features_Image.png)
+![A window showing a texture with its size below](images/Features_Image.png)
 
-## SelectionGrid
-
-A **SelectionGrid** is a user interface component that displays a grid of selectable items. It allows users to choose one or more items from a set of options presented in a grid layout.
+`igImage` draws the texture as it is. To draw it over a background colour or multiply it by a tint, use `igImageWithBg`, which takes both colours after the texture coordinates:
 
 ```csharp
-using Evergine.Framework;
-using System;
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-using Evergine.Mathematics;
-using System.Text;
-using System.Collections.Generic;
+// Dark grey background, texture tinted at half opacity.
+ImguiNative.igImageWithBg(this.imageRef, size, Vector2.Zero, Vector2.One, new Vector4(0.1f, 0.1f, 0.1f, 1), new Vector4(1, 1, 1, 0.5f));
+```
 
-namespace ImGUI
+To load an image that is not a project asset, `ImGUIHelpers.LoadTextureFromFile(path)` decodes a PNG or JPEG file into a new `Texture`, and `ImGUIHelpers.DownloadTextureFromUrl(url)` does the same for a file on the web. Both are asynchronous and return the texture you then pass to `CreateImGuiBinding`.
+
+## Selectable grid
+
+`igSelectable_Bool` draws a line of text that highlights when selected, and returns `true` when the user clicks it. You decide what a click means: here, each item toggles, so several can be selected at once. `igPushID_Int` gives each item a unique identity even when two labels are equal, which ImGui needs to track which one is being clicked.
+
+```csharp
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private const int Columns = 3;
+
+    private bool open = true;
+    private string[] items = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5", "Item 6", "Item 7", "Item 8", "Item 9", "Item 10" };
+    private bool[] selected = new bool[10];
+
+    protected override void Update(TimeSpan gameTime)
     {
-        bool open = true;
+        ImguiNative.igSetNextWindowSize(new Vector2(380, 160), ImGuiCond.FirstUseEver);
 
-        private List<string> items;
-        private List<bool> selectedItems;
-        private int columns = 3;
-
-        protected override void Start()
+        if (ImguiNative.igBegin("Selection Grid", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            base.Start();
-
-            // Initialize items
-            items = new List<string>
-            {
-                "Item 1", "Item 2", "Item 3", "Item 4", "Item 5",
-                "Item 6", "Item 7", "Item 8", "Item 9", "Item 10"
-            };
-
-            // Initialize selection state
-            selectedItems = new List<bool>(new bool[items.Count]);
-        }
-
-        protected override void Update(TimeSpan gameTime)
-        {
-            ImguiNative.igBegin("Selection Grid", open.Pointer(), ImGuiWindowFlags.None);
-
-            // Set window size
-            ImguiNative.igSetNextWindowSize(new Vector2(400, 300), ImGuiCond.FirstUseEver);
-
             ImguiNative.igText("Select items from the grid:");
 
-            // Calculate item width based on available space and number of columns
-            float windowWidth = ImguiNative.igGetWindowWidth();
-            float itemWidth = (windowWidth - (columns - 1) * ImguiNative.igGetStyle()->ItemSpacing.X) / columns;
+            // Split the available width between the columns, minus the spacing between them.
+            float spacing = ImguiNative.igGetStyle()->ItemSpacing.X;
+            float itemWidth = (ImguiNative.igGetContentRegionAvail().X - (Columns - 1) * spacing) / Columns;
 
-            for (int i = 0; i < items.Count; i++)
+            for (int i = 0; i < this.items.Length; i++)
             {
-                if (i % columns != 0)
+                if (i % Columns != 0)
+                {
                     ImguiNative.igSameLine(0, -1);
+                }
 
                 ImguiNative.igPushID_Int(i);
-                bool selectedBool = selectedItems[i];
-                if (ImguiNative.igSelectable_BoolPtr(items[i], selectedBool.Pointer(), ImGuiSelectableFlags.None, new Vector2(itemWidth, 0)))
+                if (ImguiNative.igSelectable_Bool(this.items[i], this.selected[i], ImGuiSelectableFlags.None, new Vector2(itemWidth, 0)))
                 {
-                    selectedItems[i] = !selectedItems[i];
+                    this.selected[i] = !this.selected[i];
                 }
+
                 ImguiNative.igPopID();
             }
 
             ImguiNative.igSeparator();
-
             ImguiNative.igText("Selected items:");
-            for (int i = 0; i < items.Count; i++)
+
+            for (int i = 0; i < this.items.Length; i++)
             {
-                if (selectedItems[i])
+                if (this.selected[i])
                 {
-                    ImguiNative.igBulletText(items[i]);
+                    ImguiNative.igBulletText(this.items[i]);
                 }
             }
-
-            ImguiNative.igEnd();
         }
+
+        ImguiNative.igEnd();
     }
 }
-
 ```
 
-![Text](images/Features_SelectionGrid.png)
+![A three-column grid of items with one selected and listed below](images/Features_SelectionGrid.png)
 
 ## Slider
 
-A **Slider** is a user interface control that allows users to select a value from a continuous range by sliding a handle along a horizontal or vertical track.
+`igSliderFloat` edits a number by dragging a handle between a minimum and a maximum. It writes the new value through the pointer and returns `true` on every frame the value changes. The format string controls how the value is printed on the slider; a label that starts with `##` is hidden but still gives the widget its identity. `igSliderInt`, `igSliderFloat2` to `igSliderFloat4`, and the `igDragFloat` family, which edit without limits, work the same way.
 
 ```csharp
-using Evergine.UI;
-using Evergine.Bindings.Imgui;
-using Evergine.Mathematics;
-using System.Text;
-
-namespace ImGUI
+public unsafe class MyUI : Behavior
 {
-    public unsafe class MyUI : Behavior
+    private bool open = true;
+    private float sliderValue = 50f;
+
+    protected override void Update(TimeSpan gameTime)
     {
-        bool open = true;
+        ImguiNative.igSetNextWindowSize(new Vector2(400, 110), ImGuiCond.FirstUseEver);
 
-        private float sliderValue = 50f;
-        private float minValue = 0f;
-        private float maxValue = 100f;
-
-        protected override void Update(TimeSpan gameTime)
+        if (ImguiNative.igBegin("Horizontal Slider", this.open.Pointer(), ImGuiWindowFlags.None))
         {
-            ImguiNative.igBegin("Horizontal Slider", open.Pointer(), ImGuiWindowFlags.None);
-
-            // Set window size
-            ImguiNative.igSetNextWindowSize(new Vector2(400, 200), ImGuiCond.FirstUseEver);
-
             ImguiNative.igText("Adjust the slider:");
 
-            fixed (float* valuePointer = &sliderValue)
+            // Pin the field while ImGui writes to it.
+            fixed (float* value = &this.sliderValue)
             {
-                // Create the slider
-                if (ImguiNative.igSliderFloat("##slider", valuePointer, minValue, maxValue, "%.1f", ImGuiSliderFlags.None))
+                if (ImguiNative.igSliderFloat("##slider", value, 0f, 100f, "%.1f", ImGuiSliderFlags.None))
                 {
-                    // This code block will run when the slider value changes
-                    System.Console.WriteLine($"Slider value changed to: {sliderValue}");
+                    Console.WriteLine($"Slider value changed to: {this.sliderValue}");
                 }
             }
 
-            // Display the current value
-            ImguiNative.igText($"Current Value: {sliderValue:F1}");
-
-            ImguiNative.igEnd();
+            ImguiNative.igText($"Current Value: {this.sliderValue:F1}");
         }
+
+        ImguiNative.igEnd();
     }
 }
 ```
 
-![Text](images/Features_Slider.png)
+![A slider from 0 to 100 and its current value](images/Features_Slider.png)
