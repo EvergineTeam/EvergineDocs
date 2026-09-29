@@ -2,7 +2,6 @@
 
 ![A frame of an Evergine scene captured in RenderDoc](Images/RenderDoc_0.JPG)
 
-<!-- CAPTURE: Images/RenderDoc_dx12.png; RenderDoc 1.x window with a DirectX 12 capture of the docs scene taken from Evergine Studio, Event Browser expanded to show the Render / Camera markers -->
 
 [RenderDoc](https://renderdoc.org/) is a free frame debugger for Direct3D 11, Direct3D 12, Vulkan and OpenGL. Evergine Studio integrates it, so you can capture a frame of any scene viewport and inspect every draw call, resource and shader that produced it. Use it to find out why an object does not render, why a material looks wrong, or which pass takes the most GPU time.
 

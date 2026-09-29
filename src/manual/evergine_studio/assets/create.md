@@ -48,9 +48,8 @@ The extension of the file decides which asset is created:
 
 Assets that have no external source are created from the same three places: the **Assets** menu, the ![Plus icon](Images/plusIcon.jpg) button, and the context menu of the **Assets Details** panel.
 
-![The create items of the Assets menu](Images/assetsMenu.jpg)
+![The Assets menu, with a folder of Content selected](Images/assetsMenu.png)
 
-<!-- CAPTURE: assets/Images/assetsMenu.jpg; replace with the develop Assets menu, which adds Generative assets and Create particle system -->
 
 | Menu item | Asset | Metafile extension | Files created |
 | --- | --- | --- | --- |

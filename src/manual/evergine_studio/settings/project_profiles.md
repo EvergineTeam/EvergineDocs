@@ -8,7 +8,6 @@ You choose the first profiles when you create the project in the Evergine Launch
 
 ## Add a profile
 
-<!-- CAPTURE: images/profile_add-dialog.png; Add project profile dialog from develop, with the template list filtered by "Windows" and the Name box filled -->
 
 1. Click **Add** under the list of profiles.
 

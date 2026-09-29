@@ -1,8 +1,6 @@
 # Project Settings
 
-![The Project Settings dialog on the Services tab](settings/images/services_manage.png)
-
-<!-- CAPTURE: Images/project_settings.png; Project Settings dialog at 1440x900 on the Profiles tab, with the four tabs visible on the left -->
+![The Project Settings dialog on the Profiles tab, with the Windows profile selected](Images/project_settings.png)
 
 **Project Settings** groups the options that affect the whole application rather than a single scene: the platforms it targets, the add-ons it uses, how source files are imported, and the application services it registers. Open it from **Settings > Project Settings**. The changes are saved in the project files (`.weproj` and `.weservices`), so they are shared with everyone who works on the project.
 
@@ -19,7 +17,7 @@ The dialog has four tabs:
 
 The **Add-Ons** tab lists the [add-ons](../addons/index.md) of the project and lets you install new ones, update them or remove them.
 
-<!-- CAPTURE: Images/project_settings_addons.png; Add-Ons tab with the Browse list and the details of one add-on (description, versions, NuGet dependencies) -->
+![The Add-Ons tab: the Browse list on the left and the details of the selected add-on on the right](Images/project_settings_addons.png)
 
 * **Browse** searches the available add-ons. Filter them by **Source** and by text with **Search**, and click **Refresh** to query the sources again.
 * **Installed** lists the add-ons already in the project.

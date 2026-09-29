@@ -41,7 +41,7 @@ namespace MyProject.Services
 }
 ```
 
-<!-- CAPTURE: images/services_game_settings.png; Services tab with GameSettingsService selected, showing StartingLives, Difficulty, ShowTutorial, PlayerName and IsEnabled -->
+![GameSettingsService in the Services tab, with the properties it exposes](images/services_game_settings.png)
 
 Components and other services get the configured instance like any other service, for example with `[BindService]`:
 

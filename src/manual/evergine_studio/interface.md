@@ -1,8 +1,18 @@
 # Interface
 
-![The main areas of Evergine Studio](Images/Interface.jpg)
+![The main window of Evergine Studio with a scene open, numbered by area](Images/interface_annotated.png)
 
-<!-- CAPTURE: Images/interface_annotated.png; main window at 1440x900 with a scene open, numbered callouts on menu bar, toolbar, project/version boxes, Project Explorer, Assets Details, document tabs, scene toolbar, viewport, Scene Hierarchy, Entity Details / Scene Managers tabs and Output -->
+1. **Menu bar**
+2. **Toolbar**: save, save all, undo and redo
+3. **Project and version**: the open project and the Evergine Studio version with its graphics backend
+4. **Project Explorer**
+5. **Assets Details**
+6. **Document tabs**, one per open asset
+7. **Viewport toolbar** of the Scene Editor
+8. **Viewport**
+9. **Scene Hierarchy**
+10. **Entity Details** and **Scene Managers**, which share a tabbed pane
+11. **Output**, auto-hidden at the bottom in this layout
 
 Evergine Studio is organized in dockable panels around a central document area. The panels on the left browse the project, the document area hosts one editor per open asset, and the Output panel at the bottom shows the log. You can move, dock, float and auto-hide every panel to build the layout you prefer, and Evergine Studio remembers it for each project.
 
@@ -123,4 +133,4 @@ Double-click an asset in the **Assets Details** panel to open its editor. Every 
 
 The Prefab Editor works like the Scene Editor, on the entities of a single prefab. Files imported as **File** assets, and assets marked to export as raw, have no editor.
 
-<!-- CAPTURE: Images/asset_editors.png; 3x4 grid of thumbnails, one per asset editor listed above, each open on a sample asset of the docs project -->
+![One of each asset editor, open on an asset of a sample project](Images/asset_editors.png)
