@@ -2,8 +2,6 @@
 
 ![The create menu of the Assets Details panel](Images/createAssets.png)
 
-<!-- CAPTURE: assets/Images/create_asset.mp4; 15 s video: drag a .png from File Explorer into Assets Details, then + > Create material, rename it, double-click it and assign the texture in the Material Editor -->
-
 There are two ways to add an asset to a project, depending on its type:
 
 * **Import** a source file (an image, a 3D model, a sound, a font or any other file). Evergine Studio creates the asset that wraps it.
