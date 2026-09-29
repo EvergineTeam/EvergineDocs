@@ -235,8 +235,6 @@ public class LocomotionBlend : Behavior
 }
 ```
 
-<!-- CAPTURE: images/locomotion_blend.mp4; short loop (6-10 s) of an animated character driven by the LocomotionBlend behavior, with Speed swept from 0 to 2 and back, showing crouch, walk and run blending without foot crossing; overlay or caption with the current Speed value -->
-
 ## AdditiveBlendingClip
 
 Adds the motion of `ClipB` on top of `ClipA`: `ClipB` positions are added to those of `ClipA`, and `ClipB` rotations are combined with those of `ClipA`. The time, duration and loop of the node are those of `ClipA`.

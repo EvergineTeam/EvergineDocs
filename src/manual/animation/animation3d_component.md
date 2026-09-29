@@ -37,7 +37,7 @@ In Evergine Studio, set **Current Animation** and **Play Automatically** in the 
 
 If you add one yourself, add it to the **root entity** of the model hierarchy. The component finds the entity of every animated node by following the node names down from its own entity, so on any other entity the channels have nothing to drive.
 
-<!-- CAPTURE: images/animation3d_inspector.png; Evergine Studio Entity Details panel with the root entity of an animated character selected, showing the Animation3D component (Model, Current Animation, Loop, Playback Rate, Play Automatically, Apply Root Motion, Smooth Transitions) -->
+![Animation3D in Entity Details, on the root entity of an animated model](images/animation3d_inspector.png)
 
 ## Properties
 
@@ -162,8 +162,6 @@ public class WalkRunController : Behavior
 > On the current engine version a finished transition is never removed. Each `PlayAnimation` call with a `transitionTime` wraps whatever the first layer holds, finished transitions included, in a new `TransitionClip`, and every clip in that chain keeps being updated. For a character that switches clips many times, build the transition yourself from the clip it should start from, as in the [crossfade example](animation_blend_tree.md#example-crossfade-from-walk-to-run), so the chain never grows.
 
 A plain transition starts the new clip at its beginning. When the two clips are cycles of the same movement, such as walk and run, a [`SynchronizedTransitionClip`](animation_blend_tree.md#synchronizedtransitionclip) keeps the feet in step during the blend.
-
-<!-- CAPTURE: images/walk_run_transition.mp4; short loop (5-8 s) of an animated character in Evergine Studio or a running app switching from walk to run and back with PlayAnimation(..., transitionTime: 0.25f), showing that the pose blends instead of snapping -->
 
 ## Keyframe events
 

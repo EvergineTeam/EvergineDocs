@@ -12,7 +12,7 @@ You rarely create clips yourself. The model importer builds them from the animat
 
 Every animated model asset exposes its clips in `Model.Animations`, a dictionary keyed by clip name. The names are the ones shown in the [Model Editor](../graphics/models/model_editor.md), and they are the names you pass to `Animation3D.PlayAnimation`.
 
-<!-- CAPTURE: images/model_editor_animation_clips.png; Model Editor in Evergine Studio with an animated character (Mixamo), showing the list of animation clips in the properties panel, one clip selected with its keyframe events, and the playback timeline at mid-clip -->
+![The Model Editor with an animated character: the clip list, and a keyframe event on the selected clip](images/model_editor_animation_clips.png)
 
 ```csharp
 using Evergine.Components.Animation;
