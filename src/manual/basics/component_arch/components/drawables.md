@@ -2,56 +2,84 @@
 
 ---
 
-**Drawables** are a type of Component that allows you to perform an action during each Draw/Render cycle of the Application. A Drawable is associated with an Entity, and all Drawables in a scene are managed by [**RenderManager**](../../../graphics/rendering_overview.md).
+A **drawable** is a component that takes part in rendering. `Drawable` derives from [`Component`](index.md) and adds an abstract `Draw(DrawContext drawContext)` method that the render pipeline calls while it renders the scene. Drawables register with the scene's render manager when they are attached; see the [Render Overview](../../../graphics/rendering_overview.md) for how that manager works.
 
 ## Drawable3D
-![Drawable3D](../../../graphics/images/teapot.png)
 
-**Drawable3Ds** are a type of Drawable designed to provide 3D content. They are processed on every **Camera3D** render. In these components, you usually create graphic elements to draw 3D features (models, billboards, background environments, etc...).
+![A teapot rendered by a MeshRenderer, which is a Drawable3D](../../../graphics/images/teapot.png)
 
-Add the following property:
- 
-| Property | Description |
-| --- | --- |
-| **CastShadows** | Boolean value indicating whether this model will cast shadows. True by default. |
+`Drawable3D` is the base class for drawables that produce 3D content, and the one you derive from in almost every case. `MeshRenderer`, `SkinnedMeshRenderer`, `ParticlesRenderer`, `BillboardRenderer` and `Text3DRenderer` are all drawables of this kind. Its `Draw()` method runs **once for each camera** that renders the scene, which is where it creates or updates the objects that camera will draw.
 
-### Creating a Drawable3D
-From Visual Studio, you can create a C# class with the following code:
+`Drawable3D` adds this property:
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **RenderFlags** | `RenderFlags.CastShadows` | Flags that describe how the drawable is rendered. With `CastShadows` set, the objects of this drawable cast shadows; set it to `RenderFlags.None` to disable them. |
+
+Every drawable also inherits these properties from `Drawable`:
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **IsCullingEnabled** | `true` | Lets the renderer skip the drawable when it is outside the view of the camera. |
+| **OrderBias** | `0` | Shifts the drawable in the render order, from `-512` to `511`. Useful to force the order of transparent objects. |
+| **Transform** | The `Transform3D` of the entity | Bound automatically when the entity has one; `null` otherwise. |
+
+## Create a Drawable3D
+
+This drawable outlines an oriented box around its entity, which is handy to visualize a volume while you debug. It draws with the `LineBatch3D` of the scene's `RenderManager`:
 
 ```csharp
 using Evergine.Common.Graphics;
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
 using Evergine.Mathematics;
-using System;
 
 namespace MyProject
 {
-    public class BBoxDrawable : Drawable3D
+    public class BoxOutline : Drawable3D
     {
+        // LineBatch3D belongs to RenderManager, not to the BaseRenderManager
+        // exposed by the inherited RenderManager property, so bind the concrete class.
+        [BindSceneManager]
+        private RenderManager renderManager;
+
         [BindComponent]
         private Transform3D transform;
 
-        public Vector3 Size {get;set;} = Vector3.One;
-        public Color Color {get; set;} = Color.Red;
+        public Vector3 Size { get; set; } = Vector3.One;
+
+        public Color Color { get; set; } = Color.Red;
 
         public override void Draw(DrawContext drawContext)
         {
-            var orientedBBox = new BoundingOrientedBox(
-                this.transform.Position, 
-                this.Size, 
+            // BoundingOrientedBox takes half extents, so halve the full size.
+            var box = new BoundingOrientedBox(
+                this.transform.Position,
+                this.Size * 0.5f,
                 this.transform.Orientation);
 
-            // Draw an oriented bounding box with the specified color and size...
-            this.Managers.RenderManager.LineBatch3D.DrawBoundingOrientedBox(orientedBBox, this.Color);
+            this.renderManager.LineBatch3D.DrawBoundingOrientedBox(box, this.Color);
         }
     }
 }
 ```
 
+```csharp
+var volume = new Entity("TriggerVolume")
+    .AddComponent(new Transform3D() { Position = new Vector3(0, 1, 0) })
+    .AddComponent(new BoxOutline() { Size = new Vector3(2, 2, 2), Color = Color.Yellow });
+
+this.Managers.EntityManager.Add(volume);
+```
+
+> [!TIP]
+> Besides boxes, `LineBatch3D` draws lines, rays, spheres, circles, cones and more. The [LineBatch](../../../graphics/linebatch/index.md) section shows every shape.
+
 ## Graphics Content
 
-A Drawable will add objects to the RenderManager to be drawn (sprites, meshes, etc...). Read the [Render Overview](../../../graphics/rendering_overview.md) document for further details.
+Most drawables do not draw anything directly. They add render objects (meshes, sprites, particles) to the render manager, which sorts, culls and draws them for each camera. Read the [Render Overview](../../../graphics/rendering_overview.md) for details.
 
-## Add/Remove a Drawable
-To add/remove a Drawable to/from your entity, both from code or Evergine Studio, is the same as adding/removing a component because a Drawable is a type of component. You can see how to add/remove a component [here](index.md).
+## Add or Remove a Drawable
+
+A drawable is a component, so you add it to and remove it from an entity exactly like any other component, in Evergine Studio or from code. See [Components](index.md#using-components).

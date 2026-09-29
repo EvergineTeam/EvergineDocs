@@ -1,35 +1,68 @@
 # Prefabs
-Sometimes you need to reuse entities, including their components and descendants. Instead of using copy and paste or entity duplication, which can create maintenance problems, you can use the concept of a _prefab_. A _prefab_ is a type of asset that helps developers with this basic function: reusing.
 
-## Creating a Prefab
-To create a prefab, first you need to build your entities’ hierarchy and assign components. For example, you can create an entity with a teapot and a plane, and add a [Spinner](xref:Evergine.Components.Graphics3D.Spinner) component to the top of this hierarchy.
+---
 
-![Prefab structure](images/prefabs-init.jpg)
+![A hierarchy of entities ready to become a prefab](images/prefabs-init.jpg)
 
-To create a prefab, right-click on the top-most entity that you want to include in it, and select the _Create prefab_ option.
+A **prefab** is an asset that stores an entity together with its components and its descendants, so that you can place the same object many times, in one scene or in several. Every placed copy is a **prefab instance** linked to the asset: change the prefab and every instance changes with it. Use prefabs instead of copying and pasting entities, which leaves you with many independent copies to keep in sync by hand.
+
+<!-- CAPTURE: prefabs.mp4; 20 s video in Evergine Studio: right-click an entity hierarchy and select Create prefab, drag the new .weprefab asset into the scene twice, double-click the asset to open the prefab editor, change a component value, save, and show both instances updated; then drag another prefab asset inside the prefab editor to nest it -->
+
+## Create a Prefab
+
+First build the entity hierarchy and give it its components. For example, an entity with a teapot and a plane as children, and a `Spinner` component on the top entity so that the whole group rotates.
+
+To turn it into a prefab, right-click the top entity of the hierarchy and select **Create prefab**.
 
 ![Prefab creation](images/prefabs-create.jpg)
 
-This will create a new asset with a _weprefab_ extension in the same folder that you have selected in the _Project Explorer_ panel. If you create the prefab in the wrong folder, don't worry. Like any other Evergine asset, you can move it wherever you want.
+Evergine Studio creates an asset with the `.weprefab` extension in the folder selected in the **Project Explorer** panel. Like any other asset, you can move it to another folder afterwards.
 
-![Prefab creation](images/prefabs-folder.jpg)
+![The new prefab asset in the Project Explorer](images/prefabs-folder.jpg)
 
-If you save changes and reload the scene, you will realize that entities that were part of the created prefab are now marked with a "(Prefab)" suffix. Using the prefab creation option **is not reversible once you save the scene**. You can also drag and drop asset elements from the _Asset Details_ panel to your scene to create new prefab instances. 
+The entities you selected become the first instance of the new prefab, and they are marked with a `(Prefab)` suffix once you save and reload the scene. To place more instances, drag the prefab asset from the **Assets Details** panel into the scene.
 
-### Prefabs Edition
+> [!IMPORTANT]
+> Creating a prefab cannot be undone once you save the scene.
 
-If you change values on those entities, this will not affect new and existing prefab instances. To add, remove, or modify elements in your prefab architecture, including associated components, you must use the prefab asset editor. 
+## Edit a Prefab
 
-To open the prefab editor, just double-click the prefab asset.
+Changing the entities of an instance in the scene does not change the prefab or its other instances. To add, remove or modify the entities and components of the prefab itself, open it in the prefab editor by double-clicking the asset:
 
 ![Prefab editor](images/prefabs-editor.jpg)
 
-Nesting of prefabs is now supported, so you can create prefabs based on the composition of other prefabs. There are some logical limitations, such as not allowing cyclical dependencies among prefabs. If you try to introduce a cycle, a warning message will be displayed in the _Output_ console.
+Prefabs can be nested: a prefab can contain instances of other prefabs. Cycles are not allowed; if a change would make a prefab contain itself, directly or through other prefabs, Evergine Studio rejects it and shows a warning in the **Output** panel.
 
-### Prefab Instantiation
+## Instantiate a Prefab from Code
 
-To create a prefab instance programmatically, you can use the following code snippet:
+Load the prefab with the `AssetsService`, create an instance, and add it to the scene like any other entity:
+
 ```csharp
-var prefab = this.assetsService.Load<Prefab>(EvergineContent.Scenes.Entity_weprefab);
-var entity = prefab.Instantiate();
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Prefabs;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+namespace MyProject
+{
+    public class TeapotSpawner : Component
+    {
+        [BindService]
+        private AssetsService assetsService;
+
+        public void Spawn(Vector3 position)
+        {
+            var prefab = this.assetsService.Load<Prefab>(EvergineContent.Prefabs.SpinningTeapot_weprefab);
+
+            // Every call creates a new, independent entity hierarchy.
+            Entity instance = prefab.Instantiate();
+            instance.FindComponent<Transform3D>().Position = position;
+
+            this.Managers.EntityManager.Add(instance);
+        }
+    }
+}
 ```
+
+`EvergineContent.Prefabs.SpinningTeapot_weprefab` is the ID that the generated `EvergineContent` class gives to a prefab named `SpinningTeapot.weprefab` in a `Content/Prefabs` folder.

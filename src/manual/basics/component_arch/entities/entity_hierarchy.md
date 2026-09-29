@@ -1,87 +1,91 @@
 # Entity Hierarchy
 
-You can establish an Entity as a child of another Entity. Using these relationships, it is possible to define an entity tree, where root entities have several children, and those children could have other children too.
+---
+
+An entity can be the child of another entity. These parent and child relationships form a tree: the entities at the top are added to the scene's [EntityManager](entity_manager.md), and each of them can have children, which can have children of their own. Hierarchies group what belongs together, such as a car and its wheels, so that it moves, is enabled and is removed as a whole.
 
 ## Hierarchy Transformations
 
-If an Entity has a `Transform3D` component (or `Transform2D` for 2D entities), the Child Entity will move, rotate and scale in the same way as its Parent does. You can think of the parent/child hierarchy as being like the relationship between your arms and your body; whenever your body moves, your arms also move along with it. Child objects can also have children. Your hands can be considered as children of your arms, and your fingers are children of your hands.
+When both entities have a `Transform3D`, the child moves, rotates and scales with its parent. Think of your arm and your body: when your body moves, your arm moves with it. Your hand is a child of your arm, and your fingers are children of your hand.
 
-![Entity Hierarchy](images/entity_hierarchy.png)
+![A parent entity translated and rotated, and its child following it](images/entity_hierarchy.png)
+
+The child's `LocalPosition`, `LocalOrientation` and `LocalScale` are relative to its parent. See [Transform3D](../../transform.md#local-and-world-space) for the difference between local and world values.
+
+Enabling and disabling work the same way: disabling an entity deactivates all its descendants too.
+
+## Build a Hierarchy
+
+Build the tree with `AddChild()`, then add only the root to the `EntityManager`. The children are added to the scene with it:
+
+```csharp
+var tire1 = new Entity("Tire1").AddComponent(new Transform3D());
+var tire2 = new Entity("Tire2").AddComponent(new Transform3D());
+
+var wheel1 = new Entity("Wheel1").AddComponent(new Transform3D()).AddChild(tire1);
+var wheel2 = new Entity("Wheel2").AddComponent(new Transform3D()).AddChild(tire2);
+
+var car = new Entity("Car")
+    .AddComponent(new Transform3D())
+    .AddChild(wheel1)
+    .AddChild(wheel2);
+
+this.Managers.EntityManager.Add(car);
+```
+
+> [!NOTE]
+> An entity can only have one parent, and an entity that is already at the top of a scene cannot become a child. Detach it from the `EntityManager` first.
 
 ## Hierarchy Properties and Methods
 
-The Entity has the following properties and methods to maintain and inspect the hierarchy:
-
 | Property | Type | Description |
 | --- | --- | --- |
-| **Parent** | `Entity` | Points to the immediate ascendant of this entity. If the entity has no parents, this property is `null` |
-| **ChildEntities** | `IEnumerable<Entity>` | A collection of the immediate descendants.  |
-
-To add and remove entities, an Entity instance has the following methods:
+| **Parent** | `Entity` | The direct parent of the entity, or `null` if it has none. |
+| **ChildEntities** | `IEnumerable<Entity>` | The direct children of the entity. |
+| **NumChildren** | `int` | The number of direct children. |
 
 | Method | Description |
 | --- | --- |
-| `Entity.AddChild(Entity)` | Adds a child entity to the current entity. |
-| `Entity.RemoveChild(...)` | Removes a child entity from the current entity. You can specify the entity to remove by giving the following options: <ul><li>The **Entity** instance.</li><li>The child **Name**</li><li>The child **ID**</li></ul>|
+| `AddChild(Entity)` | Adds a child. If the parent is already in a running scene, the child is attached, activated and started at once. Returns the parent, so calls can be chained. |
+| `RemoveChild(...)` | Removes a child and **destroys** it. The child can be given as the `Entity`, its `Name` or its `Id`. |
+| `DetachChild(...)` | Removes a child **without** destroying it, so it can be added somewhere else. Takes the same arguments as `RemoveChild`. |
+| `FindChild(string name, bool isRecursive = false)` | Returns the first child with that name, or `null`. With `isRecursive`, searches all descendants, level by level. |
+| `FindChild(Guid id, bool isRecursive = false)` | The same, by `Id`. |
+| `FindChildrenByTag(string tag, bool isRecursive = false, bool skipOwner = true)` | Returns the children with that tag. With `skipOwner: false`, the entity itself is included when it matches. |
+| `FindParentsByTag(string tag, bool isRecursive = false, bool skipOwner = true)` | Returns the ancestors with that tag, nearest first. Without `isRecursive`, only the direct parent is checked. |
+
+The `ChildAdded` and `ChildDetached` events notify you when the direct children of an entity change.
 
 ## Entity Paths
 
-![Entity Path](images/entity_path.png)
+![The entity tree of a scene, with the entity path of each entity](images/entity_path.png)
 
-Like in a normal file system, Evergine implements a simple **Entity Path** system to allow the identification of entities in the Scene entity tree.
+*The path of an entity is the chain of names from the top of the tree down to it, separated by dots.*
 
-An Entity Path can be accessed by the `EntityPath` property and is represented by the sequence of ascendant entity names (including the current entity) separated by the `.` symbol. For example, in the hierarchy described above, the EntityPath of the `Tire2` entity is `Car.Wheel2.Tire2`.
+Every entity in a scene has a path, exposed by its `EntityPath` property. It is made of the names of the entity and all its ancestors, from the root down, separated by the `.` character. In the scene above, the path of `Tire2` is `Car.Wheel2.Tire2`, and the path of `Road` is just `Road`.
 
-### Path Representation
+Paths are always **absolute**: they start at an entity added directly to the `EntityManager`. Because `.` is the separator, entity names cannot contain it; setting such a name throws an `InvalidOperationException`.
 
-These are the path representation elements:
+### Find an Entity by Path
 
-* Entity separator: `.`
-* Current entity: `[this]`
-* Parent entity: `[parent]`
-
-#### Sample Uses
-
-Using the example described above...
-
-* The *relative* path from **Wheel1** to **Tire2** would be: `[parent].Wheel2.Tire2`
-* The *relative* path from **Car** to **Tire1** would be: 
-  * `.Wheel1.Tire1`
-  * Or: `[this].Wheel1.Tire1`, Notice that `[this]` is optional.
-* The *absolute* path of the **Wheel1** entity would be exactly the one we've been using until now: `Car.Wheel1`
-* When you want to get an entity that doesn't belong to the source's root entity, simply specify the target's absolute path. For example, the relative path from **Tire1** to **Ground** is just `Ground`, instead of `[parent].[parent].[parent].Ground` (Incorrect path)
-* To determine if a specific path is absolute or relative, we just have to check the first element. If it's one of the special elements (`.`, `[this]` or `[parent]`):
-
-| Path | Type |
-|--- | ---|
-| `[parent].Wheel1` | Relative |
-| `.Tire2` | Relative |
-| `[this]` | Relative |
-| `Car.Wheel2` | Absolute |
-| `Road` | Absolute |
-
-## Additional Methods
-
-To make it easier to search for entities in code, we’ve added the `Find()` method in the Entity class.
+Pass a path to `EntityManager.Find()`:
 
 ```csharp
-public Entity Find(string path)
+// The Tire1 entity, wherever the code that looks for it lives.
+Entity tire1 = this.Managers.EntityManager.Find("Car.Wheel1.Tire1");
 ```
 
-This method finds an entity with the desired **relative** path with respect to the caller entity. If the relative path is not correct, it returns `null`.
+`Entity.Find(path)` resolves a path in the same way, through the scene of the entity, so it returns `null` for an entity that is not in a scene yet. The path is **not** relative to the entity you call it on.
 
-We have also added an additional parameter in the **Find** method in the **EntityManager** class, allowing you to set the source entity and directly search there.
+To search below a given entity, use `FindChild()` instead:
 
 ```csharp
-public Entity Find(string path, Entity sourceEntity = null)
+// Relative to car: its direct child named Wheel1.
+Entity wheel1 = car.FindChild("Wheel1");
+
+// Relative to car: the first descendant named Tire1, at any depth.
+Entity tire1 = car.FindChild("Tire1", isRecursive: true);
 ```
 
-For example (following the above-mentioned hierarchy), if we want to search for the tire1 entity from the car we can call one of the following:
-
-```csharp
-Entity tire;
-
-// We can find the entity either of these ways
-tire = car.Find(".Wheel1.Tire1");
-tire = entityManager.Find(".Wheel1.Tire1", car);
-```
+> [!TIP]
+> `EntityManager.FindComponentFromEntityPath<T>(path)` combines both steps and returns a component of the entity at that path.

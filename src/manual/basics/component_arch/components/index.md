@@ -1,36 +1,42 @@
 # Components
 
+---
+
 ![Component Based Architecture](../images/component_based_arch.jpg)
 
-A **Component** allows the addition of functionality and logic to an **Entity**. The `Component` class is the base class for every component in Evergine.
+A **component** adds data or functionality to an [entity](../entities/index.md). `Component` is the base class of every component in Evergine, from `Transform3D` to cameras, lights and renderers, and it is also what you derive from to write your own.
 
-There are three types of Components widely used throughout the engine:
-* [Component](index.md): You can derive directly from the Component class to add functionality without Update() or Draw() calls. You can register for events or expose some logic; the only limit is your imagination :)
-* [Behavior](behaviours.md): This is designed to add logic to the associated Entity. It provides an `Update()` method that is executed in each game loop.
-* [Drawable](drawables.md): Responsible for managing the rendering on the screen. Similar to the previous one, this provides a `Draw()` abstract method invoked during the rendering cycle. It is suitable for registering and updating objects to be rendered.
+There are three kinds of components:
+
+| Base class | Description |
+| --- | --- |
+| `Component` | Holds data or exposes logic without any per-frame call. It can subscribe to events, react to its [lifecycle](../../lifecycle_elements.md) and offer methods to other components. |
+| [`Behavior`](behaviours.md) | Adds logic that runs every frame, through its `Update()` method. |
+| [`Drawable`](drawables.md) | Adds rendering work, through its `Draw()` method, which runs once for each camera that renders the scene. |
 
 ## Component Lifecycle
-Please, check [Lifecycle of element](../../lifecycle_elements.md) for details regarding the lifecycle of elements in Evergine, including Components.
+
+Components follow the lifecycle shared by every Evergine element: `OnLoaded()`, `OnAttached()`, `OnActivated()`, `Start()` and their counterparts. See [Lifecycle of Elements](../../lifecycle_elements.md) for when each one runs.
 
 ## Using Components
 
-You can manage Components both in Evergine Studio and directly from code.
+You can manage components both in Evergine Studio and from code.
 
 ### From Evergine Studio
 
-In Evergine Studio, you can add/remove Components to an Entity and modify its properties.
-
 #### Add a Component
-In Evergine Studio, first select an Entity that you want to add the Component to, and click the ![Add Button](../../../graphics/images/plusIcon.jpg) button in the Entity Details section:
+
+Select the entity in the Scene Editor and click the ![Add Button](../../../graphics/images/plusIcon.jpg) button in the **Entity Details** panel:
 
 ![Add component](images/add_component_everginestudio.png)
 
-A Component selector dialog appears. Select the component type that you want to add:
+A dialog lists every component available in Evergine and in your project. Select the one you want to add:
 
 ![Select Component](images/component_selector.png)
 
 #### Remove a Component
-The process of removing a component is quite simple. First, select the Entity from which you want to remove one Component. Then, in the Entity Details, right-click on the Component name area and click the Delete button:
+
+Select the entity, right-click the header of the component in the **Entity Details** panel and click **Delete**:
 
 ![Delete Component](images/remove_component_everginestudio.png)
 
@@ -38,85 +44,103 @@ The process of removing a component is quite simple. First, select the Entity fr
 
 #### Add Components
 
-To add Components, you just need to invoke the `Entity.AddComponent()` method:
+Call `Entity.AddComponent()`. It returns the entity, so calls can be chained:
 
 ```csharp
-Entity entity = new Entity("MyAwesomeEntity");
-
-// Add a Component (Transform3D)...
-entity.AddComponent(new Transform3D());
-
-// You can chain AddComponent() calls...
-entity.AddComponent(new CubeMesh())
+Entity entity = new Entity("MyAwesomeEntity")
+    .AddComponent(new Transform3D())
+    .AddComponent(new CubeMesh())
     .AddComponent(new MaterialComponent())
     .AddComponent(new MeshRenderer());
 ```
 
+A component added to an entity that is already in a running scene is attached, activated and started straight away.
+
 #### Remove Components
 
-You have several options to specify the component or components that you want to remove. You can remove components by indicating the Component instance itself or by giving the type of the component to remove.
-
-In every method to remove the component specifying the type, you have the optional parameter `isExactType`, which indicates if the component to search and remove must match the given type, or if it can be a subclass of the type.
+Remove a component by instance or by type. The methods that take a type have an optional `isExactType` parameter, `true` by default: when it is `false`, components of a derived type match too.
 
 ```csharp
-// Remove a component passing the instance:
-entity.RemoveComponent(component); 
+// Remove a specific instance.
+entity.RemoveComponent(component);
 
-// Remove a component by type (MeshRenderer in this case):
+// Remove the component of type MeshRenderer.
 entity.RemoveComponent<MeshRenderer>();
 
-// An alternative way to remove a Component using the type:
+// The same, without generics.
 entity.RemoveComponent(typeof(MeshRenderer));
 
-// You can remove all components that match the specified type (all Drawables in this example)
-// keep in mind that isExactType is false...
-entity.RemoveAllComponentsOfType<Drawable>(isExactType: false)
+// Remove every component that is a Drawable or derives from it.
+entity.RemoveAllComponentsOfType<Drawable>(isExactType: false);
 ```
 
-## Create a new Component
+Removing a component destroys it. Use `DetachComponent()` instead when you want to keep the instance and add it to another entity later.
 
-Evergine provides a robust Component library, but when developing a custom application, you may need to create your own Components to meet your specific requirements.
+#### Find Components
 
-### Write the C# code for your Component
-You only need to create a class that inherits from the `Component` class and add it to your application project:
+| Method | Description |
+| --- | --- |
+| `FindComponent<T>()` | The first component of type `T` in the entity, or `null`. |
+| `FindComponents<T>()` | Every component of type `T` in the entity. |
+| `FindComponentInChildren<T>()` | The first component of type `T` in the entity or its descendants. |
+| `FindComponentInParents<T>()` | The first component of type `T` in the entity or its ancestors. |
+
+All of them accept `isExactType` and a `tag` to filter the entities searched. Inside a component, prefer [bindings](../../bindings/bind_components.md), which find the component once and keep the reference up to date.
+
+## Create a Component
+
+When the components included in Evergine are not enough, write your own. Add a class to the base project that derives from `Component`:
 
 ```csharp
-public class MyComponent : Component
-{
-    // Add some properties to expose data :)    
-    public int Value { get; set; }
+using System.Diagnostics;
+using Evergine.Framework;
 
-    // Override the Start method, which is called once the Entity is started:
-    protected override void Start()
+namespace MyProject
+{
+    public class Greeter : Component
     {
-        base.Start();
-        Trace.TraceInformation($"The component has been started: {this.Value}");
+        // Public properties are saved with the scene and shown in Evergine Studio.
+        public string Greeting { get; set; } = "Hello";
+
+        protected override void Start()
+        {
+            base.Start();
+            Trace.TraceInformation($"{this.Greeting} from {this.Owner.Name}");
+        }
     }
 }
 ```
 
-## Allow multiple instances
+After you build the project, the new component appears in the component dialog of Evergine Studio.
 
-By default, an Entity can only have one Component per type (for instance, an Entity can't have more than one Transform3D).
+## Allow Multiple Instances
 
-However, in some cases, it is useful for an Entity to have multiple instances of a type (for example, if you want to add several colliders).
+By default, an entity can only have one component of each type; adding a second `Transform3D`, for example, throws an `InvalidOperationException`.
 
-In that case, you need to add the [AllowMultipleInstances] attribute to your class:
+Some components make sense more than once on the same entity, such as several colliders or several sound emitters. Mark them with the `[AllowMultipleInstances]` attribute:
 
 ```csharp
-[AllowMultipleInstances]
-public MyComponent : Component
+using Evergine.Framework;
+
+namespace MyProject
 {
-    // The entity can have multiple instances of this component type...    
+    [AllowMultipleInstances]
+    public class Label : Component
+    {
+        public string Value { get; set; }
+    }
 }
 ```
 
 ```csharp
-// This is valid because MyComponent has the [AllowMultipleInstances] attribute...
+// Valid, because Label has the [AllowMultipleInstances] attribute.
 Entity entity = new Entity()
-    .AddComponent(new MyComponent())
-    .AddComponent(new MyComponent())
-    .AddComponent(new MyComponent())
-    .AddComponent(new MyComponent())
-    .AddComponent(new MyComponent());
+    .AddComponent(new Label() { Value = "Red" })
+    .AddComponent(new Label() { Value = "Heavy" })
+    .AddComponent(new Label() { Value = "Collectable" });
 ```
+
+## In this section
+
+* [Behaviors](behaviours.md)
+* [Drawables](drawables.md)
