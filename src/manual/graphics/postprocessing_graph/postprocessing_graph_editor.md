@@ -25,7 +25,7 @@ The **Graph Editor** allows you to create graph nodes to connect the start node 
 
 ![Node Parts](images/PostprocessingNode.jpg)
 
-> [!Tip]
+> [!TIP]
 >The node inputs can only be connected with a single node output, but a node output can be connected with multiple node inputs.
 
 ### **Toolbox**

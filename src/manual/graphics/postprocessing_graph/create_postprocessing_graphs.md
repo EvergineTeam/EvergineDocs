@@ -8,7 +8,7 @@ A post-processing graph is an asset: a set of connected nodes, each a compute [e
 
 ## Create a post-processing graph asset in Evergine Studio
 
-Click the ![Plus Icon](../images/plusIcon.jpg) button in the [Assets Details](../../evergine_studio/interface.md) panel and choose **Create Post-Processing Graph**.
+Click the ![Plus Icon](../images/plusIcon.jpg) button in the [Assets Details](../../evergine_studio/interface.md) panel and choose **Post-Processing Graph**.
 
 ![Create new postprocessing graph menu option](images/AssetsDetailsMenu.jpg)
 

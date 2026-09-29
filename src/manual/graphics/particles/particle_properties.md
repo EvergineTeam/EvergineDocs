@@ -133,7 +133,7 @@ The color over life is a gradient of four colors: the first at the birth of the 
 
 ![Color Over Life Diagram](images/color_over_life.png)
 
-> [!Note]
+> [!NOTE]
 > The color of the gradient is applied as a tint over the initial color of the particle.
 
 | Property | Default value | Description |
@@ -158,7 +158,7 @@ The size over life is a curve of four points: the first at the birth of the part
 
 ![Size Over Life Diagram](images/size_over_life.png)
 
-> [!Note]
+> [!NOTE]
 > The size of the curve is applied as a multiplier over the initial size of the particle.
 
 | Property | Default value | Description |

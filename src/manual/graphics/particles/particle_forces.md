@@ -88,7 +88,7 @@ The **Entity Attractor Force** is similar to the Point Attractor Force, but the 
 | Source Entity Path   | _null_         | The path of the target entity of the force.                 |
 | Source Topology      | _Vertex_       | The part of the mesh topology towards which the particles are attracted. Its values can be _Vertex_ or _Triangle_.|
 
->[!NOTE]
+> [!NOTE]
 >In this version, **Evergine** does not support _Triangle_ as **Source Topology**.
 
 ### Wind Force

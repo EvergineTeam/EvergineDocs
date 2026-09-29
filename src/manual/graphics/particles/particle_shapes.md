@@ -80,7 +80,7 @@ All the emission shapes share the following properties:
 
 **Entity Shape** is an emission shape where particles are emitted from a specific **Entity** in the scene. More specifically, the particle system uses the meshes of the entity and its children.
 
-> [!Note]
+> [!NOTE]
 > The target entity is not defined in the **Entity Shape Emitter** because it's part of the **Particle System** asset, hence is not bound to any specific scene. It's defined in the **ParticlesComponent** component, which can access the scene entities.
 
 | Property | Default Value | Description |
