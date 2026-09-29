@@ -1,24 +1,29 @@
-# Ruler Module
+# Ruler module
 
-This module allows users to measure elements in virtual space. It creates a basic ruler element with manipulators at both ends. When the user grabs any of these manipulators, the distance from one side to the other is automatically calculated.
+---
+
+The Ruler module measures distances in space. It shows a ruler with a handle at each end; when the user drags a handle, the ruler shows the distance between both ends.
 
 ![snapshot](images/snapshot.png)
 
 ## Installation
 
-This module is packaged as an [Evergine add-on](../../../index.md). To use it in your project, install it from the _Project Settings > Add-Ons_ window.
+This module is distributed as the **Evergine.Xrv.Ruler** [add-on](../../../index.md). Install it from **Project Settings > Add-Ons** in Evergine Studio.
 
 ![Module installation](images/installation.png)
 
-Then, register the module programmatically within your XRV service instance.
+Then register the module in your `XrvService`:
 
 ```csharp
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Ruler;
+
 var xrv = new XrvService()
     .AddModule(new RulerModule());
 ```
 
 ## Usage
 
-- The ![snapshot](images/measure.png) button is added to the hand menu. Tapping this button will toggle the ruler's visibility.
-- Dragging the line ends will update the distance measurement.
-- Access [Settings](../../settings_system.md) to change the current measurement units. You can choose between meters and feet.
+- The ![ruler](images/measure.png) hand menu button shows and hides the ruler.
+- Drag the ends of the ruler to measure.
+- Open the [settings window](../../settings_system.md) to switch the units between meters and feet.

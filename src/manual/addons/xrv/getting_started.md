@@ -1,75 +1,122 @@
-# Getting Started
+# Getting started with XRV
 
 ---
 
-Follow these steps to prepare your environment for running XRV on your target device.
+![Hand menu example](images/getting-started-menu.JPG)
 
-## Project Setup
+This page prepares an Evergine project to run XRV on a headset. You install the MRTK and XRV add-ons, register `XrvService` in your application, and initialize it from an MRTK scene. When you finish, the hand menu opens with the default **Settings** and **Help** buttons.
 
-**1. Create a new project**
+## Project setup
 
-Use [Evergine Launcher](../../evergine_launcher/create_project.md) to start a new project. Along with Windows, select an additional template for your target device. For Meta Quest or Pico headsets, you can choose from two different templates.
+### 1. Create a project
 
-**2. Add the MRTK Add-on** 
+Create a project with [Evergine Launcher](../../evergine_launcher/create_project.md). Along with Windows, add the profile for your target device: Meta Quest or Pico.
 
-Open Evergine Studio and add the MRTK add-on to your project. Refer to [this guide](../../addons/index.md) for instructions on adding add-ons.
+### 2. Install the MRTK add-on
 
-![Installing MRTK add-on](images/getting-started-mrtk.png)
+Open the project in Evergine Studio and install the **Evergine.MRTK** add-on from the [Add-ons Manager](../index.md#add-ons-manager).
 
-**3. Add the Evergine.XRV.Core Add-on**
+![Installing the MRTK add-on](images/getting-started-mrtk.png)
 
-With MRTK installed, add the _Evergine.XRV.Core_ add-on via the project management dialog.
+### 3. Install the XRV core add-on
 
-![Installing XRV add-on](images/getting-started-xrv.png)
+With MRTK installed, install the **Evergine.Xrv.Core** add-on in the same way.
+
+![Installing the XRV add-on](images/getting-started-xrv.png)
 
 > [!NOTE]
-> XRV add-ons are available as NuGet packages. For nightly builds, update `nuget.config` to include the Evergine nightly feed:
->```xml
-><?xml version="1.0" encoding="utf-8"?>
-><configuration>
->  <packageSources>
->    <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
->    <add key="Evergine Nightly" value="https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/>Evergine.NightlyBuilds/nuget/v3/index.json" />
->  </packageSources>
-></configuration>
->```
+> The XRV add-ons reference NuGet packages. To use nightly builds, add the Evergine nightly feed to your `nuget.config`:
+>
+> ```xml
+> <?xml version="1.0" encoding="utf-8"?>
+> <configuration>
+>   <packageSources>
+>     <add key="nuget.org" value="https://api.nuget.org/v3/index.json" />
+>     <add key="Evergine Nightly" value="https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json" />
+>   </packageSources>
+> </configuration>
+> ```
 
-**4. Adjust SunLight Illuminance**
+### 4. Adjust the sun light
 
-In your default scene, set the SunLight entity’s Illuminance value to 1.
+In your default scene, set the **Illuminance** of the **SunLight** entity to 1, so XRV materials are not overexposed.
 
 ![Configuring scene settings](images/getting-started-scene-settings.png)
 
-## Code Setup
+### 5. Add the Microsoft.Bcl.AsyncInterfaces package
 
-**1. Configure the Application Constructor**
+Add this package reference to your shared project (the one that contains your scenes):
 
-Register the background scheduler in your `Application` constructor.
+```xml
+<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
+```
+
+## Code setup
+
+### 1. Configure the background scheduler
+
+XRV runs part of its work in background tasks. Configure the background scheduler at the end of your `Application` constructor:
 
 ```csharp
-public MyApplication()
-{
-    this.Container.Register<Settings>();
-    this.Container.Register<Clock>();
-    this.Container.Register<TimerFactory>();
-    this.Container.Register<Random>();
-    this.Container.Register<ErrorHandler>();
-    this.Container.Register<ScreenContextManager>();
-    this.Container.Register<GraphicsPresenter>();
-    this.Container.Register<AssetsDirectory>();
-    this.Container.Register<AssetsService>();
-    this.Container.Register<ForegroundTaskSchedulerService>();
-    this.Container.Register<WorkActionScheduler>();
+using Evergine.Common.IO;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
 
-    BackgroundTaskScheduler.Background.Configure(this.Container);
+public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        this.Container.Register<Settings>();
+        this.Container.Register<Clock>();
+        this.Container.Register<TimerFactory>();
+        this.Container.Register<Random>();
+        this.Container.Register<ErrorHandler>();
+        this.Container.Register<ScreenContextManager>();
+        this.Container.Register<GraphicsPresenter>();
+        this.Container.Register<AssetsDirectory>();
+        this.Container.Register<AssetsService>();
+        this.Container.Register<ForegroundTaskSchedulerService>();
+        this.Container.Register<WorkActionScheduler>();
+
+        // Required by XRV: lets it schedule work on background threads.
+        BackgroundTaskScheduler.Background.Configure(this.Container);
+    }
 }
 ```
 
-**2. Implement XRScene in Your Scene Class**
+### 2. Register XrvService
 
-Modify your scene class to inherit from `XRScene`.
+Create the `XrvService` in `Initialize`, add the modules you want, and register the instance in the container so scenes and components can resolve it.
 
 ```csharp
+using Evergine.Xrv.Core;
+
+public partial class MyApplication : Application
+{
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        var xrv = new XrvService();
+        // Add modules here, for example: xrv.AddModule(new RulerModule());
+        this.Container.RegisterInstance(xrv);
+
+        // ... navigate to your scene
+    }
+}
+```
+
+### 3. Inherit your scene from XRScene and initialize XRV
+
+Your scene must inherit from MRTK's `XRScene`, as described in [Getting started with MRTK](../mrtk/getting_started.md). Initialize XRV in `OnPostCreateXRScene`, when the MRTK cursors and the camera already exist:
+
+```csharp
+using System;
+using Evergine.Framework;
+using Evergine.MRTK.Scenes;
+using Evergine.Xrv.Core;
+
 public class MyScene : XRScene
 {
     protected override Guid CursorMatPressed => EvergineContent.MRTK.Materials.Cursor.CursorPinch;
@@ -84,75 +131,42 @@ public class MyScene : XRScene
 
     protected override Guid HandRaySampler => EvergineContent.MRTK.Samplers.LinearWrapSampler;
 
-    protected override Guid LeftControllerModelPrefab => Guid.Empty;
+    protected override Guid LeftControllerModelPrefab => EvergineContent.MRTK.Prefabs.DefaultLeftController_weprefab;
 
-    protected override Guid RightControllerModelPrefab => Guid.Empty;
+    protected override Guid RightControllerModelPrefab => EvergineContent.MRTK.Prefabs.DefaultRightController_weprefab;
 
     protected override float MaxFarCursorLength => 0.5f;
 
-    //...
+    protected override void OnPostCreateXRScene()
+    {
+        base.OnPostCreateXRScene();
+
+        // Creates the hand menu, windows, settings, help and themes, and initializes every module.
+        var xrv = Application.Current.Container.Resolve<XrvService>();
+        xrv.Initialize(this);
+    }
 }
 ```
 
-**3. Add Microsoft.Bcl.AsyncInterfaces Package**
+> [!NOTE]
+> `XrvService.Initialize` sets the background color of the scene camera to transparent, so passthrough can show the real world behind your content. Enable passthrough with `xrv.Services.Passthrough.EnablePassthrough = true` after initialization.
 
-Include `Microsoft.Bcl.AsyncInterfaces` in your shared project:
-
-```xml
-<PackageReference Include="Microsoft.Bcl.AsyncInterfaces" Version="7.0.0" />
-```
-
-**4. Initialize XrvService**
-
-Set up an `XrvService` instance within `OnPostCreateXRScene`.
-
-**MyApplication.cs**
-
-```csharp
-public override void Initialize()
-{
-    base.Initialize();
-    this.InitializeXrv();
-
-    // ...
-}
-
-private void InitializeXrv()
-{
-    var xrv = new XrvService();
-    this.Container.RegisterInstance(xrv);
-}
-```
-
-**MyScene.cs**
-
-```csharp
-protected override void OnPostCreateXRScene()
-{
-    base.OnPostCreateXRScene();
-    var xrv = Application.Current.Container.Resolve<XrvService>();
-    xrv.Initialize(this);
-}
-```
-
-## Platform Setup
+## Platform setup
 
 ### Android
 
-If you encounter build errors like the following:
+If the Android build fails with an error like this one:
 
 ```
 error XA2002: Cannot resolve reference: `Evergine.Editor.Extension`, referenced by `Evergine.MRTK.Editor`. Please add a NuGet package or assembly reference for `Evergine.Editor.Extension`, or remove the reference to `Evergine.MRTK.Editor`.
 ```
 
-Add `Evergine.Editor.Extension` to your project. For passthrough capabilities, uncomment related code in `MainActivity.cs` and in the Android manifest.
+add the `Evergine.Editor.Extension` NuGet package to your Android project.
 
-Also, to make use of the passthrough capability, remember to uncomment the related parts of your code in MainActivity.cs and in the Android manifest file.
+To use passthrough on Meta Quest or Pico, uncomment the passthrough code in `MainActivity.cs` and the related entries in the Android manifest of your project.
 
-## Add More Modules
+## Next steps
 
-At this point, you can open the hand menu with default buttons for Settings and Help. To extend functionality, consider adding any [XRV modules](modules/index.md), [creating your own module](modules/customModule/index.md), or using the XRV API to add new elements.
+The hand menu now shows the default **Settings** and **Help** buttons. To add features, install one of the [XRV modules](modules/index.md), [create your own module](modules/customModule/index.md), or use the XRV API directly, for example to [open windows](ui/windows_system.md).
 
-![Hand menu example](images/getting-started-menu.JPG)
-
-You can also take a look at our [XRV sample](https://github.com/EvergineTeam/XRV/tree/develop/samples) that includes all our public modules.
+The [XRV samples](https://github.com/EvergineTeam/XRV/tree/develop/samples) project shows all the public modules working together.

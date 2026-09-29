@@ -1,89 +1,99 @@
 # Localization
 
-If you want to create an application that supports different target languages, you may find the localization mechanism provided by _XRV_ useful. It scans your assemblies for embedded resource files (.resx) and provides a set of _Evergine_ components that let you choose dictionary name-entry pairs for 3D texts or buttons. Lookup assemblies must be decorated with the _EvergineAssembly_ attribute with _UserProject_ or _Extension_ as the value.
+---
+
+![Localized 3D text](images/localization_sample.png)
+
+XRV includes a localization service for applications that support several languages. It reads the strings from the embedded resource files (`.resx`) of your assemblies, and provides components that bind 3D texts and buttons to dictionary entries, so the UI updates when the language changes. Access it through `XrvService.Localization`.
+
+The service looks for resources in the assemblies marked with the `EvergineAssembly` attribute set to `EvergineAssemblyUsage.UserProject` or `EvergineAssemblyUsage.Extension`. Evergine project templates already mark your projects this way.
 
 > [!NOTE]
-> In its current state, we only support _English_ (fallback) and _Spanish_ as available 
-> languages for applications. We plan to add extension points in the future to 
-> allow developers to add new languages.
+> The available languages are English, the fallback, and Spanish.
 
-You can easily change the current UI culture:
+## Change the language
+
+Set `CurrentCulture` to change the UI culture:
+
 ```csharp
+using System.Globalization;
+
 var localization = this.xrvService.Localization;
 localization.CurrentCulture = CultureInfo.GetCultureInfo("es");
 ```
 
-When the culture changes, a _CurrentCultureChangeMessage_ is published in [PubSub](messaging.md), indicating the value of the new UI culture. It also changes the current thread's _CurrentUICulture_ and _CurrentCulture_ values.
+Setting `CurrentCulture` updates `CultureInfo.CurrentUICulture` and `CultureInfo.CurrentCulture`, and publishes a `CurrentCultureChangeMessage` through the [messaging system](messaging.md), whose `Culture` property holds the new culture.
 
-## Built-in Components for Localization
+## Localization components
 
-We provide a set of components to control localization for button texts and 3D texts:
-- **Text3dLocalization**: For localized text in _Text3DMesh_ components.
-- **ButtonLocalization**: To localize button text for entities with the _StandardButtonConfigurator_ component.
-- **ToggleButtonLocalization**: To localize toggle button text for entities with the _ToggleStateManager_ component. You should have one component instance for each of the toggle states.
+These components localize texts in the editor or from code. Set `DictionaryName` and `DictionaryKey` to pick the entry, or `LocalizationFunc` to provide the text with a function.
 
-![localization 3D text sample](images/localization_sample.png)
+| Component | Localizes |
+| --- | --- |
+| `Text3dLocalization` | The text of a `Text3DMesh` component on the same entity. |
+| `ButtonLocalization` | The text of a button with a `StandardButtonConfigurator`. |
+| `ToggleButtonLocalization` | The text of one state of a toggle button with a `ToggleStateManager`. Set `TargetState`, and add one component per state. |
 
-For a toggle button, as we mentioned, you must add one component for each of the toggle states.
-\
-\
-![localization toggle button sample](images/localization_sample_toggle.png)
+For a toggle button, add one `ToggleButtonLocalization` for the *on* state and another for the *off* state:
 
-## Get Localized String from Code
+![Localizing both states of a toggle button](images/localization_sample_toggle.png)
 
-To retrieve a localized string, use the localization service.
+## Get a localized string from code
+
+`GetString` takes an expression that points at a property of the class generated for your `.resx` file. The service uses the class and property names to find the entry, so you keep compile-time checks on the keys.
+
 ```csharp
 var localization = this.xrvService.Localization;
-var localizedString = this.localization.GetString(() => Resources.Strings.MyString);
+string text = localization.GetString(() => Resources.Strings.MyString);
 ```
 
-### Hand Menu Buttons
+`GetString(string dictionaryName, string key)` does the same lookup by name. When an entry does not exist, both return `<Not found>`.
 
-_MenuButtonDescription_ provides a way to set localized text for hand menu buttons. If your button is a toggle button, you can also indicate different strings for each toggle state.
+Most XRV APIs take a `Func<string>` instead of a string, so the text is evaluated again when the culture changes. In the following examples, `localization` is `this.xrvService.Localization`, and `Resources.Strings` is the class generated for your resource file.
+
+### Hand menu buttons
+
+[`ButtonDescription`](hand_menu.md#button-properties) takes a function for each toggle state:
 
 ```csharp
-var localization = this.xrvService.Localization;
-var description = new MenuButtonDescription()
+var description = new ButtonDescription
 {
-    TextOn = () => localization.GetString(() => Resources.Strings.MyString),
-    TextOff = () => localization.GetString(() => Resources.Strings.MyString),
+    IsToggle = true,
+    TextOn = () => localization.GetString(() => Resources.Strings.Menu_Hide),
+    TextOff = () => localization.GetString(() => Resources.Strings.Menu_Show),
 };
 ```
 
-### Tab Items
+### Tab items
 
-_TabItem_ lets you set a _Func<string>_ that will be invoked on the first run or when the current culture changes.
+[`TabItem.Name`](ui/tabs_control.md#tab-items) is evaluated the first time the tab is shown and every time the culture changes:
 
 ```csharp
-var localization = this.xrvService.Localization;
-var item = new TabItem()
+var item = new TabItem
 {
-    Name = () => localization.GetString(() => Resources.Strings.MyString),
-    Contents = this.HelpContent,
+    Name = () => localization.GetString(() => Resources.Strings.Help_Tab_Name),
+    Contents = this.CreateHelpContents,
 };
 ```
 
-### Window Title
+### Window titles
 
-_WindowConfigurator_ also uses a specific _Func<string>_ property to provide localized text for the window title.
+`WindowConfigurator.LocalizedTitle` provides the title of a [window](ui/windows_system.md):
 
 ```csharp
-var windowsSystem = this.xrvService.WindowsSystem;
-var localization = this.xrvService.Localization;
-var window = windowsSystem.CreateWindow(config => 
+var window = this.xrvService.WindowsSystem.CreateWindow(config =>
 {
-    config.LocalizedTitle = () => localization.GetString(() => Resources.Strings.MyString),
+    config.LocalizedTitle = () => localization.GetString(() => Resources.Strings.Window_Title);
 });
 ```
 
-### Alert Dialogs
+### Dialogs
 
-The _WindowsSystem_ API has overload methods for both _ShowAlertDialog_ and _ShowConfirmationDialog_, where you can assign _Func<string>_ callbacks to provide localized dialogs.
+`ShowAlertDialog` and `ShowConfirmationDialog` have overloads that take functions:
 
 ```csharp
-var windowsSystem = this.xrvService.WindowsSystem;
-var dialog = windowsSystem.ShowAlertDialog(
-    () => localization.GetString(() => Resources.Strings.MyAlertTitle),
-    () => localization.GetString(() => Resources.Strings.MyAlertMessage),
-    () => localization.GetString(() => Resources.Strings.MyAlertOk));
+var dialog = this.xrvService.WindowsSystem.ShowAlertDialog(
+    () => localization.GetString(() => Resources.Strings.Alert_Title),
+    () => localization.GetString(() => Resources.Strings.Alert_Message),
+    () => localization.GetString(() => Resources.Strings.Alert_Ok));
 ```
