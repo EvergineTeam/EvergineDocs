@@ -1,48 +1,49 @@
 # Update from Evergine 2025.10.21 to Evergine 2026.5.26
 
-This guide describes the steps required to update your existing Evergine projects to the latest version.
+Evergine 2026.5.26 moves the engine to .NET 10 and switches the depth buffer to Reverse-Z. Both changes touch every project, so most of the work is mechanical. This guide lists each breaking change, what the migration script does for you, and what you have to change by hand.
 
----
+## Migration script
 
-## Migration Script
+A PowerShell script applies most of the changes in this guide.
 
-To automate most of the changes described in this guide, a PowerShell migration script is provided.
+> [!IMPORTANT]
+> The script modifies the files of your project in place. Commit your project to a version control system such as Git, or make a backup, before you run it. That way you can review every change and revert it if needed.
 
-> ⚠️ **Important** ⚠️  
-> This script modifies files in your project directly. We strongly recommend using a version control system like Git to track and review the changes. Make sure your project is committed or backed up before running the script so you can verify or revert any changes if necessary.
-
-Download: [migration-2026.5.26.zip](https://github.com/EvergineTeam/EvergineDocs/tree/main/src/manual/get_started/migrations/migration-2026.5.26.zip)
+Download [migration-2026.5.26.zip](https://github.com/EvergineTeam/EvergineDocs/raw/main/src/manual/get_started/migrations/migration-2026.5.26.zip), extract it, and run the script from the extracted folder. It needs the `resources` folder that ships next to it.
 
 Basic usage:
+
 ```powershell
 .\migration-2026.5.26.ps1 -RootPath "C:\Projects\MySolution"
 ```
 
 Additional options:
+
 ```powershell
-# Preview changes without writing any files
+# Preview the changes without writing any file
 .\migration-2026.5.26.ps1 -RootPath "C:\Projects\MySolution" -DryRun
 
-# Create a .bak backup of each modified file before overwriting
+# Keep a .bak copy of every file before overwriting it
 .\migration-2026.5.26.ps1 -RootPath "C:\Projects\MySolution" -BackupOriginals
 
-# Also update Evergine package versions in .weproj files
+# Also update the Evergine package versions in .weproj files
 .\migration-2026.5.26.ps1 -RootPath "C:\Projects\MySolution" -OldEvergineVersion "2025.10.21.x" -NewEvergineVersion "2026.5.26.x"
 ```
 
 The script handles:
-- Target framework upgrades (net8.0/net9.0 → net10.0)
-- NuGet package version updates
-- Render layer `.werl` file fixes (Reverse-Z depth function)
-- Web project file replacements (`tsconfig.json`, `ts/` folder, `Program.cs`)
 
----
+- Target framework upgrades (`net8.0` and `net9.0` to `net10.0`).
+- NuGet package version updates.
+- The depth function of render layer (`.werl`) files, for Reverse-Z.
+- The web project files: `tsconfig.json`, the `ts/` folder and the server `Program.cs`.
 
-## ⚠️ Breaking Change: Upgrade to .NET 10
+It does **not** handle the `TextureDescription.Faces` removal. You have to fix that code by hand, as described below.
 
-As of this release, Evergine requires **.NET 10**. All project files must be updated to target `net10.0` instead of `net8.0` or `net9.0`.
+## Breaking change: .NET 10
 
-Update the `<TargetFramework>` (or `<TargetFrameworks>`) element in each `.csproj` file, preserving any platform suffix:
+Evergine now requires **.NET 10**. Every project file must target `net10.0` instead of `net8.0` or `net9.0`.
+
+Update the `<TargetFramework>` (or `<TargetFrameworks>`) element of each `.csproj` file and keep any platform suffix:
 
 ```xml
 <!-- Before -->
@@ -52,15 +53,13 @@ Update the `<TargetFramework>` (or `<TargetFrameworks>`) element in each `.cspro
 <TargetFramework>net10.0-windows</TargetFramework>
 ```
 
-This applies to all platform-specific start projects (Windows, Android, iOS, Web, etc.). The script handles all variants automatically, including semicolon-separated multi-target entries and `Condition` attributes that reference `$(TargetFramework)`.
+This applies to the shared project, the Editor project and every platform launcher (Windows, Android, iOS, Web and so on). The script handles every variant, including semicolon-separated multi-target values and `Condition` attributes that test `$(TargetFramework)`.
 
----
+## Breaking change: Reverse-Z depth
 
-## ⚠️ Breaking Change: Reverse-Z Depth Projection
+Evergine now uses **Reverse-Z projection**. The depth buffer stores 1.0 at the near plane and 0.0 at the far plane, so a fragment closer to the camera has a *greater* depth value. The depth comparison of every render layer has to flip accordingly.
 
-Evergine now uses **Reverse-Z projection**, which inverts the depth buffer direction (1.0 = near plane, 0.0 = far plane). As a result, fragments closer to the camera have a *greater* depth value, and the depth comparison function must be updated accordingly.
-
-**All render layer files (`.werl`) must have their `DepthFunction` updated:**
+Update the `DepthFunction` of every render layer file (`.werl`):
 
 ```yaml
 # Before
@@ -70,90 +69,119 @@ DepthFunction: LessEqual
 DepthFunction: GreaterEqual
 ```
 
-The migration script applies this change automatically to every `.werl` file found under the specified root path.
+The script applies this change to every `.werl` file under the root path.
 
----
+> [!NOTE]
+> Reverse-Z is controlled by `GraphicsContext.ReverseZBuffer`, which is `true` by default. Custom render layers and effects that you write from now on should assume that greater depth means closer.
 
-## ⚠️ Breaking Change: `TextureDescription.Faces` Removed
+## Breaking change: `TextureDescription.Faces` removed
 
-The `Faces` property has been removed from `TextureDescription`. Its value must now be folded into the `Layers` property by **multiplying** the two values together.
+`TextureDescription` no longer has a `Faces` field. Cube faces are now counted in `ArraySize`, the number of array slices the texture holds. The new value is the old `ArraySize` multiplied by the old `Faces`.
 
-**Before:**
+Before:
+
 ```csharp
-var desc = new TextureDescription
+var description = new TextureDescription()
 {
-    Width  = 512,
+    Type = TextureType.TextureCube,
+    Format = PixelFormat.R8G8B8A8_UNorm,
+    Width = 512,
     Height = 512,
-    Faces  = 6,
-    Layers = 1,
-    // ...
+    Depth = 1,
+    ArraySize = 1,
+    Faces = 6,
+    MipLevels = 1,
+    Flags = TextureFlags.ShaderResource,
+    Usage = ResourceUsage.Default,
+    CpuAccess = ResourceCpuAccess.None,
+    SampleCount = TextureSampleCount.None,
 };
 ```
 
-**After:**
+After:
+
 ```csharp
-var desc = new TextureDescription
+using Evergine.Common.Graphics;
+
+public static class CubemapFactory
 {
-    Width  = 512,
-    Height = 512,
-    Layers = 6,   // Layers = old Layers × old Faces
-    // ...
-};
+    public static Texture CreateCubemap(GraphicsContext graphicsContext)
+    {
+        var description = new TextureDescription()
+        {
+            Type = TextureType.TextureCube,
+            Format = PixelFormat.R8G8B8A8_UNorm,
+            Width = 512,
+            Height = 512,
+            Depth = 1,
+
+            // One slice per face: old ArraySize (1) x old Faces (6).
+            ArraySize = 6,
+            MipLevels = 1,
+            Flags = TextureFlags.ShaderResource,
+            Usage = ResourceUsage.Default,
+            CpuAccess = ResourceCpuAccess.None,
+            SampleCount = TextureSampleCount.None,
+        };
+
+        return graphicsContext.Factory.CreateTexture(ref description, "MyCubemap");
+    }
+}
 ```
 
-The most common case is a **cubemap**, which has 6 faces. Any code that previously set `Faces = 6` (and `Layers = 1`) must be updated to `Layers = 6`. For a cubemap array with, for example, 4 elements, the old `Faces = 6, Layers = 4` becomes `Layers = 24`.
+A single cubemap goes from `Faces = 6` (with `ArraySize = 1`) to `ArraySize = 6`. A cubemap array of 4 cubes goes from `Faces = 6, ArraySize = 4` to `ArraySize = 24`. Any code that reads `Description.Faces` from an existing texture must read `Description.ArraySize` instead.
 
-> This change is not handled by the migration script and must be applied manually.
+> [!IMPORTANT]
+> `TextureDescription.CreateTextureCubeDescription(width, height, format)` sets the type to `TextureCube` but keeps the default `ArraySize` of 1. If you create cubemap descriptions with that helper, set `ArraySize = 6` on the result before you create the texture.
 
----
+## NuGet package updates
 
-## NuGet Package Updates
+### ASP.NET Core projects
 
-### ASP.NET Core Projects
-
-If your project uses **ASP.NET Core** (e.g. WebAssembly-based or MAUI hybrid projects), update the following packages to version **10.0.8**:
+Web projects (WebGL, WebGPU, WebXR and React) reference the ASP.NET Core WebAssembly packages. The web templates of this release use version **10.0.5**:
 
 ```xml
-<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.8" />
-<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.8" />
-<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.8" PrivateAssets="all" />
+<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly" Version="10.0.5" />
+<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.Server" Version="10.0.5" />
+<PackageReference Include="Microsoft.AspNetCore.Components.WebAssembly.DevServer" Version="10.0.5" PrivateAssets="all" />
 ```
 
-### TypeScript Projects
+> [!NOTE]
+> The migration script writes version 10.0.8, a later servicing release of the same packages. Either version works; what matters is that all three packages move to a 10.0 release together.
 
-For projects that include TypeScript build steps, update **TypeScript MSBuild** to version **6.0.3**:
+### TypeScript projects
+
+Projects with a TypeScript build step must update **Microsoft.TypeScript.MSBuild** to version **6.0.3**:
 
 ```xml
 <PackageReference Include="Microsoft.TypeScript.MSBuild" Version="6.0.3" />
 ```
 
-### Logging (Debug)
+### Debug logging (MAUI)
 
-If your project references `Microsoft.Extensions.Logging.Debug`, update it to **10.0.8**:
+The MAUI template references `Microsoft.Extensions.Logging.Debug` 8.0.0, which still works on .NET 10. The migration script updates it to 10.0.8 to keep it aligned with the rest of the .NET 10 packages. The update is optional:
 
 ```xml
 <PackageReference Include="Microsoft.Extensions.Logging.Debug" Version="10.0.8" />
 ```
 
-### Physics Engine (LibBulletC)
+### Physics natives for the web (LibBulletC)
 
-If your project uses physics components, ensure **Evergine.LibBulletc.Natives** is at version **2025.8.29.27**:
+Web projects that use physics must reference **Evergine.LibBulletc.Natives.Wasm** version **2025.8.29.27**:
 
 ```xml
 <PackageReference Include="Evergine.LibBulletc.Natives.Wasm" Version="2025.8.29.27" />
 ```
 
----
+## Web template adjustments
 
-## Web Template Adjustments
+Projects created from the **Web (WebGL2.0)** or **Web (Experimental WebGPU)** templates need several file updates. The script replaces `tsconfig.json`, the `ts/` folder and the server `Program.cs` with the versions of the new templates.
 
-Projects created from the **HTML5 (Web)** or **WebGPU** templates require several file-level updates. The migration script applies these automatically by replacing `tsconfig.json`, the `ts/` folder, and the server `Program.cs` with updated versions from the release package.
-
-If you prefer to apply changes manually, the sections below describe what was changed.
+To apply the changes by hand, follow the steps below.
 
 ### 1. Update `tsconfig.json`
 
-TypeScript 6.0 deprecates some previously accepted constructs. To suppress deprecation errors without modifying existing code, add `"ignoreDeprecations": "6.0"` to your `compilerOptions`:
+TypeScript 6.0 deprecates some constructs that earlier versions accepted. Add `"ignoreDeprecations": "6.0"` to `compilerOptions` to silence those errors without changing your code:
 
 ```json
 {
@@ -178,7 +206,7 @@ TypeScript 6.0 deprecates some previously accepted constructs. To suppress depre
 
 ### 2. Update `ts/types/evergine.d.ts`
 
-The `Module` interface definition has been extended to include the `canvasId` property:
+The `Module` interface gains a `canvasId` property:
 
 ```ts
 declare global {
@@ -204,9 +232,9 @@ declare global {
 export {};
 ```
 
-### 3. Update Web Server `Program.cs`
+### 3. Update the web server `Program.cs`
 
-The `Program.cs` for `.Web.Server` and `.WebGPU.Server` projects has been updated to align with .NET 10 and the revised static files configuration. Replace its contents with:
+The `Program.cs` of the `.Web.Server` and `.WebGPU.Server` projects now follows the .NET 10 hosting model and registers the Evergine asset extensions as static files. Replace its contents with:
 
 ```csharp
 using Microsoft.AspNetCore.ResponseCompression;
@@ -240,6 +268,8 @@ app.UseHttpsRedirection();
 app.UseResponseCompression();
 
 app.UseBlazorFrameworkFiles();
+
+// Evergine assets use their own extensions; without these mappings the server would not serve them.
 var contentTypeProvider = new FileExtensionContentTypeProvider();
 var evergineExtensions = new[]
 {
@@ -262,3 +292,7 @@ app.MapFallbackToFile("index.html");
 
 app.Run();
 ```
+
+## Next steps
+
+Continue with [Update from Evergine 2026.5.26 to Evergine 2026.10](upgrade_project_2026.10.md) if you are moving to the next release.
