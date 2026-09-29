@@ -1,113 +1,204 @@
-# XR Passthrough
+# Passthrough
 
-<video autoplay loop muted width="100%" height="auto">
+<video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/xrpassthrough.mp4" type="video/mp4">
 </video>
 
-**Passthrough** provides a real-time, immersive 3D visualization of the physical world through XR headsets. The Passthrough API allows developers to seamlessly integrate this view into their virtual experiences.
+**Passthrough** shows the user's real surroundings inside the headset, reconstructed from the headset's cameras in real time. Mixing it with the scene turns a VR application into a mixed reality one: virtual objects on a real desk, a window into the room from inside a virtual world, or a stylized outline of the walls so the user does not walk into them.
 
-## Supported Devices
+In Evergine you add passthrough with one component, `XRPassthroughLayerComponent`, and style it with its properties.
 
-Evergine currently supports **Passthrough** on the following devices:
+## Supported devices
 
-| Device | XR Platform |
-| --- | --- |
-| **Meta Quest X** | **OpenXR**. Learn more [here](https://developers.meta.com/horizon/documentation/native/android/mobile-passthrough). |
+| Device | Platform | Requirement |
+| --- | --- | --- |
+| Meta Quest headsets | [OpenXR](openxr/metaquest.md) | The `XR_FB_passthrough` extension and the passthrough feature in the Android manifest |
 
-## How Does It Work?
+On any other platform or device, `XRPlatform.Passthrough` is `null` and the component does nothing.
 
-Passthrough is rendered by a dedicated service in a separate layer, which is directly submitted to the XR Compositor. Applications cannot access the user's physical environment images or videos. Instead, they submit a placeholder layer that the XR Compositor replaces with the actual passthrough. Passthrough customization is possible through composite layering and styling:
+## How it works
 
-- **Composite layering** allows you to define the placement of the passthrough layer relative to virtual content (either overlay or underlay) in the XR Compositor stack. You can also control how it blends with the virtual environment. Using alpha masking, you can specify which areas of the screen show passthrough. Currently, depth-based blending is not supported.
-- **Styling** enables you to colorize the passthrough feed and apply visual effects, such as edge rendering.
-- **Surface-Projected Passthrough** lets you specify the geometry onto which passthrough images are projected. This method offers more stable rendering, especially when certain parts of the user's environment are known to the application.
+Your application never receives the camera images. It submits a **passthrough layer**, a placeholder, and the XR compositor fills it with the camera feed when it assembles the final image. What you control is where that layer sits relative to the scene and how it looks:
 
-## Prerequisites
+* **Composition**: the layer goes behind the scene (underlay) or in front of it (overlay), and several layers are ordered by `CompositionOrder`.
+* **Projection surface**: the feed is projected either on the room as the runtime reconstructs it, or only on meshes you provide.
+* **Style**: opacity, edge highlighting, and color adjustments or color maps.
 
-Before using passthrough, ensure your device is running the latest operating system.
+![The XR compositor stacks underlay passthrough layers, then the Evergine scene, then overlay passthrough layers](images/passthrough_layers.png)
 
-### Prerequisites for Meta Quest Devices
+*The compositor draws the stack from the bottom up, every frame. Underlays sort below the scene and overlays above it; inside each group, a larger `CompositionOrder` is drawn later, in front.*
 
-To enable Passthrough on Meta Quest devices with Evergine, starting with the Evergine Quest profile, you need to:
+## Enable passthrough in a Meta Quest project
 
-- **Enable OpenXR Passthrough Extensions.** In the `MainActivity.cs` file, uncomment the following extensions in the OpenXRPlatform constructor: `XR_FB_passthrough` and `XR_FB_triangle_mesh` (the latter is necessary if you want to project passthrough onto custom meshes).
+The Meta Quest template ships with passthrough disabled. Enable it in the launcher project:
 
-![XR Passthrough Extensions](images/passthrough_extensions.jpg)
+1. In `MainActivity.cs`, uncomment the passthrough extensions in the `OpenXRPlatform` constructor. `XR_FB_triangle_mesh` is only needed to [project passthrough on a mesh](#project-passthrough-on-a-mesh):
 
-- **Enable the Passthrough feature** in the `AndroidManifest.xml` file by uncommenting the relevant profile.
+   ```csharp
+   "XR_FB_passthrough",         // Enable Passthrough in Meta Quest devices
+   "XR_FB_triangle_mesh",       // Allow to project Passthrough on Meshes
+   ```
 
-![XR Passthrough Feature](images/passthrough_feature.jpg)
+2. In `AndroidManifest.xml`, uncomment the passthrough feature:
 
-## XRPassthroughLayer Component
+   ```xml
+   <uses-feature android:name="com.oculus.feature.PASSTHROUGH" android:required="true" />
+   ```
 
-To use Passthrough layers in your application, create an Entity and add the `XRPassthroughLayerComponent`:
+Keep the headset's operating system up to date: passthrough capabilities, such as color passthrough, depend on it.
 
-![XRPassthroughLayerComponent](images/xrpassthroughlayercomponent.jpg)
+## XRPassthroughLayerComponent
 
-This component enables and configures the Passthrough layer properties.
+Add an `XRPassthroughLayerComponent` to any entity to create a passthrough layer. It needs no other component.
 
-### Layer Properties
+<!-- CAPTURE: xrpassthroughlayercomponent.jpg (replace the current one); Entity Details panel of Evergine Studio from develop with XRPassthroughLayerComponent expanded (403x477 crop, other components collapsed), EdgeRendering on so EdgeColor shows, ColorControl set to ColorAdjustment so Brightness, Contrast and Saturation show -->
+![XRPassthroughLayerComponent in Evergine Studio](images/xrpassthroughlayercomponent.jpg)
 
-These settings configure the Passthrough layer's behavior, including order, projection, and other details.
+The layer is created when the component attaches and starts when it activates. Disabling the component or its entity pauses the layer, and removing it destroys the layer.
 
-There are two types of passthrough surfaces:
+### Layer properties
 
-- **Automatically Reconstructed (Default):** By default, the Passthrough API automatically creates and submits this layer to the XR Compositor using environment reconstruction. This is the most common method, as the user’s environment geometry is usually unknown beforehand.<br/><video autoplay loop muted width="250px" height="auto"><source src="images/xrpassthroughreconstructed.mp4" type="video/mp4"></video>
+| Property | Default | Description |
+| --- | --- | --- |
+| **ProjectionSurface** | `Reconstructed` | `Reconstructed` projects the feed on the room as the runtime reconstructs it, which is what you want when you know nothing about the room. `UserDefined` shows the feed only on the meshes you register, and leaves the rest of the layer transparent. |
+| **Placement** | `Underlay` | `Underlay` puts the layer behind the scene, `Overlay` in front of it. `None` keeps the layer out of the composition. |
+| **CompositionOrder** | 0 | Order among layers with the same placement. A larger value is drawn in front of a smaller one. |
+| **StartPassthroughAutomatically** | `true` | Starts the layer when the component activates. Set it to `false` to start it yourself. |
+| **IsRunning** | Read-only | Whether the layer is currently showing the feed. `false` when there is no layer. |
+| **PassthroughLayer** | Read-only | The underlying `XRPassthroughLayer`. `null` when the platform has no passthrough. Use it to call `StartPassthrough()` and `PausePassthrough()`. |
 
-- **Surface-Projected Passthrough (User Defined):** This option allows applications to define the geometry onto which passthrough images are projected, rather than relying on automatic depth reconstruction. Passthrough will only appear within the defined surface geometries, and the rest of the layer will remain transparent. To use this:
-  - Add the `XRPassthroughLayerComponent` to an Entity with a `MeshComponent`, which will project the passthrough.
-  - Add the `XRPassthroughSurfaceMeshComponent` to indicate that the mesh of this entity will be used for the passthrough projection.<br/><video autoplay loop muted width="250px" height="auto"><source src="images/xrpassthroughuserdefined.mp4" type="video/mp4"></video>
+<video autoplay loop muted playsinline width="250px" height="auto"><source src="images/xrpassthroughreconstructed.mp4" type="video/mp4"></video>
 
-| Property | Description |
-| --- | --- |
-| **ProjectionSurface** (Default: Reconstructed) | Defines the surface onto which passthrough textures are projected: <ul><li>**Reconstructed:** Uses automatic environment reconstruction.</li><li>**UserDefined:** Allows applications to specify the projection geometry.</li></ul> |
-| **Placement** (Default: Underlay) | Determines layer placement: <ul><li>**Underlay:** Renders passthrough beneath the Evergine scene.</li><li>**Overlay:** Renders passthrough on top of the Evergine scene.</li></ul> |
-| **CompositionOrder** (Default: 0) | For applications with multiple layers, this defines the rendering order. |
+*A reconstructed layer: the whole room, projected on the geometry the runtime estimates.*
 
- > [!Note]
-> If you wish to use a Passthrough layer as a background (`Underlay`), set the Camera's `BackgroundColor` to `Transparent` and disable or remove any background-rendering entities (e.g., Sky Atmosphere). Otherwise, the Evergine scene will obscure the Passthrough layer.
+> [!IMPORTANT]
+> An underlay is only visible where the scene is transparent. Set the camera's `BackgroundColor` to `Color.Transparent` and disable or remove anything that fills the background, such as a sky atmosphere or a skybox. Otherwise the scene covers the passthrough completely.
 
-### Layer Style Properties
-
-These properties define how the passthrough surfaces are rendered and styled:
-
-![Passthrough Styles](images/xrpassthrough_styling.png)
-
-| Property | Description |
-| --- | --- |
-| **Opacity** (Default: 1) | Adjusts the passthrough image opacity, independent of edge rendering. |
-| **EdgeRendering** (Default: false) | Enables an edge detection algorithm, superimposing detected edges on the passthrough image. |
-| **EdgeColor** (Default: White) | Sets the color for edge detection, available only when `EdgeRendering` is enabled. |
-| **ColorControl** (Default: None) | Adjusts the passthrough image’s color. Options include: <ul><li>**None:** No color modification.</li><li>**ColorAdjustment:** Adjusts brightness, contrast, and saturation (saturation is effective only on devices supporting color passthrough).</li><li>**ColorMap:** Converts the passthrough image to grayscale (if applicable) and maps each value to an RGBA value using a lookup table.</li><li>**GrayscaleMap:** Converts the passthrough image to grayscale and remaps values based on a lookup table.</li></ul> |
-
-##### EdgeRendering Properties
-These settings apply only when `EdgeRendering` is enabled.
-
-| Property | Description |
-| --- | --- |
-| **EdgeColor** (Default: White) | Sets the color for edge detection. |
-
-<video autoplay loop muted width="250px" height="auto"><source src="images/xrpassthrough_edgerendering.mp4" type="video/mp4"></video>
-
-#### ColorAdjustment Properties
-These settings apply when `ColorControl` is set to `ColorAdjustment`. Adjust brightness, contrast, and saturation of the passthrough image.
-
-| Property | Description |
-| --- | --- |
-| **Brightness** (Default: 0) | Brightness adjustment in the range [-100, 100]. The neutral value is 0. |
-| **Contrast** (Default: 1) | Contrast adjustment in the range [0, Infinity]. The neutral value is 1. |
-| **Saturation** (Default: 1) | Saturation adjustment in the range [0, Infinity]. The neutral value is 1. |
-
-#### ColorMap Properties
-These settings apply when `ColorControl` is set to `ColorMap`. Convert passthrough images to grayscale (if applicable) and remap values using an RGBA lookup table.
-
-| Property | Description |
-| --- | --- |
-| **ColorMapMonoToRGBA** (Default: `null`) | A `ColorCurve` instance. Specify keyframes in the [0, 1] range, assigning a color to each key. *See example below.* |
+### Create a passthrough background from code
 
 ```csharp
-// Create a color curve map
-ColorCurve colorMap = new ColorCurve();
+using Evergine.Common.Graphics;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR.Passthrough;
+
+public class MixedRealityScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        // The passthrough underlay is only visible where the scene is transparent.
+        var camera = new Entity("Camera")
+            .AddComponent(new Transform3D())
+            .AddComponent(new Camera3D() { BackgroundColor = Color.Transparent });
+
+        var passthrough = new Entity("Passthrough")
+            .AddComponent(new XRPassthroughLayerComponent()
+            {
+                Placement = XROverlayType.Underlay,
+                EdgeRendering = true,
+                EdgeColor = Color.Cyan,
+            });
+
+        this.Managers.EntityManager.Add(camera);
+        this.Managers.EntityManager.Add(passthrough);
+    }
+}
+```
+
+### Project passthrough on a mesh
+
+With a user-defined surface, the feed only appears on meshes you choose. This is steadier than the reconstruction when you already know the geometry, and it lets you cut windows into a virtual world.
+
+1. Enable `XR_FB_triangle_mesh` in `MainActivity.cs`.
+2. Add `XRPassthroughLayerComponent` to an entity that has a mesh component (for example `PlaneMesh`, or a model's meshes).
+3. Add `XRPassthroughSurfaceMeshComponent` to the same entity. It registers the entity's meshes as projection surfaces, follows the entity's transform, and switches the layer's `ProjectionSurface` to `UserDefined`.
+
+```csharp
+using Evergine.Components.Graphics3D;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR.Passthrough;
+using Evergine.Mathematics;
+
+public class PassthroughWindowScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        // A 1 x 1 m window to the real room, two metres in front of the start position.
+        // The plane has no MeshRenderer: its mesh is only the projection surface.
+        var window = new Entity("PassthroughWindow")
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 1.5f, -2) })
+            .AddComponent(new PlaneMesh() { PlaneNormal = PlaneMesh.NormalAxis.ZPositive, Width = 1, Height = 1 })
+            .AddComponent(new XRPassthroughLayerComponent() { Placement = XROverlayType.Overlay })
+            .AddComponent(new XRPassthroughSurfaceMeshComponent());
+
+        this.Managers.EntityManager.Add(window);
+    }
+}
+```
+
+<video autoplay loop muted playsinline width="250px" height="auto"><source src="images/xrpassthroughuserdefined.mp4" type="video/mp4"></video>
+
+*A user-defined layer: the feed only appears on the registered mesh.*
+
+`XRPassthroughSurfaceMeshComponent` can also feed a layer on another entity:
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **SearchPassthroughLayer** | `OwnerEntity` | Where to find the layer: `OwnerEntity` uses the `XRPassthroughLayerComponent` of the same entity, `Scene` the one at `PassthroughLayerEntityPath`. |
+| **PassthroughLayerEntityPath** | `null` | Entity path of the layer entity, when `SearchPassthroughLayer` is `Scene`. Several surface entities can share one layer this way. |
+
+> [!NOTE]
+> Projection on meshes needs both `XR_FB_passthrough` and `XR_FB_triangle_mesh`. Without them `XRPassthroughSurfaceMeshComponent` does not attach.
+
+## Style properties
+
+These properties change how the feed looks. They apply to the layer immediately, also while it runs.
+
+![Passthrough with different styles applied](images/xrpassthrough_styling.png)
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **Opacity** | 1 | Opacity of the passthrough image, clamped to [0, 1]. Edges drawn by `EdgeRendering` are not affected. |
+| **EdgeRendering** | `false` | Detects edges in the camera image and draws them over it. |
+| **EdgeColor** | `Color.White` | Color of the edges. Only shown in Evergine Studio when `EdgeRendering` is on. |
+| **ColorControl** | `None` | How the colors of the image are modified: `None`, `ColorAdjustment`, `ColorMap` or `GrayscaleMap`. Each mode uses the properties described below. |
+
+<video autoplay loop muted playsinline width="250px" height="auto"><source src="images/xrpassthrough_edgerendering.mp4" type="video/mp4"></video>
+
+*Edge rendering over the camera image.*
+
+### ColorAdjustment
+
+Adjusts brightness, contrast and saturation. Saturation only has an effect on devices with color passthrough.
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **Brightness** | 0 | Brightness offset in the range [-100, 100]. 0 leaves the image unchanged. |
+| **Contrast** | 1 | Contrast factor, 0 or greater. 1 leaves the image unchanged. |
+| **Saturation** | 1 | Saturation factor, 0 or greater. 1 leaves the image unchanged. |
+
+### ColorMap
+
+Converts the image to grayscale and replaces each luminance value with a color from a curve.
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **ColorMapMonoToRGBA** | `null` | A `ColorCurve` with keys between 0 (black) and 1 (white). |
+
+```csharp
+using Evergine.Common.Curves;
+using Evergine.Common.Graphics;
+using Evergine.Framework.XR.Passthrough;
+
+// Map dark areas to blue, mid tones to green and red, highlights to yellow and white.
+var colorMap = new ColorCurve();
 colorMap.Keyframes.Clear();
 colorMap.AddKey(0, Color.Black);
 colorMap.AddKey(0.1f, Color.Blue);
@@ -116,29 +207,66 @@ colorMap.AddKey(0.6f, Color.Red);
 colorMap.AddKey(0.8f, Color.Yellow);
 colorMap.AddKey(1, Color.White);
 
-// Assign to the Passthrough layer component
+passthroughLayer.ColorControl = XRPassthroughColorControlType.ColorMap;
 passthroughLayer.ColorMapMonoToRGBA = colorMap;
 ```
-<video autoplay loop muted width="250px" height="auto"><source src="images/xrpassthrough_colormap.mp4" type="video/mp4"></video>
 
-#### GrayscaleMap Properties
-These settings apply when `ColorControl` is set to `GrayscaleMap`. Convert passthrough images to grayscale (if applicable) and remap values using a lookup table.
+<video autoplay loop muted playsinline width="250px" height="auto"><source src="images/xrpassthrough_colormap.mp4" type="video/mp4"></video>
 
-| Property | Description |
-| --- | --- |
-| **ColorMapMonoToMono** (Default: `null`) | A `FloatCurve` instance. Specify keyframes in the [0, 1] range, assigning a float value to each key. *See example below.* |
+*The color map above applied to the room.*
 
-```csharp            
-// Create a curve map to invert grayscale colors
-FloatCurve monoMap = new FloatCurve();
+### GrayscaleMap
+
+Converts the image to grayscale and remaps each luminance value through a curve.
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **ColorMapMonoToMono** | `null` | A `FloatCurve` with keys between 0 and 1, and values between 0 and 1. |
+
+```csharp
+using Evergine.Common.Curves;
+using Evergine.Framework.XR.Passthrough;
+
+// Invert the grayscale image.
+var monoMap = new FloatCurve();
 monoMap.Keyframes.Clear();
 monoMap.AddKey(0, 1);
 monoMap.AddKey(1, 0);
 
-// Assign to the Passthrough layer component
-passthroughLayer.ColorMapMonoToMono = monoMap.
-
-
+passthroughLayer.ColorControl = XRPassthroughColorControlType.GrayscaleMap;
+passthroughLayer.ColorMapMonoToMono = monoMap;
 ```
 
-<video autoplay loop muted width="250px" height="auto"><source src="images/xrpassthrough_monomap.mp4" type="video/mp4"></video>
+<video autoplay loop muted playsinline width="250px" height="auto"><source src="images/xrpassthrough_monomap.mp4" type="video/mp4"></video>
+
+*The inverted grayscale map.*
+
+In both examples, `passthroughLayer` is the `XRPassthroughLayerComponent`, for example obtained with `[BindComponent]` in a behavior on the same entity.
+
+## Pause and resume passthrough
+
+A layer shows the feed while its component is active. To stop the feed without removing the component, call `PausePassthrough()` on the layer, and `StartPassthrough()` to resume it. `XRPlatform.Passthrough` has the same two methods, which act on the passthrough as a whole.
+
+```csharp
+using Evergine.Components.XR;
+using Evergine.Framework;
+
+public class PassthroughToggle : Component
+{
+    [BindComponent]
+    private XRPassthroughLayerComponent layer = null;
+
+    // Call it from a button or a controller input.
+    public void Toggle()
+    {
+        if (this.layer.IsRunning)
+        {
+            this.layer.PassthroughLayer?.PausePassthrough();
+        }
+        else
+        {
+            this.layer.PassthroughLayer?.StartPassthrough();
+        }
+    }
+}
+```
