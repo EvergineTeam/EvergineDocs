@@ -1,24 +1,41 @@
-# Pointers and Control
+# Pointers and control
+
 ---
-MRTK introduces new ways to interact with controls beyond the traditional mouse pointer, using hand-tracking features available on supported devices.
-
-There are two main interaction methods:
-
-1. **Near Interaction**: When a user is close to a control, they can interact by touching it with their index finger. This is enabled by the _near pointer_ mechanism.
-
-2. **Far Interaction**: When the user is farther away but still wants to interact, they can use the _far pointer_. Through hand tracking, this appears as a light ray extending from their hand, which they can use to point and click. The gesture for clicking at a distance is known as an _air-tap_.
-
 
 |<img alt="Near pointer" src="images/near_pointer.png" height="200">|<img alt="Far pointer" src="images/far_pointer.png" height="200">|
 |:--:|:--:|
-| **Near Pointer Interaction Example** | **Far Pointer Interaction Example usage** |
+| **Near pointer** | **Far pointer** |
 
-In devices that support hand-tracking, MRTK automatically creates the necessary pointers in the _XRScene_.
+MRTK replaces the mouse pointer with pointers that follow the user's hands and controllers. `XRScene` creates them for you, one near and one far pointer per hand, so your controls react to touch, pinch, and gaze without extra setup.
 
-## Desktop Development
-These interaction methods are also available in desktop-based Evergine projects. The pointers can be controlled via the keyboard and mouse.
+## Interaction modes
 
-- Press and hold the **left shift** key to activate the right-hand pointer or the **space** key to activate the left-hand pointer. You can then move the pointer using the mouse.
-- Use the **mouse wheel** to move the pointer closer to or farther from the camera.
-- Use the **left mouse** button to perform the _air-tap_ gesture, allowing interaction with distant controls.
-- Press and hold the **left control** key to rotate the selected pointer using the mouse.
+- **Near interaction.** When the hand is close to a control, the user touches it with the tip of the index finger. The near pointer (`CursorTouch`) is a small sensor sphere attached to that fingertip.
+- **Far interaction.** When the control is out of reach, the user points at it with a ray that comes out of the hand or controller. The far pointer (`CursorRay`) casts that ray and places a cursor where it hits. Pinching the thumb and index finger, the *air-tap* gesture, clicks the control under the cursor.
+- **Gaze.** The `GazeProvider` component, added to the camera by `XRScene`, casts a ray from the user's head. Controls that implement focus events also react when the user looks at them.
+
+On devices with hand tracking, the pointers follow the tracked index fingertip. With physical controllers, `XRScene` creates a second set of pointers attached to each controller.
+
+## How pointer events reach your controls
+
+Pointers find controls through the physics engine: each cursor is a sensor body, and a control needs a collider so the cursor can hit it. When a cursor enters, touches, or clicks an entity, MRTK calls the handler interfaces implemented by the components on that entity.
+
+![Diagram: hand tracking, controllers and the desktop emulation drive the near and far cursors; the cursors and the gaze provider hit a control's collider, and FocusProvider and the cursors call the focus, touch and pointer handlers on that entity](images/mrtk_pointer_flow.png)
+
+*Input moves the cursors, the cursors hit colliders, and MRTK calls the handler interfaces on the entity that was hit.*
+
+See [Creating custom controls](custom_controls.md) for the events each interface receives.
+
+## Desktop emulation
+
+You can test MRTK in a Windows desktop profile without a headset. When no XR input tracking is available, `XRScene` adds a `MouseControlBehavior` to each hand pointer, and the mouse and keyboard drive them:
+
+| Input | Action |
+| --- | --- |
+| Hold **Left Shift** | Activates the right-hand pointer. Move the mouse to move it. |
+| Hold **Space** | Activates the left-hand pointer. Move the mouse to move it. |
+| **Mouse wheel** (while a pointer is active) | Moves the pointer closer to or farther from the camera. |
+| **Left mouse button** (while a pointer is active) | Pinches, which performs the air-tap on far controls and grabs objects. |
+| Hold **Left Ctrl** (while a pointer is active) | Rotates the active pointer with the mouse instead of moving it. |
+
+<!-- CAPTURE: mrtk_desktop_emulation.mp4; MRTK demo scene running in a Windows desktop profile, holding Left Shift to show the right-hand pointer, moving it to a pressable button, and clicking to press it -->
