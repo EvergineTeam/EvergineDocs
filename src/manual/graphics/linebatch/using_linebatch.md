@@ -1,126 +1,199 @@
 # Using LineBatch
+
 ---
-![Using billboards header](images/linebatchHeader.jpg)
 
-**LineBatch** can only be used from code. In the scene **RenderManager**, you will find the LineBatch3D to draw lines in 3D space and the LineBatch2D to draw lines in 2D space.
+![Using line batch header](images/linebatchHeader.jpg)
 
-If you want to add a debug or helper mode to your entity, you can add a [Drawable3D](../../basics/component_arch/components/drawables.md) component to your scene, and from this, you will have access to the LineBatch:
+The scene's `RenderManager` owns a `LineBatch3D` that any component can draw into. Lines, shapes and bounding volumes added to it during a frame are drawn at the end of that frame and then cleared, so you add them again every frame you want to see them.
 
-The following example draws a red line from (0,0,0) to (0,1,0).
+## Accessing the line batch
 
-**From your scene.cs**
+`LineBatch3D` is a property of the concrete `RenderManager` class (namespace `Evergine.Framework.Managers`). Components receive the scene's render manager typed as `BaseRenderManager`, so you either bind it with its concrete type or cast it.
+
+The usual place to draw is a `Drawable3D`, whose `Draw` method runs once per frame while the render manager collects what to render:
+
 ```csharp
-protected override void CreateScene()
-{
-    ...
-    // Add dummy entity to your scene
-    var dummyEntity = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new MyDrawable());
-    this.Managers.EntityManager.Add(dummyEntity);
-}
-```
-**Drawable component implementation**
-```csharp
-// Drawable component using LineBatch3D
+using Evergine.Common.Graphics;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+using Evergine.Mathematics;
+
 public class MyDrawable : Drawable3D
 {
     public override void Draw(DrawContext drawContext)
     {
-        this.RenderManager.LineBatch3D.DrawLine(Vector3.Zero, Vector3.Up, Color.Red);
+        // Drawable exposes the manager as BaseRenderManager; LineBatch3D lives on the concrete RenderManager.
+        var lineBatch = (this.RenderManager as RenderManager)?.LineBatch3D;
+        lineBatch?.DrawLine(Vector3.Zero, Vector3.Up, Color.Red);
     }
 }
 ```
-The LineBatch3D not only draws lines but can also draw Point, Sphere, Box, etc. The LineBatch2D is similar but with shapes (Circle, Square, etc.).
+
+Add it to an entity in your scene like any other component:
+
+```csharp
+protected override void CreateScene()
+{
+    var dummyEntity = new Entity("dummy")
+        .AddComponent(new Transform3D())
+        .AddComponent(new MyDrawable());
+
+    this.Managers.EntityManager.Add(dummyEntity);
+}
+```
+
+A `Behavior` works as well, which is convenient when the lines depend on logic that already lives in one. Bind the render manager with its concrete type:
+
+```csharp
+using System;
+using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+using Evergine.Mathematics;
+
+public class DrawVelocity : Behavior
+{
+    [BindSceneManager]
+    private RenderManager renderManager = null;
+
+    [BindComponent]
+    private Transform3D transform = null;
+
+    public Vector3 Velocity { get; set; } = Vector3.Forward;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // The batch is cleared after every frame, so the arrow must be re-added each Update.
+        this.renderManager.LineBatch3D.DrawRay(this.transform.Position, this.Velocity, Color.Yellow);
+    }
+}
+```
 
 > [!NOTE]
-> LineBatch3D must be used with Drawable3D and LineBatch2D with Drawable2D.
+> There is no 2D line batch. To draw lines in screen space, draw them in 3D in front of an orthographic camera.
 
-## LineBatch
-This section shows with examples all geometries that LineBatch can draw:
+> [!TIP]
+> Setting `RenderManager.DebugLines` to `true` makes every drawable draw its own debug geometry (bounding boxes, light volumes, camera frustums) into this same batch.
 
-**DrawArc**
+## Shapes
+
+Besides `DrawLine`, `LineBatch3D` has helpers for common shapes. Most methods have an overload that takes the arguments by `ref`, which avoids copying structs when you draw many shapes per frame, and several accept a `Matrix4x4` transform that is applied to the shape.
+
+### DrawArc
+
 ```csharp
 Vector3 origin = Vector3.Zero;
 Color color = Color.White;
-this.RenderManager.LineBatch3D.DrawArc(ref origin, 0.5f, 0.5f, ref color);
-``` 
+
+// The third argument is the fraction of the full circle to draw.
+lineBatch.DrawArc(ref origin, 0.5f, 0.5f, ref color);
+```
+
 ![Arc](images/arc.jpg)
 
-**DrawAxis**
+### DrawAxis
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawAxis(Matrix4x4.Identity, 1.0f);
-``` 
+lineBatch.DrawAxis(Matrix4x4.Identity, 1.0f);
+```
+
 ![Axis](images/axis.jpg)
 
-**DrawBoundingBox**
+### DrawBoundingBox
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawBoundingBox(new BoundingBox(Vector3.Zero, Vector3.One), Color.White);
-``` 
+lineBatch.DrawBoundingBox(new BoundingBox(Vector3.Zero, Vector3.One), Color.White);
+```
+
 ![BoundingBox](images/boundingBox.jpg)
 
-**DrawBoundingFrustum**
+### DrawBoundingFrustum
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawBoundingFrustum(new BoundingFrustum(Matrix4x4.Identity), Color.White);
-``` 
+lineBatch.DrawBoundingFrustum(new BoundingFrustum(Matrix4x4.Identity), Color.White);
+```
+
 ![BoundingFrustum](images/boundingFrustum.jpg)
 
-**DrawBoundingOrientedBox**
+### DrawBoundingOrientedBox
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawBoundingOrientedBox(new BoundingOrientedBox(Vector3.Zero, Vector3.One * 0.5f, Quaternion.CreateFromAxisAngle(Vector3.Right, MathHelper.PiOver4)), Color.White);
-``` 
+var orientation = Quaternion.CreateFromAxisAngle(Vector3.Right, MathHelper.PiOver4);
+lineBatch.DrawBoundingOrientedBox(new BoundingOrientedBox(Vector3.Zero, Vector3.One * 0.5f, orientation), Color.White);
+```
+
 ![BoundingOrientedBox](images/boundingOrientedBox.jpg)
 
-**DrawBoundingSphere**
+### DrawBoundingSphere
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawBoundingSphere(new BoundingSphere(Vector3.Zero, 1.0f), Color.White);
-``` 
+lineBatch.DrawBoundingSphere(new BoundingSphere(Vector3.Zero, 1.0f), Color.White);
+```
+
 ![BoundingSphere](images/sphere.jpg)
 
-**DrawRectangle**
-```csharp
-this.RenderManager.LineBatch3D.DrawRectangle(Vector3.Zero, Vector3.One, Color.White);
-``` 
-![Box](images/Box.jpg)
+### DrawRectangle
 
-**DrawCircle**
 ```csharp
-this.RenderManager.LineBatch3D.DrawCircle(Vector3.Zero, 1.0f, Color.White);
-``` 
+lineBatch.DrawRectangle(Vector3.Zero, Vector3.One, Color.White);
+```
+
+![Rectangle](images/Box.jpg)
+
+### DrawCircle
+
+```csharp
+lineBatch.DrawCircle(Vector3.Zero, 1.0f, Color.White);
+```
+
 ![Circle](images/circle.jpg)
 
-**DrawCone**
+### DrawCone
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawCone(0.5f, 1.0f, Vector3.Zero, Vector3.Down, Color.White);
-``` 
+// Radius, height, apex position and the direction the cone opens towards.
+lineBatch.DrawCone(0.5f, 1.0f, Vector3.Zero, Vector3.Down, Color.White);
+```
+
 ![Cone](images/cone.jpg)
 
-**DrawCube**
+### DrawCube
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawCube(Vector3.Zero, Vector3.One, Color.White);
-``` 
+lineBatch.DrawCube(Vector3.Zero, Vector3.One, Color.White);
+```
+
 ![Cube](images/cube.jpg)
 
-**DrawForward**
+### DrawForward
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawForward(Matrix4x4.Identity, 1.0f);
-``` 
+lineBatch.DrawForward(Matrix4x4.Identity, 1.0f);
+```
+
 ![Forward](images/forward.jpg)
 
-**DrawPoint**
+### DrawPoint
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawPoint(Vector3.Zero, 0.5f, Color.White);
-``` 
+lineBatch.DrawPoint(Vector3.Zero, 0.5f, Color.White);
+```
+
 ![Point](images/point.jpg)
 
-**DrawRay**
+### DrawRay
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawRay(Vector3.Zero, Vector3.Forward, Color.White);
-``` 
+lineBatch.DrawRay(Vector3.Zero, Vector3.Forward, Color.White);
+```
+
 ![Ray](images/ray.jpg)
 
-**DrawTriangle**
+### DrawTriangle
+
 ```csharp
-this.RenderManager.LineBatch3D.DrawTriangle(new Vector3(-0.5f, 0, 0), new Vector3(0, 1.0f, 0), new Vector3(0.5f, 0, 0), Color.White);
-``` 
+lineBatch.DrawTriangle(new Vector3(-0.5f, 0, 0), new Vector3(0, 1.0f, 0), new Vector3(0.5f, 0, 0), Color.White);
+```
+
 ![Triangle](images/triangle.jpg)

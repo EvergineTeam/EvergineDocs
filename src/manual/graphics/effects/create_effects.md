@@ -1,20 +1,20 @@
 # Create Effects
+
 ---
+
 ![Effect header](images/effects.jpg)
 
-An **effect** is an _uber-shader_ capable of representing a single shader or a large group of shaders. There are two types of effects in Evergine:
-
-<br> 
+An **effect** is an _uber-shader_: one source file that describes a single shader or a large family of related shaders. This page shows how to create one in Evergine Studio or from code, and walks through the parts of an effect file. There are three kinds of effects:
 
 | Effect type      | Description |
 |------------------|-------------|
-| Graphics Effect  | Defines a rasterization pipeline with Vertex Shader, Geometry Shader, Hull Shader, Domain Shader, and Pixel Shader. These are useful for creating materials. |
-| Compute Effect   | Defines a compute pipeline with Compute Shader. These are useful for creating [compute tasks]() and [post-processing graph](../postprocessing_graph/index.md) nodes.|
-| Library Effect | Defines a collection of static variables, constants, directives, and reusable functions that can be referenced from your Graphics and Compute effects. By simply including the library in your effect files, you can centralize shared logic and keep your effect codebase clean and maintainable. Read more about [Library Effect](library_effect.md)|
+| Graphics Effect  | Defines a rasterization pipeline with vertex, hull, domain, geometry and pixel shaders. Materials are built from graphics effects. |
+| Compute Effect   | Defines a compute pipeline with a compute shader. [Compute tasks](../compute_tasks/index.md) and [post-processing graph](../postprocessing_graph/index.md) nodes are built from compute effects. |
+| Library Effect | Defines constants, structures, directives and functions that graphics and compute effects include. Libraries keep shared shader code in one place. See [Library Effects](library_effect.md). |
 
 ## Create an Effect Asset in Evergine Studio
 
-You can create an effect by clicking the button with ![Plus Icon](../images/plusIcon.jpg) from the [Assets Details](../../evergine_studio/interface.md) panel. This will open a create menu with options. Click on the option _"Create effect->Graphics Effect, Compute Effect or Library Effect"_
+Click the ![Plus Icon](../images/plusIcon.jpg) button in the [Assets Details](../../evergine_studio/interface.md) panel and choose **Create effect**, then **Graphics Effect**, **Compute Effect** or **Library Effect**.
 
 ![Create new effect menu option](images/AssetsDetailsMenu.jpg)
 
@@ -26,16 +26,17 @@ You can find the effect assets in the [**Assets Details**](../../evergine_studio
 
 ### Effect Files in the Content Directory
 
-The effect file has the `.wefx` extension and is always accompanied by a folder with the same name as the effect. This folder contains the source code:
+The effect asset has the `.wefx` extension and is always accompanied by a folder with the same name. That folder holds the HLSL source:
 
 ![Effect file](images/effectFile.jpg)
 
 ## Effect Source Code Example
-While effects in Evergine use HLSL as the shading language, it is enhanced by using different [Metatags](effect_metatags.md) to automate some tasks and assist users.
 
-A typical effect code looks like this:
+Effects are written in HLSL, extended with [metatags](effect_metatags.md) in square brackets that tell Evergine how to build, bind and render the shader.
 
-```csharp
+A typical effect looks like this:
+
+```hlsl
 [Begin_ResourceLayout]
 
     [Directives:UseTexture TEX_OFF TEX]
@@ -108,9 +109,9 @@ An effect file in Evergine is divided into the following sections:
 
 ### Resource Layout Definition
 
-This block of code defines all resources (Constant Buffers, Structured Buffers, Textures, and Samplers) that will be used in your shaders. This section is enclosed between `[Begin_ResourceLayout]` and `[End_ResourceLayout]` tags.
+This block declares every resource the passes use: constant buffers, structured buffers, textures and samplers. It sits between the `[Begin_ResourceLayout]` and `[End_ResourceLayout]` tags.
 
-```csharp
+```hlsl
 [Begin_ResourceLayout]
 
     [Directives:UseTexture TEX_OFF TEX]
@@ -132,27 +133,32 @@ This block of code defines all resources (Constant Buffers, Structured Buffers, 
 ```
 
 In this example:
-* `[Directives:UseTexture TEX_OFF TEX]`: This section contains a **Directive** (called `UseTexture` in this example), which allows the users to enable different features in their effect.
-  * This directive specifies two macros (`TEX_OFF` and `TEX`) which indicate whether this shader will use a color texture or not. In your effect code, you are free to define any number of directives as you wish. The tradeoff is that the number of possible effect combinations rises exponentially in proportion to the number of directives.
-  * You can enable or disable features using macros in your shader with the `#if`, `#else`, and `#endif` preprocessor directives.
-* The definition of two constant buffers, a Texture2D, and a SamplerState:
-  * `cbuffer PerDrawCall : register(b0) { ... }`: A constant buffer.
-  * `cbuffer Parameters : register(b1) { ... }`: A second constant buffer.
-  * `Texture2D ColorTexture : register(t0);`: A texture 2D.
-  * `SamplerState ColorSampler : register(s0);`: A Sampler state.
-* You will notice that you can add metatags to your constant buffers' attributes to specify default values or to inject useful engine parameters. In the example, we are using:
-  *  The `[WorldViewProjection]` to inject the object's world view projection matrix.
-  *  The `[Default(1, 1, 1)]`, which indicates the default value of the `Color` attribute (white color in this example).
+* `[Directives:UseTexture TEX_OFF TEX]` declares a **directive** named `UseTexture`, a switch that turns a feature of the effect on or off.
+  * Its two values, `TEX_OFF` and `TEX`, select whether the shader samples a color texture. You can declare as many directives as you need, but every directive multiplies the number of shader combinations that can be compiled.
+  * The shader code tests the values with `#if`, `#else` and `#endif`.
+* Two constant buffers, a `Texture2D` and a `SamplerState`. Registers of each kind must be consecutive, starting at 0 (`b0`, `b1`...; `t0`...; `s0`...).
+* Metatags after a constant buffer field either give it a default value or ask the engine to fill it:
+  * `[WorldViewProjection]` makes the engine write the object's world-view-projection matrix into `WorldViewProj` for every draw call.
+  * `[Default(1, 1, 1)]` sets the initial value of `Color`, white in this case. Materials created from the effect start with that value.
 
-Most of the topics mentioned here are detailed in the [Effect Metatags](effect_metatags.md) document.
+The [Effect Metatags](effect_metatags.md) page lists every tag.
 
 ### List of Passes
 
-After the Resource Layout block, your code will specify a list of Passes. Each Pass is defined using the `[Begin_Pass]` and `[End_Pass]` tags. Each pass requires a name, which will be used by the render path. As a naming convention, all render paths in Evergine must support the `Default` pass name.
+After the resource layout come one or more passes, each between `[Begin_Pass:Name]` and `[End_Pass]`. The name tells the render path when to run the pass. The default render pipeline looks for these names:
 
-In the previous effect example, a Default pass is defined:
+| Pass name | Run by | Purpose |
+| --- | --- | --- |
+| `ZPrePass` | `ForwardRenderPath` | Depth prepass that fills the depth buffer before shading. Only materials whose render layer tests and writes depth take part. |
+| `GBuffer` | `ForwardRenderPath` | Writes normals, roughness and metallic, motion vectors and distortion to three render targets that post-processing reads. |
+| `Default` | `ForwardRenderPath` | The main shading pass. Every graphics effect needs one. |
+| `ShadowMap` | `ShadowRenderPath` | Renders depth from a light's point of view to build its shadow map. |
 
-```csharp
+A pass that an effect does not define is skipped for materials of that effect. See [Rendering Overview](../rendering_overview.md) for when each pass runs.
+
+The example effect defines only a `Default` pass:
+
+```hlsl
 [Begin_Pass:Default]
     [Profile 10_0]
     [Entrypoints VS=VertexShaderCode PS=PixelShaderCode]
@@ -200,95 +206,91 @@ In the previous effect example, a Default pass is defined:
 [End_Pass]
 ```
 
-In this pass, you will find:
-* The `[Entrypoints VS=... PS=...]` tag, which defines the entry point for each render pipeline stage. In the example, you are indicating that this pass will use the following entry points:
-  * `VS=VertexShaderCode`: During the **Vertex Shader** stage, the VertexShaderCode function will be executed.
-  * `PS=PixelShaderCode`: During the **Pixel Shader** stage, the PixelShaderCode function will be executed.
-* After that, typical HLSL shader code is written. You are free to define structures, and functions, and use all resources defined inside the Resource Layout section.
+In this pass:
+* `[Profile 10_0]` selects the shader model the pass is compiled with.
+* `[Entrypoints VS=VertexShaderCode PS=PixelShaderCode]` names the function that runs at each stage: `VertexShaderCode` for the vertex shader and `PixelShaderCode` for the pixel shader.
+* The rest is ordinary HLSL. You can declare structures and functions and use every resource from the resource layout.
 
-As mentioned earlier, visit the [Effect Metatags](effect_metatags.md) document for more information.
+## Create an Effect from Code
 
-## Create a New Effect from Code
-
-The following sample code can be used to create a new effect and its associated material to apply to an entity in your scene.
+`EffectFromCode` compiles an effect from a source string at runtime. It is convenient for prototypes and generated shaders, but each combination is compiled on the device the first time it is used, so prefer effect assets for anything you ship.
 
 ```csharp
-protected override void CreateScene()
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
 {
+    private const string ShaderSource = @"
+        [Begin_ResourceLayout]
+
+            cbuffer PerDrawCall : register(b0)
+            {
+                float4x4 WorldViewProj : packoffset(c0); [WorldViewProjection]
+            };
+
+            cbuffer Parameters : register(b1)
+            {
+                float3 Color : packoffset(c0); [Default(1.0, 0.0, 0.0)]
+            };
+
+        [End_ResourceLayout]
+
+        [Begin_Pass:Default]
+            [Profile 10_0]
+            [Entrypoints VS=VS PS=PS]
+
+            struct VS_IN
+            {
+                float4 Position : POSITION;
+                float3 Normal   : NORMAL;
+                float2 TexCoord : TEXCOORD;
+            };
+
+            struct PS_IN
+            {
+                float4 Pos : SV_POSITION;
+            };
+
+            PS_IN VS(VS_IN input)
+            {
+                PS_IN output = (PS_IN)0;
+                output.Pos = mul(input.Position, WorldViewProj);
+                return output;
+            }
+
+            float4 PS(PS_IN input) : SV_Target
+            {
+                return float4(Color, 1);
+            }
+
+        [End_Pass]
+    ";
+
     protected override void CreateScene()
     {
         var graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
         var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-        string shaderSource = @"
-            [Begin_ResourceLayout]
+        Effect effect = new EffectFromCode(graphicsContext, ShaderSource);
 
-                cbuffer PerDrawCall : register(b0)
-                {
-                    float4x4 WorldViewProj    : packoffset(c0);    [WorldViewProjection]
-                };
-
-                cbuffer Parameters : register(b1)
-                {
-                    float3 Color            : packoffset(c0);   [Default(1.0, 0.0, 0.0)]
-                };
-
-            [End_ResourceLayout]
-
-            [Begin_Pass:Default]
-                [Profile 10_0]
-                [Entrypoints VS=VS PS=PS]
-
-                struct VS_IN
-                {
-                    float4 Position : POSITION;
-                    float3 Normal    : NORMAL;
-                    float2 TexCoord : TEXCOORD;
-                };
-
-                struct PS_IN
-                {
-                    float4 pos : SV_POSITION;
-                    float3 Nor : NORMAL;
-                    float2 Tex : TEXCOORD;
-                };
-
-                PS_IN VS(VS_IN input)
-                {
-                    PS_IN output = (PS_IN)0;
-
-                    output.pos = mul(input.Position, WorldViewProj);
-                    output.Nor = input.Normal;
-                    output.Tex = input.TexCoord;
-
-                    return output;
-                }
-
-                float4 PS(PS_IN input) : SV_Target
-                {
-                    return float4(Color,1);
-                }
-
-            [End_Pass]
-        ";
-
-        // Create effect
-        Effect myEffect = new EffectFromCode(graphicsContext, shaderSource);
-
-        // Create associated material
-        Material myMaterial = new Material(myEffect)
+        // A material needs a render layer to know its blend, depth and cull state.
+        Material material = new Material(effect)
         {
-            LayerDescription = assetsService.Load<RenderLayerDescription>(EvergineContent.RenderLayers.Opaque),
+            LayerDescription = assetsService.Load<RenderLayerDescription>(DefaultResourcesIDs.OpaqueRenderLayerID),
         };
 
-        // Apply to an entity
-        Entity primitive = new Entity()
-                .AddComponent(new Transform3D())
-                .AddComponent(new MaterialComponent() { Material = myMaterial })
-                .AddComponent(new SphereMesh())
-                .AddComponent(new MeshRenderer());
+        Entity sphere = new Entity("sphere")
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new SphereMesh())
+            .AddComponent(new MeshRenderer());
 
-        this.Managers.EntityManager.Add(primitive);
+        this.Managers.EntityManager.Add(sphere);
     }
 }
 ```
