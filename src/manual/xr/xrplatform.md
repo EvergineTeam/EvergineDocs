@@ -48,53 +48,8 @@ You can access properties regarding the HMD device:
 | **HeadGaze** | Ray that points from the head position to the direction the device is facing. |
 | **EyeCount** | Number of eyes that this device will render. In most common XR applications, the number is 2. |
 
-### Eye Gaze
-
-Some XR devices have the capability to track the eye look direction (HoloLens2, for instance). In such cases:
-
-| Property | Description |
-|---|---|
-| **EyeGaze** | Gets a ray that indicates the position and direction that the user is looking with their eyes. |
-| **IsEyeGazeValid** | Boolean that indicates if the eye gaze is providing valid values. This can be false if the eye is not well-tracked, or if the device doesn't support this feature or doesn't have permission to track eyes. |
-| **RequestEyeGazePermission()** | Async method that requests the device to grant permission to track the user's eyes. It will return true only if the device supports eye gazing and the user has approved this interaction (in most devices, it usually shows a small dialog requesting this permission). |
-
-A small example of how to use eye gazing in your application:
-
-```csharp
-        protected override bool OnAttached()
-        {
-            if (base.OnAttached())
-            {
-                // Request eye gaze permission...
-                this.RequestPermission();
-                return true;
-            }
-
-            return false;
-        }
-
-        protected override void Update(TimeSpan gameTime)
-        {
-            if (this.xrPlatform.IsEyeGazeValid)
-            {
-                var eyeGaze = this.xrPlatform.EyeGaze.Value;
-
-                // modify the transform to follow the eye gaze...
-                this.transform.LocalPosition = eyeGaze.Position;
-                this.transform.LookAt(eyeGaze.GetPoint(1));
-            }
-        }        
-
-        private async void RequestPermission()
-        {
-            await this.xrPlatform.RequestEyeGazePermission();
-        }
-```
-
 ## XR Subsystems
 
 XRPlatforms allow you to access more functionality beyond what has been described above. The following documents will cover these areas:
 
 - **[Input Tracking](input_tracking/index.md)**
-- **[Spatial Mapping](spatial_mapping.md)**
-- **[Spatial Anchors](spatial_anchors.md)**

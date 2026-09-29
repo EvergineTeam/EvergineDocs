@@ -53,7 +53,4 @@ This initiative is backed by companies like Meta, Microsoft, HTC, Steam, Varjo, 
 * [XR Platform](xrplatform.md)
 * [OpenXR](openxr/index.md)
 * [Input Devices](input_tracking/index.md)
-* [Spatial Mapping](spatial_mapping.md)
-* [Spatial Anchors](spatial_anchors.md)
-* [Trackable Items](trackable_items.md)
 * [Passthrough](passthrough.md)
