@@ -1,129 +1,142 @@
-# Use assets
+# Use Assets
 
-![Use assets](Images/useAssets.png)
+![A material that references texture assets in its properties](Images/useAssets.png)
 
-We can use an asset in our project in these ways:
+Once an asset is in the project, you can use it in three ways: reference it from a component, reference it from another asset, or load it from code. References made in Evergine Studio are stored as asset IDs, so renaming or moving an asset does not break them.
 
-* Reference it in an entity **Component**.
-* Reference it from another asset.
-* Load it from code.
+## Reference an asset from a component
 
-## Reference an asset from components
+Many components expose asset properties. For example, `MaterialComponent` references a **Material**, `Billboard` references a **Texture**, and `Animation3D` references a **Model**. When a scene is loaded, every asset referenced by its components is loaded with it.
 
-Many components can use assets. For example, `MeshComponent` uses **Model** assets, and `Sprite` uses **Texture** assets.
+In the **Entity Details** panel, an asset property is shown as an **asset selection control** with the thumbnail, name and path of the current asset.
 
-When a component uses an asset, it will show an **Asset Selection Control** in its section in the **Entity Details** panel.
+![Asset selection control](Images/assetSelectionControl.png)
 
-![Asset Selection Control](Images/assetSelectionControl.png)
+Click the control to open the **asset picker**:
 
-When a **Scene** is loaded in Evergine, all assets referenced by components will be loaded automatically.
+![Asset picker](Images/assetPicker.png)
 
-To add an asset to that component, we need to click on it and an **Asset Picking Dialog** will appear, allowing us to select a desired asset. 
-
-![Asset Picker Dialog](Images/assetPicker.png)
-
-* The user can also fill the **Asset filter** textbox to filter all the assets, making it easier in big projects.
-* Clicking the **lens icon** ![Lens Icon](Images/lensIcon.png) will select the asset in the **Asset Details** panel. This is useful to locate and edit a specific asset used in your scene.
-* Clicking on an asset in the list will select it and set it as the property value of the component.
-* To clear the asset reference, simply select the **No Asset** ![No Asset Button](Images/noAsset.png) option from the list (it's the first one).
+* Type in **Assets filter** to narrow the list, which helps in large projects.
+* Click an asset to assign it to the property.
+* Select **No asset** ![No asset entry](Images/noAsset.png) (the first entry) to clear the reference.
+* Click the lens icon ![Lens icon](Images/lensIcon.png) to select the current asset in the **Assets Details** panel, so you can find and edit it.
 
 > [!NOTE]
-> The dialog will only show assets of the same type as defined by the component property or field.
+> The picker only lists assets of the type the property expects. A `Texture` property only offers textures.
 
-## Reference an asset by other assets
+## Reference an asset from another asset
 
-In the same way as components, assets can reference other assets. For example, a **Material** can reference a **Texture**, and a **Texture** can reference a **SamplerState** asset.
+Assets can reference other assets in the same way. A **Material** references **Textures** and **Samplers**, and a **Texture** references the **Sampler** it uses by default. The asset editors show the same selection control as the **Entity Details** panel.
 
-You can reference those assets in the same way you add them to components (see above).
+## Load assets from code
 
-## Reference assets by code
+At runtime you load assets through one of two objects, depending on how long the asset must live:
 
-An asset can be loaded and accessed at runtime in two ways, depending on the asset scope:
+| Object | Scope | Who unloads the asset |
+| --- | --- | --- |
+| `AssetsService` | Application. Use it for assets shared by several scenes. | You, by calling `Unload`. |
+| `AssetSceneManager` | One scene. Use it for assets that belong to that scene. | The scene, when it is disposed. |
 
-* **AssetsService**: For loading global assets used in more than one **Scene**.
-* **AssetsSceneManager**: For loading assets in a **Scene**.
+Both identify an asset by the ID that Evergine generates in the `EvergineContent` class. Each folder of the `Content` directory becomes a nested class, and each asset becomes a `Guid` field named after its file, so `Content/Textures/Logo.png` is `EvergineContent.Textures.Logo_png`.
 
-### AssetsService loading
+### AssetSceneManager
 
-**AssetsService** is a _Service_ that manages all the assets in the application. When loading an asset using this service, we are also responsible for unloading it when it's no longer needed.
+`AssetSceneManager` is a scene manager that every scene registers by default. Components reach it through `this.Managers.AssetSceneManager`. Assets loaded here are released when the scene is disposed, for example when you navigate to another scene, so you do not have to track them.
+
+```csharp
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+
+namespace MyProject.Components
+{
+    public class LogoLoader : Component
+    {
+        [BindComponent]
+        private Billboard billboard = null;
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+
+            // The scene owns this texture and unloads it together with the scene.
+            this.billboard.Texture = this.Managers.AssetSceneManager.Load<Texture>(EvergineContent.Textures.Logo_png);
+        }
+    }
+}
+```
+
+### AssetsService
+
+`AssetsService` is an application service that manages every asset loaded in the application. The project template registers it in `MyApplication`. Resolve it from the container, and unload each asset when you no longer need it.
 
 ```csharp
 var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-Texture textureAsset;    
+// Load by ID. The same instance is returned to every caller until it is unloaded.
+Texture logo = assetsService.Load<Texture>(EvergineContent.Textures.Logo_png);
 
-// Asset loading.
+// ...
 
-// Load asset by ID (using EvergineContent).
-textureAsset = assetsService.Load<Texture>(EvergineContent.Textures.SampleTexture_png);
-
-// Load asset by path.
-textureAsset = assetsService.Load<Texture>("SampleTexture.wetx");
-
-// Load asset by stream (we need to provide an asset name anyway).
-textureAsset = assetsService.Load<Texture>("SampleTexture.wetx", stream);
-
-// Asset unloading.
-
-// Unload asset by ID.
-assetsService.Unload(EvergineContent.Textures.SampleTexture_png);
-
-// Unload asset by path.
-assetsService.Unload("SampleTexture.wetx");
+// Unload by ID when no one uses the texture any more.
+assetsService.Unload(EvergineContent.Textures.Logo_png);
 ```
 
-### AssetsSceneManager loading
+`AssetsService` and `AssetSceneManager` share the same loading methods:
 
-**AssetsSceneManager** is a _SceneManager_ that controls all the assets in a specific **Scene**. All the assets loaded through this _SceneManager_ will be unloaded when the **Scene** is disposed (when navigating to other scenes, for example).
+| Method | Description |
+| --- | --- |
+| `Load<T>(Guid id, bool forceNewInstance = false)` | Loads the asset with the given ID. This is the usual way to load an asset. |
+| `Load<T>(string path, bool forceNewInstance = false)` | Loads a file from the application content directory by its path. |
+| `Load<T>(string name, Stream stream, bool forceNewInstance = false)` | Loads an asset from a stream. `name` identifies the asset in the cache, and its extension selects the importer. |
+| `Unload(Guid id)` / `Unload(string path)` | Releases an asset loaded by ID or by path. |
+| `LoadRaw<T>(Guid id, Func<Stream, T> loader)` | Reads a raw asset with your own loader (see below). |
 
-Its methods are very similar to those of **AssetsService**.
+### Load an asset from a stream
+
+`Load<T>(name, stream)` is useful for content that is not known at build time, such as an image downloaded by the application. The extension of `name` decides how the stream is read, so a `.png` name uses the PNG importer.
 
 ```csharp
-var assetSceneManager = this.Managers.AssetSceneManager;
-
-Texture textureAsset;    
-
-// Asset loading.
-
-// Load asset by ID (using EvergineContent).
-textureAsset = assetSceneManager.Load<Texture>(EvergineContent.Textures.SampleTexture_png);
-
-// Load asset by path.
-textureAsset = assetSceneManager.Load<Texture>("SampleTexture.wetx");
-
-// Load asset by stream (we need to provide an asset name anyway).
-textureAsset = assetSceneManager.Load<Texture>("SampleTexture.wetx", stream);
-
-// Asset unloading.
-
-// Unload asset by ID.
-assetSceneManager.Unload(EvergineContent.Textures.SampleTexture_png);
-
-// Unload asset by path.
-assetSceneManager.Unload("SampleTexture.wetx");
+using (var stream = File.OpenRead(downloadedFilePath))
+{
+    Texture photo = assetsService.Load<Texture>("photo.png", stream);
+}
 ```
 
-### Raw assets loading
+> [!NOTE]
+> Importing source formats such as `.png` or `.gltf` at runtime requires the `Evergine.Assets` assembly in the application. It is slower and uses more memory than loading exported assets, so prefer assets exported by Evergine Studio whenever the content is known in advance. See [Export Assets](export.md).
 
-**Raw assets** are files that are included in the application output without being processed or converted to an Evergine asset format. They can also be accessed at runtime using their generated **EvergineContent** ID.
+### Force a new instance
 
-Unlike regular assets, Evergine does not know how the contents of a raw asset should be interpreted. For this reason, raw assets are loaded using the `LoadRaw<T>` method, which receives a loader function responsible for reading the asset from a `Stream` and returning the desired object.
+By default, loading an asset that is already loaded returns the existing instance. This saves memory and loading time, but a change made to that instance is visible everywhere it is used. Pass `forceNewInstance: true` when you need an independent copy, for example a material you want to modify for a single entity.
 
-For example, a raw text file can be loaded as follows:
+```csharp
+// Shared instance: every caller gets the same material.
+Material sharedMaterial = assetSceneManager.Load<Material>(EvergineContent.Materials.Floor);
+
+// Independent copy: changes to it do not affect sharedMaterial.
+Material uniqueMaterial = assetSceneManager.Load<Material>(EvergineContent.Materials.Floor, forceNewInstance: true);
+```
+
+### Load raw assets
+
+A **raw asset** is a file that Evergine copies to the application output without converting it. Mark an asset as raw with **Set to export as raw** in its context menu (see [Edit Assets](edit.md)). Raw assets keep their `EvergineContent` ID.
+
+Evergine does not know how to interpret a raw file, so you load it with `LoadRaw<T>` and a loader function that reads the stream and returns any type you need. A text file, for example:
 
 ```csharp
 var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
 string text = assetsService.LoadRaw(
-    EvergineContent.Data.Sample_txt,
+    EvergineContent.Data.Notes_txt,
     stream =>
     {
-        using var reader = new StreamReader(stream, leaveOpen: true);
+        using var reader = new StreamReader(stream);
         return reader.ReadToEnd();
     });
 ```
 
-The loader can return any type, so the same mechanism can be used to deserialize JSON files, read binary data, or pass the stream to a custom file reader:
+The same method can deserialize a JSON file:
 
 ```csharp
 MyConfiguration configuration = assetsService.LoadRaw(
@@ -131,27 +144,12 @@ MyConfiguration configuration = assetsService.LoadRaw(
     stream => JsonSerializer.Deserialize<MyConfiguration>(stream));
 ```
 
+`AssetSceneManager.LoadRaw<T>` behaves exactly the same way.
+
 > [!IMPORTANT]
-> Raw assets are **not cached** by `AssetsService`. Every call to `LoadRaw<T>` opens the raw asset and executes the provided loader again.
->
-> If the loaded data needs to be reused, the application is responsible for caching the returned value and managing its lifetime. This avoids keeping potentially large raw files or their resulting objects in memory unnecessarily.
+> Raw assets are not cached. Every call to `LoadRaw<T>` opens the file and runs the loader again. If you reuse the result, keep it yourself and decide when to release it.
 
 > [!NOTE]
-> The `Stream` passed to the loader is owned and managed by Evergine and is only valid while the loader is being executed. The loader should consume the stream and return the resulting value instead of storing or returning the stream itself.
+> Evergine owns the `Stream` passed to the loader and closes it when the loader returns. Read what you need inside the loader and return the result, never the stream. Raw assets are not tracked by the asset cache, so there is nothing to `Unload`.
 
-Raw assets do not use the regular Evergine asset loading pipeline and therefore do not need to be unloaded using `AssetsService.Unload`.
-
-
-### Force new instance when loading
-
-By default, when an asset is loaded either in the **AssetsService** or the **AssetsSceneManager**, only one instance of the asset is generated. This saves _GPU memory_ and time. 
-
-However, on certain occasions, we want to load a *different instance* of an already loaded asset. For example, we may want to load and use a **Material** and change it without affecting the other instances.
-
-In this case, we can use the **forceNewInstance** parameter in the Load method.
-
-```csharp
-// Forces a new instance to load.
-Texture textureAsset = assetSceneManager.Load<Texture>(EvergineContent.Textures.SampleTexture_png, true); 
-Texture textureAsset = assetsService.Load<Texture>(EvergineContent.Textures.SampleTexture_png, true);
-```
+`LoadRaw<T>` throws an `ArgumentException` if the ID belongs to a regular asset. Use `Load<T>` for those.

@@ -1,75 +1,110 @@
 # Profile with RenderDoc
 
----
-![Graphics](images/RenderDoc_0.jpg)
+![A frame of an Evergine scene captured in RenderDoc](Images/RenderDoc_0.JPG)
 
-RenderDoc is a graphics debugger currently available for Vulkan, DirectX 11/12, and OpenGL development on Windows, Linux, and Android. It is integrated into **Evergine Studio** to make it easy to debug your application during the development process.
 
-To install the latest RenderDoc version, visit the project's [website](https://renderdoc.org/).
+[RenderDoc](https://renderdoc.org/) is a free frame debugger for Direct3D 11, Direct3D 12, Vulkan and OpenGL. Evergine Studio integrates it, so you can capture a frame of any scene viewport and inspect every draw call, resource and shader that produced it. Use it to find out why an object does not render, why a material looks wrong, or which pass takes the most GPU time.
 
-## Loading RenderDoc
+Evergine Studio renders with **DirectX 12** by default (see the **Editor backend** option in [Preferences](interface.md#preferences)), and RenderDoc captures it directly.
 
-First, you need to load the RenderDoc assembly to allow the graphical commands sent to the GPU to be captured. In the settings menu of the Editor, you will find an option called "Enable RenderDoc." This will reload the graphics device, so you must save any changes. Afterward, RenderDoc will be ready to capture the scene.
+## Enable RenderDoc
 
-![Graphics](images/RenderDoc_1.jpg)
+1. Install RenderDoc from [renderdoc.org](https://renderdoc.org/). Evergine Studio looks for it in `Program Files\RenderDoc`, or through the file association RenderDoc registers. The menu item stays disabled while RenderDoc is not installed.
+2. Select **Settings > Enable RenderDoc**.
+3. Confirm the dialog. Evergine Studio saves your changes and reloads the project, so that RenderDoc is loaded before the graphics device is created.
 
-## Capturing a frame with RenderDoc
+![The Enable RenderDoc item of the Settings menu](Images/RenderDoc_1.JPG)
 
-Once RenderDoc is enabled in **Evergine Studio**, a new button will appear on the right side of the toolbar in the scene view.
+Select **Settings > Disable RenderDoc** to turn it off again. It also reloads the project.
 
-![Graphics](images/RenderDoc_2.jpg)
+## Capture a frame
 
-Pressing this button will trigger a capture of the next frame of rendering for the view, and a new RenderDoc instance will be launched to show the capture. From there, you can open the capture and debug using the tool.
+With RenderDoc enabled, the toolbar of the Scene Editor viewport shows **Capture next frame with RenderDoc** on its right side.
 
-![Graphics](images/RenderDoc_3.jpg)
+![The capture button on the right of the viewport toolbar](Images/RenderDoc_2.JPG)
 
-## Naming objects
+Click it to capture the next frame of that viewport. When the capture finishes, Evergine Studio starts the RenderDoc user interface with the capture open, ready to inspect.
 
-The **Evergine** low-level API allows you to name all the different object types available. This includes samplers, buffers, pipelines, and much more. These names can then be displayed on RenderDoc to help debug the application.
+![The capture opened in RenderDoc](Images/RenderDoc_3.JPG)
 
-To set an object name, such as in a buffer, just set it as a parameter in the factory constructor or set the property Name.
+> [!TIP]
+> To capture your running application instead of the editor, start the launcher from RenderDoc with **Launch Application** and press F12 or Print Screen to capture a frame.
+
+## Name graphics objects
+
+Every object of the Evergine [low-level API](../graphics/low_level_api/index.md), such as buffers, textures, pipelines and command buffers, has a `Name` property. RenderDoc shows those names instead of generic identifiers, which makes a capture much easier to read. Give the name when you create the resource, or set it afterwards:
 
 ```csharp
-this.graphicsContext.Factory.CreateBuffer(ref Description, "Buffer_Name");
+// 64 bytes: one 4x4 float matrix.
+var description = new BufferDescription(64, BufferFlags.ConstantBuffer, ResourceUsage.Default);
+
+// The last argument of the factory methods is the debug name.
+var constantBuffer = graphicsContext.Factory.CreateBuffer(ref description, "Outline_ConstantBuffer");
+
+// The name can also be changed later, for example when a pooled buffer is reused.
+constantBuffer.Name = "Outline_ConstantBuffer_Selected";
 ```
 
-or
-
-```csharp
-buffer.Name = "Buffer_Name";
-```
-
-![Graphics](images/RenderDoc_4.jpg)
+![A named buffer in the RenderDoc resource inspector](Images/RenderDoc_4.JPG)
 
 ## Debug markers and regions
 
-In addition to naming, the **Evergine** low-level API also adds the ability to place debug markers inside command buffers. These can be used to mark points of interest and highlight specific areas inside the command buffer.
+Debug markers group the commands of a command buffer into named regions of the RenderDoc **Event Browser**, or mark a single point of interest. Evergine already adds regions for its own passes (`Render`, `DirectionalLight`, `Camera`, `ForwardPass` and so on), and you can add yours around custom rendering code.
 
-> [!Tip]
-> Note that contrary to naming objects, debug markers (and regions) have to be placed inside an active command buffer.
+| Method | Description |
+| --- | --- |
+| `BeginDebugMarker(string label)` | Opens a named region. Regions can be nested. |
+| `EndDebugMarker()` | Closes the last region opened. |
+| `InsertDebugMarker(string label)` | Adds a single named event at the current position. |
 
 ```csharp
-commandBuffer.BeginDebugMarker("Region_Name");
-// Stuff
+commandBuffer.Begin();
+
+commandBuffer.BeginDebugMarker("Outline");
+{
+    // Everything recorded until EndDebugMarker appears under "Outline" in RenderDoc.
+    commandBuffer.BeginRenderPass(ref renderPassDescription);
+    commandBuffer.InsertDebugMarker("Outline: after clear");
+    // ...draws...
+    commandBuffer.EndRenderPass();
+}
 commandBuffer.EndDebugMarker();
+
+commandBuffer.End();
 ```
 
-![Graphics](images/RenderDoc_5.jpg)
+![Evergine regions in the RenderDoc Event Browser](Images/RenderDoc_5.JPG)
 
-## Including shader debug information
+> [!NOTE]
+> Unlike names, markers are commands: record them while the command buffer is between `Begin()` and `End()`. They have no effect when no graphics debugger is attached, so you can leave them in release code.
 
-By default, to optimize the size of DirectX shaders, debugging information is stripped out. This means that constants and resources will have no names, and the shader source will not be available. To include this debugging information in your shader, you need to set the debug mode inside the pass shader code by adding the `[Mode Debug]` line:
+## Include shader debug information
 
-```csharp
+By default, Evergine strips the debug information from compiled shaders to keep them small. RenderDoc then shows constants and resources without names, and cannot show the HLSL source. To keep the debug information in one effect, add `[Mode Debug]` to its pass:
+
+```hlsl
 [Begin_Pass:Default]
 
     [Mode Debug]
-    [Profile 10_0]
+    [Profile 11_0]
     [Entrypoints VS=VS PS=PS]
 
     // ...
+[End_Pass]
 ```
 
-## Alternative graphics debugging techniques
+To keep it for every effect compiled at runtime, enable `EnableShaderDebugInfo` on the graphics context in the launcher, before the application is initialized:
 
-If you build a desktop Windows application using DirectX, you can capture a frame and debug it using the [Visual Studio graphics debugger](https://docs.microsoft.com/en-us/visualstudio/debugger/graphics/visual-studio-graphics-diagnostics?view=vs-2019), [NVidia Nsight Graphics](https://developer.nvidia.com/nsight-graphics), or [PIX on Windows](https://devblogs.microsoft.com/pix/introduction/).
+```csharp
+GraphicsContext graphicsContext = new global::Evergine.DirectX12.DX12GraphicsContext();
+graphicsContext.CreateDevice();
+
+// Compile runtime shaders with debug information, for graphics debugging only.
+graphicsContext.EnableShaderDebugInfo = true;
+```
+
+Remove `[Mode Debug]` and `EnableShaderDebugInfo` when you finish debugging, because debug shaders are larger and slower.
+
+## Other graphics debuggers
+
+On Windows you can also capture and debug frames of a DirectX build of your application with [PIX on Windows](https://devblogs.microsoft.com/pix/introduction/), [NVIDIA Nsight Graphics](https://developer.nvidia.com/nsight-graphics) or the [Visual Studio Graphics Diagnostics](https://learn.microsoft.com/visualstudio/debugger/graphics/visual-studio-graphics-diagnostics). The object names and debug markers described above show up in those tools too.
