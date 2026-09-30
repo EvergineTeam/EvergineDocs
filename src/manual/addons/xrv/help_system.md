@@ -1,39 +1,71 @@
-# Help System
+# Help system
 
-Another predefined window that _XRV_ offers is the _Help_ window. This window is designed to contain text and images that guide application users in learning how to use the application. It operates in the same way as the [Settings System](settings_system.md): you can associate a help section with your custom module or add and remove items programmatically. To open the _Help window_, simply press the help hand menu button found in the hand menu.
+---
 
-![settings hand menu](images/help_system_menu.png)
+![Help hand menu button](images/help_system_menu.png)
 
-This window is a _TabbedWindow_ and you have two ways of adding new elements:
-- **Adding a help section to your custom module**
+The **Help** window contains text and images that teach users how to use your application. It opens from the ![help](images/help.png) button of the hand menu and works like the [settings system](settings_system.md): each module can add its own help tab, and your code can add and remove tabs at any time. The window also includes a **General** tab and an **About** tab provided by XRV.
+
+The window is a `TabbedWindow`, so each section is a [tab item](ui/tabs_control.md#tab-items).
+
+## Add a help tab to a module
+
+Set the `Help` property of your module in `Initialize`:
 
 ```csharp
-public class MyModule : Module
-{
-    public override TabItem Help { get; protected set; }
+// Inside a class derived from Module.
+public override TabItem Help { get; protected set; }
 
-    public override void Initialize(Scene scene)
+public override void Initialize(Scene scene)
+{
+    this.Help = new TabItem
     {
-        this.Help = new TabItem()
+        Name = () => "My module",
+        Contents = this.CreateHelpContents, // Returns the entity with the help contents.
+    };
+}
+```
+
+See [Create your own modules](modules/customModule/index.md) for a complete module.
+
+## Add a help tab from code
+
+Use the `HelpSystem` property of `XrvService`:
+
+```csharp
+using Evergine.Framework;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.UI.Tabs;
+
+public class NavigationHelp : Component
+{
+    [BindService]
+    private XrvService xrvService = null;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        this.xrvService.HelpSystem.AddTabItem(new TabItem
         {
-            Name = () => "Module Name",
-            Contents = this.CreateContents() // Entity with help item contents.
-        };
+            Order = 1,
+            Name = () => "Getting around",
+            Contents = this.CreateHelpContents,
+        });
+    }
+
+    private Entity CreateHelpContents()
+    {
+        // Build or instantiate the entity with your help texts and images.
+        return new Entity();
     }
 }
 ```
 
-- **Using the _HelpSystem_ API**
-
-```csharp
-var help = this.xrvService.HelpSystem;
-var item = new TabItem
-{
-    Order = 1,
-    Name = "My item",
-    Contents = () => this.CreateContents(),
-};
-help.AddTabItem(item);
-```
-
-You can also remove an existing item using the _RemoveTabItem_ method.
+| `HelpSystem` member | Default | Description |
+| --- | --- | --- |
+| `AddTabItem(TabItem item)` | | Adds a tab to the help window. |
+| `RemoveTabItem(TabItem item)` | | Removes a tab from the help window. |
+| `DisplayAboutSection` | `true` | Shows the **About** tab. |
+| `AboutContents` | `null` | Function that returns the text of the **About** tab. |
+| `Window` | | The `TabbedWindow` of the help. Use it to open or close the window from code. |

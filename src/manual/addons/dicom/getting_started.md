@@ -1,96 +1,179 @@
-# Getting Started
+# Getting started with DICOM
 
 ---
 
-## Demo
+![DICOM demo](images/density_range.gif)
 
-We highly recommend checking out the [DICOM-Demo](https://github.com/EvergineTeam/Dicom-Demo). It's very simple and it illustrates the basic usage of the addon.
+This page shows how to load a DICOM series and render it in 2D and 3D. You create an entity with a `DicomComponent` that loads the images into a 3D texture, then add a `DicomRenderer` to draw the volume and one `DicomRenderer2D` per slice plane. The 3D view needs a custom render path, which the add-on provides.
 
-![dicom_gif](images/density_range.gif)
+The [DICOM demo](https://github.com/EvergineTeam/Dicom-Demo) shows all of this working, with controls to change the density window and move the slice planes.
 
-## Project Setup
+## Project setup
 
-### 1. Add the Evergine.Dicom Add-on
+### 1. Install the add-on
 
-Open Evergine Studio and add the Evergine.Dicom add-on to your project. Refer to [this guide](../../addons/index.md) for instructions on adding add-ons.
+In Evergine Studio, open the [Add-ons Manager](../index.md#add-ons-manager) and install **Evergine.Dicom**.
 
-![DICOM Add-on](images/dicom_addon.jpg)
+![DICOM add-on](images/dicom_addon.jpg)
 
-### 2. Add the Dicom.CustomRenderPath
+### 2. Set the DICOM render path
 
-The rendering of DICOM in 3D is complex; therefore, it needs a custom RenderPath.
+Volume rendering needs extra passes, so the add-on provides `DicomRenderPath` (namespace `Evergine.Dicom`). Set it up in one of two ways:
 
-We provide the `Dicom.CustomRenderPath` that you can set up in two different ways:
+- For one camera, assign it to the camera's `RenderPath`:
 
-1) Set the RenderPath in the specific `Camera` that you want.
-2) In the `RenderPipeline`, remove the `DefaultRenderPath` and add the `Dicom.CustomRenderPath`.
+```csharp
+using Evergine.Dicom;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
 
-``` cs
-// 1) In the specific Camera
-var cameraComponent = cameraEntity.FindComponent<Camera>(isExactType: false);
-cameraComponent.RenderPath = new Dicom.CustomRenderPath((RenderManager)this.Managers.RenderManager);
+// In your scene's CreateScene.
+var camera = this.Managers.EntityManager.FindFirstComponentOfType<Camera>(isExactType: false);
+camera.RenderPath = new DicomRenderPath((RenderManager)this.Managers.RenderManager);
 ```
 
-``` cs
-// 2) Globally, in the RenderPipeline
-// You could do this in the CreateScene of your Scene
-var renderPipeline = this.Managers.RenderManager.RenderPipeline;
-renderPipeline.RemoveRenderPath(renderPipeline.DefaultRenderPath);
-renderPipeline.AddRenderPath(new CustomRenderPath((RenderManager)this.Managers.RenderManager));
+- For every camera, replace the default render path of the render pipeline with the helper extension methods:
 
-// We also provide two helper functions to make this easier:
-// - DicomHelpers.ReplaceDefaultRenderPathWithDicomRenderPath
-// - DicomHelpers.ReplaceDicomRenderPathWithDefaultRenderPath
+```csharp
+// Replaces the default render path with DicomRenderPath and returns it.
+this.Managers.RenderManager.ReplaceDefaultRenderPathWithDicomRenderPath();
+
+// Restores the default render path.
+this.Managers.RenderManager.ReplaceDicomRenderPathWithDefaultRenderPath();
 ```
 
-## DicomComponent
+> [!NOTE]
+> The 2D slices do not need the DICOM render path. If your application only shows slices, skip this step.
 
-The DicomComponent is essential for both loading and rendering Dicom files.
+## How the volume is rendered
 
-To load a Dicom file, call the `DicomComponent.LoadFromFile` method. The `DicomComponent` acts as a holder for a Dicom file.
-The parameter of `DicomComponent.LoadFromFile` is a `string` with the path to a `.zip` file. Our loader will scan for DCM files inside the `.zip`. You can have any folder hierarchy inside the ZIP, and the files can have any extension (no need for the .dcm extension), but **all the files inside the zip must be valid DCMs**.
+`DicomRenderPath` renders three passes. The **Default** pass draws the rest of the scene as usual. The **DicomFarDepth** pass draws the back faces of the volume mesh and stores their depth. The **Dicom** pass draws the front faces and, for each pixel, marches a ray through the 3D texture from the front face to the stored far depth, accumulating the densities that fall inside the window range.
 
+![Diagram: DicomRenderPath runs the Default pass for the scene, the DicomFarDepth pass that writes the depth of the volume back faces, and the Dicom pass that ray marches the DICOM 3D texture from the front faces to that depth](images/dicom_render_path.png)
 
-| Property | Description |
+*The far depth pass tells the ray marcher where each ray leaves the volume.*
+
+## Load a DICOM series
+
+`DicomComponent` loads the images and keeps them in a 3D texture that the renderers share. Call `LoadFromFile` with the path of a `.zip` file. The loader reads every file in the archive as a DICOM image, whatever its folder or extension, so the files do not need the `.dcm` extension.
+
+> [!IMPORTANT]
+> Every file inside the ZIP must be a valid DICOM file. Only 16-bit single-channel images are supported; `LoadFromFile` returns `false` for other formats.
+
+`LoadFromFile` is asynchronous and returns `true` when the texture is ready:
+
+```csharp
+using System.Diagnostics;
+using Evergine.Common.IO;
+using Evergine.Dicom;
+using Evergine.Framework;
+
+public class DicomScene : Scene
+{
+    protected override async void CreateScene()
+    {
+        this.Managers.RenderManager.ReplaceDefaultRenderPathWithDicomRenderPath();
+
+        var dicomPath = new AssetsDirectory().RootPath + "/Dicoms/sample.zip";
+        var entities = await this.CreateDicomEntities(dicomPath, create2D: true, create3D: true);
+        if (entities.Length == 0)
+        {
+            Trace.TraceError("The DICOM file could not be loaded.");
+        }
+    }
+}
+```
+
+`CreateDicomEntities` is a helper, also available as `DicomHelpers.CreateDicomEntities`, that loads the file and creates all the entities described below in one call. It returns three disabled slice entities (X, Y, and Z) followed by the volume entity, or an empty array if the file cannot be loaded. The volume mesh is a cylinder by default; pass `cylinderMeshShape: false` to use a cube.
+
+### DicomComponent
+
+| Property | Default | Description |
+| --- | --- | --- |
+| `WindowRange` | `(1800, 3000)` | Density window, minimum and maximum. Only densities inside it are visible. Loading a file resets it to `LimitWindowRange`. |
+| `LimitWindowRange` | `(-1000, 3500)` | Read-only. Density range of the loaded series. |
+| `PixelsX`, `PixelsY`, `PixelsZ` | `0` | Read-only. Size of the series in pixels: width, height, and number of slices. |
+| `PixelSpacing` | `(0, 0, 0)` | Read-only. Size of one pixel, in millimeters. |
+| `SizeMM` | `(0, 0, 0)` | Read-only. Size of the whole volume, in millimeters. |
+| `Texture` | `null` | Read-only. The 3D texture with the images. |
+
+| Event | Description |
 | --- | --- |
-| **WindowRange** | The `DicomComponent` has the `WindowRange` property for configuring the density window range. This allows users to control what density range they want to visualize. |
-| **Dithering** | Dithering is a visualization technique that reduces the [banding](https://en.wikipedia.org/wiki/Colour_banding) of the 3D visualization. The `DicomComponent` has the `DitheringEnabled` property to enable this feature. |
+| `OnDicomLoadedEvent` | Raised when a series is loaded. |
+| `OnWindowChangedEvent` | Raised when `WindowRange` changes, with the window normalized to the limit range. |
 
-## 3D Visualization
+Change `WindowRange` at runtime to let the user pick what to see, for example bone or soft tissue:
 
-To visualize Dicoms in 3D, you need:
+```csharp
+// dicomComponent is the DicomComponent of your volume entity; Vector2 is in Evergine.Mathematics.
+// Show only the densest part of the loaded range.
+var limits = dicomComponent.LimitWindowRange;
+dicomComponent.WindowRange = new Vector2(limits.X + (limits.Y - limits.X) * 0.6f, limits.Y);
+```
 
-1. [Add the Dicom.CustomRenderPath](#2-add-the-dicomcustomrenderpath)
-2. Create an entity with these components:
-   - Transform3D: which will be the transform of our Dicom model
-   - DicomComponent
-   - Some MeshComponent for the geometry that contains the Dicom. Important: the vertices' bounding box must be {{-0.5, -0.5, -0.5}}.
-   - MeshRenderer
-   - MaterialComponent: using the Dicom3DMaterial 
+## 3D visualization
 
-![components_img](images/components.jpg)
+To render the volume, [set the DICOM render path](#2-set-the-dicom-render-path) and create an entity with these components:
 
-### What MeshComponent should I use?
+- `Transform3D`: places the volume. `DicomRenderer` sets its scale to `SizeMM` when a series loads, so scale a parent entity to change the size.
+- `DicomComponent`.
+- A mesh component, such as `CubeMesh` or `CylinderMesh`, that contains the volume. Its vertices must fit the box from (-0.5, -0.5, -0.5) to (0.5, 0.5, 0.5), which the renderer maps to the whole series.
+- `DicomRenderer`, which replaces `MeshRenderer`.
+- `MaterialComponent` with the `Dicom3DMaterial` material (`AssetIds.Materials.Dicom3DMaterial`).
 
-The easiest shape you could use is a simple cube of length 1, centered at (0, 0, 0).
+![3D components](images/components.jpg)
 
-However, if you have knowledge about the way the Dicom was captured, you could use a shape that approximates better the shape of the underlying pixels.
-For example, most [CT scanners](https://en.wikipedia.org/wiki/CT_scan) are cylindrical and, thus, the scanned pixels are also distributed inside a cylinder. Using a MeshComponent that has a better approximation of the Dicom pixels' shape can help improve rendering performance.
+```csharp
+using Evergine.Components.Graphics3D;
+using Evergine.Dicom;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
 
-## 2D Visualization
+var dicomComponent = new DicomComponent();
+var volume = new Entity("DicomVolume")
+    .AddComponent(new Transform3D())
+    .AddComponent(dicomComponent)
+    .AddComponent(new CubeMesh() { Size = 1 })
+    .AddComponent(new DicomRenderer())
+    .AddComponent(new MaterialComponent()
+    {
+        Material = this.Managers.AssetSceneManager.Load<Material>(AssetIds.Materials.Dicom3DMaterial),
+    });
 
-For the visualization of 2D cuts of the Dicom, we need another entity for each cut.
-The cut planes must be axis-aligned.
+this.Managers.EntityManager.Add(volume);
+await dicomComponent.LoadFromFile(dicomPath);
+```
 
-Each cut plane must have its own entity with the following components:
-- Transform3D: the position of the plane
-- PlaneMesh: with an axis-aligned `PlaneNormal` and a large `Width` and `Height` (one million, for example)
-- MeshRenderer
-- Dicom2DViewComponent: You must set the `Dicom` property to reference the `DicomComponent` created in the aforementioned entity.
-- MaterialComponent: using the Dicom2DMaterial
+| `DicomRenderer` property | Default | Description |
+| --- | --- | --- |
+| `DitheringEnabled` | `true` | Offsets the start of each ray randomly to remove the [banding](https://en.wikipedia.org/wiki/Colour_banding) of the volume, at the cost of a little noise. |
 
-![2d_components_img](images/components_2d.png)
+### Choose the mesh
 
-If your Dicom application only uses 2D visualization (no 3D), when you create the entity that contains the `DicomComponent`, you don't need most of the components: just the `Transform3D` and the `DicomComponent`. Also, if your Dicom application only requires 2D visualization, you don't need to add the `Dicom.CustomRenderPath`.
+A cube of size 1 centered at the origin is the simplest volume. If you know how the images were captured, a mesh closer to the shape of the scanned data renders faster, because fewer rays cross empty space. Most [CT scanners](https://en.wikipedia.org/wiki/CT_scan) are cylindrical, so their data fits in a cylinder, which is why `CreateDicomEntities` uses a `CylinderMesh` by default.
 
-We provide `DicomHelpers.CreateDicomEntities` methods that allow creating all the Dicom entities in a single call (there is one extension method for `Scene`).
+## 2D visualization
+
+Each slice is a separate entity with an axis-aligned plane. Create one entity per slice with these components:
+
+- `Transform3D`: the position of the plane. Move it to move the slice through the volume.
+- `PlaneMesh` with an axis-aligned `PlaneNormal` and a large `Width` and `Height`, for example 1000, so the plane crosses the whole volume. Outside the volume, the plane is drawn black.
+- `DicomRenderer2D`, with its `Dicom` property set to the `DicomComponent` of the volume entity.
+- `MaterialComponent` with the `Dicom2DMaterial` material (`AssetIds.Materials.Dicom2DMaterial`).
+
+![2D components](images/components_2d.png)
+
+```csharp
+var slice = new Entity("DicomSliceZ")
+    .AddComponent(new Transform3D())
+    .AddComponent(new PlaneMesh() { PlaneNormal = PlaneMesh.NormalAxis.ZPositive, Width = 1000, Height = 1000 })
+    .AddComponent(new DicomRenderer2D() { Dicom = dicomComponent })
+    .AddComponent(new MaterialComponent()
+    {
+        Material = this.Managers.AssetSceneManager.Load<Material>(AssetIds.Materials.Dicom2DMaterial),
+    });
+
+this.Managers.EntityManager.Add(slice);
+```
+
+If your application only shows slices, the entity with the `DicomComponent` only needs a `Transform3D` and the `DicomComponent`, and you do not need the DICOM render path.

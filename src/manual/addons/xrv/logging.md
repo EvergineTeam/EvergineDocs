@@ -1,65 +1,74 @@
 # Logging
 
-We provide a logging service that implements `Microsoft.Extensions.Logging.ILogger` and uses `Serilog`.
+---
 
-We use the `LoggingConfiguration` class to configure logging.
+XRV includes a logging service that implements `Microsoft.Extensions.Logging.ILogger` and writes through [Serilog](https://serilog.net/). Once you enable it, XRV logs its own initialization steps, and your components and services can log through the same `ILogger`, to the debug output and optionally to a file.
 
-| Properties          | Description                |
-| ------------------- | -------------------------- |
-| `LogLevel`          | Sets log level verbosity.  |
-| `EnableFileLogging` | If true, saves logs to a file. |
-| `FileOptions`       | Log file name and max size |
+## Enable logging
 
-## Registration
-
-Use the `WithLogging` method from `XrvService`.
+Call `WithLogging` on `XrvService` with a `LoggingConfiguration`, before you call `Initialize`, so the initialization of XRV and its modules is logged too:
 
 ```csharp
-var xrvService = Application.Current.Container.Resolve<XrvService>();
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.Services.Logging;
+using Microsoft.Extensions.Logging;
 
-var config = new LoggingConfiguration()
-{
-    LogLevel = LogLevel.Debug
-};
+var xrv = new XrvService()
+    .WithLogging(new LoggingConfiguration
+    {
+        LogLevel = LogLevel.Debug,
+        FileOptions = new FileLoggingOptions
+        {
+            FileName = "xrv.log",
+            MaxFileSize = 10 * 1024 * 1024,
+        },
+    });
 
-xrvService.WithLogging(config);
+this.Container.RegisterInstance(xrv);
 ```
 
-## Usage
+`WithLogging` registers the logger as an `ILogger` instance in the application container and exposes it as `XrvService.Services.Logging`.
 
-Obtain the service and use it as needed.
+| `LoggingConfiguration` property | Default | Description |
+| --- | --- | --- |
+| `LogLevel` | `LogLevel.Information` | Minimum level of the messages that are logged. |
+| `FileOptions` | `null` | File logging options. Leave it `null` to skip file logging. |
+| `EnableFileLogging` | `false` | Read-only. `true` when `FileOptions` is set. |
 
-### Get logging anywhere
+| `FileLoggingOptions` property | Description |
+| --- | --- |
+| `FileName` | Name of the log file. It is created in the `logs` folder of the local application data folder of the device. |
+| `MaxFileSize` | Maximum size of each log file, in bytes. When a file reaches it, logging continues in a new file. |
+
+> [!IMPORTANT]
+> File logging only starts when `MaxFileSize` has a value. Log files also roll every day, and the ten most recent files are kept.
+
+## Use the logger
+
+Resolve the logger from the container anywhere in your code:
 
 ```csharp
-// Get logger
 var log = Application.Current.Container.Resolve<ILogger>();
 ```
 
-### Get logging in a component
+or bind it in a component:
 
 ```csharp
-[BindService]
-private ILogger log = null;
-```
+using Evergine.Framework;
+using Microsoft.Extensions.Logging;
 
-### Log
+public class LoggedComponent : Component
+{
+    [BindService]
+    private ILogger log = null;
 
-```csharp
-// Log debug
-log.Log(LogLevel.Debug, "debug msg");
-```
+    protected override void Start()
+    {
+        base.Start();
 
-### Warning
-
-```csharp
-// Log warning
-log.LogWarning("warning msg");
-```
-
-### Error
-
-```csharp
-// Log error
-log.LogError("error");
+        this.log.LogDebug("Component started");
+        this.log.LogWarning("Something looks odd");
+        this.log.Log(LogLevel.Error, "Something failed");
+    }
+}
 ```

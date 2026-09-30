@@ -1,23 +1,63 @@
 # ComboBox
 
-The _ComboBox_ user control allows users to select an option from a dropdown list. It is distributed via a prefab named _ComboBox.weprefab_.
+---
 
 ![ComboBox](images/combobox.png)
 
-## Configuration properties
+The `ComboBox` control lets the user pick one option from a drop-down list. It shows the selected item, or a placeholder text when nothing is selected, and opens a popup with the options when the user taps it. The popup is a [list view](listview.md), so you fill it with the same data adapters.
 
-| Property               | Description                                                                                   |
-|-----------------------|-----------------------------------------------------------------------------------------------|
-| IsPopupOpen           | Indicates if the item selection popup is open.                                              |
-| DataSource            | This is the data adapter used to populate data. [Learn more about data adapters](listview.md#populate-data). |
-| SelectedItem          | Gets or sets the selected item.                                                              |
-| PlaceholderText       | Gets or sets the placeholder text to be displayed when no element has been selected.         |
-| ArrowMaterial         | Material for the drop-down arrow.                                                            |
-| Size                  | Sets the ComboBox dimensions.                                                                 |
-| MaxItemsHeight        | Gets or sets the maximum height for the items area.                                          |
+The control is distributed as the `ComboBox.weprefab` prefab.
+
+## Usage
+
+```csharp
+using System;
+using System.Collections.Generic;
+using Evergine.Framework;
+using Evergine.MRTK.SDK.Features.UX.Components.Lists;
+using Evergine.MRTK.SDK.Features.UX.Components.Selection;
+
+public class QualitySelector : Component
+{
+    [BindComponent(source: BindComponentSource.Children)]
+    private ComboBox comboBox = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        this.comboBox.PlaceholderText = "Select quality";
+        this.comboBox.DataSource = new ArrayAdapter<string>(new List<string> { "Low", "Medium", "High" });
+        this.comboBox.SelectedItemChanged += this.OnSelectedItemChanged;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+        this.comboBox.SelectedItemChanged -= this.OnSelectedItemChanged;
+    }
+
+    private void OnSelectedItemChanged(object sender, EventArgs e)
+    {
+        var quality = this.comboBox.SelectedItem as string;
+    }
+}
+```
+
+## Properties
+
+| Property | Default | Description |
+| --- | --- | --- |
+| `DataSource` | `null` | Data adapter that provides the options. See [data adapters](listview.md#populate-data). |
+| `SelectedItem` | `null` | The selected option. |
+| `PlaceholderText` | `null` | Text displayed when no option is selected. |
+| `ArrowMaterial` | `null` | Material of the drop-down arrow. |
+| `Size` | `(0.096, 0.032)` | Width and height of the control, in meters. |
+| `MaxItemsHeight` | `0.06` | Maximum height of the popup, in meters. Longer lists scroll. |
+| `IsPopupOpen` | `false` | Read-only. Indicates whether the popup is open. |
 
 ## Events
 
-| Event                   | Description                                       |
-|-------------------------|---------------------------------------------------|
-| SelectedItemChanged     | Raised when the selection is changed.            |
+| Event | Description |
+| --- | --- |
+| `SelectedItemChanged` | Raised when the selection changes. |

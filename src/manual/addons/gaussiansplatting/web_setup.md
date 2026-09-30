@@ -1,42 +1,44 @@
-# Setup Gaussian Splatting on the Web Platform
+# Gaussian Splatting on the web
+
 ---
 
-3D Gaussian Splatting requires special care and manual work to run on the [Web](../../platforms/web/index.md) platform.
+![Registering the web sorter](images/add_web_sorter.png)
 
-> [!NOTE]
-> These steps apply to both the **Web (WebGL)** and **WebGPU** profiles. Follow the same instructions regardless of which web profile you are using.
+On the [Web](../../platforms/web/index.md) platform, the add-on sorts the splats in a Web Worker, a background thread of the browser, so sorting millions of splats does not block rendering. This needs a NuGet package in your web project, one line of registration, a script in `index.html`, and two HTTP headers that allow the browser to share memory with the worker. The steps are the same for the **Web** (WebGL) and **WebGPU** profiles, and they match the `SplatRender` sample of the add-on repository.
 
-To render Gaussian Splatting, Evergine internally creates a separate thread to perform a sorting algorithm for all splats. Due to .NET idiosyncrasies with WASM and the Web platform, you will need to follow these steps:
+Before you start, complete the [Getting started](getting_started.md) steps and make sure your application has a Web or WebGPU profile.
 
-## Setup Gaussian Splatting in Your Web Application
+## 1. Add the Evergine.GaussianSplatting.Web package
 
-Prior to these steps, you need to:
-- Properly set up the rest of the requirements provided in the [Getting Started](getting_started.md) document.
-- Ensure that your Evergine application has a valid Web or WebGPU profile.
-
-### 1. Add the Evergine.GaussianSplatting.Web NuGet Package
-
-Add the `Evergine.GaussianSplatting.Web` NuGet package to your Web profile project (typically named **[ApplicationName].Web** or **[ApplicationName].WebGPU**).
-
-> [!NOTE]
-> The version must match the installed Evergine.GaussianSplatting add-on version.
+Add the `Evergine.GaussianSplatting.Web` NuGet package to your web project, usually named **[ApplicationName].Web** or **[ApplicationName].WebGPU**.
 
 ![Add web NuGet](images/add_web_nuget.png)
 
-### 2. Register a Gaussian Splatting Sorter for the Web
+> [!IMPORTANT]
+> Use the same version as the Evergine.GaussianSplatting add-on installed in your project.
 
-Now that you have added the NuGet package, add the following code in the **Program.cs** file in the same project, inside your `Run()` method:
+When the project builds, the package copies its scripts to the `wwwroot` folder of your project: `evergine_gaussiansplatting.js`, `evergine_sortworker.js`, `gsplat_native_bundle.js`, `gsplat_native_bundle.wasm`, and `gsplat_cache.js`. It also generates `gsplat_cache_manifest.js`, which holds a hash of each file.
 
-```cs
-// Register GSplat sorter.
+## 2. Register the web sorter
+
+In the `Program.cs` file of the same project, register `WorkerGSplatSorter` as the `IGSplatSorter` of the application, in the `Run` method, right after the application is created:
+
+```csharp
+using Evergine.GaussianSplatting.Sorter;
+using Evergine.GaussianSplatting.Web;
+
+// Create app
+application = new MyApplication();
+
+// Sort the splats in a Web Worker instead of the default sorter.
 application.Container.Register<IGSplatSorter, WorkerGSplatSorter>();
 ```
 
-![Add web sorter](images/add_web_sorter.png)
+`GSplatRenderer` uses the sorter registered in the container before it chooses one of its own.
 
-### 3. Add the JS File to Your index.html
+## 3. Load the script in index.html
 
-In your `index.html` file, add the following line at the end of the file:
+Add the script at the end of the `body` of `wwwroot/index.html`, after the scripts that start Evergine:
 
 ```html
 <script type="text/javascript" src="evergine_gaussiansplatting.js"></script>
@@ -44,11 +46,25 @@ In your `index.html` file, add the following line at the end of the file:
 
 ![Add JS file](images/add_html_script.png)
 
-### 4. Configure Web App Headers for Multithreading
+> [!TIP]
+> Browsers cache these scripts aggressively. The sample loads them through `gsplat_cache.js` and the generated manifest, which add the file hash to each URL, so users get the new files after you update the package:
+>
+> ```html
+> <!-- In the head, before evergine.js -->
+> <script type="text/javascript" src="gsplat_cache_manifest.js"></script>
+> <script type="text/javascript" src="gsplat_cache.js"></script>
+>
+> <!-- At the end of the body, instead of the plain script tag -->
+> <script type="text/javascript">
+>     window.gSplatCache.loadScript("gaussiansplatting", "evergine_gaussiansplatting.js");
+> </script>
+> ```
 
-To launch web worker threads in the web environment, add the following code to your **Program.cs** file located in your **[ApplicationName].Web.Server** or **[ApplicationName].WebGPU.Server** project, just after the `var app = builder.Build();` line. This configuration removes certain browser security restrictions related to Web Workers, allowing Evergine to create background threads safely.
+## 4. Send the cross-origin isolation headers
 
-```cs
+The worker shares memory with the application through `SharedArrayBuffer`, which browsers only allow on cross-origin isolated pages. Make your server send these two headers with every response. In the `Program.cs` of your **[ApplicationName].Web.Server** or **[ApplicationName].WebGPU.Server** project, add this code right after `var app = builder.Build();`:
+
+```csharp
 if (app.Environment.IsDevelopment())
 {
     app.UseWebAssemblyDebugging();
@@ -69,10 +85,16 @@ app.Use(async (context, next) =>
 
 ![Add cs code](images/add_cs_code.png)
 
-### Configure Headers in the React Template (Vite)
+> [!NOTE]
+> With `Cross-Origin-Embedder-Policy: require-corp`, the page can only load resources from other origins that allow it. If your splat files or other assets come from another server, that server must send the matching CORS or `Cross-Origin-Resource-Policy` headers.
 
-If you are using the **Evergine React template**, you must also configure the same headers in your SPA project so that local execution works correctly.
-Since Vite is used as the development server, update your `vite.config.ts` file to include the following:
+### Static hosting
+
+Static hosts such as GitHub Pages cannot send custom headers. The `SplatRender` sample solves this with the third-party [coi-serviceworker](https://github.com/gzuidhof/coi-serviceworker) script, which adds the headers from a service worker. It must be the first script loaded in the `head` of `index.html`.
+
+### React template (Vite)
+
+With the **Evergine React template**, the development server is Vite, so it must send the same headers. Add a plugin to `vite.config.ts`:
 
 ```javascript
 plugins: [
@@ -81,17 +103,13 @@ plugins: [
         name: 'configure-response-headers',
         configureServer: (server) => {
             server.middlewares.use((_req, res, next) => {
-                res.setHeader(
-                    'Cross-Origin-Opener-Policy',
-                    'same-origin'
-                );
-                res.setHeader(
-                    'Cross-Origin-Embedder-Policy',
-                    'require-corp'
-                );
+                res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+                res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
                 next();
             });
         },
     },
 ],
 ```
+
+To check that the setup works, open the browser console on your page and evaluate `crossOriginIsolated`. It must return `true`.

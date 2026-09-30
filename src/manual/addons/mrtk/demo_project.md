@@ -1,31 +1,46 @@
-# Demo Project
+# Demo project
+
 ---
-The demo scene in the MRTK repository showcases the toolkit's currently implemented features and their practical applications.
 
-![MRTK Demo scene](images/MRTK_Examples.png)
+![MRTK demo scene](images/MRTK_Examples.png)
 
-## Press Interaction
-This area demonstrates interactions using the _PressableButton_ class, including:
+The [MRTK demo project](https://github.com/EvergineTeam/MixedRealityToolkit/tree/main/Samples/Evergine.MRTK.Demo) shows every feature of the toolkit in one scene, grouped in areas. It includes profiles for Windows, Meta Quest, and Pico, so you can run it with the [desktop emulation](pointers_and_control.md#desktop-emulation) or on a headset. The `Content/Scenes/Samples` folder also contains one scene per control, such as `Buttons.wescene`, `Sliders.wescene`, and `ListViewScene.wescene`.
+
+## Press interaction
+
+Examples of the `PressableButton` component:
+
 - Standard buttons.
 - Toggle buttons.
-- Piano keys for musical interaction.
+- Piano keys built from pressable buttons.
 
-## Touch Interaction
-Here, you’ll find examples using _HandInteractionTouch_ to demonstrate touch behavior, specifically for _near interaction_.
+## Touch interaction
 
-## Slider Interaction
-This section features sliders that utilize the _PinchSlider_ class. These sliders allow users to modify the color of a connected object, offering an example of real-time customization.
+Examples of near interaction that use the demo's `HandInteractionTouch` behavior, which implements `IMixedRealityTouchHandler`.
 
-## Manipulation Interaction
-Examples here use the _SimpleManipulationHandler_ component, configured to explore varied interaction styles:
-- Objects with constrained manipulation settings.
-- Objects that interact with the physics engine and can be thrown around, returning to their starting position if they move too far.
+## Slider interaction
 
-## Bounding Box
-This group demonstrates the _BoundingBox_ component, which enables rotation, scaling, and handle-based manipulation. Handles can be hidden for simplified interactions, and the component can be combined with _SimpleManipulationHandler_ for more versatility.
+Sliders built with the `PinchSlider` component. Moving them changes the color of a connected object in real time.
 
-## Axis Manipulation Handler
-This section includes an example of the _AxisManipulationHandler_ component, featuring a 3-axis handle that allows movement along specific or combined axes without altering other properties.
+## Manipulation interaction
 
-## Pan and Zoom Control
-The _HandInteractionPanZoom_ example enables users to pan and zoom content using both _near_ and _far interaction_, providing flexibility for adjusting the view in mixed reality.
+Objects with the `SimpleManipulationHandler` component, configured in different ways:
+
+- Objects with constrained manipulation.
+- Objects driven by the physics engine that the user can throw. They return to their starting position if they move too far.
+
+## Bounding box
+
+Objects with the `BoundingBox` component, which adds handles to rotate and scale them. The handles can be hidden, and the component can be combined with `SimpleManipulationHandler` to move the object as well.
+
+## Axis manipulation handler
+
+An example of the `AxisManipulationHandler` component: a three-axis gizmo that moves an object along one axis or a plane without changing its other properties.
+
+## Pan and zoom
+
+The demo's `HandInteractionPanZoom` behavior lets the user pan and zoom content with near and far interaction.
+
+## Voice commands
+
+The demo registers a `FakeVoiceCommandService` that implements `IVoiceCommandService`. Hold **Tab** and type the number of a command to simulate that it was recognized, which shows how `SpeechHandler` components react without a speech recognizer.

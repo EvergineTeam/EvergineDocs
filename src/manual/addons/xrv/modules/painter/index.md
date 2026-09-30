@@ -1,44 +1,49 @@
-# Painter Module
+# Painter module
 
-If you need to draw 3D lines in virtual space, this module is a good option. It lets you draw lines with different colors and thicknesses, so it could be useful for drawing attention to certain elements like, for example, 3D models.
+---
+
+The Painter module draws 3D lines in space, with different colors and thicknesses. Use it to point out parts of a 3D model or of the real world to other people.
 
 ![snapshot](images/snapshot2.png)
 
-A remarkable capability of this drawing tool is that you can use both hands at the same time. Also, you can undo any drawing or deletion action, or even remove all drawn lines at any moment.
+The user can draw with both hands at the same time, undo any drawing or erasing action, and remove all the lines at once.
 
 ## Installation
 
-This module is packaged as an [Evergine add-on](../../../index.md). To use it in your project, just install it from the _Project Settings > Add-Ons_ window.
+This module is distributed as the **Evergine.Xrv.Painter** [add-on](../../../index.md). Install it from **Project Settings > Add-Ons** in Evergine Studio.
 
 ![Module installation](images/installation.png)
 
-Then, just register the module programmatically within your XRV service instance.
+Then register the module in your `XrvService`:
 
 ```csharp
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Painter;
+
 var xrv = new XrvService()
     .AddModule(new PainterModule());
 ```
 ## Usage
 
-- To open the painter window, tap on the ![hand icon](images/paint.png) hand menu button.
+- To open the painter window, tap the ![hand icon](images/paint.png) hand menu button.
 
 ![snapshot](images/snapshot.png)
 
 > [!NOTE]
 > Drawing or removing lines is only available while the painter window is open.
 
-- The color selection wheel lets users change the current color. The active color is marked with a selection indicator.
+- Pick the current color in the color wheel. An indicator marks the active color.
 
 ![current color](images/currentColor.png)
 
-- You can choose between a set of thicknesses that will be applied when a new line is drawn.
+- Pick the thickness for new lines:
     - ![thin](images/linethin.png) Thin.
     - ![medium](images/linemedium.png) Medium.
     - ![thick](images/linethick.png) Thick.
 
-- There are buttons to undo previous actions or remove all lines. The full set of actions is listed below.
-    - ![paint](images/paint.png) : Pinch fingers and drag to draw a line.
-    - ![eraser](images/eraser.png) : Pinch fingers and drag to remove a line.
-    - ![hand](images/hand.png) : Do nothing.
-    - ![undo ](images/undo.png) : Undo the last action.
-    - ![clear all](images/clearall.png) : Clear all lines.
+- Choose the action of your hands, or undo and clear:
+    - ![paint](images/paint.png) : pinch and drag to draw a line.
+    - ![eraser](images/eraser.png) : pinch and drag over a line to erase it.
+    - ![hand](images/hand.png) : the hands do not draw or erase.
+    - ![undo ](images/undo.png) : undoes the last action.
+    - ![clear all](images/clearall.png) : removes all the lines.

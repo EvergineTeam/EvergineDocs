@@ -1,45 +1,60 @@
-# Model Viewer Module
+# Model Viewer module
 
-One of the most common tasks while developing an XR experience is loading 3D models. With this module, you have a way to load models from a remote location into your application. When loaded, a model can be moved, rotated, and scaled thanks to its bounding box. Transformations can be performed by near or far interaction, indiscriminately.
+---
 
 ![Dragon](images/snapshot2.png)
 
-This module allows you to define an unlimited number of model repositories; each repository can contain an unlimited number of 3D models.
+Loading 3D models is one of the most common tasks in an XR experience. The Model Viewer module loads models from one or more repositories and places them in front of the user, surrounded by a bounding box that the user grabs to move, rotate, and scale them with near or far interaction. You can define any number of repositories, and each one can contain any number of models.
 
-| Properties               | Description                                                                        |
-| ------------------------ | ---------------------------------------------------------------------------------- |
-| `NormalizedModelEnabled` | If true, it will override the original scale of the model and set the same for all models. |
-| `NormalizedModelSize`    | Size in meters for models when loaded                                              |
-| `Repositories`           | Array of model repositories.                                                       |
+By default the module loads `.glb` and `.stl` files, through the Evergine GLB and STL runtimes.
 
-A repository has the following properties:
+| Property | Default | Description |
+| --- | --- | --- |
+| `Repositories` | `null` | Model repositories shown in the load window. |
+| `NormalizedModelEnabled` | `true` | Scales every loaded model to the same size, ignoring its original scale. |
+| `NormalizedModelSize` | `0.2` | Size, in meters, of the box that normalized models fit in. |
+| `Loaders` | GLB and STL | Dictionary from file extension to the `ModelRuntime` that loads it. Add entries to support more formats. |
+| `MaterialAssigner` | `null` | Function that creates the material for each `MaterialData` found in a model. Leave it `null` to use the runtime's default materials. |
 
-| Properties   | Description                                     |
-| ------------ | ----------------------------------------------- |
-| `Name`       | This name will be displayed on the model load list. |
-| `FileAccess` | Models data source. Please refer to the [Storage](../../storage.md) section for more information. |
+Each `Repository` has these properties:
+
+| Property | Description |
+| --- | --- |
+| `Name` | Name shown in the repository list of the load window. |
+| `FileAccess` | Where the models are stored. See [Storage](../../storage.md). |
 
 ## Installation
 
-This module is packaged as an [Evergine add-on](../../../index.md). To use it in your project, just install it from the _Project Settings > Add-Ons_ window.
+This module is distributed as the **Evergine.Xrv.ModelViewer** [add-on](../../../index.md). Install it from **Project Settings > Add-Ons** in Evergine Studio.
 
 ![Module installation](images/installation.png)
 
-Then, register the module programmatically within your XRV service instance.
+Then register the module in your `XrvService`:
 
 ```csharp
-FileAccess modelsDataSource = <Create FileAccess instance>;
+using System;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.Storage;
+using Evergine.Xrv.Core.Storage.Cache;
+using Evergine.Xrv.ModelViewer;
+
+var modelsFileAccess = AzureFileShareFileAccess.CreateFromUri(new Uri("https://<ACCOUNT>.file.core.windows.net/<share>?sv=..."));
+modelsFileAccess.BaseDirectory = "models";
+
+// Keeps downloaded models on disk, so they load faster the next time.
+modelsFileAccess.Cache = new DiskCache("models");
+
 var xrv = new XrvService()
     .AddModule(new ModelViewerModule
     {
         Repositories = new Repository[]
-                       {
-                            new Repository()
-                            {
-                                Name = "Remote Sample Models",
-                                FileAccess = loadModelFileAccess,
-                            }
-                       },
+        {
+            new Repository()
+            {
+                Name = "Remote sample models",
+                FileAccess = modelsFileAccess,
+            },
+        },
         NormalizedModelEnabled = true,
         NormalizedModelSize = 0.2f,
     });
@@ -47,28 +62,30 @@ var xrv = new XrvService()
 
 ## Usage
 
-- To open the model selection window, just tap on ![hand menu icon](images/addModel.png) hand menu button.
-- Select a model from the _Models_ list. Each repository can have a different set of models. Once you know which model you want to load, just press the _Load_ button.
+- To open the model selection window, tap the ![hand menu icon](images/addModel.png) hand menu button.
+- Select a repository and then a model from the **Models** list, and press **Load**.
 
 ![Model list](images/snapshot.png)
 
 ### Manipulation
 
-Using manipulators, you can move, scale, and rotate models. Manipulators are shown over the bounding box.
+The bounding box shows manipulators to move, scale, and rotate the model.
 
 ![Manipulators](images/manipulators.png)
 
-We have marked interaction areas with colors, depending on their manipulation possibilities.
-- **Red**: Scale, pinch on corners and drag to scale the model.
-- **Green**: Roll, pinch on the upper middle manipulator and drag for roll rotation.
-- **Blue**: Pitch, pinch on the side middle manipulator and drag for pitch rotation.
-- **Pink**: Stretch, pinch on the center manipulator and drag for stretch scale.
+Each color marks a kind of manipulation:
+
+- **Red**: scale. Pinch a corner and drag to scale the model.
+- **Green**: roll. Pinch the upper middle manipulator and drag to roll the model.
+- **Blue**: pitch. Pinch a side middle manipulator and drag to pitch the model.
+- **Pink**: stretch. Pinch the center manipulator and drag to stretch the model.
 
 ### Actions
 
-Each model has a submenu with a set of options. Tap on the ![Menu icon](images/hamburger.png) button to expand the list of available actions.
-- ![lock](images/locked.png): Manipulation is disabled for the model. It cannot be moved, rotated, or scaled until it is unlocked again.
-- ![reset](images/reset.png): Reset model to original scale and orientation. Position won't be modified.
-- ![remove](images/delete.png): Removes the model from virtual space.
+Each model has a menu with more actions. Tap the ![Menu icon](images/hamburger.png) button to expand the list of available actions.
+
+- ![lock](images/locked.png): Locks the model, so it cannot be moved, rotated, or scaled until you unlock it.
+- ![reset](images/reset.png): Restores the original scale and orientation of the model. The position does not change.
+- ![remove](images/delete.png): Removes the model from the scene.
 
 ![Menu open](images/menuOpen.png)

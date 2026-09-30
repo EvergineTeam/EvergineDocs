@@ -1,30 +1,37 @@
-# Image Gallery Module
+# Image Gallery module
 
-With this module, you can display a gallery of images that can be stored remotely. A new element will be added to the hand menu to provide direct access to the gallery window. This window includes UI elements like a slider and buttons that let the user load an image, among other features.
+---
+
+The Image Gallery module shows a gallery of images stored in a local or remote repository. It adds a hand menu button that opens the gallery window, where the user moves between images with buttons or a slider.
 
 ![Snapshot](images/snapshot.png)
 
-If the data source contains only one image, no navigation buttons will be displayed. A single-image data source is supported in the current module version.
+If the repository contains a single image, the window shows it without navigation buttons.
 
 > [!NOTE]
-> In the current version, there is a restriction: all images should be of the same size.
+> All the images must have the same size.
 
-| Properties          | Description                              |
-| ------------------- | ---------------------------------------- |
-| `ImagePixelsWidth`  | Image width for the viewer in pixels.    |
-| `ImagePixelsHeight` | Image height for the viewer in pixels.   |
-| `FileAccess`        | Images data source. Please refer to the [Storage](../../storage.md) section for more information. |
+| Property | Default | Description |
+| --- | --- | --- |
+| `ImagePixelsWidth` | `0` | Width of the images, in pixels. |
+| `ImagePixelsHeight` | `0` | Height of the images, in pixels. |
+| `FileAccess` | `null` | Repository that contains the images. See [Storage](../../storage.md). |
 
 ## Installation
 
-This module is packaged as an [Evergine add-on](../../../index.md). To use it in your project, simply install it from the _Project Settings > Add-Ons_ window.
+This module is distributed as the **Evergine.Xrv.ImageGallery** [add-on](../../../index.md). Install it from **Project Settings > Add-Ons** in Evergine Studio.
 
 ![Module installation](images/installation.png)
 
-Then, register the module programmatically within your XRV service instance.
+Then register the module in your `XrvService`:
 
 ```csharp
-FileAccess imagesDataSource = <Create FileAccess instance>;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.Storage;
+using Evergine.Xrv.ImageGallery;
+
+// Any FileAccess works; this one reads images from the local application data folder.
+var imagesDataSource = new ApplicationDataFileAccess() { BaseDirectory = "images" };
 var xrv = new XrvService()
     .AddModule(new ImageGalleryModule
     {
@@ -36,5 +43,5 @@ var xrv = new XrvService()
 
 ## Usage
 
-- To open the gallery window, tap on the ![hand menu icon](images/imagegallery.png) hand menu button.
-- You can navigate between images by clicking on the next ![next](images/next.png) or previous ![previous](images/previous.png) buttons. You can also change the current image using the attached slider.
+- To open the gallery window, tap the ![hand menu icon](images/imagegallery.png) hand menu button.
+- Move between images with the next ![next](images/next.png) or previous ![previous](images/previous.png) buttons, or with the slider.

@@ -1,33 +1,42 @@
-# Streaming Viewer Module
+# Streaming Viewer module
 
-This module allows you to load a video stream from an _MJPEG_ source. This is the only streaming protocol supported in the current version. The video size cannot be configured, which means that the window size may vary depending on the image size provided by the server.
+---
+
+The Streaming Viewer module shows a live video stream from an MJPEG source, such as an IP camera, in a window. MJPEG is the only supported protocol. The window takes the size of the images that the server sends, so it cannot be configured.
 
 ![snapshot](images/snapshot.png)
 
 > [!NOTE]
-> The provided JPEG responses must include the _Content-Length_ header to function properly.
+> Each JPEG frame in the stream must include the `Content-Length` header.
+
+| Property | Default | Description |
+| --- | --- | --- |
+| `SourceURL` | `null` | URL of the MJPEG stream. |
 
 ## Installation
 
-This module is packaged as an [Evergine add-on](../../../index.md). To use it in your project, install it from the _Project Settings > Add-Ons_ window.
+This module is distributed as the **Evergine.Xrv.StreamingViewer** [add-on](../../../index.md). Install it from **Project Settings > Add-Ons** in Evergine Studio.
 
 ![Module installation](images/installation.png)
 
-Next, register the module programmatically within your XRV service instance.
+Then register the module in your `XrvService`, with the URL of the stream:
 
 ```csharp
+using Evergine.Xrv.Core;
+using Evergine.Xrv.StreamingViewer;
+
 var xrv = new XrvService()
-    .AddModule(new StreamingViewerModule 
+    .AddModule(new StreamingViewerModule
     {
-        SourceURL = "http://<HOST>/video.mjpg"
+        SourceURL = "http://<HOST>/video.mjpg",
     });
 ```
 
-## Android-Based Systems
+## Android devices
 
-In Android-based systems, such as Meta Quest, there are constraints regarding clear text traffic. By default, it is not allowed. If your source is not served over HTTPS, you must whitelist the camera's domain or IP address using the appropriate native mechanism. Please see the [Android documentation](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted) for more information.
+Android devices, such as Meta Quest and Pico, block clear-text (HTTP) traffic by default. If your stream is not served over HTTPS, allow the camera's domain or IP address in the network security configuration of your Android project. See the [Android documentation](https://developer.android.com/training/articles/security-config#CleartextTrafficPermitted) for details.
 
-1. Add an XML file under the Android resources folder. We will name it _network_security_config.xml_.
+1. Add an XML file named `network_security_config.xml` to the `Resources/xml` folder of your Android project.
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -39,7 +48,7 @@ In Android-based systems, such as Meta Quest, there are constraints regarding cl
 </network-security-config>
 ```
 
-2. Register the security configuration within your application definition under the Android manifest file.
+2. Reference it from the `application` element of the Android manifest with `android:networkSecurityConfig`.
 
 ```xml
 <application android:allowBackup="true" android:icon="@mipmap/ic_launcher" android:label="@string/app_name" android:roundIcon="@mipmap/ic_launcher_round" android:supportsRtl="true" android:networkSecurityConfig="@xml/network_security_config">
@@ -49,4 +58,4 @@ In Android-based systems, such as Meta Quest, there are constraints regarding cl
 
 ## Usage
 
-- Use the ![snapshot](images/VideoStreaming.png) hand menu button to open the streaming window.
+- The ![streaming](images/VideoStreaming.png) hand menu button opens the streaming window.

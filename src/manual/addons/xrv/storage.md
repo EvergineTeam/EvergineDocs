@@ -1,28 +1,68 @@
 # Storage
 
-If your application requires an external repository for models, images, or other files, _XRV_ offers a flexible file storage system. The base class, _FileAccess_, can be extended to create custom implementations with full CRUD capabilities for files in various storage repositories.
+---
 
-## File Access
+When your application needs files from an external repository, such as 3D models or images, XRV's storage system gives you one API for all of them. `FileAccess` is the abstract base class: its implementations read and write files in local storage, Azure Blob Storage, or Azure Files, and you can derive your own for other repositories. Modules like the [Model Viewer](modules/modelViewer/index.md) and the [Image Gallery](modules/imageGallery/index.md) take a `FileAccess` as their data source.
 
-The following methods are available in any _FileAccess_ implementation and provide core functionalities for file and directory operations.
+The storage types live in the `Evergine.Xrv.Core.Storage` namespace, and the disk cache in `Evergine.Xrv.Core.Storage.Cache`.
+
+## File access
+
+Every `FileAccess` implementation offers these operations. Paths are relative to `BaseDirectory`, and every method accepts an optional `CancellationToken`.
 
 | Method | Description |
-| ------ | ------------------- |
-| **ClearAsync** | Clears all files and directories. |
-| **CreateBaseDirectoryIfNotExistsAsync** | Ensures that the base directory defined by _BaseDirectory_ exists. If it does not exist, the directory is created. |
-| **CreateDirectoryAsync** | Creates a directory, indicated by a relative path. |
-| **DeleteDirectoryAsync** | Deletes a directory, indicated by a relative path. |
-| **DeleteFileAsync** | Deletes a file, indicated by a relative path. |
-| **GetFileAsync** | Gets file contents by relative path. |
-| **GetFileItemAsync** | Gets file metadata by relative path. |
-| **EnumerateDirectoriesAsync** | Enumerates directories existing in the base directory or a relative directory path. |
-| **EnumerateFilesAsync** | Enumerates files existing in the base directory or a relative directory path. |
-| **ExistsDirectoryAsync** | Checks if a directory, indicated by a relative path, exists or not. |
-| **WriteFileAsync** | Writes file contents by relative path. |
+| --- | --- |
+| `ClearAsync` | Deletes all the files and directories. |
+| `CreateBaseDirectoryIfNotExistsAsync` | Creates the directory set in `BaseDirectory` if it does not exist. |
+| `CreateDirectoryAsync` | Creates a directory. |
+| `DeleteDirectoryAsync` | Deletes a directory. |
+| `DeleteFileAsync` | Deletes a file. |
+| `EnumerateDirectoriesAsync` | Lists the directories in the base directory or in a relative path. Returns `DirectoryItem` objects. |
+| `EnumerateFilesAsync` | Lists the files in the base directory or in a relative path. Returns `FileItem` objects, with name, path, size, dates, and MD5 hash when available. |
+| `ExistsDirectoryAsync` | Checks whether a directory exists. |
+| `ExistsFileAsync` | Checks whether a file exists. |
+| `GetFileAsync` | Opens a file and returns its content as a `Stream`. |
+| `GetFileItemAsync` | Returns the metadata of a file as a `FileItem`. |
+| `WriteFileAsync` | Writes a `Stream` to a file. |
 
-### Local Application Data Folder Storage
+| Property | Default | Description |
+| --- | --- | --- |
+| `BaseDirectory` | `null` | Directory, inside the storage, that relative paths start from. |
+| `Cache` | `null` | Optional [disk cache](#disk-cache). |
+| `IsCachingEnabled` | `false` | Read-only. `true` when `Cache` is set. |
 
-The _ApplicationDataFileAccess_ implementation sets the base path to _System.Environment.SpecialFolder.LocalApplicationData_, which varies depending on the platform. To use this storage, set the _BaseDirectory_ to the desired folder name. This option is ideal for data caching or temporary file storage, but note that files may not be accessible outside of the application depending on the platform.
+For example, this method lists the files of a repository and reads the first one:
+
+```csharp
+using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Evergine.Xrv.Core.Storage;
+
+public static class StorageSample
+{
+    public static async Task<long> ReadFirstFileAsync(FileAccess fileAccess)
+    {
+        var files = await fileAccess.EnumerateFilesAsync();
+        var first = files.FirstOrDefault();
+        if (first == null)
+        {
+            return 0;
+        }
+
+        using (Stream stream = await fileAccess.GetFileAsync(first.Path))
+        using (var memory = new MemoryStream())
+        {
+            await stream.CopyToAsync(memory);
+            return memory.Length;
+        }
+    }
+}
+```
+
+## Local application data
+
+`ApplicationDataFileAccess` stores files in the local application data folder of the device (`System.Environment.SpecialFolder.LocalApplicationData`, whose location depends on the platform). Set `BaseDirectory` to the folder you want to use. It suits caches and temporary files; depending on the platform, other applications may not be able to see these files.
 
 ```csharp
 var fileAccess = new ApplicationDataFileAccess()
@@ -30,41 +70,56 @@ var fileAccess = new ApplicationDataFileAccess()
     BaseDirectory = "my-folder",
 };
 ```
+
+The constructor that takes a `rootPath` stores the files under that path instead.
+
 > [!NOTE]
-> Some folders are used internally. Avoid using _"cache"_ as the base directory name.
+> XRV uses some folders internally. Do not use `cache` as the base directory name.
 
-### Azure Blob Data Storage
+## Azure Blob Storage
 
-_Azure Blob Storage_ can also be used for storing and retrieving files needed by your application. To set up an Azure Blob instance, provide storage account configuration details. Note that directory methods may not work here, as Azure Blob Storage does not support traditional directories. When using SAS (Shared Access Signature), ensure it includes permissions for full CRUD access if needed.
-
-```csharp
-var fileAccess = AzureBlobFileAccess.CreateFromConnectionString("Storage account connection string", "Container name"); //or
-var fileAccess = AzureBlobFileAccess.CreateFromUri("https://<ACCOUNT>.blob.core.windows.net/container?sv=2021-08-06&st=2022-11-18T15%3A07%3A20Z&..."); // Container URI containing SAS (or without SAS for public containers, if you need read-only operations)
-var fileAccess = AzureBlobFileAccess.CreateFromConnectionString("https://<ACCOUNT>.blob.core.windows.net/container", "sv=2021-08-06&st=2022-11-18T15%3A07%3A20Z&...");  // Container URI with separated SAS
-```
-
-### Azure Files Data Storage
-
-_Azure Files_ is another supported storage option that uses similar configuration parameters. You can set up Azure Files using the connection configuration data provided.
+`AzureBlobFileAccess` reads and writes blobs in an Azure Storage container. Create it from a connection string, from a container URI, or from a URI and a separate SAS token. Blob Storage has no real directories, so the directory methods may not behave as they do in a file system. If you authenticate with a SAS, give it the permissions for every operation you need.
 
 ```csharp
-var fileAccess = AzureFileShareFileAccess.CreateFromConnectionString("Storage account connection string", "Share name"); //or
-var fileAccess = AzureFileShareFileAccess.CreateFromUri("https://<ACCOUNT>.file.core.windows.net/share?sv=2021-08-06&st=2022-11-18T15%3A07%3A20Z&..."); // Share URI containing SAS
-var fileAccess = AzureFileShareFileAccess.CreateFromConnectionString("https://<ACCOUNT>.file.core.windows.net/share", "sv=2021-08-06&st=2022-11-18T15%3A07%3A20Z&...");  // Share URI with separated SAS
+using System;
+using Evergine.Xrv.Core.Storage;
+
+// From a connection string and a container name.
+var fromConnectionString = AzureBlobFileAccess.CreateFromConnectionString("<connection string>", "<container name>");
+
+// From a container URI that includes the SAS token. A public container needs no SAS for read-only access.
+var fromUri = AzureBlobFileAccess.CreateFromUri(new Uri("https://<ACCOUNT>.blob.core.windows.net/<container>?sv=..."));
+
+// From a container URI and a separate SAS token.
+var fromSignature = AzureBlobFileAccess.CreateFromSignature(new Uri("https://<ACCOUNT>.blob.core.windows.net/<container>"), "sv=...");
 ```
 
-## Disk Cache
+## Azure Files
 
-Any _FileAccess_ instance can use an optional disk cache, which will check for and retrieve files locally before attempting to download them again. To enable caching, create a _DiskCache_ instance and assign it to the _FileAccess_ instance.
+`AzureFileShareFileAccess` works the same way with an Azure Files share:
 
 ```csharp
-var fileAccess = AzureFileShareFileAccess.CreateFromUri(...);
-fileAccess.Cache = new DiskCache("images"); // indicate a unique cache name for your needs
+using System;
+using Evergine.Xrv.Core.Storage;
+
+var fromConnectionString = AzureFileShareFileAccess.CreateFromConnectionString("<connection string>", "<share name>");
+
+var fromUri = AzureFileShareFileAccess.CreateFromUri(new Uri("https://<ACCOUNT>.file.core.windows.net/<share>?sv=..."));
+
+var fromSignature = AzureFileShareFileAccess.CreateFromSignature(new Uri("https://<ACCOUNT>.file.core.windows.net/<share>"), "sv=...");
 ```
 
-Cache settings include the following options:
+## Disk cache
 
-| Property | Description |
-| ------ | ------------------- |
-| SizeLimit | Cache size limit. Defaults to 100 MB. |
-| SlidingExpiration | Maximum time an item remains in cache without being accessed. |
+Any `FileAccess` can use a disk cache. When it is enabled, `GetFileAsync` looks for the file in the cache before downloading it again. Create a `DiskCache` with a name that is unique in your application and assign it to the `Cache` property:
+
+```csharp
+var fileAccess = AzureFileShareFileAccess.CreateFromUri(new Uri("https://<ACCOUNT>.file.core.windows.net/<share>?sv=..."));
+fileAccess.Cache = new DiskCache("images");
+```
+
+| `DiskCache` property | Default | Description |
+| --- | --- | --- |
+| `SizeLimit` | 100 MB | Maximum size of the cache, in bytes. When it is exceeded, the least recently used files are removed. |
+| `SlidingExpiration` | `TimeSpan.MaxValue` | Time a file stays in the cache without being accessed. The default keeps files until the size limit removes them. |
+| `CurrentCacheSize` | | Read-only. Current size of the cache, in bytes. |
