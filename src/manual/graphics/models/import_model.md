@@ -1,6 +1,6 @@
 # Import a Model
 
-![Drag and Drop Asset](Images/ModelImport.png)
+![Drag and Drop Asset](images/ModelImport.png)
 
 In **Evergine Studio**, importing a 3D model file will create a **Model** asset, as explained in [this article](../../evergine_studio/assets/create.md).
 
@@ -18,7 +18,7 @@ Depending on the 3D model file, when importing a **Model**, it may also import o
 
 You can find the model assets in the *Assets Details* panel when you select a folder in the *Project Explorer*.
 
-![Texture view](Images/ModelGallery.png)
+![Texture view](images/ModelGallery.png)
 
 The picture shows both the **Model** asset and the **Embedded** folder for all the generated assets.
 
@@ -26,7 +26,7 @@ The picture shows both the **Model** asset and the **Embedded** folder for all t
 
 **Models** imported in **Evergine** create an additional metadata `.wemd` file.
 
-![Model files](Images/ModelFiles.png)
+![Model files](images/ModelFiles.png)
 
 ## Supported Formats
 

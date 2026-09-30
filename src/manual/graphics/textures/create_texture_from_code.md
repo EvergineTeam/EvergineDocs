@@ -1,52 +1,135 @@
 # Create a Texture from Code
 
-The most common use of **Texture** is assigning them to **Materials** and **Components**. However, it's perfectly valid to use and even create a **Texture** from code.
+---
 
-## Load a Texture Asset from Code
-As explained in [this article](../../evergine_studio/assets/use.md), this is perfectly possible. Here is a sample code for creating a primitive entity with a Diffuse material.
+Textures are usually assets that you assign to materials and components in Evergine Studio. From code you can do two things with them: load a texture asset and use it, or create a texture at runtime from your own pixel data.
+
+## Load a texture asset from code
+
+Load the asset through the scene's `AssetSceneManager` (or the `AssetsService`) with the id that `EvergineContent` generates for it, as explained in [Using assets](../../evergine_studio/assets/use.md). This example gives a teapot a material with a base color texture:
 
 ```csharp
-protected override void CreateScene()
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Managers;
+
+public class MyScene : Scene
 {
-    AssetSceneManager assets = this.Managers.AssetSceneManager;
+    protected override void CreateScene()
+    {
+        AssetSceneManager assets = this.Managers.AssetSceneManager;
 
-    // Loading 'Diffuse.png' located in 'Content/Textures/'
-    Texture diffuseTexture = assets.Load<Texture>(EvergineContent.Textures.Diffuse**png);
+        // Content/Textures/Diffuse.png
+        Texture diffuseTexture = assets.Load<Texture>(EvergineContent.Textures.Diffuse_png);
 
-    // We create a standard material and assign the texture as a diffuse channel.
-    StandardMaterial materialDecorator = new StandardMaterial(assets.Load<Effect>(EvergineContent.Effects.StandardEffect));
-    material.BaseColorTexture = diffuseTexture;
+        var material = new StandardMaterial(assets.Load<Effect>(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assets.Load<RenderLayerDescription>(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorTexture = diffuseTexture,
+            BaseColorSampler = assets.Load<SamplerState>(DefaultResourcesIDs.LinearWrapSamplerID),
+        };
 
-    // We create a primitive
-    Entity teapot = new Entity("texturedTeapot")
-                        .AddComponent(new Transform3D())
-                        .AddComponent(new TeapotMesh())
-                        .AddComponent(new MaterialComponent() { Material = materialDecorator.Material })
-                        .AddComponent(new MeshRenderer());
+        Entity teapot = new Entity("texturedTeapot")
+            .AddComponent(new Transform3D())
+            .AddComponent(new TeapotMesh())
+            .AddComponent(new MaterialComponent() { Material = material.Material })
+            .AddComponent(new MeshRenderer());
 
-    this.Managers.EntityManager.Add(teapot);
+        this.Managers.EntityManager.Add(teapot);
+    }
 }
 ```
 
-## Create a Texture from Code
-Creating a **Texture** demands a little bit more effort and is defined in [this article](../low_level_api/texture.md). Basically, we need to define two main things:
-- **TextureDescription** structure
-- **DataBoxes** with the texture data
+## Create a texture from pixel data
 
-#### TextureDescription
+To create a texture at runtime you need two things: a `TextureDescription` that says what kind of texture it is, and one `DataBox` per subresource with the pixels. The [Texture](../low_level_api/texture.md) page of the low-level API covers every option; this section shows the common case.
 
-The **TextureDescription** struct contains all the specifications of the **Texture** so the graphics card can properly load the **buffer data** accordingly and be able to extract all the information.
+### TextureDescription
 
-| Property | Values | Description |
-| -------- | ------ | ----------- |
-| TextureType | Texture2D, Texture2DArray, Texture1D, Texture1DArray, TextureCube, TextureCubeArray, Texture3D | The type of the texture. |
-| Width | unsigned integer | Width of the texture (first dimension). The maximum value is defined by the device hardware. |
-| Height | unsigned integer | Height of the texture (second dimension). The maximum value is defined by the device hardware. |
-| Depth | unsigned integer | Depth of the texture (third dimension). Used in **Texture3D**. The maximum value is defined by the device hardware. |
-| Layers | unsigned integer | The total number of texture layers. For texture arrays this is the array size; for cubemaps each face counts as one layer (e.g. a single cubemap has `Layers = 6`; a cubemap array of 4 has `Layers = 24`). |
-| MipLevels | unsigned integer | Maximum number of mipmap levels in the **Texture**. |
-| ResourceUsage | <ul><li>**Default**: Requires read and write access from the GPU.</li><li>**Immutable**: Can only be read by the GPU. Cannot be written or accessed by the CPU.</li><li>**Dynamic**: Can be accessed by the GPU (read only) and the CPU (write only). Used for textures updated by the CPU.</li><li>**Staging**: Supports data transfer (copy) from the GPU to the CPU.</li></ul> | Type of access of the **Texture**. |
-| Usage | None, Count2, Count4, Count8, Count16, Count32 | Number of samples in the **Texture**. |
+| Field | Default | Description |
+| --- | --- | --- |
+| **Type** | `Texture2D` | `Texture1D`, `Texture1DArray`, `Texture2D`, `Texture2DArray`, `TextureCube`, `TextureCubeArray` or `Texture3D`. |
+| **Format** | `R8G8B8A8_UNorm` | The `PixelFormat` of each texel. |
+| **Width** | 1 | Width in texels. The maximum depends on the device. |
+| **Height** | 1 | Height in texels. |
+| **Depth** | 1 | Depth in texels, for `Texture3D` only. |
+| **ArraySize** | 1 | Number of textures in an array texture. A cube map counts its six faces as one element, so a single cube map has `ArraySize = 1`. |
+| **MipLevels** | 1 | Number of mipmap levels. |
+| **Flags** | `ShaderResource` | How the GPU uses it: `ShaderResource`, `RenderTarget`, `UnorderedAccess`, `DepthStencil`, `GenerateMipmaps`, combinable. |
+| **Usage** | `Default` | `Default` (GPU reads and writes), `Immutable` (GPU reads only, contents fixed at creation), `Dynamic` (GPU reads, CPU writes) or `Staging` (copies between GPU and CPU). |
+| **CpuAccess** | `None` | `None`, `Write` or `Read`. Only `Dynamic` and `Staging` textures can be accessed from the CPU. |
+| **SampleCount** | `None` | Multisampling: `None`, `Count2`, `Count4`, `Count8`, `Count16` or `Count32`. |
 
-#### DataBoxes
-A **DataBox** represents a data buffer that contains all pixels of an element of a texture. Every mipmap level, array slice, or cube face defines its own DataBox.
+The static helpers `TextureDescription.CreateTexture1DDescription`, `CreateTexture2DDescription`, `CreateTexture3DDescription` and `CreateTextureCubeDescription` return a description with these defaults and the size and format you pass.
+
+### DataBox
+
+A `DataBox` points at the pixels of one subresource: one mip level of one array slice or cube face. It also carries the row pitch (bytes per row) and the slice pitch (bytes per 2D slice). A texture with several mip levels or slices takes an array of them, ordered slice by slice and, within each slice, mip by mip.
+
+### Example
+
+This scene creates a 256 × 256 checkerboard and shows it on a plane:
+
+```csharp
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+
+public class CheckerScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
+
+        const uint size = 256;
+        const uint cell = 32;
+        byte[] pixels = new byte[size * size * 4];
+
+        for (uint y = 0; y < size; y++)
+        {
+            for (uint x = 0; x < size; x++)
+            {
+                byte value = (((x / cell) + (y / cell)) % 2 == 0) ? (byte)255 : (byte)40;
+                uint i = ((y * size) + x) * 4;
+                pixels[i] = value;
+                pixels[i + 1] = value;
+                pixels[i + 2] = value;
+                pixels[i + 3] = 255;
+            }
+        }
+
+        var description = TextureDescription.CreateTexture2DDescription(size, size, PixelFormat.R8G8B8A8_UNorm);
+
+        // One subresource: mip 0 of slice 0. The row pitch is the width in bytes.
+        var data = new DataBox[] { new DataBox(pixels, size * 4) };
+        Texture checker = graphicsContext.Factory.CreateTexture(data, ref description, "Checker");
+
+        var material = new StandardMaterial(assetsService.Load<Effect>(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assetsService.Load<RenderLayerDescription>(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorTexture = checker,
+            BaseColorSampler = assetsService.Load<SamplerState>(DefaultResourcesIDs.LinearWrapSamplerID),
+        };
+
+        Entity plane = new Entity("checkerPlane")
+            .AddComponent(new Transform3D())
+            .AddComponent(new PlaneMesh())
+            .AddComponent(new MaterialComponent() { Material = material.Material })
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(plane);
+    }
+}
+```
+
+> [!NOTE]
+> A texture you create yourself is not tracked by the asset system. Dispose it when you no longer need it.

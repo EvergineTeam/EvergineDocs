@@ -1,240 +1,238 @@
 # Meshes
 
+---
+
 ![Meshes](images/Meshes.jpg)
 
-## Introduction
+A **mesh** is the smallest thing Evergine draws: a set of vertices, usually an index buffer that joins them into triangles, and a topology that says how to read them. Each mesh is drawn with exactly one material, so an object with several materials is made of several meshes grouped in a [model](../models/index.md).
 
-A mesh is a single drawable element, a fundamental structure used to represent 3D objects in a scene. It is composed of vertices (points in 3D space) that are connected to form polygons, typically triangles. It also is rendered with only one **Material**.
+Every vertex can carry more than a position: normals tell the lighting which way the surface faces, texture coordinates map textures onto it, and colors, tangents or custom data feed whatever the shader needs.
 
-Each vertex in a mesh can hold additional information, such as normals (which define the direction a surface is facing), UV coordinates (which map textures to the object), and color or other custom data. This allows the mesh to have detailed surface characteristics, like how it reflects light or how a texture is applied to it. 
+You rarely build meshes by hand. Imported models and [primitives](../primitives.md) create them for you. Build one from code when the geometry is procedural or comes from your own data.
 
-Complex models contains multiple meshes with multiple materials, as defined in this article.
+## Mesh
 
-#### Parameters
-The *Evergine* mesh class contains the following parameters.
+The `Mesh` class (namespace `Evergine.Framework.Graphics`) has these members:
 
-| Property | Type | Description |
-|----------| ---- |-------------|
-| **VertexBuffers** | `VertexBuffer[]`. | Array containing  the vertex buffers of the mesh (explained [here](#vertex-buffers)) |
-| **IndexBuffer** | `IndexBuffer`. | The mesh index buffer. Can be null (explained [here](#index-buffers))|
-| **Buffers** | `Buffer[]`. | Array containing all the **Buffer** instances of every vertex buffer. |
-| **Offsets** | `int[]`. |Array containing all the vertex offsets of every vertex buffer. |
-| **PrimitiveTopology** | `PrimitiveTopology`. | Enumeration containing the type of geometric topology used for the  mesh.  Its values are: <li>Undefined</li><li>PointList</li><li>LineList</li><li>LineStrip</li><li>TriangleList</li><li>TriangleStrip</li><li>LineListWithAdjacency</li><li>TriangleListWithAdjacency</li><li>Patch_List</li> |
-| **InputLayouts** | `InputLayouts`. | Object containing the LayoutDescription of every vertex buffer.|
-| **Primitive Count** | `int`. | The number of primitives of the mesh. |
-| **ElementCount** | `int`. | The number of elements in the mesh. It's affected by the topology (For example, 1 triangle contains 3 elements, but 1 line is made of 2).|
-| **VertexSize** | `ushort`. | The memory size (in bytes) of a single vertex.
-| **AllowBatching** | `bool`. | If the mesh can be used in dynamic and static batching.|
+| Member | Type | Description |
+| --- | --- | --- |
+| **VertexBuffers** | `VertexBuffer[]` | The vertex buffers of the mesh. See [Vertex buffers](#vertex-buffers). |
+| **IndexBuffer** | `IndexBuffer` | The index buffer. It is `null` for a non-indexed mesh. See [Index buffers](#index-buffers). |
+| **Buffers** | `Buffer[]` | The low-level `Buffer` of each vertex buffer, in the same order, ready to bind. |
+| **Offsets** | `uint[]` | The byte offset of each vertex buffer, in the same order. |
+| **InputLayouts** | `InputLayouts` | The layout descriptions of all the vertex buffers, used to build the pipeline. |
+| **PrimitiveTopology** | `PrimitiveTopology` | How vertices form primitives: `PointList`, `LineList`, `LineStrip`, `TriangleList`, `TriangleStrip`, the adjacency variants, or `Patch_List` for tessellation. |
+| **ElementCount** | `int` | Number of indices (or vertices for a non-indexed mesh) to draw. |
+| **PrimitiveCount** | `int` | Number of primitives, derived from `ElementCount` and the topology. A triangle list with 6 elements has 2 primitives. |
+| **VertexOffset** | `int` | First vertex to read. |
+| **IndexOffset** | `int` | First index to read. |
+| **BoundingBox** | `BoundingBox?` | Local-space bounds, used for culling and light assignment. Leave it `null` only for meshes that should never be culled. |
+| **MaterialIndex** | `int` | Which entry of the model's material list this mesh uses. |
+| **AllowBatching** | `bool` | Whether the mesh can be merged with others by dynamic batching. `true` by default. |
 
-## Vertex Buffers
+## Vertex buffers
 
-The *VertexBuffer* class in Evergine represents a buffer that holds the vertex data required for rendering 3D objects. 
-It mainly contains the **Buffer** that contains the raw data and the **LayoutDescription** declaring what kind of vertex information it has.
-The Vertex Buffer plays a crucial role in managing the vertex layouts and size, ensuring that this data can be processed efficiently by the GPU. The VertexBuffer class handles data organization and allows developers to define how vertex attributes like positions, normals, and textures are stored.
+A `VertexBuffer` pairs a GPU `Buffer` holding the raw vertex data with a `LayoutDescription` that says what each vertex contains: which attributes, in which format, at which offset.
 
-### Interleaved and Non-Interleaved Data
+| Member | Type | Description |
+| --- | --- | --- |
+| **Buffer** | `Buffer` | The buffer with the vertex data. It must be created with `BufferFlags.VertexBuffer`. |
+| **LayoutDescription** | `LayoutDescription` | The attributes of one vertex: format, semantic, semantic index and offset of each element, plus the `Stride` of the whole vertex. |
+| **VertexCount** | `int` | Number of vertices, computed from the buffer size and the stride. |
+| **Offset** | `int` | Byte offset of the first vertex inside the buffer. |
+| **Size** | `int` | Size of the data in bytes. |
+| **Data** | `IntPtr` | Optional pointer to a CPU copy of the data. |
 
-It's common to think of a vertex as a single entity (an object that holds all its relevant data). However, we can also get vertex attributes from separate streams, where the data for each attribute (like position, normals, or colors) is stored in contiguous memory blocks: one for positions, another for normals, and so on.
+### Interleaved and non-interleaved data
 
-This approach offers several advantages. For example, it allows vertex data to be accessed by different Vertex Shaders without wasting bandwidth or cache space. In cases where a vertex is processed for a shadow map, the vertex function might only require the position, not the other attributes. If all vertex data is stored together, the GPU would have to traverse more memory to retrieve only the needed data. Additionally, optimizing the layout of this data within a struct can be tricky due to alignment and cache considerations.
+A mesh can store all the attributes of a vertex together in one buffer (**interleaved**), or keep each attribute in its own buffer (**non-interleaved**), with one vertex buffer per stream.
 
+![Interleaved vertex data: one buffer in which each vertex stores its position and color next to each other](images/InterleavedData.png)
 
-#### Interleaved Vertex Attributes
-![Interleaved](images/InterleavedData.png)
+![Non-interleaved vertex data: one buffer of positions and another of colors, each a contiguous stream](images/NonInterleavedData.png)
 
-#### Non-interleaved Vertex Attributes
-![Non-Interleaved](images/NonInterleavedData.png)
+*Interleaved data is compact and simple. Separate streams let a pass read only what it needs: a shadow map pass that only reads positions touches far less memory.*
 
+### Predefined vertex types
 
-As we can see,  vertex data can be arranged either with all attributes of a vertex stored together (**interleaved**) or with each attribute type stored together across all vertices (**non-interleaved**).
+Evergine provides vertex structs in `Evergine.Common.Graphics` that already carry their `LayoutDescription` in a static `VertexFormat` field:
 
-### Parameters
-| Property | Type | Description |
-|----------|------|-------------|
-| **Buffer** | `Buffer`. | Buffer containing the vertex data. The buffer must contain the flag  `BufferFlag.VertexBuffer`. Otherwise it won't be accepted.|
-| **Size** | `int`. | Size of the buffer in bytes. |
-| **Offset** | `int`. | The offset in  bytes of the buffer data. |
-| **Data** | `IntPtr`. | Pointer of the raw memory data of the buffer. | 
-| **LayoutDescription** | `LayoutDescription`. | Description of the different **ElementDescription** instances, explaining the type of information, semantics, stride and offsets the vertex contains, allowing to properly extract the data. |
-| **VertexCount** | `int`. | The number of vertices to be fetched from the buffer. |
+| Type | Attributes |
+| --- | --- |
+| `VertexPosition` | Position |
+| `VertexPositionColor` | Position, Color |
+| `VertexPositionColorTexture` | Position, Color, TexCoord |
+| `VertexPositionColorDualTexture` | Position, Color, TexCoord, TexCoord2 |
+| `VertexPositionColorTextureAxis` | Position, Color, TexCoord, and a second `TexCoord` (Float4) with the axis |
+| `VertexPositionTexture` | Position, TexCoord |
+| `VertexPositionDualTexture` | Position, TexCoord, TexCoord2 |
+| `VertexPositionNormal` | Position, Normal |
+| `VertexPositionNormalColor` | Position, Normal, Color |
+| `VertexPositionNormalTexture` | Position, Normal, TexCoord |
+| `VertexPositionNormalColorTexture` | Position, Normal, Color, TexCoord |
+| `VertexPositionNormalDualTexture` | Position, Normal, TexCoord, TexCoord2 |
+| `VertexPositionNormalColorDualTexture` | Position, Normal, Color, TexCoord, TexCoord2 |
+| `VertexPositionNormalTangentTexture` | Position, Normal, Tangent, TexCoord |
+| `VertexPositionNormalTangentColorDualTexture` | Position, Normal, Tangent, Color, TexCoord, TexCoord2 |
 
-### Predefined Vertices structures.
-In order to make it easier for developers, **Evergine** contains a set of structs that can be used to define vertices with different kind of information. Our predefine types are:
+With your own arrays you build the `LayoutDescription` yourself, as shown [below](#a-mesh-from-separate-streams).
 
-| Type | Description | 
-| ---- | ----------- |
-| **VertexPosition** | Struct of vertex containing only `Position`. |
-| **VertexPositionColor** | Struct of vertex containing the properties `Position` and `Color`. |
-| **VertexPositionColorDualTexture** | Struct of vertex containing the properties `Position`, `Color`, `TexCoord` and `TexCoord2`. |
-| **VertexPositionColorTexture** | Struct of vertex containing the properties `Position`, `Color` and `TexCoord`. |
-| **VertexPositionDualTexture** | Struct of vertex containing the properties `Position`, `TexCoord` and `TexCoord2`. |
-| **VertexPositionNormal** | Struct of vertex containing the properties `Position` and `Normal`. |
-| **VertexPositionNormalColor** | Struct of vertex containing the properties `Position`, `Normal` and `Color`. ||
-| **VertexPositionNormalColorDualTexture** | Struct of vertex containing the properties `Position`, `Normal`, `Color`, `TexCoord` and `TexCoord2`. |
-| **VertexPositionNormalColorTexture** | Struct of vertex containing the properties `Position`, `Normal`, `Color` and `TexCoord`. |
-| **VertexPositionNormalDualTexture** | Struct of vertex containing the properties `Position`, `Normal`, `TexCoord` and `TexCoord2`. |
-| **VertexPositionNormalTangentColorDualTexture** | Struct of vertex containing the properties `Position`, `Normal`, `Tangent`, `Color`, `TexCoord` and `TexCoord2`. |
-| **VertexPositionNormalTangentTexture** | Struct of vertex containing the properties `Position`, `Normal`, `Tangent`, `Color`, and `TexCoord`. |
-| **VertexPositionNormalTexture**  | Struct of vertex containing the properties `Position`, `Normal` and `TexCoord`. |
-| **VertexPositionTexture** | Struct of vertex containing the properties `Position` and `TexCoord`. |
+## Index buffers
 
-The advantage of using this structures is that they provide the **LayoutDescription** of that vertex. However, you can create your own **VertexBuffers** with your own arrays, but you will have to build the **LayoutDescription**.
+Most meshes share vertices between triangles. A quad drawn as two triangles needs six vertices, two of them duplicated; with an index buffer it needs four vertices and six indices that point at them. On real meshes, where each vertex is shared by several triangles, the saving is much larger.
 
+| Member | Type | Description |
+| --- | --- | --- |
+| **Buffer** | `Buffer` | The buffer with the indices. It must be created with `BufferFlags.IndexBuffer`. |
+| **IndexFormat** | `IndexFormat` | `UInt16` (the default) or `UInt32`. Use 32-bit indices only when the mesh has more than 65,535 vertices. |
+| **IndexCount** | `int` | Number of indices, computed from the buffer size. |
+| **FlipWinding** | `bool` | Reverses which winding order counts as front-facing for this mesh. |
+| **Offset** | `int` | Byte offset of the first index inside the buffer. |
+| **Size** | `int` | Size of the data in bytes. |
 
-## Index Buffers
+## Create a mesh from code
 
-3D meshes you'll be rendering often have vertices that are shared across multiple triangles. This occurs even with simple shapes, like a rectangle:
-
-Rendering a rectangle requires two triangles, which would normally mean a vertex buffer containing 6 vertices. However, two of these vertices would need to be duplicated, resulting in a 50% redundancy. This issue becomes more pronounced with complex meshes, where a single vertex is typically shared among 3 triangles. To solve this inefficiency, we use an index buffer.
-
-An index buffer is essentially a list of references to the vertices in the vertex buffer. This allows for rearranging the vertex data and reusing vertices across multiple triangles without duplicating data. In the example of a rectangle, if the vertex buffer contains four unique vertices, the index buffer would reference these vertices, with the first three indices forming the top-right triangle, and the last three creating the bottom-left triangle.
-
-#### Parameters
-| Property | Type | Description |
-|----------|------|-------------|
-| **Buffer** | `Buffer`. | Buffer containing the indices data. The buffer must contain the flag  `BufferFlag.IndexBuffer`. Otherwise it won't be accepted. |
-| **Size** | `int`. | Size of the buffer in bytes. |
-| **Offset** | `int`. | The offset in  bytes of the buffer data. |
-| **Data** | `IntPtr`. | Pointer of the raw memory data of the buffer. | 
-| **IndexFormat** | `IndexFormat`. | The type of index. Can be **Uint16** (_unsigned short_) or **UInt32** (_unsigned int_). |
-| **FlipWinding** | `bool`. | If true, the triangle side is defined in counter clock-wise order. |
-| **IndexCount** | `int`. | Number of indices. |
-
-
-## Create Mesh from Code
-
-
-### Simple mesh using a predefined type
-
-The next code explain how to create a simple mesh. It uses the **VertexPositionColor** struct for defining its data:
+Both examples below build the same colored quad and are methods of a `Scene`, so they can be called from `CreateScene()`. They need these usings:
 
 ```csharp
-// Vertices and indices data.
-ushort[] indexData = new ushort[] { 0, 1, 2, 0, 2, 3 };
-
-VertexPositionColor[] vertexData = new VertexPositionColor[]
-{
-    new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.0f), Color.Blue),
-    new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.0f), Color.Red),
-    new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.0f), Color.Green),
-    new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.0f), Color.Yellow),
-};
-
-// Vertex Buffer
-var vBufferDescription = new BufferDescription()
-{
-    SizeInBytes = (uint)Unsafe.SizeOf<VertexPositionColor>() * (uint)this.vertexData.Length,
-    Flags = BufferFlags.ShaderResource | BufferFlags.VertexBuffer,
-    Usage = ResourceUsage.Default
-};
-
-// We create the buffer using the vertex array data previously defined.
-Buffer vBuffer = graphicsContext.Factory.CreateBuffer(this.vertexData, ref vBufferDescription);
-VertexBuffer vertexBuffer = new VertexBuffer(vBuffer, VertexPositionColor.VertexFormat);
-
-// Index Buffer
-var iBufferDescription = new BufferDescription()
-{
-    SizeInBytes = (uint)(sizeof(ushort) * this.indexData.Length),
-    Flags = BufferFlags.IndexBuffer,
-    Usage = ResourceUsage.Default,
-};
-
-// We create the buffer using the ushort array data previously defined.
-Buffer iBuffer = graphicsContext.Factory.CreateBuffer(this.indexData, ref iBufferDescription);
-var indexBuffer = new IndexBuffer(iBuffer);
-
-// Create Mesh using the previously defined vertex buffer and index buffer.
-return new Mesh(new VertexBuffer[] { vertexBuffer }, indexBuffer, PrimitiveTopology.TriangleList)
-{
-    BoundingBox = this.ComputeBoundingBox(),
-};
+using System.Runtime.CompilerServices;
+using Evergine.Common.Graphics;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+using Buffer = Evergine.Common.Graphics.Buffer;
 ```
 
+### A mesh from a predefined vertex type
 
-### Simple mesh using your own arrays
-
-This code, on the other hand, explain how to build your own mesh with your own data types.
+`VertexPositionColor` supplies the layout, so one interleaved vertex buffer is enough:
 
 ```csharp
-// Indices data array.
-ushort[] indexData = new ushort[] { 0, 1, 2, 0, 2, 3 };
-
-// Position data array.
-Vector3[] positions = new Vector3[]
+private Mesh CreateQuadMesh(GraphicsContext graphicsContext)
 {
-    new Vector3(-0.5f, 0.5f, 0.0f),
-    new Vector3(0.5f, 0.5f, 0.0f),
-    new Vector3(0.5f, -0.5f, 0.0f),
-    new Vector3(-0.5f, -0.5f, 0.0f),
-};
+    ushort[] indexData = new ushort[] { 0, 1, 2, 0, 2, 3 };
 
-// Color data array.
-Vector4[] colors = new Vector4[]
-{
-    Color.Blue.ToVector4(),
-    Color.Red.ToVector4(),
-    Color.Green.ToVector4(),
-    Color.Yellow.ToVector4(),
-};
+    VertexPositionColor[] vertexData = new VertexPositionColor[]
+    {
+        new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.0f), Color.Blue),
+        new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.0f), Color.Red),
+        new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.0f), Color.Green),
+        new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.0f), Color.Yellow),
+    };
 
-// Vertex Buffer with the position attribute data.
-var bufferPosDesc = new BufferDescription()
-{
-    SizeInBytes = (uint)Unsafe.SizeOf<Vector3>() * (uint)this.positions.Length,
-    Flags = BufferFlags.ShaderResource | BufferFlags.VertexBuffer,
-    Usage = ResourceUsage.Default,
-};
+    var vertexBufferDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(Unsafe.SizeOf<VertexPositionColor>() * vertexData.Length),
+        Flags = BufferFlags.VertexBuffer,
+        Usage = ResourceUsage.Default,
+    };
 
-Buffer bufferPos = graphicsContext.Factory.CreateBuffer(this.positions, ref bufferPosDesc);
-LayoutDescription layoutPos = new LayoutDescription().Add(new ElementDescription(ElementFormat.Float3, ElementSemanticType.Position, 0, 0));
-VertexBuffer vertexBufferPos = new VertexBuffer(bufferPos, layoutPos);
+    Buffer vertexGpuBuffer = graphicsContext.Factory.CreateBuffer(vertexData, ref vertexBufferDescription);
+    var vertexBuffer = new VertexBuffer(vertexGpuBuffer, VertexPositionColor.VertexFormat);
 
-// Vertex Buffer with the color attribute data.
-var bufferColorDesc = new BufferDescription()
-{
-    SizeInBytes = (uint)Unsafe.SizeOf<Vector4>() * (uint)this.colors.Length,
-    Flags = BufferFlags.ShaderResource | BufferFlags.VertexBuffer,
-    Usage = ResourceUsage.Default,
-};
+    var indexBufferDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(sizeof(ushort) * indexData.Length),
+        Flags = BufferFlags.IndexBuffer,
+        Usage = ResourceUsage.Default,
+    };
 
-Buffer bufferColor = graphicsContext.Factory.CreateBuffer(this.colors, ref bufferColorDesc);
-LayoutDescription layoutColor = new LayoutDescription().Add(new ElementDescription(ElementFormat.Float4, ElementSemanticType.Color, 0));
-VertexBuffer vertexBufferColor = new VertexBuffer(bufferColor, layoutColor);
+    Buffer indexGpuBuffer = graphicsContext.Factory.CreateBuffer(indexData, ref indexBufferDescription);
+    var indexBuffer = new IndexBuffer(indexGpuBuffer);
 
-// Index Buffer
-var iBufferDescription = new BufferDescription()
-{
-    SizeInBytes = (uint)(sizeof(ushort) * this.indexData.Length),
-    Flags = BufferFlags.IndexBuffer,
-    Usage = ResourceUsage.Default
-};
-
-Buffer iBuffer = graphicsContext.Factory.CreateBuffer(this.indexData, ref iBufferDescription);
-var indexBuffer = new IndexBuffer(iBuffer);
-
-// Create Mesh with the 2 previous vertex buffers and the index buffer.
-return new Mesh(new VertexBuffer[] { vertexBufferPos, vertexBufferColor }, indexBuffer, PrimitiveTopology.TriangleList)
-{
-    BoundingBox = this.ComputeBoundingBox(),
-};
+    return new Mesh(new VertexBuffer[] { vertexBuffer }, indexBuffer, PrimitiveTopology.TriangleList)
+    {
+        // Without bounds the culling system cannot tell whether the quad is in view.
+        BoundingBox = new BoundingBox(new Vector3(-0.5f, -0.5f, 0), new Vector3(0.5f, 0.5f, 0)),
+    };
+}
 ```
 
-### What we've got
-If you've had a look, you will realize that the  previous code has created a mesh with a **LayoutDescription** containing the following elements:
+The layout of `VertexPositionColor.VertexFormat` is:
 
-| Element |  Semantic | Semantic Index | Format | Offset |
-|----------|------|-------------|---|---|
-| Position | Position | 0 | Float3 | 0 | Vertex position.
-| Color    | Color | 0 | UByte4Normalized | 12 
+| Element | Semantic | Semantic index | Format | Offset |
+| --- | --- | --- | --- | --- |
+| Position | `Position` | 0 | `Float3` | 0 |
+| Color | `Color` | 0 | `UByte4Normalized` | 12 |
 
+### A mesh from separate streams
 
->[!NOTE]  
-> For simplicity, this mesh uses **Color per vertex** to define its color instead of a texture or a solid color. It also lacks normal information. Consequently, any **StandardMaterial** applied to this mesh must have the **VertexColor** property enabled and cannot have **Lighting** or **IBL** enabled to ensure correct rendering.
+Here positions and colors live in two arrays, and each becomes its own vertex buffer with its own one-element layout:
 
-### What's next
-The next step would be to use this recently created mesh into a **Model**. Then you can use that **Model** into your **Scene**. This is explained in **[this page](../models/create_model_from_code.md)**. 
+```csharp
+private Mesh CreateQuadMeshFromStreams(GraphicsContext graphicsContext)
+{
+    ushort[] indexData = new ushort[] { 0, 1, 2, 0, 2, 3 };
 
-At the end this mesh should look like this:
+    Vector3[] positions = new Vector3[]
+    {
+        new Vector3(-0.5f, 0.5f, 0.0f),
+        new Vector3(0.5f, 0.5f, 0.0f),
+        new Vector3(0.5f, -0.5f, 0.0f),
+        new Vector3(-0.5f, -0.5f, 0.0f),
+    };
 
-![Quad](images/Quad.png)
+    Vector4[] colors = new Vector4[]
+    {
+        Color.Blue.ToVector4(),
+        Color.Red.ToVector4(),
+        Color.Green.ToVector4(),
+        Color.Yellow.ToVector4(),
+    };
+
+    var positionsDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(Unsafe.SizeOf<Vector3>() * positions.Length),
+        Flags = BufferFlags.VertexBuffer,
+        Usage = ResourceUsage.Default,
+    };
+
+    Buffer positionsBuffer = graphicsContext.Factory.CreateBuffer(positions, ref positionsDescription);
+    var positionsLayout = new LayoutDescription()
+        .Add(new ElementDescription(ElementFormat.Float3, ElementSemanticType.Position));
+    var positionsVertexBuffer = new VertexBuffer(positionsBuffer, positionsLayout);
+
+    var colorsDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(Unsafe.SizeOf<Vector4>() * colors.Length),
+        Flags = BufferFlags.VertexBuffer,
+        Usage = ResourceUsage.Default,
+    };
+
+    Buffer colorsBuffer = graphicsContext.Factory.CreateBuffer(colors, ref colorsDescription);
+    var colorsLayout = new LayoutDescription()
+        .Add(new ElementDescription(ElementFormat.Float4, ElementSemanticType.Color));
+    var colorsVertexBuffer = new VertexBuffer(colorsBuffer, colorsLayout);
+
+    var indexBufferDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(sizeof(ushort) * indexData.Length),
+        Flags = BufferFlags.IndexBuffer,
+        Usage = ResourceUsage.Default,
+    };
+
+    Buffer indexGpuBuffer = graphicsContext.Factory.CreateBuffer(indexData, ref indexBufferDescription);
+    var indexBuffer = new IndexBuffer(indexGpuBuffer);
+
+    // One vertex buffer per stream; the shader sees a single vertex with both attributes.
+    return new Mesh(new VertexBuffer[] { positionsVertexBuffer, colorsVertexBuffer }, indexBuffer, PrimitiveTopology.TriangleList)
+    {
+        BoundingBox = new BoundingBox(new Vector3(-0.5f, -0.5f, 0), new Vector3(0.5f, 0.5f, 0)),
+    };
+}
+```
+
+This time the color is stored as four floats, so the layouts are:
+
+| Vertex buffer | Semantic | Semantic index | Format | Offset |
+| --- | --- | --- | --- | --- |
+| 0 | `Position` | 0 | `Float3` | 0 |
+| 1 | `Color` | 0 | `Float4` | 0 |
+
+> [!NOTE]
+> The quad has vertex colors and no normals or texture coordinates. A [StandardMaterial](../materials/index.md) drawing it needs `VertexColorEnabled` on and `LightingEnabled` and `IBLEnabled` off, because the lighting code reads normals the mesh does not have.
+
+## Next steps
+
+A mesh on its own is not an entity. Wrap it in a model to add it to the scene, as shown in [Create a Model from Code](../models/create_model_from_code.md). The result looks like this:
+
+![The colored quad rendered in a scene](images/Quad.png)

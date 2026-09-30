@@ -1,87 +1,56 @@
 # WebGPU
 
+---
+
 ![WebGPU API](images/webgpu.jpg)
 
-**WebGPU** is a modern graphics API that provides developers with low-level access to the GPU, enabling advanced rendering techniques and computational capabilities.
+**WebGPU** is the modern graphics and compute API of the web, designed by the W3C GPU for the Web group with engineers from Apple, Google, Microsoft, Mozilla and others. Browsers implement it on top of DirectX 12, Vulkan and Metal, so web applications get the explicit model of those APIs instead of the OpenGL-era model of WebGL.
 
-It is developed by the **W3C** Web Community Group with engineers from **Apple**, **Mozilla**, **Microsoft**, **Google**, and others. This technology runs on top of the latest graphics APIs like DirectX 12, Vulkan, and Metal.
+Evergine supports WebGPU through the **Web (Experimental WebGPU)** template. The default web templates still use [WebGL 2](opengl.md), which more browsers and devices support today.
 
-**Chrome**, **Edge**, and **Firefox** already support it as an experimental feature, so you need to switch to the beta channel and activate it. **Evergine** uses **WebGPU** on Web platforms when it is available; otherwise, it uses [WebGL](opengl.md), which is the most supported graphics technology today.
+## WebGPU compared with WebGL
 
-To check the implementation status of this technology, visit [caniuse.com/webgpu](https://caniuse.com/webgpu).
+* **Compute shaders.** WebGL has none. With WebGPU, features that Evergine builds on compute shaders, such as [compute tasks](../compute_tasks/index.md), become available on the web.
+* **Lower overhead.** Pipelines and resource bindings are validated when they are created, not on every draw, so the browser spends less CPU per frame.
+* **Modern GPU features.** Storage buffers, more flexible texture formats and a programming model that matches the native explicit APIs.
 
-## Advantages of WebGPU Over WebGL
+## Supported browsers
 
-Unlike WebGL, which is based on OpenGL (an API that is now deprecated in favor of more efficient alternatives such as Vulkan and Metal) WebGPU addresses the limitations of traditional APIs by offering a more streamlined and efficient interface for graphics programming.
+WebGPU is enabled by default in current versions of Chrome and Edge on Windows, macOS, ChromeOS and Android, in Safari 26 and later, and in Firefox on Windows. Other platforms are rolling it out; check [caniuse.com/webgpu](https://caniuse.com/webgpu) for the current status.
 
-One of the key advantages of WebGPU over WebGL is its support for Compute Shaders. This capability enhances performance in graphics-heavy applications and opens new possibilities for creating complex visual effects and simulations. WebGPU is designed with modern programming paradigms in mind, enabling developers to write code that is not only performant but also maintainable.
+## Known limitations
 
-WebGPU offers several notable advantages, making it a significant step forward in graphics programming:
-- **Lower-level access to the GPU:** WebGPU provides developers with finer control over GPU resources, enabling more efficient rendering and computing tasks.
-- **Support for Compute Shaders:** Unlike WebGL, WebGPU supports compute shaders, allowing for more complex computations and effects directly on the GPU.
-- **Better performance:** With a more efficient architecture, WebGPU can leverage modern hardware capabilities, resulting in faster rendering and processing.
+The WebGPU integration is experimental. At the time of writing:
 
-## Known limitations of the current WebGPU Evergine integration
+- `RGBA32Float` textures are not supported on most mobile devices, so HDR textures are not available there.
+- GPU particles and post-processing are not supported yet, because the shader techniques they rely on are not precompiled for WebGPU.
 
-The current WebGPU integration in Evergine has the following known limitations:
+## Create a graphics context
 
-- `RGBA32Float` textures are not supported on most mobile devices, which means HDR textures are unavailable.
-- The .NET 10 version of Emscripten does not support depth clip control, resulting in artifacts in shadow mapping for objects behind the camera that still cast visible shadows.
-- GPU Particles & PostProcessing are not yet supported because the shader techniques they rely on are not precompiled.
-
-## Supported WebGPU devices
-
-* Chrome, Edge, Safari, and Firefox (Nightly only) browsers on Desktop, tablet, and mobile.
-
-## Checking WebGPU version
-
-| Browser | Check command |
-| ---- | ---- | 
-| **Chrome** |  The WebGPU flag must be enabled by writing this in your browser: <br/> `chrome://flags/#enable-unsafe-webgpu`
-| **Edge** |  The WebGPU flag must be enabled by writing this in your browser: <br/> `edge://flags/#enable-unsafe-webgpu` | 
-
-## Create a Graphics Context
-
-### Create WGPUGraphicsContext
-To create a graphics context based on **WebGPU**, just write:
-
-```csharp  
+```csharp
 GraphicsContext graphicsContext = new Evergine.WebGPU.WGPUGraphicsContext();
 graphicsContext.CreateDevice();
 ```
 
-### Setup WebGPU device in your Blazor application
-To enable your application to run with the WebGPU backend, you first need to obtain the WebGPU device and set it in your Blazor code. Locate the ``Blazor.start().then...`` section in your project (by default in the ``index.html`` file), and add the following code just before ``app.startEvergine()``:
+`WGPUGraphicsContext.PowerPreference` (default `HighPerformance`) tells the browser which GPU to prefer on machines with more than one.
+
+### Set up the WebGPU device in your Blazor application
+
+The browser creates the WebGPU device, and your page hands it to Evergine. The template does this in `wwwroot/index.html`, just before `app.startEvergine()`. Add to `requiredLimits` and `requiredFeatures` whatever your content needs:
 
 ```javascript
-// Set WebGPU device
-const adapter = await navigator.gpu.requestAdapter();
-const device = await adapter.requestDevice({
-    requiredLimits: {
-        maxStorageBuffersPerShaderStage: 10 // Request support for up to 10 storage buffers
-    }
-});
-
-if (Blazor && Blazor.runtime && Blazor.runtime.Module) {
-    Blazor.runtime.Module.preinitializedWebGPUDevice = device;
-} else {
-    window.Module.preinitializedWebGPUDevice = device;
-}
-```
-
-The resulting code block should look similar to this:
-
-```javascript
-// previous initializing code...
-
 Blazor.start().then(async function () {
 
     // Set WebGPU device
     const adapter = await navigator.gpu.requestAdapter();
     const device = await adapter.requestDevice({
         requiredLimits: {
-            maxStorageBuffersPerShaderStage: 10 // Request support for up to 10 storage buffers
-        }
+            maxStorageBuffersPerShaderStage: 10 // Up to 10 storage buffers in a single shader stage
+        },
+        requiredFeatures: [
+            "depth32float-stencil8",
+            "depth-clip-control"
+        ]
     });
 
     if (Blazor && Blazor.runtime && Blazor.runtime.Module) {
@@ -90,19 +59,23 @@ Blazor.start().then(async function () {
         window.Module.preinitializedWebGPUDevice = device;
     }
 
-    // It is not mandatory to run Evergine now, but it must run after Blazor has started
+    // Evergine must start after Blazor has started.
     app.startEvergine();
 });
 ```
 
+### Frame pacing
+
+The browser calls the render loop at the display's refresh rate whether or not the GPU keeps up. If every call submitted a frame, the GPU queue would grow, adding input lag and counting frames that are never shown. The template's `ts/app.ts` limits the number of frames the GPU can have queued:
+
+```typescript
+static maxFramesInFlight = 2;
+```
+
+Lower it to 1 for the lowest latency, or set it to 0 to submit on every call as before.
+
 ## Build & Run on WebGPU
 
-You can select **WebGPU** API support when creating a new project from the **Evergine** launcher.
+Add a profile with the **Web (Experimental WebGPU)** template from **Settings > Project Settings** in Evergine Studio (see [DirectX 12](directx12.md#build--run) for the steps):
 
-If the project already exists, you can add **WebGPU** support from **Evergine Studio** by clicking on Settings -> Project Settings.
-
-![Settings](images/dx12_support_0.jpg)
-
-Select and add the profile for **Web (Experimental WebGPU)**.
-
-![Settings](images/webgpu_support1.jpg)
+![Adding the WebGPU template](images/webgpu_support1.jpg)

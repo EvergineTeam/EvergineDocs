@@ -1,13 +1,12 @@
 # Compute Tasks
+
 ---
 
-**Compute Tasks** are GPU programs that don't use the classical GPU pipeline, such as vertex transformations, fragment shading, or geometry programs. They are fully configurable code that can run on a GPU asynchronously. They can be used for massively parallel computational algorithms or to accelerate parts of application rendering. 
+**Compute tasks** run general-purpose programs on the GPU, outside the vertex and pixel pipeline. They suit massively parallel algorithms, such as image processing, simulation or procedural generation, and can also accelerate parts of rendering.
 
-Compute tasks need to be associated with a Compute Effect.
-
-The following sections show how to create and use compute tasks in your projects.
+A compute task is always built from a [compute effect](../effects/create_effects.md), the same way a material is built from a graphics effect. The nodes of the [post-processing graph](../postprocessing_graph/index.md) are compute effects too.
 
 ## In this section
 
-* [Create Compute Task](create_computetasks.md)
-* [Using Compute Task](using_computetasks.md)
+* [Create Compute Tasks](create_computetasks.md)
+* [Using Compute Tasks](using_computetasks.md)

@@ -1,27 +1,38 @@
-# Create Custom LineBatch
----
-In most cases, the default LineBatch3D provided by the RenderManager will be sufficient. However, sometimes it is useful to create your custom line batch so you can modify its global transformation or alter its rendering behavior without impacting the default line batch included in Evergine. In these situations, it can be beneficial to create an independent custom line batch.
+# Create a Custom LineBatch
 
-## How to Create a Custom LineBatch
+---
+
+The `LineBatch3D` of the `RenderManager` covers most needs. Create your own batch when you want to transform every line at once, draw into a different render layer, or keep a set of lines that does not change from frame to frame without affecting the shared batch.
+
+## How to create a custom LineBatch
+
+A `LineBatch3D` is a render object: you create it with a `GraphicsContext` and a `RenderLayerDescription`, then register it with the render manager so that it is collected every frame.
+
 ```csharp
+using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
 public class MyDrawable : Drawable3D
 {
     [BindService]
     private AssetsService assetsService = null;
 
-    private GraphicsContext graphicsContext;
+    [BindService]
+    private GraphicsContext graphicsContext = null;
 
     private LineBatch3D lineBatch;
 
     protected override bool OnAttached()
     {
-        this.graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
+        // The render layer decides the render state (depth, blending, culling) the lines are drawn with.
         var layer = this.assetsService.Load<RenderLayerDescription>(DefaultResourcesIDs.OpaqueRenderLayerID);
 
-        // Create custom line batch 3D
         this.lineBatch = new LineBatch3D(this.graphicsContext, layer);
 
-        // Add line batch to render
+        // Registering the batch is what makes the render manager collect and draw it.
         this.Managers.RenderManager.AddRenderObject(this.lineBatch);
 
         return base.OnAttached();
@@ -29,45 +40,56 @@ public class MyDrawable : Drawable3D
 
     protected override void OnActivated()
     {
-        // Enable line batch when the component is activated
-        this.lineBatch.IsEnabled = true;
         base.OnActivated();
+        this.lineBatch.IsEnabled = true;
     }
 
     protected override void OnDeactivated()
     {
-        // Disable line batch when the component is deactivated
-        this.lineBatch.IsEnabled = false;
         base.OnDeactivated();
+        this.lineBatch.IsEnabled = false;
     }
 
     protected override void OnDetached()
     {
-        // Remove line batch from render when the component is detached
         this.Managers.RenderManager.RemoveRenderObject(this.lineBatch);
+        this.lineBatch.Dispose();
         base.OnDetached();
     }
 
     public override void Draw(DrawContext drawContext)
     {
-        // Draw a sample blue cone
         this.lineBatch.DrawCone(0.5f, 1.0f, Vector3.UnitY, Vector3.Down, Color.Blue);
     }
 }
 ```
 
 **Result**
+
 ![MyDrawable component](images/customLinebatch.jpg)
 
-## Some Interesting Properties
+## Useful members
 
-The line batch has a **Transform** property that can be used to apply transformations (translation, rotation, or scale) to all elements added to the batch. For example, if you use the line batch to draw a CAD map, you can use this property to rotate the whole map.
+| Member | Default | Description |
+| --- | --- | --- |
+| **Transform** | Identity | A `Matrix4x4` applied to every line in the batch. Use it to move, rotate or scale everything at once, for instance to rotate a whole CAD drawing. Set it with `SetTransform(ref matrix)` or the property. |
+| **ResetAfterRender** | true | When true, the batch is emptied each time it is collected, so you add the lines again every frame. Set it to false to build the batch once and draw the same lines every frame. |
+| **LineBatchOrderBias** | 0 | Moves the batch earlier or later inside its render layer. |
+| **IsEnabled** | true | Disabled batches are skipped by the render manager. |
+| **Reset()** | | Empties the batch. With `ResetAfterRender` set to false, call it when the static lines need to change. |
 
-By default, the line batch requires that every frame the elements to draw be added to the batch. However, in some cases, it is useful to create a static batch and draw the same elements every frame because no new elements will need to be added to the batch at runtime. You can use the **ResetAfterRender** property to indicate that the line batch doesn't reset the batch every frame.
+For a batch that never changes, fill it once and turn the per-frame reset off:
 
 ```csharp
 this.lineBatch = new LineBatch3D(this.graphicsContext, layer)
 {
+    // Keep the vertices between frames; nothing is added after this point.
     ResetAfterRender = false,
 };
+
+for (int i = -10; i <= 10; i++)
+{
+    this.lineBatch.DrawLine(new Vector3(i, 0, -10), new Vector3(i, 0, 10), Color.Gray);
+    this.lineBatch.DrawLine(new Vector3(-10, 0, i), new Vector3(10, 0, i), Color.Gray);
+}
 ```

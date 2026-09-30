@@ -1,48 +1,54 @@
 # Using Models
 
+---
+
 ![Models header](images/UsingModels.jpg)
 
-In this document, you will learn how to load and use **Models** in your applications.
+A **model** asset becomes part of a scene when it is instantiated as a hierarchy of entities. This page shows how to do it in Evergine Studio and from code, and what the resulting entities contain.
 
-## Load Model from Code
-The following sample code can be used to instantiate an existing **Model** asset (`camera.fbx` in this case) into your scene, creating an entity hierarchy.
+## Add a model in Evergine Studio
+
+Drag the model asset from the **Assets Details** panel into the scene viewport or the **Entities Hierarchy**.
+
+![Dragging a model into the scene](images/DragModel.jpg)
+
+Evergine Studio creates one entity per node of the model:
+
+![The entity hierarchy created from a model](images/NewModel.jpg)
+
+| Node type | Components |
+| --- | --- |
+| **Root** | The root entity of the hierarchy. If the model has animations it gets an `Animation3D` component, and if it has levels of detail, a `LODGroup`. |
+| **Node** | A node without geometry: a `Transform3D` with the node's position, orientation and scale. |
+| **Mesh** | A node with geometry: `MeshComponent` (which mesh container of the model to show), one `MaterialComponent` per material the mesh uses, and `MeshRenderer`. |
+| **Skin** | A skinned or morphed mesh. It has the same components as a mesh node, with `SkinnedMeshRenderer` in place of `MeshRenderer`. |
+
+The hierarchy mirrors the node structure described in [Models](index.md).
+
+## Load a model from code
+
+`Model.InstantiateModelHierarchy` builds the same hierarchy from code. Load the asset through the `AssetsService`, instantiate it and add the root entity to the scene:
 
 ```csharp
-protected override void CreateScene()
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
 {
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-    // Load Model assets
-    Model cameraModel = assetsService.Load<Model>(EvergineContent.Models.Camera_fbx);
+        Model cameraModel = assetsService.Load<Model>(EvergineContent.Models.Camera_fbx);
 
-    // Apply to an entity
-    Entity camera = cameraModel.InstantiateModelHierarchy(assetsService);
+        // The name is optional; without it the root entity gets a generated name.
+        Entity camera = cameraModel.InstantiateModelHierarchy("coolCamera", assetsService);
 
-    // Alternatively, this method accepts the name of the root entity.
-    Entity camera = cameraModel.InstantiateModelHierarchy("coolCamera", assetsService);
-
-    // Add the entity into the scene.
-    this.Managers.EntityManager.Add(camera);
+        this.Managers.EntityManager.Add(camera);
+    }
 }
 ```
 
-## How to Create Models from Evergine Studio
-
-To instantiate a **Model** into a **Scene**, simply drag the model asset from the *Asset Details Panel* into your **Scene**.
-
-![Dragging a Model](images/DragModel.jpg)
-
-This will instantiate a full hierarchy of entities into the **Scene**.
-
-![New Model](images/NewModel.jpg)
-
-The newly created hierarchy contains the following types of entities:
-
-| Node Type | Description |
-| --------- | --------------- |
-| **Root**  | The root node of the hierarchy. If the model contains animation, this entity will contain the **Animation3D** component. |
-| **Node**  | Nodes without geometry attached. They are empty entities with just a **Transform3D** with the specific position, scale, and orientation. |
-| **Mesh**  | <div><p>Node that contains geometry. It includes the following components: <li>**MeshComponent**, specifying which mesh from the model will be shown.</li><li>**MaterialComponent**. For every different material from the entity mesh, a component will be created.</li><li>**MeshRenderer** for rendering the geometry.</li></div> |
-| **Skin**  | If the node contains a skinned mesh, it will have the same components as a normal *Mesh* node but will use the **SkinnedMeshRenderer** component instead. |
-
-As you can see, this entity hierarchy mirrors the inner **Model** asset structure seen [here](index.md).
+> [!TIP]
+> `InstantiateModelHierarchy` creates new entities every time you call it, while the model data (meshes and buffers) is shared. Instantiating the same model many times is cheap in memory.

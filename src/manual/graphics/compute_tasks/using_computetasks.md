@@ -1,8 +1,10 @@
 # Using Compute Tasks
 
-**Compute tasks** are very similar to Materials; they are associated effects too, and you can also generate a class decorator to use from code. The main difference is that compute tasks can only be used from code. Compute Task decorators are generated from [Effect Editor](../effects/effect_editor.md) like [Material decorators](../materials/material_decorators.md).
+---
 
-The compute task decorator helps you set the compute effect resource layout. As input resources, you can use ConstantBuffers, StructureBuffer, Textures, and Samplers. This is an example of a compute task decorator with an input texture and output texture defined in its resource layout block:
+A `ComputeTask` is to a compute effect what a `Material` is to a graphics effect: it holds the values of the effect's resources. Unlike materials, compute tasks are only used from code. The [Effect Editor](../effects/effect_editor.md) generates a **compute task decorator** for each compute effect, just as it generates [material decorators](../materials/material_decorators.md).
+
+The decorator exposes one property per resource in the resource layout: constant buffer fields, structured buffers, textures, samplers and unordered access resources. This is the decorator generated for the grayscale effect of [Create Compute Tasks](create_computetasks.md), with one input texture and one output texture:
 
 ```csharp
 //------------------------------------------------------------------------------
@@ -49,11 +51,14 @@ namespace DocumentationWorkBench.Effects
 }
 ```
 
-To run a compute task, you must call the `Run` methods. The following variations exist:
+To dispatch the task, call one of the `Run` methods. All of them take an optional pass name, `"Default"` when omitted, and each has an overload that records into a `CommandBuffer` you provide instead of submitting on its own.
 
 | Method | Description |
-|--------|-------------|
-| Run    | Defines the group count X, Y, and Z and the selected pass. |
-| Run1D  | Helper method to run 1D tasks; you only need to pass threadCount X. The groupSizes are defined as (64, 1, 1). |
-| Run2D  | Helper method to run 2D tasks; you only need to pass ThreadCount X and Y. The groupSizes are defined as (8, 8, 1). |
-| Run3D  | Helper method to run 3D tasks; it is similar to Run but allows you to define ThreadCounts X, Y, Z and GroupSizes X, Y, Z. |
+| --- | --- |
+| `Run(groupCountX, groupCountY, groupCountZ, pass)` | Dispatches the given number of thread groups. |
+| `Run1D(threadCountX, groupSizeX = 64, pass)` | Dispatches enough groups of `groupSizeX` threads to cover `threadCountX` threads. |
+| `Run2D(threadCountX, threadCountY, groupSizeX = 8, groupSizeY = 8, pass)` | The same in two dimensions, with 8 x 8 groups by default. |
+| `Run3D(threadCountX, threadCountY, threadCountZ, groupSizeX, groupSizeY, groupSizeZ, pass)` | The same in three dimensions; the group size is required. |
+
+> [!IMPORTANT]
+> The group size you pass to `Run1D`, `Run2D` or `Run3D` must match the `[numthreads(...)]` of the compute shader, or part of the work is skipped or done twice.

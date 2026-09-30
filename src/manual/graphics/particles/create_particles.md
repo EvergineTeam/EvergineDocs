@@ -1,49 +1,71 @@
 # Create Particle Systems
+
 ---
+
 ![Particles header](images/plasma.jpg)
 
-Particle systems simulate and render a large number of quads called particles. 
+A particle system simulates and renders large numbers of small textured quads, the particles, for effects such as fire, smoke, sparks or magic.
 
 ## Create a Particle System asset in Evergine Studio
-You can create a material by clicking on the ![Plus Icon](../images/plusIcon.jpg) button in the [Assets Details](../../evergine_studio/interface.md) panel to deploy the create menu options and clicking on the option _"Create particles"_
+Click the ![Plus Icon](../images/plusIcon.jpg) button in the [Assets Details](../../evergine_studio/interface.md) panel and choose **Create particle system**.
 
 ![Create new particle system menu option](images/create_particles.png)
 
 ### Inspect Particle Systems in Asset Details
 You can find the particle system assets in the [**Assets Details**](../../evergine_studio/interface.md) panel when you select a folder in the [**Project Explorer**](../../evergine_studio/interface.md).
 
-![Material asset](images/list_particles.png)
+![Particle system assets](images/list_particles.png)
 
 ### Particle System files in content directory
 The particle system file has the `.weps` extension.
 
-![Material file](images/list_files.png) 
+![Particle system files](images/list_files.png) 
 
 ## Create a new Particle System from code
-The following sample code can be used to create a new particle system and apply it to an entity in your scene:
+This scene builds a particle system in code and adds it to an entity:
 
 ```csharp
-var assetsService = Application.Current.Container.Resolve<AssetsService>();
-var graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
+using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Particles;
+using Evergine.Framework.Particles.Asset;
+using Evergine.Framework.Particles.Components;
+using Evergine.Framework.Services;
 
-// Sets its particle emitter.
-ParticleEmitterDescription emitterDesc = new ParticleEmitterDescription()
+public class MyScene : Scene
 {
-    ParticleTexture = EvergineContent.Textures.particle_png,
-    ParticleSampler = EvergineContent.Samplers.LinearClampSampler,
-    RenderLayer = EvergineContent.RenderLayers.Alpha,
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
+        var graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
 
-    MaxParticles = 1000,
+        // The emitter description holds every property of the particle system editor.
+        var emitterDesc = new ParticleEmitterDescription()
+        {
+            ParticleTexture = DefaultResourcesIDs.ParticleTextureID,
+            ParticleSampler = DefaultResourcesIDs.LinearClampSamplerID,
+            RenderLayer = DefaultResourcesIDs.AlphaRenderLayerID,
 
-    InitLife = 2,
-    InitSpeed = 1,
-    InitSize = 0.1f,
-    InitColor = Color.Red,
-};
+            MaxParticles = 1000,
 
-ParticlesEmitter emitter = new ParticlesEmitter(emitterDesc, graphicsContext, assetsService);
+            InitLife = 2,
+            InitSpeed = 1,
+            InitSize = 0.1f,
+            InitColor = Color.Red,
+        };
 
-// Creates the asset and sets its emitter.
-ParticleSystem particleSystem = new ParticleSystem();
-particleSystem.AddEmitter(emitter);
+        var emitter = new ParticlesEmitter(emitterDesc, graphicsContext, assetsService);
+
+        var particleSystem = new ParticleSystem();
+        particleSystem.AddEmitter(emitter);
+
+        Entity particles = new Entity("particles")
+            .AddComponent(new Transform3D())
+            .AddComponent(new ParticlesComponent() { ParticleSystem = particleSystem })
+            .AddComponent(new ParticlesRenderer());
+
+        this.Managers.EntityManager.Add(particles);
+    }
+}
 ```

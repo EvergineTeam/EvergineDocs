@@ -1,19 +1,20 @@
-# Custom Postprocessing Graph
+# Custom Post-Processing Graph
+
 ---
 
-This section explains how to create your custom postprocessing graph, which can be useful if you want to create and test effects that are not available in the default postprocessing graph.
+This page walks through building a post-processing graph of your own, with a new effect that the default graph does not have, and explains the special nodes, tags and decorators custom graphs use.
 
 ## Example
 
-For this example, we are going to create a simple filter that renders only the red component of the input render.
+The example builds a simple filter that keeps only the red channel of the image.
 
 First, create a compute effect from the [**Assets Details panel**](../../evergine_studio/interface.md):
 
 ![Create a compute effect](images/createComputeEffect.jpg)
 
-Write the code for our custom filter in the [**Effect Editor**](../effects/effect_editor.md):
+Write the filter in the [**Effect Editor**](../effects/effect_editor.md):
 
-```csharp
+```hlsl
 [Begin_ResourceLayout]
 
     Texture2D input : register(t0);
@@ -63,23 +64,23 @@ To use your custom postprocessing graph in your scene, read more details in the 
 
 ## Special Nodes
 
-There is a special node named _Enable_ that you can use to enable or disable an effect in your graph. The Enable node has two inputs: the input0 port connects with the path without applying the effect, and the input1 port connects with the path with the effect applied. Using its Enabled parameter, you can select which path will be used by the output port. The system analyzes the graph before use and discards the unused paths. For example, we are going to add this special node to our example.
+The **Enabled** node switches an effect on and off without editing the graph. Connect `Input0` to the image without the effect and `Input1` to the image with it; the node's `Enabled` parameter selects which one reaches its output. Before running the graph, Evergine discards the branch that is not selected, so a disabled effect costs nothing. The default graph wraps every effect in one. Here it is added to the example:
 
 ![Enable node](images/EnableNode.jpg)
 
-## Special [Output] Metatags
+## Output metatags
 
-There are special compute effect metatags used by the Postprocessing graph. The metatags **Output** can be used to define the output texture of any node. By default, the output texture is created using the first input texture information, but you can configure it with Output metatags. With these special metatags, you can define the width, height, and pixel format of the node output texture.
+The graph creates the texture each node writes to. By default it copies the size and format of the node's first input texture. An `[Output(...)]` tag after a `RWTexture` in the compute effect sets the size and format instead (see [Effect Metatags](../effects/effect_metatags.md#output-textures)).
 
 **Output Overloading**
 
-<span style="color:lightgreen">[Output(ReferencedInput)]</span>
+`[Output(ReferencedInput)]`
 
-<span style="color:lightgreen">[Output(ReferencedInput, ScaleFactor)]</span>
+`[Output(ReferencedInput, ScaleFactor)]`
 
-<span style="color:lightgreen">[Output(ReferencedInput, ScaleFactor, PixelFormat)]</span>
+`[Output(ReferencedInput, ScaleFactor, PixelFormat)]`
 
-<span style="color:lightgreen">[Output(width, height, PixelFormat)]</span>
+`[Output(Width, Height, PixelFormat)]`
 
 The metatag parameters are:
 
@@ -92,9 +93,9 @@ The metatag parameters are:
 | **Height**          | Defines the height dimension of the output texture.                                          |
 
 ### Example
-In the following example, the Depth input texture has a _1920x1080_ dimension and _D24_UNorm_S8_UInt_ pixel format.
+In the following example, the `Depth` input texture is 1920x1080 with the `D24_UNorm_S8_UInt` format.
 
-```csharp
+```hlsl
 Texture2D<float> Depth : register(t0);
 
 RWTexture2D<float4> PositionOutput : register(u0);   [Output(Depth, 1, R16G16B16A16_Float)]
@@ -110,6 +111,44 @@ The result of the resolved output tags will be:
 | VelocityOutput     | 960x540    | R16G16_Float             |
 | LinealDepthOutput  | 500x500    | R32_Float                |
 
-## Postprocessing Graph Decorator
+## Post-processing graph decorator
 
-You can create a C# class extending from **PostProcessingGraphDecorator** to define how your custom postprocessing graph is displayed on the PostProcessingGraphRenderer component. You only need to implement the GenerateUI method using the Editor extensions. More details can be found [here]().
+By default, the `PostProcessingGraphRenderer` component lists every input of every node in the graph. A **decorator** replaces that list with a panel designed for the graph, the way the default graph shows one section per effect.
+
+A decorator is a class in the `.Editor` project of your solution that derives from `PostProcessingGraphDecorator`, carries the `PostProcessingGraphDecorator` attribute with the id of the graph asset, and builds its panel in `GenerateUI`. This one exposes the switch of the example's **Enabled** node:
+
+```csharp
+using System.Linq;
+using Evergine.Editor.Extension;
+using Evergine.Framework.Graphics;
+
+// The id of the .wepp asset this decorator applies to.
+[PostProcessingGraphDecorator("2f7a4c0e-8a0e-4b8e-9d6b-3c1f5e6a7b8c")]
+public class RedFilterGraphDecorator : PostProcessingGraphDecorator
+{
+    public RedFilterGraphDecorator(PostProcessingGraphDescription graphDesc)
+        : base(graphDesc)
+    {
+    }
+
+    public override void GenerateUI(IPanelPropertyContainer panel)
+    {
+        var enabledNode = this.graphDesc.Nodes.First(n => n.Name == "Enabled");
+        var enabled = enabledNode.Inputs[0].Type as PostProcessingNodePortDirectiveType;
+
+        // The directive's first value is "off" and its second "on".
+        var off = enabled.Directives[0];
+        var on = enabled.Directives[1];
+
+        var redFilter = panel.AddSubPanel("RedFilter", "Red filter").Properties;
+        redFilter.AddBoolean(
+            "RedFilterEnabled",
+            "Enabled",
+            enabled.Value == on,
+            getValue: () => enabled.Value == on,
+            setValue: (value) => enabled.Value = value ? on : off);
+    }
+}
+```
+
+Replace the GUID with the id of your graph, which you can copy from its `.wepp` file.

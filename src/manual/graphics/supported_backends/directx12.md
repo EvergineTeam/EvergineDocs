@@ -1,43 +1,49 @@
 # DirectX 12
 
-![Microsoft DirectX12 API](images/directx12.jpg)
+---
 
-**DirectX 12** is the latest **Microsoft** graphics API available on all devices running Windows 10/11. **Microsoft** announced this version at GDC on March 20, 2014, and it was officially launched alongside Windows 10 on July 29, 2015. On October 2, 2018, DirectX Raytracing support was added to the API. It quickly became popular, and currently, all the latest GPUs from Nvidia and AMD come with Raytracing support. This is also supported on the **Evergine** low-level API, so **DirectX 12** supports **Evergine's** raytracing API.
+![Microsoft DirectX 12 API](images/directx12.jpg)
 
-## Supported DirectX 12 devices
+**DirectX 12** is Microsoft's explicit, low-overhead graphics API for Windows 10 and 11. It is the **default backend of Evergine on Windows**: new projects use the **Windows (DirectX12)** template, and Evergine Studio renders with it unless you start it with another backend.
 
-* Windows 10/11 x64/x86 desktop
-* Windows 10/11 ARM64/x86 tablet
+Being an explicit API, DirectX 12 lets Evergine record work on several threads, run graphics, compute and copy work on separate queues, and use the newest GPU features: DirectX Raytracing through the low-level [ray tracing pipeline](../low_level_api/raytracingpipeline.md), mesh and amplification shaders, and shader model 6 through the DXC compiler (effect profiles `12_0` to `12_7`).
 
-## Checking DirectX 12 version
+## Supported devices
 
-The DxDiag tool reports detailed information about the DirectX components and drivers installed on your Windows system. It is available on Windows 10/11. To get the latest DirectX version on your system, use Windows Update.
+* Windows 10 and 11 PCs.
 
-For more information, visit [Microsoft support.](https://support.microsoft.com/en-us/windows/checking-your-version-of-directx-7b71e74f-02e8-456f-72c7-9a1c1bbf0e9a)
+Ray tracing and mesh shaders need a GPU and driver that support them. Check `graphicsContext.Capabilities.IsRaytracingSupported` and `IsMeshShaderSupported` at runtime.
 
-## Create a Graphics Context
+## Check your DirectX version
 
-To create a graphics context based on **DirectX 12**, simply write:
+Run `dxdiag` to see the DirectX version and the feature levels of your GPU. DirectX 12 is updated through Windows Update and the graphics driver. See [Microsoft support](https://support.microsoft.com/windows/checking-your-version-of-directx-7b71e74f-02e8-456f-72c7-9a1c1bbf0e9a) for details.
+
+## Create a graphics context
 
 ```csharp
 GraphicsContext graphicsContext = new Evergine.DirectX12.DX12GraphicsContext();
 graphicsContext.CreateDevice();
 ```
 
+To render in software, with no GPU at all, pass `useWarpAdapter: true`. The [WARP](https://learn.microsoft.com/windows/win32/direct3darticles/directx-warp) adapter is slow, but it runs anywhere, which makes it useful on build servers and virtual machines for automated tests:
+
+```csharp
+GraphicsContext graphicsContext = new Evergine.DirectX12.DX12GraphicsContext(useWarpAdapter: true);
+graphicsContext.CreateDevice();
+```
+
 ## Build & Run
 
-You can select **DirectX 12** API support during the new project creation from the **Evergine** launcher.
+New projects already have a Windows profile with DirectX 12. To add it to an existing project, open **Settings > Project Settings** in Evergine Studio:
 
-If the project already exists, you can add **DirectX 12** support from **Evergine Studio** by clicking on Settings -> Project Settings.
+![Project settings](images/dx12_support_0.JPG)
 
-![Settings](images/dx12_support_0.jpg)
+Add a profile with the **Windows (DirectX12)** template:
 
-Select and add the profile for Windows (DirectX 12).
+![Adding the DirectX 12 template](images/dx12_support_1.JPG)
 
-![Settings](images/dx12_support_1.jpg)
+![The new profile](images/dx12_support_2.JPG)
 
-![Settings](images/dx12_support_2.jpg)
+Then run it from **File > Build & Run > Windows.DirectX12**:
 
-You can run on **DirectX 12** by clicking on File -> Build & Run -> Windows.DirectX12.
-
-![Settings](images/dx12_support_3.jpg)
+![Build and run on DirectX 12](images/dx12_support_3.JPG)

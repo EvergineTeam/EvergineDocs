@@ -1,12 +1,14 @@
 # Sky Atmosphere
 
+---
+
 ![Environment Manager](images/sky_atmosphere.jpg)
 
 This is the default method to create environment lighting in Evergine. When you create a new scene in Evergine Studio, it will use this method to provide the environmental lighting.
 
-It creates an HDR sky texture that physically simulates the properties of the atmosphere. Additionally, it uses a [Directional Light](../lights.md#directional-lights--photometric-directional-light) to control the atmosphere light dispersion, as well as the light intensity and color.
+It creates an HDR sky texture that physically simulates the properties of the atmosphere. Additionally, it uses a [Directional Light](../lights.md#directional-light) to control the atmosphere light dispersion, as well as the light intensity and color.
 
-# SunComponent
+## SunComponent
 
 This component is used to mark a Directional Light as the light source that will use the atmosphere controller. When you create an Evergine Scene, it will create a Directional Light with a SunComponent.
 
@@ -17,7 +19,7 @@ Changing the Directional Light's rotation allows you to change the visual atmosp
 This component has no properties; its only purpose is to mark a Directional Light as the Sun source.
 
 > [!NOTE]
-> Only the first light with a SunComponent will be used.
+> The scene has one sun. If several lights have a `SunComponent`, the last one activated is used.
 
 ## AtmosphereController component
 
@@ -27,13 +29,13 @@ This component is responsible for controlling the physical properties of the atm
 
 | Property | Default | Description |
 | --- | --- | --- |
-| **RayleighScattering** | 5.5, 13, 22.4 | Rayleigh scattering coefficient for each color channel wavelength (Red, Green, and Blue). |
+| **RayleighScatteringCoefficient** | 5.5, 13, 22.4 | Rayleigh scattering coefficient for each color channel wavelength (Red, Green, and Blue). |
 | **RayleighScaleHeight** | 8000 | Scale height for Rayleigh scattering, measured in meters. |
 | **PlanetRadiusInKm** | 6371 | Radius of the planet in kilometers. |
 | **AtmosphereRadiusInKm** | 6471 | Radius of the atmosphere in kilometers. |
 | **MieScatteringCoefficient** | 21 | Mie scattering coefficient. |
-| **MieScaleHeight** | 12000 | Mie scattering scale height in meters. |
-| **MiePreferredScattering** | 0.758 | Mie preferred scattering direction. |
+| **MieScaleHeight** | 1200 | Mie scattering scale height in meters. |
+| **MiePreferredScatteringDirection** | 0.758 | Mie preferred scattering direction: how much light scatters forward, around the sun, rather than in every direction. |
 | **ModifySunColor** | true | This will force the adjustment of the Sun color. |
 | **SunIntensity** | 22.0 | The Sun's intensity. |
 | **SunDiskEnabled** | true | Indicates if the environment will create a sun disk. |

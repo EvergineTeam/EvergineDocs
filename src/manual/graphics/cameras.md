@@ -1,105 +1,218 @@
 # Cameras
+
+---
+
 ![Cameras](images/cameras.jpg)
 
-**Cameras** are responsible for capturing your scene and displaying it to the user. By customizing and manipulating cameras, you can make the visual composition of your scene truly appealing.
+A **camera** captures the scene from a point of view and renders it to the screen or to a texture. A scene can have any number of cameras: they render in a set order, each to its own display, frame buffer or part of the screen, so split screens, picture-in-picture, mirrors and minimaps are all combinations of cameras.
 
-You can create an unlimited number of cameras in a **Scene**. They can be set to render in any order, at any location on the screen, and choose the render target destination of this camera.
+The camera component is `Camera3D` (namespace `Evergine.Framework.Graphics`). Like any component, it lives on an entity, and the entity's `Transform3D` gives the camera its position and orientation: the camera looks along the transform's **forward** vector.
 
-## Create a Camera3D from Code
-The following sample code can be used to instantiate a new camera entity in a scene.
+## Create a camera in Evergine Studio
+
+In the **Entities Hierarchy** panel of the scene editor, click **Add Entity**, open **Cameras 3D** and choose:
+
+* **Fixed Camera** or **View Camera**: an entity with a `Camera3D` and no controller. The camera stays where you put it until your code moves it.
+* **Free Camera**: a `Camera3D` plus the `FreeCamera3D` component, which lets you fly the camera with mouse, keyboard, touch or gamepad while the application runs.
+
+![Create camera menu](images/createFreeCamera.png)
+
+## Create a camera from code
 
 ```csharp
-protected override void CreateScene()
-{
-    // Create a new camera entity.
-    Entity cameraEntity = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new Camera3D()
-        {
-            BackgroundColor = Color.CornflowerBlue,
-        });
+using Evergine.Common.Graphics;
+using Evergine.Components.Cameras;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
 
-    // Add the camera entity to the entity manager.
-    this.Managers.EntityManager.Add(cameraEntity);
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        Entity cameraEntity = new Entity("mainCamera")
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 2, 6) })
+            .AddComponent(new Camera3D()
+            {
+                BackgroundColor = Color.CornflowerBlue,
+
+                // Field of view is set in radians in code, and shown in degrees in Evergine Studio.
+                FieldOfView = MathHelper.ToRadians(60),
+                NearPlane = 0.1f,
+                FarPlane = 500f,
+            })
+            .AddComponent(new FreeCamera3D());
+
+        this.Managers.EntityManager.Add(cameraEntity);
+    }
 }
 ```
 
-## Create a Camera3D in Evergine Studio
-In the Entities Hierarchy panel of your Scene Editor, click "Add Entity" and select **Camera3D**, then choose the kind of camera you want to create:
-* **Fixed Camera:** This camera does not have any built-in behavior; it is static.
-* **View Camera:** This camera can be moved using the mouse, touch, or keyboard while respecting the look-at point.
-* **Free Camera:** This camera can be moved using the mouse, touch, or keyboard.
+## Projection
 
-![Create Camera](images/createFreeCamera.png)
+A camera projects the scene either with **perspective**, where distant objects look smaller, or **orthographically**, where size does not change with distance. Perspective is what you want for most 3D views; orthographic suits technical views, isometric games and 2D.
 
-## Camera3D Properties
+![Perspective and orthographic projections, side by side, with the parameters that define each frustum](images/camera_projection.png)
 
-### Basic Camera3D Properties
+*A perspective frustum widens with distance according to the field of view. An orthographic one is a box whose height is the orthographic size.*
 
-|Property           | Description |
-|--------------------|-------------|
-| [Field of View](xref:Evergine.Framework.Graphics.Camera.FieldOfView) | The camera’s view angle, measured in degrees along the axis specified in the Field of View Axis drop-down. |
-| [Field of View Axis](xref:Evergine.Framework.Graphics.Camera.FieldOfViewAxis) | Field of view axis: <ul><li>**Vertical:** The camera uses a vertical field of view axis.</li><li>**Horizontal:** The camera uses a horizontal field of view axis.</li></ul> |
-| [Near Plane](xref:Evergine.Framework.Graphics.Camera.NearPlane) | The nearest distance the camera can see. |
-| [Far Plane](xref:Evergine.Framework.Graphics.Camera.FarPlane) | The furthest distance the camera can see. |
-| [Background Color](xref:Evergine.Framework.Graphics.Camera.BackgroundColor) | The color applied to the background. |
-| [Clear Flags](xref:Evergine.Framework.Graphics.Camera.ClearFlags) | This flag indicates which part of the framebuffer will be cleared before rendering: <ul><li>**Target:** Clear the color buffer attachments.</li><li>**Depth:** Clear the depth buffer attachment.</li><li>**Stencil:** Clear the stencil buffer attachment.</li><li>**All:** Clear all attachments described before.</li></ul> |
-| [HDR Enabled](xref:Evergine.Framework.Graphics.Camera.HDREnabled) | Render the camera output in an HDR format. |
-| [Camera Order](xref:Evergine.Framework.Graphics.Camera.CameraOrder) | Specify the order in which the camera will be rendered. Lower values indicate that the camera will be rendered first. |
+| Property | Default | Description |
+| --- | --- | --- |
+| **ProjectionType** | `Perspective` | `Perspective` or `Orthographic`. Shown as **Projection**. |
+| **FieldOfView** | π/4 (45°) | Perspective only. The view angle along `FieldOfViewAxis`, in radians in code and in degrees in Evergine Studio. |
+| **FieldOfViewAxis** | `Vertical` | Perspective only. Whether `FieldOfView` is measured vertically or horizontally. With `Vertical`, a wider window shows more to the sides; with `Horizontal`, it shows less above and below. Shown as **View Axis**. |
+| **OrthographicSize** | 5 | Orthographic only. The height of the view in world units (the width when the axis is `Horizontal`). |
+| **NearPlane** | 0.1 | Closest distance the camera renders. Anything nearer is clipped. |
+| **FarPlane** | 1000 | Farthest distance the camera renders, also called the draw distance. |
+| **AspectRatio** | from the viewport | Width divided by height. Computed from the target and the viewport unless you set it. |
 
 ### Frustum
-The camera frustum is the region of space that will appear on the screen.
 
-![Camera Frustum](images/cameraFrustum.png)
+The volume the camera sees is its **frustum**: the region between the near and far planes inside the field of view. Objects whose bounds fall entirely outside it are culled and not drawn.
 
-It is defined by near, far planes, and field of view properties.
+![Camera frustum](images/cameraFrustum.png)
 
-The near and far planes determine where the camera's view begins and ends.
-* The **near plane** is the closest point the camera can see. The default value is 0.1. Objects before this point aren't drawn.
-* The **far plane**, also known as the draw distance, is the furthest point the camera can see. Objects beyond this point aren't drawn. The default setting is 1000.
+> [!TIP]
+> Depth precision is spread between the near and far planes, and most of it is used close to the near plane. Keep `NearPlane` as large as the scene allows; raising it from 0.01 to 0.1 does far more for depth precision than lowering `FarPlane`.
 
-## Photometric Properties
+## Clearing and background
 
-By default, the camera uses basic properties to specify camera views (field of view and exposure). However, it is possible to specify these values using physical values used in real cameras.
+Before rendering, the camera clears its target.
 
-To enable physical parameters:
-
-|Property           | Description |
-|-------------------|-------------|
-| [Enable Physical Parameters](xref:Evergine.Framework.Graphics.Camera.UsePhysicalParameters) | Boolean to indicate if the camera will use the physical parameters to define its field of view. |
-
-### Focal Length and Sensor Size
-|Property           | Description |
-|-------------------|-------------|
-| [Focal Length (millimeters)](xref:Evergine.Framework.Graphics.Camera.FocalLength) | The [focal length](https://en.wikipedia.org/wiki/Focal_length) is a common term in photography to describe the field of view. |
-| [Sensor Size (millimeters)](xref:Evergine.Framework.Graphics.Camera.SensorSize) | The [sensor size](https://en.wikipedia.org/wiki/Image_sensor_format) describes the size in millimeters of the camera sensor. It has several implications in combination with other properties. For example, sensor size and focal length define the camera field of view. |
-
-### Exposure
-The exposure property specifies the overall factor that will be applied to the render output. In combination with HDR render output and environments, it will produce realistic results:
-
-| Exposure = 0.2 | Exposure = 1.0 | Exposure = 3.0 | 
+| Property | Default | Description |
 | --- | --- | --- |
-| ![Exposure 1](images/CameraExposure0.2.png) | ![Exposure 0.2](images/CameraExposure1.png) | ![Exposure 0.3](images/CameraExposure3.png) |
+| **BackgroundColor** | `CornflowerBlue` | Color the target is cleared to. A skybox or sky atmosphere, when present, covers it. |
+| **ClearFlags** | `All` | What is cleared: `Target` (color), `Depth`, `Stencil`, or a combination. `All` clears everything. Turn off `Target` to draw a camera on top of another one. |
+| **UseCustomClearDepth** | false | Clear depth to `ClearDepth` instead of the far value of the depth buffer. |
+| **ClearDepth** | far plane | Depth value to clear to when `UseCustomClearDepth` is on, from 0 to 1. Shown as **Custom Clear Depth**. |
+| **ClearStencil** | 0 | Stencil value to clear to. |
 
-The exposure can be specified using the exposure property, but if you use photometric camera properties, you can reproduce physical behavior concerning the amount of light gathered by the camera:
+## Render order and output
 
-|Property           | Description |
-|-------------------|-------------|
-| [Aperture](xref:Evergine.Framework.Graphics.Camera.Aperture) (f-stops) | The [aperture](https://en.wikipedia.org/wiki/Aperture), expressed in f-stops, controls how open or closed the camera system's aperture is. In addition to the exposure, the aperture setting controls the depth of field. |
-| [Shutter Speed](xref:Evergine.Framework.Graphics.Camera.ShutterSpeed) (seconds) | The [shutter speed](https://en.wikipedia.org/wiki/Shutter_speed), expressed in seconds, controls how long the aperture remains open. In addition to the exposure, the shutter speed controls motion blur. |
-| [Sensitivity](xref:Evergine.Framework.Graphics.Camera.Sensitivity) (ISO) | The [sensitivity](https://en.wikipedia.org/wiki/Focal_length), expressed in ISO, controls how the light reaching the sensor is quantized. In addition to the exposure, the sensitivity setting controls the amount of noise. |
-| [Compensation](xref:Evergine.Framework.Graphics.Camera.Compensation) (EV units) | The [compensation, exposure compensation, or EC](https://en.wikipedia.org/wiki/Exposure_compensation) is expressed in EV units. Applying an exposure compensation EC is as simple as adding an offset to the final exposure. |
+| Property | Default | Description |
+| --- | --- | --- |
+| **CameraOrder** | 0 | Cameras render from lowest to highest order. A camera drawn later lands on top of the earlier ones. |
+| **HDREnabled** | true | Render into a 16-bit floating point intermediate buffer, so that bright values survive until tone mapping. Needed for physically based lighting and for most post-processing. |
+| **Viewport** | (0, 0, 1, 1) | The part of the target the camera draws to, in normalized coordinates: X, Y, width and height from 0 to 1. `(0, 0, 0.5, 1)` is the left half. |
+| **DisplayTag** | empty | Name of the display to render to. Each display is registered in the `GraphicsPresenter` with a tag; when empty, the camera renders to the first display. |
+| **FrameBuffer** | null | A frame buffer to render to instead of a display. It overrides `DisplayTag`. See [Render to a texture](#render-to-a-texture). |
+| **TagFilter** | empty | When set, the camera only draws objects whose entity `Tag` matches it. Use it to make a camera see a subset of the scene. |
 
-> [!Tip]
-> Exposure of 1 can be achieved using an aperture of 1 f-stop, a shutter speed of 1.2 seconds, and sensitivity of 100 ISO.
+This example splits the screen between two cameras:
 
-## Camera Render Output
+```csharp
+var left = new Camera3D() { Viewport = new Viewport(0, 0, 0.5f, 1) };
+var right = new Camera3D() { Viewport = new Viewport(0.5f, 0, 0.5f, 1), CameraOrder = 1 };
+```
 
-By default, the camera render output will be targeted to the default **Display** registered in the **GraphicPresenter** service.
+## Exposure
 
-This behavior can be modified using two properties:
+Exposure scales the light that reaches the camera before tone mapping, the way opening or closing a real camera brightens or darkens the picture. It matters most with HDR rendering and photometric lights.
 
-|Property           | Description |
-|-------------------|-------------|
-| [DisplayTag](xref:Evergine.Framework.Graphics.Camera.DisplayTag) | It controls which display will be used to output the render. Each display is registered into the GraphicPresenter using a DisplayTag. Setting this property will specify the camera output to the framebuffer defined in this display. |
-| [Framebuffer](xref:Evergine.Framework.Graphics.Camera.FrameBuffer) | However, you can override this behavior by setting a framebuffer instance. If you do this, the camera output will be targeted to this framebuffer instance, even if you have previously specified a DisplayTag. |
+| Exposure = 0.2 | Exposure = 1.0 | Exposure = 3.0 |
+| --- | --- | --- |
+| ![The same scene rendered with exposure 0.2, noticeably dark](images/CameraExposure0.2.png) | ![The scene with exposure 1.0](images/CameraExposure1.png) | ![The scene with exposure 3.0, bright and partly overexposed](images/CameraExposure3.png) |
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **Exposure** | 1 | Exposure factor. With physical parameters on, it is computed from the aperture, shutter speed and sensitivity. |
+| **EV100** | read-only | The exposure value at ISO 100 that corresponds to `Exposure`. |
+
+### Auto exposure
+
+With auto exposure, the camera measures the brightness of each frame on the GPU and adapts its exposure over time, like an eye adjusting to the dark. It requires compute shader support.
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **AutoExposureEnabled** | false | Turns auto exposure on. |
+| **MinLogLuminance** | -10 | Lowest luminance, in log2 units, taken into account. |
+| **LogLuminanceRange** | 12 | Range of luminance, in log2 units above the minimum, taken into account. |
+| **TAU** | 1.1 | Adaptation speed. Higher values adapt faster. |
+
+### Physical camera
+
+By default you set the field of view and the exposure directly. With **UsePhysicalParameters** on, they are derived from the settings of a real camera instead, which is the natural choice with photometric lights.
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **UsePhysicalParameters** | false | Compute the field of view and the exposure from the properties below. |
+| **FocalLength** | 50 | Distance between the lens and the sensor, in millimeters. Longer lenses give a narrower field of view. |
+| **SensorSize** | 36 x 24 | Size of the sensor in millimeters. Together with the focal length it defines the field of view. |
+| **Aperture** | 1 | [Aperture](https://en.wikipedia.org/wiki/Aperture) in f-stops. Smaller numbers let in more light and give a shallower depth of field. |
+| **ShutterSpeed** | 1.2 | [Shutter speed](https://en.wikipedia.org/wiki/Shutter_speed) in seconds. Longer times let in more light and give more motion blur. |
+| **Sensitivity** | 100 | [Sensitivity](https://en.wikipedia.org/wiki/Film_speed) in ISO. |
+| **Compensation** | 0 | [Exposure compensation](https://en.wikipedia.org/wiki/Exposure_compensation) in EV, added to the computed exposure. |
+| **FocalDistance** | 1 | Distance in meters to the plane in focus, used by [depth of field](postprocessing_graph/default_postprocessing_graph/depth_of_field.md). |
+
+> [!TIP]
+> The defaults (f/1, 1.2 s, ISO 100) give an exposure of 1, the same as a camera without physical parameters. For a sunny outdoor scene lit with a sun of around 100,000 lux, try f/16, 1/125 s and ISO 100.
+
+## Advanced rendering properties
+
+These properties are only available from code.
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **RenderPath** | null | The render path that draws this camera. When null, the camera uses the default path of the render pipeline, the `ForwardRenderPath`. See [Rendering Overview](rendering_overview.md). |
+| **CullingSystem** | null | The culling system for this camera. When null, it uses the render manager's, a `FrustumCullingSystem`. Assign a `DummyCullingSystem` to draw everything without culling. |
+| **AutoDepthBounds** | false | Measure the real depth range of the visible scene each frame to fit shadow cascades to it. Usually set for every camera through the `ShadowMapManager`. |
+
+> [!NOTE]
+> `Camera3D` also has `FrustumCullingEnabled` and `LayerMask` properties. The default render pipeline does not use them; use `CullingSystem` and `TagFilter` instead.
+
+## Render to a texture
+
+A camera can render into a frame buffer that you create, whose color texture you can then use in a material, for a security monitor, a mirror or a minimap.
+
+```csharp
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class MonitorScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
+
+        FrameBuffer frameBuffer = graphicsContext.Factory.CreateFrameBuffer(512, 512, debugName: "MonitorCamera");
+
+        // Without an intermediate buffer the camera renders straight into the texture,
+        // which skips HDR and post-processing. With it, the camera renders like the main one.
+        frameBuffer.IntermediateBufferAssociated = true;
+
+        Entity monitorCamera = new Entity("monitorCamera")
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 5, 5), LocalRotation = new Vector3(-MathHelper.PiOver4, 0, 0) })
+            .AddComponent(new Camera3D()
+            {
+                FrameBuffer = frameBuffer,
+
+                // Render before the main camera so the texture is up to date when the screen samples it.
+                CameraOrder = -1,
+            });
+
+        var screenMaterial = new StandardMaterial(assetsService.Load<Effect>(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assetsService.Load<RenderLayerDescription>(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorTexture = frameBuffer.ColorTargets[0].Texture,
+            BaseColorSampler = assetsService.Load<SamplerState>(DefaultResourcesIDs.LinearClampSamplerID),
+            LightingEnabled = false,
+        };
+
+        Entity screen = new Entity("screen")
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 1.5f, -2) })
+            .AddComponent(new MaterialComponent() { Material = screenMaterial.Material })
+            .AddComponent(new PlaneMesh() { PlaneNormal = PlaneMesh.NormalAxis.ZPositive, Width = 1.6f, Height = 0.9f })
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(monitorCamera);
+        this.Managers.EntityManager.Add(screen);
+    }
+}
+```

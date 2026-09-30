@@ -4,9 +4,7 @@
 
 ![Primitives](images/primitives.jpg)
 
-Evergine has a collection of 3D **primitives** that you can use for prototyping purposes. The primitives are easier and faster to use, making them very useful when you are conducting tests or creating a prototype scene.
-
-Primitive collection:
+**Primitives** are simple shapes whose mesh Evergine generates from a few parameters: size, tessellation and texture coordinates. They are ideal for prototyping, tests, debug geometry and simple scene elements such as floors. Evergine includes nine:
 
 * Capsule
 * Cone       
@@ -18,151 +16,157 @@ Primitive collection:
 * Teapot
 * Torus
 
-The main difference between using primitives and using a [Model](models/index.md) is that in the case of primitives, the Mesh is generated procedurally instead of being obtained from an asset. This allows you to parameterize the way the mesh is generated.
+Unlike a [model](models/index.md), a primitive's mesh does not come from an asset: a component generates it procedurally, so you can change its parameters at any time. Primitives with the same parameters share one mesh.
 
-## Create a Primitive from Evergine Studio
+## Create a primitive in Evergine Studio
 
-From the Entity Hierarchy panel, click on the ![plus](images/plusIcon.jpg) button and go to the Primitives 3D submenu.
+In the **Entities Hierarchy** panel, click the ![plus](images/plusIcon.jpg) button and open **Primitives 3D**. The new entity has a `Transform3D`, the primitive component, a `MaterialComponent` with the default material and a `MeshRenderer`.
 
-![Create Primitive](images/CreatePrimitivesMenu.jpg)
+![Create primitive menu](images/CreatePrimitivesMenu.jpg)
 
-## Create a Primitive from Code
-
-To create a primitive, you only need to create an entity with the following components:
+## Create a primitive from code
 
 ```csharp
-protected override void CreateScene()
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
 {
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
+        var material = assetsService.Load<Material>(DefaultResourcesIDs.DefaultMaterialID);
 
-    var material = assetsService.Load<Material>(EvergineContent.Materials.DefaultMaterial);
+        Entity cube = new Entity("cube")
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new CubeMesh() { Size = 2 })
+            .AddComponent(new MeshRenderer());
 
-    Entity cubeEntity = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new MaterialComponent() { Material = material })
-        .AddComponent(new CubeMesh()) // A cube primitive
-        .AddComponent(new MeshRenderer());
-
-    this.Managers.EntityManager.Add(cubeEntity);
+        this.Managers.EntityManager.Add(cube);
+    }
 }
 ```
-> [!Tip]
-> To create a primitive, you only need to change the _CubeMesh_ component to _CapsuleMesh_, _ConeMesh_, _CylinderMesh_, _PlaneMesh_, _PyramidMesh_, _SphereMesh_, _TeapotMesh_, or _TorusMesh_ component.
 
-## Cube Parameters
+> [!TIP]
+> Swap `CubeMesh` for `CapsuleMesh`, `ConeMesh`, `CylinderMesh`, `PlaneMesh`, `PyramidMesh`, `SphereMesh`, `TeapotMesh` or `TorusMesh` to get the other primitives.
+
+## Cube
 
 ![Cube](images/cube.png)
 
-The component to create this primitive is `CubeMesh`.
+`CubeMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **Size**           | The size of the cube. Must be greater than 0. |
-| **UVHorizontalFlip** | Indicates whether to flip the horizontal texture coordinate. |
-| **UVVerticalFlip**   | Indicates whether to flip the vertical texture coordinate. |
-| **InitialU**       | The horizontal texture coordinate offset. |
-| **InitialV**       | The vertical texture coordinate offset. |
-| **UTile**          | The horizontal texture coordinate scale factor. |
-| **VTile**          | The vertical texture coordinate scale factor. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Size** | 1 | Length of each edge. |
+| **UMirror** | false | Flip the horizontal texture coordinate. |
+| **VMirror** | false | Flip the vertical texture coordinate. |
+| **UOffset** | 0 | Offset of the horizontal texture coordinate. |
+| **VOffset** | 0 | Offset of the vertical texture coordinate. |
+| **UTile** | 1 | Scale of the horizontal texture coordinate. |
+| **VTile** | 1 | Scale of the vertical texture coordinate. |
 
-## Sphere Parameters
+## Sphere
 
 ![Sphere](images/sphere.png)
 
-The component to create this primitive is `SphereMesh`.
+`SphereMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **Diameter**       | The diameter of the sphere. Must be greater than 0. |
-| **Tessellation**   | The tessellation of the sphere. Must be greater than 3. |
-| **UVHorizontalFlip** | Indicates whether to flip the horizontal texture coordinate. |
-| **UVVerticalFlip**   | Indicates whether to flip the vertical texture coordinate. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Diameter** | 1 | Diameter of the sphere. |
+| **Tessellation** | 16 | Number of segments around the sphere. Higher is rounder. |
+| **UMirror** | false | Flip the horizontal texture coordinate. |
+| **VMirror** | false | Flip the vertical texture coordinate. |
 
-## Plane Parameters
+## Plane
 
 ![Plane](images/plane.png)
 
-The component to create this primitive is `PlaneMesh`.
+`PlaneMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **PlaneNormal**    | The normal of the plane. Available values: <ul><li>XPositive</li><li>YPositive</li><li>ZPositive</li><li>XNegative</li><li>YNegative</li><li>ZNegative</li></ul> |
-| **Width**          | The width of the plane. Must be greater than 0. |
-| **Height**         | The height of the plane. Must be greater than 0. |
-| **TwoSides**       | Indicates whether the plane has two sides. By default, the bottom face of the plane is not generated. |
-| **UMirror**        | Indicates whether to flip the horizontal texture coordinate. | 
-| **VMirror**        | Indicates whether to flip the vertical texture coordinate. |
-| **UOffset**        | Applies an offset to the horizontal texture coordinates. |
-| **VOffset**        | Applies an offset to the vertical texture coordinates. |
-| **UTile**          | The horizontal texture coordinate scale factor. |
-| **VTile**          | The vertical texture coordinate scale factor. |
-| **Origin**         | Represents the pivot in a normalized position. By default, the value is (0.5, 0.5), which indicates that the PlaneMesh position is measured from the center of the plane. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **PlaneNormal** | `YPositive` | The axis the plane faces: `XPositive`, `YPositive`, `ZPositive`, `XNegative`, `YNegative` or `ZNegative`. The default is a floor. |
+| **Width** | 1 | Width of the plane. |
+| **Height** | 1 | Height of the plane. |
+| **TwoSides** | false | Also generate the back face. |
+| **UMirror** | false | Flip the horizontal texture coordinate. |
+| **VMirror** | false | Flip the vertical texture coordinate. |
+| **UOffset** | 0 | Offset of the horizontal texture coordinate. |
+| **VOffset** | 0 | Offset of the vertical texture coordinate. |
+| **UTile** | 1 | Scale of the horizontal texture coordinate. |
+| **VTile** | 1 | Scale of the vertical texture coordinate. |
+| **Origin** | (0.5, 0.5) | Pivot of the plane, normalized to its size. The default places the entity at the center of the plane. |
 
-## Teapot Parameters
+## Teapot
 
 ![Teapot](images/teapot.png)
 
-The component to create this primitive is `TeapotMesh`.
+`TeapotMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **Size**           | The size of the teapot. Must be greater than 0. |
-| **Tessellation**   | The tessellation of the teapot. Must be greater than 3. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Size** | 1 | Size of the teapot. |
+| **Tessellation** | 16 | Subdivision of its curved patches. |
 
-## Capsule Parameters
+## Capsule
 
 ![Capsule](images/capsule.png)
 
-The component to create this primitive is `CapsuleMesh`.
+`CapsuleMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **Height**         | The height of the capsule. Must be greater than 0. |
-| **Radius**         | The radius of the capsule. Must be greater than 0. |
-| **Tessellation**   | The tessellation of the capsule. Must be even. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Height** | 1 | Height of the cylindrical part. |
+| **Radius** | 0.5 | Radius of the capsule and of its hemispherical caps. |
+| **Tessellation** | 16 | Number of segments around the capsule. Must be even. |
 
-## Cone Parameters
+## Cone
 
 ![Cone](images/cone.png)
 
-The component to create this primitive is `ConeMesh`.
+`ConeMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **Height**         | The height of the cone. Must be greater than 0. |
-| **Diameter**       | The diameter of the cone. Must be greater than 0. |
-| **Tessellation**   | The tessellation of the cone. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Height** | 1 | Height of the cone. |
+| **Diameter** | 1 | Diameter of the base. |
+| **Tessellation** | 16 | Number of segments around the base. |
 
-## Cylinder Parameters
+## Cylinder
 
 ![Cylinder](images/cylinder.png)
 
-The component to create this primitive is `CylinderMesh`.
+`CylinderMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **Height**         | The height of the cylinder. Must be greater than 0. |
-| **Diameter**       | The diameter of the cylinder. Must be greater than 0. |
-| **Tessellation**   | The tessellation of the cylinder. Must be greater than 3. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Height** | 1 | Height of the cylinder. |
+| **Diameter** | 1 | Diameter of the cylinder. |
+| **Tessellation** | 16 | Number of segments around the cylinder. |
 
-## Pyramid Parameters
+## Pyramid
 
 ![Pyramid](images/pyramid.png)
 
-The component to create this primitive is `PyramidMesh`.
+`PyramidMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **Size**           | The size of the pyramid. Must be greater than 0. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Size** | 1 | Size of the pyramid. |
 
-## Torus Parameters
+## Torus
 
 ![Torus](images/torus.png)
 
-The component to create this primitive is `TorusMesh`.
+`TorusMesh`
 
-| Parameter          | Description |
-|--------------------|-------------|
-| **Diameter**       | The diameter of the torus. Must be greater than 0. |
-| **Thickness**      | The thickness of the torus. Must be greater than 0. |
-| **Tessellation**   | The tessellation of the torus. Must be greater than 3. |
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Diameter** | 1 | Diameter of the torus. |
+| **Thickness** | 0.333 | Thickness of the tube. |
+| **Tessellation** | 16 | Number of segments around the ring and the tube. |

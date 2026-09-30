@@ -1,14 +1,16 @@
 # Line Batch
+
 ---
-![Billboards header](images/linebatchHeader.jpg)
 
-**Linebatch** is very useful when you need to create a huge number of lines in your scene, for example, for dummy objects or helpers. The most interesting thing about this feature is that all the lines you create are batched into a single draw call, allowing you to achieve good performance.
+![Line batch header](images/linebatchHeader.jpg)
 
-This feature is _only available from code_. You can find LineBatch3D and LineBatch2D in the scene RenderManager.
+A **line batch** draws large numbers of one-pixel lines, such as debug helpers, gizmos, grids or bounding volumes. Every line you add to a batch ends up in a single vertex buffer and a single draw call, so thousands of lines cost little more than one.
 
-The lines are composed of two vertices and an edge, so you cannot control the thickness of the lines. If you want to draw thicker lines, see the [Line3D](../lines_3d.md).
+Line batches are only available from code. Each scene's `RenderManager` has one ready to use in its `LineBatch3D` property, and you can create your own when you need a separate transform or render layer.
+
+Lines are always one pixel wide. When you need thick lines, textured lines or lines that are part of the scene rather than a debugging aid, use a [line mesh](../lines_3d.md) instead.
 
 ## In this section
 
-* [Using Linebatch](using_linebatch.md)
-* [Create custom Linebatch](custom_linebatch.md)
+* [Using LineBatch](using_linebatch.md)
+* [Create a custom LineBatch](custom_linebatch.md)

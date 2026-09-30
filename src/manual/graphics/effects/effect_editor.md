@@ -1,13 +1,15 @@
 # Effect Editor
 
 ---
-![Material Editor Interface](images/EffectEditor.jpg)
 
-**Effect Editor** allows editing the effect assets. Double-clicking on an effect asset shown in [Assets Details](../../evergine_studio/interface.md) will open this editor. The editor is composed of two main parts: the Shader Text Editor and the Viewport.
+![The Effect Editor with StandardEffect open: shader text editor, toolbox, compilation result and viewport](images/EffectEditor.png)
+
+
+The **Effect Editor** is where you write and test effects. Double-click an effect asset in [Assets Details](../../evergine_studio/interface.md) to open it. It has two parts: the shader text editor and the viewport.
 
 ## **Shader Text Editor**
 
-The shader text editor allows you to write your effects in [**HLSL**](https://docs.microsoft.com/en-us/windows/win32/direct3dhlsl/dx-graphics-hlsl-pguide) language with [**metatags**](effect_metatags.md). This editor includes common code editor features such as error marks, syntax highlighting, and code completion (`Ctrl+Space`) to help you create your custom effects.
+The shader text editor is where you write the effect in [HLSL](https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl) with [metatags](effect_metatags.md). It marks errors, highlights syntax and completes code (`Ctrl+Space`).
 
 | Actions  | Description |
 |----------|-------------|
@@ -33,14 +35,14 @@ The shader text editor has a toolbox that helps you with several important tasks
 |![Snippets](images/SnippetsIcon.jpg) | Allows adding common snippet codes into your effects. |
 |![Material Decorator](images/MaterialDecoratorIcon.jpg) | Generates the Material Decorator class in your project. |
 |![All Combinations](images/CombinationsIcon.jpg) | Compiles all directive combinations and shows the combinations with errors. |
-|![Translate](images/TranslationIcon.jpg) | Shows the automatic translation from original `HLSL` to `SPIRV`(Vulkan), `GLSL`(OpenGL/OpenGLES), or `MSL`(Metal) when it will be used in other backends. |
+|![Translate](images/TranslationIcon.jpg) | Shows the HLSL translated to the language of another backend: `SPIRV` (Vulkan), `GLSL` and `ESSL` (OpenGL and OpenGL ES), `WebGL1` and `WebGL2`, `MSL` (Metal) or `WGSL` (WebGPU). |
 |![Profile](images/ProfileIcon.jpg) | Allows configuring the asset profile, such as excluding an effect on a single platform or pre-compiling an effect for a single platform. |
 
 ### Translation Panel
 
-The translation panel is shown below the shader text editor after clicking on the ![Translate](images/TranslationIcon.jpg) button. It shows the result of translating the current HLSL pass and directive combinations to other languages. The panel includes two combo boxes to select the translation languages: `GLSL`, `ESSL`, `WebGL1`, `WebGL2`, `MSL`, or `SPIRV`, and another to select the stage to translate: _Vertex_, _Geometry_, _Hull_, _Domain_, or _Compute_.
+The translation panel is shown below the shader text editor after clicking on the ![Translate](images/TranslationIcon.jpg) button. It shows the current pass and directive combination translated to another language. One combo box selects the language (`GLSL`, `ESSL`, `WebGL1`, `WebGL2`, `WGSL`, `MSL` or `SPIRV`) and the other the stage (for example _Vertex_, _Pixel_ or _Compute_).
 
-![Translation Panel](images/translationPanel.jpg)
+![Translation Panel](images/TranslationPanel.jpg)
 
 ### Profile Panel
 
@@ -74,8 +76,8 @@ The viewport toolbox is on the top side of the Viewport and has the following op
 
 | Icon  | Description |
 |-------|-------------|
-| ![Render Path](images/RenderPathIcon.jpg) | Defines the current RenderPipeline Path used by the viewport. |
-| ![Pass](images/PassIcon.jpg)             | Defines the current pass used by the viewport. |
+| ![Render Path](images/RenderPathIcon.jpg) | The render path of the viewport. `DebugRenderPath`, the default, draws only the pass selected next to it, which lets you check each pass of the effect on its own. `ForwardRenderPath` renders the primitive as a scene camera would, with all its passes. |
+| ![Pass](images/PassIcon.jpg)             | The pass `DebugRenderPath` draws. |
 | ![Primitive](images/PrimitiveIcon.jpg)   | Allows changing the primitive used by the viewport. |
 | ![Background](images/backgroundIcon.jpg)  | Allows changing the background color of the viewport. |
 

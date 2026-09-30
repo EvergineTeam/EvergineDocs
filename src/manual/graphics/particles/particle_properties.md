@@ -18,9 +18,9 @@ Properties that control the basic aspects of the particle system.
 
 |  Property      | Default value | Description   |
 | ---- | ---- | ---- | 
-| **Max Particles**  | _1000_ | The maximum number of particles the emitter can handle. The emission will be paused if it reaches this number. |
+| **Max Particles**  | _1000_ | The most particles the system can have alive at once. Emission pauses while it is at this limit. |
 | **Gravity**  | _0_ | <div><p>Sets the gravity of the particle system.</p><li>Gravity value of 9.8</li><video autoplay loop muted width="480"><source src="images/gravity.mp4" type="video/mp4"></video></div>
-| **Drag**  | _0_ | <div><p>The amount of resistance the particle will encounter.</p><li>Drag value of 0.</li><video autoplay loop muted width="480"><source src="images/drag_off.mp4" type="video/mp4"></video><li>Drag value of 2.</li><video autoplay loop muted width="480"><source src="images/drag_on.mp4" type="video/mp4"></video></div> |
+| **Drag**  | _0_ | <div><p>How quickly particles slow down, like air resistance.</p><li>Drag value of 0.</li><video autoplay loop muted width="480"><source src="images/drag_off.mp4" type="video/mp4"></video><li>Drag value of 2.</li><video autoplay loop muted width="480"><source src="images/drag_on.mp4" type="video/mp4"></video></div> |
 | **Simulation Space**  | _World_ | <div><p>Sets the simulation space of the particle. In **Local** space, the particle positions stay relative to its emitter transform. In **World** space, all coordinates are global.</p><li>Simulation Space value of World.</li><video autoplay loop muted width="480"><source src="images/world_space.mp4" type="video/mp4"></video><li>Simulation Space value of Local.</li><video autoplay loop muted width="480"><source src="images/local_space.mp4" type="video/mp4"></video></div> |
 | **Random Precision**  | _Medium_ | The precision of the random values generated, both in _GPU_ and _CPU_ simulations. **High** precision will randomize better but with a performance cost; **Low** precision will improve performance but produce less random values. **Medium** precision (_default value_) offers a good balance. |
 
@@ -72,8 +72,8 @@ The initial speed configuration panel controls the particle speed magnitude (in 
 | Property | Default value | Description |
 |----------|--------------|-------------|
 | Init Speed mode | _Constant_ | Sets whether the initial speed is **Constant** (_Init Speed_) or **RandomBetweenTwoConstants** (a random value between _Init Speed_ and _Init Speed 2_). |
-| Init Speed | _0.1_ | The initial speed of the particle. |
-| Init Speed 2 | _0.1_ | The second value of the initial speed range.
+| Init Speed | _1_ | The initial speed of the particle. |
+| Init Speed 2 | _1_ | The second value of the initial speed range.
 
 The following video shows how different speed parameters behave:
 
@@ -129,11 +129,11 @@ More information about the spawn management here: [Particle Spawn](particle_spaw
 
 ## Color Over Life
 These properties manage how the particle color changes over its life.
-In a future **Evergine** version, we will implement a proper _Gradient Color_ editor, but in the meantime, we've defined the color over the life of the particle using the following properties according to this diagram:
+The color over life is a gradient of four colors: the first at the birth of the particle, the fourth at its death, and the second and third at positions you choose:
 
 ![Color Over Life Diagram](images/color_over_life.png)
 
-> [!Note]
+> [!NOTE]
 > The color of the gradient is applied as a tint over the initial color of the particle.
 
 | Property | Default value | Description |
@@ -154,11 +154,11 @@ The following video shows a particle system using the color gradient previously 
 
 ## Size Over Life
 These properties control how the particles change their size over their lifetime.
-In a future **Evergine** version, we will implement a proper _Curve Editor_, but in the meantime, we've defined the size over life of the particle using the following properties according to this diagram:
+The size over life is a curve of four points: the first at the birth of the particle, the fourth at its death, and the second and third at positions you choose:
 
 ![Size Over Life Diagram](images/size_over_life.png)
 
-> [!Note]
+> [!NOTE]
 > The size of the curve is applied as a multiplier over the initial size of the particle.
 
 | Property | Default value | Description |
@@ -169,7 +169,7 @@ In a future **Evergine** version, we will implement a proper _Curve Editor_, but
 | Size Over Life 3 | _1_ | Size multiplier of the **third** point of the animation. |
 | Size Over Life 4 | _0_ | Size multiplier of the **fourth** point of the animation. |
 | Size Over Life 2 Position | _0.2_ | Position in the curve of the **second** point of the animation. Must be in the range _[0, 1]_. |
-| Size Over Life 3 Position | _0.8_ | Position in the curve of the **third** point of the animation. Must be in the range _[0, 1]_. |
+| Size Over Life 3 Position | _0.2_ | Position in the curve of the **third** point of the animation. Must be in the range _[0, 1]_. Set it to 0.8 to get the symmetric curve of the diagram. |
 
 The following video shows a particle system using the size curve previously seen.
 
@@ -183,7 +183,7 @@ The noise panel allows the application of a turbulence field into the particle s
 | Property | Default value | Description |
 |----------|--------------|-------------|
 | Noise Enabled  | _false_ | Sets whether the particle system is affected by the noise field. |
-| Noise Strength | _1_ | How much the particles are affected by the noise field. A larger value will generate more chaos! |
+| Noise Strength | _1_ | How strongly the noise field moves the particles. |
 | Noise Size | _1_ | The scale of the noise field. Large values cause more wavy noise; small values will change the behavior among close particles. |
 | Noise Frequency | _1_ | Represents the period at which the noise data is sampled. |
 | Noise Speed | _(1, 1, 1)_ | The velocity vector at which the noise field is moving. |
