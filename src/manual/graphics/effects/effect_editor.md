@@ -2,9 +2,8 @@
 
 ---
 
-![Effect Editor interface](images/EffectEditor.jpg)
+![The Effect Editor with StandardEffect open: shader text editor, toolbox, compilation result and viewport](images/EffectEditor.png)
 
-<!-- CAPTURE: images/EffectEditor.png; the Effect Editor of the develop Evergine Studio with StandardEffect open, the toolbox, the compilation result and the viewport with a sphere, to replace the 2024 screenshot above -->
 
 The **Effect Editor** is where you write and test effects. Double-click an effect asset in [Assets Details](../../evergine_studio/interface.md) to open it. It has two parts: the shader text editor and the viewport.
 

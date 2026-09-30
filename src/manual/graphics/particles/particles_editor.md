@@ -2,9 +2,8 @@
 
 ---
 
-![Particles Editor](images/particles_editor.png)
+![The Particle System Editor: viewport, toolbar, playback controls and properties](images/particles_editor.png)
 
-<!-- CAPTURE: images/particles_editor_develop.png; the Particle System Editor of the develop Evergine Studio with a fire particle system playing, the toolbar, the playback controls and the properties panel -->
 
 The **Particle System Editor** allows the editing of particle system assets. Double-clicking on a **Particle System** asset shown in [Assets Details](../../evergine_studio/interface.md) will open this editor. The editor is composed of 4 main parts:
 

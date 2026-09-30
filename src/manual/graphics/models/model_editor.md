@@ -2,9 +2,8 @@
 
 ---
 
-![Model Editor](images/ModelEditor.jpg)
+![The Model Editor with an animated model: viewport, toolbar, playback controls and properties](images/ModelEditor.png)
 
-<!-- CAPTURE: images/ModelEditor.png; the Model Editor of the develop Evergine Studio with an animated model, showing the viewport, the toolbar, the playback controls and the properties, to replace the 2024 screenshot above -->
 
 The **Model Editor** previews a model and edits its import settings. Double-click a model in [Assets Details](../../evergine_studio/interface.md) to open it. It has four parts: the viewport, the toolbar, the playback controls and the properties.
 

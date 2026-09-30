@@ -2,9 +2,8 @@
 
 ---
 
-![Material Editor interface](images/MaterialEditor.jpg)
+![The Material Editor with a Standard material open: viewport, effect selector and properties](images/MaterialEditor.png)
 
-<!-- CAPTURE: images/MaterialEditor.png; the Material Editor of the develop Evergine Studio with DefaultMaterial open, showing the viewport, the effect selector and the Standard effect properties, to replace the 2024 screenshot above -->
 
 The **Material Editor** edits material assets. Double-click a material in [Assets Details](../../evergine_studio/interface.md) to open it. It has three parts: the viewport, the effect selector and the properties.
 

@@ -6,7 +6,7 @@ A **sampler** tells the GPU how to read a texture: how to filter between texels 
 
 In Evergine a sampler is an asset (`.wesp`) that wraps a `SamplerStateDescription`. Materials reference samplers next to their textures, and textures can have a default sampler of their own.
 
-<!-- CAPTURE: images/sampler_editor.png; the Sampler Editor of Evergine Studio with LinearWrapSampler open, showing the tiled checker preview and the Filter, Address and LOD properties -->
+![The Sampler Editor previewing a sampler that wraps on U and V](images/sampler_editor.png)
 
 ## Built-in samplers
 

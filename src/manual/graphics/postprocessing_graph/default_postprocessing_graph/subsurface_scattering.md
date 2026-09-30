@@ -2,8 +2,6 @@
 
 ---
 
-<!-- CAPTURE: images/sss.png; the same skin material side by side without and with the SSS post-processing effect, lit from one side, showing the softer light falloff and red translucency -->
-
 In materials such as skin, marble, wax or leaves, light enters the surface, scatters inside and comes out somewhere else. That is what gives skin its soft look and makes ears glow red against the light. **Subsurface scattering** reproduces it in screen space: it blurs the lighting of the marked materials along their surface, with a profile that lets red light travel farther than green and blue.
 
 It works together with a material that uses the **SSS effect** (`SSSEffect`) of the Evergine.Core package. The material marks its pixels in the GBuffer; the post-processing effect then blurs only those pixels, following the depth of the surface so the blur does not bleed onto the background.

@@ -183,7 +183,7 @@ Objects cast shadows through the `RenderFlags.CastShadows` flag of their drawabl
 
 The quality of every shadow in a scene is set on the `ShadowMapManager` scene manager, which the default scene template already includes. Select it in the **Scene Managers** list of the scene to change it.
 
-<!-- CAPTURE: images/shadowmapmanager.png; the Scene Managers panel of a scene with ShadowMapManager selected, showing its resolution, filter and AutoDepthBounds properties -->
+![The Scene Managers panel with the ShadowMapManager properties](images/shadowmapmanager.png)
 
 | Property | Default | Description |
 | --- | --- | --- |

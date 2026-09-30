@@ -2,9 +2,8 @@
 
 ---
 
-![Texture Editor](Images/textureEditorHighlight.png)
+![The Texture Editor with a cubemap open: viewport, toolbox with the channel, mip level and slice controls, and properties](Images/textureEditor.png)
 
-<!-- CAPTURE: Images/textureEditor.png; the Texture Editor of the develop Evergine Studio with an HDR texture open, showing the toolbox (channels, mip level, slice, range) and the properties, to replace the 2024 screenshot above -->
 
 The **Texture Editor** previews a texture and edits its import settings. Double-click a texture in [Assets Details](../../evergine_studio/interface.md) to open it. It has three parts: the viewport, the toolbox and the properties.
 

@@ -2,9 +2,8 @@
 
 ---
 
-![Post-Processing Graph Editor](images/PostprocessingGraphEditor.jpg)
+![The Post-Processing Graph Editor with the default graph: graph editor, viewport and available effects](images/PostprocessingGraphEditor.png)
 
-<!-- CAPTURE: images/PostprocessingGraphEditor.png; the Post-Processing Graph Editor of the develop Evergine Studio with the default graph open, the effects collection and the viewport, to replace the 2024 screenshot above -->
 
 The **Post-Processing Graph Editor** edits post-processing graph assets. Double-click a graph asset in [Assets Details](../../evergine_studio/interface.md) to open it. The editor has three parts:
 * Graph Editor

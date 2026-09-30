@@ -2,8 +2,6 @@
 
 ---
 
-<!-- CAPTURE: images/fog.png; the same outdoor scene without fog and with exponential distance fog, fading distant objects to grey -->
-
 **Fog** fades objects towards a color with distance from the camera, height above the ground, or both. It adds depth to large scenes and hides the far plane.
 
 ## Parameters

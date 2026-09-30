@@ -2,8 +2,6 @@
 
 ---
 
-<!-- CAPTURE: images/motion_blur.png; a scene captured while the camera turns quickly, without and with motion blur -->
-
 **Motion Blur** blurs the image in the direction the camera moves, the way a real camera smears the picture during its exposure. It makes fast camera movement look smoother, especially at low frame rates. It reads the motion vectors of the GBuffer pass.
 
 ## Parameters

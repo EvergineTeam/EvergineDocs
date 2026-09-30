@@ -2,7 +2,7 @@
 
 ---
 
-<!-- CAPTURE: images/lines_3d.png; the six line primitives side by side in a scene (Line3D, Bezier3D, Rectangle3D, Polygon3D, Arc3D and Cube3D), white on a dark background, with Is Camera Aligned on -->
+![The six line primitives of the Lines3D menu, camera aligned](images/lines_3d.png)
 
 **Line meshes** draw lines as real geometry: each segment is a strip of triangles with its own thickness, color and texture coordinates. Use them for paths, trajectories, measurements, wireframes and outlines that are part of the scene. For thousands of one-pixel debug lines, the [line batch](linebatch/index.md) is cheaper.
 
