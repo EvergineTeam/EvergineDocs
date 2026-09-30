@@ -1,22 +1,27 @@
 # OpenXR
 
-**OpenXR** is an open, royalty-free API standard from [Khronos](https://www.khronos.org/openxr/) designed to unify development across multiple VR/MR/AR (XR) devices.
+![OpenXR sits between applications and the runtimes of every conformant device](images/openxr_overall.png)
 
-This initiative is supported by companies like Meta, Microsoft, HTC, Steam, Varjo, and Magic Leap, enabling compatibility across all their devices.
+**OpenXR** is an open, royalty-free API standard from the [Khronos Group](https://www.khronos.org/openxr/). Headset vendors ship an OpenXR runtime, and an application written against OpenXR runs on any of them without a vendor SDK.
 
-![OpenXR](images/openxr_overall.png)
+Evergine implements OpenXR in the **Evergine.OpenXR** package, through the [`OpenXRPlatform`](openxr_platform.md) service. It is the recommended way to build VR and mixed reality applications with Evergine: the same service drives standalone Android headsets and PC headsets, and Evergine Studio has a project template for each.
 
-Official support for OpenXR will allow Evergine developers to create new applications that will support upcoming XR devices.
+| Target | Template | Graphics backend | Page |
+| --- | --- | --- | --- |
+| Meta Quest headsets | Android Meta Quest (OpenXR) | Vulkan | [Meta Quest](metaquest.md) |
+| Pico headsets | Android Pico (OpenXR) | Vulkan | [Pico](pico.md) |
+| PC headsets (through the OpenXR runtime installed on Windows) | Windows OpenXR (DirectX11) | DirectX 11 | [Windows (PC VR)](windows.md) |
 
-In this version of Evergine, OpenXR integration covers the main aspects of this standard. We will provide new functionality and specific extensions in future versions, such as eye tracking and spatial mapping, which are particularly useful for HoloLens devices.
+![The four steps from choosing a profile to running the frame loop](images/openxr_project_setup.png)
 
-Currently, Evergine allows you to create PC desktop applications that cover almost the entire spectrum of wired VR devices and portable Android devices (such as Meta Quest).
+*Choosing the profile is the only step you take in Evergine Studio. The template writes the launcher code that creates `OpenXRPlatform`, and your scene stays the same for every profile.*
 
-## OpenXRPlatform
+> [!NOTE]
+> `OpenXRPlatform` supports the DirectX 11, Vulkan and OpenGL graphics backends. It does not support DirectX 12, the default backend of the regular Windows template, which is why PC VR has its own **Windows OpenXR (DirectX11)** template.
 
-The OpenXR implementation is provided by the `OpenXRPlatform` service, a class that offers the implementation of [XRPlatform](../xrplatform.md). When you create an `OpenXRPlatform` instance, you have the option to specify which extensions you want to enable.
+## In this section
 
-## In This Section
-
-- [Meta Quest](metaquest.md)
-- [Pico VR](pico.md)
+* [OpenXR Platform](openxr_platform.md)
+* [Meta Quest](metaquest.md)
+* [Pico](pico.md)
+* [Windows (PC VR)](windows.md)
