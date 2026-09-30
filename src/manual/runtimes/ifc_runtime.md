@@ -6,8 +6,6 @@
 
 The **Evergine.Runtimes.IFC** package reads Industry Foundation Classes (`.ifc`) files, the open exchange format of BIM tools such as Revit, ArchiCAD and Tekla, while the application runs. It returns a `Model` built for fast display of whole buildings: all geometry is merged into at most two meshes, one opaque and one translucent.
 
-<!-- CAPTURE: ifc_runtime_app.png; a Windows desktop app showing a multi-storey IFC building (for example the AC20-Institute sample) loaded with IFCRuntime, with translucent glazing visible over the opaque structure -->
-
 | | |
 | --- | --- |
 | **Package** | `Evergine.Runtimes.IFC` |

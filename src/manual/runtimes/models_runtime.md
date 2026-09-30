@@ -6,8 +6,6 @@
 
 The **Evergine.Runtimes.GLB** and **Evergine.Runtimes.STL** packages read `.glb` and `.stl` files while the application runs and turn them into a `Model`, the same asset type that Evergine Studio produces when it imports a model. Use them when the model is not known at build time: a file the user picks, a catalog downloaded from your server, or content that changes more often than you publish the application.
 
-<!-- CAPTURE: glb_runtime_app.png; a Windows desktop app built from the sample on this page showing a GLB model (for example DamagedHelmet.glb) downloaded over HTTP and lit by the default scene, with the window title visible -->
-
 | | GLB | STL |
 | --- | --- | --- |
 | **Package** | `Evergine.Runtimes.GLB` | `Evergine.Runtimes.STL` |

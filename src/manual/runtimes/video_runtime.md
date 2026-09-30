@@ -6,8 +6,6 @@
 
 The **Evergine.Runtimes.Video** package plays video files on any surface of your scene: a screen in a virtual showroom, a billboard, or the background of a menu. Its `VideoPlayer` component decodes the video with [FFmpeg](https://www.ffmpeg.org/) frame by frame, uploads each frame to a GPU texture, and shows that texture through the material of its entity.
 
-<!-- CAPTURE: video_runtime_app.png; a Windows desktop app built from the complete example on this page, with a video playing on a 16:9 plane in front of the camera -->
-
 | | |
 | --- | --- |
 | **Package** | `Evergine.Runtimes.Video` |

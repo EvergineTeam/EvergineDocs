@@ -8,8 +8,6 @@ The **Evergine.Runtimes.CAD** package reads AutoCAD drawings (`.dwg` and `.dxf`)
 
 Unlike the model runtimes, the CAD runtime does not return a `Model`. A drawing is mostly lines and text, so it returns a ready-made `Entity` that draws every line in one batch and adds a child entity for each text.
 
-<!-- CAPTURE: cad_runtime_app.png; a Windows desktop app showing a DWG or DXF floor plan loaded with CADRuntime and EnableTextRendering = true, seen from above with a few room labels readable -->
-
 | | |
 | --- | --- |
 | **Package** | `Evergine.Runtimes.CAD` |
