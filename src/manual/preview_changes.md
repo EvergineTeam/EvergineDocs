@@ -2,7 +2,7 @@
 
 ---
 
-This local build is `next-release` plus a merge of the twelve `docs/improve-*` branches. Every branch is pushed to origin without a pull request and only touches its own section folder. Physics and Graphics > Low-level API are not part of this pass.
+This local build is `next-release` plus a merge of the twelve `docs/improve-*` branches. Every branch is pushed to origin without a pull request and only touches its own section folder. Physics and Graphics > Low-level API are not part of this pass. The preview also merges `NewJoltPhysics`, so the [Physics](physics/index.md) section shows the new Jolt documentation.
 
 Every section was checked against Engine `develop` (edac0841e) and the 2026.9.29.192 nightly. Each branch builds with DocFX without errors, and the link checker finds no broken link, wrong-case image or orphan media in any section.
 
