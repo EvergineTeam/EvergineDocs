@@ -55,3 +55,33 @@ parentEntity.AddChild(childEntity);
 // Add only the parent entity to the EntityManager
 this.Managers.EntityManager.Add(parentEntity);
 ```
+
+### Bind an Entity to a Component Property
+
+Components can expose properties that reference other entities in the scene. To make an `Entity` property assignable from Evergine Studio, decorate it with the `[RenderPropertyAsEntity]` attribute:
+
+```csharp
+public class Follower : Behavior
+{
+    [RenderPropertyAsEntity]
+    public Entity Target { get; set; }
+
+    [BindComponent]
+    private Transform3D myTransform;
+
+    private Transform3D targetTransform;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        this.targetTransform = this.Target?.FindComponent<Transform3D>();
+    }
+}
+```
+
+In Evergine Studio, you can assign the `Target` property by dragging an entity from the **Entities Hierarchy** and dropping it onto the corresponding property in the component panel.
+
+The entity reference is stored as part of the component configuration. When the scene is loaded and the component dependencies are resolved, the property contains the corresponding `Entity` instance. Therefore, the referenced entity can be used directly from the component code.
+
+In the example above, once the `Follower` component starts, `Target` already references the entity selected in Evergine Studio. The component can then retrieve its `Transform3D` component using `FindComponent<Transform3D>()`.
