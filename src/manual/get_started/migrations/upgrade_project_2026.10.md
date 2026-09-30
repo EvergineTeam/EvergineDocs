@@ -242,7 +242,7 @@ public class LoadTextFile : Component
 }
 ```
 
-See [Raw assets loading](../../evergine_studio/assets/use.md#raw-assets-loading) for details.
+See [Raw assets loading](../../evergine_studio/assets/use.md#load-raw-assets) for details.
 
 ### Application services in Evergine Studio
 
