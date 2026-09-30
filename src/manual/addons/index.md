@@ -31,9 +31,7 @@ The **Add-ons Manager** installs, updates, and removes add-ons. It lives in the 
 2. In the **Project Explorer**, right-click the **Dependencies** node and select **Manage dependencies**.
 3. Open **Project Settings** and select the **Add-Ons** tab.
 
-<!-- CAPTURE: addons_manager.png; Evergine Studio develop, Project Settings window with the Add-Ons tab selected, Browse tab listing several add-ons (MRTK, Gaussian Splatting, DICOM) and one of them selected so the detail view with the Versions selector and NuGet dependencies is visible -->
-
-![The Add-ons Manager in Project Settings](images/UI.png)
+![The Add-Ons tab of Project Settings with Evergine.GaussianSplatting selected](images/addons_manager.png)
 
 The manager has two tabs: **Browse** lists every add-on available in the configured sources, and **Installed** lists the add-ons your project uses. Above the tabs you find:
 

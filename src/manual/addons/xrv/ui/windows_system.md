@@ -6,8 +6,6 @@
 
 The windows system creates floating windows that the user can move, pin, or let follow them, and fills them with your own content. It also provides alert and confirmation dialogs, so you can inform the user or ask them to confirm an action and react to their choice. Access it through the `WindowsSystem` property of `XrvService`.
 
-<!-- CAPTURE: xrv_window_desktop.png; XRV samples WindowScene running in the Windows desktop profile, one custom window open with title bar, follow/pin and close buttons, and content on the front plate -->
-
 ## Window interaction
 
 Every window includes buttons in its title bar that change how it behaves:

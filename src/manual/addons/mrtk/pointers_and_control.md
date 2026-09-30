@@ -38,4 +38,3 @@ You can test MRTK in a Windows desktop profile without a headset. When no XR inp
 | **Left mouse button** (while a pointer is active) | Pinches, which performs the air-tap on far controls and grabs objects. |
 | Hold **Left Ctrl** (while a pointer is active) | Rotates the active pointer with the mouse instead of moving it. |
 
-<!-- CAPTURE: mrtk_desktop_emulation.mp4; MRTK demo scene running in a Windows desktop profile, holding Left Shift to show the right-hand pointer, moving it to a pressable button, and clicking to press it -->

@@ -6,8 +6,6 @@
 
 The tabs control arranges content in tabbed panels: a row of tab buttons and a container that shows the content of the selected tab. XRV uses it in the settings and help windows, and you can use it in your own windows.
 
-<!-- CAPTURE: xrv_tabs_desktop.png; XRV samples TabsScene running in the Windows desktop profile, a tab control with three tabs and the second tab selected -->
-
 ## Create a tab control
 
 Build the control with `TabControl.Builder`, a `TabControlBuilder` that XRV creates when you call `XrvService.Initialize`. It returns an entity that you can add to the scene or use as window contents.

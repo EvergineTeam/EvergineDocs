@@ -6,7 +6,7 @@
 
 This page adds the Gaussian Splatting add-on to a project, loads a splat file into a scene, and describes the components that load and draw it. You can set everything up in Evergine Studio with the prefab that the add-on provides, or create the entity from code.
 
-<!-- CAPTURE: gsplat_sample_scene.png; SplatRender sample running in the Windows profile with a splat scene loaded (for example the bicycle scene), the Entity Details panel showing GSplatMesh with SplatPath, SHBands, MinContribution and SortIntervalMs -->
+![The SplatRender sample on Windows with a SOG scene loaded](images/gsplat_sample_scene.png)
 
 ## Project setup
 

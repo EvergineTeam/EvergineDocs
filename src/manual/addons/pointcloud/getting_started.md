@@ -6,8 +6,6 @@
 
 This page adds the Point Cloud add-on to a project and loads a cloud into a scene. The add-on plugs into three moments of the application lifecycle: when the application is created, when the scene registers its managers, and when the scene is created. After that, one call loads a file.
 
-<!-- CAPTURE: pointcloud_sample.png; PointCloudRender sample running in the Windows profile with a large E57 or LAS scan loaded -->
-
 ## Project setup
 
 ### 1. Create a project

@@ -8,8 +8,6 @@ This page shows how to load a DICOM series and render it in 2D and 3D. You creat
 
 The [DICOM demo](https://github.com/EvergineTeam/Dicom-Demo) shows all of this working, with controls to change the density window and move the slice planes.
 
-<!-- CAPTURE: dicom_demo.png; Dicom-Demo running in the Windows profile with the 3D volume and the three slice planes visible and the ImGui window range sliders open -->
-
 ## Project setup
 
 ### 1. Install the add-on

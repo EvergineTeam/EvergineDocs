@@ -6,8 +6,6 @@
 
 This page adds Cesium to a project and streams terrain and buildings into a scene. Everything goes through `CesiumCoordinator`, a scene manager that connects to Cesium ion, streams the tilesets you configure, drives the camera, and places your entities on the globe.
 
-<!-- CAPTURE: cesium_demo.png; Evergine.Cesium.Demo running in the Windows profile over a city with the terrain, the imagery overlay and the 3D buildings tileset loaded, and one placed marker -->
-
 ## Project setup
 
 ### 1. Create a project
