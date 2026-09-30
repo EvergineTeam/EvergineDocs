@@ -1,115 +1,202 @@
-## ImPlot
+# ImPlot
+
 ---
 
-![Implot](images/ImPlot.png)
+![ImPlot charts drawn inside ImGui windows](images/ImPlot.png)
 
-This extension allows you to use the ImPlot library, an immediate mode, GPU-accelerated plotting library for ImGUI. This project and its source code are available on GitHub at: https://github.com/epezent/implot.
+[ImPlot](https://github.com/epezent/implot) is an immediate-mode plotting library for Dear ImGui. It draws interactive 2D charts inside an ImGui window, with zoom, pan, legends and tooltips built in, and is fast enough to redraw thousands of points every frame. Use it to watch values change while the application runs: frame times, sensor data, physics quantities, or any array you already have in memory.
 
-> [!NOTE]
-> The C# wrapper is generated on top of a C-API wrapper version of this library, so some samples may not work directly, but all the features are supported.
+## Enable ImPlot
 
-# Features
+ImPlot needs its own context, which `ImGuiManager` only creates when `ImPlotEnabled` is set:
 
-The list of supported plots includes:
+```csharp
+this.Managers.AddManager(new ImGuiManager()
+{
+    ImPlotEnabled = true,
+});
+```
 
-## Line Plots
+The functions are in `ImplotNative`, in the `Evergine.Bindings.Implot` namespace. Their names carry the type of the data as a suffix: `ImPlot_PlotLine_FloatPtrInt` plots an array of `float` values against their index, and `ImPlot_PlotLine_FloatPtrFloatPtr` plots `x` and `y` arrays.
 
-A **line plot** or chart plot is a type of chart that displays information as a series of data points called 'markers' connected by straight line segments. It is a basic type of chart common in many fields. It is similar to a scatter plot except that the measurement points are ordered (typically by their x-axis value) and joined with straight line segments. A line plot is often used to visualize a trend in data over intervals of time.
+## Plot a value over time
 
-![Implot](images/LinePlots.png)
+A chart is declared like a window. `ImPlot_BeginPlot` opens it inside the current ImGui window and returns `false` when it is not visible; everything between it and `ImPlot_EndPlot` configures the axes and adds series.
 
-## Filled Line Plots
+This behavior keeps the last 200 frame times in a ring buffer, plots them as a line, and shows how they are distributed in a histogram below:
 
-A **Filled Line Plot** or area chart graphically displays quantitative data. It is based on the line chart. The area between the axis and the line is commonly emphasized with colors. Commonly, one compares two or more quantities with an area chart.
+```csharp
+using Evergine.Bindings.Imgui;
+using Evergine.Bindings.Implot;
+using Evergine.Framework;
+using Evergine.Mathematics;
+using Evergine.UI;
+using System;
 
-![Implot](images/FilledLinePlots.png)
+public unsafe class FrameTimePlot : Behavior
+{
+    private const int Count = 200;
 
-## Shaded Plots
+    private bool open = true;
 
-A **Shaded Plot** is a type of chart that graphically displays the difference between two series based on lines. The area between two lines of the same graph is colored to highlight when they are further apart.
+    // Samples live in fields: the plot reads them again on every frame.
+    private float[] frameTimes = new float[Count];
+    private int offset;
 
-![Implot](images/ShadedPlots.png)
+    // ImPlotSpec describes how a series is drawn. A zeroed struct would draw
+    // transparent lines and read every point from index 0, so start from the same
+    // defaults as the C++ ImPlotSpec constructor.
+    private ImPlotSpec spec = new ImPlotSpec
+    {
+        LineColor = new Vector4(0, 0, 0, -1),       // IMPLOT_AUTO_COL: next colour of the colormap
+        LineWeight = 1,
+        FillColor = new Vector4(0, 0, 0, -1),
+        FillAlpha = 1,
+        Marker = ImPlotMarker.None,
+        MarkerSize = 4,
+        MarkerLineColor = new Vector4(0, 0, 0, -1),
+        MarkerFillColor = new Vector4(0, 0, 0, -1),
+        Size = 4,
+        Offset = 0,
+        Stride = -1,                                // IMPLOT_AUTO: sizeof(float)
+        Flags = ImPlotItemFlags.None,
+    };
 
-## Scatter Plots
+    protected override void Update(TimeSpan gameTime)
+    {
+        this.frameTimes[this.offset] = (float)gameTime.TotalMilliseconds;
+        this.offset = (this.offset + 1) % Count;
 
-A **scatter plot** is a type of plot or mathematical diagram that uses Cartesian coordinates to display values for typically two variables for a set of data. If the points are coded (color/shape/size), one additional variable can be displayed. The data are displayed as a collection of points, each having the value of one variable determining the position on the horizontal axis and the value of the other variable determining the position on the vertical axis.
+        if (!this.open)
+        {
+            return;
+        }
 
-![Implot](images/ScatterPlots.png)
+        ImguiNative.igSetNextWindowSize(new Vector2(500, 520), ImGuiCond.FirstUseEver);
 
-## Realtime Plots
+        if (ImguiNative.igBegin("Frame time", this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            fixed (float* values = this.frameTimes)
+            {
+                if (ImplotNative.ImPlot_BeginPlot("Frame time (ms)", new Vector2(-1, 220), ImPlotFlags.None))
+                {
+                    ImplotNative.ImPlot_SetupAxes("frame", "ms", ImPlotAxisFlags.None, ImPlotAxisFlags.AutoFit);
+                    ImplotNative.ImPlot_SetupAxisLimits(ImAxis.X1, 0, Count, ImPlotCond.Always);
 
-A **Realtime Plot** or Realtime chart is a type of chart that displays information as a series of data captured in real-time. It is common to display fps (frames per second) or other types of measurements in a graphical application.
+                    // ImPlot reads element (Offset + i) % count, so starting at the
+                    // oldest sample puts the newest one on the right.
+                    var lineSpec = this.spec;
+                    lineSpec.Offset = this.offset;
+                    ImplotNative.ImPlot_PlotLine_FloatPtrInt("Update", values, Count, 1, 0, lineSpec);
+                    ImplotNative.ImPlot_EndPlot();
+                }
 
-![Implot](images/RealtimePlots.png)
+                if (ImplotNative.ImPlot_BeginPlot("Distribution", new Vector2(-1, 220), ImPlotFlags.NoLegend))
+                {
+                    ImplotNative.ImPlot_SetupAxes("ms", "frames", ImPlotAxisFlags.AutoFit, ImPlotAxisFlags.AutoFit);
 
-## Stairstep Plots
+                    // The order of the samples does not matter here. An empty range
+                    // lets ImPlot use the minimum and maximum of the data.
+                    ImplotNative.ImPlot_PlotHistogram_FloatPtr("Update", values, Count, 20, 1.0, new ImPlotRange(), this.spec);
+                    ImplotNative.ImPlot_EndPlot();
+                }
+            }
+        }
 
-A **Stairstep Plot** is a type of chart that represents digital signals advancing discreetly by jumps or steps in a staircase pattern.
+        ImguiNative.igEnd();
+    }
+}
+```
 
-![Implot](images/StairstepPlots.png)
+`ImPlot_EndPlot` is only called when `ImPlot_BeginPlot` returned `true`, which is the opposite of `igBegin` and `igEnd`. A size of `-1` fills the available width.
 
-## Bar Plots
+> [!IMPORTANT]
+> Every plot function takes an `ImPlotSpec` by value. Build it from the defaults shown above and change only what you need, such as `LineColor`, `LineWeight` or `Marker`. `default(ImPlotSpec)` has a `Stride` of 0 and a fully transparent line colour, so the series reads the same element over and over and draws nothing visible.
 
-A **bar plot** or bar chart is a chart or graph that presents categorical data with rectangular bars with heights or lengths proportional to the values that they represent. The bars can be plotted vertically or horizontally.
+## Series types
 
-![Implot](images/BarPlots.png)
+Each kind of chart is one function call inside `ImPlot_BeginPlot` and `ImPlot_EndPlot`, and several series of different kinds can share one plot. The images below come from the ImPlot demo window, which you can open with `ImplotNative.ImPlot_ShowDemoWindow(open.Pointer())` to see every type with its source.
 
-## Bar Groups
+![The ImPlot demo window of ImGui-Demo on the Line Plots section](images/implot_demo_window.png)
 
-**Bar groups** or clustered charts are similar to bar charts but, in this case, the bars in the same category are drawn together.
- 
-![Implot](images/BarGroups.png)
+### Line plots
 
-## Bar Stacks
+`ImPlot_PlotLine_*` joins consecutive points with straight segments. It is the default choice for a value sampled at regular intervals, and the basis of a realtime plot: keep a ring buffer, as in the example above, and scroll the x axis.
 
-A **bar stack** is based on a bar plot, but in this case, it stacks bars on top of each other so that the height of the resulting stack shows the combined result. Stacked bar charts are not suited to data sets having both positive and negative values.
+![Two line series](images/LinePlots.png)
 
-![Implot](images/BarStacks.png)
+![Realtime line plots with scrolling axes](images/RealtimePlots.png)
 
-## Error Bars
+### Shaded and filled plots
 
-An **Error bar chart** is a type of chart used to visualize a series of data and the distance to errors in those data.
- 
-![Implot](images/ErrorBars.png)
+`ImPlot_PlotShaded_*` fills the area between a series and a reference value, or between two series. Filling down to zero turns a line into an area chart; filling between an upper and a lower bound shows a range or a confidence band.
 
-## Stem Plots
+![Areas filled down to a reference line](images/FilledLinePlots.png)
 
-A **Stem Plot** is a type of chart used to compare two or more stem series in the same chart. It uses vertical lines to highlight the area between the stem series.
+![A band shaded between two series](images/ShadedPlots.png)
 
-![Implot](images/StemPlots.png)
+### Scatter plots
 
-## Infinite Lines
+`ImPlot_PlotScatter_*` draws one marker per point and no lines. Use it when the order of the points carries no meaning, for example to show how two measurements relate to each other.
 
-An **Infinite Line Chart** is used to show a grid, and the values are represented by horizontal lines as constant values.
+![Scatter plot of two point clouds](images/ScatterPlots.png)
 
-![Implot](images/InfiniteLines.png)
+### Stairstep plots
 
-## Pie Charts
+`ImPlot_PlotStairs_*` holds each value until the next point, which draws signals that change in discrete steps, such as a state or a quantized value, without the false slopes a line plot would suggest.
 
-A pie chart (or a circle chart) is a circular statistical graphic, which is divided into slices to illustrate numerical proportion. In a pie chart, the arc length of each slice (and consequently its central angle and area) is proportional to the quantity it represents. While it is named for its resemblance to a pie that has been sliced, there are variations in the way it can be presented.
+![Stairstep series](images/StairstepPlots.png)
 
-![Implot](images/PieCharts.png)
+### Bar plots
 
-## Heatmaps
+`ImPlot_PlotBars_*` draws one bar per value, vertical by default. `ImPlot_PlotBarGroups_FloatPtr` draws several series side by side for each category, and stacks them on top of each other when its spec's `Flags` include `ImPlotBarGroupsFlags.Stacked`.
 
-A heat map (or heatmap) is a data visualization technique that shows the magnitude of a phenomenon as color in two dimensions. The variation in color may be by intensity, giving obvious visual cues to the reader about how the phenomenon is clustered or varies over space.
+![Vertical bars](images/BarPlots.png)
 
-![Implot](images/Heatmaps.png)
+![Groups of bars, one per category](images/BarGroups.png)
 
-## Histogram
+![Stacked bar groups](images/BarStacks.png)
 
-A **histogram** is an approximate representation of the distribution of numerical data. To construct a histogram, the first step is to divide the entire range of values into a series of intervals and then count how many values fall into each interval.
+### Error bars
 
-![Implot](images/Histogram.png)
+`ImPlot_PlotErrorBars_*` draws a whisker above and below each point. Plot it together with a line or bar series to show the uncertainty of each value.
 
-## Histogram 2D
+![Bars and lines with error whiskers](images/ErrorBars.png)
 
-A **Histogram 2D chart** is similar to the histogram chart but, in this case, information from a legend is also displayed that allows you to understand the colors displayed.
+### Stem plots
 
-![Implot](images/Histogram2D.png)
+`ImPlot_PlotStems_*` draws a vertical line from a reference value up to each point, with a marker at the end. It suits sparse or discrete samples, where a line between points would be misleading.
 
-## Digital Plots
+![Stem series](images/StemPlots.png)
 
-A **Digital Plot** is a type of chart that displays digital or analog signals over time. This is useful for showing electronic signals inside an application.
+### Infinite lines
 
-![Implot](images/DigitalPlots.png)
+`ImPlot_PlotInfLines_FloatPtr` draws lines that span the whole plot at the given positions. Use it to mark thresholds or events that should stay visible whatever the zoom.
+
+![Vertical and horizontal infinite lines](images/InfiniteLines.png)
+
+### Pie charts
+
+`ImPlot_PlotPieChart_*` divides a circle into slices proportional to the values, labelled with a format string. It reads best with a handful of slices and an equal-axes plot (`ImPlotFlags.Equal`).
+
+![Two pie charts](images/PieCharts.png)
+
+### Heatmaps
+
+`ImPlot_PlotHeatmap_FloatPtr` colours each cell of a 2D array according to its value, using the current colormap. It shows a grid of values, such as a density map or a matrix, at a glance.
+
+![A heatmap with its colour scale](images/Heatmaps.png)
+
+### Histograms
+
+`ImPlot_PlotHistogram_FloatPtr` sorts values into bins and draws the count of each bin as a bar, which shows how the values are distributed. `ImPlot_PlotHistogram2D_FloatPtr` does the same for pairs of values and draws the counts as a heatmap.
+
+![A histogram of a distribution](images/Histogram.png)
+
+![A 2D histogram](images/Histogram2D.png)
+
+### Digital plots
+
+`ImPlot_PlotDigital_FloatPtr` draws on/off or small integer signals as stacked lanes that do not scale with the y axis, like the traces of a logic analyser, so you can watch several of them next to an ordinary series.
+
+![Digital signal lanes](images/DigitalPlots.png)
