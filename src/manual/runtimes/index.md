@@ -42,7 +42,7 @@ Every runtime exposes a ready-to-use singleton in its `Instance` field (`GLBRunt
 
 ## Where the files come from
 
-**Files shipped with the application.** A file in the project's `Content` folder is imported by Evergine Studio and exported in the Evergine asset format, which a runtime cannot read. Mark it with **Set to export as raw** in the [Assets Details panel](../evergine_studio/assets/edit.md): raw assets are copied unchanged, with their name and folder, so `Content/Models/robot.glb` is read with the path `Models/robot.glb`. See also [Raw assets loading](../evergine_studio/assets/use.md#raw-assets-loading).
+**Files shipped with the application.** A file in the project's `Content` folder is imported by Evergine Studio and exported in the Evergine asset format, which a runtime cannot read. Mark it with **Set to export as raw** in the [Assets Details panel](../evergine_studio/assets/edit.md): raw assets are copied unchanged, with their name and folder, so `Content/Models/robot.glb` is read with the path `Models/robot.glb`. See also [Raw assets loading](../evergine_studio/assets/use.md#load-raw-assets).
 
 **Files anywhere on disk.** The GLB, STL, OBJ and Image runtimes only accept paths relative to `Content`. For other files, open a `FileStream` with `File.OpenRead` and use the stream overload. The USD, CAD, IFC and video runtimes also accept absolute paths.
 
