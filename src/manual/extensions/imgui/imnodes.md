@@ -131,7 +131,7 @@ public unsafe class NodeGraph : Behavior
 }
 ```
 
-<!-- CAPTURE: imnodes_graph.png; the NodeGraph window from this page (or the ImNodes Demo window of ImGui-Demo next-release) with the three nodes spread out, two links between them and the minimap in the bottom-right corner -->
+![The ImNodes Demo window of ImGui-Demo with three nodes and the minimap in the bottom-right corner](images/imnodes_graph.png)
 
 > [!TIP]
 > To let the user remove a link by dragging it off a pin, push `ImNodesAttributeFlags.EnableLinkDetachWithDragClick` with `imnodes_PushAttributeFlag` before `imnodes_BeginNodeEditor`, and pop it with `imnodes_PopAttributeFlag` after `imnodes_EndNodeEditor`. That is when `imnodes_IsLinkDestroyed` reports it.

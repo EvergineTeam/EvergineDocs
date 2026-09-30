@@ -108,8 +108,6 @@ public unsafe class FrameTimePlot : Behavior
 }
 ```
 
-<!-- CAPTURE: implot_frame_time.png; the FrameTimePlot window from this page running in an Evergine scene, with the line plot and the histogram both populated -->
-
 `ImPlot_EndPlot` is only called when `ImPlot_BeginPlot` returned `true`, which is the opposite of `igBegin` and `igEnd`. A size of `-1` fills the available width.
 
 > [!IMPORTANT]
@@ -119,7 +117,7 @@ public unsafe class FrameTimePlot : Behavior
 
 Each kind of chart is one function call inside `ImPlot_BeginPlot` and `ImPlot_EndPlot`, and several series of different kinds can share one plot. The images below come from the ImPlot demo window, which you can open with `ImplotNative.ImPlot_ShowDemoWindow(open.Pointer())` to see every type with its source.
 
-<!-- CAPTURE: implot_demo_window.png; ImGui-Demo (next-release) with the ImPlot demo window open on the Plots > Line Plots section, over the default scene -->
+![The ImPlot demo window of ImGui-Demo on the Line Plots section](images/implot_demo_window.png)
 
 ### Line plots
 

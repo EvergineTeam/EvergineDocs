@@ -183,7 +183,7 @@ public unsafe class DemoWindow : Behavior
 }
 ```
 
-<!-- CAPTURE: imgui_demo_window.png; ImGui-Demo (next-release) running on Windows with the Dear ImGui demo window open and its Widgets section expanded, over the default scene -->
+![The Dear ImGui demo window of ImGui-Demo with the Widgets section expanded, over the default scene](images/imgui_demo_window.png)
 
 The [ImGui-Demo](https://github.com/EvergineTeam/ImGui-Demo) repository contains a complete Evergine project that shows the demo windows of Dear ImGui, ImPlot and ImNodes, and an ImGuizmo gizmo attached to an entity.
 

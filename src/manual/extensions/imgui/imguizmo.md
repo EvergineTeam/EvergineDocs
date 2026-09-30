@@ -96,7 +96,7 @@ public unsafe class Manipulation : Behavior
 }
 ```
 
-<!-- CAPTURE: imguizmo_manipulate.png; ImGui-Demo (next-release) with the Manipulation component on the cube: translation arrows and bounds handles drawn over the cube, the view cube in the top-left corner -->
+![The Manipulation component of ImGui-Demo: translation arrows and bounds handles over the cube, and the view cube in the top-left corner](images/imguizmo_manipulate.png)
 
 ![Dragging the rotation ring of the gizmo](images/ImGuizmo_1.gif)
 
