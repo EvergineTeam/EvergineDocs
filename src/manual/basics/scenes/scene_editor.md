@@ -1,12 +1,15 @@
 # Scene Editor
-![Scene Editor](images/sceneEditor.png)
 
-**Evergine** supports a complete **Scene Editor**. It allows for creating entities, modifying them, and adding/removing components. It contains the following sections:
+---
 
-- Scene Toolbar
-- Scene Viewport
-- Entities Hierarchy
-- Entity Details
+![The Scene Editor: (1) Scene Toolbar, (2) Scene Viewport, (3) Entities Hierarchy, (4) Entity Details](images/scene_editor_annotated.png)
+
+The **Scene Editor** is where you build a scene in Evergine Studio. It opens when you double-click a scene asset, and it lets you create entities, arrange them in the scene, and add, remove and edit their components while the scene renders exactly as it will at runtime. It has four areas:
+
+- **Scene Toolbar**: transform modes, snapping and viewport options.
+- **Scene Viewport**: the rendered scene, where you navigate and manipulate entities.
+- **Entities Hierarchy**: the entity tree of the scene.
+- **Entity Details**: the properties and components of the selected entity.
 
 ## Scene Toolbar
 
@@ -44,26 +47,33 @@ At the top of the viewport is the **Scene Toolbar**, where the user can adjust h
 
 ### Controls
 
+<video autoplay loop muted playsinline width="100%" height="auto">
+  <source src="images/scene_editor_navigation.mp4" type="video/mp4">
+</video>
+
+*Looking around with the right mouse button, flying with W, A, S and D, and moving closer and back with the wheel.*
+
 | Action | Description |
 | ------ | ----------- |
 | **Left Mouse** | Selects an entity. |
 | **Drag Left Mouse** | Rectangle selection. |
-| **Ctrl + Left Mouse** | Add entity to selection. |
-| **Alt + Left Mouse** | Removes entity from selection. |
-| **Right Mouse** | Rotates the camera. |
-| **Right Mouse + Arrows / WASD** | Moves the camera. |
-| **Right Mouse + Mouse Wheel** | Changes camera speed up/down.|
-| **Right Mouse + Shift** | Doubles the camera speed.|
-| **Middle Mouse** | Pans the camera. |
-| **Mouse Wheel** | Zooms in/out with the camera. |
-| **Middle Mouse + Shift** | Orbit camera |
-| **Mouse Wheel** | Dolly in/out camera. |
-| **Mouse Wheel + Ctrl** | Zoom in/out camera. |
-| **Ctrl + D** | Duplicates the selected entity.|
+| **Ctrl + Left Mouse** | Adds an entity to the selection. |
+| **Alt + Left Mouse** | Removes an entity from the selection. |
+| **Drag Right Mouse** | Rotates the camera to look around. |
+| **Right Mouse + W / A / S / D** | Moves the camera forward, left, backward and right. |
+| **Right Mouse + Q / E** | Moves the camera up and down. |
+| **Right Mouse + Mouse Wheel** | Increases or decreases the camera speed. |
+| **Right Mouse + Shift / Ctrl** | Moves the camera twice as fast, or half as fast. |
+| **Drag Middle Mouse** | Pans the camera. |
+| **Shift + Drag Middle Mouse** | Orbits the camera around the point under the cursor. |
+| **Mouse Wheel** | Dollies the camera toward or away from the point under the cursor. |
+| **Ctrl + Mouse Wheel** | Zooms the camera in or out. |
+| **P** | Toggles between perspective and orthographic projection. |
+| **Ctrl + D** | Duplicates the selected entity. |
 | **G** | Toggles grid visibility. |
-| **W** | Sets translating manipulation mode. |
-| **E** | Sets rotating manipulation mode. |
-| **R** | Sets scaling manipulation mode. |
+| **W** | Sets the translation manipulation mode. |
+| **E** | Sets the rotation manipulation mode. |
+| **R** | Sets the scale manipulation mode. |
 
 ### Basic Manipulation
 

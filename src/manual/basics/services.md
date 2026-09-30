@@ -2,151 +2,190 @@
 
 ---
 
-In Evergine, **Services** are elements that allow you to manage global features. Service functionality can be accessed from every Scene, Component, or Behavior in your application. Services can also be bound to any [component](component_arch/components/index.md) or even other services using the [application container](application/index.md).
+**Services** hold application-wide functionality in Evergine. A service lives in the [Application Container](application/container.md), outside any scene, so it survives scene changes and every scene, component and scene manager can reach the same instance. Write a service when you need global state or a single entry point to something outside the engine: a backend API, a save system, a device, analytics.
 
-Developing custom Evergine services is useful for integrating your application with external services or APIs.
+Evergine itself is built from services. `AssetsService`, `ScreenContextManager`, `GraphicsPresenter` and `Clock` are all services registered by the project template.
 
 There are two kinds of services:
- 
- * **Basic Services**: This type of service is very useful to expose functionality or to execute global tasks.
- * **Updatable Services**: This is a Service subclass with an `Update()` method that allows running an action during every application update cycle.
 
-## Creating a Service
+| Base class | Description |
+| --- | --- |
+| `Service` | Exposes functionality and global state. It follows the [lifecycle](lifecycle_elements.md) of every Evergine element, but it is not called every frame. |
+| `UpdatableService` | A `Service` with an abstract `Update(TimeSpan gameTime)` method that the application calls once per frame, before the scenes are updated. |
 
-To create a basic Service, add a class in Visual Studio and extend the `Service` class:
- 
+## Create a Service
+
+Add a class to your project that derives from `Service`:
+
 ```csharp
 using Evergine.Framework.Services;
 
 namespace MyProject
 {
-    public struct MyServiceData
+    public class ScoreService : Service
     {
-        public string name;
-        public int requests;
-    }
+        public int Score { get; private set; }
 
-    public class MyService : Service
-    {
-        private MyServiceData data;
+        public int BestScore { get; private set; }
 
-        public MyServiceData Data 
+        public void Add(int points)
         {
-            get => this.data;
-            private set => this.data = value;
+            this.Score += points;
+
+            if (this.Score > this.BestScore)
+            {
+                this.BestScore = this.Score;
+            }
         }
 
-        public MyService()
+        public void ResetScore()
         {
-            this.data.name = "myService";
+            this.Score = 0;
         }
-
-        public void DoRequest()
-        {
-            this.data.requests++;
-        }        
-    }
-}
-``` 
-
-### Creating an UpdatableService
-
-To create an updatable service, add a class in Visual Studio and extend the `UpdatableService` class.
-
-```csharp
-using Evergine.Framework.Services;
-
-public class MyUpdatableService : UpdatableService
-{
-    public override void Update(TimeSpan gameTime)
-    {
-        // Called on every application update cycle...
-    }        
-}
-``` 
-
-## Registering a New Service in Your Application
-
-Before using a service, it is necessary to register it in the [application container](application/index.md) where you can register the type or an instance.
-
-```csharp
-public partial class MyApplication : Application
-{
-    public MyApplication()
-    {
-        // Previous code :)
-
-        // You can register the service by type...
-        this.Container.Register<MyService>();
-
-        // Or register the service using an instance...
-        this.Container.RegisterInstance(new MyService());            
     }
 }
 ```
 
-## Using Services
+A service can override the same lifecycle methods as a component (`OnLoaded()`, `OnAttached()`, `OnActivated()`, `Start()`, `OnDeactivated()`, `OnDetached()` and `OnDestroy()`) and can use `[BindService]` to depend on other services. See [Lifecycle of Elements](lifecycle_elements.md).
 
-Accessing registered services can be done in two ways:
+### Create an Updatable Service
 
-### Using the [BindService] Attribute
-
-You can use the [BindService] attribute in your Component, SceneManager, or even from another service to automatically inject the Service instance into your property.
+Derive from `UpdatableService` when the service must do some work every frame. This one counts down a session time limit, independently of the scene that is playing:
 
 ```csharp
-using Evergine.Framework;
 using System;
+using Evergine.Framework.Services;
 
 namespace MyProject
 {
-    public class MyBehavior : Behavior
+    public class SessionTimerService : UpdatableService
     {
-        // Use the BindService attribute on top of the property in which you want to inject the Service
+        public TimeSpan Remaining { get; private set; } = TimeSpan.FromMinutes(5);
+
+        public bool IsExpired => this.Remaining <= TimeSpan.Zero;
+
+        public event EventHandler Expired;
+
+        public override void Update(TimeSpan gameTime)
+        {
+            if (this.IsExpired)
+            {
+                return;
+            }
+
+            this.Remaining -= gameTime;
+
+            if (this.IsExpired)
+            {
+                this.Expired?.Invoke(this, EventArgs.Empty);
+            }
+        }
+    }
+}
+```
+
+Updatable services are updated in the order in which they were created, and always before the [ScreenContextManager](application/screen_context_manager.md) updates the scenes, so a behavior that reads `Remaining` sees the value of the current frame. Unlike behaviors, `gameTime` here is not affected by the `Speed` of any scene.
+
+## Register a Service
+
+Before anything can use a service, register it in the [Application Container](application/container.md). Register it by type, or register an instance you create yourself:
+
+```csharp
+using Evergine.Framework;
+
+namespace MyProject
+{
+    public partial class MyApplication : Application
+    {
+        public MyApplication()
+        {
+            // ... the services registered by the project template ...
+
+            // By type: the container creates the instance the first time it is needed.
+            this.Container.Register<ScoreService>();
+
+            // By instance: the service exists from now on and is updated from the first frame.
+            this.Container.RegisterInstance(new SessionTimerService());
+        }
+    }
+}
+```
+
+> [!IMPORTANT]
+> A service registered **by type** is created the first time something resolves it, through `[BindService]` or `Container.Resolve<T>()`. Until then it does not exist, so an `UpdatableService` that nobody resolves is never updated. Register an instance when the service must run from the first frame even though no one binds to it.
+
+You can also add and configure services from Evergine Studio, without writing registration code. See [Manage services](../evergine_studio/settings/project_services.md). A service registered from code takes precedence over the same service configured in Evergine Studio.
+
+## Use a Service
+
+### With the [BindService] Attribute
+
+The simplest way to get a service is to bind it. Evergine injects the instance before `OnAttached()` runs:
+
+```csharp
+using System;
+using Evergine.Framework;
+
+namespace MyProject
+{
+    public class PickupBehavior : Behavior
+    {
         [BindService]
-        private MyService myService = null;
+        private ScoreService scoreService;
+
+        [BindService]
+        private SessionTimerService sessionTimer;
 
         protected override void Update(TimeSpan gameTime)
         {
-            this.myService.DoRequest();
+            if (!this.sessionTimer.IsExpired)
+            {
+                this.scoreService.Add(1);
+            }
         }
     }
 }
 ```
 
-### Using the Application Container
+`[BindService]` works in components, scene managers and other services. See [Bind Services](bindings/bind_services.md) for the details.
 
-On the other hand, you can obtain the Service instance directly from the Application Container.
+### From the Application Container
+
+You can also resolve the service yourself through `Application.Current.Container`. This is useful in classes that are not Evergine elements, or when the dependency is optional and decided at runtime:
 
 ```csharp
-using Evergine.Framework;
 using System;
+using Evergine.Framework;
 
 namespace MyProject
 {
-    public class MyBehavior : Behavior
+    public class ScoreDisplay : Behavior
     {
-        private MyService myService = null;
+        private ScoreService scoreService;
 
         protected override bool OnAttached()
-        {            
-            // Use the Resolve<Type> method from the Application Container...
-            this.myService = Application.Current.Container.Resolve<MyService>();
+        {
+            this.scoreService = Application.Current.Container.Resolve<ScoreService>();
 
-            return base.OnAttached();
+            // Refuse to attach if the service was never registered.
+            return this.scoreService != null && base.OnAttached();
         }
 
         protected override void Update(TimeSpan gameTime)
         {
-            this.myService.DoRequest();
+            // Draw this.scoreService.Score on screen...
         }
 
-        protected override bool OnDetached()
+        protected override void OnDetached()
         {
             base.OnDetached();
 
-            // Release the reference when a component is being detached...
-            this.myService = null;
+            // Drop the reference so a detached component does not keep the service alive.
+            this.scoreService = null;
         }
     }
 }
 ```
+
+> [!NOTE]
+> `Resolve<T>()` returns `null` when nothing is registered for `T`. A required `[BindService]` in the same situation keeps the component from attaching (see [Binding Errors](bindings/index.md#binding-errors)).
