@@ -81,13 +81,21 @@ These can be changed at any time and take effect on the next step.
 | **TimeBeforeSleep** | 0.5 | Seconds a body must be still before it sleeps. |
 | **PointVelocitySleepThreshold** | 0.03 | How slow "still" is, in metres per second. |
 
+## Debug Drawing
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **DebugFlags** | `Colliders`, `Constraints`, `Characters`, `SleepState` | What the physics contributes to the scene's debug lines: shapes, constraint limits, character capsules, sleep colours and so on. Nothing is drawn unless the `RenderManager` has `DebugLines` on. See [Debug Rendering](debug_rendering.md). |
+
+The manager binds the scene's `RenderManager` if there is one, and simulates exactly the same without it.
+
 ## Read-only State
 
 | Property | Description |
 | --- | --- |
 | **BodyCount** | Every body in the world. |
 | **ActiveBodyCount** | Those awake this step. The gap between the two is what sleeping is buying you. |
-| **Bodies** | Every `RigidBody` in the world. |
+| **Bodies** | Every body in the world, `StaticBody` and `RigidBody` alike, as `PhysicsBody`. |
 | **Characters** | Every [`CharacterController`](character_controller.md). |
 | **Constraints** | Every [`Constraint`](constraints/index.md). |
 | **InterpolationAlpha** | Where the current frame sits between the last two steps, from 0 to 1. |
@@ -140,7 +148,7 @@ public class Thruster : Behavior
 | **FlushPending()** | Applies the bodies, constraints, vehicles and soft bodies that are queued to be added or removed. Structural changes are deferred to a safe point in the step, so a body created this frame is not in the world, and not visible to a query, until the next one. Call this to close that gap. |
 | **StepOnce()** | Runs a single step even while `IsSimulationEnabled` is false. Useful for stepping a scene frame by frame while debugging. |
 | **OptimizeBroadPhase()** | Rebuilds the broad phase now. Worth doing once after building a large static level. |
-| **ContactValidator** | A `Func<RigidBody, RigidBody, bool>` consulted for every pair before a contact is made, for filtering that the [collision matrix](collision_filtering.md) cannot express, one-way platforms for instance. |
+| **ContactValidator** | A `Func<PhysicsBody, PhysicsBody, bool>` consulted for every pair before a contact is made, for filtering that the [collision matrix](collision_filtering.md) cannot express, one-way platforms for instance. |
 
 > [!IMPORTANT]
 > `ContactValidator` runs on the solver's worker threads. It must be cheap, must not touch the scene, and must not allocate.

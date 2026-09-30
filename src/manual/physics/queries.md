@@ -63,7 +63,7 @@ public class Picker : Behavior
 
 | Property | Description |
 | --- | --- |
-| **Body** | The body that was hit. |
+| **Body** | The body that was hit, as a `PhysicsBody`. It may be a `StaticBody`; `hit.Body as RigidBody` is the test for one that can be pushed. |
 | **Entity** | Its entity, which is usually what gameplay code wants. |
 | **Collider** | Which collider of a compound shape was hit. |
 | **Point** | Where the ray met the surface, in world space. |
@@ -133,7 +133,13 @@ public void Explode(Vector3 centre, float radius, float force)
 
     foreach (OverlapHit hit in this.hits)
     {
-        Vector3 away = hit.Body.CenterOfMassPosition - centre;
+        // The overlap reports walls and floors too. Only a RigidBody has an impulse to receive.
+        if (hit.Body is not RigidBody body)
+        {
+            continue;
+        }
+
+        Vector3 away = body.CenterOfMassPosition - centre;
         float distance = away.Length();
 
         if (distance < 0.001f)
@@ -144,12 +150,12 @@ public void Explode(Vector3 centre, float radius, float force)
         // Falls off with distance, so the edge of the blast nudges and the middle of it throws.
         float falloff = Math.Max(0f, 1f - (distance / radius));
 
-        hit.Body.ApplyImpulse(away / distance * force * falloff);
+        body.ApplyImpulse(away / distance * force * falloff);
     }
 }
 ```
 
-`OverlapHit` carries **Body**, **Entity** and **Collider**. There is no point or normal: nothing was cast, so there is no contact to report.
+`OverlapHit` carries **Body**, **Entity** and **Collider**, the same three as a ray hit. There is no point or normal: nothing was cast, so there is no contact to report.
 
 ## Query Filters
 
@@ -159,8 +165,8 @@ Every query takes a `QueryFilter`. Its default value hits every solid body and s
 | --- | --- | --- |
 | **CategoryMask** | `None` | The [categories](collision_filtering.md) the query may hit. **Zero means every category**, not none. |
 | **IncludeSensors** | false | Whether sensors take part. Off by default: a sensor is a volume to be notified about, not an obstacle. |
-| **IgnoreBody** | null | A body the query always skips, normally the one it starts from. |
-| **Predicate** | null | An extra test per candidate body. Returning `false` skips it. |
+| **IgnoreBody** | null | A body the query always skips, normally the one it starts from. Any `PhysicsBody`. |
+| **Predicate** | null | An extra test per candidate body, a `Func<PhysicsBody, bool>`. Returning `false` skips it. |
 
 | Factory | Description |
 | --- | --- |

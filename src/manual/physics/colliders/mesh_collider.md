@@ -17,7 +17,7 @@ A collider built from triangle geometry: either the model already on the entity,
 | | Mode | Shape | Bodies |
 | --- | --- | --- | --- |
 | ![Convex hull](images/mesh_collider_convex.png) | **ConvexHull** | The convex wrapping of the geometry. Every dent, hole and cavity is filled in. | Any body, including dynamic ones. |
-| ![Triangle mesh](images/mesh_collider_full.png) | **TriangleMesh** | Every triangle, concavities and all. | **Static or kinematic bodies only**, never dynamic. |
+| ![Triangle mesh](images/mesh_collider_full.png) | **TriangleMesh** | Every triangle, concavities and all. | **`StaticBody` or kinematic `RigidBody` only**, never dynamic. |
 
 <video autoplay loop muted playsinline width="100%" height="auto">
   <source src="images/mesh_collider_types.mp4" type="video/mp4">
@@ -50,7 +50,7 @@ this.Managers.EntityManager.Add(rock);
 
 | Property | Default | Description |
 | --- | --- | --- |
-| **MeshType** | `ConvexHull` | `ConvexHull` wraps the geometry and works on any body; `TriangleMesh` keeps every triangle and works on static and kinematic bodies only. |
+| **MeshType** | `ConvexHull` | `ConvexHull` wraps the geometry and works on any body; `TriangleMesh` keeps every triangle and works on a `StaticBody` or a kinematic `RigidBody` only. |
 | **ConvexRadius** | 0.05 | Rounds the hull's edges. Ignored in `TriangleMesh` mode. |
 | **Offset** | 0,0,0 | Moves the shape relative to the entity. |
 | **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. |
@@ -65,6 +65,8 @@ With no geometry set from code, the collider reads the meshes of the `BaseModel`
 * their vertex buffers must be **readable by the CPU**.
 
 A convex hull needs at least four points to enclose a volume.
+
+The triangles are read with the winding the index buffer declares, `IndexBuffer.FlipWinding` included, so a model that renders with its faces the right way round collides that way too. The geometry is read once and kept: the shape is rebuilt only when the model reports a `Refreshed`, or when `SetGeometry` or `ClearGeometry` is called.
 
 ## Setting Geometry from Code
 

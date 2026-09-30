@@ -31,6 +31,7 @@ this.Managers.EntityManager.Add(limb);
 | **BottomRadius** | 0.5 | The radius of the lower sphere. |
 | **TopRadius** | 0.25 | The radius of the upper sphere.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/tapered_capsule_collider_radii.mp4" type="video/mp4"></video> |
 | **Height** | 2 | The **total** height along Y, both caps included, the same convention as [`CapsuleCollider`](capsule_collider.md). |
+| **UseModelBounds** | false | Reads both radii as factors of the larger of the model's X and Z extents, and `Height` as a factor of its Y extent, instead of local units. See [Local Units or Model Bounds](index.md#local-units-or-model-bounds). |
 | **Offset** | 0,0,0 | Moves the shape relative to the entity. |
 | **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. |
 | **Density** | 1000 | Density in kg/m³, used to compute the body's mass when its `Mass` is 0. |

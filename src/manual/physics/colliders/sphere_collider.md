@@ -25,6 +25,7 @@ this.Managers.EntityManager.Add(ball);
 | Property | Default | Description |
 | --- | --- | --- |
 | **Radius** | 0.5 | The radius of the sphere. A `SphereMesh` is measured by its **diameter**, so a mesh of diameter 1 matches a collider of radius 0.5.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/sphere_collider_radius.mp4" type="video/mp4"></video> |
+| **UseModelBounds** | false | Reads `Radius` as a factor of the **largest** axis of the model's bounds instead of in local units. See [Local Units or Model Bounds](index.md#local-units-or-model-bounds). |
 | **Offset** | 0,0,0 | Moves the shape relative to the entity.<br/><video width="600" height="340" autoplay loop muted playsinline><source src="images/sphere_collider_offset.mp4" type="video/mp4"></video> |
 | **RotationOffset** | 0,0,0 | Rotates the shape relative to the entity. It has no visible effect on a sphere on its own, but it still applies inside a compound shape. |
 | **Density** | 1000 | Density in kg/m³, used to compute the body's mass when its `Mass` is 0. |

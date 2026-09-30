@@ -1,10 +1,9 @@
 # Creating custom controls
 
 ---
-
 MRTK controls react to the user through a small set of handler interfaces. Implement one or more of them in a component, add the component to an entity, and MRTK calls it when a pointer focuses, touches, grabs, or clicks that entity. This is how the built-in buttons, sliders, and scroll views work, so your own controls behave the same way.
 
-Most controls must be added to an entity with a _BoxCollider_ component and a _StaticBody_ component, so the pointers can hit them through the physics engine.
+Most controls must be added to an entity with a [BoxCollider](../../physics/colliders/box_collider.md) component and a [StaticBody](../../physics/physics_bodies/static_body.md) component, so the pointers can hit them through the physics engine.
 
 | Interface | Called when | Methods |
 | --- | --- | --- |

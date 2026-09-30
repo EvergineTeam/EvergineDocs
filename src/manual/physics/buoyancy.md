@@ -99,9 +99,8 @@ private void OnPhysicsStepStarting(object sender, float fixedTimeStep)
 
     for (int i = 0; i < this.inTheWater.Count; i++)
     {
-        RigidBody body = this.inTheWater[i].Body;
-
-        if (body == null || body.BodyType != RigidBodyType.Dynamic)
+        // The overlap hands back a PhysicsBody. Only a dynamic RigidBody can float.
+        if (this.inTheWater[i].Body is not RigidBody body || body.IsKinematic)
         {
             continue;
         }
