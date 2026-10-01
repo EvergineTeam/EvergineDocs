@@ -30,6 +30,8 @@ To add an asset to that component, we need to click on it and an **Asset Picking
 > [!NOTE]
 > The dialog will only show assets of the same type as defined by the component property or field.
 
+Alternatively, assets can be dragged directly from the Assets Details panel and dropped onto a compatible Asset Selection Control. While dragging, compatible asset pickers provide visual feedback indicating that the asset can be assigned.
+
 ## Reference an asset by other assets
 
 In the same way as components, assets can reference other assets. For example, a **Material** can reference a **Texture**, and a **Texture** can reference a **SamplerState** asset.
