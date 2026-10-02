@@ -56,10 +56,12 @@ this.Managers.EntityManager.Add(flag);
 | --- | --- | --- |
 | **Compliance** | 0 | Inverse stiffness of the edges. **Zero holds every edge at exactly its rest length**, which is a rigid shell; a little slack is what lets a body squash and wobble. |
 | **ShearCompliance** | 0 | The same for the diagonal edges, which is what resists the surface skewing. |
-| **BendCompliance** | 1 | How easily the surface folds. Low makes stiff card; high makes limp fabric. |
-| **BendType** | `Distance` | How bending is modelled: `None`, `Distance` or `Dihedral`. |
-| **LRAType** | `None` | Long-range attachment constraints, which stop cloth stretching away from its pins. `EuclideanDistance` or `GeodesicDistance`. |
-| **LRAMaxDistanceMultiplier** | 1 | How much stretch the LRA constraints allow. |
+| **BendCompliance** | 1 | How easily the surface folds. Low makes stiff card; high makes limp fabric. Zero is a rigid plate. |
+| **BendType** | `Distance` | Which constraint resists folding: `None`, `Distance` or `Dihedral`. See [Bending](#bending). |
+| **LRAType** | `None` | Ties every free vertex to its nearest pinned vertex, so cloth cannot stretch away from its pins: `None`, `EuclideanDistance` or `GeodesicDistance`. See [Long-Range Attachments](#long-range-attachments). |
+| **LRAMaxDistanceMultiplier** | 1 | How far past its rest distance a vertex may get from its anchor. 1 is the rest distance, 1.05 allows five percent more. |
+
+Changing any of these properties at run time rebuilds the body from its rest shape.
 
 ### Physical
 
@@ -84,10 +86,49 @@ this.Managers.EntityManager.Add(flag);
 | **VertexCount** | How many vertices the surface has. |
 | **Volume** | The volume it currently encloses. Comparing this against the rest volume is how you tell whether a pressurised body is holding its shape. |
 | **IsInWorld** | Whether it has been created yet. |
+| **LRAConstraintCount** | How many [long-range attachments](#long-range-attachments) the body was built with. Zero when it has no pinned vertices. |
 | **GetLocalBounds()** / **GetWorldBounds()** | Its bounds. |
 | **CopyVertexPositions(destination)** | Reads the vertices out. |
 | **GetFaceIndices()** | The surface's triangles. |
 | **VerticesUpdated** | An event raised after each step. |
+
+## Bending
+
+Every edge shared by two triangles is a hinge. `Compliance` and `ShearCompliance` keep the edges and the diagonals at their length, but a surface can keep every length and still fold along a hinge. `BendType` chooses the constraint that resists that fold, and `BendCompliance` sets how hard it resists.
+
+![The two faces of one hinge, seen along their shared edge, under each bend type](images/softbody_bend_types.png)
+
+*One hinge seen end-on. `Distance` holds the line between the two outer corners, `Dihedral` holds the angle itself.*
+
+| BendType | What it holds | Cost | Use it for |
+| --- | --- | --- | --- |
+| `None` | Nothing. | None. | Bodies whose shape comes from `Pressure`, such as balloons and cushions, and fabric that should crumple with no stiffness at all. |
+| `Distance` | The distance between the two corners opposite each shared edge. | Low: one extra edge per hinge. | Flat cloth: banners, flags, curtains and hammocks. This is the default. |
+| `Dihedral` | The angle between the two faces, including which way it folds. | Highest: one angle constraint per hinge. | Surfaces that are curved at rest, such as meshes read [from a model](soft_body_meshes.md#from-a-model) or open shells without pressure, and stiff sheets such as card, leather or rubber. |
+
+The two constraints fold differently in two ways:
+
+- **Small folds.** When a flat pair of triangles folds a little, the distance between the outer corners hardly changes. A `Distance` constraint therefore pushes back weakly on small folds and firmly on large ones. Cloth still wrinkles easily, but it cannot crease sharply, which suits fabric. `Dihedral` resists in proportion to the angle, so small folds are resisted too.
+- **Fold direction.** A hinge folded up and the same hinge folded down by the same angle have the same corner distance. On a surface that is curved at rest, `Distance` can let a region snap through to its mirror image, for example a dent popping inward. `Dihedral` keeps the rest angle and its direction, so a curved shell keeps its curve.
+
+> [!NOTE]
+> `BendCompliance` measures a different thing for each type. For `Distance` it is the compliance of a length, for `Dihedral` of an angle, so the same value does not give the same stiffness. Tune `BendCompliance` again after changing `BendType`.
+
+## Long-Range Attachments
+
+A hanging cloth stretches under its own weight. Each edge gives a little, and with many edges between a vertex and the pin, the stretch adds up. More vertices make it worse. Raising `NumIterations` helps but costs time on every step.
+
+A **long-range attachment** ties every free vertex to its nearest pinned vertex and caps the distance between them at the rest distance times `LRAMaxDistanceMultiplier`. It only sets a maximum, so the vertex can still come closer: the cloth folds and swings freely, but it cannot sag past its rest length.
+
+| LRAType | Rest distance measured | Use it for |
+| --- | --- | --- |
+| `None` | No attachments. | Bodies without pins, and pinned cloth that may stretch. |
+| `EuclideanDistance` | In a straight line to the nearest pinned vertex. | Flat cloth pinned along an edge, such as banners and curtains. |
+| `GeodesicDistance` | Along the fabric, following its edges, to the nearest pinned vertex. | Cloth whose rest shape is curved or folded, or whose path to the pin goes around a hole or a corner. |
+
+For a flat cloth pinned along one edge, both measures give the same result. They differ when the straight line leaves the fabric. The straight-line distance is then shorter than the fabric really is, so `EuclideanDistance` holds the cloth too tight and it cannot hang to its full length. `GeodesicDistance` is correct in every case.
+
+Attachments need pinned vertices to anchor to. A body without any [pin group](#pinning-vertices) gets no attachments, whatever `LRAType` says. The read-only `LRAConstraintCount` property tells you how many were created.
 
 ## Pressure
 
