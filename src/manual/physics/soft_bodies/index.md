@@ -50,6 +50,8 @@ this.Managers.EntityManager.Add(flag);
 
 ![SoftBody component](images/softbody_component.png)
 
+The body simulates at the entity's world scale, the same way a rigid body scales its colliders: a cloth on an entity scaled by two is simulated twice as large. Changing the scale rebuilds the body from its rest shape, and a negative scale mirrors the surface.
+
 ### Structure
 
 | Property | Default | Description |

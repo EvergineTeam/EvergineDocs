@@ -42,7 +42,7 @@ Each of them landing, one at a time:
 | **DoubleSided** | false | Draws both faces. Cloth wants this; a closed shell does not. |
 | **SourceModel** | null | The model to read, in `FromModel` mode. |
 | **ModelMeshName** | null | Which mesh of the model to use. Empty uses all of them. |
-| **ModelScale** | 1 | Scales the model's geometry. |
+| **ModelScale** | 1 | Unit conversion for the model geometry, applied before the entity scale. A model authored in centimetres takes 0.01. |
 | **WeldDistance** | 0.001 | How close two vertices must be to be merged into one. |
 | **RecenterModel** | true | Moves the geometry so its centre sits on the entity's origin. |
 
