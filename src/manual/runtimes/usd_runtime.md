@@ -130,7 +130,7 @@ public class MyScene : Scene
 
 ## Custom materials
 
-Pass a material assigner as the second argument of `Read` to create the materials yourself. The runtime describes every material as a `USDMaterialData` and your function returns the `Material` to use. The [GLB and STL page](models_runtime.md#materials-and-the-material-assigner) describes `MaterialData` and has a complete assigner.
+Pass a material assigner as the second argument of `Read` to create the materials yourself. The runtime describes every material as a `USDMaterialData` and your function returns the `Material` to use. The [GLB runtime page](glb_runtime.md#materials-and-the-material-assigner) describes `MaterialData` and has a complete assigner.
 
 ```csharp
 Model model = await USDRuntime.Instance.Read("Models/Kitchen_set.usd", this.AssignMaterial);

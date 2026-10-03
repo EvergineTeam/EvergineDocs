@@ -12,8 +12,8 @@ Each runtime is a separate package, so an application only carries the readers a
 
 | Runtime | Package | Formats | Returns | Platforms |
 | --- | --- | --- | --- | --- |
-| [GLB](models_runtime.md#glb) | `Evergine.Runtimes.GLB` | Binary glTF 2.0 (`.glb`), including Draco compression | `Model` | All |
-| [STL](models_runtime.md#stl) | `Evergine.Runtimes.STL` | Binary and ASCII `.stl` | `Model` | All |
+| [GLB](glb_runtime.md) | `Evergine.Runtimes.GLB` | Binary glTF 2.0 (`.glb`), including Draco compression | `Model` | All |
+| [STL](stl_runtime.md) | `Evergine.Runtimes.STL` | Binary and ASCII `.stl` | `Model` | All |
 | [OBJ](obj_runtime.md) | `Evergine.Runtimes.OBJ` | `.obj` with `.mtl` materials | `Model` | All |
 | [USD](usd_runtime.md) | `Evergine.Runtimes.USD` | `.usd`, `.usda`, `.usdc`, `.usdz` | `Model` | Windows |
 | [Images](image_runtime.md) | `Evergine.Runtimes.Image` | PNG, JPEG, BMP, WebP, GIF, KTX, KTX2 | `Texture` | All |
@@ -40,6 +40,31 @@ The runtimes that return a `Model` derive from `ModelRuntime` (namespace `Evergi
 
 Every runtime exposes a ready-to-use singleton in its `Instance` field (`GLBRuntime.Instance`, `ImageRuntime.Instance`, and so on) that resolves the graphics context and the assets service from the application container on first use.
 
+### Choose the runtime from the file extension
+
+Every `ModelRuntime` reports the extension it reads in `Extension` (for example `".glb"` and `".stl"`), and exposes the stream overload of `Read` through the base class. That lets one code path handle several formats:
+
+```csharp
+private readonly Dictionary<string, ModelRuntime> loaders = new Dictionary<string, ModelRuntime>
+{
+    { GLBRuntime.Instance.Extension, GLBRuntime.Instance },
+    { STLRuntime.Instance.Extension, STLRuntime.Instance },
+};
+
+private Task<Model> ReadAnyModel(string fileName, Stream stream)
+{
+    var extension = Path.GetExtension(fileName).ToLowerInvariant();
+    if (!this.loaders.TryGetValue(extension, out var runtime))
+    {
+        throw new NotSupportedException($"No runtime reads {extension} files.");
+    }
+
+    return runtime.Read(stream);
+}
+```
+
+The [OBJ](obj_runtime.md), [USD](usd_runtime.md) and [IFC](ifc_runtime.md) runtimes also derive from `ModelRuntime`. Check the table above for the stream support each one offers before adding it to such a dictionary: the USD runtime, for example, only reads from a file path.
+
 ## Where the files come from
 
 **Files shipped with the application.** A file in the project's `Content` folder is imported by Evergine Studio and exported in the Evergine asset format, which a runtime cannot read. Mark it with **Set to export as raw** in the [Assets Details panel](../evergine_studio/assets/edit.md): raw assets are copied unchanged, with their name and folder, so `Content/Models/robot.glb` is read with the path `Models/robot.glb`. See also [Raw assets loading](../evergine_studio/assets/use.md#load-raw-assets).
@@ -53,8 +78,8 @@ Every runtime exposes a ready-to-use singleton in its `Instance` field (`GLBRunt
 
 ## In this section
 
-* [GLB](models_runtime.md#glb)
-* [STL](models_runtime.md#stl)
+* [GLB](glb_runtime.md)
+* [STL](stl_runtime.md)
 * [OBJ](obj_runtime.md)
 * [USD](usd_runtime.md)
 * [Images](image_runtime.md)

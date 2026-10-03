@@ -6,7 +6,7 @@
 
 The **Evergine.Runtimes.Image** package creates GPU textures from image files while the application runs. Use it for pictures that are not part of your content: user avatars, product photos from a catalog service, screenshots, or images uploaded by users.
 
-Images are decoded with [SkiaSharp](https://github.com/mono/SkiaSharp), the .NET binding of Google's Skia graphics library, and KTX containers are uploaded as they are. The other runtimes use this package to decode the textures inside model files, so the formats listed here are also the texture formats of the [GLB](models_runtime.md), [OBJ](obj_runtime.md) and [USD](usd_runtime.md) runtimes.
+Images are decoded with [SkiaSharp](https://github.com/mono/SkiaSharp), the .NET binding of Google's Skia graphics library, and KTX containers are uploaded as they are. The other runtimes use this package to decode the textures inside model files, so the formats listed here are also the texture formats of the [GLB](glb_runtime.md), [OBJ](obj_runtime.md) and [USD](usd_runtime.md) runtimes.
 
 | | |
 | --- | --- |
