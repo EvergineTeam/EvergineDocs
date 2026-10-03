@@ -6,7 +6,7 @@
 
 A **sensor** is a body that notices what passes through it without pushing back. Trigger volumes, checkpoints, pickup radii and damage zones are all sensors.
 
-There is no separate component for it. A sensor is a [`RigidBody`](rigid_body.md) with one property set:
+There is no separate component for it. A sensor is a [`StaticBody`](static_body.md) or a [`RigidBody`](rigid_body.md) with one property set, which both inherit from `PhysicsBody`:
 
 | Property | Default | Description |
 | --- | --- | --- |
@@ -17,17 +17,13 @@ There is no separate component for it. A sensor is a [`RigidBody`](rigid_body.md
 ```csharp
 Entity checkpoint = new Entity("checkpoint")
     .AddComponent(new Transform3D() { Position = new Vector3(0f, 1.5f, 0f) })
-    .AddComponent(new RigidBody()
-    {
-        BodyType = RigidBodyType.Static,
-        IsSensor = true,
-    })
+    .AddComponent(new StaticBody() { IsSensor = true })
     .AddComponent(new BoxCollider() { Size = new Vector3(4f, 3f, 1f) });
 
 this.Managers.EntityManager.Add(checkpoint);
 ```
 
-A sensor is usually static or kinematic, and usually invisible: it needs no mesh at all. Turn on [debug rendering](../debug_rendering.md) while placing one, or give it a translucent material as the picture above does.
+A sensor that stays put is a `StaticBody`; one that moves, following a hand or a cursor, is a kinematic `RigidBody`. Either way it is usually invisible: it needs no mesh at all. Turn on [debug rendering](../debug_rendering.md) while placing one, or give it a translucent material as the picture above does.
 
 ## Detecting Bodies
 
@@ -36,8 +32,9 @@ Sensors raise the ordinary [collision events](collisions.md), so a trigger zone 
 ```csharp
 public class TriggerZone : Behavior
 {
-    [BindComponent]
-    private RigidBody body = null;
+    // PhysicsBody rather than StaticBody, so the same zone works whether or not it moves.
+    [BindComponent(isExactType: false)]
+    private PhysicsBody body = null;
 
     private int inside;
 
@@ -82,11 +79,14 @@ public class TriggerZone : Behavior
 
 ## Sensors and Other Body Types
 
-A **static** sensor notices dynamic bodies, which covers most uses. A **kinematic** sensor swept through a level needs one more property to notice static and kinematic bodies as well:
+A **static** sensor notices dynamic bodies, which covers most uses. It never notices other static bodies, because Jolt never pairs two static bodies, so a sensor that has to be swept across the level is a **kinematic** `RigidBody`. That one needs one more property to notice static and kinematic bodies as well:
 
 | Property | Default | Description |
 | --- | --- | --- |
 | **CollideKinematicVsNonDynamic** | false | Lets a kinematic body report contacts against static and other kinematic bodies. Without it, a kinematic sensor only ever sees dynamic ones. |
+
+> [!NOTE]
+> This is the case the [migration tool](../migrating_from_bullet.md#migration-tool) flags most often: a Bullet ghost body that followed the cursor, a controller or a hand was static, and worked because Bullet paired static ghosts with everything. Under Jolt it has to be kinematic, with the property above set.
 
 ## Sensors and Queries
 

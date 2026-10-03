@@ -1,50 +1,41 @@
 # Textures
+
 ---
 
 ![Textures](Images/textures.jpg)
 
-**Textures** are assets that usually contain an image. In **Evergine**, they are mostly used in materials to provide color detail in your application. How the **texture** is viewed in your application depends on the material itself. For example, a texture can be used as _diffuse_ or _emissive_ color information.
-
-**Textures** can also be used in other areas, such as **Sprites** or **UI** elements. 
+A **texture** is an image the GPU can read: the color of a surface, its normals, its roughness, a light's cookie, a sprite, or data for a shader. Most textures are assets imported from image files and assigned to [materials](../materials/index.md); you can also [create textures from code](create_texture_from_code.md) and render into them.
 
 ## Mipmapping
 
-**Evergine** also supports **mipmapping**. It can generate or load the successive half-reductions of the texture, consisting of the **mip levels**. This process is crucial when dealing with **Texture Filtering** (_anisotropic_, _linear_, _bilinear_, etc.).
+A **mipmap** chain stores the texture at successively halved sizes. When a textured surface is far away or seen at an angle, the GPU reads the smaller levels, which avoids shimmering and reads less memory. Evergine can generate the chain on import or load it from `.dds` and `.ktx` files.
 
-![Mip mapping](Images/mipmapping.jpg)
+![Mip levels of a texture](Images/mipmapping.jpg)
 
-## Texture Types
+## Texture types
 
-**Evergine** supports these basic GPU texture types (detailed in this [section](textureTypes.md)):
+Evergine supports every basic GPU texture type, detailed in [Texture Types](textureTypes.md):
 
-- Texture2D
-- Texture1D
-- Texture1DArray
-- Texture2DArray
-- TextureCube
-- TextureCubeArray
+- Texture1D and Texture1DArray
+- Texture2D and Texture2DArray
+- TextureCube and TextureCubeArray
 - Texture3D
 
-## Supported File Types
+## Supported file types
 
-**Evergine** supports importing the following texture types:
+| Extension | Notes |
+| --- | --- |
+| `.png`, `.jpg`, `.jpeg`, `.bmp`, `.webp` | Common images, imported as Texture2D. |
+| `.tga` | Truevision TGA, imported as Texture2D. |
+| `.hdr` | Radiance HDR images, imported as floating point Texture2D. Use them for environment lighting. |
+| `.dds` | DirectDraw Surface. Can hold any texture type, mipmaps and block-compressed formats. |
+| `.ktx`, `.ktx2` | Khronos texture containers. Can hold any texture type, mipmaps and compressed formats. |
 
-- `.png`
-- `.jpg`
-- `.jpeg`
-- `.bmp`
-- `.gif`
-- `.tga`
-- `.dds`
-- `.ktx`
-- `.hdr`
+See [Import Textures](import_textures.md) for details.
 
-> [!NOTE]
-> **Evergine** will only import the first frame of any animated image file like `.gif` and will load it as a static texture.
+## In this section
 
-## In This Section
-
-* [Texture types](textureTypes.md)
+* [Texture Types](textureTypes.md)
 * [Import Textures](import_textures.md)
-* [How to create a texture from code](create_texture_from_code.md)
+* [Create a Texture from Code](create_texture_from_code.md)
 * [Texture Editor](texture_editor.md)

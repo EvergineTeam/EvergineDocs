@@ -88,4 +88,4 @@ Steering is the everyday case: a steering wheel that turns two and a half times 
 > The component goes on the **pinion**, not on the rack, and `ConnectedEntityPath` names the rack. That is also why `HingeAxis` is read in this entity's space and `SliderAxis` in the connected one's. Getting them the wrong way round leaves the constraint trying to slide the pinion and turn the rack.
 
 > [!TIP]
-> Turn on `PhysicsDebugFlags.Constraints` while wiring one up. The four axes (the slider's, the hinge's, and this constraint's two) all have to agree, and seeing them drawn is much quicker than working out which of the four is wrong. See [Debug Rendering](../debug_rendering.md).
+> Turn on `RenderManager.DebugLines` with `PhysicsDebugFlags.Constraints` while wiring one up. The four axes (the slider's, the hinge's, and this constraint's two) all have to agree, and seeing them drawn is much quicker than working out which of the four is wrong. See [Debug Rendering](../debug_rendering.md).

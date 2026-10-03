@@ -1,8 +1,11 @@
-# Postprocessing Graph Editor
----
-![Postprocessing Graph Interface](images/PostprocessingGraphEditor.jpg)
+# Post-Processing Graph Editor
 
-**Postprocessing Graph Editor** allows editing Postprocessing Graph assets. Double-clicking on a postprocessing graph asset shown in [Assets Details](../../evergine_studio/interface.md) will open this editor. The editor is composed of three main parts:
+---
+
+![The Post-Processing Graph Editor with the default graph: graph editor, viewport and available effects](images/PostprocessingGraphEditor.png)
+
+
+The **Post-Processing Graph Editor** edits post-processing graph assets. Double-click a graph asset in [Assets Details](../../evergine_studio/interface.md) to open it. The editor has three parts:
 * Graph Editor
 * Compute Effects Collection
 * Viewport
@@ -21,7 +24,7 @@ The **Graph Editor** allows you to create graph nodes to connect the start node 
 
 ![Node Parts](images/PostprocessingNode.jpg)
 
-> [!Tip]
+> [!TIP]
 >The node inputs can only be connected with a single node output, but a node output can be connected with multiple node inputs.
 
 ### **Toolbox**

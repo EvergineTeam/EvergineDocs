@@ -70,7 +70,7 @@ Almost every ragdoll that explodes, jitters or folds through itself breaks one o
 
 **Build the figure inside its own limits.** A constraint measures its angles from the pose the two bodies were in when it was created. Assemble the figure with an elbow already bent past its stop and the solver's first job is to force it back, which reads as a limb snapping.
 
-**Keep neighbouring masses within about 5:1.** The torso here is 22 kg and the upper arms are 2.5 kg, which is under 9:1 and about as far as it is worth going. A light limb bolted to a very heavy one is a stiff problem: the solver has to move the light body a long way to satisfy a constraint the heavy one barely notices, and it shows up as jitter at the shoulder before it shows up anywhere else.
+**Keep neighbouring masses within about 10:1.** The torso here is 22 kg and the upper arms are 2.5 kg, which is under 9:1 and about as far as it is worth going; 5:1 is comfortable. A light limb bolted to a very heavy one is a stiff problem: the solver has to move the light body a long way to satisfy a constraint the heavy one barely notices, and it shows up as jitter at the shoulder before it shows up anywhere else.
 
 ## Tuning It: Draw the Joints
 
@@ -81,6 +81,7 @@ Almost every ragdoll that explodes, jitters or folds through itself breaks one o
 `PhysicsDebugFlags.Constraints` draws every joint's frame in place on the figure, with the cone a swing twist allows and the arc a hinge allows. This is how a ragdoll is tuned: a limb that reaches somewhere it should not is a cone drawn too wide, and it is visible before the figure has finished falling.
 
 ```csharp
+this.Managers.RenderManager.DebugLines = true;
 this.Managers.FindManager<PhysicsManager>().DebugFlags = PhysicsDebugFlags.Constraints;
 ```
 
@@ -119,7 +120,7 @@ This is what a figure driven by an animation is doing every frame, with the targ
 
 The reason to build a ragdoll over a skeleton rather than as a free-standing figure is the switch: a character walks under its animation, is hit, and falls under the simulation carrying the momentum it had.
 
-Nothing in the framework couples animation to physics, so the coupling is yours to write. It is three ideas.
+Nothing in the framework couples animation to physics, so the coupling is yours to write. It is four ideas.
 
 **One body per bone, in world space.** A bone entity carries the model's own node scale, often a hundredth, so a collider placed directly on one has to be sized and offset in that space. It is far simpler to give each limb an entity of its own and record the fixed offset between it and its bone once, when the ragdoll is built:
 
@@ -135,7 +136,7 @@ Vector3 localPosition = Vector3.Transform(centre - bone.Position, boneInverse);
 Quaternion localRotation = boneInverse * rotation;
 ```
 
-**While animated, the bodies are kinematic and follow.** `MoveTo` rather than a transform write, because that is what gives a kinematic body the velocity the contact solver needs:
+**While animated, the bodies are kinematic and follow.** Every limb is a `RigidBody` built with `IsKinematic = true`, and moved with `MoveTo` rather than a transform write, because that is what gives a kinematic body the velocity the contact solver needs:
 
 ```csharp
 private void OnPhysicsStepStarting(object sender, float fixedTimeStep)
@@ -151,38 +152,58 @@ private void OnPhysicsStepStarting(object sender, float fixedTimeStep)
 
 That single call is what lets a walking figure knock a wall down on its way through. Write the transform instead and it teleports through everything.
 
-**The switch is two lines.**
+**The switch itself is two lines.**
 
 ```csharp
 this.animation.IsEnabled = false;
 
 foreach (Limb limb in this.limbs)
 {
-    limb.Body.BodyType = RigidBodyType.Dynamic;
+    limb.Body.IsKinematic = false;
 }
 ```
 
 > [!TIP]
-> Changing `BodyType` from kinematic to dynamic does **not** recreate the body: it keeps its velocity, its constraints and its place in the world. That is what makes this transition look right: every limb inherits the velocity the animation had just given it, so the figure is thrown forward by the stride it was in the middle of instead of dropping straight down like a plank.
+> Clearing `IsKinematic` does **not** recreate the body: it keeps its velocity, its constraints and its place in the world. That is what makes this transition look right: every limb inherits the velocity the animation had just given it, so the figure is thrown forward by the stride it was in the middle of instead of dropping straight down like a plank.
 
-![Ragdoll taking over from the animation](images/ragdoll_wall_still.png)
+**And from there the coupling runs the other way.** Until the switch the bones led and the bodies followed. After it the bodies lead, and their pose has to be written back onto the bones every frame, or the figure lies on the floor as a simulation while its skin stands where the animation left it.
 
-> [!NOTE]
-> **The skin does not follow the ragdoll, and the reason is narrower than it looks.** Writing the
-> simulated poses back onto the bones works for every bone except one. Written one at a time, or all
-> ten at once, with the animation running or switched off, the mesh is fine. Written to the **pelvis**,
-> the figure disappears completely; so does moving the entity that carries the model, which moves the
-> pelvis with it.
->
-> On this rig the pelvis is the skinned mesh's **root joint**: the mesh is drawn at that joint's world
-> transform and its bone matrices are unwound again by the same joint's inverse, and the pair does not
-> survive that joint being moved by anything other than the animation: not through `Position` and
-> `Orientation`, not through `WorldTransform`, not through the local pair the animation itself writes,
-> and not by solving for the model root instead. Even writing back the value already there does it.
->
-> Until that is fixed inside the renderer, a demonstration has to show the bodies rather than the skin,
-> which is what the clip above does: the capsules are drawn from the first frame, sitting inside the
-> character as the physics proxy following it, and the moment the skin is hidden they are the ragdoll.
+The offset recorded when the ragdoll was built is read in the other direction: take the body's world pose, take the offset back off it, and make what is left local to the bone's parent, because a bone's `LocalPosition` and `LocalOrientation` are what the skinning reads.
+
+```csharp
+Quaternion orientation = limb.Body.Transform3D.Orientation * Quaternion.Inverse(limb.LocalRotation);
+Vector3 position = limb.Body.Transform3D.Position - Vector3.Transform(limb.LocalPosition, orientation);
+Matrix4x4 wanted = Matrix4x4.CreateFromTRS(position, orientation, limb.Bone.Scale);
+
+Matrix4x4 local = wanted * limb.Parent.WorldInverseTransform;
+
+limb.Bone.LocalPosition = local.Translation;
+limb.Bone.LocalOrientation = local.Orientation;
+```
+
+The root joint is the one bone that loop does not write. Its parent is not another bone: it is the entity carrying the model, so that is what moves instead. The chain between the two is fixed, which leaves the entity's own transform as the only unknown:
+
+```csharp
+// hips = chain * walker, so walker = chain inverse * hips.
+this.transform.LocalTransform = Matrix4x4.Invert(this.hipsChain) * wanted;
+```
+
+**Tell the renderer the pose can leave the bind envelope.** A skinned mesh is culled against the box its bind pose came in, carried along by the root joint. It changes place, never shape, which is enough while an animation keeps the pose inside the envelope it was authored in. A ragdoll leaves that envelope within a stride, and the moment the mesh fails the test it stops being drawn.
+
+`SkinnedMeshRenderer.BoundsMode` chooses a volume built from the joints instead:
+
+```csharp
+var skinned = this.character.FindComponentInChildren<SkinnedMeshRenderer>(isExactType: false);
+
+skinned.BoundsMode = SkinnedBoundsMode.Skeleton;
+```
+
+| Mode | Volume | Use it when |
+| --- | --- | --- |
+| **BindPose** | The bind pose box, moved with the root joint. Costs nothing per frame. | An animation is the only thing moving the joints. This is the default. |
+| **Skeleton** | Rebuilt each frame from where the joints actually are. | Anything else writes the pose: a ragdoll, inverse kinematics, procedural code. |
+
+![The ragdoll pose drawn on the character's own skin](images/ragdoll_wall_still.png)
 
 ## One more thing the clip needed: root motion
 

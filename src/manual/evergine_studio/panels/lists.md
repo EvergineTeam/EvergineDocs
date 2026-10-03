@@ -1,119 +1,120 @@
-# IList Support in Components
+# Lists in Property Panels
 
-> ⚠️ **Note:**  
-> The user interface used for editing component properties (including `IList` support) is powered by an internal panels framework. This system is currently **pending documentation**.
+![A List<string> property shown in the Entity Details panel](images/ilist.png)
 
-## Overview
+When a component exposes a list property, the **Entity Details** panel of Evergine Studio shows it as an editable list. You can add, edit, remove and reorder elements without writing custom editor code. If your component has to react to those edits, for example to rebuild a cache or validate the new values, mark a method with the `CollectionChangeCallback` attribute and Evergine Studio calls it after each operation.
 
-Evergine now supports the use of `IList<T>` properties within your custom `Component` classes. This allows developers to expose and manage collections of data directly from the Evergine Studio editor.
+## Editing a list
 
-![Lists](images/ilist.png)
+Any public property whose type implements `System.Collections.IList`, such as `List<T>`, is rendered as a list. The panel shows:
 
-Users can:
-- **Add**, **edit**, **remove**, or **reorder** elements in any `IList<T>` property.
-- Respond to these collection operations using a new attribute: `CollectionChangeCallback`.
+* The number of items, in a box you can edit to grow or shrink the list.
+* One row per item, with a drag handle to reorder it and the editor that matches the item type (text box, numeric input, color picker, asset selector, and so on).
+* An **add** button that appends a new item, and a **delete** button that removes the selected items.
 
-This functionality streamlines the development of dynamic and interactive components that work with list-like data structures in the editor.
+New items are created with the parameterless constructor of the item type (an empty string for `string`, and opaque white for `Color`). Use a `NewItemInstance` callback, described below, when you need a different starting value.
 
----
+> [!NOTE]
+> The item type must be concrete. A list declared as `List<object>` is not supported, because the editor cannot infer what to create.
 
-## CollectionChangeCallback Attribute
+## CollectionChangeCallback attribute
 
-The `[CollectionChangeCallback]` attribute allows you to register methods that will be automatically invoked by the editor when changes are made to a specific list property.
-
-### Attribute Syntax
+`CollectionChangeCallback` lives in `Evergine.Common.Attributes`. Apply it to an instance method of the component (it can be public or private) and indicate which list property it observes and which operation triggers it.
 
 ```csharp
-[CollectionChangeCallback(PropertyName = "MyList", Type = OperationType.Addition)]
-void OnAdd(IEnumerable<CollectionChangeCallback.CollectionItem> items) { ... }
-```
-
-### Parameters
-
-| Parameter      | Description                                                          |
-|----------------|----------------------------------------------------------------------|
-| `PropertyName` | The name of the property (list) that this callback monitors.         |
-| `Type`         | The type of operation that triggers the callback. See below.         |
-
-### Operation Types
-
-```csharp
-enum OperationType
+[CollectionChangeCallback(nameof(Names), CollectionChangeCallback.OperationType.Addition)]
+private void OnNamesAdded(CollectionChangeCallback.CollectionItem[] items)
 {
-    Addition,
-    Update,
-    Deletion,
-    Reordering
 }
 ```
 
-Each callback method must match the expected signature for the operation:
+| Parameter | Description |
+| --- | --- |
+| `PropertyName` | Name of the list property that the callback observes. Use `nameof` so the link survives a rename. |
+| `Type` | The `OperationType` that triggers the callback. |
 
-| Operation Type | Expected Callback Signature                                                  |
-|----------------|-------------------------------------------------------------------------------|
-| Addition       | `void OnAdded(IEnumerable<CollectionItem> items)`                            |
-| Update         | `void OnUpdated(CollectionItem item)`                                        |
-| Deletion       | `void OnDeleted(IEnumerable<CollectionItem> items)`                          |
-| Reordering     | `void OnReordered(CollectionItem item, int fromIndex)`           |
+Both values can also be set as named properties: `[CollectionChangeCallback(PropertyName = nameof(Names), Type = OperationType.Update)]`.
 
----
+> [!IMPORTANT]
+> The attribute is editor-only. Evergine Studio invokes these methods when the list is edited in the property panel. Changes made to the list from your own code at runtime do not call them.
 
-## CollectionItem Structure
+### Operation types and signatures
 
-Each `CollectionItem` provides context about the changed element:
+Each operation expects a specific method signature. Evergine Studio uses the first method it finds for each property and operation.
+
+| OperationType | Expected signature | When it is called |
+| --- | --- | --- |
+| `Addition` | `void M(CollectionItem[] items)` | After one or more items are added. |
+| `Update` | `void M(CollectionItem item)` | After the value of an item changes. |
+| `Deletion` | `void M(CollectionItem[] items)` | After one or more items are removed. `Index` is the position each item had. |
+| `Reordering` | `void M(CollectionItem item, int fromIndex)` | After an item is dragged to a new position. `item.Index` is the new position. |
+| `NewItemInstance` | `T M()` | Before an item is added, to create the instance that is added. |
+
+### CollectionItem
+
+`CollectionChangeCallback.CollectionItem` describes the affected element.
+
+| Property | Type | Description |
+| --- | --- | --- |
+| `Item` | `object` | The element that was added, updated, removed or moved. Cast it to the item type of the list. |
+| `Index` | `int` | The position of the element in the list. |
+
+## Example
+
+The following component keeps a list of names, gives new entries a readable default instead of an empty string, and logs every change. The `using static` directive imports the nested types of the attribute, so you can write `OperationType` and `CollectionItem` without the class prefix; the regular `using` is still needed for the attribute itself.
 
 ```csharp
-public class CollectionItem
+using System.Collections.Generic;
+using System.Diagnostics;
+using Evergine.Common.Attributes;
+using Evergine.Framework;
+using static Evergine.Common.Attributes.CollectionChangeCallback;
+
+namespace MyProject.Components
 {
-    public object Item { get; }
-    public int Index { get; }
-}
-```
-
-- `Item`: The value of the element affected.
-- `Index`: The index within the list.
-
----
-
-## Example: Handling a List of Strings
-
-Here’s an example component using `List<string>` and handling all collection changes via callbacks:
-
-```csharp
-public class ListStringComponent : Component
-{
-    public List<string> StringList;
-
-    [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Addition)]
-    internal void AddedItems(IEnumerable<CollectionItem> items)
+    public class NameListComponent : Component
     {
-        foreach (var item in items)
+        // Initialize the list so the editor always has an instance to add items to.
+        public List<string> Names { get; set; } = new List<string>();
+
+        [CollectionChangeCallback(nameof(Names), OperationType.NewItemInstance)]
+        private string CreateName()
         {
-            Debug.WriteLine($"Added: {item.Item} at index {item.Index}");
+            // Without this callback, new rows would start as an empty string.
+            return $"Name {this.Names.Count}";
+        }
+
+        [CollectionChangeCallback(nameof(Names), OperationType.Addition)]
+        private void OnNamesAdded(CollectionItem[] items)
+        {
+            foreach (var item in items)
+            {
+                Debug.WriteLine($"Added '{item.Item}' at {item.Index}");
+            }
+        }
+
+        [CollectionChangeCallback(nameof(Names), OperationType.Update)]
+        private void OnNameUpdated(CollectionItem item)
+        {
+            Debug.WriteLine($"Updated '{item.Item}' at {item.Index}");
+        }
+
+        [CollectionChangeCallback(nameof(Names), OperationType.Deletion)]
+        private void OnNamesDeleted(CollectionItem[] items)
+        {
+            foreach (var item in items)
+            {
+                Debug.WriteLine($"Removed '{item.Item}' from {item.Index}");
+            }
+        }
+
+        [CollectionChangeCallback(nameof(Names), OperationType.Reordering)]
+        private void OnNameReordered(CollectionItem item, int fromIndex)
+        {
+            Debug.WriteLine($"Moved '{item.Item}' from {fromIndex} to {item.Index}");
         }
     }
-
-    [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Update)]
-    internal void UpdatedItem(CollectionItem item)
-    {
-        Debug.WriteLine($"Updated: {item.Item} at index {item.Index}");
-    }
-
-    [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Deletion)]
-    internal void DeletedItems(IEnumerable<CollectionItem> items)
-    {
-        foreach (var item in items)
-        {
-            Debug.WriteLine($"Deleted: {item.Item} at index {item.Index}");
-        }
-    }
-
-    [CollectionChangeCallback(PropertyName = nameof(StringList), Type = OperationType.Reordering)]
-    internal void ReorderedItems(CollectionItem item, int fromIndex)
-    {
-        Debug.WriteLine($"Reordered: {item.Item} from {fromIndex} to {item.Index}");
-    }
 }
 ```
 
-This setup allows your component to dynamically react to list operations triggered from the Evergine Studio editor — for example, updating visuals, syncing with other systems, or triggering logic based on user input.
+Add the component to an entity, select the entity in the **Scene Hierarchy** panel and edit the list in **Entity Details** to trigger each callback.

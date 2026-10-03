@@ -15,6 +15,7 @@ The controller finds its wheels by walking its descendants, and the order it fin
 | Property | Default | Description |
 | --- | --- | --- |
 | **Radius** | 0.35 | The wheel's radius, in metres. It decides where the chassis rides and how far one turn carries the vehicle. |
+| **UseModelBounds** | false | Reads `Radius` as a factor of the **largest dimension** of the model on the wheel entity, scale included, instead of in metres: a radius of 0.5 is a wheel that fits its own mesh. This is the convention the previous `PhysicWheel3D` used, and what the [migration tool](../migrating_from_bullet.md#migration-tool) sets on migrated wheels; new vehicles are simpler in metres. The result is never smaller than 0.01. |
 | **Width** | 0.25 | Its width. Used by the sphere and cylinder collision testers. |
 | **MaxSteerAngle** | 0 | The furthest this wheel steers, in radians. **Zero means it does not steer**, which is what a rear wheel wants. |
 | **SteeringAxis** | 0,1,0 | The axis it steers about, in the chassis's space. |
@@ -101,4 +102,4 @@ public class TyreSmoke : Behavior
 ```
 
 > [!TIP]
-> Leave `UpdateEntityTransform` on and make the wheel's visual a **child** of the wheel entity, not the wheel entity itself. The controller owns that entity's pose, so any rotation authored on it, laying a `CylinderMesh` on its side for instance, is overwritten every step.
+> Leave `UpdateEntityTransform` on and make the wheel's visual a **child** of the wheel entity, not the wheel entity itself. The controller owns that entity's pose, so any rotation authored on it, laying a `CylinderMesh` on its side for instance, is overwritten every step. The one thing the wheel does keep is the local orientation it had when it started: that is treated as a visual offset and combined with the steering and the spin, which is what lets a mirrored wheel model on the left side of the car keep facing the right way.

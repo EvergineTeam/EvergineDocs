@@ -1,39 +1,103 @@
 # Manage Profiles
 
-As a cross-platform engine, _Evergine_ provides a way to create different launcher projects for supported platforms. For each platform, a _C#_ project will be added to your filesystem. You can create more than one project for a given platform, but each one of these projects will be considered a different profile.
+![The Profiles tab of Project Settings with a Windows profile selected](images/profile_edit-profile.jpg)
 
-If you did not add all the platforms you wanted in the project creation window, you can do so from _Evergine Studio_ once your project is loaded. Just go to the _Settings > Project Settings_ menu to open a dialog to manage your project profiles. By default, an Evergine project includes _Windows_ as a platform. This platform is required for _Evergine Studio_ to work, so you cannot remove it.
+Evergine is cross-platform, and each platform your application runs on has its own **launcher project**: a small C# project with the `Main` method, the window or view, and the graphics backend of that platform. Each launcher is a **profile** of the project. Profiles also decide how assets are exported for that platform, such as the texture compression and whether shaders are compiled ahead of time.
 
-![Scene update for managers](images/profile_add-profile.jpg)
+You choose the first profiles when you create the project in the Evergine Launcher. Add, remove and configure them later from **Settings > Project Settings > Profiles**.
 
-To add a new platform profile, use the _Add_ button. A new window will open, where you can select the platform you want to add. By default, a profile name will be proposed, but you can change it if you prefer. As described above, you can even have more than one profile for the same platform. This will create separate C# projects for each of these platforms.
+## Add a profile
 
-![Scene update for managers](images/profile_search-profile.jpg)
 
-Similar to the launcher creation form, we have added some filters here to make it easier to find a template. Just use the free text input and platform dropdown selector to limit template results.
+1. Click **Add** under the list of profiles.
 
-## Profile Management
+   ![The Add and Remove buttons under the list of profiles](images/profile_add-profile.jpg)
 
-For each profile, a different set of settings is applied. Once you add a new platform profile, a default set of values will be added for that platform. For example, on platforms like _Windows_, shaders are compiled at runtime by default, but other platforms like _Web_ or _Android_ require shaders to be precompiled due to performance and platform limitations.
+2. In the **Add project profile** dialog, find the template you need. Type in **Search** or pick a platform in the drop-down to filter the list.
+3. Select the template. Evergine Studio proposes a profile name, which you can change. The name must be unique in the project.
+4. Click **Add**.
 
-![Scene update for managers](images/profile_edit-profile.jpg)
+Evergine Studio creates the launcher project and its Visual Studio solution in the project folder, named after the project and the profile, for example `MyProject.Windows.Vulkan` and `MyProject.Windows.Vulkan.sln`. You can add several profiles for the same platform, such as a DirectX 12 and a Vulkan build for Windows.
 
-Profile settings can be customized at any time you want. Changes will be saved once you press the _Update_ button. The list of options that you can configure is described below.
+### Available templates
+
+These are the launcher templates of this version, with the default settings each profile starts with:
+
+| Template | Default profile name | Platform | Graphics backend | Compile effects | Texture compression (alpha / non-alpha) |
+| --- | --- | --- | --- | --- | --- |
+| Windows (DirectX12) | `Windows` | Windows | DirectX 12 | No | `BC3_UNorm` / `BC3_UNorm` |
+| Windows (DirectX11) | `Windows.DirectX11` | Windows | DirectX 11 | No | `BC3_UNorm` / `BC3_UNorm` |
+| Windows (Vulkan) | `Windows.Vulkan` | Windows | Vulkan | No | `R8G8B8A8_UNorm` / `R8G8B8A8_UNorm` |
+| Windows (OpenGL) | `Windows.OpenGL` | Windows | OpenGL | No | `R8G8B8A8_UNorm` / `R8G8B8A8_UNorm` |
+| Windows OpenXR (DirectX11) | `Windows.OpenXR` | Windows | DirectX 11 | No | `BC3_UNorm` / `BC3_UNorm` |
+| WinUI (DirectX11) | `WinUI` | Windows | DirectX 11 | No | `BC3_UNorm` / `BC3_UNorm` |
+| Avalonia | `Avalonia` | Windows | DirectX 11 | No | `BC3_UNorm` / `BC3_UNorm` |
+| Web (WebGL2.0) | `Web` | Web | WebGL 2.0 | Yes | `R8G8B8A8_UNorm` / `R8G8B8A8_UNorm` |
+| React SPA (WebGL2.0) | `WebReact` | Web | WebGL 2.0 | Yes | `R8G8B8A8_UNorm` / `R8G8B8A8_UNorm` |
+| Web (Experimental WebGPU) | `WebGPU` | Web | WebGPU | Yes | `R8G8B8A8_UNorm` / `R8G8B8A8_UNorm` |
+| WebXR (Experimental AR) | `WebXR` | Web | WebGL 2.0 | Yes | `R8G8B8A8_UNorm` / `R8G8B8A8_UNorm` |
+| Android | `Android` | Android | Vulkan | Yes | `R4G4B4A4` / `ETC1_RGB8` |
+| Android Meta Quest (OpenXR) | `Quest` | Android | Vulkan | Yes | `R4G4B4A4` / `ETC1_RGB8` |
+| Android Pico (OpenXR) | `Pico` | Android | Vulkan | Yes | `R4G4B4A4` / `ETC1_RGB8` |
+| iOS .NET 10 | `iOS` | iOS | Metal | Yes | `BC3_UNorm` / `BC3_UNorm` |
+| MAUI | `Windows`, `Android`, `iOS` | Windows, Android, iOS | DirectX 11, Vulkan, Metal | No, Yes, Yes | Per platform, as in the rows above |
+
+The MAUI template creates one solution with three profiles, which Evergine Studio shows as a single group.
+
+> [!NOTE]
+> A project always needs a Windows desktop profile, because Evergine Studio itself runs on Windows. The first profile of the project, usually **Windows**, cannot be removed.
+
+## Edit a profile
+
+Select a profile in **Current project profiles** to see its settings. After changing them, click **Update** to save them to the project. Profile settings take effect the next time you build that launcher.
 
 ### Textures
 
-Controls the texture compression to be used in a given profile. This is important to optimize textures to be loaded in graphics hardware, which may be limited on platforms like mobile devices.
+| Setting | Description |
+| --- | --- |
+| **Alpha compression** | `PixelFormat` used for textures with an alpha channel. |
+| **Non alpha compression** | `PixelFormat` used for opaque textures. |
 
-You can specify both alpha and non-alpha compression formats. A list of available formats is provided by the [PixelFormat](xref:Evergine.Common.Graphics.PixelFormat) enum.
+Pick formats that the GPUs of the platform support. Block-compressed formats such as `BC3_UNorm` suit desktop GPUs, `ETC1_RGB8` suits Android, and `R8G8B8A8_UNorm` works everywhere at a higher memory cost. Each texture can still override these values in its own [profile properties](../assets/edit.md#profile-properties).
 
 ### Shaders
 
-You can enable shaders to be precompiled and included in the platform package. This may increase build time but will reduce loading time while running the application.
+| Setting | Description |
+| --- | --- |
+| **Compile effects** | Compiles every effect when the assets are exported and ships the compiled bytecode. Web, Android and iOS profiles enable it by default. Windows profiles compile effects at runtime instead. |
+| **Directives** | The effect directives, and their combinations, to precompile. |
 
-Additionally, you can configure your own directive specifications that best fit your project. For each directive, you can choose to enable or disable it. Once enabled, you can also add each directive to a directive combination. At the bottom, there is a read-only text area that presents the configured directive combinations.
+The directive grid lists the directives that Evergine effects use, with two check boxes each:
 
-## Open Platform Projects
+* **E** (enable) includes the directive.
+* **C** (combine) generates the variants with and without it. An enabled directive without **C** is present in every variant.
 
-For each profile registered within your project, you will find a new entry in the _File > Open C# editor_ menu. When clicking on one of the provided options, the platform-specific _Visual Studio_ solution will open.
+| Directive | Effect directive | Meaning |
+| --- | --- | --- |
+| Low profile | `LOW_PROFILE` | Cheaper shading path for mobile and web GPUs. |
+| Gamma | `GAMMA_COLORSPACE` | Output in gamma space instead of linear. |
+| Shadow | `SHADOW_SUPPORTED` | Shadow support. |
+| Shadow filter | `SHADOWFILTER3`, `SHADOWFILTER5` or `SHADOWFILTER7` | Size of the shadow filter kernel. |
+| Multiview | `MULTIVIEW_RTI` or `MULTIVIEW_VI` | Stereo rendering in a single pass, for XR devices. |
+| Point lights | `POINT_LIGHT` | Support for point lights. |
+| Spot lights | `SPOT_LIGHT` | Support for spot lights. |
+| Area lights | `AREA_LIGHT` | Support for area lights. |
 
-![Scene update for managers](images/profile_open-project.jpg)
+The read-only box under the grid shows the resulting combinations, separated by commas, which is the value stored in the profile. For example, enabling **Shadow** and **Shadow filter** and combining **Point lights** gives `SHADOW_SUPPORTED-SHADOWFILTER3,SHADOW_SUPPORTED-SHADOWFILTER3-POINT_LIGHT`.
+
+> [!TIP]
+> Every combined directive doubles the number of variants to compile, which increases the export time and the package size. Combine only the directives your scenes need.
+
+### Reset a profile
+
+**Reset Profile** restores the texture compression, **Compile effects** and directives to the defaults of the template the profile was created from. Click **Update** afterwards to save them.
+
+## Remove a profile
+
+Select the profile and click **Remove**. The profile is removed from the project.
+
+## Open a platform project
+
+Every profile gets an entry in **File > Open C# editor**. Pick one to open the Visual Studio solution of that launcher. With a single profile, the menu item opens its solution directly.
+
+![The Open C# editor submenu with one entry per profile](images/profile_open-project.jpg)

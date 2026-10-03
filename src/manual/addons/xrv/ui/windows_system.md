@@ -1,217 +1,248 @@
-# Windows System
+# Windows system
 
-One of the main features that XRV offers is the _Windows System_, which includes built-in windows with customizable content. It also provides built-in alert and confirmation dialogs that you can incorporate into your UI logic to notify users or ask for confirmation, allowing different actions based on user choices.
+---
 
-![dialogs snapshot](images/windows_system_main.jpg)
+![Windows and dialogs](images/windows_system_main.jpg)
 
-## Windows Interaction
+The windows system creates floating windows that the user can move, pin, or let follow them, and fills them with your own content. It also provides alert and confirmation dialogs, so you can inform the user or ask them to confirm an action and react to their choice. Access it through the `WindowsSystem` property of `XrvService`.
 
-When a window is created, it includes default buttons that allow users to modify the window’s behavior or visibility.
+## Window interaction
 
-- The window’s position can be changed, with two available positioning modes:
-    - ![window follow](images/follow.png) **Follow mode**: the window will follow the user if they move more than 0.6 meters away. In this mode, the window also reorients itself to face the user.
-    - ![window pin](images/pin.png) **Pinned mode**: when activated, the window remains fixed in its current position and orientation. In this mode, users can adjust the window’s position and orientation using the pinch gesture on its title bar or content area.
-- Press ![window close](images/close.png) to close the window.
+Every window includes buttons in its title bar that change how it behaves:
 
-## Create and Show a Window Programmatically
+- ![window follow](images/follow.png) **Follow mode**: the window follows the user and turns to face them. It stays between 0.4 m and 0.6 m away as the user moves.
+- ![window pin](images/pin.png) **Pinned mode**: the window stays at its current position and orientation. The user can move and rotate it by pinching its title bar or its content.
+- ![window close](images/close.png) **Close**: closes the window.
 
-To create a window, access the _Windows System_ exposed by _XrvService_. Each window has configurable options, detailed below. You can create as many windows as needed.
+## Create and show a window
+
+Call `CreateWindow` and set the options of the new window in the configuration callback. You can create as many windows as you need.
 
 ```csharp
-var xrv = Application.Current.Container.Resolve<XrvService>();
-var windowSystem = xrv.WindowSystem;
+using Evergine.Framework;
+using Evergine.Mathematics;
+using Evergine.Xrv.Core;
 
-// Setting Window
-var window = xrv.WindowSystem.CreateWindow(config =>
+var xrv = Application.Current.Container.Resolve<XrvService>();
+var window = xrv.WindowsSystem.CreateWindow(config =>
 {
     config.Title = "Window #1";
-    config.Size = new Vector2(0.3, 0.2);
+    config.Size = new Vector2(0.3f, 0.2f);
 });
 
-// Show window (empty in this case)
+// Shows the window, empty in this case, in front of the user.
 window.Open();
 ```
 
-Windows have several components:
-- **Title bar**: located at the top, it includes action buttons.
-- **Back plate**: shares the same material as the title bar and contains an optional logo image..
-- **Front plate**: drawn over the back plate, intended to be placed behind the window’s contents.
+`CreateWindow` adds the window entity to the scene. It also has an overload with an `out Entity` parameter, which gives you the window entity before the scene finishes loading, and an `addToScene` parameter to add it yourself later.
 
-![dialogs snapshot](images/windows_system_window_parts.jpg)
+A window has three visual parts:
 
-### Window Instance Options
+- **Title bar**: at the top, with the title and the action buttons.
+- **Back plate**: uses the same material as the title bar and can show a logo.
+- **Front plate**: drawn over the back plate, behind the window contents.
 
-Each window instance has options that developers can customize. You can open or close any window programmatically or subscribe to events for window opening and closing.
+![Parts of a window](images/windows_system_window_parts.jpg)
 
-| Properties             | Description                                                                             |
-| ------------------- | --------------------------------------------------------------------------------------- |
-| `AllowPin`   | Disables the toggle button for window positioning if set to false. |
-| `DistanceKey`   | Specifies the distance key to position the window once opened. |
-| `EnableManipulation`   | Disables window orientation and positioning adjustments when pinned, if set to false. |
+### Window properties
 
-| Methods             | Description                                                                             |
-| ------------------- | --------------------------------------------------------------------------------------- |
-| `Open`   | Opens the window instance. |
-| `Close`   | Closes the window instance. |
+`CreateWindow` returns the `Window` component, which controls the behavior of the window.
 
-| Events             | Description                                                                             |
-| ------------------- | --------------------------------------------------------------------------------------- |
-| `Opened`   | Triggered when the window is opened. |
-| `Closed`   | Triggered when the window is closed. |
+| Property | Default | Description |
+| --- | --- | --- |
+| `AllowPin` | `true` | Shows the follow/pin toggle. Set it to `false` to keep the window in its current mode. |
+| `EnableManipulation` | `true` | Lets the user move and rotate the window while it is pinned. |
+| `PlaceInFrontOfUserWhenOpened` | `true` | Places the window in front of the user every time it opens. |
+| `DistanceKey` | `null` | Key of the [distance](#window-distances) at which the window opens. `null` uses `Distances.MediumKey`. |
+| `ShowCloseButton` | `true` | Shows the close button of the title bar. |
+| `ExtraActionButtons` | empty | Extra buttons, described with `ButtonDescription`, for the title bar. |
+| `AvailableActionSlots` | `3` | Number of extra buttons shown in the title bar. The rest go to a *more actions* menu, sorted by their `Order`. |
+| `MoreActionsPlacement` | `BeforeFollowAndClose` | Where the *more actions* button goes: `BeforeFollowAndClose` or `BeforeActionButtons`. |
+| `MoreActionsBehavior` | `HideAutomatically` | Whether the *more actions* panel closes after a selection (`HideAutomatically`) or stays open (`StayOpen`). |
 
-### Window Instance Configuration
+| Method | Description |
+| --- | --- |
+| `Open()` | Opens the window, if it is not already open. |
+| `Close()` | Closes the window. |
 
-Use the configuration callback to adjust the window’s display settings.
+| Event | Description |
+| --- | --- |
+| `Opening`, `Opened` | Raised before and after the window opens. |
+| `Closing`, `Closed` | Raised before and after the window closes. |
+| `ActionButtonPressed` | Raised when the user presses one of the `ExtraActionButtons`. The arguments include the button `Description` and its toggle state `IsOn`. |
 
-| Properties             | Description                                                                             |
-| ------------------- | --------------------------------------------------------------------------------------- |
-| `Content`   | Sets an entity for window contents, such as buttons, 3D text, or images. |
-| `DisplayFrontPlate`   | Hides the front plate if set to false. |
-| `DisplayBackPlate`   | Hides the back plate if set to false. |
-| `DisplayLogo`   | Toggles logo visibility on the back plate. |
-| `FrontPlateOffsets`   | XY offset of the front plate relative to the back plate. |
-| `FrontPlateSize`   | Sets width and height of the front plate in meters. |
-| `LocalizedTitle`   | Sets a [localized title](../localization.md) callback for the window. |
-| `LogoMaterial`   | Changes the default logo image by setting a custom material. |
-| `Size`   | Defines the window’s width and height in meters. |
-| `Title`   | Specifies a fixed title string. |
+### Window configuration
 
-### How-To: Create Custom Window with Contents
+The configuration callback receives the `WindowConfigurator` of the window, which controls its content and appearance.
 
-To create a custom window, start by determining the size of its contents. Follow these steps:
+| Property | Default | Description |
+| --- | --- | --- |
+| `Content` | `null` | Entity shown as the window contents, such as buttons, 3D text, or images. |
+| `Title` | `null` | Fixed title text. |
+| `LocalizedTitle` | `null` | Function that returns the title, for [localized](../localization.md) titles. |
+| `Size` | `(0.35, 0.3)` | Width and height of the window, in meters. |
+| `FrontPlateSize` | `(0, 0)` | Width and height of the front plate, in meters. |
+| `FrontPlateOffsets` | `(0, 0)` | XY offset of the front plate relative to the back plate. |
+| `DisplayFrontPlate` | `true` | Shows the front plate. |
+| `DisplayBackPlate` | `true` | Shows the back plate. |
+| `DisplayLogo` | `true` | Shows the logo on the back plate. |
+| `LogoMaterial` | `null` | Material of the logo. `null` keeps the default XRV logo. |
 
-1. Create a new scene containing the window contents, which will be saved as a prefab and loaded into the window.
-2. Create a mesh with _BorderlessFrontPlate_ material as a size guide.
-3. Adjust _PlaneMesh_ width and height to the desired size. 
-![windows how-to](images/windows_system_how-to.png)
-4. Design your window layout.
-5. Create a prefab from your contents entity, excluding the guide reference.
-6. Instantiate your window in code, setting its size to match the guide.
+### How-to: create a window with custom contents
 
-```csharp
-var contentsSize = new Vector2(0.214f, 0.173f);
-var window = windowsSystem.CreateWindow(config => 
-{
-    config.Size = contentsSize;
-    config.FrontPlateSize = contentsSize;
-    config.Content = this.assetsService.Load<Prefab>(<Prefab GUID here>).Instantiate();
-});
-```
+Design the contents in a scene and save them as a prefab. To get the size right:
 
-## Built-In Dialogs
-
-_XRV_ also includes two dialog types for user prompts:
-
-- **Alert dialog**: Used to inform users without requiring them to make a choice.
-- **Confirmation dialog**: Requests user confirmation before proceeding with an action, such as removing a 3D model.
-
-Only one dialog can be open at a time to prevent user confusion and ensure a clear interaction flow. If a new dialog is opened while another is still displayed, the existing dialog will automatically close, allowing the user to focus on the most recent prompt.
+1. Create a scene for the window contents. You will save them as a prefab and load them into the window.
+2. Add a plane that uses the _BorderlessFrontPlate_ material as a size guide.
+3. Set the `PlaneMesh` width and height to the size you want for the window.
+   ![Size guide for window contents](images/windows_system_how-to.png)
+4. Lay out your contents over the guide.
+5. Create a prefab from the contents entity, without the guide.
+6. Create the window in code with the same size as the guide:
 
 ```csharp
-var dialog = windowsSystem.ShowConfirmationDialog(...); // or ShowAlertDialog
-dialog.Closed += Dialog_Closed;
+using Evergine.Framework;
+using Evergine.Framework.Prefabs;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.UI.Windows;
 
-private void Dialog_Closed(object sender, EventArgs e)
-{
-    if (dialog is ConfirmDialog confirm)
-    {
-        dialog.Closed -= this.Dialog_Closed;
-
-        if (confirm.Result == confirm.AcceptOption.Key)
-        {
-            // Do something only if the user taps on the accept option            
-        }
-    }
-}
-```
-
-In the example, we subscribe to the _Closed_ event and unsubscribe in the callback. Only one dialog can be open at a time, so opening a new dialog will close any existing one.
-
-**Alert Dialog**
-
-| Result Value             | Description                                                                                         |
-| ------------------- | --------------------------------------------------------------------------------------------------- |
-| AlertDialog.AcceptKey | When the user presses the dialog _Accept_ button. |
-| _null_ | When the user presses the dialog _Close_ button, or another part of the code invokes _ShowAlertDialog_. |
-
-**Confirmation Dialog**
-
-| Result Value             | Description                                                                                                       |
-| ------------------- | ----------------------------------------------------------------------------------------------------------------- |
-| ConfirmationDialog.AcceptKey | When the user presses the dialog _Accept_ button. |
-| ConfirmationDialog.CancelKey | When the user presses the dialog _Cancel_ button. |
-| _null_ | When the user presses the dialog _Close_ button, or another part of the code invokes _ShowConfirmationDialog_. |
-
-## Additional Windows System Features
-
-The _Windows System_ provides additional properties for customization:
-
-| Properties             | Description                                                                             |
-| ------------------- | --------------------------------------------------------------------------------------- |
-| `Distances`   | Registers or modifies predefined window distances. |
-| `OverrideIconMaterial`   | Sets a custom material for the default window logo, avoiding per-instance updates. |
-
-### Window Distances Definition
-
-_XRV_ includes predefined window distances, but you can add or modify distances as needed.
-
-| Distance Key | Value (in meters) | Usage                                            |
-|--------------|-------------------|--------------------------------------------------|
-| `NearKey`      | 0.35              | Default distance for alert and confirmation dialogs. |
-| `MediumKey`    | 0.5               | Default for other windows.                       |
-| `FarKey`       | 1                 | Available for custom use.                 
-
-Override or add new distances using _SetDistance_:
-
-```csharp
-// override an existing key
-windowsSystem.Distances.SetDistance(Xrv.Core.UI.Windows.Distances.NearKey, 0.45f);
-
-// adding a new key
-windowsSystem.Distances.SetDistance("custom", 0.5f);
-
-// use distance key in a window
-window.DistanceKey = "custom";
-```
-
-## Examples
-
-### Using the Windows System in a Component
-
-```csharp
-public MyComponent : Component 
+public class CustomWindowOpener : Component
 {
     [BindService]
     private XrvService xrvService = null;
 
-    private windowSystem =>  xrvService.WindowSystem;
+    [BindService]
+    private AssetsService assetsService = null;
 
-    private void ShowAlert()
+    private Window window;
+
+    protected override void Start()
     {
-        var dialog = this.windowSystem.ShowAlertDialog("Alert Title", "Sample Content.", "OK");
-        dialog.Closed += this.OnAlertClosed();
+        base.Start();
+
+        // Same size as the guide plane used to design the prefab.
+        var contentsSize = new Vector2(0.214f, 0.173f);
+        this.window = this.xrvService.WindowsSystem.CreateWindow(config =>
+        {
+            config.Size = contentsSize;
+            config.FrontPlateSize = contentsSize;
+            config.Content = this.assetsService.Load<Prefab>(EvergineContent.Prefabs.MyWindowContents_weprefab).Instantiate();
+        });
+
+        this.window.Open();
+    }
+}
+```
+
+`EvergineContent.Prefabs.MyWindowContents_weprefab` stands for the ID of your prefab.
+
+## Built-in dialogs
+
+![Alert and confirmation dialogs](images/windows_system_dialogs.png)
+
+XRV includes two dialogs:
+
+- **Alert dialog** (`AlertDialog`): informs the user. It has a single accept button.
+- **Confirmation dialog** (`ConfirmationDialog`): asks the user to confirm an action, such as removing a 3D model. It has cancel and accept buttons.
+
+Only one dialog can be open at a time. If you open a dialog while another one is visible, XRV closes the first one, so the user always sees the latest prompt.
+
+When a dialog closes, its `Result` property holds the key of the option the user pressed:
+
+| Dialog | `Result` | When |
+| --- | --- | --- |
+| `AlertDialog` | `AlertDialog.AcceptKey` | The user pressed the accept button. |
+| `ConfirmationDialog` | `ConfirmationDialog.AcceptKey` | The user pressed the accept button. |
+| `ConfirmationDialog` | `ConfirmationDialog.CancelKey` | The user pressed the cancel button. |
+| Both | `null` | The user pressed the close button, or your code opened another dialog. |
+
+The following component shows both dialogs and checks the result when they close. It subscribes to `Closed` and unsubscribes in the handler, because a dialog closes only once.
+
+```csharp
+using System;
+using Evergine.Framework;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.UI.Dialogs;
+using Evergine.Xrv.Core.UI.Windows;
+
+public class DialogsSample : Component
+{
+    [BindService]
+    private XrvService xrvService = null;
+
+    private WindowsSystem WindowsSystem => this.xrvService.WindowsSystem;
+
+    public void ShowAlert()
+    {
+        var dialog = this.WindowsSystem.ShowAlertDialog("Alert title", "Sample content.", "OK");
+        dialog.Closed += this.OnAlertClosed;
     }
 
-    private void ShowConfirmation()
+    public void ShowConfirmation()
     {
-        var dialog = this.windowSystem.ShowConfirmationDialog("Confirmation Title", "Sample Content.", "No", "Yes");
-        dialog.Closed += this.OnConfirmationClosed();
+        // The arguments are the title, the text, the cancel text and the accept text.
+        var dialog = this.WindowsSystem.ShowConfirmationDialog("Remove model", "Do you want to remove this model?", "No", "Yes");
+        dialog.Closed += this.OnConfirmationClosed;
     }
 
     private void OnAlertClosed(object sender, EventArgs e)
     {
-        if (sender is AlertDialog dialog) 
+        if (sender is AlertDialog dialog)
         {
-            dialog.Closed -= this.OnAlertClosed();
+            dialog.Closed -= this.OnAlertClosed;
         }
     }
 
     private void OnConfirmationClosed(object sender, EventArgs e)
     {
-        if (sender is ConfirmationDialog dialog) 
+        if (sender is ConfirmationDialog dialog)
         {
-            dialog.Closed -= this.OnConfirmationClosed();
+            dialog.Closed -= this.OnConfirmationClosed;
+
+            if (dialog.Result == ConfirmationDialog.AcceptKey)
+            {
+                // Run the action only when the user accepts.
+            }
         }
     }
 }
+```
+
+`ShowAlertDialog` and `ShowConfirmationDialog` also have overloads that take `Func<string>` arguments, for [localized](../localization.md) dialogs.
+
+## Notifications
+
+`ShowNotification(title, message)` shows a short notification to the user without blocking the interaction. An overload also takes the ID of an icon material.
+
+## Windows system properties
+
+| Property | Description |
+| --- | --- |
+| `AllWindows` | All the windows created by the system. |
+| `Distances` | Predefined distances at which windows open. See below. |
+| `OverrideIconMaterial` | Material for the logo of every window, so you do not have to set `LogoMaterial` on each one. |
+
+### Window distances
+
+XRV defines three distances that windows use when they open. You can change them or add your own.
+
+| Key | Distance (meters) | Used by |
+| --- | --- | --- |
+| `Distances.NearKey` | 0.35 | Alert and confirmation dialogs. |
+| `Distances.MediumKey` | 0.5 | Windows by default. |
+| `Distances.FarKey` | 1 | Available for your own windows. |
+
+Use `SetDistance` to change a distance or add a new key, and assign the key to a window:
+
+```csharp
+var windowsSystem = this.xrvService.WindowsSystem;
+
+// Change an existing distance.
+windowsSystem.Distances.SetDistance(Distances.NearKey, 0.45f);
+
+// Add a new distance and use it in a window.
+windowsSystem.Distances.SetDistance("custom", 0.7f);
+window.DistanceKey = "custom";
 ```

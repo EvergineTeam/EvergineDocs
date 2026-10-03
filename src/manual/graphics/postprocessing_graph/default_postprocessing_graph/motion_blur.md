@@ -1,8 +1,13 @@
 # Motion Blur
 
-**Motion Blur** blurs the image based on the camera's motion. This effect is the apparent streaking of moving objects in a photograph or a sequence of frames, such as a film or animation. It occurs when the image being recorded changes during the recording of a single exposure due to rapid movement or long exposure.
+---
 
-| Parameter     | Description                           |
-| ------------- | ------------------------------------- |
-| **Decay Factor** | Visibility factor of the samples.      |
-| **Num. Samples**  | Number of samples used.                |
+**Motion Blur** blurs the image in the direction the camera moves, the way a real camera smears the picture during its exposure. It makes fast camera movement look smoother, especially at low frame rates. It reads the motion vectors of the GBuffer pass.
+
+## Parameters
+
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Enabled** | On | Turns the effect on. |
+| **Decay Factor** | 0.945 | How quickly the weight of each sample falls along the blur, from 0 to 1. Values closer to 1 give longer trails. |
+| **Num. Samples** | 9 | Samples taken along the motion vector, from 1 to 20. |

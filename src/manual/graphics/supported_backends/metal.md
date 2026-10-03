@@ -1,25 +1,20 @@
 # Metal
 
+---
+
 ![Metal API](images/metal.jpg)
 
-**Metal** is a low-level graphics and compute API created by **Apple** and is the default API on MacOS and iOS devices.
+**Metal** is Apple's low-level graphics and compute API. Evergine uses it on iOS and iPadOS: both the **iOS** template and the iOS target of the **MAUI** template render with Metal.
 
-**Metal** has been available since June 2, 2014, on iOS devices powered by Apple A7 or later, and since June 8, 2015, on MacOS running OS X El Capitan.
+## Supported devices
 
-**Evergine** uses the **Metal** API on MacOS and iOS devices like iPhone and iPad, but it also supports the [Vulkan](vulkan.md) graphics API on these platforms through MoltenVK, which allows for the conversion of a subset of the **Vulkan** API to run on top of **Metal** on MacOS and iOS operating systems.
+* iPhone and iPad.
 
-## Supported Metal devices
+## Check your Metal version
 
-* MacOS x64/x86/ARM64 desktop
-* iOS iPhone and iPad
+Metal is part of the operating system and is updated with it. Keep the device on a recent iOS version to get the latest Metal features.
 
-## Checking Metal version
-
-**Metal** is the default graphics API used on iOS and MacOS devices, and **Apple** provides updates through system updates. To ensure you have the latest version, simply update to the latest OS version.
-
-## Create a Graphics Context
-
-To create a graphics context based on **Metal**, just write:
+## Create a graphics context
 
 ```csharp
 GraphicsContext graphicsContext = new Evergine.Metal.MTLGraphicsContext();
@@ -28,4 +23,4 @@ graphicsContext.CreateDevice();
 
 ## Build & Run
 
-The project template will be available soon.
+Add a profile with the **iOS** or **MAUI** template from **Settings > Project Settings** (see [DirectX 12](directx12.md#build--run) for the steps). Building for iOS needs a Mac with Xcode, as described in [iOS](../../platforms/ios/index.md).

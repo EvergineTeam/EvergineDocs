@@ -1,117 +1,165 @@
-# USD Runtime Models  
+# USD Runtime
 
 ---
 
-![Evergine Runtime Models](images/USD/usd-header.jpg)  
+![Kitchen Set from the Pixar USD assets, loaded with the USD runtime](images/USD/usd-header.jpg)
 *Kitchen Set from Pixar Assets.*
 
-The **Evergine.Runtime.USD** NuGet package provides a **powerful and efficient solution** for dynamically loading USD models at runtime. It is designed for real-time 3D applications and integrates seamlessly into your Evergine projects.
+The **Evergine.Runtimes.USD** package reads Universal Scene Description files (`.usd`, `.usda`, `.usdc` and `.usdz`) while the application runs and returns a `Model`. Use it to bring in scenes from USD pipelines, such as NVIDIA Omniverse or Apple Reality Composer, without converting them first.
 
-## Supported USD Features
+The runtime does not parse USD itself. It runs the official OpenUSD Python library (`usd-core`) in an embedded Python interpreter, extracts the meshes, transforms and materials, and builds the Evergine model in C#.
 
-The `Evergine.Runtime.USD` namespace includes a robust USD file loader that supports a comprehensive range of mesh and material features:
+| | |
+| --- | --- |
+| **Package** | `Evergine.Runtimes.USD` |
+| **Namespace** | `Evergine.Runtimes.USD` |
+| **Class** | `USDRuntime` (derives from `ModelRuntime`) |
+| **Formats** | `.usd`, `.usda`, `.usdc`, `.usdz` |
+| **Returns** | `Task<Model>` |
+| **Platforms** | Windows desktop |
+| **Reads from** | A file path only |
 
-### ✅ Features
+## Requirements
 
-#### 1. File Formats
-- Supports all Universal Scene Description formats: **.usd**, **.usdc**, **.usda**, and **.usdz**
+The package brings its Python environment with it, but that environment has three consequences for your application:
 
-#### 2. Geometry
-- **Vertices**, **indices**, **normals**, and **UVs** (texture coordinates)
-- Supports:
-  - Triangles, quads and N-gons (auto-triangulated)
-  - Arbitrary polygon faces
-  - Multiple mesh groups per file
+* **Windows only.** The runtime uses [CSnakes](https://github.com/tonybaloney/CSnakes) 1.2.1 to host Python 3.12.6 from the `python` NuGet package. That package, and the CSnakes locator that finds it, only exist for Windows.
+* **Python comes from the NuGet packages folder.** CSnakes looks for Python 3.12.6 in the NuGet package cache of the machine: `%NUGET_PACKAGES%` when that variable is set, `%USERPROFILE%\.nuget\packages` otherwise. A development machine that restored the project already has it. On any other machine the folder must exist before the first read.
+* **The first read installs packages.** The package copies its Python scripts to a `Python` folder next to the application and creates a virtual environment in `Python\.venv-Python`. The first time a file is read, it installs the packages listed in `requirements.txt` (`usd-core` and `orjson`) into that environment, which needs Internet access and takes a while. Later reads reuse the environment.
 
-#### 3. Basic Materials
-- Supports `UsdPreviewSurface` as the standard material
-  - Base color, specular, roughness, metallic, and emissive properties
-  - Vertex color properties
+> [!IMPORTANT]
+> Test the USD runtime on a clean machine before you ship it. A missing Python package cache or a blocked package download makes every read fail with the message *could not be read by Python OpenUSD API*.
 
-#### 4. PBR Materials
-- Fully compatible with Physically-Based Rendering (PBR)
-- Metallic–roughness workflow support
-- Advanced parameters supported if authored:
-  - Clearcoat, clearcoat roughness, and specular IOR
+## What the runtime reads
 
-#### 5. Textures
-- Supports both embedded textures and external file references
-- Map types: base color, normal, metallic, roughness, emissive, occlusion and opacity
-- Compatible formats: PNG, JPG, BMP
+**Scene**
 
-#### 6. Transparency
-- Automatically parses `opacity` and `opacityThreshold` inputs
-- Blend mode is configured based on material values
+* The transform hierarchy, converted to the Y-up convention of Evergine whatever the `upAxis` of the stage.
+* The `metersPerUnit` of the stage, applied as the scale of the root node.
 
----
-### Limitations  
-#### 1. Platform
-- The USD runtime is currently supported only on Windows desktop platforms.
+**Geometry**
 
-#### 2. USD File Handling
-- Very large USD files may not be readable in the current version.
-- Importing very large USD files may lead to increased memory consumption and reduced performance.
+* Vertex positions, normals, texture coordinates and vertex colors, with vertex and face-varying interpolation.
+* Triangles, quads and larger polygons. Polygons with more than four vertices are tessellated.
 
-#### 3. Animation Support
-- Animation data (e.g., skeletal or transform animations) is not yet supported in the current version.
+**Materials**
 
-⚠️ *These limitations are subject to change in future updates.*
+* `UsdPreviewSurface` materials: diffuse color, metallic, roughness, emissive color and opacity.
+* Clearcoat, clearcoat roughness, and a reflectance derived from `ior` or the specular color when the material authors them.
+* Base color, normal, metallic-roughness, emissive and occlusion textures, packed inside a `.usdz` or referenced as files, in any format the [Image runtime](image_runtime.md) decodes.
+* Double-sided rendering. A material with an opacity below 1 uses alpha blending, with the opacity as its alpha.
 
----
-## Getting Started  
+Animation data (skeletal animation and animated transforms) is not read. The model loads in its rest pose.
 
-To start using the **Evergine.Runtimes.USD** libraries, simply install the NuGet package and use the following code to load your assets:  
+## Load a model from a file
+
+`Read(string filePath, Func<MaterialData, Task<Material>> materialAssigner = null)` combines the path with the `Content` folder of the running application, so a relative path is resolved inside `Content` and an absolute path is used as it is. Mark USD files that you ship in `Content` with **Set to export as raw** in the [Assets Details panel](../evergine_studio/assets/edit.md) so they are copied unchanged.
 
 ```csharp
-protected async override void CreateScene()
-{    
-    var model = await USDRuntime.Instance.Read("MyModel.usd");
+using System;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.USD;
 
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
-    var entity = model.InstantiateModelHierarchy(assetsService);
-    this.manager.EntityManager.Add(entity);
-}
-```
-
-</br>
-
-### Custom Shader Support
-
-By default, models are loaded using the Standard Effect (Evergine’s built-in shader). However, if you want to load models using your custom shader, you must pass an additional **CustomMaterialAssigner** function to the Read method:
-
-```csharp
-protected async override void CreateScene()
+public class MyScene : Scene
 {
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
+    protected override async void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-    var model = await USDRuntime.Instance.Read("Models/Kitchen_set.usd", this.CustomMaterialAssigner);
+        try
+        {
+            Model model = await USDRuntime.Instance.Read("Models/Kitchen_set.usd");
 
-    var entity = model.InstantiateModelHierarchy(assetsService);
-    this.Managers.EntityManager.Add(entity);
+            Entity entity = model.InstantiateModelHierarchy("kitchen", assetsService);
+            this.Managers.EntityManager.Add(entity);
+        }
+        catch (Exception ex)
+        {
+            // Python environment problems surface here, wrapped by the runtime.
+            Console.WriteLine($"USD load failed: {ex.InnerException?.Message ?? ex.Message}");
+        }
+    }
 }
 ```
+
+## Load a model downloaded from the Internet
+
+`Read(Stream, ...)` exists because `USDRuntime` derives from `ModelRuntime`, but it always throws an `ArgumentException`: OpenUSD resolves layers, references and textures relative to a file on disk. To load a download, save it to a file and read that file by its absolute path.
+
+```csharp
+using System;
+using System.IO;
+using System.Net.Http;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+using Evergine.Runtimes.USD;
+
+public class MyScene : Scene
+{
+    private static readonly HttpClient httpClient = new HttpClient();
+
+    protected override async void CreateScene()
+    {
+        // A .usdz packs the stage and its textures in one file, so a single download is enough.
+        string localPath = Path.Combine(Path.GetTempPath(), "toy_biplane.usdz");
+
+        using (var response = await httpClient.GetAsync("https://example.com/models/toy_biplane.usdz"))
+        {
+            response.EnsureSuccessStatusCode();
+            using var file = File.Create(localPath);
+            await response.Content.CopyToAsync(file);
+        }
+
+        Model model = await USDRuntime.Instance.Read(localPath);
+
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
+        Entity entity = model.InstantiateModelHierarchy("biplane", assetsService);
+
+        // Scene changes must happen on the Evergine main thread.
+        await EvergineForegroundTask.Run(() => this.Managers.EntityManager.Add(entity));
+    }
+}
+```
+
+> [!TIP]
+> A `.usd` or `.usda` file that references other layers or textures needs those files next to it. Download them to the same folder, or prefer `.usdz` packages for anything you fetch at run time.
+
+## Custom materials
+
+Pass a material assigner as the second argument of `Read` to create the materials yourself. The runtime describes every material as a `USDMaterialData` and your function returns the `Material` to use. The [GLB runtime page](glb_runtime.md#materials-and-the-material-assigner) describes `MaterialData` and has a complete assigner.
+
+```csharp
+Model model = await USDRuntime.Instance.Read("Models/Kitchen_set.usd", this.AssignMaterial);
+```
+
+`USDMaterialData` adds three values that `MaterialData` does not have: `ClearcoatFactor`, `ClearcoatRoughnessFactor` and `Reflectance`. Cast to it when your material needs them.
+
+## Performance
+
+* Very large stages take a long time to read and use a lot of memory, because the whole scene passes through Python before Evergine builds it.
+* Each call to `Read` starts a Python host. Load several files one after another rather than in parallel.
 
 ## Samples
 
-The USD Runtime has been extensively tested with the following publicly available datasets:
- - [Pixar Assets](https://openusd.org/release/dl_downloads.html#assets)
- - [Apple 3D models](https://developer.apple.com/augmented-reality/quick-look/)
- - [Sketchfab models](https://sketchfab.com/feed)
- - [Nvidia Omniverse USD Asset Packs](https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html)
+The USD runtime has been tested with these public collections:
 
-These tests help ensure compatibility with a wide range of real-world meshes, materials, and topology configurations. 
-Below are several representative screenshots of models successfully loaded and rendered at runtime:
+* [Pixar USD assets](https://openusd.org/release/dl_downloads.html#assets)
+* [Apple AR Quick Look gallery](https://developer.apple.com/augmented-reality/quick-look/)
+* [Sketchfab](https://sketchfab.com/feed)
+* [NVIDIA Omniverse USD asset packs](https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html)
 
-### Sample screenshots
-
-![Kitchen Set – Pixar](images/USD/kitchen-set.png)  
+![Kitchen Set from Pixar loaded with the USD runtime](images/USD/kitchen-set.png)
 *Kitchen Set from Pixar Assets.*
 
-![Toy biplane – Apple](images/USD/toy-plane.png)  
+![Toy biplane from Apple loaded with the USD runtime](images/USD/toy-plane.png)
 *Toy biplane, Copyright 2023 Apple Inc.*
 
-![Armor - Sketchfab](images/USD/armor.png)  
+![Parade armour loaded with the USD runtime](images/USD/armor.png)
 *The Parade Armour of King Erik XIV of Sweden. The Royal Armoury (Livrustkammaren).*
 
-![Arm - Nvidia](images/USD/Omniverse-robot-arm.jpg)  
-*Mechanic arms from Nvidia Omniverse USD Asset packages.*
+![Robot arm from NVIDIA Omniverse loaded with the USD runtime](images/USD/Omniverse-robot-arm.jpg)
+*Robot arm from the NVIDIA Omniverse USD asset packs.*

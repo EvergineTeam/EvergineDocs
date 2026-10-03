@@ -1,44 +1,50 @@
 # Assets
----
-![Assets](images/assets.jpg)
 
-An **asset** is an item that represents an element in **Evergine Studio** and can be used in your project. It can represent visual or graphic elements like **3D models**, **textures**, or more abstract engine elements like **sampler states**, **materials**, and **render layers**. 
+![Material assets listed in the Assets Details panel](Images/assets.jpg)
 
-## Types of Assets
+An **asset** is any piece of content that your project uses: a 3D model, a texture, a sound, or an engine object such as a material, a sampler or a render layer. Evergine Studio shows the assets of the project in the **Project Explorer** and **Assets Details** panels, lets you edit them in dedicated editors, and exports them to an optimized binary format when you build the application.
 
-Here is a summary of different asset types.
+Every asset is described by a small YAML **metafile** that stores its ID, its properties and the per-profile settings. Components and other assets reference an asset through that ID, so you can rename or move it without breaking anything.
 
-### Assets with Resource Files
+![The asset pipeline: a source file and its metafile are exported per profile into a .wep file in the application content folder](Images/asset_pipeline.png)
 
-Some assets are created using external applications, like _3ds Max_, _Blender_, or _Photoshop_. 
+*A source file (when there is one) and its metafile are combined with the settings of the target profile and exported to a binary file named after the asset ID.*
 
-These assets are _resource files_ that can be imported into **Evergine Studio** and used in your project, either by the **Studio** or directly by code. 
+## Types of assets
 
-Here are the assets with resource files that **Evergine** currently supports.
+### Assets with a source file
 
-| Asset  | Description | Supported File Extensions|
-|--------|-------------|---------------------------|
-| [Texture](../../graphics/textures/index.md) | Image file used as a texture graphic resource. | `.jpg`, `.jpeg`, `.png`, `.bmp`, `.tga`, `.ktx`, `.dds`, `.hdr` |
-| [Model](../../graphics/models/index.md) | 3D model with geometry, animation, and material information. | `.gltf`, `.glb`, `.fbx`, `.3ds`, `.obj`, `.dae` |
-| [Sound](../../audio/index.md) | Audio file used for music and sound effects | `.wav`, `.mp3`, `.ogg` |
-| File | Any file that does not satisfy the previous formats | Any other file. |
-| [Font](../../graphics/fonts/index.md) | Font file used as a font graphic resource | `.ttf`, `.otf` |
+These assets wrap a file created with another application, such as _Blender_, _Photoshop_ or an audio editor. Import the file into Evergine Studio and it creates the asset for you.
 
-### Assets Created Only by Evergine
+| Asset | Description | Source file extensions |
+| --- | --- | --- |
+| [Texture](../../graphics/textures/index.md) | An image used as a texture. | `.jpg`, `.jpeg`, `.png`, `.bmp`, `.webp`, `.tga`, `.dds`, `.ktx`, `.ktx2`, `.hdr` |
+| [Model](../../graphics/models/index.md) | A 3D model with meshes, materials, skeletons and animations. | `.gltf`, `.glb`, `.fbx`, `.obj`, `.dae`, `.3ds` |
+| [Sound](../../audio/index.md) | Audio used for music and sound effects. | `.wav`, `.mp3`, `.ogg` |
+| [Font](../../graphics/fonts/index.md) | A font used to render text. | `.ttf`, `.otf` |
+| File | Any other file. It is copied to the application output as is, and you read it with `LoadRaw<T>`. | Any other extension |
 
-However, some assets represent just abstract elements that can only be created by **Evergine Studio**, some of them even by code. These don't have any external associated resource file. Some of these assets have a complex folder structure, while others are more basic.
+### Assets created in Evergine Studio
 
-| Asset  | Description |
-|--------|-------------|
-| [Scene](../../basics/scenes/index.md) | Main **Evergine** asset. It defines an entity graph that populates a scene and also defines their components. |
-| [Effect](../../graphics/effects/index.md) | Contains a **HLSL shader**. It automatically translates to other shading languages like **GLSL**. They are also flavored with custom attributes and annotations for better integration. |
-| [Post Processing Graph](../../graphics/postprocessing_graph/index.md) | Defines a visual post-processing graph node, using **compute shaders** for effects like _anti-aliasing_, _tone mapping_, _SSAO_, and many others. |
-| [Material](../../graphics/materials/index.md) | Represents how a geometry is rendered. It references an Effect asset and describes its parameters like textures and values. |
-| [Prefab](../../basics/component_arch/prefabs/index.md) | Contains an entity hierarchy that can be instanced in any scene. |
-| [Render Layer](../../graphics/renderlayers/index.md) | Contains **Rasterizer**, **Blending**, **Depth**, and **Stencil** information. Every material needs a Render Layer asset. |
-| [Sampler State](../../graphics/samplers.md) | Element that represents a texture sampler state description, like **filtering**, **clamping**, or **wrapping** information. |
+These assets have no external source. You create them from the **Assets** menu, and some of them can also be built from code.
 
-## In This Section
+| Asset | Description |
+| --- | --- |
+| [Scene](../../basics/scenes/index.md) | The main asset of an application. It stores an entity hierarchy with its components and the scene managers. |
+| [Prefab](../../basics/component_arch/prefabs/index.md) | A reusable entity hierarchy that can be instanced in any scene. Created from an entity in the **Scene Hierarchy** panel. |
+| [Effect](../../graphics/effects/index.md) | A shader written in HLSL, with Evergine metatags. Evergine translates it to the shading language of each graphics backend. It can be a graphics, compute or library effect. |
+| [Material](../../graphics/materials/index.md) | Describes how a surface is rendered. It references an effect and sets its parameters, such as textures and colors. |
+| [Render Layer](../../graphics/renderlayers/index.md) | Rasterizer, blend and depth-stencil state shared by materials. Every material uses one. |
+| [Sampler](../../graphics/samplers.md) | How a texture is sampled: filtering and addressing (wrap, clamp, mirror). |
+| [Particle System](../../graphics/particles/index.md) | The emitter, shape and forces of a particle effect. |
+| [Post-Processing Graph](../../graphics/postprocessing_graph/index.md) | A node graph of compute effects applied to the rendered image, such as tone mapping, antialiasing or ambient occlusion. |
+
+## Where assets live
+
+Assets are stored in the `Content` folder of your project, and Evergine Studio shows that folder as the root of the **Project Explorer**. Add-ons such as **Evergine.Core** add their own content under **Dependencies**. Dependency assets are read-only, marked with a lock icon, but you can use them in your scenes and materials like any other asset.
+
+## In this section
+
 * [Create Assets](create.md)
 * [Generate AI-Driven Assets](generate.md)
 * [Edit Assets](edit.md)

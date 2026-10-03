@@ -1,206 +1,216 @@
 # Lights
 
-![Lights](images/Lights.jpg)
+---
 
-**Evergine** uses an advanced lighting model to simulate how light affects geometries. It also supports multiple lights in the scene, allowing a wide range of environments and possibilities.
+![Lights](images/lights.jpg)
 
-Every type of light is modeled in Evergine using a **Light** component.
+**Lights** illuminate the objects of a scene and make them cast shadows. Evergine uses physically based shading, so the same light model works for everything from a desk lamp to the sun, and a scene can contain many lights of different kinds at once.
 
-## Create a Light in Evergine Studio
+Each light is a component on an entity. The entity's `Transform3D` gives the light its position and, for lights that have one, its direction: lights shine along the transform's **forward** vector.
 
-In the Entities Hierarchy panel of your Scene Editor, click "Add Entity," select **Light**, and then choose the kind of light you want to create:
+## Create a light in Evergine Studio
+
+In the **Entities Hierarchy** panel of the scene editor, click **Add Entity**, open **Lights 3D** and choose the kind of light:
 
 * Point Light
 * Directional Light
-* Sphere Area Light
 * Spot Light
-* Disc Area Light
-* Rectangle Area Light
-* Tube Area Light
+* Sphere Light
+* Disk Light
+* Rectangle Light
+* Tube Light
 
-We discuss the light types later in this article.
+![Create light menu](images/addLight.png)
 
-![Create Light](images/addLight.png)
+**Photometric Lights 3D** has the same seven kinds, configured in physical units:
 
-Additionally, we can create **photometric lights** from the same panel with these options:
+![Create photometric light menu](images/addPhotometricLight.png)
 
-* Photometric Point Light
-* Photometric Directional Light
-* Photometric Sphere Area Light
-* Photometric Spot Light
-* Photometric Disc Area Light
-* Photometric Rectangle Area Light
-* Photometric Tube Area Light
+The **Environment** menu also has a **Sun Light**, a directional light that drives the sky; see [Environment](environment/index.md).
 
-![Create Light](images/addPhotometricLight.png)
-
-## Create Light from Code
-
-The following sample code can be used to instantiate a new basic point light entity in a scene.
+## Create a light from code
 
 ```csharp
-protected override void CreateScene()
-{
-    // Create a new light entity.
-    Entity pointLightEntity = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new PointLight()
-        {
-            Color = Color.Red,
-            Intensity = 3,
-            LightRange = 10
-        });
+using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
 
-    // Add the light entity to the entity manager.
-    this.Managers.EntityManager.Add(pointLightEntity);
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        Entity lamp = new Entity("lamp")
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 3, 0) })
+            .AddComponent(new PointLight()
+            {
+                Color = Color.Orange,
+                Intensity = 3,
+                LightRange = 10,
+                IsShadowEnabled = true,
+            });
+
+        // Directional lights ignore position; only the orientation of the transform matters.
+        Entity sun = new Entity("sun")
+            .AddComponent(new Transform3D() { LocalRotation = new Vector3(-MathHelper.PiOver4, MathHelper.PiOver4, 0) })
+            .AddComponent(new DirectionalLight()
+            {
+                Intensity = 2,
+                IsShadowEnabled = true,
+            });
+
+        this.Managers.EntityManager.Add(lamp);
+        this.Managers.EntityManager.Add(sun);
+    }
 }
 ```
 
-## Basic Light Properties
+## Common properties
 
-These are the basic properties that almost all lights have.
+Every light has these properties:
 
-| Property | Description |
-|----------|-------------|
-| [Is Enabled](xref:Evergine.Framework.Graphics.Light.IsEnabled) | If the light is on/off. |
-| [Shadow Enabled](xref:Evergine.Framework.Graphics.Light.ShadowEnabled) | Enable/disable shadow mapping for this light. |
+| Property | Default | Description |
+| --- | --- | --- |
+| **IsEnabled** | true | Turns the light on or off. |
+| **Color** | White | Color of the light. Photometric lights can derive it from a temperature instead. |
+| **Intensity** | 1 | Brightness in an arbitrary unit. Photometric lights hide it and expose a physical unit instead. |
+| **IsShadowEnabled** | false | Whether the light casts shadows. Shown as **Shadow enabled** in Evergine Studio. |
+| **ShadowBias** | 0.004 (0.005 for directional lights) | Depth offset applied when comparing against the shadow map. Raise it if surfaces shadow themselves in stripes ("shadow acne"); lower it if shadows detach from their casters ("peter panning"). |
+| **ShadowOpacity** | 1 | How dark the shadow is, from 0 (invisible) to 1 (fully dark). |
 
-## Photometric / Non-Photometric Lights
+## Photometric and non-photometric lights
 
-**Photometric lights** use photometric (**lighting units**) allowing you to define lights as they would be in the real world. They are configured using physical parameters. **Evergine** supports both **photometric** and **non-photometric** lights, and it offers the same light types duplicated based on this choice.
+**Non-photometric** lights use `Color` and `Intensity`: simple and easy to tune by eye. **Photometric** lights are the same lights configured in physical units, so an 800 lm bulb or a 100,000 lux sun look right next to each other and next to a camera with [physical exposure](cameras.md#exposure).
 
-#### Common Photometric Properties
+Each photometric light class derives from its non-photometric counterpart (`PhotometricPointLight` from `PointLight`, and so on) and adds:
 
-Every photometric light (no matter what type it is) defines these parameters. Additionally, each specific type of light defines its own intensity unit properties.
+| Property | Default | Description |
+| --- | --- | --- |
+| **ColorByTemperature** | true | Derive the color from `Temperature` instead of `Color`. |
+| **Temperature** | 6500 | [Color temperature](https://en.wikipedia.org/wiki/Color_temperature) in kelvin. 6500 K is daylight white; lower values are warmer, higher values bluer. |
 
-| Property | Description |
-|----------|-------------|
-| [Color By Temperature](xref:Evergine.Framework.Graphics.PhotometricPointLight.ColorByTemperature) | Indicates if the light color will be overridden using the light temperature. |
-| [Temperature](xref:Evergine.Framework.Graphics.PhotometricPointLight.Temperature) | The [light temperature](https://en.wikipedia.org/wiki/Color_temperature) in **Kelvin** (K). When _ColorByTemperature_ is true, the light color is overridden by the light temperature. |
+The intensity is set in the unit that suits each kind of light:
 
-> [!Note]
-> Light intensity unit depends on the light type (for example, PointLights are measured in Lumens, whereas DirectionalLights are measured in Lux).
+| Light | Property | Unit |
+| --- | --- | --- |
+| `PhotometricDirectionalLight` | **Illuminance** | lux, the light arriving per square meter of surface |
+| `PhotometricPointLight`, `PhotometricSpotLight` and the four photometric area lights | **LuminousPower** | lumens, the total light the source emits |
 
-#### Non-Photometric Light Properties
+`PhotometricSpotLight` also has **IsFocusedSpot**. When it is on, the luminous power is concentrated in the cone, so narrowing the cone makes the light brighter, like a real focused spot. When it is off (the default), the intensity is the same as that of a point light with the same power.
 
-On the contrary, if you create regular lights, you can use the basic light properties:
+## Types of lights
 
-| Property | Description |
-|----------|-------------|
-| [Color](xref:Evergine.Framework.Graphics.Light.Color) | The RGB color tint of the light. |
-| [Intensity](xref:Evergine.Framework.Graphics.Light.Intensity) | The light intensity value in a non-standard unit. Greater values will produce brighter illumination. |
+![The seven light shapes and the parameters that define each one](images/light_shapes.png)
 
-## Types of Lights
+*Directional lights have only a direction. Every other light has a position and a range; spot lights add a cone, and area lights add a shape that emits.*
 
-There are different types of lights, each useful for a different scenario. In general terms, lights are divided into two general categories:
-* **Directional Lights:** These lights have unlimited boundaries, and every object is affected by this light type.
-* **Volume Lights:** The light influence is delimited by a range.
-* **Area Lights:** A subtype of volume lights that emulate lights coming from an area instead of a point in space.
+Lights fall into three groups:
 
-### Directional Lights / Photometric Directional Light
+* **Directional** lights have a direction but no position, and reach every object.
+* **Punctual** lights (point and spot) emit from a single point and fade out at `LightRange`.
+* **Area** lights (sphere, disk, rectangle and tube) emit from a surface. They give softer highlights and more realistic reflections, at a higher shading cost.
 
-![Directional Light](images/directionalLight.jpg)
+### Directional light
 
-**Directional lights** are lights that come uniformly from one direction and at an infinite distance. They're used to simulate distant light sources like the sun. They use the **forward** vector of their entity's **Transform3D** for calculating the light direction.
+![Directional light](images/directionalLight.jpg)
 
-In the case of using a Photometric Directional Light, the intensity is measured using the following property:
+A **directional light** comes from infinitely far away along one direction, like sunlight. It lights every object in the scene the same way, whatever its position.
 
-| Photometric Property | Description |
-|----------|-------------|
-| [Illuminance (Lux)](xref:Evergine.Framework.Graphics.PhotometricDirectionalLight.Illuminance) | The light [illuminance](https://en.wikipedia.org/wiki/Illuminance) measured in **Lux**. Indicates the total luminous flux incident on a surface, per unit area. |
+| Property | Default | Description |
+| --- | --- | --- |
+| **ShadowDistance** | 80 | How far from the camera, in meters, directional shadows are drawn. |
+| **GammaDistribution** | 0.8 | How the shadow cascades are spread over that distance, from 0 (evenly) to 1 (logarithmically, with more detail near the camera). |
+| **DebugMode** | false | Tints each shadow cascade with its own color, to tune the two properties above. |
 
-### Volume Lights
+Directional shadows use **cascaded shadow maps**: the part of the camera's view within `ShadowDistance` is cut into four slices, and each slice gets its own shadow map. Slices close to the camera cover little space and give sharp shadows; distant slices cover more and are coarser.
 
-Volume lights are a common type of light in which the light source comes from a specific point in space, and its intensity decays with distance.
+![A camera frustum cut into four shadow cascades up to the shadow distance](images/shadow_cascades.png)
 
-| Property | Description |
-|----------|-------------|
-| [Light Range](xref:Evergine.Framework.Graphics.VolumeLight.LightRange) | The light range in meters. |
+*The first cascade covers the few meters in front of the camera at full resolution. Lowering `ShadowDistance` makes every cascade smaller and every shadow sharper.*
 
-In the case of using Volume Photometric Lights, the intensity is measured using the following property:
+### Point light
 
-| Photometric Property | Description |
-|----------|-------------|
-| [Luminous Power (Lumen)](xref:Evergine.Framework.Graphics.PhotometricPointLight.LuminousPower) | The light [luminous flux](https://en.wikipedia.org/wiki/Luminous_flux) in **Lumen**. |
+![Point light](images/pointLight.jpg)
 
-#### Point Light / Photometric Point Light
+A **point light** shines equally in all directions from its position and fades to zero at its range. Use it for bulbs, candles and other small local sources.
 
-![Point Light](images/PointLight.jpg)
+| Property | Default | Description |
+| --- | --- | --- |
+| **LightRange** | 20 | Distance in meters at which the light reaches zero. Keep it as small as the scene allows: objects outside the range skip this light entirely. |
+| **ShadowNearPlane** | 0.1 | Near plane of the shadow map cameras. |
+| **DebugMode** | false | Tints the six faces of the shadow cube map. |
 
-A **point light** is located at a point in space and emits light equally in all directions within its sphere range. Its intensity decays with distance from the light, reaching zero at its maximum range. It's useful for local lights like lamps.
+A point light renders its shadows into a cube map: six shadow maps, one per face.
 
-#### Spot Light / Photometric Spot Light
+### Spot light
 
-![Spot Light](images/SpotLight.jpg)
+![Spot light](images/spotLight.jpg)
 
-A **spot light** is also placed in a specific location and has a range over which the light decays. However, spot lights are constrained by an angle, defining a cone-shaped light.
+A **spot light** shines from its position in a cone around its forward direction, like a flashlight or a stage light.
 
-##### Specific Properties
+| Property | Default | Description |
+| --- | --- | --- |
+| **LightRange** | 20 | Distance in meters at which the light reaches zero. |
+| **OuterConeAngle** | π/4 (45°) | Full angle of the cone, in radians. Nothing outside it is lit. |
+| **InnerConeAngle** | 0 | Full angle, in radians, of the inner cone at full intensity. Between the inner and outer cones the light fades. Equal angles give a hard edge. |
+| **ShadowNearPlane** | 0.1 | Near plane of the shadow map camera. |
 
-| Property | Description |
-|----------|-------------|
-| [InnerConeAngle](xref:Evergine.Framework.Graphics.SpotLight.InnerConeAngle) | The inner angle of the spotlight cone. |
-| [OuterConeAngle](xref:Evergine.Framework.Graphics.SpotLight.InnerConeAngle) | The outer angle of the spotlight cone. |
+### Area lights
 
-#### Tube Area Lights / Photometric Tube Area Light
+Area lights emit from a shape instead of a point. They are all cube-map lights with `LightRange` (default 20), `ShadowNearPlane` and `DebugMode`, plus the dimensions of their shape:
 
-![Tube Area Light](images/tubeAreaLight.jpg)
+| Light | Shape | Properties (defaults) | Typical use |
+| --- | --- | --- | --- |
+| **Sphere light** | ![Sphere light](images/sphereAreaLight.jpg) | `Radius` (2) | Large round lamps and glowing orbs. |
+| **Disk light** | ![Disk light](images/discAreaLight.jpg) | `Radius` (2) | Ceiling lights and soft spots. It emits from one side, along its forward direction. |
+| **Rectangle light** | ![Rectangle light](images/rectangleAreaLight.jpg) | `Width` (3), `Height` (3) | Windows, screens and softboxes. It emits from one side, along its forward direction. |
+| **Tube light** | ![Tube light](images/tubeAreaLight.jpg) | `Length` (6), `Radius` (0.2) | Fluorescent tubes and neon. The tube lies along the entity's left-right axis. |
 
-**Tube Area Lights** are lights that come from a line segment and have a range and emission thickness. They are useful for simulating neon lights.
+> [!NOTE]
+> Area lights evaluate their shape for every shaded pixel, so they cost noticeably more than point and spot lights. Use them where the soft, shaped highlights are visible.
 
-##### Specific Properties
+## How many lights
 
-| Property | Description |
-|----------|-------------|
-| [Length](xref:Evergine.Framework.Graphics.TubeAreaLight.Length) | The length of the tube light volume. |
-| [Radius](xref:Evergine.Framework.Graphics.TubeAreaLight.Radius) | The radius of the tube light volume. |
-
-#### Sphere Area Lights / Photometric Sphere Area Light
-
-![Sphere Area Light](images/sphereAreaLight.jpg)
-
-**Sphere Area Lights** behave like a physical sphere emitting light rather than a point light. They create much softer lighting and can be used for creating dynamic environments.
-
-##### Specific Properties
-
-| Property | Description |
-|----------|-------------|
-| [Radius](xref:Evergine.Framework.Graphics.SphereAreaLight.Radius) | The radius of the sphere light volume. |
-
-#### Disc Area Lights / Photometric Disc Area Light
-
-![Disc Area Light](images/discAreaLight.jpg)
-
-**Disc Area Lights** emit their light from a disc with a specified radius and a maximum range. Useful for creating artificial soft lights.
-
-##### Specific Properties
-
-| Property | Description |
-|----------|-------------|
-| [Radius](xref:Evergine.Framework.Graphics.DiscAreaLight.Radius) | The radius of the disc area light. |
-
-#### Rectangle Area Lights / Photometric Rectangle Area Light
-
-![Rectangle Area Light](images/rectangleAreaLight.jpg)
-
-**Rectangle Area Lights** emit their light from a rectangle with a specified width and height, at a maximum range. Useful for creating indoor window lighting, for example.
-
-##### Specific Properties
-
-| Property | Description |
-|----------|-------------|
-| [Width](xref:Evergine.Framework.Graphics.RectangleAreaLight.Width) | The width of the rectangle area light. |
-| [Height](xref:Evergine.Framework.Graphics.RectangleAreaLight.Height) | The height of the rectangle area light. |
-
->[!NOTE]
-> Area lights need to make complex calculations to properly simulate their shape. Therefore, they are significantly more performance-heavy than their punctual counterparts (Point, Spot, and Directional).
+The forward render path assigns each object only the lights whose range touches its bounding box. A camera handles up to 64 visible lights at a time, and only materials with lighting enabled receive them. Materials created with lighting disabled are not affected by lights at all.
 
 ## Shadows
-To enable light cast shadows, the following properties have been added:
 
-| Property | Description |
-|----------|-------------|
-| [Shadow Enabled](xref:Evergine.Framework.Graphics.Light.ShadowEnabled) | Enable/disable shadow mapping for this light. |
-| [Debug Mode](xref:Evergine.Framework.Graphics.CubemapLight.DebugMode) | Debug ShadowMap cascades used to generate this light shadow. |
-| [Shadow Opacity](xref:Evergine.Framework.Graphics.Light.ShadowOpacity) | Value [0-1] that represents the total opacity of the shadow. 1 by default. |
-| [Shadow Bias](xref:Evergine.Framework.Graphics.Light.ShadowBias) | Shadow bias for this specific light. Choosing the correct bias value allows control over shadows artifacts like a Moiré-like pattern or Peter panning.
+To make a light cast shadows, turn on **IsShadowEnabled**. Every shadow-casting light renders the scene again from its own point of view each frame (four times for a directional light, six for point and area lights), so enable shadows only on the lights that need them.
+
+Objects cast shadows through the `RenderFlags.CastShadows` flag of their drawable, which is on by default.
+
+### ShadowMapManager
+
+The quality of every shadow in a scene is set on the `ShadowMapManager` scene manager, which the default scene template already includes. Select it in the **Scene Managers** list of the scene to change it.
+
+![The Scene Managers panel with the ShadowMapManager properties](images/shadowmapmanager.png)
+
+| Property | Default | Description |
+| --- | --- | --- |
+| **DirectionalResolution** | `Size_2048` | Size of each directional cascade shadow map: `Size_256` to `Size_4096`. |
+| **SpotResolution** | `Size_512` | Size of each spot light shadow map. |
+| **PunctualResolution** | `Size_512` | Size of each cube face for point and area lights. |
+| **ShadowFilter** | `PCF3x3` | Percentage-closer filtering kernel that softens shadow edges: `PCF2x2`, `PCF3x3`, `PCF5x5` or `PCF7x7`. Larger kernels are softer and more expensive. In low profile mode it is always `PCF3x3`. |
+| **AutoDepthBounds** | false | Measures on the GPU how deep the visible scene really is and fits the directional cascades to that range instead of to `ShadowDistance`. It gives sharper shadows when the camera looks at nearby geometry, at the cost of a small compute pass per camera. |
+
+```csharp
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var shadowMapManager = this.Managers.FindManager<ShadowMapManager>();
+        if (shadowMapManager != null)
+        {
+            shadowMapManager.DirectionalResolution = ShadowMapProvider.ShadowMapSize.Size_4096;
+            shadowMapManager.ShadowFilter = ShadowMapProvider.Filter.PCF5x5;
+        }
+    }
+}
+```
+
+> [!TIP]
+> If directional shadows look blocky, lower `ShadowDistance` on the light before raising `DirectionalResolution`. Halving the distance sharpens shadows about as much as doubling the resolution, and costs nothing.

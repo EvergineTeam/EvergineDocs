@@ -1,2 +1,0 @@
-# OpenXR
-Coming soon.

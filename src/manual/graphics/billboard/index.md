@@ -1,8 +1,10 @@
-# Billboard
+# Billboards
+
 ---
+
 ![Billboards header](images/billboards.jpg)
 
-**Billboard** is a quad oriented to face the camera. While the active camera in your scene is moving, the billboard is oriented to face the camera. Billboards are useful for creating indicators or making an impostor of your distant mesh to reduce the geometry that needs to be rendered. A common use is to simulate far-off bushes or trees.
+A **billboard** is a textured quad that keeps turning to face the camera. Billboards are cheap stand-ins for distant objects such as trees and bushes, and a simple way to show labels, markers and indicators in 3D.
 
 ## Types of Billboards
 
@@ -24,4 +26,4 @@ The billboard is rotated about an axis to face towards the camera.
 
 The following sections show how to create and use billboards in your scene.
 
-* [Create Billboard](create_billboard.md)
+* [Create a Billboard](create_billboard.md)

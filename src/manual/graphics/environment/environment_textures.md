@@ -24,7 +24,7 @@ The SkyboxEffect only has 3 useful properties:
 | **TextureSampler** | The SamplerState used to sample the texture. |
 | **Parameters_Intensity** | A factor that modifies the intensity of the texture. This is used to increase or reduce the brightness of the texture. |
 
-> [!WARNING]
+> [!IMPORTANT]
 > If you want to use this effect with a common SphereMesh, use the **Skybox** layer in the LayerDescription property.
 
 ![SkyboxEffect](images/skybox_effect.png)

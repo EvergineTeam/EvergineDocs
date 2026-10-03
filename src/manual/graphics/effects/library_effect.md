@@ -1,71 +1,138 @@
-# Library Effect
+# Library Effects
+
 ---
 
 ![Library effect](images/libraries/Header.png)
 
-### What is a Library Effect?
-A Library Effect acts as a collection of static variables, constants, directives, and reusable functions that can be referenced from your Graphics and Compute effects. By simply including the library in your effect files, you can centralize shared logic and keep your effect codebase clean and maintainable.
+A **library effect** holds shader code that several effects share: constants, structures, directives and functions. Graphics and compute effects include it with one line, so a fix or an improvement in the library reaches every effect that uses it. The Standard effect itself is built this way, from the `Common`, `Structures`, `Lighting`, `Shadow` and `Material` libraries of Evergine.Core.
 
-### Creating a Library Effect
-You can create a new Library Effect from the Evergine Studio Asset Menu or by right-clicking on the Asset Details Panel and selecting the relevant option.
+## Create a library effect
 
-![Creating a library](images/libraries/CreatingALibrary.png)
+In the **Assets Details** panel, click the ![Plus Icon](../images/plusIcon.jpg) button, or right-click, and choose **Create effect > Library Effect**.
 
-### Defining a Library Effect
-Every new Library Effect must start with the [Begin_Library] metatag and end with the [End_Library] metatag. Library Effects are compiled in the same way as any other effect, so you need to specify the compilation profile version, just as you would when defining passes. This ensures that any potential issues can be caught and debugged early, even before the library is used in other effects.
+![Creating a library effect](images/libraries/CreatingALibrary.png)
 
-![My first library](images/libraries/MyFirstLibraryEffect.png)
+## Define a library effect
 
-### Structuring Your Libraries
-Inside a Library Effect, you can define common variables, constants, and functions that you want to reuse across your Graphics or Compute effects. In the example below, a Tonemapping library is created with the logic for implementing an ACES color adjustment.
+A library is a single `[Begin_Library]` ... `[End_Library]` block, with no resource layout or passes. It needs a `[Profile]` because Evergine compiles it on its own, which reports errors in the library before any effect includes it.
 
-![Struturing your libraries](images/libraries/TonemappingLibrary.png)
+This library implements an approximation of the ACES tone mapping curve:
 
-### Using a Library Effect in Other Effects
-To use a Library Effect in your Graphics or Compute effects, simply include it using the following metatag:
+```hlsl
+[Begin_Library]
+    [Profile 10_0]
 
-<span style="color:lightgreen">[Include_Library LibraryName LibraryIdentifierNumber]</span>
+    // Curve fit of the ACES filmic tone mapping curve.
+    float3 ACESFitted(float3 color)
+    {
+        const float a = 2.51;
+        const float b = 0.03;
+        const float c = 2.43;
+        const float d = 0.59;
+        const float e = 0.14;
+        return saturate((color * (a * color + b)) / (color * (c * color + d) + e));
+    }
 
-* **LibraryName:** A human-readable name for your library.
-* **LibraryIdentifierNumber:** A unique GUID that identifies the library effect asset.
+[End_Library]
+```
 
-The advantage of using the GUID is that it remains independent of the asset’s relative path. This means you can move your library assets around the project’s content folders without breaking the references.
-To make it easier to include a library in your effects, you can drag and drop the library effect asset from the Asset Details Panel into another effect opened in the Effect Editor. This action will automatically create the reference in your code.
+## Include a library
 
-![Drag and drop a library](images/libraries/DragAndDrop.gif)
+Add an `[Include_Library]` line at the top of the effect, before the resource layout:
 
-**Example: Using the my library in a Graphics Effect**
-Below is an example of how to use the previously defined Tonemapping library in a Graphics Effect.
+`[Include_Library LibraryName LibraryId]`
 
-![Using MyLibrary example](images/libraries/UsingACES.png)
+* **LibraryName**: a readable name for the library.
+* **LibraryId**: the GUID of the library effect asset.
 
-### Library Effect Dependencies and Recursive Includes
-Library Effects can also reference other Library Effects, enabling you to build more complex effects by combining multiple libraries. This approach helps you organize your code into a logical dependency tree and ensures better modularity and separation of concerns.
+Because the reference is the asset id, you can move or rename the library without breaking the effects that include it. The quickest way to get the line right is to drag the library asset from **Assets Details** into an effect open in the Effect Editor, which writes it for you:
 
-![Library reference another library](images/libraries/LibraryIncludingAnother.png)
+![Dragging a library into an effect](images/libraries/DragAndDrop.gif)
 
-### Using Directives in Your Library Effects
-You can leverage directives inside your Library Effects to control the flow of your HLSL code, making it possible to create multiple variations of your library depending on the values of these directives.
+A compute effect that tone maps its input with the library above:
 
-![Tonemapping library](images/libraries/MultiplesTonemapping.png)
+```hlsl
+[Include_Library Tonemapping 3f1b2c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d]
 
-When you import a Library Effect into your Graphics or Compute Effect, its directives are also imported, merging with the directives of the effect itself and all its dependent libraries. This results in a single, unified group of directives that the effect can utilize.
+[Begin_ResourceLayout]
 
-![Using directives of referenced library](images/libraries/UsingDirectives.png)
+    Texture2D Input : register(t0);
+    RWTexture2D<float4> Output : register(u0); [Output(Input)]
 
-### Managing Errors with the Effect Analyzer
-The Evergine Effect Editor has been enhanced with a new Effect Analyzer that provides detailed information about the new [Include_Library] metatags and helps you manage any issues that may arise when working with Library Effects. Here are some common scenarios and how the Effect Analyzer handles them:
+[End_ResourceLayout]
 
-1. **Unresolved Reference:** If an included library has an incorrect Library Identifier Number, the analyzer will report that the reference to the library cannot be resolved.
+[Begin_Pass:Default]
+    [Profile 11_0]
+    [Entrypoints CS=CS]
 
-![Unresolved reference](images/libraries/LibraryCannotBeResolved.png)
+    [numthreads(8, 8, 1)]
+    void CS(uint3 threadID : SV_DispatchThreadID)
+    {
+        float3 hdr = Input[threadID.xy].rgb;
+        Output[threadID.xy] = float4(ACESFitted(hdr), 1);
+    }
 
-2. **Library Compilation Error:** If your Library Effect contains a mistake or code error, the analyzer will highlight the include line in your main effect and show the error inside the library itself.
+[End_Pass]
+```
 
-![Unresolved reference](images/libraries/ErrorInsideLibrary.png)
+Replace the GUID with the id of your library asset.
 
-3. **Cross-Reference Issues:** If an effect includes a library that, in turn, includes another library, and a cyclic dependency is detected, the analyzer will report a cross-reference issue.
+## Libraries that include libraries
 
-![Unresolved reference](images/libraries/CrossReference.png)
+A library can include other libraries the same way, so shared code forms a dependency tree. Each library is added once, however many times it is included.
 
+```hlsl
+[Include_Library Common 7efb1394-cf61-4617-8dad-8dc5c7d46164]
 
+[Begin_Library]
+    [Profile 10_0]
+
+    // PI comes from the Common library of Evergine.Core.
+    float3 LambertDiffuse(float3 albedo)
+    {
+        return albedo / PI;
+    }
+
+[End_Library]
+```
+
+## Directives in libraries
+
+A library can declare [directives](effect_metatags.md#directives) inside its block. When an effect includes the library, those directives are merged with the effect's own and with those of every other library it includes, into a single set. Materials of the effect can then switch them like any other directive.
+
+```hlsl
+[Begin_Library]
+    [Profile 10_0]
+
+    [Directives:ToneCurve CURVE_ACES CURVE_REINHARD]
+
+    float3 ToneMap(float3 color)
+    {
+    #if CURVE_REINHARD
+        return color / (1 + color);
+    #else
+        return ACESFitted(color);
+    #endif
+    }
+
+[End_Library]
+```
+
+> [!TIP]
+> A pass only creates combinations for the directives it actually tests. When a directive is tested inside a library function the pass calls, list it in the pass's `[UsedDirectives ...]` so that the pass is compiled for each of its values.
+
+## Errors in libraries
+
+The Effect Editor analyzes includes as you type and reports three kinds of problems:
+
+1. **Unresolved reference.** The id in `[Include_Library]` does not match any library asset.
+
+   ![Unresolved library reference](images/libraries/LibraryCannotBeResolved.png)
+
+2. **Error in the library.** The include line is marked in your effect, and the error is shown inside the library.
+
+   ![Error inside an included library](images/libraries/ErrorInsideLibrary.png)
+
+3. **Cyclic reference.** Two libraries include each other, directly or through other libraries.
+
+   ![Cyclic library reference](images/libraries/CrossReference.png)

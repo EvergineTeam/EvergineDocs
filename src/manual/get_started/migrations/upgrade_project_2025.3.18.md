@@ -3,7 +3,7 @@
 Since Evergine 2024.10.24, there are some changes that should be applied to already existing projects that want to be upgraded to this version. 
 
 ## Steps to migrate to the new version:
-- Update your Evergine version using Evergine Studio.
+- Update your Evergine version using the Evergine Launcher.
 - Review the list of breaking changes and apply the necessary modifications to your code.
 
 ## List of changes
@@ -45,19 +45,18 @@ namespace Evergine.MRTK.Demo.Drawables
 ```
 
 ### DX compiler updated
-The DX Compiler used by HLSLEverywhere has been updated, and [HLSL 2021](https://devblogs.microsoft.com/directx/announcing-hlsl-2021/) is now set as the default version. You should review your shaders to ensure they are compatible with this version.
-A common change involves the ternary operator. While the new select function can be used, if you require multiplatform support, you can update your code as follows:
+The DX Compiler used by HLSLEverywhere has been updated, and [HLSL 2021](https://devblogs.microsoft.com/directx/announcing-hlsl-2021/) is now the default language version. Review your shaders to make sure they compile with it.
+
+A common change involves the ternary operator, which no longer works component-wise on vectors. HLSL 2021 adds the `select` intrinsic for that, but if you need multiplatform support, rewrite the expression per component:
 
 Before:
-```csharp
-      ...
-	    n.xy += n.xy >= 0.0 ? -t : t;
-      ...
+```hlsl
+// HLSL 2021 no longer accepts the ternary operator on vectors.
+n.xy += n.xy >= 0.0 ? -t : t;
 ```
 
-After: 
-```csharp
-      ...
-	    n.xy += float2(n.x >= 0.0 ? -t : t, n.y >= 0.0 ? -t : t);
-      ...
+After:
+```hlsl
+// Compare each component with a scalar ternary so the code also compiles on every platform.
+n.xy += float2(n.x >= 0.0 ? -t : t, n.y >= 0.0 ? -t : t);
 ```

@@ -22,8 +22,8 @@ This component loads the **Particle System** asset and manages its simulation an
 
 It has the following methods:
 
-| Property | Description |
-| --------- | --------- |--------------- |
+| Method | Description |
+| --------- | --------- |
 | **StartEmitting ()**  | Starts the particle system emission if it was stopped |
 | **StopEmitting ()**  | Stops the particle system emission if it was already emitting |
 | **Reset ()**  | Resets all particles to their initial state |
@@ -31,7 +31,7 @@ It has the following methods:
 And the following properties:
 
 | Property | Type | Description |
-| --------- | --------- |--------------- |
+| --------- | --------- | --------------- |
 | **ParticleSystem**  | _ParticleSystem_ | Selects the particle system asset for this entity.
 | **Force CPU Particles** | _boolean_ | Forces the particle system to use CPU simulation, even if the platform supports GPU particles. _(false by default)_
 | **Emit Automatically** | _boolean_ | When _true_, starts emitting particles when the scene is loaded. If _false_, it will be idle until it is manually started. _(true by default)_
@@ -40,23 +40,26 @@ And the following properties:
 
 ## Load Particle System from code
 
-The following sample code can be used to create a new Particle force entity in your scene.
+This scene loads a particle system asset and adds it to an entity:
 
 ```csharp
-protected override void CreateScene()
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Particles.Asset;
+using Evergine.Framework.Particles.Components;
+
+public class MyScene : Scene
 {
-    // Load Particle System
-    ParticleSystem particlesAsset = this.Managers.AssetSceneManager.Load<ParticleSystem>(EvergineContent.Particles.MyParticleSystem);
+    protected override void CreateScene()
+    {
+        ParticleSystem particlesAsset = this.Managers.AssetSceneManager.Load<ParticleSystem>(EvergineContent.Particles.MyParticleSystem);
 
-    // Apply to an entity
-    Entity particlesEntity = new Entity()
-    .AddComponent(new Transform3D())
-    .AddComponent(new ParticlesComponent() 
-    { 
-        ParticleSystem = particlesAsset 
-    })
-    .AddComponent(new ParticlesRenderer());
+        Entity particlesEntity = new Entity("particles")
+            .AddComponent(new Transform3D())
+            .AddComponent(new ParticlesComponent() { ParticleSystem = particlesAsset })
+            .AddComponent(new ParticlesRenderer());
 
-    this.Managers.EntityManager.Add(particlesEntity);
+        this.Managers.EntityManager.Add(particlesEntity);
+    }
 }
 ```

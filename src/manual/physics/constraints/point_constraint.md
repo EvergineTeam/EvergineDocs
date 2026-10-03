@@ -55,12 +55,9 @@ private void CreateChain(Vector3 top, int links)
             .AddComponent(new CapsuleMesh() { Radius = 0.1f, Height = LinkLength - 0.2f })
             .AddComponent(new MeshRenderer())
 
-            // The first link is static, so the chain has something to hang from. Everything below it
-            // is dynamic and held only by the constraint above it.
-            .AddComponent(new RigidBody()
-            {
-                BodyType = i == 0 ? RigidBodyType.Static : RigidBodyType.Dynamic,
-            })
+            // The first link is a StaticBody, so the chain has something to hang from. Everything below
+            // it is a dynamic RigidBody, held only by the constraint above it.
+            .AddComponent(i == 0 ? new StaticBody() : new RigidBody())
             .AddComponent(new CapsuleCollider() { Radius = 0.1f, Height = LinkLength });
 
         if (previous != null)

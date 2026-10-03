@@ -1,173 +1,177 @@
-# Themes System
+# Themes system
 
-The themes system in _XRV_ provides a flexible way to control the look and feel of your application by modifying colors, fonts, and text styles. If you need to customize the colors used by your application, you should know that _XRV_ uses a system for application theming. A palette of colors is defined by generic color names.
+---
 
-| Color | Description |
-| ------ | ------------------- |
-| **PrimaryColor1** | Used for window title bar plates, text color for light buttons, and the background color for selected list items. |
-| **PrimaryColor2** | Color applied to scroll bars. |
-| **PrimaryColor3** | This color is for global texts and for active items in a tab control. |
-| **SecondaryColor1** | Color for inactive items in tab controls, backplate color for some buttons, text color for selections, some manipulators, etc. |
-| **SecondaryColor2** | Color applied to some manipulators. |
-| **SecondaryColor3** | Applied to accept option backplates in confirmation dialogs. |
-| **SecondaryColor4** | Windows front plate gradient start and plate color for dialog buttons. |
-| **SecondaryColor5** | Windows front plate gradient end. |
+![Theme with custom colors](images/themes_custom_theme.png)
 
-Associated with these built-in colors, we provide a set of materials that you should use in your custom UI elements if you need to make use of themes and change the default set of colors provided by _XRV_.
+The themes system controls the look of an XRV application: a palette of colors, two fonts, and a set of shared text styles. XRV windows, buttons, and menus take their colors and fonts from the current theme, so changing one theme value restyles the whole application at runtime. Access it through `XrvService.ThemesSystem`. The types live in `Evergine.Xrv.Core.Themes` and `Evergine.Xrv.Core.Themes.Texts`.
 
-![Theme default materials](images/themes_default_materials.png)
+## Theme colors
 
-Depending on the values indicated in the theme, these materials are modified at runtime. As material instances are shared by different _MaterialComponent_ instances, new colors will be applied application-wide. If you create your own materials, they will not be modified by the theme system. On the other hand, if you apply any of the default materials in your own UI elements, they will be modified at runtime by the theme system.
+A theme defines its palette with generic color names:
 
-## Modifying a Theme Color
+| Color | Default | Used for |
+| --- | --- | --- |
+| `PrimaryColor1` | `#041C2C` | Window title bars, text of light buttons, and the background of selected list items. |
+| `PrimaryColor2` | `#00B5F1` | Scroll bars. |
+| `PrimaryColor3` | `#EBEBEB` | General texts and the active item of tab controls. |
+| `SecondaryColor1` | `#70F2F8` | Inactive items of tab controls, back plate of some buttons, selection texts, and some manipulators. |
+| `SecondaryColor2` | `#62CCD5` | Some manipulators. |
+| `SecondaryColor3` | `#F10A42` | Back plate of the accept option in confirmation dialogs. |
+| `SecondaryColor4` | `#0F72E8` | Start of the window front plate gradient, and the plate of dialog buttons. |
+| `SecondaryColor5` | `#552098` | End of the window front plate gradient. |
 
-To change a theme color, just access the _ThemesSystem_ and take a look at its _CurrentTheme_ property, which you can use to modify values for the current theme or assign a new _Theme_ instance. A new _Theme_ instance has _XRV_ default colors by default. You can modify color properties to apply modifications to UI elements.
+XRV provides one material per theme color. The themes system changes these materials at runtime to match the theme, and because material instances are shared by every `MaterialComponent` that uses them, the change applies to the whole application. Use these materials in your own UI elements when you want them to follow the theme. Materials you create yourself are not modified.
+
+![Default theme materials](images/themes_default_materials.png)
+
+## Change theme colors
+
+`ThemesSystem.CurrentTheme` holds the active `Theme`. Change its colors, or assign a new `Theme` instance; a new instance starts with the XRV default values.
 
 ```csharp
+using Evergine.Common.Graphics;
+
 var theme = this.xrvService.ThemesSystem.CurrentTheme;
 theme.PrimaryColor1 = Color.DarkCyan;
 theme.SecondaryColor4 = Color.Blue;
 theme.SecondaryColor5 = Color.DarkBlue;
 ```
 
-For the piece of code above, the following changes would be presented when loading _XRV_ windows and the rest of the visual elements.
+This code produces the look shown at the top of this page. You can keep several `Theme` instances and switch between them by assigning `CurrentTheme`.
 
-![Theme custom colors](images/themes_custom_theme.png)
+## Change theme fonts
 
-You can have as many theme instances as you want, and switching them in the _CurrentTheme_ property should change colors at runtime.
+Themes also define two fonts:
 
-## Modifying a Theme Font
+| Font | Default | Used for |
+| --- | --- | --- |
+| `PrimaryFont1` | Montserrat SemiBold | Window titles, buttons, section labels, and tab items. |
+| `PrimaryFont2` | Montserrat Regular | Content texts, the hand menu, and window buttons. |
 
-Themes also provide a set of fonts used in different parts of UI elements.
-
-| Font | Description |
-| ------ | ------------------- |
-| **PrimaryFont1** | Used for window titles, buttons, section labels, and tab items. |
-| **PrimaryFont2** | Font used for context texts, hand menus, and window buttons. |
-
-In the same way as colors, you can change these default fonts. Just add a new font asset and assign its identifier to any of the predefined font properties.
+Add a font asset to your project and assign its ID:
 
 ```csharp
-theme.PrimaryFont1 = EvergineContent.MyCustomFont_ttf;
-theme.PrimaryFont2 = EvergineContent.MyCustomFont_ttf;
+theme.PrimaryFont1 = EvergineContent.Fonts.MyCustomFont_ttf;
+theme.PrimaryFont2 = EvergineContent.Fonts.MyCustomFont_ttf;
 ```
 
-## Shared Text Styles
+`EvergineContent.Fonts.MyCustomFont_ttf` stands for the ID of your font asset.
 
-_XRV_ also tries to provide helpful ways of having uniform UI definitions. For this purpose, we have defined _text styles_ that are shared globally, allowing you to define a font type, size, and color, and reuse this definition to apply it to any number of 3D texts within the application.
+## Shared text styles
 
-In each _TextStyle_ instance, you can set the following properties.
+Text styles give your 3D texts a uniform look. A style defines a font, a scale, and a color, and you apply it to any number of texts by its key.
 
-| Property | Description |
-| ------ | ------------------- |
-| **Font** | You can optionally set a font asset identifier here as the text font. This will be applied if _ThemeFont_ is _null_. |
-| **TextColor** | Color for the text. This will be applied if _ThemeColor_ is _null_. |
-| **TextScale** | Text scale for the style. |
-| **ThemeColor** | This will indicate that this style will use one of the theme-defined colors. |
-| **ThemeFont** | This will indicate that this style will use one of the theme-defined fonts. |
+| `TextStyle` property | Type | Description |
+| --- | --- | --- |
+| `ThemeFont` | `ThemeFont?` | Theme font used by the style. |
+| `Font` | `Guid?` | Font asset ID, used when `ThemeFont` is `null`. |
+| `TextScale` | `float` | Scale of the text. |
+| `ThemeColor` | `ThemeColor?` | Theme color used by the style. |
+| `TextColor` | `Color?` | Explicit color, used when `ThemeColor` is `null`. |
 
-You will also find a set of built-in components to allow your own 3D text to apply global styles.
+Apply a style with these components, setting their `TextStyleKey`:
 
-- **Text3dStyle**: Associates a _Text3DMesh_ to a text style.
-- **ButtonTextStyle**: Associates a text style to a _StandardButtonConfigurator_ instance.
-- **ToggleButtonTextStyle**: Associates a text style to a _ToggleButton_. You must set a component for each toggle state.
+- `Text3dStyle`: applies a style to a `Text3DMesh`.
+- `ButtonTextStyle`: applies a style to the text of a button with a `StandardButtonConfigurator`.
+- `ToggleButtonTextStyle`: applies a style to one state of a `ToggleButton`. Set `TargetState` and add one component per state.
+
+The components can also replace the style color: `OverrideThemeColor` with `ExplicitThemeColor` uses another theme color, and `OverrideColor` with `ExplicitColor` uses a fixed color.
 
 ![Using text styles](images/themes_use_text_styles.png)
 
-In the next table, you can see the list of default text styles. As you may notice, they are all attached to theme fonts and colors.
+XRV defines these styles. All of them use theme fonts and colors, and their keys are constants of `DefaultTextStyles`:
+
+| Style key | Constant | Font | Scale | Color |
+| --- | --- | --- | --- | --- |
+| `Xrv.Primary1.Size1` | `XrvPrimary1Size1` | `PrimaryFont1` | 0.012 | `PrimaryColor3` |
+| `Xrv.Primary1.Size2` | `XrvPrimary1Size2` | `PrimaryFont1` | 0.01 | `PrimaryColor3` |
+| `Xrv.Primary1.Size3` | `XrvPrimary1Size3` | `PrimaryFont1` | 0.008 | `PrimaryColor3` |
+| `Xrv.Primary2.Size1` | `XrvPrimary2Size1` | `PrimaryFont2` | 0.007 | `PrimaryColor3` |
+| `Xrv.Primary2.Size2` | `XrvPrimary2Size2` | `PrimaryFont2` | 0.006 | `PrimaryColor3` |
+| `Xrv.Primary2.Size3` | `XrvPrimary2Size3` | `PrimaryFont2` | 0.005 | `PrimaryColor3` |
 
 > [!NOTE]
-> Please note that in this case, changing text style values will only work at application startup. We don't have support right now to do this at runtime.
+> Text styles are read when the application starts. Changing a style at runtime has no effect.
 
-| Style key | Default values |
-| ------ | ------------------- |
-| **Xrv.Primary1.Size1** | font: ThemeFont.PrimaryFont1, scale = 0.012f, color = ThemeColor.PrimaryColor3 |
-| **Xrv.Primary1.Size2** | font: ThemeFont.PrimaryFont1, scale = 0.01f, color = ThemeColor.PrimaryColor3 |
-| **Xrv.Primary1.Size3** | font: ThemeFont.PrimaryFont1, scale = 0.008f, color = ThemeColor.PrimaryColor3 |
-| **Xrv.Primary2.Size1** | font: ThemeFont.PrimaryFont2, scale = 0.007f, color = ThemeColor.PrimaryColor3 |
-| **Xrv.Primary2.Size2** | font: ThemeFont.PrimaryFont2, scale = 0.006f, color = ThemeColor.PrimaryColor3 |
-| **Xrv.Primary2.Size3** | font: ThemeFont.PrimaryFont2, scale = 0.005f, color = ThemeColor.PrimaryColor3 |
+### Add or modify text styles
 
-### Add or Modify an Existing Text Style
-If you need to add new styles, or modify an existing one, you can do so by implementing _ITextStyleRegistration_. Its single method named _Register_ receives the global styles dictionary as a parameter: you can add new entries or modify existing ones. 
+Implement `ITextStyleRegistration` to add styles or change the default ones. XRV finds every implementation in your assemblies at startup and calls its `Register` method with the dictionary of styles.
 
 ```csharp
+using System.Collections.Generic;
+using Evergine.Common.Graphics;
+using Evergine.Xrv.Core.Themes;
+using Evergine.Xrv.Core.Themes.Texts;
+
 public class MyTextStylesRegistration : ITextStyleRegistration
 {
     public void Register(Dictionary<string, TextStyle> registrations)
     {
-        // Override a default style
-        if (registrations.ContainsKey(DefaultTextStyles.XrvPrimary1Size1))
+        // Make the biggest default style a little bigger.
+        if (registrations.TryGetValue(DefaultTextStyles.XrvPrimary1Size1, out var defaultStyle))
         {
-            var defaultStyle = registrations[DefaultTextStyles.XrvPrimary1Size1];
             defaultStyle.TextScale = 0.015f;
         }
 
-        // Add a new style with a theme-independent color
+        // Add a style with a fixed color that does not follow the theme.
         registrations["RedStyle"] = new TextStyle
         {
             ThemeFont = ThemeFont.PrimaryFont1,
             TextScale = 0.013f,
-            Color = Color.Red,
+            TextColor = Color.Red,
         };
     }
 }
 ```
 
-As these registrations are scanned by _XRV_, you can add your own text styles, and they will be available for text styling built-in components.
+## React to theme changes
 
-## How to Respond to Theme Changes
-You may be wondering what happens with custom-defined materials and theme changes. As we said above, the _Theme System_ will not update these materials. Don't worry, as you can create your own code to control changes for themes at runtime. _ThemeSystem_ includes an event named _ThemeUpdated_ that will be invoked on theme changes. It has arguments of type _ThemeUpdatedEventArgs_ that contain information about theme changes.
+The themes system does not update your own materials, but it tells you when the theme changes. `ThemesSystem.ThemeUpdated` is raised with a `ThemeUpdatedEventArgs`:
 
 | Property | Description |
-| ------ | ------------------- |
-| **IsNewThemeInstance** | Indicates if the message has been sent by a complete theme change (a new instance of the theme has been set). |
-| **Theme** | Theme instance that is being applied at the moment of message emission. |
-| **UpdatedColor** | If just one of the theme colors has been updated, it indicates which one of the themed colors has been involved. |
+| --- | --- |
+| `Theme` | The theme that is being applied. |
+| `UpdatedColor` | The color that changed, when a single color of the current theme changed. `null` when a new theme was assigned. |
+| `IsNewThemeInstance` | `true` when a new theme instance was assigned to `CurrentTheme`. |
 
-So, if you want your component to listen for changes in the current theme (for example, to change a custom material tint color), you will need something like the following code.
+The following component tints a custom material when the theme changes:
 
 ```csharp
-public class MyComponent : Component
+using Evergine.Framework;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.Themes;
+
+public class ThemedHighlight : Component
 {
     [BindService]
     private XrvService xrvService = null;
-    
-    private ThemesSystem themes => this.xrvService.ThemesSystem;
+
+    private ThemesSystem Themes => this.xrvService.ThemesSystem;
 
     protected override bool OnAttached()
     {
         bool attached = base.OnAttached();
         if (attached)
         {
-            this.themes.ThemeUpdated += this.ThemesSystem_ThemeUpdated;
+            this.Themes.ThemeUpdated += this.OnThemeUpdated;
         }
 
         return attached;
     }
 
     protected override void OnDetached()
-    {        
-        base.OnDetached();
-        this.themes.ThemeUpdated -= this.ThemesSystem_ThemeUpdated;
-    }
-  
-    private void ThemesSystem_ThemeUpdated(object sender, ThemeUpdatedEventArgs args)
     {
-        if (args.IsNewThemeInstance)
-        {
-            // Respond to theme instance changes
-            return;
-        }
+        base.OnDetached();
+        this.Themes.ThemeUpdated -= this.OnThemeUpdated;
+    }
 
-        switch (args.UpdatedColor)
+    private void OnThemeUpdated(object sender, ThemeUpdatedEventArgs args)
+    {
+        if (args.IsNewThemeInstance || args.UpdatedColor == ThemeColor.PrimaryColor1)
         {
-            case ThemeColor.PrimaryColor1:
-                // Respond to PrimaryColor1 changes
-                break;
-            // ...
-            default:
-                break;
+            var color = args.Theme.GetColor(ThemeColor.PrimaryColor1);
+            // Apply the color to your own material here.
         }
     }
 }

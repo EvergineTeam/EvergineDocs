@@ -1,123 +1,230 @@
 # Lifecycle of Elements
 
-Running Evergine components, entities, or other objects executes a number of functions in a predetermined order. This document describes those functions and explains how they fit into the execution sequence.
+---
 
-The following elements have the same lifecycle methods, and all information described in this document can be applied to each one:
+![The states of an AttachableObject and the callbacks invoked on each transition](images/lifecycle.png)
 
-* [Components](component_arch/components/index.md)
+*Every component, entity, service and scene manager moves through the same four states. The callback on each arrow runs as the object changes state, so each one is the right place for a specific kind of work.*
+
+Components, entities, [services](services.md) and [scene managers](scenes/scenemanagers.md) share one lifecycle. Evergine loads them, resolves their [bindings](bindings/index.md), attaches them, activates them and starts them, and runs the same steps backwards when they go away. Knowing which callback runs when tells you where to put initialization, event subscriptions and cleanup so that enabling, disabling and removing an element never leaves anything behind.
+
+All of these classes derive from `AttachableObject`:
+
+* [Components](component_arch/components/index.md), including [Behaviors](component_arch/components/behaviours.md) and [Drawables](component_arch/components/drawables.md)
 * [Entities](component_arch/entities/index.md)
 * [Services](services.md)
-* [SceneManagers](scenes/scenemanagers.md)
+* [Scene managers](scenes/scenemanagers.md)
 
-## Lifecycle Overview
+## States
 
-The diagram below summarizes how Evergine orders and repeats function invocations over the element's lifetime:
+The current state is exposed by the `State` property, of type `AttachableObjectState`:
 
-![Lifecycle](images/lifecycle.png)
+| State | Meaning |
+| --- | --- |
+| `Detached` | The initial state. The object is not connected to a scene or to the application, and its bindings are not resolved. |
+| `Deactivated` | The object is attached: its bindings are resolved and `OnAttached()` succeeded, but it is not running. A disabled component stays here. |
+| `Activated` | The object is running. Behaviors are updated and drawables are drawn only in this state. |
+| `Destroyed` | The object has been released. Nothing brings it back. |
+
+The `AttachableStateChanged` event is raised every time the state changes.
 
 ## Lifecycle Properties
 
-All elements that implement the default lifecycle share the same properties. These properties and methods are exposed in the `AttachableObject` class. Because of this, the Component, Entity, Service, or SceneServices classes extend the AttachableObject class.
-
-| Property | Description |
-| --- | --- |
-| **IsEnabled** (getter and setter) | Allows enabling or disabling an element. A disabled Behavior is not updated, or a disabled Drawable does not draw anything. |
-| **State** (getter) | Gets the current state of this object. We cover this area later in this document. | 
-
-To easily check states, Evergine offers several properties (getter only) to determine the state of the element:
-
-| Property | Description |
-| --- | --- |
-| **IsLoaded** | Indicates if this object has been **loaded** (the OnLoaded() method has been invoked). |
-| **IsAttached** | Indicates if this object has been **attached** (the OnAttached() method has been invoked). When an element is detached, this property is set to `false`. |
-| **IsActivated** | Indicates if this object has been **activated** (the OnActivated() method has been invoked). |
-| **IsStarted** | Indicates if this object has been **started** (the Start() method has been invoked). |
-| **IsDestroyed** | Indicates if this object has been **destroyed** (the OnDestroy() method has been invoked). |
+| Property | Default | Description |
+| --- | --- | --- |
+| **IsEnabled** | `true` | Enables or disables the element. Setting it to `false` on an activated element deactivates it, and setting it back to `true` activates it again. A component is only activated when both the component and its entity are enabled. |
+| **State** | `Detached` | The current `AttachableObjectState`. Read only. |
+| **IsLoaded** | `false` | `true` once `OnLoaded()` has run. It never goes back to `false`. |
+| **IsAttached** | `false` | `true` while the state is `Deactivated` or `Activated`. |
+| **IsActivated** | `false` | `true` while the state is `Activated`. |
+| **IsStarted** | `false` | `true` once `Start()` has run and while the element is activated. It is reset when the element is detached. |
+| **IsDestroyed** | `false` | `true` once the element has been destroyed. |
 
 ## Initialization
 
-These methods are usually called when the Application starts.
+These callbacks run when an element enters a scene or the application. Override the ones you need and call the base implementation.
 
 ### OnLoaded()
 
-This method is called after the element is deserialized (during the scene loading) or created from code:
+Runs **once** in the lifetime of the object, when it is created from code and added (for a component, when it is passed to `AddComponent()`) or when it is deserialized from a scene asset.
 
-* This method is invoked **once** during the object’s lifetime.
-* OnLoaded() is usually used to initialize all variables and functionality that **do not depend on other external elements**.
-
-> [!NOTE]
-> At this step, all bindings are not yet resolved.
+* Initialize here everything that does **not** depend on other elements: collections, default values, cached calculations.
+* Bindings are not resolved yet, and a component has no `Owner` yet.
 
 ### OnAttached()
 
-This method is invoked when an element is attached to Evergine. 
+Runs when the element is attached, for example when its entity is added to the `EntityManager`.
 
-* **All bindings are resolved** prior to the execution of this method.
-* This method is used to establish dependencies with external elements.
-* This method returns a boolean value. Return `true` if the execution has succeeded, otherwise the component is not successfully attached.
+* **All bindings are resolved** before this method runs. If a required binding cannot be resolved, `OnAttached()` is not called and the element stays `Detached` (see [Binding Errors](bindings/index.md#binding-errors)).
+* Use it to establish relationships with other elements, such as registering the component with a scene manager.
+* It returns a `bool`. Return `true` if attaching succeeded. Returning `false` leaves the element `Detached`.
 
 > [!NOTE]
-> At this step, all binding elements (Components, for example) may not have been attached yet.
+> The elements you are bound to have been found, but they may not be attached yet. Do not call into them here.
 
 ### OnActivated()
 
-This method is invoked when an element is activated. This can happen after the OnAttached() execution or when we change the IsEnabled property.
+Runs when the element is activated, right after it is attached or when `IsEnabled` changes to `true`.
 
-* This method is only invoked if `IsEnabled == true`. If a Component **or** its Entity has been disabled, this method is not executed.
-* During this method, we set up the functionality once we have previously established all dependencies. Usually, we put here all code that can be easily undone when the component will be deactivated (subscribe to events, for example).
+* It only runs when the element **and** its owner are enabled. If a component or its entity is disabled, the component stays `Deactivated`.
+* Put here the setup that you undo in `OnDeactivated()`, such as event subscriptions. It can run many times in the lifetime of the object.
 
 > [!NOTE]
-> At this step, all dependencies (Components, for example) have been previously attached, but some elements may not have been activated yet.
+> Your dependencies are attached at this point, but some of them may not be activated yet.
 
 ### Start()
 
-This method is called **before the first frame update** only if the element has been previously activated.
+Runs **once per attachment**, before the first update, and only if the element is activated.
 
-* This method is called only **once** per attachment. If we enable or disable a Component, the Start method is not called again. However, if we detach a Component and reattach it to an Entity, the Start() method will be called again (after the OnAttached() and OnActivated() invocations).
-* In this method, we usually put all initialization functionality that depends on other elements and that we only want to execute once.
+* Disabling and enabling an element does not call `Start()` again. Detaching it and attaching it again does, after `OnAttached()` and `OnActivated()`.
+* Use it for initialization that depends on other elements and must happen only once, such as reading the initial state of a bound component.
 
 > [!NOTE]
-> At this step, all dependencies have been activated, but some elements may not have been started yet. 
+> Your dependencies are activated at this point, but some of them may not be started yet.
 
 ## Per Frame Loop
 
-During the application Update/Draw loop, each frame the following methods are invoked:
+Once started, some elements receive a call every frame. The [Application](application/using_application.md#the-frame-loop) page shows where these calls come from.
 
-### Update()
+### Update(TimeSpan gameTime)
 
-This method is only available on [Behaviors](component_arch/components/behaviours.md), [UpdatableServices](services.md), or [UpdatableSceneManagers](scenes/scenemanagers.md). 
+Available on [Behaviors](component_arch/components/behaviours.md), `UpdatableService` ([services](services.md)) and `UpdatableSceneManager` ([scene managers](scenes/scenemanagers.md)).
 
-* This method can only be executed if the element has been started (attached and initialized).
-* In general terms, the Update() method is called once per frame.
-* We put here execution code to update the application logic or state (player movement, camera input controller, etc.).
+* It runs once per frame, and only while the element is activated. A behavior is also skipped until it has started.
+* `gameTime` is the time elapsed since the previous frame, scaled by the scene `Speed` for behaviors and scene managers.
+* Put here the logic that changes the state of the application: movement, input handling, game rules.
 
-### Draw()
+### Draw(DrawContext drawContext)
 
-This method is only available on [Drawables](component_arch/components/drawables.md).
+Available on [Drawables](component_arch/components/drawables.md).
 
-* This method can only be executed if the element has been started (attached and initialized).
-* The Draw() method is called **once per drawing camera**, during the rendering phase.
-* We put here all code to update RenderObjects before the camera processes them.
- 
+* It runs while the drawable is activated, **once for each camera** that renders the scene.
+* Put here the code that updates or submits render objects for that camera.
+
 ## Deinitialization
 
-Evergine follows the following steps to properly destroy or detach an element.
+These callbacks undo the initialization, in reverse order.
 
 ### OnDeactivated()
 
-This method is called when an activated element becomes disabled or inactive.
+Runs when an activated element is disabled or is about to be detached.
 
-* This method is the opposite of the OnActivated() method, and it's a good practice to undo all functionalities done in the OnActivated() method (unsubscribe events, for example).
+* Undo here everything you did in `OnActivated()`, for example unsubscribe from events.
 
 ### OnDetached()
 
-OnDetached is called when an element is detached.
+Runs when an element is detached, for example when its entity is removed from the scene or the component is removed from its entity.
 
-* This method is the opposite of the OnAttached() method, and it's a good practice to undo all functionalities done in the OnAttached() method.
+* Undo here everything you did in `OnAttached()`. Bindings are released right after this method returns.
+
+> [!IMPORTANT]
+> Override `OnDetached()`. The older `OnDetach()` callback is obsolete; it is still invoked just before `OnDetached()` for compatibility, but new code must not use it.
 
 ### OnDestroy()
 
-This method is invoked when the element is definitively removed and we want to destroy or dispose of objects.
+Runs when a detached element is destroyed, and only if it was loaded.
 
-* A destroyed element cannot be attached again, and it is finally disposed of.
-* A good practice is to remove all internal data of this component (tables, collections, etc.).
+* A destroyed element cannot be attached again.
+* Release here everything created in `OnLoaded()`: collections, native resources, anything that must not outlive the object.
+
+> [!NOTE]
+> If a **required** dependency is detached or destroyed, Evergine detaches the elements that depend on it as well, because their bindings can no longer be satisfied. An optional dependency (`isRequired: false`) is set back to `null` instead.
+
+## Example: Log Every Callback
+
+Adding this behavior to an entity is the quickest way to see the lifecycle in action. It writes one line per callback to the debug output.
+
+```csharp
+using System;
+using System.Diagnostics;
+using Evergine.Framework;
+
+namespace MyProject
+{
+    public class LifecycleLogger : Behavior
+    {
+        private bool isFirstUpdate = true;
+
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+
+            // The component has no owner yet: it has only been added to an entity.
+            this.Log(nameof(this.OnLoaded));
+        }
+
+        protected override bool OnAttached()
+        {
+            this.Log(nameof(this.OnAttached));
+            return base.OnAttached();
+        }
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+            this.Log(nameof(this.OnActivated));
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            this.Log(nameof(this.Start));
+        }
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            // Update runs every frame, so only the first call is logged.
+            if (this.isFirstUpdate)
+            {
+                this.isFirstUpdate = false;
+                this.Log(nameof(this.Update));
+            }
+        }
+
+        protected override void OnDeactivated()
+        {
+            base.OnDeactivated();
+            this.Log(nameof(this.OnDeactivated));
+        }
+
+        protected override void OnDetached()
+        {
+            this.Log(nameof(this.OnDetached));
+            base.OnDetached();
+        }
+
+        protected override void OnDestroy()
+        {
+            this.Log(nameof(this.OnDestroy));
+            base.OnDestroy();
+        }
+
+        private void Log(string callback)
+        {
+            Trace.WriteLine($"[{this.Owner?.Name ?? "no owner"}] {callback}");
+        }
+    }
+}
+```
+
+Then exercise it from a scene or another component:
+
+```csharp
+var entity = new Entity("Logged")
+    .AddComponent(new Transform3D())
+    .AddComponent(new LifecycleLogger());   // OnLoaded
+
+this.Managers.EntityManager.Add(entity);    // OnAttached, OnActivated and Start, because the scene is running
+
+entity.IsEnabled = false;                   // OnDeactivated
+entity.IsEnabled = true;                    // OnActivated (Start does not run again)
+
+this.Managers.EntityManager.Remove(entity); // OnDeactivated, OnDetached, OnDestroy
+```
+
+> [!TIP]
+> `EntityManager.Remove()` destroys the entity and its components. Use `EntityManager.Detach()` instead when you want to take an entity out of the scene and add it again later: it stops at `OnDetached()`, and adding the entity back runs `OnAttached()`, `OnActivated()` and `Start()` again.
+
+## Scenes
+
+A [Scene](scenes/index.md) is not an `AttachableObject` and has its own, simpler sequence: `RegisterManagers()`, `CreateScene()`, `Start()`, then `Pause()`, `Resume()` and `End()`. The [Create Scenes](scenes/create_scenes.md) page describes each of them.

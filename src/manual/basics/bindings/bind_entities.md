@@ -1,60 +1,88 @@
 # Bind Entities
 
-Using the **[BindEntity]** attribute allows your components to establish dependencies with [Entities](../component_arch/entities/index.md) in your scene.
+---
 
-The search is made using the Entity.Tag property:
+The **[BindEntity]** attribute gives a component a reference to an [entity](../component_arch/entities/index.md), found by its `Tag`. Use it when a component needs a whole entity rather than one of its components: the player to follow, the spawn points of a level, the pickups under a group.
 
 ```csharp
-// Binding with the first Entity in the Scene tagged with "Player"
+// The first entity in the scene tagged "Player".
 [BindEntity(tag: "Player")]
 private Entity player;
 
-// Search all Entities with the "Item" tag...
-[BindComponent(tag: "Item")]
-private List<Entity> itemList;
+// Every entity in the scene tagged "Item".
+[BindEntity(tag: "Item")]
+private List<Entity> items;
 ```
 
 > [!NOTE]
-> [BindEntity] can only be used inside Components. In other cases, the binding cannot be resolved.
+> `[BindEntity]` only works inside components, because the search starts from the owner entity of the component.
 
-## [BindEntity] Properties
+## Parameters
 
-This attribute offers several ways to customize:
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `tag` | `null` | The tag of the entities to find. Always set it: entities are matched by tag, and the default `Scene` source fails without one. |
+| `source` | `BindEntitySource.Scene` | Where to search. See [source](#source). |
+| `isRequired` | `true` | When `true`, the component does not attach unless an entity is found. When `false`, the member is left `null` if nothing matches. |
+| `isRecursive` | `true` | For the `Children` and `Parents` sources, `true` searches all descendants or ancestors, and `false` only the direct children or the direct parent. |
 
-### source (default `BindEntitySource.Scene`)
+### source
 
-This property indicates where the component or components will be searched. The possible values are:
-
-| Source | Description |
+| Source | Searches |
 | --- | --- |
-| `Scene` (default)| The Entity is searched in the entire Scene. It iterates over all entities in the scene. |
-| `Children` | Searches the Entity in its descendant entities, **excluding the owner entity** |
-| `ChildrenSkipOwner` | Searches the Entity in its descendant entities, **not including the owner entity** |
-| `Parents` | Searches the Entity in the ascendant entities, **including the owner entity** |
-| `ParentsSkipOwner` | Searches the Entity in its ascendant entities, **not including the owner entity** |
+| `Scene` (default) | Every entity of the scene. |
+| `Owner` | The owner entity only: the binding matches when the owner itself has the tag. |
+| `Children` | The owner entity and its descendants. |
+| `ChildrenSkipOwner` | The descendants of the owner entity, **without** the owner. |
+| `Parents` | The owner entity and its ancestors. |
+| `ParentsSkipOwner` | The ancestors of the owner entity, **without** the owner. |
 
-A brief example:
+The `Children` sources search level by level, and the `Parents` sources from the nearest ancestor up. A single member gets the first match.
+
+### isRequired
+
+Works as in [Bind Components](bind_components.md#isrequired): a missing required entity keeps the component from attaching.
+
+## Example
+
+This behavior makes its entity look at the player, and collects the waypoints placed as its own children:
 
 ```csharp
-public class MyComponent : Component
+using System;
+using System.Collections.Generic;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+
+namespace MyProject
 {
-    // Binding with the first Entity in the Scene tagged with "Player"
-    [BindEntity(tag: "Player")] // source: Scene is default value 
-    private Entity player;
-    // ...
+    public class Sentry : Behavior
+    {
+        [BindComponent]
+        private Transform3D transform;
+
+        // Anywhere in the scene.
+        [BindEntity(tag: "Player")]
+        private Entity player;
+
+        // Only below this entity, so each sentry gets its own patrol route.
+        [BindEntity(tag: "Waypoint", source: BindEntitySource.ChildrenSkipOwner)]
+        private List<Entity> waypoints;
+
+        private Transform3D playerTransform;
+
+        protected override void Start()
+        {
+            base.Start();
+            this.playerTransform = this.player.FindComponent<Transform3D>();
+        }
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            this.transform.LookAt(this.playerTransform.Position);
+        }
+    }
 }
 ```
 
-### isRequired (default `true`)
-
-If the value is `true`, the dependency is required to be resolved; otherwise, the current Component won't be attached.
-
-The IsRequired value has the same functionality as [BindComponent] (see [Bind Components](bind_components.md) for further details).
-
-### isRecursive (default `true`)
-
-If set to `true`, the search will include all descendants (or ascendants) in the hierarchy; otherwise, the search will only include the direct descendants.
-
-### tag (default `null`)
-
-The Entities will be filtered by their tag value.
+> [!TIP]
+> A list binding is filled once, when the component attaches. To follow entities that are added or retagged later, use an [entity tag collection](../component_arch/entities/entity_manager.md#entity-tag-collections).

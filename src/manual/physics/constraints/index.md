@@ -14,7 +14,9 @@ Every constraint is a component you add to the entity of the body it moves. That
 *One rig per constraint type. In each of them the grey block is bolted to the world and the red one is held by the constraint; the coloured arcs and lines are the constraints themselves, drawn by [debug rendering](../debug_rendering.md).*
 
 > [!NOTE]
-> These replace the `*Joint3D` components of the previous API, with several renamed and three new ones. See [Migrating from Bullet](../migrating_from_bullet.md).
+> These replace the `*Joint3D` components of the previous API, with several renamed and four new ones. See [Migrating from Bullet](../migrating_from_bullet.md).
+
+Either end of a constraint can be any [physics body](../physics_bodies/index.md). The source is nearly always a `RigidBody`, since a constraint on something that cannot move has nothing to do, but the connected body is just as often a `StaticBody`: a door hung on a wall that is part of the level, a rope tied to a post. `Body` and `ConnectedBody` are both typed as `PhysicsBody` for that reason.
 
 ## Common Properties
 
@@ -22,8 +24,8 @@ Every constraint has these. The pages that follow list only what is specific to 
 
 | Property | Default | Description |
 | --- | --- | --- |
-| **ConnectedEntityPath** | null | The entity holding the other body. **Left empty, the constraint anchors to the world**, which is how a door is hung on a wall that is not itself a body. |
-| **ConnectedBody** | null | The other body, set directly from code. Takes precedence over the path. |
+| **ConnectedEntityPath** | null | The entity holding the other body. **Left empty, the constraint anchors to the world**, which is how a door is hung on a wall that is not itself a body. A path that names an entity that does not exist, or one without a body, leaves the constraint **disconnected** rather than silently pinning it to the world. Changing it on a live constraint recreates it against the new body. |
+| **ConnectedBody** | null | The other body, set directly from code, as a `PhysicsBody`. Takes precedence over the path. |
 | **Anchor** | 0,0,0 | Where the constraint attaches on this body, in its local space. |
 | **AutoConfigureConnectedAnchor** | true | Works out the matching anchor on the other body from where the two are standing when the constraint is created. |
 | **ConnectedAnchor** | 0,0,0 | Where it attaches on the other body, when the above is off. |
@@ -47,6 +49,14 @@ Read-only:
 
 > [!IMPORTANT]
 > Anchors are captured **when the constraint is created**. Move a body afterwards and the constraint pulls it back to where the anchor says it should be. Position both bodies where they belong before adding the constraint, or call `Recreate()` after moving them.
+
+## Constraints in Evergine Studio
+
+![A constraint selected in the editor](images/constraint_gizmo.png)
+
+*A door on a `HingeConstraint`, selected in Evergine Studio. Beside the transform manipulator, the editor draws the constraint itself: the cyan line along the door's edge is the hinge axis, and the yellow arc is the range the door may open through.*
+
+Selecting an entity with a constraint draws the constraint in the viewport: its axis, its anchor and the limits it allows, a hinge's arc or a swing twist's cones. This is the same picture [debug rendering](../debug_rendering.md) draws at run time, available while the scene is still being built, so an anchor placed on the wrong side of a door is visible before the scene is ever run.
 
 ## Breakable Constraints
 

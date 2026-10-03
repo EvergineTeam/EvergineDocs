@@ -1,111 +1,142 @@
-# IFC Runtime Models  
+# IFC Runtime
 
 ---
 
-![Evergine Runtime Models](images/IFC/HeaderIFC.png)
+![IFC building model loaded with the IFC runtime](images/IFC/HeaderIFC.png)
 
-The **Evergine.Runtime.IFC** NuGet package provides a **powerful and efficient solution** for dynamically loading IFC models at runtime. It is designed for real-time 3D applications and integrates seamlessly into your Evergine projects.
+The **Evergine.Runtimes.IFC** package reads Industry Foundation Classes (`.ifc`) files, the open exchange format of BIM tools such as Revit, ArchiCAD and Tekla, while the application runs. It returns a `Model` built for fast display of whole buildings: all geometry is merged into at most two meshes, one opaque and one translucent.
 
-## Supported IFC Features
+| | |
+| --- | --- |
+| **Package** | `Evergine.Runtimes.IFC` |
+| **Namespace** | `Evergine.Runtimes.IFC` |
+| **Class** | `IFCRuntime` (derives from `ModelRuntime`) |
+| **Formats** | `.ifc` with the IFC2x3 or IFC4 schema |
+| **Returns** | `Task<Model>` |
+| **Platforms** | Windows desktop |
+| **Dependencies** | [xBIM Toolkit](https://docs.xbim.net/): `Xbim.Essentials` 6.0.578, `Xbim.Geometry` 6.1.801, `Xbim.Tessellator` 6.0.521 |
 
-The `Evergine.Runtime.IFC` namespace includes a robust IFC file loader that supports a comprehensive range of mesh features:
+The runtime is Windows only because the xBIM geometry engine that tessellates IFC solids is a native Windows library.
 
-### ✅ Features
+## What the runtime returns
 
-#### 1. Supported IFC File Types
-- Supports `.ifc` files in both **IFC2x3** and **IFC4** schema versions.
-- Data processing is based on the **XBim Toolkit**.
+![IFCRuntime.Read returns a Model whose root node, named after the IFC project and scaled to meters, has up to two child nodes: an opaque batch and a translucent batch](images/cad_ifc_output.png)
 
-#### 2. Geometry
-- Supports multiple geometric representations:
-  - **Triangulated face sets**: direct 3D meshes based on triangle lists.
-  - **Extruded solids**: generated from parametric IFC solid extrusions.
-  - **Boolean operations**: geometry resulting from boolean operations (union, difference, intersection).
-- Generated meshes include: **vertex positions**, **triangle indices**, **vertex normals**, **vertex color**.
-- Normal generation can be configured using the `useSmoothNormals` flag in the runtime:
-  - When set to `false` (default), geometry is generated with **flat normals** (per face), resulting in a faceted appearance and better performance.
-  - When set to `true`, geometry is generated with **smooth normals** (per vertex), producing visually smoother surfaces.
-- Mesh generation is optimized for direct integration into Evergine scenes.
+*The building arrives as a Model with two meshes at most, which keeps it to two draw calls however many elements it has.*
 
-#### 3. Basic Materials
-- Supports default **opaque** materials.
-- Supports **translucent** materials by interpreting properties related to glass or semi-transparent materials.
+The xBIM engine turns every product in the file (walls, slabs, windows, and so on) into a triangle mesh, whether the IFC describes it as a triangulated face set, an extruded solid or the result of boolean operations. The runtime then:
 
-#### 4. Efficient Rendering (Batching)
-- Implements an intelligent batching system that groups meshes by material type. 
-Reduces the total number of draw calls to just two main calls:
-  - One for **opaque** objects.
-  - One for **translucent** objects.
+1. Colors each vertex with the surface style of its element, taking the transparency of the style as alpha.
+2. Sorts the elements into two groups: **translucent** when the transparency of their style is above 0.5, **opaque** otherwise.
+3. Transforms every element to its world position and merges each group into one mesh.
+4. Places both meshes under a root node named after the IFC project, scaled by the length unit of the project so that the model is in meters.
 
-#### 5. Real‑Time Progress Reporting
-- Enables real‑time tracking of each stage of IFC file loading and processing.
-- Exposes three `IProgress<int>` properties:
-  - `OpenProgress`: progress percentage during file opening.
-  - `ContextProgress`: progress percentage while loading the IFC context.
-  - `GeometryProgress`: progress percentage during geometry generation.
----
-### Limitations  
-#### 1. Platform
-- The IFC runtime is currently supported only on Windows desktop platforms.
+Two built-in `StandardMaterial` instances render the result: `DefaultOpaque` and `DefaultAlpha` (alpha 0.2), both with vertex colors enabled so each element keeps its own color.
 
-#### 2. IFC File Handling
-- Supported file types include **IFC2x3** and **IFC4**, based on the capabilities of the **XBim Toolkit**.
+Because the elements are merged, the model has no entity per wall or window, and the IFC properties of the elements are not kept. Use this runtime to show a building, not to query it.
 
-⚠️ *These limitations are subject to change in future updates.*
+## Normals
 
----
-## Getting Started  
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **useSmoothNormals** | `false` | Off, every face gets its own normal: a faceted look and the fastest load. On, normals are averaged per vertex, which gives curved elements a smoother look. |
 
-To start using the **Evergine.Runtimes.IFC** libraries, simply install the NuGet package and use the following code to load your assets:  
+The parameter is only available on the file path overload. The stream overload always uses flat normals.
+
+## Progress reporting
+
+Opening a large IFC file takes seconds. `IFCRuntime` reports the progress of each stage through three `IProgress<int>` properties, all `null` by default. Each receives a percentage from 0 to 100.
+
+| Property | Stage |
+| --- | --- |
+| **OpenProgress** | Opening and parsing the file. |
+| **ContextProgress** | Building the geometry context of the model. |
+| **GeometryProgress** | Generating the meshes. |
+
+Set them on the runtime before calling `Read`.
+
+## Load a model from a file
+
+`Read(string filePath, Func<MaterialData, Task<Material>> materialAssigner = null, bool useSmoothNormals = false)` combines the path with the `Content` folder of the running application, so a relative path is resolved inside `Content` and an absolute path is used as it is. Mark IFC files that you ship in `Content` with **Set to export as raw** in the [Assets Details panel](../evergine_studio/assets/edit.md) so they are copied unchanged.
 
 ```csharp
-protected async override void CreateScene()
-{    
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
-    
-    IFCRuntime.Instance.OpenProgress     = new Progress<int>(p => Console.Write($"\rOpen progress: {p}%   "));
-    IFCRuntime.Instance.ContextProgress  = new Progress<int>(p => Console.Write($"\rContext progress: {p}%   "));
-    IFCRuntime.Instance.GeometryProgress = new Progress<int>(p => Console.Write($"\rGeometry progress: {p}%   "));
+using System;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.IFC;
 
-    var model = await IFCRuntime.Instance.Read("MyModel.ifc", useSmoothNormals: true);
-    var entity = model.InstantiateModelHierarchy(assetsService);
-    this.manager.EntityManager.Add(entity);
-}
-```
-
-</br>
-
-### Custom Shader Support
-
-By default, models are loaded using the Standard Effect (Evergine’s built-in shader). However, if you want to load models using your custom shader, you must pass an additional **CustomMaterialAssigner** function to the Read method:
-
-```csharp
-protected async override void CreateScene()
+public class MyScene : Scene
 {
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
-    var model = await IFCRuntime.Instance.Read("Models/buildingExample.ifc", this.CustomMaterialAssigner);
-    var entity = model.InstantiateModelHierarchy(assetsService);
-    this.Managers.EntityManager.Add(entity);
+    protected override async void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
+
+        IFCRuntime.Instance.OpenProgress = new Progress<int>(p => Console.WriteLine($"Open: {p}%"));
+        IFCRuntime.Instance.ContextProgress = new Progress<int>(p => Console.WriteLine($"Context: {p}%"));
+        IFCRuntime.Instance.GeometryProgress = new Progress<int>(p => Console.WriteLine($"Geometry: {p}%"));
+
+        Model model = await IFCRuntime.Instance.Read("Models/AC20-Institute.ifc", useSmoothNormals: true);
+
+        Entity building = model.InstantiateModelHierarchy("building", assetsService);
+        this.Managers.EntityManager.Add(building);
+    }
 }
 ```
+
+> [!TIP]
+> Loading runs on background threads, and `Progress<int>` only returns to the calling thread when that thread has a synchronization context. To update scene or UI state from a progress callback, queue the change with `EvergineForegroundTask.Run`.
+
+## Load a model from a stream
+
+`Read(Stream stream, ...)` copies the stream to a temporary `.ifc` file, reads it and deletes the file. The stream is read once from start to end, so a network stream works without buffering it first:
+
+```csharp
+using System.Net.Http;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+using Evergine.Runtimes.IFC;
+
+public class MyScene : Scene
+{
+    private static readonly HttpClient httpClient = new HttpClient();
+
+    protected override async void CreateScene()
+    {
+        using var response = await httpClient.GetAsync("https://example.com/bim/BasicHouse.ifc", HttpCompletionOption.ResponseHeadersRead);
+        response.EnsureSuccessStatusCode();
+
+        using var stream = await response.Content.ReadAsStreamAsync();
+        Model model = await IFCRuntime.Instance.Read(stream);
+
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
+        Entity building = model.InstantiateModelHierarchy("house", assetsService);
+
+        // Scene changes must happen on the Evergine main thread.
+        await EvergineForegroundTask.Run(() => this.Managers.EntityManager.Add(building));
+    }
+}
+```
+
+## Materials
+
+Both `Read` overloads accept a `materialAssigner` argument because `IFCRuntime` shares the `ModelRuntime` signature, but the IFC runtime does not call it: the model always uses the two built-in materials described above. To change how the building looks, replace the `Material` of the `MaterialComponent` on the two mesh entities of the instantiated hierarchy after loading. The [GLB runtime page](glb_runtime.md#materials-and-the-material-assigner) explains the material assigner used by the other model runtimes.
 
 ## Samples
 
-The IFC Runtime has been extensively tested with the following publicly available datasets:
- - [OpenIFC Model Repository](https://openifcmodel.cs.auckland.ac.nz/)
- - [Steptools Samples](https://www.steptools.com/docs/stpfiles/ifc/)
- - [BIM Whale Sample Files](https://github.com/andrewisen/bim-whale-ifc-samples)
+The IFC runtime has been tested with these public datasets:
 
-These tests help ensure compatibility with a wide range of real-world meshes, materials, and topology configurations. 
-Below are several representative screenshots of models successfully loaded and rendered at runtime:
+* [Open IFC Model Repository](https://openifcmodel.cs.auckland.ac.nz/)
+* [STEP Tools IFC samples](https://www.steptools.com/docs/stpfiles/ifc/)
+* [BIM Whale sample files](https://github.com/andrewisen/bim-whale-ifc-samples)
 
-### Sample screenshots
+![Model from the Open IFC Model Repository loaded with the IFC runtime](images/IFC/OpenIFC.png)
+*Model from the Open IFC Model Repository.*
 
-![OpenIFC Model Repository](images/IFC/OpenIFC.png)  
-*OpenIFC Model Repository.*
+![AC20 Institute building loaded with the IFC runtime](images/IFC/AC20-Institute.png)
+*Karlsruhe Institute of Technology (KIT), Institute for Automation and Applied Informatics.*
 
-![Steptools Samples](images/IFC/AC20-Institute.png)  
-*Karlsruhe Institute of Technology (KIT), Institute for Automation and Applied Informatics*
-
-![BIM Whale Sample Files](images/IFC/BasicHouse.png)  
-*BIM Whale Sample: BasicHouse*
+![BIM Whale BasicHouse sample loaded with the IFC runtime](images/IFC/BasicHouse.png)
+*BIM Whale sample: BasicHouse.*

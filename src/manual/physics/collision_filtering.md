@@ -10,7 +10,7 @@ Evergine does it with **32 categories** and a **matrix** on the world saying whi
 
 ## Collision Categories
 
-Every [`RigidBody`](physics_bodies/rigid_body.md) belongs to exactly **one** category:
+Every [physics body](physics_bodies/index.md), `RigidBody` or `StaticBody`, belongs to exactly **one** category:
 
 ```csharp
 body.CollisionCategory = CollisionCategory.Cat3;
@@ -62,7 +62,7 @@ physics.SetCollisionEnabled(CollisionCategory.Cat4, CollisionCategory.Cat5, fals
 | **GetCollisionEnabled(a, b)** | Reads one pair back. |
 
 > [!NOTE]
-> Two **static** bodies never collide with each other, whatever the matrix says. That is what makes a level built from a thousand static bodies free rather than a million pair tests.
+> Two `StaticBody` components never collide with each other, whatever the matrix says. That is what makes a level built from a thousand static bodies free rather than a million pair tests.
 
 > [!TIP]
 > A scene that carries its own `PhysicsManager` in its `.wescene` file has its matrix editable from the inspector, which is much easier than maintaining it in code. Scenes without one get a default manager from `RegisterManagers` instead.
@@ -77,7 +77,7 @@ physics.SetPairCollisionEnabled(turretBody, hullBody, false);
 
 | Member | Description |
 | --- | --- |
-| **SetPairCollisionEnabled(first, second, enabled)** | Switches collision between two specific bodies. |
+| **SetPairCollisionEnabled(first, second, enabled)** | Switches collision between two specific bodies. Both are `PhysicsBody`, so one of the pair can be static. |
 | **GetPairCollisionEnabled(first, second)** | Reads it back. |
 | **WereBodiesInContact(first, second)** | Whether the two touched in the last step. |
 
@@ -92,7 +92,7 @@ physics.ContactValidator = (first, second) => !this.SameTeam(first, second);
 ```
 
 > [!IMPORTANT]
-> `ContactValidator` runs on the solver's worker threads. It must be cheap, must not allocate, and must not touch the scene.
+> `ContactValidator` runs on the solver's worker threads. It must be cheap, must not allocate, and must not touch the scene. Its two arguments are `PhysicsBody`, so anything that needs a velocity has to test for `RigidBody` first; see [Contact Validation](physics_bodies/collisions.md#contact-validation).
 
 ## Filtering Queries
 

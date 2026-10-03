@@ -1,132 +1,189 @@
 # TrackXRArticulatedHand
 
-![TrackXRArticulatedHand](images/trackxrarticulatedhand.jpg)
+![A tracked articulated hand](images/trackxrarticulatedhand.jpg)
 
-This component is used to track and obtain the state of an articulated hand. A variety of MR and VR platforms support hand tracking, such as Mixed Reality (HoloLens) or Oculus Quest.
+`TrackXRArticulatedHand` makes an entity follow one of the user's hands, and gives you the pose of every joint of that hand. Use it to build hand interactions without controllers: touching buttons with a fingertip, grabbing with a pinch, or drawing the hand yourself.
 
-## Supported Hand Joints
+Hand tracking comes from the OpenXR `XR_EXT_hand_tracking` extension, which the [Meta Quest](../openxr/metaquest.md) and [Pico](../openxr/pico.md) templates enable. On platforms or runtimes without it, the component never connects.
 
-Evergine supports a list of hand joints to be tracked, described using the `XRHandJointKind` enumeration. Its values can be visually perceived in the following image:
+## Hand joints
 
-![Hand Joints](images/hand-skeleton.png)
+Joints are identified by the `XRHandJointKind` enumeration: `Palm`, `Wrist`, and four joints per finger from the metacarpal to the tip (`ThumbMetacarpal` to `ThumbTip`, `IndexMetacarpal` to `IndexTip`, and so on for the middle, ring and little fingers).
 
-> [!Note]
-> The entity transform will use the `Palm` joint pose.
+![The hand joints tracked by Evergine](images/hand-skeleton.png)
+
+The entity follows the `Palm` joint.
+
+Each joint is an `XRHandJoint`:
+
+| Field | Description |
+| --- | --- |
+| **Pose** | Position and orientation of the joint, as a `ViewPose`. |
+| **Radius** | Radius of the joint in metres: roughly half the thickness of the finger at that point. Use it to size colliders or visual markers. |
+| **Accuracy** | Tracking accuracy of the joint, as reported by the platform. |
 
 ## Properties
 
-The following properties have been added to this component to access hand joint information:
+| Property | Default | Description |
+| --- | --- | --- |
+| **Handedness** | `LeftHand` | The hand to track: `LeftHand` or `RightHand`. |
+| **TrackingLostMode** | `DisableEntityOnPoseInvalid` | What happens to the entity when tracking fails. See [common properties](index.md#common-properties). |
+| **SupportedHandJointKind** | Read-only | The `XRHandJointKind[]` joints this device tracks, or `null` while no hand is selected. Some devices track fewer joints. |
+| **ControllerState** | Read-only | The hand as a controller. With `XR_FB_hand_tracking_aim` (Meta Quest), a pinch between thumb and index sets `Trigger` to the pinch strength and drives `TriggerButton`, and `Pointer` follows the aim ray. |
 
-| Property | Description |
+It also has the members every tracking component shares, listed in [common properties](index.md#common-properties).
+
+| Method | Description |
 | --- | --- |
-| **Handedness** | This property allows you to indicate the handedness of the device you want to track: <ul><li>`LeftHand` to specify the left hand.</li><li>`RightHand` to specify the right hand.</li><li>`Undefined` if the device has no specific handedness.</li></ul> |
-| **TrackingLostMode** | Specifies the strategy to follow if the device is not well-tracked: <ul><li>`DisableEntityOnPoseInvalid` disables the entity if the tracked pose is not valid. If the device is well-tracked again, the entity will be enabled again. *This is the default value.*</li><li>`KeepLastPose` stops tracking the entity if the pose is not valid, maintaining the entity with the last received pose.</li><li>`DisableEntityOnDisconnection` disables the entity only if the selected device is no longer connected.</li></ul> |
-| **SupportedHandJointKind** | Returns an `XRHandJointKind[]` array of supported hand joints. Hand tracking in some devices can be limited and only support limited joints. |
-| **TryGetArticulatedHandJoint** | Obtains the articulated hand joint state specified using an `XRHandJointKind` value. Returns true if the joint is successfully obtained. |
+| `bool TryGetArticulatedHandJoint(XRHandJointKind jointKind, out XRHandJoint joint)` | Gets a joint in **world space**, including the transform of the entity's parent. Returns `false` when the joint is not available. |
+| `bool TryGetArticulatedHandJointLocal(XRHandJointKind jointKind, out XRHandJoint joint)` | Gets a joint in **tracking space**, as the platform reports it. Enough to compare two joints of the same hand. |
 
 ## Using TrackXRArticulatedHand
 
-### Create a TrackXRArticulatedHand from code
+### Draw the joints
 
-In the following code, you will learn how to create an entity that tracks a controller from code:
+This scene tracks the left hand and draws an axis at every joint, sized by the joint radius:
 
 ```csharp
-protected override void CreateScene()
+using System;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+using Evergine.Framework.XR;
+using Evergine.Mathematics;
+
+public class HandScene : Scene
 {
-    base.CreateScene();
+    protected override void CreateScene()
+    {
+        base.CreateScene();
 
-    var material = this.Managers.AssetSceneManager
-        .Load<Material>(EvergineContneet.DefaultMaterialID); // The hand material
+        var leftHand = new Entity("LeftHand")
+            .AddComponent(new Transform3D())
+            .AddComponent(new TrackXRArticulatedHand()
+            {
+                Handedness = XRHandedness.LeftHand,
+            })
+            .AddComponent(new DrawHandJoints());
 
-    // Hand entity
-    var leftHand = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new MaterialComponent() { Material = material })
-        .AddComponent(new TeapotMesh() { Size = 0.15f })
-        .AddComponent(new MeshRenderer())
-        .AddComponent(new TrackXRArticulatedHand()
-        {
-            Handedness = XRHandedness.LeftHand // select the left hand
-        })
-        .AddComponent(new DebugArticulatedhand());
-
-    this.Managers.EntityManager.Add(leftHand);
+        this.Managers.EntityManager.Add(leftHand);
+    }
 }
-```
 
-### Read the Hand Joints
-
-A small sample to read the hand joint state:
-
-```csharp
-public class DebugArticulatedhand : Behavior
+public class DrawHandJoints : Behavior
 {
     [BindComponent]
-    private TrackXRArticulatedHand trackXRHand;
+    private TrackXRArticulatedHand hand = null;
 
     protected override void Update(TimeSpan gameTime)
     {
-        var lineBatch = this.Managers.RenderManager.LineBatch3D;
-        if (trackXRHand.IsConnected)
+        var joints = this.hand.SupportedHandJointKind;
+        if (!this.hand.IsConnected || joints == null)
         {
-            // Iterate over all supported joints
-            foreach (var supportedJoint in this.trackXRHand.SupportedHandJointKind)
+            return;
+        }
+
+        var lineBatch = ((RenderManager)this.Managers.RenderManager).LineBatch3D;
+        foreach (var jointKind in joints)
+        {
+            // World-space pose, so the axes stay on the hand when the tracking space moves.
+            if (this.hand.TryGetArticulatedHandJoint(jointKind, out XRHandJoint joint))
             {
-                // Obtain the joint pose and draw it...
-                if (this.trackXRHand.TryGetArticulatedHandJoint(supportedJoint, out var handJoint))
-                {
-                    Matrix4x4.CreateFromTR(ref handJoint.Pose.Position, ref handJoint.Pose.Orientation, out var jointTransform);
-                    lineBatch.DrawAxis(jointTransform, 0.01f); // Draw 1cm axis with the joint transform
-                }
+                Matrix4x4.CreateFromTR(ref joint.Pose.Position, ref joint.Pose.Orientation, out var jointTransform);
+                lineBatch.DrawAxis(jointTransform, joint.Radius * 2);
             }
         }
     }
 }
 ```
 
-### Render Hands
+### Detect a pinch from the joints
 
-Using the `XRDeviceRenderableModel` component, you can obtain a renderable model associated with an XR device. In the case of articulated hands, it provides a skinned mesh of the hand that follows the user's hand poses.
-
-> [!Note]
-> You can add an optional `MaterialComponent` to the entity to specify which material will be used to render the hand meshes. If this component is not provided, they will be rendered with the default material.
-
-<video width="512" height="512" autoplay loop><source src="images/renderhandsvideo.mp4" type="video/mp4"></video>
-
-#### Render Hands from code
-
-A small example that shows how to render both hands using the `XRDeviceRenderableModel` component:
+The pinch gesture of `ControllerState` needs a Meta extension. The joints alone are enough to detect it on any device with hand tracking:
 
 ```csharp
-protected override void CreateScene()
+using System;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.XR;
+using Evergine.Mathematics;
+
+public class PinchDetector : Behavior
 {
-    base.CreateScene();
+    [BindComponent]
+    private TrackXRArticulatedHand hand = null;
 
-    var material = this.Managers.AssetSceneManager
-        .Load<Material>(EvergineContneet.DefaultMaterialID); // The hand material
+    // Fingertips closer than this count as a pinch, in metres.
+    public float Threshold { get; set; } = 0.02f;
 
-    // Left hand
-    var leftHand = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new MaterialComponent() { Material = material })            
-        .AddComponent(new TrackXRArticulatedHand()
+    public bool IsPinching { get; private set; }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // Both joints come from the same hand, so tracking space is enough to compare them.
+        if (this.hand.TryGetArticulatedHandJointLocal(XRHandJointKind.ThumbTip, out var thumb) &&
+            this.hand.TryGetArticulatedHandJointLocal(XRHandJointKind.IndexTip, out var index))
         {
-            Handedness = XRHandedness.LeftHand // select the left hand
-        })
-        .AddComponent(new XRDeviceRenderableModel());
-
-    this.Managers.EntityManager.Add(leftHand);
-
-    // Right hand
-    var rightHand = new Entity()
-        .AddComponent(new Transform3D())
-        .AddComponent(new MaterialComponent() { Material = material })            
-        .AddComponent(new TrackXRArticulatedHand()
+            this.IsPinching = Vector3.Distance(thumb.Pose.Position, index.Pose.Position) < this.Threshold;
+        }
+        else
         {
-            Handedness = XRHandedness.RightHand // select the right hand
-        })
-        .AddComponent(new XRDeviceRenderableModel());
-
-    this.Managers.EntityManager.Add(rightHand);
+            this.IsPinching = false;
+        }
+    }
 }
 ```
+
+## Render the hands
+
+`XRDeviceRenderableModel` loads the 3D model the platform provides for a tracked device and adds it under the entity. Add it next to any tracking component:
+
+* With `TrackXRArticulatedHand` on Meta Quest, the model is a skinned hand mesh that follows the user's fingers. It needs `XR_FB_hand_tracking_mesh`.
+* With `TrackXRController` or `AdvancedTrackXRDevice` on [OpenVR](../openvr.md), the model is the SteamVR render model of the device.
+* OpenXR provides no controller models, so draw your own mesh for controllers there.
+
+<video autoplay loop muted playsinline width="512" height="512"><source src="images/renderhandsvideo.mp4" type="video/mp4"></video>
+
+![TrackXRArticulatedHand, MaterialComponent and XRDeviceRenderableModel in Evergine Studio](images/xrdevicerenderablemodel.png)
+
+| Member | Description |
+| --- | --- |
+| **RenderableEntity** | The entity created for the model, or `null` until it loads. The model loads asynchronously when the component starts, and again when the tracked device changes. |
+
+If the entity also has a `MaterialComponent`, its material replaces every material of the model. Without one, the model keeps the materials the platform gives it.
+
+```csharp
+using Evergine.Components.Graphics3D;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR;
+
+public class HandsScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        var material = this.Managers.AssetSceneManager.Load<Material>(DefaultResourcesIDs.DefaultMaterialID);
+
+        foreach (var handedness in new[] { XRHandedness.LeftHand, XRHandedness.RightHand })
+        {
+            var hand = new Entity($"{handedness}")
+                .AddComponent(new Transform3D())
+                // Optional: every material of the hand model is replaced by this one.
+                .AddComponent(new MaterialComponent() { Material = material })
+                .AddComponent(new TrackXRArticulatedHand() { Handedness = handedness })
+                .AddComponent(new XRDeviceRenderableModel());
+
+            this.Managers.EntityManager.Add(hand);
+        }
+    }
+}
+```
+
+## See also
+
+* [TrackXRController](trackxrcontroller.md): the controller state that hands also expose.
+* [Meta Quest](../openxr/metaquest.md#simultaneous-hands-and-controllers): tracking hands and controllers at the same time.

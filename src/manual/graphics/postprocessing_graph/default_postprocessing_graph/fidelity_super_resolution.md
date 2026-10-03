@@ -1,14 +1,18 @@
-# Fidelity Super Resolution
+# FidelityFX Super Resolution (FSR)
 
-**AMD FidelityFX Super Resolution (FSR)** uses cutting-edge upscaling technologies to help boost your framerates in select titles and deliver high-quality, high-resolution gaming experiences without having to upgrade to a new graphics card. More details [here](https://www.amd.com/en/technologies/radeon-software-fidelityfx-super-resolution).
+---
 
-This effect allows the scaling of a low-resolution image to the final resolution image, thereby improving the performance of your render. FSR supports 4 recommended configurations:
+![A frame rendered at lower resolution and upscaled with FSR](images/FSR.jpg)
 
-| FSR 1.0 quality mode | Description | Scale Factor | Input Resolution | Output Resolution | 
-| -------------------- | ----------- | ------------ | ---------------- | ----------------- |
-| **Ultra quality**    | Ultra quality mode produces an image with quality virtually indistinguishable from native rendering. It should be selected when the highest quality is desired. | 1.3x | 1477x831 <br> 1970x1108 <br> 2646x1108 <br> 2954x1662 | 1920x1080 <br> 2560x1440 <br> 3440x1440 <br> 3840x2160 |
-| **Quality**          | Quality mode produces a super resolution image with quality representative of native rendering, with a sizeable performance gain. | 1.5x | 1280x720 <br> 1706x960 <br> 2293x960 <br> 2560x1440 | 1920x1080 <br> 2560x1440 <br> 3440x1440 <br> 3840x2160 |
-| **Balanced**         | Balanced mode produces a super resolution image approximating native rendering quality, with a major performance gain compared to native. | 1.7x | 1129x635 <br> 1506x847 <br> 2024x847 <br> 2259x1270 | 1920x1080 <br> 2560x1440 <br> 3440x1440 <br> 3840x2160 |
-| **Performance**      | Performance mode visibly impacts image quality and should only be selected in situations where additional performance is critical. | 2.0x | 960x540 <br> 1280x720 <br> 1720x720 <br> 1920x1080 | 1920x1080 <br> 2560x1440 <br> 3440x1440 <br> 3840x2160 |
+**AMD FidelityFX Super Resolution** renders the scene at a lower resolution and upscales it to the output resolution with an edge-aware filter, then sharpens it. Rendering fewer pixels can raise the frame rate considerably, particularly in scenes limited by pixel shading, and the upscaled image looks much closer to native resolution than a plain stretch. See [AMD FidelityFX Super Resolution](https://gpuopen.com/fidelityfx-superresolution/) for details of the technique.
 
-![FSR](images/FSR.jpg)
+In the default graph, FSR renders at half the output width and height and upscales by 2x, so the scene is rendered with a quarter of the pixels. When the graph contains an FSR node, the camera renders into a lower-resolution intermediate buffer automatically; the scale comes from the `ScaleFactor` of the node's output.
+
+## Parameters
+
+| Parameter | Default | Description |
+| --- | --- | --- |
+| **Enabled** | Off | Turns the effect on. |
+
+> [!TIP]
+> Keep [Sharpen](sharpen.md) enabled with FSR to recover the detail lost in upscaling. To use a different scale, copy the default graph and change the scale factor of the FSR node's output in the [Post-Processing Graph Editor](../postprocessing_graph_editor.md).

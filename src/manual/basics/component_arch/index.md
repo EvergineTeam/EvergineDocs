@@ -1,51 +1,49 @@
 # Component-Based Architecture
+
 ---
+
 ![Component Based Architecture](images/component_based_arch.jpg)
 
-Evergine is based on entity-oriented programming. An [**Entity**](entities/index.md) is built of Components, where each component performs a specific piece of work and is reusable across other entities.
+Evergine is built on entities and components. An [**entity**](entities/index.md) is an object in a scene, and it gets all of its functionality from the [**components**](components/index.md) attached to it. Each component does one job, such as holding a position, drawing a mesh or moving a camera, and the same component can be reused on any entity that needs that job done.
 
-## Overview
-When creating applications in Evergine, you need to create objects to represent the entities in your scene, such as a car, a player, or sunlight.
+## Why Components
 
-### Traditional Deep Class Hierarchies
-When you first get started, you might think the most logical approach is to create a base class called `AppObject` or something similar that contains the common code. Then you can create subclasses like `Vehicle` with all common functionalities shared between all vehicles, and maybe subclasses for specific types (`Car`, `Motorbike`, `Train`, etc.).
+Every object in a scene needs some kind of code: a car, a player, the sun. A natural first idea is a class hierarchy, with a base class such as `AppObject` for common code, a `Vehicle` class under it, and `Car`, `Motorbike` or `Train` under that.
 
-For simple scenarios, this works quite well and is fairly easy to program. However, as your application grows larger and more complex, this architecture begins to cause some issues in practice:
-* Root classes tend to be heavier and it is difficult to split the functionality into separate subsystems.
-* Class inheritance may introduce odd scenarios. For instance, if we have created `GroundVehicle` and `WaterVehicle` base classes, which class should an `AmphibianVehicle` be derived from? If it is derived from `GroundVehicle`, all water functionalities would be missing, and the same issue arises if it is derived from `WaterVehicle`.
+This works for small projects, but it breaks down as they grow:
 
-![Class Inheritance Issue](images/class_inheritance_issue.png)
+* Base classes accumulate code that only some subclasses need, and they become hard to split into separate systems.
+* Some objects do not fit a single branch of the tree. If there are `GroundVehicle` and `WaterVehicle` classes, which one should an `AmphibianVehicle` derive from? Either choice leaves out half of what it needs.
 
-### Entities as an Aggregation of Components
+![A class hierarchy where AmphibianVehicle cannot derive from both GroundVehicle and WaterVehicle](images/class_inheritance_issue.png)
 
-To solve these issues, we have chosen the **aggregation of components** approach. In this approach, the functionality is separated into individual components that are mostly independent of one another. The old object hierarchy is replaced by an object (`Entity`) with a collection of independent components (derived from `Component`).
+Evergine uses **aggregation** instead. The `Entity` class has no behavior of its own, only a collection of independent components that derive from `Component`. An object gets exactly the features it needs by combining components, and a new feature is a new component rather than a change to a base class. The amphibian is an entity with a ground movement component and a water movement component.
 
-Each object now only has the functionality that it needs. Any distinct new functionality is implemented by adding a new component.
+## Entities and Components
 
-## Entity-Component Relationship
+**Entities** represent everything in a scene: characters, lights, models, cameras. An entity without components does nothing; it is not drawn and nothing interacts with it.
 
-**Entities** are the fundamental objects in Evergine that represent characters, lights, models, and so on. An Entity without any Component has no functionality (nothing will be rendered or interacted with).
+What an entity is depends on its components. Add a `Camera3D` and it becomes a camera; add a mesh, a material and a `MeshRenderer` and it becomes a visible model.
 
-To give an Entity the properties it needs to become a Light, a Model, or a Camera, you need to add **Components** to it, depending on the type of object you wish to create.
+### Scene Managers and Components
 
-### SceneManagers and Components
+A **scene** has a set of subsystems called [**scene managers**](../scenes/scenemanagers.md). Each one runs one aspect of the scene for all entities at once: the `RenderManager` draws the scene, the `BehaviorManager` updates every behavior, the `PhysicsManager` runs the physics simulation, and so on.
 
-In Evergine, a **Scene** has several subsystems (called **SceneManagers**). Every SceneManager controls different aspects of the scene (for example: `RenderManager` to render and draw the scene, `BehaviorManager` to update all Behaviors, `PhysicsManager` to perform Physics simulations, and so on).
-
-With the Component architecture, every component is responsible for registering itself into the associated SceneManager, allowing these SceneManagers to have the scope of Components in which they are interested and ignore the rest.
+Components register themselves with the scene managers that need them when they are attached. That way, every scene manager only sees the components it cares about and can ignore the rest.
 
 > [!NOTE]
 > For instance: Every physics-related component (RigidBody, BoxCollider, etc.) is internally registered into the PhysicsManager when an Entity is spawned into the scene. This allows PhysicsManager to gather and control all the physics information in the scene.
 
-### Summary Diagram
+### The Whole Picture
 
-A **Scene** is composed of several [**Entities**](entities/index.md). Each one has a collection of Components that give it the required functionality or data. Every component may be registered into the different **SceneManagers** of the Scene.
+A **scene** contains [**entities**](entities/index.md). Each entity has a collection of components that give it its data and functionality, and each component can be registered with one or more **scene managers** of the scene:
 
-The following diagram provides an overview of this:
+![Five entities with their components, and the scene managers each component registers with](images/component_arch.png)
 
-![Component Based Architecture](images/component_arch.png)
+*Read the diagram by columns to see what each entity is made of, and by rows to see which components each scene manager drives.*
 
 ## In This Section
+
 * [Entities](entities/index.md)
 * [Components](components/index.md)
 * [Prefabs](prefabs/index.md)

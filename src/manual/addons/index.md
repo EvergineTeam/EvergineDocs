@@ -2,11 +2,98 @@
 
 ---
 
-Add-ons are **Evergine** packages that add specific functionalities and assets to your project. They are meant to resolve some key issues that companies face when they create industrial 3D applications using their common resources.
+Add-ons are Evergine packages that bring a complete feature to your project: assets, prefabs, components, behaviors, effects, and the NuGet packages that implement them. You install them from Evergine Studio, and their assets appear in your project as read-only dependencies that you can use like your own.
 
-They may contain assets, prefabs, behaviors, components, and NuGet packages that will be incorporated into your project after installation.
+The Evergine team publishes add-ons for extended reality, medical imaging, geospatial data, point clouds, and Gaussian Splatting. You can also consume add-ons from your own private or nightly sources.
 
-## Available Add-ons
+## Available add-ons
+
+| Add-on | Package | What it is for | Platforms |
+| --- | --- | --- | --- |
+| [MRTK](mrtk/index.md) | `Evergine.MRTK` | Hand and controller pointers, pressable buttons, sliders, bounding boxes, and XR user controls. | Meta Quest, Pico, Windows (OpenXR, OpenVR, or mouse and keyboard emulation) |
+| [XRV](xrv/index.md) | `Evergine.Xrv.Core` and one package per module | An application framework built on MRTK: hand menu, floating windows, settings, help, themes, localization, and ready-made modules. | Meta Quest, Pico, Windows (for development) |
+| [Gaussian Splatting](gaussiansplatting/index.md) | `Evergine.GaussianSplatting` | Load and render 3D Gaussian Splatting scenes (`.ply`, `.splat`, `.spz`, `.ksplat`, `.sog`, LCC). | Windows, Android, iOS, Web (WebGL and WebGPU) |
+| [DICOM](dicom/index.md) | `Evergine.Dicom` | Load DICOM medical image series and render them as 2D slices or as a 3D volume. | Windows, Web |
+| [Point Cloud](pointcloud/index.md) | `Evergine.PointCloud` | Stream and render massive point clouds (E57, LAS, LAZ, PCD, EPC) with a progressive GPU render path. | Windows |
+| [Cesium](cesium/index.md) | `Evergine.Cesium` | Stream Cesium ion terrain, 3D buildings, and imagery, and place entities at geodetic coordinates. | Windows |
+
+## Add-ons in Evergine Studio
+
+The **Dependencies** node of the **Project Explorer** lists the add-ons installed in your project. Each add-on shows its assets in its own folder, so you can drag its prefabs, materials, and other assets into your scenes.
+
+![Add-ons listed under Dependencies in the Project Explorer](images/mrtk_package.png)
+
+## Add-ons Manager
+
+The **Add-ons Manager** installs, updates, and removes add-ons. It lives in the **Add-Ons** tab of [Project Settings](../evergine_studio/settings.md), and you can open it in three ways:
+
+1. From the **File** menu, select **Manage dependencies**.
+2. In the **Project Explorer**, right-click the **Dependencies** node and select **Manage dependencies**.
+3. Open **Project Settings** and select the **Add-Ons** tab.
+
+![The Add-Ons tab of Project Settings with Evergine.GaussianSplatting selected](images/addons_manager.png)
+
+The manager has two tabs: **Browse** lists every add-on available in the configured sources, and **Installed** lists the add-ons your project uses. Above the tabs you find:
+
+* A search box that filters by name and tags.
+* A **Source** selector that limits the results to one package source.
+
+Each item in the list shows the add-on name, icon, and description, and:
+
+* A badge under the icon: a green tick when you use the latest version, or a blue arrow when a newer version is available.
+* The latest available version and, if the add-on is installed, the installed version. When both match, a single label is shown.
+* Buttons to install the latest version or remove the add-on, which appear when you move the mouse over the item.
+
+![Add-on items with their version labels and badges](images/packageinfo.png)
+
+Select an item to open its detail view. From there you can install or uninstall the add-on, or pick a specific version to install.
+
+![Add-on detail view with the version selector and NuGet dependencies](images/package_manager.png)
+
+The **NuGet deps** section lists the minimum versions of the engine packages and third-party NuGet packages that the add-on needs:
+
+* Engine package versions must be aligned across your project. If an add-on requires a newer engine version than the one you use, Evergine Studio schedules a project restart to update it.
+* Third-party NuGet packages with an explicit version are added or updated automatically when you install the add-on.
+* NuGet packages listed without a version number are not added for you. Add them to your projects manually.
+
+Core add-ons such as `Evergine.Core` show a lock icon. You cannot remove or update them from the manager; Evergine Launcher updates them when you update the project's Evergine version.
+
+![A core add-on with the lock icon and the disclaimer in the detail view](images/package_manager_protected.png)
+
+## Private and nightly add-on sources
+
+The public source contains the add-ons published by the Evergine team. Evergine can also read add-ons from your own sources: a local folder or an Azure Storage container. Use them to test nightly builds or to distribute internal add-ons that are not published.
+
+Sources are declared in an `Evergine.config` file placed next to your project's `.weproj` file. You can write it by hand or add entries with the `sources add <name> <uri>` command of the Evergine project CLI.
+
+```json
+{
+  "Sources": {
+    "evergine-nightly": "https://everginestudio.blob.core.windows.net/nightly",
+    "local-repo": "C:/EvergineFeeds/local"
+  }
+}
+```
+
+- **Name** (the key): any unique name. The Add-ons Manager shows it in the **Source** selector.
+- **URI** (the value): an absolute local folder path or an Azure Storage container URL. Append a SAS token to the URL if the container requires authentication.
+
+> [!IMPORTANT]
+> Local folders must be absolute paths. A relative path is interpreted as a storage URL and the source fails to load.
+
+## Customize add-on assets
+
+Assets that come from an add-on are read-only. The Project Explorer marks them with a lock icon: ![lock icon](images/locked_icon.png)
+
+You can still edit one. When you save a modified add-on asset, Evergine Studio asks whether you want to create a copy of it in your project:
+
+![Dialog that offers to copy a locked add-on asset into the project](images/package_locked_save.png)
+
+The copy is stored in your project folder and overrides the asset provided by the add-on. This lets you adapt Evergine core assets, or any add-on asset, to your application without changing the package.
+
+![An add-on asset overridden by a local copy](images/asset_edit.png)
+
+## In this section
 
 * [MRTK](mrtk/index.md)
 * [XRV](xrv/index.md)
@@ -14,83 +101,3 @@ They may contain assets, prefabs, behaviors, components, and NuGet packages that
 * [DICOM](dicom/index.md)
 * [Point Cloud](pointcloud/index.md)
 * [Cesium](cesium/index.md)
-
-## Add-ons in Evergine Studio
-
-To check which packages are installed in your application, you just need to look at the Project Explorer tab in Evergine Studio and inspect the **Dependencies** section:
-
-![packages in evergine studio](Images/mrtk_package.png)
-
-## Add-ons Manager
-
-The **Add-ons Manager** helps you install new add-ons. There are three possibilities to open it:
-
-1. Use the **File** menu, where you will find a new *Manage dependencies* menu item.  
-2. Under the **Assets Explorer**, there is a node named *Dependencies*. Right-clicking on that will show a context menu with a menu entry with the same name as mentioned above.  
-3. Access **Project Settings**; there are now two tabs: one for project profiles and another for project add-ons.
-
-![Graphics](images/ui.png)
-
-The manager contains two tabs: **Browse**, where you can find all available add-ons, and **Installed**, where you can check all add-ons currently in use in your project. Both tabs contain a similar user interface. Above those tabs, you will find a search area:
-
-* Text search to filter results by name and tags.  
-* Source selector to limit results to a specific package source.
-
-Depending on the search criteria, the number of displayed add-ons may vary. Each add-on item within the list displays the following information:
-
-* Name, icon, and description.  
-* Under the icon, in the bottom left corner, it will display a tick inside a green circle if you are already using the latest available version, or an arrow inside a blue circle if you are using that add-on but there is a newer version available.  
-* In the top right corner, you will find the latest available version vs. the installed version (if any). For those add-ons whose latest version is already in use, a single version label is displayed.  
-* Also, if you move your mouse over the list items, some buttons to install the latest add-on version or remove an add-on should appear.
-
-![Graphics](images/packageinfo.png)
-
-When selecting an item in the list, a detail view is loaded with all the information related to an add-on. There, you can also install or uninstall the add-on, and you are even able to install a specific version.  
-Note the **NuGet dependencies** section, which indicates the minimal versions of the engine and/or third-party NuGet packages. As it is mandatory to have aligned versions of the engine packages, if you try to install an add-on with an engine dependency higher than the one you are using, a project restart will be required and automatically scheduled.
-
-For add-ons whose NuGet dependencies are not expressed as explicit version numbers, you should install those packages manually. On the other hand, for third-party NuGet dependencies with explicit version numbers, they will be added or updated automatically once the package is added.
-
----
-
-## Private and Nightly Add-ons Sources
-
-Evergine also supports referencing **add-ons from custom sources**, such as local folders or private Azure Storage accounts. This allows you to work with **nightly builds** or **internal add-ons** not published in the public feed.
-
-To enable this, create an **_evergine.config_** file at the same level as your project file.  
-You can create it manually or use the `sources add` command from the CLI tool.
-
-```json
-{
-  "Sources": {
-    // format: "<repository-name>": "<path-or-storage-account-url>"
-    "evergine-nightly": "https://everginestudio.blob.core.windows.net/nightly",
-    "local-repo": "local/feed"
-  }
-}
-```
-
-- **Repository name:** any custom name to identify your repository in the Add-ons Manager.  
-- **Path or storage URL:** can be a local folder path (currently must be **absolute** due to a known issue) or an Azure Storage container URL.  
-  You can include a **SAS token** if your container requires authentication.
-
----
-
-## Customize Assets
-
-By default, all assets included in a package cannot be modified. This is indicated by this lock icon:  
-![lock icon](Images/locked_icon.png)
-
-However, you can modify an asset included in the package. When you modify a package asset and try to save it, the following message appears, asking if you want to create a new copy of this asset in your project:
-
-![confirm](Images/package_locked_save.png)
-
-A new copy of the asset will be created in your local project folder, overwriting the one provided by the package. By doing this, you can modify or adapt **Evergine** core assets to your application requirements.
-
-![Asset customization](Images/asset_edit.png)
-
----
-
-## Develop New Add-ons
-
-The ability to include new add-ons from external companies will be available in future releases.  
-For now, only add-ons created by the **Evergine Team** can be installed through **Evergine Studio**.

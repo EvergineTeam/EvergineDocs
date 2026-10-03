@@ -16,7 +16,7 @@ Everything lives in the `Evergine.Framework.Physics` namespace and ships with `E
 | Concept | What it is |
 | --- | --- |
 | **Physics world** | One [`PhysicsManager`](physics_manager.md) per scene. It owns gravity, the fixed time step, the collision matrix and every query. |
-| **Body** | A [`RigidBody`](physics_bodies/rigid_body.md) turns an entity into something the simulation moves. Static, kinematic and dynamic bodies are all the same component with a different `BodyType`. |
+| **Body** | A [physics body](physics_bodies/index.md) turns an entity into something the simulation knows about. A [`RigidBody`](physics_bodies/rigid_body.md) moves, either simulated or driven by code with `IsKinematic`; a [`StaticBody`](physics_bodies/static_body.md) never moves. Both share the `PhysicsBody` base class. |
 | **Collider** | A [`Collider`](colliders/index.md) gives a body its shape. A body collects the colliders on its own entity *and on its descendants*, so a compound shape is just a hierarchy. |
 | **Constraint** | A [`Constraint`](constraints/index.md) ties two bodies together: a hinge, a slider, a rope, a gear train. |
 | **Category** | Every body belongs to one of 32 [collision categories](collision_filtering.md), and a matrix on the world says which pairs of categories touch. |

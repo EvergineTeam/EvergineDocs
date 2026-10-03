@@ -1,37 +1,41 @@
 # Import a Texture
 
-![Drag and Drop Asset](../../evergine_studio/assets/Images/importAssets.jpg)
+---
 
-In **Evergine Studio**, importing an image file will create a **Texture** asset, as explained [in this article](../../evergine_studio/assets/create.md).
+![Dragging image files into the Assets Details panel](../../evergine_studio/assets/Images/importAssets.jpg)
 
-## Inspect Textures in Asset Details
-You can find the texture assets in the Asset Details panel when you select a folder in the Project Explorer.
+In Evergine Studio, importing an image file creates a **texture** asset, as explained in [Create Assets](../../evergine_studio/assets/create.md). Drag the file into the **Assets Details** panel or copy it into the project's `Content` folder.
 
-![Texture view](Images/textureAssetDetail.png)
+## Textures in Assets Details
 
-## Texture Files in Content Directory
+Texture assets appear in the Assets Details panel when you select their folder in the Project Explorer.
 
-**Textures** imported into **Evergine** create an additional metadata `.wetx` file.
+![Texture assets in Assets Details](Images/textureAssetDetail.png)
 
-![Texture view](Images/textureFiles.png)
+## Texture files in the Content folder
 
-## Supported Formats:
-**Evergine** supports the following image formats:
+Each imported image gets a metadata file with the `.wetx` extension next to it, which stores the texture's import settings.
 
-| Extension | Compression | Alpha | Bits per pixel | Supported texture types | 
-| ----| ----| ---- | ---- | ---- |
-| `.jpg`, `jpeg` | Lossy compression. Configurable | No | 24 | Texture2D |
-| `.png` | Lossless compression | Yes | 8, 24, 48 | Texture2D |
-| `.bmp` | No compression | Yes (not common) | 24 | Texture2D |
-| `.gif` | Indexed colors | Yes | 8 | Texture2D |
-| `.tga` | No | Yes | 32 | Texture2D |
-| `.hdr` | No | No | 48 or 96 (high dynamic range) | Texture2D |
-| `.dds` | Yes (S3, DXT1, DXT3, DXT5) | Yes | Multiple | Texture2D, Texture2DArray, Texture1D, Texture1DArray, TextureCube, TextureCubeArray, Texture3D |
-| `.ktx` | Yes (ETC1S) | Yes | Multiple | Texture2D, Texture2DArray, Texture1D, Texture1DArray, TextureCube, TextureCubeArray, Texture3D |
+![Texture files in the Content folder](Images/textureFiles.png)
 
-## Sampler State Association
-A **Texture** graphic resource needs a **Sampler State** asset for proper filtering. That's why the **Texture** asset contains a reference to a **Sampler State** in your project.
+## Supported formats
 
-![Texture Sampler](Images/textureSampler.png)
+| Extension | Compression | Alpha | Texture types |
+| --- | --- | --- | --- |
+| `.jpg`, `.jpeg` | Lossy | No | Texture2D |
+| `.png` | Lossless | Yes | Texture2D |
+| `.webp` | Lossy or lossless | Yes | Texture2D |
+| `.bmp` | None | Rarely | Texture2D |
+| `.tga` | None or RLE | Yes | Texture2D |
+| `.hdr` | RLE, floating point | No | Texture2D |
+| `.dds` | Block compression (BC1 to BC7) or none | Yes | All |
+| `.ktx`, `.ktx2` | GPU compressed formats or none | Yes | All |
 
-This way, the Texture has a default **Sampler State** associated. **Evergine** will automatically use it.
+> [!TIP]
+> Each [profile](../../evergine_studio/settings/project_profiles.md) sets the compressed formats its platform prefers (for example BC3 on Windows and ETC on Android), and the [Texture Editor](texture_editor.md) lets you override the pixel format per profile.
+
+## Sampler
+
+A texture asset references a [sampler](../samplers.md) asset, which says how it is filtered and wrapped by default. Change it in the Texture Editor; materials can still use a different sampler for the same texture.
+
+![The sampler of a texture](Images/textureSampler.png)

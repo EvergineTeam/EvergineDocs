@@ -1,39 +1,39 @@
-# XRV Modules
+# XRV modules
 
 ---
 
-This is the list of our current public modules. You can see them working by running our [public XRV sample](https://github.com/EvergineTeam/XRVSample).
+Modules are reusable features that plug into XRV. Each one is an [Evergine add-on](../../index.md) that you install from the Add-ons Manager and then register in your `XrvService` with `AddModule`. A module can add a button to the [hand menu](../hand_menu.md), tabs to the [settings](../settings_system.md) and [help](../help_system.md) windows, and its own windows and entities. The [XRV samples](https://github.com/EvergineTeam/XRV/tree/develop/samples) project runs all the public modules together.
 
-## [Image Gallery](imageGallery/index.md)
+```csharp
+var xrv = new XrvService()
+    .AddModule(new RulerModule())
+    .AddModule(new PainterModule());
+```
 
-With this module, you can display images in XR space without any limitation on their number. Images will be displayed one by one.
+| Module | Add-on | What it does |
+| --- | --- | --- |
+| [Image Gallery](imageGallery/index.md) | `Evergine.Xrv.ImageGallery` | Shows images from a storage repository, one at a time. |
+| [Model Viewer](modelViewer/index.md) | `Evergine.Xrv.ModelViewer` | Loads 3D models from storage repositories and lets the user move, rotate, and scale them. |
+| [Painter](painter/index.md) | `Evergine.Xrv.Painter` | Draws 3D lines in space with different colors and thicknesses. |
+| [Ruler](ruler/index.md) | `Evergine.Xrv.Ruler` | Measures the distance between two points. |
+| [Streaming Viewer](streamingviewer/index.md) | `Evergine.Xrv.StreamingViewer` | Shows a video stream from an MJPEG source, such as an IP camera. |
+| Audio Notes | `Evergine.Xrv.AudioNotes` | Records audio notes and plays them back. |
 
-![Image gallery sample](imageGallery/images/snapshot.png)
+|<img alt="Image Gallery" src="imageGallery/images/snapshot.png" height="180">|<img alt="Model Viewer" src="modelViewer/images/snapshot2.png" height="180">|<img alt="Painter" src="painter/images/snapshot2.png" height="180">|
+|:--:|:--:|:--:|
+| **Image Gallery** | **Model Viewer** | **Painter** |
+|<img alt="Ruler" src="ruler/images/snapshot.png" height="180">|<img alt="Streaming Viewer" src="streamingviewer/images/snapshot.png" height="180">| |
+| **Ruler** | **Streaming Viewer** | |
 
-## [Model Viewer](modelViewer/index.md)
+## Custom modules
 
-This module lets you load 3D models from different sources. Once loaded, you can scale and move them. You also have a menu with more features.
+If your application has specific needs, [create your own module](customModule/index.md) and reuse it in several applications.
 
-![Model viewer sample](modelViewer/images/snapshot2.png)
+## In this section
 
-## [Painter](painter/index.md)
-
-This module allows you to draw lines in XR space to help you emphasize something specific. You can choose from different colors and thicknesses.
-
-![Painter sample](painter/images/snapshot2.png)
-
-## [Ruler](ruler/index.md)
-
-With this module, you can take measurements from any object present in XR space. Move handlers to obtain a precise measurement between two points.
-
-![Ruler sample](ruler/images/snapshot.png)
-
-## [Streaming Viewer](streamingviewer/index.md)
-
-This module loads a panel with video images served by an IP camera.
-
-![Streaming viewer sample](streamingviewer/images/snapshot.png)
-
-## [Create Your Own Custom Module](customModule/index.md)
-
-If you have specific requirements for your application, you can create a custom module that you can reuse in multiple applications.
+- [Image Gallery](imageGallery/index.md)
+- [Model Viewer](modelViewer/index.md)
+- [Painter](painter/index.md)
+- [Ruler](ruler/index.md)
+- [Streaming Viewer](streamingviewer/index.md)
+- [Custom modules](customModule/index.md)

@@ -1,18 +1,58 @@
 # CheckBox
 
-The _Checkbox_ user control provides a simple way for users to make binary choices (checked or unchecked) within an interface. It is typically used in forms or settings where users need to indicate agreement, preference, or selection of options. The checkbox state is visually represented by a filled or empty box, which can be toggled by clicking or tapping on it. This control is available as the _CheckBox.weprefab_ prefab in MRTK
+---
 
 ![CheckBox](images/checkbox.png)
 
-## Configuration Properties
+The `CheckBox` control lets the user make an on or off choice, such as accepting a condition or enabling a setting. It shows a box that is filled when checked and empty when unchecked, and it toggles when the user taps it. Internally it is a toggle button, so it reacts to near and far interaction like the other MRTK buttons.
 
-| Property     | Description                                                                                |
-|--------------|--------------------------------------------------------------------------------------------|
-| `Size`       | Sets checkbox dimensions.                                                                  |
-| `IsChecked`  | Gets or sets a value indicating whether the checkbox is checked.                           |
+The control is distributed as the `CheckBox.weprefab` prefab.
+
+## Usage
+
+```csharp
+using System;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.MRTK.SDK.Features.UX.Components.Selection;
+
+public class GridToggle : Component
+{
+    [BindComponent(source: BindComponentSource.Children)]
+    private CheckBox checkBox = null;
+
+    [BindComponent(source: BindComponentSource.Scene, tag: "Grid")]
+    private Transform3D grid = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+        this.checkBox.IsCheckedChanged += this.OnIsCheckedChanged;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+        this.checkBox.IsCheckedChanged -= this.OnIsCheckedChanged;
+    }
+
+    private void OnIsCheckedChanged(object sender, EventArgs e)
+    {
+        // Show the grid entity only while the box is checked.
+        this.grid.Owner.IsEnabled = this.checkBox.IsChecked;
+    }
+}
+```
+
+## Properties
+
+| Property | Default | Description |
+| --- | --- | --- |
+| `Size` | `(0.064, 0.032)` | Width and height of the control, in meters. |
+| `IsChecked` | `false` | Whether the box is checked. Setting it from code updates the control. |
 
 ## Events
 
-| Event              | Description                                  |
-|--------------------|----------------------------------------------|
-| `IsCheckedChanged` | Raised when the checkbox state changes.      |
+| Event | Description |
+| --- | --- |
+| `IsCheckedChanged` | Raised when the user toggles the check box. |

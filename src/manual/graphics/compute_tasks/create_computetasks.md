@@ -1,16 +1,19 @@
 # Create Compute Tasks
 
-**Compute Tasks** allow running tasks on the GPU. Compute tasks are associated with a compute effect. This is very useful to improve the performance of tasks that run slowly on the CPU.
+---
+
+A **compute task** runs a compute effect on the GPU. Use one for work that is massively parallel and slow on the CPU: image filters, simulations, procedural data.
 
 ## Compute Effect
-Before creating a compute task, you need to create a compute effect from the Assets Details panel and code the task using the [HLSL](https://docs.microsoft.com/en-us/windows/win32/direct3d11/direct3d-11-advanced-stages-compute-shader) language.
+
+First create a compute effect from the **Assets Details** panel (**Create effect > Compute Effect**) and write the compute shader in HLSL.
 
 ![Create compute effect](images/CreateComputeEffect.jpg)
 
 ### Example
-This is an example of a compute task. In this case, the compute task applies a grayscale filter to the input texture and stores the result in an output texture. In [Create Effects](../effects/create_effects.md) you will find the structure of this code.
+This compute effect converts the input texture to grayscale and writes the result to an output texture. [Create Effects](../effects/create_effects.md) explains the structure of the file.
 
-```csharp
+```hlsl
 [Begin_ResourceLayout]
 
     Texture2D Input             : register(t0);
@@ -33,71 +36,89 @@ This is an example of a compute task. In this case, the compute task applies a g
 
 [End_Pass]
 ```
+The pass name, `Grayscale`, is how you select it when you run the task. `[numthreads(8, 8, 1)]` sets the thread group size, which must match the group size you pass to `Run2D`.
+
 ## ComputeTask Decorator
 
-To use a compute task from code, you need a compute effect and the compute task decorator associated with it. You can generate the compute task decorator from the [Effect Editor](../effects/effect_editor.md).
+From code you work with the compute task through a **decorator**: a generated class with one property per resource of the effect. Generate it from the [Effect Editor](../effects/effect_editor.md).
 
 ![Compute task decorator](images/computeTaskDecoratorIcon.jpg)
 
 ## Create a new ComputeTask from code
-The following sample code can be used to create a new `ComputeTask` and run it in your scene. The example assumes that you have a compute effect `GPUFilter` and its compute task decorator created.
+
+This scene runs the `GPUFilter` compute effect above through its generated `GPUFilter` decorator, and shows the result on a spinning cube.
 
 ```csharp
-protected override void CreateScene()
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class ComputeScene : Scene
 {
-    var graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
-    var assetsService = Application.Current.Container.Resolve<AssetsService>();
-
-    // Load input texture
-    Texture inputTexture = assetsService.Load<Texture>(EvergineContent.Textures.lena_png);
-    uint width = inputTexture.Description.Width;
-    uint height = inputTexture.Description.Height;
-
-    // Create output texture
-    var outputTextureDesc = new TextureDescription()
+    protected override void CreateScene()
     {
-        Type = TextureType.Texture2D,
-        Usage = ResourceUsage.Default,
-        Flags = TextureFlags.UnorderedAccess | TextureFlags.ShaderResource,
-        Format = PixelFormat.R8G8B8A8_UNorm,
-        Width = width,
-        Height = height,
-        Depth = 1,
-        MipLevels = 1,
-        Layers = 1,
-        CpuAccess = ResourceCpuAccess.None,
-        SampleCount = TextureSampleCount.None,
-    };
-    Texture outputTexture = graphicsContext.Factory.CreateTexture(ref outputTextureDesc);
+        var graphicsContext = Application.Current.Container.Resolve<GraphicsContext>();
+        var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
-    // Load compute effect
-    Effect computeEffect = assetsService.Load<Effect>(EvergineContent.Effects.GPUFilter);
+        Texture inputTexture = assetsService.Load<Texture>(EvergineContent.Textures.lena_png);
+        uint width = inputTexture.Description.Width;
+        uint height = inputTexture.Description.Height;
 
-    // Create compute task decorator
-    GPUFilter task = new GPUFilter(computeEffect);
-    task.Input = inputTexture;
-    task.Output = outputTexture;
+        // UnorderedAccess lets the compute shader write it; ShaderResource lets the material read it.
+        var outputTextureDesc = new TextureDescription()
+        {
+            Type = TextureType.Texture2D,
+            Usage = ResourceUsage.Default,
+            Flags = TextureFlags.UnorderedAccess | TextureFlags.ShaderResource,
+            Format = PixelFormat.R8G8B8A8_UNorm,
+            Width = width,
+            Height = height,
+            Depth = 1,
+            MipLevels = 1,
+            ArraySize = 1,
+            CpuAccess = ResourceCpuAccess.None,
+            SampleCount = TextureSampleCount.None,
+        };
+        Texture outputTexture = graphicsContext.Factory.CreateTexture(ref outputTextureDesc);
 
-    task.Run2D(width, height, pass: "Grayscale");
+        Effect computeEffect = assetsService.Load<Effect>(EvergineContent.Effects.GPUFilter);
 
-    // Load the Material and apply output texture.
-    Material material = assetsService.Load<Material>(EvergineContent.Materials.DefaultMaterial);
-    StandardMaterial standardMaterial = new StandardMaterial(material);
-    standardMaterial.BaseColorTexture = outputTexture;
+        var task = new GPUFilter(computeEffect)
+        {
+            Input = inputTexture,
+            Output = outputTexture,
+        };
 
-    // Apply to an entity
-    Entity primitive = new Entity()
+        // One thread per pixel, in 8x8 groups to match [numthreads(8, 8, 1)].
+        task.Run2D(width, height, pass: "Grayscale");
+
+        var material = new StandardMaterial(assetsService.Load<Effect>(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assetsService.Load<RenderLayerDescription>(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorTexture = outputTexture,
+            BaseColorSampler = assetsService.Load<SamplerState>(DefaultResourcesIDs.LinearClampSamplerID),
+        };
+
+        Entity cube = new Entity("filteredCube")
             .AddComponent(new Transform3D())
-            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new MaterialComponent() { Material = material.Material })
             .AddComponent(new CubeMesh())
             .AddComponent(new Spinner() { AxisIncrease = new Vector3(0.1f, 0.2f, 0.3f) })
             .AddComponent(new MeshRenderer());
 
-    this.Managers.EntityManager.Add(primitive);
-
+        this.Managers.EntityManager.Add(cube);
+    }
 }
 ```
 
-The result of the above code is:
+The result:
 
-![GPU Filter result](images/GPUFilter.jpg)
+![A spinning cube textured with the grayscale output of the compute task](images/GPUFilter.jpg)
+
+> [!NOTE]
+> The overloads without a `CommandBuffer` record the dispatch, submit it to the compute queue and wait until the GPU finishes. That is simple for one-off work at load time. For work that repeats every frame, pass your own command buffer so the dispatch runs with the rest of the frame instead of stalling it.

@@ -1,13 +1,16 @@
-# User controls
+# Built-in user controls
 
-The MRTK includes a set of prebuilt user controls, designed from our experience in XR projects to support essential UI layouts and data display in mixed reality applications. Below is a summary of the available controls:
+---
 
-- [Scroll View](scrollview.md): A scrollable container for navigating larger content sections within limited space. Supports vertical scrolling.
+![List view](images/listview.png)
 
-- [List View](listview.md): A structured, interactive list format ideal for displaying collections of items with information such as names, descriptions, or images.
+MRTK includes a set of user controls for common UI layouts in XR applications: scrollable panels, lists, drop-down selectors, and check boxes. They come from our experience building XR projects, and each one is distributed as a prefab under **Dependencies > Evergine.MRTK > MRTK > Prefabs**, so you add them to a scene like any other prefab and configure them from Evergine Studio or from code.
 
-- [ComboBox](combobox.md): A dropdown list for selecting from multiple options, configurable for various layout needs. This control allows intuitive data selection without cluttering the UI.
+All the controls live in the `Evergine.MRTK.SDK.Features.UX.Components` namespace family: `Scrolling` for the scroll view, `Lists` for the list view and data adapters, and `Selection` for the combo box and check box.
 
-- [CheckBox](checkbox.md): A binary selection control that provides visual feedback for checked and unchecked states, useful for quick toggles or setting options.
+## In this section
 
-Each control has its own dedicated page with further details on setup, customization, and integration into your MRTK project.
+* [Scroll view](scrollview.md): a panel that scrolls content larger than its visible area, vertically, horizontally, or both.
+* [List view](listview.md): rows and columns of data populated through data adapters, with selection and custom cell renderers.
+* [ComboBox](combobox.md): a drop-down list to pick one item among several.
+* [CheckBox](checkbox.md): a two-state control for on and off choices.

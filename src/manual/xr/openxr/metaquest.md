@@ -1,57 +1,110 @@
 # Meta Quest
 
-![Meta Quest](images/metaquest.png)
+![Meta Quest headset](images/metaquest.png)
 
-The Oculus Quest device is now called Meta Quest following the latest announcement from Facebook. This is the most popular VR headset currently, with about 10 million units of the newest Quest 2 device sold.
+Meta Quest headsets are standalone Android devices with inside-out tracking, Touch controllers and hand tracking. Evergine targets them through [OpenXR](openxr_platform.md), with Vulkan as the graphics backend, and adds the Meta extensions for hand meshes, pinch gestures, [passthrough](../passthrough.md) and simultaneous hands and controllers.
 
-Thanks to the OpenXR standard, the latest version of Evergine allows you to deploy your VR applications on Meta Quest devices.
+## Create a Meta Quest project
 
-For maximum performance and to support future graphics features, we use Vulkan as the only Graphics API on this Android-based platform.
+Select the **Android Meta Quest (OpenXR)** template when you create a project:
 
-## Create a Meta Quest Template
+![The Android Meta Quest template in the new project dialog](images/openxr_template.png)
 
-To start developing your Evergine project with Meta Quest, simply select the Android Meta Quest template when creating an Evergine project:
+To add Meta Quest to an existing project, open **Project Settings**, add a profile and choose the same template. The profile is named **Quest** by default.
 
-![Meta Quest template](images/openxr_template.png)
+![Adding the Meta Quest profile in Project Settings](images/openxr_addprofile.png)
 
-Alternatively, if you have already created an Evergine project, you can add the Meta Quest profile in the Project Settings:
+![The four steps from choosing a profile to running the frame loop](images/openxr_project_setup.png)
 
-![Meta Quest add profile](images/openxr_addprofile.png)
+*The profile adds a launcher project. Everything headset-specific is in it, and the scene is shared with the other profiles.*
 
-## Meta Quest optional extensions
+## What the template contains
 
-Evergine supports the following Meta Quest extensions for OpenXR, and you need to take some actions in order to enable these extensions.
+| File | Purpose |
+| --- | --- |
+| `MainActivity.cs` | Creates the Vulkan graphics context with the multiview and external memory extensions OpenXR needs, creates and registers `OpenXRPlatform`, and runs the frame loop. |
+| `AndroidManifest.xml` | Declares a VR-only application (`com.oculus.intent.category.VR`), the head tracking and hand tracking features, and the hand tracking permission. |
+| `*.csproj` | References `Evergine.OpenXR` and `Evergine.OpenXR.Natives.Quest`, the Meta OpenXR loader. |
+
+The template creates the platform with hand tracking, the Meta hand gestures and hand meshes already enabled, and with the Touch controller profile:
+
+```csharp
+openXRPlatform = new OpenXRPlatform(
+    new string[]
+    {
+            "XR_EXT_hand_tracking",         // Enable hand tracking in OpenXR application
+            "XR_FB_hand_tracking_aim",      // Allow to use hand gestures in Meta Quest devices
+            "XR_FB_hand_tracking_mesh",     // Obtain hand mesh in Meta Quest devices
+
+        // "XR_FB_passthrough",         // Enable Passthrough in Meta Quest devices
+        // "XR_FB_triangle_mesh",       // Allow to project Passthrough on Meshes
+
+        // "XR_META_simultaneous_hands_and_controllers", // Allow to use hands and controllers simultaneously
+    },
+    new OpenXRInteractionProfile[]
+    {
+            DefaultInteractionProfiles.OculusTouchProfile
+    })
+{
+    // UseSimultaneousHandsAndControllers = true, // Enable using simultaneously the hands and controllers
+    RenderMirrorTexture = false,
+    ReferenceSpace = ReferenceSpaceType.Stage,
+    MirrorDisplay = mirrorDisplay,
+};
+```
+
+`RenderMirrorTexture` is `false` because nothing shows the Android surface while the headset is on, so copying the image there would only cost GPU time.
+
+## Run on the headset
+
+1. Enable developer mode on the headset. Meta does this from the Meta Horizon app on the phone paired with it.
+2. Connect the headset to the PC with a USB cable and accept the USB debugging prompt inside the headset.
+3. Open the solution of the Quest profile in Visual Studio, select the headset as the target device, and start debugging.
+
+## Optional features
+
+Each of these features is one or two commented lines in the template. Uncomment them and rebuild.
 
 ### Passthrough
 
-To enable Passthrough on Meta Quest devices with Evergine, starting with the Evergine Quest profile, you need to:
+Passthrough shows the real room around the user, behind or in front of the scene. It needs two changes:
 
-- **Enable OpenXR Passthrough Extensions.** In the `MainActivity.cs` file, uncomment the following extensions in the OpenXRPlatform constructor: `XR_FB_passthrough` and `XR_FB_triangle_mesh` (the latter is necessary if you want to project passthrough onto custom meshes).
+1. In `MainActivity.cs`, enable `XR_FB_passthrough`, and `XR_FB_triangle_mesh` if you want to [project passthrough on your own meshes](../passthrough.md#project-passthrough-on-a-mesh):
 
-![XR Passthrough Extensions](../images/passthrough_extensions.jpg)
+   ```csharp
+   "XR_FB_passthrough",         // Enable Passthrough in Meta Quest devices
+   "XR_FB_triangle_mesh",       // Allow to project Passthrough on Meshes
+   ```
 
-- **Enable the Passthrough feature** in the `AndroidManifest.xml` file by uncommenting the relevant profile.
+2. In `AndroidManifest.xml`, uncomment the passthrough feature. The Meta runtime requires it, and without it no passthrough layer is created:
 
-![XR Passthrough Feature](../images/passthrough_feature.jpg)
+   ```xml
+   <uses-feature android:name="com.oculus.feature.PASSTHROUGH" android:required="true" />
+   ```
 
+Then add an `XRPassthroughLayerComponent` to the scene, as described in [Passthrough](../passthrough.md).
 
-### Use Simultaneous Hands and Controllers (Multimodal)
+### Simultaneous hands and controllers
 
-![Simultaneous Hands and Controllers](images/simultaneous-hands-controllers.png)
+![Hands and controllers tracked at the same time](images/simultaneous-hands-controllers.png)
 
-Multimodal input provides simultaneous tracking of both hands and controllers. It also indicates whether the controller(s) are in hand or not. Multimodal input allows users to enjoy the benefits of both worlds: they can use hands for immersion, and controllers for accuracy and haptics.
+By default a Quest tracks either the controllers or the hands. With multimodal input it tracks both at once, and reports a hand while the other holds a controller. Users get the immersion of hands and the precision and haptics of controllers. Meta describes the feature in its [multimodal input documentation](https://developers.meta.com/horizon/documentation/native/android/native-multimodal/).
 
-Check [here](https://developers.meta.com/horizon/documentation/native/android/native-multimodal/?locale=fi_FI) for more information.
+1. In `MainActivity.cs`, enable the extension:
 
+   ```csharp
+   "XR_META_simultaneous_hands_and_controllers", // Allow to use hands and controllers simultaneously
+   ```
 
-To enable this feature on Meta Quest devices with Evergine, starting with the Evergine Quest profile, you need to:
+2. In the same file, turn the feature on in the object initializer:
 
-- **Enable OpenXR Extensions.** In the `MainActivity.cs` file, uncomment the following extensions in the OpenXRPlatform constructor: `XR_META_simultaneous_hands_and_controllers`.
+   ```csharp
+   UseSimultaneousHandsAndControllers = true, // Enable using simultaneously the hands and controllers
+   ```
 
-![XR Multimodal  Extensions](images/openxr_multimodal_enableextension.png)
+`UseSimultaneousHandsAndControllers` can also be changed at run time, from launcher code that keeps a reference to the `OpenXRPlatform`.
 
-- **Enable the feature** in the `MainActivity.cs` file, set the `UseSimultaneousHandsAndControllers` property to `true`. This property can be enabled or disabled during runtime.
+## See also
 
-![XR Passthrough Feature](images/openxr_multimodal_enableextension.png)
-
-
+* [OpenXR Platform](openxr_platform.md): every `OpenXRPlatform` property, reference spaces and interaction profiles.
+* [Input Devices](../input_tracking/index.md): tracking controllers and hands in the scene.

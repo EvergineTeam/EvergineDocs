@@ -1,62 +1,68 @@
 # Edit Assets
-**Evergine Studio** offers the possibility of editing numerous properties of every asset to fully customize its use in your app. Additionally, every **Evergine** project defines a set of **profiles**, allowing you to set different properties per profile.
+
+![The Texture Editor with its viewer, global properties and profile properties](Images/editAssets.png)
+
+Each asset type has properties you can change in Evergine Studio, and most of them can take different values per **profile**. For example, you can halve the resolution of a texture or pick a different `PixelFormat` for the _Android_ profile while keeping the full-size texture on _Windows_.
+
+This page covers the actions common to all assets and the parts every asset editor shares. The editor of each asset type is described in its own section; see the [list of asset editors](../interface.md#asset-editors).
+
+## Context menu actions
+
+Right-click an asset in the **Assets Details** panel to open its context menu.
+
+![Asset context menu](Images/assetContextualMenu.png)
+
+| Action | Shortcut | Description |
+| --- | --- | --- |
+| **Rename** | F2 | Renames the asset. Its metafile is renamed with it and the ID does not change. |
+| **Cut** | Ctrl+X | Marks the asset to be moved with **Paste**. |
+| **Copy** | Ctrl+C | Marks the asset to be copied with **Paste**. |
+| **Paste** | Ctrl+V | Available on folders. Moves or copies the cut or copied assets into the folder. |
+| **Duplicate** | Ctrl+D | Creates a copy of the asset in the same folder, with a new ID. |
+| **Delete** | Del | Deletes the asset, its metafile and its source file. |
+| **Create Asset** | | Available on folders. Opens the same import and create items as the **Assets** menu. |
+| **Set to export as raw** | | Copies the source file to the application output as is, instead of exporting the processed version. Load it with `LoadRaw<T>` (see [Use Assets](use.md#load-raw-assets)). The item changes to **Unset to export as raw** on raw assets. |
+| **Open folder location** | | Opens _File Explorer_ in the folder that contains the asset. |
+| **Copy path to clipboard** | | Copies the full path of the asset metafile. |
+| **Copy id to clipboard** | | Copies the asset ID, the same `Guid` that `EvergineContent` exposes. |
 
 > [!NOTE]
-> For example, we can halve the resolution of a texture for the _Android_ or _iOS_ profiles, or set a different _PixelFormat_.
+> Assets that belong to a dependency, such as the ones in **Evergine.Core**, are read-only. You can use them in your scenes and assets, but you cannot rename, move or modify them.
 
-## Contextual Actions
+## Open an asset editor
 
-![Asset Contextual Menu](Images/assetContextualMenu.png)
+Double-click an asset in the **Assets Details** panel, or select it and press **Enter**, to open its editor as a new tab in the document area. Assets marked to export as raw do not have an editor.
 
-You can apply some actions to the assets regardless of their type. **Right-click** an asset in the **Assets Details** panel to show a contextual menu with the following actions:
+![The three areas of an asset editor](Images/assetEditorParts.png)
 
-* **Rename** the asset.
-* **Cut** the asset _(for cut/paste operation)_.
-* **Copy** the asset _(for copy/paste operation)_.
-* **Duplicate**, which will create an exact copy of the asset but with a different **Id**.
-* **Delete** the asset.
-* **Set to export as raw**, which copies the resource file to the _Export Content Folder_ instead of exporting the compiled version.
-* **Open folder location**, which opens the File Explorer to the asset's location.
-* **Copy path to clipboard**, which copies the path of the asset's **metafile**.
-* **Copy id to clipboard**.
+Editors differ by asset type, but most of them share three areas:
 
-## Assets Editor
-To edit an asset:
+* The **viewer area**.
+* The **global properties**.
+* The **profile properties**.
 
-1. Click on it in the **Assets Details** panel.
-2. A new panel specific to that asset will open.
+Save your changes with **File > Save** (Ctrl+S), or **File > Save All** (Ctrl+Shift+S) to save every open editor.
 
-![Asset editor](Images/editAssets.png)
+### Viewer area
 
-Every **Asset Editor** panel is different, but some of the most common areas are the following:
+The viewer shows a live preview of the asset, often with a toolbar to change how it is displayed. For example:
 
-* Asset viewer area
-* Global properties panel
-* Profile properties panel(s)
+* Show or hide the red, green, blue and alpha channels of a texture, or pick its mipmap level.
+* Play and pause an animation of a model, or show its wireframe, normals and bounding box.
+* Choose the geometry and background used to preview a material.
 
-![Asset editor](Images/assetEditorParts.png)
+### Global properties
 
-### Viewer Area
+Global properties apply to the asset in every profile. This is the **Render Layer** editor, for example:
 
-Usually, the viewer area of the asset shows a visual representation of the asset. It's also common to have some controls to change the visualization settings. Some examples are:
-* Enabling/disabling texture channels
-* Selecting the **Level of Mipmap** of a texture
-* Play/Pause a **Model** animation 
-* Setting the geometry where a **Material** is applied
+![Global properties of a render layer](Images/globalParameters.png)
 
-### Global Properties
+### Profile properties
 
-Usually, the global properties are the ones that apply to all the **Project profiles**. The next image shows the **Render Layer** parameters:
+Assets whose export can change per platform, such as textures, models and effects, have a **profile properties** area:
 
-![Global parameters](Images/globalParameters.png)
+![Profile properties of a texture](Images/profileParameters.png)
 
-### Profile Properties
-In many assets, there is a **Profile Parameters** area where users can customize properties per profile. This area usually looks like this:
-
-![Profile parameters](Images/profileParameters.png)
-
-This area shows:
-- **Profile tabs**: ![Profile tabs](Images/profileTabs.png) This shows the _default profile_ tab and one tab per **Project profile**, allowing you to switch to a specific profile property panel.
-- **Default profile**: ![Profile tabs](Images/defaultProfile.png) This sets the profile properties by default when no other profile is specified.
-- **Override Default Property**: When enabled, this allows the customization of properties for this profile. If disabled, the default profile will be used.
-- **Exclude Asset**: This property allows an asset not to be exported in a specific profile, making it available only in some profiles.
+* **Profile tabs**: ![Profile tabs](Images/profileTabs.png) The first tab ![Default profile tab](Images/defaultProfile.png) holds the default values. Then there is one tab per [project profile](../settings/project_profiles.md), with the icon of its platform.
+* **OverridesDefaultProperty**: in a profile tab, enable it to give that profile its own values. While it is disabled, the profile uses the default values.
+* **ExcludeAsset**: skips the asset when exporting that profile, so it is not included in the application. Use it for content that only makes sense on some platforms.

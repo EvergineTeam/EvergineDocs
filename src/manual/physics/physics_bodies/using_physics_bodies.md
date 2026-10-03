@@ -22,7 +22,7 @@ public class MyScene : Scene
 
 ## 2. Give it a floor
 
-A floor is a **static** body. Static bodies never collide with each other, so a level built from a hundred of them is nearly free.
+A floor is a [`StaticBody`](static_body.md). Static bodies never collide with each other, so a level built from a hundred of them is nearly free.
 
 ```csharp
 protected override void CreateScene()
@@ -34,11 +34,7 @@ protected override void CreateScene()
         .AddComponent(new MaterialComponent() { Material = material })
         .AddComponent(new CubeMesh() { Size = 1f })
         .AddComponent(new MeshRenderer())
-        .AddComponent(new RigidBody()
-        {
-            BodyType = RigidBodyType.Static,
-            Friction = 0.6f,
-        })
+        .AddComponent(new StaticBody() { Friction = 0.6f })
         .AddComponent(new BoxCollider());
 
     this.Managers.EntityManager.Add(floor);
@@ -46,7 +42,7 @@ protected override void CreateScene()
 ```
 
 > [!TIP]
-> The `BoxCollider` needs no size here. Left at its default it takes the entity's scale, so scaling the entity scales the collider with the mesh.
+> The `BoxCollider` needs no size here. Left at its default it takes the entity's scale, so scaling the entity scales the collider with the mesh. A collider on a loaded model can instead size itself from the model's bounds with `UseModelBounds`; see [Colliders](../colliders/index.md#local-units-or-model-bounds).
 
 ## 3. Stack some crates
 
@@ -74,7 +70,7 @@ private void CreateStack(Material material, Vector3 origin, int count)
 }
 ```
 
-Dynamic is the default `BodyType`, so nothing has to be said for a crate to fall.
+A `RigidBody` is dynamic unless `IsKinematic` says otherwise, so nothing has to be said for a crate to fall.
 
 ## 4. Add a platform that carries them
 
@@ -122,7 +118,7 @@ public class MovingPlatform : Behavior
 }
 ```
 
-Give the platform entity a `RigidBody` with `BodyType = RigidBodyType.Kinematic`, a `BoxCollider`, and this behavior.
+Give the platform entity a `RigidBody` with `IsKinematic = true`, a `BoxCollider`, and this behavior.
 
 > [!IMPORTANT]
 > Writing `transform.Position` instead of calling `MoveTo` teleports the body every step. It ends up in the right place, but with no velocity: it passes through whatever was in its way and leaves behind whatever was standing on it.
@@ -190,6 +186,8 @@ See [Collisions](collisions.md) for the full contact information, and [Sensors](
 When a body behaves oddly the first question is always whether its shape is what you think it is. Turn the wireframe on and look:
 
 ```csharp
+// The render manager's debug lines are the switch; the physics flags choose what is drawn.
+this.Managers.RenderManager.DebugLines = true;
 this.Managers.FindManager<PhysicsManager>().DebugFlags = PhysicsDebugFlags.Colliders;
 ```
 

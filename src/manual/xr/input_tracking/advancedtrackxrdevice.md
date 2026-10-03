@@ -1,110 +1,140 @@
 # AdvancedTrackXRDevice
 
-This component allows you to track **all kinds of XR Devices**, not only controllers or hands but also base stations, generic trackers, etc.
+![AdvancedTrackXRDevice in Evergine Studio](images/advancedtrackxrdevice.png)
 
-![TrackXRDevice](images/advancedtrackxrdevice.png)
+`AdvancedTrackXRDevice` makes an entity follow **any** tracked device, not only controllers and hands: the headset itself, Vive trackers strapped to props or people, or the base stations of the play area. You choose the device by type, handedness, index, or a combination of them.
 
-## Selection Strategy
+It exposes the union of the other tracking components: the controller state of [`TrackXRController`](trackxrcontroller.md) and the joints of [`TrackXRArticulatedHand`](trackxrarticulatedhand.md). Use those simpler components when they fit, and this one for everything else.
 
-This component can select the device to track in different ways, which is defined by the `SelectionStrategy` property. The available values are:
-* **ByHandedness:** Specify the device using handedness (left or right device). This is the most common way to select a device.
-* **ByDeviceType:** Select the device by specifying the type of the device and the number of occurrences.
-* **ByDeviceTypeAndHandedness:** Select the device by specifying the type of the device and the handedness.
-* **ByDeviceIndex:** The InputTracking maintains an ordered list of tracked devices. Using this strategy, the device will be selected by specifying an index on that list.
+## Selecting the device
 
-### Selection by Handedness
-If your selection strategy is `ByHandedness`, you will select your device by using its handedness. In this case, you need to set these properties:
+`SelectionStrategy` decides which properties pick the device:
 
-| Property | Description |
-| --- | --- |
-| **Handedness** | This property indicates the handedness of the device that you want to track: <ul><li>`LeftHand` to specify the left hand.</li><li>`RightHand` to specify the right hand.</li><li>`Undefined` if the device has no specific handedness.</li></ul> |
-| **DeviceIndex** | If there are multiple devices using the same handedness, this property specifies which occurrence is selected. |
+| SelectionStrategy | Uses | Picks |
+| --- | --- | --- |
+| `ByDeviceTypeAndHandedness` (default) | `DeviceType`, `Handedness`, `DeviceIndex` | The `DeviceIndex`-th device of that type and handedness. The left controller, for example. |
+| `ByDeviceType` | `DeviceType`, `DeviceIndex` | The `DeviceIndex`-th device of that type, whatever its handedness. The second generic tracker, for example. |
+| `ByHandedness` | `Handedness`, `DeviceIndex` | The `DeviceIndex`-th device with that handedness, whatever its type. |
+| `ByDeviceIndex` | `DeviceIndex` | The device at that position in the platform's list of tracked devices. The order depends on the platform. |
 
-### Selection by Device Type
-If your selection strategy is `ByDeviceType`, you will select your device by using its type. In this case, you need to set these properties:
+## Properties
 
-| Property | Description |
-| --- | --- |
-| **DeviceType** | Specify the type of device you want to select: <ul><li>`Controller` if you want to select a typical controller device.</li><li>`HMD` if you want to track the headset device.</li><li>`GenericTracker` to select typical tracker devices (such as Vive Tracker).</li><li>`TrackingReference` refers to devices used as a tracking reference (such as Vive Base Stations or old Oculus Rift Camera Sensors).</li><li>`Hand` if the system can detect the user's hands.</li></ul> |
-| **DeviceIndex** | If there are multiple devices of the same type, this property specifies which occurrence is selected. |
+| Property | Default | Description |
+| --- | --- | --- |
+| **SelectionStrategy** | `ByDeviceTypeAndHandedness` | How the device is selected, from the table above. |
+| **DeviceType** | `Controller` | The `XRTrackedDeviceType` to look for. See the values below. |
+| **Handedness** | `LeftHand` | `LeftHand`, `RightHand`, or `Undefined` for devices with no side, such as the HMD or a tracker. |
+| **DeviceIndex** | 0 | A `uint`. With the type and handedness strategies, which of the matching devices to take (0 is the first). With `ByDeviceIndex`, the position in the platform's list. |
+| **TrackingLostMode** | `DisableEntityOnPoseInvalid` | What happens to the entity when tracking fails. See [common properties](index.md#common-properties). |
+| **ControllerState** | Read-only | The input state, when the device is a controller or a hand. See [controller state](trackxrcontroller.md#controller-state). |
+| **SupportedHandJointKind** | Read-only | The joints the device tracks, when it is a hand. |
 
-### Selection by Device Type and Handedness
-If your selection strategy is `ByDeviceTypeAndHandedness`, you will select your device by using its type and handedness. In this case, you need to set these properties:
+It also has the members every tracking component shares, listed in [common properties](index.md#common-properties), and `TryGetArticulatedHandJoint(XRHandJointKind jointKind, out XRHandJoint joint)`, which returns the joint as the platform reports it, in tracking space.
 
-| Property | Description |
-| --- | --- |
-| **DeviceType** | Specify the type of device you want to select: <ul><li>`Controller` if you want to select a typical controller device.</li><li>`HMD` if you want to track the headset device.</li><li>`GenericTracker` to select typical tracker devices (such as Vive Tracker).</li><li>`TrackingReference` refers to devices used as a tracking reference (such as Vive Base Stations or old Oculus Rift Camera Sensors).</li><li>`Hand` if the system can detect the user's hands.</li></ul> |
-| **Handedness** | This property indicates the handedness of the device that you want to track: <ul><li>`LeftHand` to specify the left hand.</li><li>`RightHand` to specify the right hand.</li><li>`Undefined` if the device has no specific handedness.</li></ul> |
-| **DeviceIndex** | If there are multiple devices with the same properties described above, this property specifies which occurrence is selected. |
+### Device types
 
-### Selection by Device Index
-If your selection strategy is `ByDeviceIndex`, you will select your device by its index as registered in your system.
-
-| Property | Description |
-| --- | --- |
-| **DeviceIndex** | Integer specifying the index of the device. |
-
-## Tracking Lost Mode
-
-This component will update the entity's Transform to follow the selected device. However, if an issue occurs during the tracking process, you can specify how the entity behaves using the following property:
-
-| Property | Description |
-| --- | --- |
-| **TrackingLostMode** | Specify the strategy to follow if the device is not well tracked: <ul><li>`DisableEntityOnPoseInvalid` disables the entity if the tracked pose is not valid. If the device is well tracked again, the entity will be enabled again. *This is the default value.*</li><li>`KeepLastPose` stops tracking the entity if the pose is not valid, maintaining the entity with the last pose received.</li><li>`DisableEntityOnDisconnection` disables the entity only if the selected device is no longer connected.</li></ul> |
+| XRTrackedDeviceType | Device | Platforms |
+| --- | --- | --- |
+| `HMD` | The headset. | OpenXR, OpenVR |
+| `Controller` | A motion controller. | OpenXR, OpenVR |
+| `Hand` | A tracked hand. | OpenXR with `XR_EXT_hand_tracking` |
+| `GenericTracker` | A tracker without its own input, such as a Vive Tracker. | OpenVR |
+| `TrackingReference` | A device that supplies tracking ground truth, such as a base station or a tracking camera. | OpenVR |
+| `DisplayRedirect` | An accessory that is not tracked itself but can redirect video output from another tracked device. | OpenVR |
 
 ## Using AdvancedTrackXRDevice
 
-In the following code, you will find how to create entities to track left and right controllers, and two generic trackers:
+This scene tracks both controllers and two generic trackers. The trackers keep their last pose when tracking is lost, so a prop does not vanish when it is briefly occluded:
 
 ```csharp
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR;
+using Evergine.Framework.XR.TrackedDevices;
+
+public class TrackersScene : Scene
+{
     protected override void CreateScene()
     {
         base.CreateScene();
 
-        // Left entity
-        var leftDevice = new Entity()
+        // The two controllers.
+        var leftController = new Entity("LeftController")
             .AddComponent(new Transform3D())
             .AddComponent(new AdvancedTrackXRDevice()
             {
                 SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceTypeAndHandedness,
                 DeviceType = XRTrackedDeviceType.Controller,
-                Handedness = XRHandedness.LeftHand // select the left device
+                Handedness = XRHandedness.LeftHand,
             });
 
-        // Right entity
-        var rightDevice = new Entity()
+        var rightController = new Entity("RightController")
             .AddComponent(new Transform3D())
             .AddComponent(new AdvancedTrackXRDevice()
             {
                 SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceTypeAndHandedness,
                 DeviceType = XRTrackedDeviceType.Controller,
-                Handedness = XR.XRHandedness.RightHand // select the right device
+                Handedness = XRHandedness.RightHand,
             });
 
-        this.Managers.EntityManager.Add(leftDevice);
-        this.Managers.EntityManager.Add(rightDevice);
-
-        // First Tracker 
-        var firstTracker = new Entity()
+        // Two generic trackers, told apart by their order of appearance.
+        var firstTracker = new Entity("Tracker0")
             .AddComponent(new Transform3D())
             .AddComponent(new AdvancedTrackXRDevice()
             {
                 SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceType,
                 DeviceType = XRTrackedDeviceType.GenericTracker,
-                DeviceIndex = 0 // First
+                DeviceIndex = 0,
+                TrackingLostMode = TrackXRDevice.XRTrackingLostMode.KeepLastPose,
             });
 
-        // Second Tracker 
-        var secondTracker = new Entity()
+        var secondTracker = new Entity("Tracker1")
             .AddComponent(new Transform3D())
             .AddComponent(new AdvancedTrackXRDevice()
             {
                 SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceType,
                 DeviceType = XRTrackedDeviceType.GenericTracker,
-                DeviceIndex = 1 // Second
+                DeviceIndex = 1,
+                TrackingLostMode = TrackXRDevice.XRTrackingLostMode.KeepLastPose,
             });
 
+        this.Managers.EntityManager.Add(leftController);
+        this.Managers.EntityManager.Add(rightController);
         this.Managers.EntityManager.Add(firstTracker);
         this.Managers.EntityManager.Add(secondTracker);
     }
+}
 ```
+
+### Attach content to the head
+
+The camera renders from the head, but on stereo platforms its own transform does not move with it. To place something that follows the head, such as a reticle or a head-mounted light, track the HMD:
+
+```csharp
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR;
+using Evergine.Framework.XR.TrackedDevices;
+
+public class HeadScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        var head = new Entity("Head")
+            .AddComponent(new Transform3D())
+            .AddComponent(new AdvancedTrackXRDevice()
+            {
+                SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceType,
+                DeviceType = XRTrackedDeviceType.HMD,
+            });
+
+        this.Managers.EntityManager.Add(head);
+    }
+}
+```
+
+Children of `Head` then move with the user's head, and `Transform3D.Forward` of the entity is the view direction. Use it rather than `Pointer`, which `OpenXRPlatform` does not fill for the HMD.

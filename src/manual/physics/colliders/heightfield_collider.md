@@ -58,7 +58,7 @@ public class TerrainBuilder : Behavior
 | **Density** | 1000 | Unused: a height field has no volume. |
 
 > [!IMPORTANT]
-> A height field cannot back a **dynamic** body: static and kinematic only. Its sample count must also be a **power of two**, which is what the acceleration structure is built around. `SetHeights` throws if it is not.
+> A height field cannot back a **dynamic** body: a [`StaticBody`](../physics_bodies/static_body.md) or a kinematic `RigidBody` only. Its sample count must also be a **power of two**, which is what the acceleration structure is built around. `SetHeights` throws if it is not.
 
 ## Methods
 

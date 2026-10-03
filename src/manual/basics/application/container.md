@@ -1,145 +1,172 @@
 # Application Container
 
-The **Application Container** is a class responsible for storing objects that will be accessed throughout the entire application. The application itself does not have inherent functionality; all logic is implemented using instances registered in the Container.
+---
 
-The application Container can be accessed using the `Container` property in the Application class.
+![How registrations are stored and resolved by the Application Container](images/application_container.png)
 
-Here you will register all [Services](../services.md) of your application, among other instances to control your project (like the [GraphicContext](../../graphics/low_level_api/graphicscontext.md) to expose the graphic API, AssetsService to control the asset library of your application, and [ScreenContextManager](../scenes/using_scenes.md) to control the scenes that will be played in your application).
+*A registration by type is created lazily on the first resolve; an instance is stored as it is. Both are also reachable through their base classes and interfaces.*
 
-> [!TIP]
-> In general, in the **Container**, you will register all Services and logic that will be consumed by every Scene or Component in your Application.
+The **Application Container** is the dependency injection container of an Evergine application. It stores the objects that must be reachable from everywhere: the [services](../services.md) of your project and the ones Evergine needs to run, such as the [GraphicsContext](../../graphics/low_level_api/graphicscontext.md), the `AssetsService` and the [ScreenContextManager](screen_context_manager.md). The application itself has almost no logic; it asks the container for these objects and drives them every frame.
+
+You reach the container through the `Container` property of the `Application` class, usually as `this.Container` inside your application class or `Application.Current.Container` anywhere else.
 
 > [!NOTE]
-> There can be only one instance per Type in the Container. Every object registered here is treated as a Singleton.
+> Every registration is keyed by type, and there can only be one registration per type. Registering the same type twice throws an `InvalidOperationException`.
 
-![Application Container](images/application_container.png)
+## Register
 
-## Using the Container
+### Register a Type
 
-### Register Instances
+`Register<T>()` tells the container which type to create, but creates nothing yet. The instance is built the first time someone resolves it, and the same instance is returned from then on:
 
-You can register elements inside the Container in two ways:
+```csharp
+public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        // ... the services registered by the project template ...
 
-#### Register a Type
+        this.Container.Register<ScoreService>();
+    }
+}
+```
 
-You can register a type in the Container. If this functionality is needed in the future, the Container will create an instance and will offer it to everyone that requires this instance. This is done by the `Container.Register<T>()` method:
+To create the instance, the container picks the public constructor with the most parameters that it can fill with registered objects. A service that needs another one can simply ask for it in its constructor:
+
+```csharp
+public class LeaderboardUploader
+{
+    private readonly ScoreService scores;
+
+    // ScoreService is registered, so the container can call this constructor.
+    public LeaderboardUploader(ScoreService scores)
+    {
+        this.scores = scores;
+    }
+}
+```
+
+### Register an Implementation of an Abstraction
+
+`Register<T, TImplementation>()` registers `TImplementation` so that it is resolved when someone asks for `T`. Code that depends on the interface does not need to know which implementation the profile chose:
+
+```csharp
+public interface ILeaderboard
+{
+    void Submit(int score);
+}
+
+public class LocalLeaderboard : ILeaderboard
+{
+    public void Submit(int score)
+    {
+        // Store the score on the device...
+    }
+}
+```
+
+```csharp
+this.Container.Register<ILeaderboard, LocalLeaderboard>();
+
+// Anywhere in the application:
+var leaderboard = Application.Current.Container.Resolve<ILeaderboard>();
+```
+
+### Register an Instance
+
+`RegisterInstance(instance)` stores an object that you have already created. Use it when the object needs configuration before anyone uses it, or when only the launcher project knows which implementation to create. This is how every profile registers its graphics context:
+
+```csharp
+GraphicsContext graphicsContext = new DX12GraphicsContext();
+graphicsContext.CreateDevice();
+
+// The registration key is the static type of the argument: GraphicsContext.
+application.Container.RegisterInstance(graphicsContext);
+```
+
+> [!TIP]
+> The key is the generic type argument, which C# infers from the declared type of the variable. In the example above, `Resolve<GraphicsContext>()` finds the context but `Resolve<DX12GraphicsContext>()` does not. Write `RegisterInstance<GraphicsContext>(new DX12GraphicsContext())` to make the key explicit.
+
+### Singletons and Factories
+
+Every `Register` overload accepts two optional parameters:
+
+| Parameter | Default | Description |
+| --- | --- | --- |
+| `factoryDelegate` | `null` | A function that the container calls **every time** the type is resolved, instead of calling a constructor. When it is set, `reuse` is ignored. |
+| `reuse` | `true` | `true` creates one instance on the first resolve and returns it from then on. `false` creates a new instance on every resolve. |
+
+```csharp
+// A new, independent uploader every time it is resolved.
+this.Container.Register<LeaderboardUploader>(reuse: false);
+
+// Built by your code every time it is resolved.
+this.Container.Register<ILeaderboard>(() => new LocalLeaderboard());
+```
+
+> [!IMPORTANT]
+> Keep `Service` classes as singletons, registered by type with the default `reuse` or registered as an instance. The service lifecycle tracks one instance per service type, and objects returned by a factory delegate never join it. Factories and `reuse: false` are meant for plain objects.
+
+### Base Classes and Interfaces
+
+A registration is also stored under every base class and interface of its key type. `Resolve<Service>()` or `Resolve<IDisposable>()` would therefore match many registrations at once, which makes them ambiguous: `Resolve` throws an `InvalidOperationException` in that case. Use `ResolveMany` to get all of them instead.
+
+## Resolve
 
 | Method | Description |
 | --- | --- |
-| `Register<T>()` | Registers the specified type `T` to the container. |
+| `T Resolve<T>()` | Returns the object registered for `T`, creating it if needed. Returns `null` if nothing is registered for `T`. |
+| `object Resolve(Type type)` | The same, without generics. |
+| `IEnumerable<T> ResolveMany<T>()` | Returns every object registered for `T` or for a type that derives from it. Returns `null` if there is none. |
+| `IEnumerable<object> ResolveMany(Type type)` | The same, without generics. Returns an empty collection if there is none. |
+| `bool IsRegistered<T>()` | Returns `true` if something is registered for `T`. |
 
-A small example:
-
- ```csharp
- public partial class MyApplication : Application
-    {
-        public MyApplication()
-        {
-            // Previous code :)
-
-            // You can register the service by type...
-            this.Container.Register<MyService>();
-        }
-    ...
- ```
-
-#### Register an Instance
-
-On the other hand, you can register an instance directly. This is useful if you want to properly initialize the service or offer an implementation of an abstract class:
-
-| Methods | Description |
-| --- | --- |
-| `RegisterInstance(T instance)` | Registers the instance object into the Container. It will be associated with the type of the instance. |
-| `RegisterInstance<T>(T instance)` | Registers the instance object into the Container. It will be associated with the type of the generic type `<T>`. The instance parameter type must be a subclass of `<T>`.  |
-
-A small example:
- ```csharp
- public partial class MyApplication : Application
-    {
-        public MyApplication()
-        {
-            // Previous code :)
-
-            // Register the service instance directly...
-            this.Container.RegisterInstance(new MyService());
-
-            // You can register an instance specifying a parent class to indicate
-            // the type that you want to expose.
-            // In this case, you are offering the DX11 implementation when someone requests the GraphicsContext...
-            this.Container.RegisterInstance<GraphicsContext>(new DX11GraphicsContext());
-        }
-    ...
- ```
-
-### Get Instances
-
-It is easy to obtain instances from the Application Container.
-
-#### Using [BindService] Tag Attribute
-
-You can use the [BindService] attribute in your Component, SceneManager, or even from other Services to automatically inject the Service instance into your property.
+Inside components, scene managers and services, prefer the [`[BindService]`](../bindings/bind_services.md) attribute to calling `Resolve` yourself:
 
 ```csharp
-using Evergine.Framework;
 using System;
+using Evergine.Framework;
 
 namespace MyProject
 {
-    public class MyBehavior : Behavior
+    public class PickupBehavior : Behavior
     {
-        // Use the BindService attribute on top of the property or field 
-        // where you want to inject the Service
+        // Resolved from the container before OnAttached() runs.
         [BindService]
-        private MyService myService = null;
+        private ScoreService scoreService;
+
+        // Interfaces work too, as long as exactly one registration matches.
+        [BindService(isRequired: false)]
+        private ILeaderboard leaderboard;
 
         protected override void Update(TimeSpan gameTime)
         {
-            this.myService.DoRequest();
+            this.scoreService.Add(1);
         }
     }
 }
 ```
 
-#### Using Resolve() Methods
+`Resolve` is the right tool outside Evergine elements, or where the dependency is only known at runtime:
 
-The Container has the following methods to obtain instances:
+```csharp
+var assetsService = Application.Current.Container.Resolve<AssetsService>();
+```
 
-| Methods | Description |
+## Unregister
+
+| Method | Description |
 | --- | --- |
-| `T Resolve<T>()` | Obtains the instance of the specified type `<T>`. |
-| `object Resolve(Type type)` | Another way to obtain an object, but without C# generics.  |
+| `Unregister<T>()` | Removes the registration for `T`. |
+| `Unregister(Type type)` | The same, without generics. |
 
+Unregistering a `Service` also destroys it: it runs `OnDeactivated()`, `OnDetached()` and `OnDestroy()`, and the instance cannot be used again.
 
- ```csharp
-using Evergine.Framework;
-using System;
+```csharp
+// The player left the online mode: stop and release the service.
+this.Container.Unregister<SessionTimerService>();
+```
 
-namespace MyProject
-{
-    public class MyBehavior : Behavior
-    {
-        private MyService myService = null;
+## What Cannot Be Registered
 
-        protected override bool OnAttached()
-        {            
-            // Use the Resolve<Type> method from the Application Container....
-            this.myService = Application.Current.Container.Resolve<MyService>();
-
-            return base.OnAttached();
-        }
-
-        protected override void Update(TimeSpan gameTime)
-        {
-            this.myService.DoRequest();
-        }
-
-        protected override bool OnDetached()
-        {
-            base.OnDetached();
-
-            // Release the reference when a component is being detached...
-            this.myService = null;
-        }
-    }
-}
- ```
+Scenes, entities and components belong to a scene, not to the application. Registering a `Scene`, `Entity` or `Component` (or any subclass) throws an `InvalidOperationException`. Reach entities and components through the [EntityManager](../component_arch/entities/entity_manager.md) and the [bindings](../bindings/index.md) instead.

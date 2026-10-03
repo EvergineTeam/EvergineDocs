@@ -6,11 +6,14 @@
 
 When a body behaves oddly, the first question is always whether its shape is what you think it is. Debug rendering answers it: the world draws its own shapes, bounds, contacts and constraints over the scene.
 
-It is one property on the [`PhysicsManager`](physics_manager.md):
+There are two switches. The `RenderManager` decides **whether** debug lines are drawn at all, and the [`PhysicsManager`](physics_manager.md) decides **what** the physics contributes to them:
 
 ```csharp
+this.Managers.RenderManager.DebugLines = true;
 this.physicsManager.DebugFlags = PhysicsDebugFlags.Colliders | PhysicsDebugFlags.Constraints;
 ```
+
+`DebugLines` is the render manager's general switch for debug line drawing, so physics shows up alongside whatever else a scene draws that way. `DebugFlags` defaults to `Colliders | Constraints | Characters | SleepState`, which is why turning `DebugLines` on in a physics scene is usually enough on its own.
 
 ## Debug Flags
 
@@ -18,16 +21,18 @@ this.physicsManager.DebugFlags = PhysicsDebugFlags.Colliders | PhysicsDebugFlags
 
 | Flag | What it draws |
 | --- | --- |
-| **None** | Nothing. The default. |
+| **None** | Nothing, whatever `DebugLines` says. |
 | **Colliders** | The outline of every collider, in the interpolated pose it is drawn at. |
 | **BoundingBoxes** | Each body's axis-aligned bounding box, which is what the broad phase sees. |
 | **CentersOfMass** | A marker at each body's centre of mass. |
 | **Velocities** | The linear velocity of every awake body, as a line. |
 | **Constraints** | Constraints and the arcs of their limits: hinge ranges, swing cones, twist arcs, slider travel. |
 | **Characters** | Each [character controller](character_controller.md)'s capsule and its ground normal. |
-| **SleepState** | Colours bodies by state: red asleep, green kinematic, yellow dynamic. |
+| **SleepState** | Colours bodies by state: grey static, green kinematic, yellow dynamic and awake, red dynamic and asleep. |
 | **SoftBodyStructure** | The vertices and the edge, volume and LRA constraints of every [soft body](soft_bodies/index.md). |
 | **All** | Everything above. |
+
+The default is `Colliders | Constraints | Characters | SleepState`.
 
 Five of them are only worth looking at against something they have a reason to draw, so the pictures
 below are all taken in one scene that carries a character, a chain of joints, a soft body, a convex
@@ -57,7 +62,7 @@ The drawing comes from the **simulation**, not from the renderer. What you see i
 
 That is what makes it worth trusting: anything that disagrees with the drawn mesh is a real difference, not a drawing artefact. A collider that is visibly the wrong size, in the wrong place, or missing from a compound is the bug you were looking for.
 
-It needs a `RenderManager` in the scene, and it draws on the same line batch everything else does.
+It needs a `RenderManager` in the scene with `DebugLines` on, and it draws on the same line batch everything else does. A scene without a render manager, a headless server for instance, simulates exactly the same and simply draws nothing.
 
 ## Turning it on from Code
 
@@ -77,12 +82,15 @@ public class PhysicsGizmos : Behavior
     [BindSceneManager]
     private PhysicsManager physicsManager = null;
 
+    [BindSceneManager]
+    private RenderManager renderManager = null;
+
     private int step;
     private bool wasDown;
 
     protected override void Update(TimeSpan gameTime)
     {
-        KeyboardDispatcher keyboard = this.Managers.RenderManager.ActiveCamera3D?.Display?.KeyboardDispatcher;
+        KeyboardDispatcher keyboard = this.renderManager.ActiveCamera3D?.Display?.KeyboardDispatcher;
         bool isDown = keyboard != null && keyboard.IsKeyDown(Keys.G);
 
         // On the edge, not while held: a key tested every frame would run through all four settings in
@@ -91,6 +99,9 @@ public class PhysicsGizmos : Behavior
         {
             this.step = (this.step + 1) % Steps.Length;
             this.physicsManager.DebugFlags = Steps[this.step];
+
+            // The render manager's switch is what lets any of it reach the screen.
+            this.renderManager.DebugLines = Steps[this.step] != PhysicsDebugFlags.None;
         }
 
         this.wasDown = isDown;
