@@ -122,7 +122,7 @@ public class MyScene : Scene
 
 ## Materials
 
-Both `Read` overloads accept a `materialAssigner` argument because `IFCRuntime` shares the `ModelRuntime` signature, but the IFC runtime does not call it: the model always uses the two built-in materials described above. To change how the building looks, replace the `Material` of the `MaterialComponent` on the two mesh entities of the instantiated hierarchy after loading. The [GLB and STL page](models_runtime.md#materials-and-the-material-assigner) explains the material assigner used by the other model runtimes.
+Both `Read` overloads accept a `materialAssigner` argument because `IFCRuntime` shares the `ModelRuntime` signature, but the IFC runtime does not call it: the model always uses the two built-in materials described above. To change how the building looks, replace the `Material` of the `MaterialComponent` on the two mesh entities of the instantiated hierarchy after loading. The [GLB runtime page](glb_runtime.md#materials-and-the-material-assigner) explains the material assigner used by the other model runtimes.
 
 ## Samples
 

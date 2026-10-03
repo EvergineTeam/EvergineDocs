@@ -1,34 +1,44 @@
-# GLB and STL Runtimes
+# GLB Runtime
 
 ---
 
 ![Evergine GLB runtime](images/glb-header.png)
 
-The **Evergine.Runtimes.GLB** and **Evergine.Runtimes.STL** packages read `.glb` and `.stl` files while the application runs and turn them into a `Model`, the same asset type that Evergine Studio produces when it imports a model. Use them when the model is not known at build time: a file the user picks, a catalog downloaded from your server, or content that changes more often than you publish the application.
+The **Evergine.Runtimes.GLB** package reads `.glb` files while the application runs and turns them into a `Model`, the same asset type that Evergine Studio produces when it imports a model. Use it when the model is not known at build time: a file the user picks, a catalog downloaded from your server, or content that changes more often than you publish the application. glTF is the format most 3D tools and online libraries export, so this is the runtime to reach for first.
 
-| | GLB | STL |
-| --- | --- | --- |
-| **Package** | `Evergine.Runtimes.GLB` | `Evergine.Runtimes.STL` |
-| **Namespace** | `Evergine.Runtimes.GLB` | `Evergine.Runtimes.STL` |
-| **Class** | `GLBRuntime` | `STLRuntime` |
-| **Formats** | Binary glTF 2.0 (`.glb`) | Binary and ASCII STL (`.stl`) |
-| **Returns** | `Task<Model>` | `Task<Model>` |
-| **Platforms** | All Evergine platforms | All Evergine platforms |
+| | |
+| --- | --- |
+| **Package** | `Evergine.Runtimes.GLB` |
+| **Namespace** | `Evergine.Runtimes.GLB` |
+| **Class** | `GLBRuntime` (derives from `ModelRuntime`) |
+| **Formats** | Binary glTF 2.0 (`.glb`) |
+| **Returns** | `Task<Model>` |
+| **Platforms** | All Evergine platforms |
 
-Both classes derive from `ModelRuntime` (namespace `Evergine.Framework.Runtimes`) and expose a ready-to-use singleton in `Instance`, which resolves the graphics context and the assets service from the application container the first time it reads a file.
+`ModelRuntime` lives in `Evergine.Framework.Runtimes`. `GLBRuntime.Instance` is a ready-to-use singleton that resolves the graphics context and the assets service from the application container the first time it reads a file.
+
+## What the runtime reads
+
+`GLBRuntime` reads the binary form of glTF 2.0. It checks the `glTF` magic number at the start of the file, so a text `.gltf` file with a separate `.bin` buffer is rejected; convert it to `.glb` first.
+
+* **Scene hierarchy.** Every node becomes an entity with its own `Transform3D` when you call `InstantiateModelHierarchy`.
+* **Meshes** with triangle lists, triangle strips, lines and line strips. Other primitive modes are skipped.
+* **Draco-compressed geometry.** Primitives that use the `KHR_draco_mesh_compression` extension are decompressed with the `Evergine.Bindings.Draco` package, a dependency of the GLB runtime that ships native decoders for Windows, Linux, macOS, Android, iOS and WebAssembly. No setup is needed.
+* **PBR metallic-roughness materials** with base color, metallic-roughness, normal, emissive and occlusion textures, plus the base color of `KHR_materials_pbrSpecularGlossiness` materials.
+* **Embedded textures** in PNG, JPEG or KTX, decoded by the [Image runtime](image_runtime.md).
+* **Skins and animations.** When the file has animations, the root entity gets an `Animation3D` component that references the model.
 
 ## Load a model from a file
 
 `Read(string filePath, ...)` opens the file through the application's `AssetsDirectory`, so the path is **relative to the `Content` folder of the running application**. Absolute paths are rejected with an `ArgumentException`.
 
-A `.glb` or `.stl` file placed in the project's `Content` folder is normally imported by Evergine Studio and exported in the Evergine asset format. To read the original file with a runtime, mark the file with **Set to export as raw** in the [Assets Details panel](../evergine_studio/assets/edit.md). Raw assets keep their name and folder in the output, so `Content/Models/DamagedHelmet.glb` is read with the path `Models/DamagedHelmet.glb`.
+A `.glb` file placed in the project's `Content` folder is normally imported by Evergine Studio and exported in the Evergine asset format. To read the original file with the runtime, mark the file with **Set to export as raw** in the [Assets Details panel](../evergine_studio/assets/edit.md). Raw assets keep their name and folder in the output, so `Content/Models/DamagedHelmet.glb` is read with the path `Models/DamagedHelmet.glb`.
 
 ```csharp
 using Evergine.Framework;
 using Evergine.Framework.Graphics;
 using Evergine.Framework.Services;
 using Evergine.Runtimes.GLB;
-using Evergine.Runtimes.STL;
 
 public class MyScene : Scene
 {
@@ -37,14 +47,10 @@ public class MyScene : Scene
         var assetsService = Application.Current.Container.Resolve<AssetsService>();
 
         Model helmet = await GLBRuntime.Instance.Read("Models/DamagedHelmet.glb");
-        Model bracket = await STLRuntime.Instance.Read("Models/Bracket.stl");
 
         // A Model is only data: InstantiateModelHierarchy builds the entities that render it.
         Entity helmetEntity = helmet.InstantiateModelHierarchy("helmet", assetsService);
-        Entity bracketEntity = bracket.InstantiateModelHierarchy("bracket", assetsService);
-
         this.Managers.EntityManager.Add(helmetEntity);
-        this.Managers.EntityManager.Add(bracketEntity);
     }
 }
 ```
@@ -59,8 +65,8 @@ public class MyScene : Scene
 For a file anywhere on disk, open it with `File.OpenRead`, which returns a seekable `FileStream`:
 
 ```csharp
-using var stream = File.OpenRead(@"C:\Models\Bracket.stl");
-Model model = await STLRuntime.Instance.Read(stream);
+using var stream = File.OpenRead(@"C:\Models\DamagedHelmet.glb");
+Model model = await GLBRuntime.Instance.Read(stream);
 ```
 
 A network stream is not seekable, so copy the response into a `MemoryStream` before reading it. The following scene downloads a GLB file with `HttpClient` and adds it to the scene:
@@ -103,43 +109,7 @@ public class MyScene : Scene
 }
 ```
 
-### Choose the runtime from the file extension
-
-Every `ModelRuntime` reports the extension it reads in `Extension` (`".glb"` and `".stl"`), and exposes the stream overload of `Read` through the base class. That lets one code path handle several formats:
-
-```csharp
-private readonly Dictionary<string, ModelRuntime> loaders = new Dictionary<string, ModelRuntime>
-{
-    { GLBRuntime.Instance.Extension, GLBRuntime.Instance },
-    { STLRuntime.Instance.Extension, STLRuntime.Instance },
-};
-
-private Task<Model> ReadAnyModel(string fileName, Stream stream)
-{
-    var extension = Path.GetExtension(fileName).ToLowerInvariant();
-    if (!this.loaders.TryGetValue(extension, out var runtime))
-    {
-        throw new NotSupportedException($"No runtime reads {extension} files.");
-    }
-
-    return runtime.Read(stream);
-}
-```
-
-The [OBJ](obj_runtime.md), [USD](usd_runtime.md) and [IFC](ifc_runtime.md) runtimes also derive from `ModelRuntime`. Check each page for the stream support it offers before adding it to such a table: the USD runtime, for example, only reads from a file path.
-
-## GLB
-
-`GLBRuntime` reads the binary form of glTF 2.0. It checks the `glTF` magic number at the start of the file, so a text `.gltf` file with a separate `.bin` buffer is rejected; convert it to `.glb` first.
-
-What the runtime reads from the file:
-
-* **Scene hierarchy.** Every node becomes an entity with its own `Transform3D` when you call `InstantiateModelHierarchy`.
-* **Meshes** with triangle lists, triangle strips, lines and line strips. Other primitive modes are skipped.
-* **Draco-compressed geometry.** Primitives that use the `KHR_draco_mesh_compression` extension are decompressed with the `Evergine.Bindings.Draco` package, a dependency of the GLB runtime that ships native decoders for Windows, Linux, macOS, Android, iOS and WebAssembly. No setup is needed.
-* **PBR metallic-roughness materials** with base color, metallic-roughness, normal, emissive and occlusion textures, plus the base color of `KHR_materials_pbrSpecularGlossiness` materials.
-* **Embedded textures** in PNG, JPEG or KTX, decoded by the [Image runtime](image_runtime.md).
-* **Skins and animations.** When the file has animations, the root entity gets an `Animation3D` component that references the model.
+## Play the animations
 
 To play an animation, find the `Animation3D` on the root entity after adding it to the scene:
 
@@ -157,14 +127,6 @@ if (firstClip != null)
     animation.PlayAnimation(firstClip, loop: true);
 }
 ```
-
-## STL
-
-`STLRuntime` reads both variants of the format. It looks at the 80-byte header to tell binary files from ASCII ones, so the file extension does not matter when you read from a stream.
-
-* Each facet keeps the normal stored in the file, which gives the model a flat-shaded look.
-* Coordinates are converted from the Z-up convention of most CAD tools to the Y-up convention of Evergine.
-* STL files carry no material, so the whole model uses one white material (`STLMaterialData`: metallic 0, roughness 1).
 
 ## Materials and the material assigner
 

@@ -115,7 +115,7 @@ public class MyScene : Scene
 
 ## Custom materials
 
-Pass a material assigner as the second argument of either `Read` overload to create the materials yourself. The runtime describes every OBJ material as an `OBJMaterialData` (a `MaterialData`), and your function returns the `Material` to use. The [GLB and STL page](models_runtime.md#materials-and-the-material-assigner) describes `MaterialData` and has a complete assigner.
+Pass a material assigner as the second argument of either `Read` overload to create the materials yourself. The runtime describes every OBJ material as an `OBJMaterialData` (a `MaterialData`), and your function returns the `Material` to use. The [GLB runtime page](glb_runtime.md#materials-and-the-material-assigner) describes `MaterialData` and has a complete assigner.
 
 ```csharp
 Model model = await OBJRuntime.Instance.Read("Models/orc.obj", this.AssignMaterial);
