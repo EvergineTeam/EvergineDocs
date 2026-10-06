@@ -8,11 +8,14 @@ Evergine plays the animations that come with your 3D models. The importer reads 
 
 On top of playing one clip at a time, the animation system crossfades between clips, blends them by a weight you control, adds one on top of another and plays several at once in layers.
 
-## The three parts
+For motion that is not authored in a model, such as a panel that slides in or a door that opens when the player arrives, work actions animate any value from code and chain those animations into sequences.
+
+## The parts
 
 - **[Animation Clip](animation_clip.md)**: the data. A clip is a set of channels, each animating one property of one node through a curve of keyframes, plus the keyframe events that mark points of the clip.
 - **[Animation3D Component](animation3d_component.md)**: the player. It lives on the root entity of the model, plays clips by name, raises the keyframe events and holds the animation layers.
 - **[Animation Blend Tree](animation_blend_tree.md)**: the combinations. Clip nodes such as `TransitionClip`, `SynchronizedTransitionClip` and `AdditiveBlendingClip` blend other clips into one pose, and layers apply several of those poses in order.
+- **[Work Actions](work_actions/index.md)**: the code. Steps that interpolate a value, wait or call a method, chained into sequences and parallel blocks from a component.
 
 ## Quick start
 
@@ -41,3 +44,4 @@ public class PlayWalk : Component
 * [Animation Clip](animation_clip.md)
 * [Animation3D Component](animation3d_component.md)
 * [Animation Blend Tree](animation_blend_tree.md)
+* [Work Actions](work_actions/index.md)
