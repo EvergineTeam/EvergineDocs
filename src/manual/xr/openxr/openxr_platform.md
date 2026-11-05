@@ -155,7 +155,7 @@ The environment blend mode tells the compositor how to mix the frames of the app
 | --- | --- | --- |
 | `Opaque` | The frame covers the whole view. | VR headsets. Some optical see-through devices dim their lenses in this mode. |
 | `AlphaBlend` | Pixels with alpha 0 show the real world, through the device cameras. | Video passthrough headsets, such as Samsung Galaxy XR. |
-| `Additive` | The frame is added to the light of the real world, so black is transparent. | Optical see-through glasses. |
+| `Additive` | The frame is added to the light of the real world, so black is transparent. | Optical see-through glasses, such as XREAL Aura. |
 
 ![The three environment blend modes, and how OpenXRPlatform picks one](images/openxr_blend_modes.png)
 

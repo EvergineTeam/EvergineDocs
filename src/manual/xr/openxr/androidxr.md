@@ -2,9 +2,26 @@
 
 ![Android XR](images/androidxr.png)
 
-**Android XR** is the version of Android that Google built for headsets and glasses, such as the Samsung Galaxy XR headset and optical see-through devices like XREAL Project Aura. Its runtime is an OpenXR runtime, so Evergine targets it through [OpenXR](openxr_platform.md) with Vulkan, in the same way as [Meta Quest](metaquest.md) and [Pico](pico.md).
+**Android XR** is the version of Android that Google built for headsets and glasses, such as the Samsung Galaxy XR headset and optical see-through glasses like XREAL Aura, announced as Project Aura. Its runtime is an OpenXR runtime, so Evergine targets it through [OpenXR](openxr_platform.md) with Vulkan, in the same way as [Meta Quest](metaquest.md) and [Pico](pico.md).
 
 Two things set it apart from the other Android headsets. Hands are the main input, so the template asks for the hand tracking permission before it starts. And many Android XR devices show the real world around the user, so the template asks the runtime for a [blend mode](#mixed-reality-with-environment-blend-modes) that lets the room show through the scene.
+
+## Devices
+
+Android XR runs on two kinds of devices, and the same application works on both. Each one shows the real world in its own way, so the template asks for both [blend modes](#mixed-reality-with-environment-blend-modes) and lets the runtime choose.
+
+| Device | Kind | How the real world is shown |
+| --- | --- | --- |
+| Samsung Galaxy XR | Headset with video passthrough | The cameras capture the room and the compositor draws the scene over it (`AlphaBlend`). |
+| XREAL Aura (Project Aura) | Optical see-through glasses, wired to a compute puck | The user sees the room through the lenses and the scene is added to its light (`Additive`). |
+
+![Samsung Galaxy XR headset](images/androidxr_galaxyxr.jpg)
+
+*Samsung Galaxy XR, shown here with its Project Moohan prototype name. Image by SsSeanChoi, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/), via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:Samsung-Mobile-XR-Project-Moohan-Android-XR-platform-Google_main1.jpg).*
+
+![XREAL Aura glasses](images/androidxr_xrealaura.jpg)
+
+*XREAL Aura, the first wired XR glasses with Android XR. Image by [XREAL](https://www.xreal.com/aura).*
 
 ## Requirements
 
@@ -14,7 +31,9 @@ Two things set it apart from the other Android headsets. Hands are the main inpu
 
 ## Create an Android XR project
 
-Select the **Android XR (OpenXR)** template when you create a project. Its description in the dialog is *A .NET 10 Android project for Android XR devices that uses Vulkan and OpenXR*.
+Select the **Android XR (OpenXR)** template when you create a project:
+
+![The Android XR template in the new project dialog](images/openxr_androidxrtemplate.png)
 
 To add Android XR to an existing project, open **Project Settings**, add a profile and choose the same template. The profile is named **AndroidXR** by default, and its launcher project is `<YourProject>.AndroidXR`.
 
@@ -140,7 +159,7 @@ The environment blend mode tells the compositor how to mix each frame with the r
 The template prefers `AlphaBlend` and then `Additive`. `OpenXRPlatform` uses the first one that the device supports, and the runtime's own preference when it supports neither:
 
 * On a video passthrough headset, `AlphaBlend` shows the camera feed wherever the scene is transparent. To see the room, clear the camera to `Color.Transparent` and remove the sky or any background entity. Otherwise the scene covers the room, as in VR.
-* On optical see-through glasses, `Additive` adds the scene to the light that reaches the eye. Black is transparent, so keep the background black and use bright colors for the content.
+* On optical see-through glasses such as XREAL Aura, `Additive` adds the scene to the light that reaches the eye. Black is transparent, so keep the background black and use bright colors for the content.
 
 For a VR application that always hides the room, remove the `PreferredEnvironmentBlendModes` line, or put `EnvironmentBlendMode.Opaque` first in the array.
 
