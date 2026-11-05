@@ -22,7 +22,7 @@ To add Meta Quest to an existing project, open **Project Settings**, add a profi
 
 | File | Purpose |
 | --- | --- |
-| `MainActivity.cs` | Creates the Vulkan graphics context with the multiview and external memory extensions OpenXR needs, creates and registers `OpenXRPlatform`, and runs the frame loop. |
+| `MainActivity.cs` | Creates `OpenXRPlatform`, calls [`InitializeForVulkan`](openxr_platform.md#vulkan-graphics-context) so the runtime takes part in the creation of the Vulkan graphics context, adds the multiview and external memory extensions, registers both, and runs the frame loop. |
 | `AndroidManifest.xml` | Declares a VR-only application (`com.oculus.intent.category.VR`), the head tracking and hand tracking features, and the hand tracking permission. |
 | `*.csproj` | References `Evergine.OpenXR` and `Evergine.OpenXR.Natives.Quest`, the Meta OpenXR loader. |
 

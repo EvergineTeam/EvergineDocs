@@ -214,16 +214,16 @@ Three details are specific to Android:
 * **The surface can be replaced while the app is alive.** `OnSurfaceInfoChanged` fires with the new native window after the app returns from the background, and the swap chain is pointed at it with `RefreshSurfaceInfo`.
 * **`LaunchMode.SingleTask`** keeps a single instance of the activity, so tapping the launcher icon again brings the running app back instead of starting a second Evergine application.
 
-## Meta Quest and Pico
+## Meta Quest, Pico and Android XR
 
-The two headset templates keep the same structure and change four things:
+The three headset templates keep the same structure and change four things:
 
-* **The Vulkan context enables the extensions OpenXR needs.** `VKGraphicsContext` receives `VK_KHR_multiview`, `VK_KHR_external_memory`, `VK_KHR_external_memory_fd` and `VK_KHR_get_memory_requirements2` as device extensions, and `VK_KHR_get_physical_device_properties2` and `VK_KHR_external_memory_capabilities` as instance extensions.
+* **OpenXR takes part in the creation of the Vulkan context.** The template creates the `OpenXRPlatform` first and calls `InitializeForVulkan()`. `VKGraphicsContext` then receives a `VKGraphicsContextOptions` with the callbacks it returns, `VK_KHR_multiview`, `VK_KHR_external_memory`, `VK_KHR_external_memory_fd` and `VK_KHR_get_memory_requirements2` as device extensions, and `VK_KHR_get_physical_device_properties2` and `VK_KHR_external_memory_capabilities` as instance extensions. Android XR adds the Android hardware buffer extensions.
 * **An `OpenXRPlatform` owns the headset display.** It is registered in the container, its `Display` is added as `"DefaultDisplay"` and the surface becomes a `"MirrorDisplay"`. The loop calls `openXRPlatform?.Update()` before `UpdateFrame`.
-* **The interaction profile and extensions depend on the vendor.** The Quest template enables `XR_EXT_hand_tracking`, `XR_FB_hand_tracking_aim` and `XR_FB_hand_tracking_mesh` with `DefaultInteractionProfiles.OculusTouchProfile`, and leaves passthrough extensions commented out. The Pico template enables `XR_EXT_hand_tracking` with `DefaultInteractionProfiles.PicoNeo3Profile`.
-* **The manifest marks the app as VR.** The Quest manifest adds the `com.oculus.intent.category.VR` category and headset metadata; the Pico manifest adds `pvr.app.type` with the value `vr`. Both request head tracking and the hand-tracking permission.
+* **The interaction profile and extensions depend on the vendor.** The Quest template enables `XR_EXT_hand_tracking`, `XR_FB_hand_tracking_aim` and `XR_FB_hand_tracking_mesh` with `DefaultInteractionProfiles.OculusTouchProfile`, and leaves passthrough extensions commented out. The Pico template enables `XR_EXT_hand_tracking` with `DefaultInteractionProfiles.PicoNeo3Profile`. The Android XR template asks for the hand tracking permission first, enables the hand extensions only when it is granted, and uses `DefaultInteractionProfiles.KhronosSimpleProfile`.
+* **The manifest marks the app as XR.** The Quest manifest adds the `com.oculus.intent.category.VR` category and headset metadata; the Pico manifest adds `pvr.app.type` with the value `vr`. The Android XR manifest requires an OpenXR runtime and starts the activity in full space. All of them request head tracking and the hand-tracking permission.
 
-The XR section explains how to configure them: [Meta Quest](../../xr/openxr/metaquest.md) and [Pico](../../xr/openxr/pico.md).
+The XR section explains how to configure them: [Meta Quest](../../xr/openxr/metaquest.md), [Pico](../../xr/openxr/pico.md) and [Android XR](../../xr/openxr/androidxr.md).
 
 ## Texture compression and shaders
 

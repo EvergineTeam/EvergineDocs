@@ -14,7 +14,7 @@ In Evergine you add passthrough with one component, `XRPassthroughLayerComponent
 | --- | --- | --- |
 | Meta Quest headsets | [OpenXR](openxr/metaquest.md) | The `XR_FB_passthrough` extension and the passthrough feature in the Android manifest |
 
-On any other platform or device, `XRPlatform.Passthrough` is `null` and the component does nothing.
+On any other platform or device, `XRPlatform.Passthrough` is `null` and the component does nothing. [Android XR](openxr/androidxr.md#mixed-reality-with-environment-blend-modes) shows the real world through the `AlphaBlend` environment blend mode instead of passthrough layers.
 
 ## How it works
 

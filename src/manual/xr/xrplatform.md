@@ -17,7 +17,7 @@
 
 The launcher project of each XR profile does four things, in this order:
 
-1. Create the `GraphicsContext` and register it. The XR platform binds to it to create its swapchains.
+1. Create the `GraphicsContext` and register it. The XR platform binds to it to create its swapchains. On Vulkan, OpenXR creates the platform first and calls [`InitializeForVulkan`](openxr/openxr_platform.md#vulkan-graphics-context) before it creates the graphics context, so the runtime takes part in it.
 2. Create the platform, set its properties, and register it with `Container.RegisterInstance`. The container registers it under every base class, so `[BindService] XRPlatform` resolves to it.
 3. Register the platform's `Display` as `DefaultDisplay`, so that cameras render into the headset. A window, if there is one, is registered as a second display that shows a mirror of the headset image.
 4. Call `Update()` on the platform every frame, **before** `UpdateFrame`, so that every behavior in the frame sees the current head pose.
@@ -104,7 +104,7 @@ windowsSystem.Run(
 });
 ```
 
-The [Meta Quest](openxr/metaquest.md), [Pico](openxr/pico.md) and [WebXR](webxr.md) templates follow the same steps. [OpenVR](openvr.md) differs in one detail: its display only exists after the service attaches.
+The [Meta Quest](openxr/metaquest.md), [Pico](openxr/pico.md), [Android XR](openxr/androidxr.md) and [WebXR](webxr.md) templates follow the same steps. [OpenVR](openvr.md) differs in one detail: its display only exists after the service attaches.
 
 ## The camera and the headset
 

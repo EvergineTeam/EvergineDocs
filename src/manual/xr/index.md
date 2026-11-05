@@ -34,7 +34,7 @@ XR support is built into the **Evergine.Framework** and **Evergine.Components** 
 
 | Package | Service | Runtime | Project template |
 | --- | --- | --- | --- |
-| **Evergine.OpenXR** | [`OpenXRPlatform`](openxr/openxr_platform.md) | Any OpenXR runtime: Meta Quest, Pico, and PC headsets through their OpenXR runtime | [Android Meta Quest](openxr/metaquest.md), [Android Pico](openxr/pico.md), [Windows OpenXR](openxr/windows.md) |
+| **Evergine.OpenXR** | [`OpenXRPlatform`](openxr/openxr_platform.md) | Any OpenXR runtime: Meta Quest, Pico, Android XR, and PC headsets through their OpenXR runtime | [Android Meta Quest](openxr/metaquest.md), [Android Pico](openxr/pico.md), [Android XR](openxr/androidxr.md), [Windows OpenXR](openxr/windows.md) |
 | **Evergine.OpenVR** | [`OpenVRPlatform`](openvr.md) | SteamVR on Windows | None |
 | **Evergine.WebXR** | [`WebXRPlatform`](webxr.md) | Browsers that implement the WebXR Device API | WebXR (Experimental AR) |
 
@@ -46,20 +46,21 @@ XR support is built into the **Evergine.Framework** and **Evergine.Components** 
 
 What each platform implements in this release. A cell with an extension name means the feature works when that OpenXR extension is in the list passed to the `OpenXRPlatform` constructor. **Runtime-dependent** means the template does not request the extension: you can add it to the list, and the feature then works only if the headset's OpenXR runtime supports it.
 
-| Feature | OpenXR · Meta Quest | OpenXR · Pico | OpenXR · Windows PC | OpenVR (SteamVR) | WebXR |
-| --- | --- | --- | --- | --- | --- |
-| Head tracking and stereo rendering | Yes | Yes | Yes | Yes | Single view (`EyeCount` is 1) |
-| Mirror window on the desktop | Off in the template | Off in the template | Yes | Yes | No |
-| Controllers ([`TrackXRController`](input_tracking/trackxrcontroller.md)) | Yes | Yes | Yes | Yes | No |
-| Generic trackers and base stations ([`AdvancedTrackXRDevice`](input_tracking/advancedtrackxrdevice.md)) | No | No | No | Yes | No |
-| Articulated hands ([`TrackXRArticulatedHand`](input_tracking/trackxrarticulatedhand.md)) | `XR_EXT_hand_tracking` | `XR_EXT_hand_tracking` | Runtime-dependent | No | No |
-| Pinch and aim gestures on hands | `XR_FB_hand_tracking_aim` | Runtime-dependent | Runtime-dependent | No | No |
-| Hand meshes ([`XRDeviceRenderableModel`](input_tracking/trackxrarticulatedhand.md#render-the-hands)) | `XR_FB_hand_tracking_mesh` | Runtime-dependent | Runtime-dependent | No | No |
-| Controller models (`XRDeviceRenderableModel`) | No | No | No | Yes | No |
-| Hands and controllers at the same time | `XR_META_simultaneous_hands_and_controllers` | Runtime-dependent | Runtime-dependent | No | No |
-| [Passthrough](passthrough.md) | `XR_FB_passthrough` | Runtime-dependent | Runtime-dependent | No | No |
-| Passthrough projected on meshes | `XR_FB_triangle_mesh` | Runtime-dependent | Runtime-dependent | No | No |
-| Camera see-through on a phone (AR) | No | No | No | No | Yes (`immersive-ar`) |
+| Feature | OpenXR · Meta Quest | OpenXR · Pico | OpenXR · Android XR | OpenXR · Windows PC | OpenVR (SteamVR) | WebXR |
+| --- | --- | --- | --- | --- | --- | --- |
+| Head tracking and stereo rendering | Yes | Yes | Yes | Yes | Yes | Single view (`EyeCount` is 1) |
+| Mirror window on the desktop | Off in the template | Off in the template | Off in the template | Yes | Yes | No |
+| Controllers ([`TrackXRController`](input_tracking/trackxrcontroller.md)) | Yes | Yes | Select and menu (simple controller profile) | Yes | Yes | No |
+| Generic trackers and base stations ([`AdvancedTrackXRDevice`](input_tracking/advancedtrackxrdevice.md)) | No | No | No | No | Yes | No |
+| Articulated hands ([`TrackXRArticulatedHand`](input_tracking/trackxrarticulatedhand.md)) | `XR_EXT_hand_tracking` | `XR_EXT_hand_tracking` | `XR_EXT_hand_tracking`, with the hand tracking permission | Runtime-dependent | No | No |
+| Pinch and aim gestures on hands | `XR_FB_hand_tracking_aim` | Runtime-dependent | `XR_FB_hand_tracking_aim` | Runtime-dependent | No | No |
+| Hand meshes ([`XRDeviceRenderableModel`](input_tracking/trackxrarticulatedhand.md#render-the-hands)) | `XR_FB_hand_tracking_mesh` | Runtime-dependent | `XR_FB_hand_tracking_mesh` | Runtime-dependent | No | No |
+| Controller models (`XRDeviceRenderableModel`) | No | No | No | No | Yes | No |
+| Hands and controllers at the same time | `XR_META_simultaneous_hands_and_controllers` | Runtime-dependent | No | Runtime-dependent | No | No |
+| [Passthrough](passthrough.md) | `XR_FB_passthrough` | Runtime-dependent | No | Runtime-dependent | No | No |
+| Passthrough projected on meshes | `XR_FB_triangle_mesh` | Runtime-dependent | No | Runtime-dependent | No | No |
+| Real world view through the [environment blend mode](openxr/openxr_platform.md#environment-blend-modes) | Runtime-dependent | Runtime-dependent | `AlphaBlend` or `Additive` | Runtime-dependent | No | No |
+| Camera see-through on a phone (AR) | No | No | No | No | No | Yes (`immersive-ar`) |
 
 > [!NOTE]
 > `XRPlatform` also declares spatial mapping, spatial anchors, trackable items, light estimation, feature points and eye gaze members. No platform in this release implements them, so they return `null` (or `false`) everywhere.

@@ -2,7 +2,7 @@
 
 ![Pico headset](images/picovr.png)
 
-Pico headsets, such as the Pico 4, are standalone Android VR devices with inside-out tracking, their own controllers and hand tracking. Evergine targets them through [OpenXR](openxr_platform.md) with Vulkan, in the same way as [Meta Quest](metaquest.md). The two templates share almost all of their code, so a project can have both profiles side by side.
+Pico headsets, such as the Pico 4, are standalone Android VR devices with inside-out tracking, their own controllers and hand tracking. Evergine targets them through [OpenXR](openxr_platform.md) with Vulkan, in the same way as [Meta Quest](metaquest.md). The two templates share almost all of their code, so a project can have both profiles side by side, and an [Android XR](androidxr.md) one too.
 
 ## Create a Pico project
 

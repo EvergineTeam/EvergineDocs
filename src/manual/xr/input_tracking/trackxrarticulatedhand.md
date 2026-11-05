@@ -4,7 +4,7 @@
 
 `TrackXRArticulatedHand` makes an entity follow one of the user's hands, and gives you the pose of every joint of that hand. Use it to build hand interactions without controllers: touching buttons with a fingertip, grabbing with a pinch, or drawing the hand yourself.
 
-Hand tracking comes from the OpenXR `XR_EXT_hand_tracking` extension, which the [Meta Quest](../openxr/metaquest.md) and [Pico](../openxr/pico.md) templates enable. On platforms or runtimes without it, the component never connects.
+Hand tracking comes from the OpenXR `XR_EXT_hand_tracking` extension, which the [Meta Quest](../openxr/metaquest.md), [Pico](../openxr/pico.md) and [Android XR](../openxr/androidxr.md) templates enable. Android XR only enables it when the user grants the hand tracking permission. On platforms or runtimes without it, the component never connects.
 
 ## Hand joints
 

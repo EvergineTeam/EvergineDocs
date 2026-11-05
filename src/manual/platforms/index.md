@@ -142,12 +142,12 @@ The other templates swap the window system (`AndroidWindowsSystem`, `WebWindowsS
 
 ## In this section
 
-* [Android](android/index.md): Android phones and tablets, Meta Quest and Pico headsets.
+* [Android](android/index.md): Android phones and tablets, Meta Quest, Pico and Android XR headsets.
 * [iOS](ios/index.md): iPhone and iPad with Metal.
 * [Web](web/index.md): browsers with Blazor WebAssembly and WebGL 2.0 or WebGPU.
 
 Related pages elsewhere in the manual:
 
 * [Supported graphics backends](../graphics/supported_backends/index.md)
-* [OpenXR on Meta Quest](../xr/openxr/metaquest.md) and [Pico](../xr/openxr/pico.md)
+* [OpenXR on Meta Quest](../xr/openxr/metaquest.md), [Pico](../xr/openxr/pico.md) and [Android XR](../xr/openxr/androidxr.md)
 * [Manage profiles](../evergine_studio/settings/project_profiles.md)
