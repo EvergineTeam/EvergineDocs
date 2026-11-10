@@ -223,7 +223,7 @@ private PhysicsManager physicsManager = null;
 <tr>
 <td>Collision filtering</td>
 <td><code>CollisionCategory</code> + <code>MaskBits</code> per body</td>
-<td><code>CollisionCategory</code> per body, plus one <a href="collision_filtering.html">collision matrix</a> on the world. There is no per-body mask any more: every old mask rule has to be recreated with <code>SetCollisionEnabled</code>, and the migration tool reports each one it removed rather than guessing.</td>
+<td><code>CollisionCategory</code> per body, plus one <a href="collision_filtering.html">collision matrix</a> on the world. There is no per-body mask any more: the old category/mask pairs become entries of the matrix, which the migration tool generates from the masks it finds in the project.</td>
 </tr>
 </tbody>
 </table>
@@ -693,16 +693,16 @@ private PhysicsManager physicsManager = null;
 </tbody>
 </table>
 <h2 id="migration-tool">Migration Tool</h2>
-<p>The Evergine repository ships a PowerShell script that does the mechanical part of all of the above, on the C# source, the project files and the <code>.wescene</code> and <code>.weprefab</code> assets of a project:</p>
-<pre><code class="lang-text">src/Tools/Migration/Migrate-BulletToJolt.ps1
-</code></pre>
+<p>A PowerShell script does the mechanical part of all of the above, on the C# source, the project files and the <code>.wescene</code> and <code>.weprefab</code> assets of a project. Download it and keep it anywhere outside the project:</p>
+<p><a href="files/Migrate-BulletToJolt.ps1">Download Migrate-BulletToJolt.ps1</a></p>
+<p>Windows marks a downloaded script as coming from the internet, and the default execution policy refuses to run it. Run <code>Unblock-File .\Migrate-BulletToJolt.ps1</code> once after downloading it.</p>
 <p>It takes a project directory, a <code>.sln</code>, <code>.slnx</code>, <code>.csproj</code> or <code>.weproj</code>. Handed a solution that also references an Evergine checkout or another repository, it confines itself to the Git repository that owns the solution and reports the projects it left alone. <strong>It is a dry run unless <code>-Apply</code> is given</strong>, so the first run costs nothing.</p>
 <h3 id="recommended-process">Recommended process</h3>
 <ol>
 <li><p>Commit, or otherwise keep, the current state of the project.</p>
 </li>
 <li><p>Run it dry and write the findings to a file:</p>
-<pre><code class="lang-powershell">pwsh -File .\src\Tools\Migration\Migrate-BulletToJolt.ps1 `
+<pre><code class="lang-powershell">pwsh -File .\Migrate-BulletToJolt.ps1 `
   -ProjectPath D:\Projects\MyGame\MyGame.Windows.sln `
   -ReportPath D:\Projects\MyGame\bullet-to-jolt-report.json
 </code></pre>
@@ -710,7 +710,7 @@ private PhysicsManager physicsManager = null;
 <li><p>Read the list of files it would change and every warning in the report.</p>
 </li>
 <li><p>Apply it:</p>
-<pre><code class="lang-powershell">pwsh -File .\src\Tools\Migration\Migrate-BulletToJolt.ps1 `
+<pre><code class="lang-powershell">pwsh -File .\Migrate-BulletToJolt.ps1 `
   -ProjectPath D:\Projects\MyGame\MyGame.Windows.sln `
   -Apply
 </code></pre>
@@ -751,8 +751,12 @@ private PhysicsManager physicsManager = null;
 <td>Writes the full JSON report to a path of your choosing instead of the backup folder.</td>
 </tr>
 <tr>
-<td><strong>-PreserveConstraintMasses</strong></td>
-<td>Keeps the original masses in fragile constraint chains instead of applying the stability profile described below.</td>
+<td><strong>-StabilizeConstraintChains</strong></td>
+<td>Raises the masses and solver iterations of light constraint chains that carry a heavy vehicle, a plank bridge for instance. Without it the masses are kept and the report names each fragile chain.</td>
+</tr>
+<tr>
+<td><strong>-TuneVehicleChassis</strong></td>
+<td>Lowers each migrated vehicle's centre of mass and gives the chassis moderate inertia and angular damping, so a direct copy of the Bullet profile does not wheelie.</td>
 </tr>
 </tbody>
 </table>
@@ -767,15 +771,16 @@ private PhysicsManager physicsManager = null;
 <li>Converts the common <code>RayCast</code> forms to the <code>bool</code>/<code>out RayCastHit</code> API, with a filter that still hits sensors.</li>
 <li>Replaces dictionaries keyed by <code>CollisionInfo.Id</code> with <code>(ThisCollider, OtherCollider)</code> keys where it can prove the pattern, so simultaneous contacts from different sensors stay distinct.</li>
 <li>Folds adjacent <code>ApplyEngineForce</code>, <code>SetSteeringValue</code> and <code>SetBrake</code> calls into one <code>SetDriverInput</code>.</li>
-<li>Derives each wheel's radius, position, suspension and grip from the original Bullet asset, lowers the centre of mass, and scales inertia, damping, torque and anti-roll to the chassis, so a migrated car neither wheelies nor sinks its wheels into the ground.</li>
-<li>Stabilizes constraint chains carrying a heavy load, a plank bridge under a vehicle for instance, by adjusting mass ratios and per-constraint solver iterations.</li>
+<li>Builds a <a href="collision_filtering.html">collision matrix</a> from every category/mask pair it finds in assets and code, and writes it on the <code>PhysicsManager</code>, in the scene or where the manager is created in C#. When bodies of one category used different masks, it enables the union, so nothing that collided in Bullet passes through.</li>
+<li>Derives each wheel's radius, position and suspension, and the engine and wheel profile, from the original Bullet values, so a migrated car does not sink its wheels into the ground. <code>-TuneVehicleChassis</code> also retunes the chassis.</li>
+<li>Reports constraint chains that carry a heavy load, and stabilizes them with <code>-StabilizeConstraintChains</code>.</li>
 <li>Sets <code>CollideKinematicVsNonDynamic</code> on serialized kinematic sensors.</li>
 <li>Scans every relevant C# file in the repository, not just the startup project, and is idempotent: running it again rewrites nothing.</li>
 </ul>
 <h3 id="what-it-leaves-to-you">What it leaves to you</h3>
 <p>The report keeps a warning for every conversion where the two engines do not mean the same thing:</p>
 <ul>
-<li><strong>Every <code>MaskBits</code> rule.</strong> Recreate each one in the <a href="collision_filtering.html">collision matrix</a>, and make sure rays and moving sensors exclude their own category where they should. The tool reports the original expression rather than guessing, because a wrong guess lets a cursor ray hit its own sensor.</li>
+<li><strong><code>MaskBits</code> in code.</strong> The generated matrix covers the masks the tool can read. A mask set from an expression it cannot evaluate, or read back from a body, is reported with its original expression: reproduce it with <code>SetCollisionEnabled</code>, and make sure rays and moving sensors exclude their own category where they should, or a cursor ray can hit its own sensor. If no <code>PhysicsManager</code> was found, the report gives the matrix to assign by hand.</li>
 <li><strong>Static sensors that move.</strong> A code-created <code>StaticBody</code> ghost that follows a cursor, controller or hand has to become a kinematic <code>RigidBody</code>.</li>
 <li><strong>Vehicles.</strong> Check the wheel order, the steering and drive indices and the visual wheel transforms, then retune torque, brakes, grip and suspension for the handling you want.</li>
 <li><strong>Constraints</strong> whose Bullet angular limits or motors have no exact equivalent.</li>
