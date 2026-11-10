@@ -57,7 +57,7 @@ private PhysicsManager physicsManager = null;
 | Mass | `Mass`, default 1 | `Mass`, default **0**, which means "work it out from the colliders' `Density`". |
 | Friction | default 0.5 | default **0.2**. |
 | Damping | default 0 | default **0.05** for both linear and angular. |
-| Collision filtering | `CollisionCategory` + `MaskBits` per body | `CollisionCategory` per body, plus one [collision matrix](collision_filtering.md) on the world. There is no per-body mask any more: every old mask rule has to be recreated with `SetCollisionEnabled`, and the migration tool reports each one it removed rather than guessing. |
+| Collision filtering | `CollisionCategory` + `MaskBits` per body | `CollisionCategory` per body, plus one [collision matrix](collision_filtering.md) on the world. There is no per-body mask any more: the old category/mask pairs become entries of the matrix, which the migration tool generates from the masks it finds in the project. |
 
 ### Methods
 
@@ -204,11 +204,11 @@ Events are now raised **once per pair of bodies** rather than per pair of sub-sh
 
 ## Migration Tool
 
-The Evergine repository ships a PowerShell script that does the mechanical part of all of the above, on the C# source, the project files and the `.wescene` and `.weprefab` assets of a project:
+A PowerShell script does the mechanical part of all of the above, on the C# source, the project files and the `.wescene` and `.weprefab` assets of a project. Download it and keep it anywhere outside the project:
 
-```text
-src/Tools/Migration/Migrate-BulletToJolt.ps1
-```
+[Download Migrate-BulletToJolt.ps1](files/Migrate-BulletToJolt.ps1)
+
+Windows marks a downloaded script as coming from the internet, and the default execution policy refuses to run it. Run `Unblock-File .\Migrate-BulletToJolt.ps1` once after downloading it.
 
 It takes a project directory, a `.sln`, `.slnx`, `.csproj` or `.weproj`. Handed a solution that also references an Evergine checkout or another repository, it confines itself to the Git repository that owns the solution and reports the projects it left alone. **It is a dry run unless `-Apply` is given**, so the first run costs nothing.
 
@@ -218,7 +218,7 @@ It takes a project directory, a `.sln`, `.slnx`, `.csproj` or `.weproj`. Handed 
 2. Run it dry and write the findings to a file:
 
    ```powershell
-   pwsh -File .\src\Tools\Migration\Migrate-BulletToJolt.ps1 `
+   pwsh -File .\Migrate-BulletToJolt.ps1 `
      -ProjectPath D:\Projects\MyGame\MyGame.Windows.sln `
      -ReportPath D:\Projects\MyGame\bullet-to-jolt-report.json
    ```
@@ -227,7 +227,7 @@ It takes a project directory, a `.sln`, `.slnx`, `.csproj` or `.weproj`. Handed 
 4. Apply it:
 
    ```powershell
-   pwsh -File .\src\Tools\Migration\Migrate-BulletToJolt.ps1 `
+   pwsh -File .\Migrate-BulletToJolt.ps1 `
      -ProjectPath D:\Projects\MyGame\MyGame.Windows.sln `
      -Apply
    ```
@@ -244,7 +244,8 @@ It takes a project directory, a `.sln`, `.slnx`, `.csproj` or `.weproj`. Handed 
 | **-AssetsOnly** | Migrates the scene and prefab sources only, leaving the C# alone. |
 | **-NoBackup** | Skips the timestamped backup. Only when source control already protects the tree. |
 | **-ReportPath &lt;file&gt;** | Writes the full JSON report to a path of your choosing instead of the backup folder. |
-| **-PreserveConstraintMasses** | Keeps the original masses in fragile constraint chains instead of applying the stability profile described below. |
+| **-StabilizeConstraintChains** | Raises the masses and solver iterations of light constraint chains that carry a heavy vehicle, a plank bridge for instance. Without it the masses are kept and the report names each fragile chain. |
+| **-TuneVehicleChassis** | Lowers each migrated vehicle's centre of mass and gives the chassis moderate inertia and angular damping, so a direct copy of the Bullet profile does not wheelie. |
 
 ### What it does
 
@@ -257,8 +258,9 @@ It takes a project directory, a `.sln`, `.slnx`, `.csproj` or `.weproj`. Handed 
 * Converts the common `RayCast` forms to the `bool`/`out RayCastHit` API, with a filter that still hits sensors.
 * Replaces dictionaries keyed by `CollisionInfo.Id` with `(ThisCollider, OtherCollider)` keys where it can prove the pattern, so simultaneous contacts from different sensors stay distinct.
 * Folds adjacent `ApplyEngineForce`, `SetSteeringValue` and `SetBrake` calls into one `SetDriverInput`.
-* Derives each wheel's radius, position, suspension and grip from the original Bullet asset, lowers the centre of mass, and scales inertia, damping, torque and anti-roll to the chassis, so a migrated car neither wheelies nor sinks its wheels into the ground.
-* Stabilizes constraint chains carrying a heavy load, a plank bridge under a vehicle for instance, by adjusting mass ratios and per-constraint solver iterations.
+* Builds a [collision matrix](collision_filtering.md) from every category/mask pair it finds in assets and code, and writes it on the `PhysicsManager`, in the scene or where the manager is created in C#. When bodies of one category used different masks, it enables the union, so nothing that collided in Bullet passes through.
+* Derives each wheel's radius, position and suspension, and the engine and wheel profile, from the original Bullet values, so a migrated car does not sink its wheels into the ground. `-TuneVehicleChassis` also retunes the chassis.
+* Reports constraint chains that carry a heavy load, and stabilizes them with `-StabilizeConstraintChains`.
 * Sets `CollideKinematicVsNonDynamic` on serialized kinematic sensors.
 * Scans every relevant C# file in the repository, not just the startup project, and is idempotent: running it again rewrites nothing.
 
@@ -266,7 +268,7 @@ It takes a project directory, a `.sln`, `.slnx`, `.csproj` or `.weproj`. Handed 
 
 The report keeps a warning for every conversion where the two engines do not mean the same thing:
 
-* **Every `MaskBits` rule.** Recreate each one in the [collision matrix](collision_filtering.md), and make sure rays and moving sensors exclude their own category where they should. The tool reports the original expression rather than guessing, because a wrong guess lets a cursor ray hit its own sensor.
+* **`MaskBits` in code.** The generated matrix covers the masks the tool can read. A mask set from an expression it cannot evaluate, or read back from a body, is reported with its original expression: reproduce it with `SetCollisionEnabled`, and make sure rays and moving sensors exclude their own category where they should, or a cursor ray can hit its own sensor. If no `PhysicsManager` was found, the report gives the matrix to assign by hand.
 * **Static sensors that move.** A code-created `StaticBody` ghost that follows a cursor, controller or hand has to become a kinematic `RigidBody`.
 * **Vehicles.** Check the wheel order, the steering and drive indices and the visual wheel transforms, then retune torque, brakes, grip and suspension for the handling you want.
 * **Constraints** whose Bullet angular limits or motors have no exact equivalent.
