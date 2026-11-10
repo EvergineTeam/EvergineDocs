@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>CodeScenes | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="CodeScenes | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="codescenes">CodeScenes</h1>
+
+<hr>
+<p><img src="images/codescenes_pipeline.png" alt="At build time, CodeScenes turns every scene file into a C# class that AssetsService uses to create the scene"></p>
+<p>Evergine Studio saves scenes and prefabs as YAML files, <code>.wescene</code> and <code>.weprefab</code>. <strong>CodeScenes</strong> is a C# source generator that converts those files into code while your project builds. At run time, loading a scene then runs compiled C# that creates its entities and components, instead of reading and deserializing the scene file. Loading is faster, and a scene that references a type or property your code no longer has fails the build instead of failing when the scene is loaded.</p>
+<h2 id="enable-it">Enable it</h2>
+<p>New projects have CodeScenes enabled. It needs two things in the project that contains your scenes, and both are in the templates:</p>
+<pre><code class="lang-xml">&lt;PropertyGroup&gt;
+  &lt;!-- Asks Evergine.Targets to pass the scene files to the generator. --&gt;
+  &lt;GenerateEvergineScenesCode&gt;True&lt;/GenerateEvergineScenesCode&gt;
+&lt;/PropertyGroup&gt;
+
+&lt;ItemGroup&gt;
+  &lt;!-- The source generator itself. Use the same version as the other Evergine packages. --&gt;
+  &lt;PackageReference Include=&quot;Evergine.CodeScenes&quot; Version=&quot;EVERGINE_VERSION&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+<p>The generator also needs your <code>Application</code> class to be <code>partial</code>, because it adds a method to it:</p>
+<pre><code class="lang-csharp">public partial class MyApplication : Application
+{
+    // ...
+}
+</code></pre>
+<p>Set <code>GenerateEvergineScenesCode</code> to <code>False</code> to go back to loading the scene files at run time.</p>
+<h2 id="what-it-generates">What it generates</h2>
+<p>For every scene and prefab in the <code>Content</code> folder, the build passes the file to the generator with its asset id, and the generator emits one class named <code>Compiled</code> followed by the file name: <code>CompiledMyScene</code> for <code>MyScene.wescene</code>. The class implements <code>IAssetSourceFactory</code>, and its <code>Create()</code> method builds the same <code>SceneModel</code> the YAML would have produced, one entity per method:</p>
+<pre><code class="lang-csharp">// CompiledMyScene.g.cs (abridged)
+public partial class CompiledMyScene : global::Evergine.Framework.Assets.Importers.IAssetSourceFactory
+{
+    public CompiledMyScene(global::Evergine.Framework.Services.AssetsService assetsService)
+    {
+        this.assetsService = assetsService;
+        // The id and exported path of MyScene.wescene, so AssetsService can find this factory.
+        this.AssetId = Guid.Parse(&quot;...&quot;);
+        this.AssetPath = &quot;...&quot;;
+    }
+
+    public global::Evergine.Framework.Assets.AssetSources.Entities.SceneModel CreateScene()
+    {
+        var ins0 = new Evergine.Framework.Assets.AssetSources.Entities.SceneModel();
+        var ins1 = Create_ins1(ins0);
+        ins0.Items.Add(ins1);
+        // ... one call per root entity ...
+
+        return ins0;
+    }
+
+    private Evergine.Framework.Assets.AssetSources.Entities.EntityItemModel Create_ins1(Evergine.Framework.Assets.AssetSources.Entities.ReferenceContainerModel ins0)
+    {
+        var ins1 = new Evergine.Framework.Assets.AssetSources.Entities.EntityItemModel();
+        ins1.Name = &quot;Cube&quot;;
+        var ins2 = new Evergine.Framework.Graphics.Transform3D();
+        ins2.LocalPosition = new Vector3(0.0F, 0.5F, 0.0F);
+        ins1.Components.Add(ins2);
+        // Asset references become loads by id.
+        var ins3 = new Evergine.Framework.Graphics.MaterialComponent();
+        if (TryLoadAsset&lt;Evergine.Framework.Graphics.Material&gt;(ins0, new Guid(new byte[]{ /* ... */ }), out var ins4)) { ins3.Material = ins4; }
+        ins1.Components.Add(ins3);
+        // ...
+
+        return ins1;
+    }
+}
+</code></pre>
+<p>It also completes your <code>Application</code> class with an override that registers every generated factory with <code>AssetsService</code>:</p>
+<pre><code class="lang-csharp">// RegisterScenes_MyApplication.g.cs
+public partial class MyApplication
+{
+    protected override void RegisterSceneSourceFactories()
+    {
+        var assetsService = this.Container.Resolve&lt;global::Evergine.Framework.Services.AssetsService&gt;();
+        assetsService.RegisterSourceFactory(new MyProject.CompiledMyScene(assetsService));
+    }
+}
+</code></pre>
+<p><code>Application.Initialize()</code> calls <code>RegisterSceneSourceFactories()</code>. From then on, when you load a scene by its id, for example with <code>assetsService.Load&lt;MyScene&gt;(EvergineContent.Scenes.MyScene_wescene)</code>, <code>AssetsService</code> finds the registered factory and uses it. Nothing changes in the code that loads scenes.</p>
+<p>Because the scenes now live in code, the asset export leaves the compiled scene and prefab files out of the exported content.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The generated files are regular C# and appear in Visual Studio under <strong>Dependencies</strong> &gt; <strong>Analyzers</strong> &gt; <strong>Evergine.CodeScenes</strong>. They are regenerated on every build, so do not edit them; change the scene in Evergine Studio instead.</p>
+</div>
+<h2 id="exclude-a-scene">Exclude a scene</h2>
+<p>To keep loading one scene from its file, for example a very large scene that would produce a very large class, add it to <code>EvergineExcludedCompileScenes</code> with the path of the <code>.wescene</code> file:</p>
+<pre><code class="lang-xml">&lt;ItemGroup&gt;
+  &lt;EvergineExcludedCompileScenes Include=&quot;$(MSBuildProjectDirectory)\..\Content\Scenes\HugeScene.wescene&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+<p>An excluded scene is exported and loaded from its file as usual.</p>
+<h2 id="build-errors">Build errors</h2>
+<p>Problems found while generating are reported as build diagnostics with the <code>WESC</code> prefix:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WESC000</strong></td>
+<td>A node of a scene file could not be processed, for example a property whose value does not match its type. The error points at the line of the scene file.</td>
+</tr>
+<tr>
+<td><strong>WESC001</strong></td>
+<td>The generator itself failed. The message contains the exception.</td>
+</tr>
+<tr>
+<td><strong>WESC002</strong></td>
+<td>A whole scene or prefab file could not be converted. Fix it, or exclude it as shown above.</td>
+</tr>
+<tr>
+<td><strong>WESC003</strong></td>
+<td>No <code>partial</code> class deriving from <code>Evergine.Framework.Application</code> was found to add <code>RegisterSceneSourceFactories</code> to.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The same package contains a second generator for the services you configure in Evergine Studio's <a href="../evergine_studio/settings/project_services.html">Project Services</a>. It reads the project's <code>.weservices</code> file and adds a <code>RegisterApplicationServices()</code> override to your <code>Application</code>, which registers each service unless your own code already registered one of the same type. It does not depend on <code>GenerateEvergineScenesCode</code>.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,568 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>OpenXR Platform | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="OpenXR Platform | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="openxr-platform">OpenXR Platform</h1>
+
+<p><img src="images/openxr_overall.png" alt="OpenXR sits between applications and the runtimes of every conformant device"></p>
+<p><code>OpenXRPlatform</code> is the <a href="../xrplatform.html"><code>XRPlatform</code></a> implementation for OpenXR, in the <strong>Evergine.OpenXR</strong> package. It creates the OpenXR instance and session, renders the scene into the runtime's swapchains, and turns the runtime's actions and extensions into Evergine devices, hand joints and passthrough layers.</p>
+<p>Every OpenXR template creates one in its launcher project. You change its configuration there: which extensions to request, which controllers to support, and how the tracking space is anchored.</p>
+<h2 id="creating-the-platform">Creating the platform</h2>
+<p><code>OpenXRPlatform</code> has two constructors:</p>
+<table>
+<thead>
+<tr>
+<th>Constructor</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OpenXRPlatform()</code></td>
+<td>No optional extensions. Controllers use the Khronos simple controller profile.</td>
+</tr>
+<tr>
+<td><code>OpenXRPlatform(string[] extensionsToEnable, OpenXRInteractionProfile[] interactionProfiles = null)</code></td>
+<td>Requests the given <a href="#extensions">extensions</a> and registers the given <a href="#interaction-profiles">interaction profiles</a>. A <code>null</code> profile list falls back to <code>DefaultInteractionProfiles.KhronosSimpleProfile</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>On Vulkan, call <a href="#vulkan-graphics-context"><code>InitializeForVulkan</code></a> after the constructor and before you create the graphics context. This is how the <strong>Android Meta Quest (OpenXR)</strong> template does it, in <code>MainActivity.cs</code>:</p>
+<pre><code class="lang-csharp">// Create mirror display...
+FrameBuffer frameBuffer = null!;
+var mirrorDisplay = new Display(surface, frameBuffer);
+
+// Create OpenXR Platform
+openXRPlatform = new OpenXRPlatform(
+    new string[]
+    {
+            &quot;XR_EXT_hand_tracking&quot;,         // Enable hand tracking in OpenXR application
+            &quot;XR_FB_hand_tracking_aim&quot;,      // Allow to use hand gestures in Meta Quest devices
+            &quot;XR_FB_hand_tracking_mesh&quot;,     // Obtain hand mesh in Meta Quest devices
+
+        // &quot;XR_FB_passthrough&quot;,         // Enable Passthrough in Meta Quest devices
+        // &quot;XR_FB_triangle_mesh&quot;,       // Allow to project Passthrough on Meshes
+
+        // &quot;XR_META_simultaneous_hands_and_controllers&quot;, // Allow to use hands and controllers simultaneously
+    },
+    new OpenXRInteractionProfile[]
+    {
+            DefaultInteractionProfiles.OculusTouchProfile
+    })
+{
+    // UseSimultaneousHandsAndControllers = true, // Enable using simultaneously the hands and controllers
+    RenderMirrorTexture = false,
+    ReferenceSpace = ReferenceSpaceType.Stage,
+    MirrorDisplay = mirrorDisplay,
+};
+
+// OpenXR is initialized first: the runtime takes part in the creation of the Vulkan instance and device
+var openXRVulkan = openXRPlatform.InitializeForVulkan();
+
+// Enable Vulkan extensions required by Oculus &amp; OpenXR
+var graphicsContext = new global::Evergine.Vulkan.VKGraphicsContext(new global::Evergine.Vulkan.VKGraphicsContextOptions()
+{
+    DeviceExtensions = new[]
+    {
+            &quot;VK_KHR_multiview&quot;,
+            &quot;VK_KHR_external_memory&quot;,
+            &quot;VK_KHR_external_memory_fd&quot;,
+            &quot;VK_KHR_get_memory_requirements2&quot;,
+    }.Union(openXRVulkan.DeviceExtensions),
+    InstanceExtensions = new[]
+    {
+            &quot;VK_KHR_get_physical_device_properties2&quot;,
+            &quot;VK_KHR_external_memory_capabilities&quot;,
+    }.Union(openXRVulkan.InstanceExtensions),
+    CreateInstance = openXRVulkan.CreateInstance,
+    SelectPhysicalDevice = openXRVulkan.SelectPhysicalDevice,
+    CreateDevice = openXRVulkan.CreateDevice,
+});
+
+graphicsContext.CreateDevice();
+application.Container.RegisterInstance&lt;GraphicsContext&gt;(graphicsContext);
+application.Container.RegisterInstance(openXRPlatform);
+
+// Register the displays...
+var graphicsPresenter = application.Container.Resolve&lt;GraphicsPresenter&gt;();
+graphicsPresenter.AddDisplay(&quot;DefaultDisplay&quot;, openXRPlatform.Display);
+graphicsPresenter.AddDisplay(&quot;MirrorDisplay&quot;, mirrorDisplay);
+</code></pre>
+<p>The <a href="pico.html">Pico</a> and <a href="androidxr.html">Android XR</a> templates differ in the extension list, the interaction profiles and the Vulkan device extensions. The <a href="windows.html">Windows</a> template uses DirectX 11, so it creates and registers its graphics context before the platform and does not call <code>InitializeForVulkan</code>. <a href="../xrplatform.html#creating-and-registering-a-platform">XR Platform</a> explains the four steps every launcher follows.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Set every property in the object initializer. The platform reads the extension list, <code>ApplicationName</code> and <code>FormFactor</code> when it creates the OpenXR instance and system, and <code>ViewConfiguration</code>, <code>ReferenceSpace</code> and <code>OverSampling</code> when it creates the session. On Vulkan the instance and system are created in <code>InitializeForVulkan</code>, on the other backends during <code>application.Initialize()</code>, and the session is always created during <code>application.Initialize()</code>. Changing them afterwards has no effect.</p>
+</div>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ReferenceSpace</strong></td>
+<td><code>Stage</code></td>
+<td>The origin of the tracking space. See <a href="#reference-spaces">Reference spaces</a>.</td>
+</tr>
+<tr>
+<td><strong>FormFactor</strong></td>
+<td><code>HeadMountedDisplay</code></td>
+<td>The kind of device to request from the runtime: <code>HeadMountedDisplay</code> or <code>HandheldDisplay</code>. If no device of that kind is found, the platform logs it and asks again every second.</td>
+</tr>
+<tr>
+<td><strong>ViewConfiguration</strong></td>
+<td><code>PrimaryStereo</code></td>
+<td><code>PrimaryStereo</code> renders one view per eye. <code>PrimaryMono</code> renders a single view, for handheld displays.</td>
+</tr>
+<tr>
+<td><strong>OverSampling</strong></td>
+<td>1.0</td>
+<td>Multiplier of the resolution the runtime recommends for the swapchain. Values above 1 sharpen the image at a GPU cost, and the result is clamped to the runtime's maximum.</td>
+</tr>
+<tr>
+<td><strong>ApplicationName</strong></td>
+<td><code>&quot;Evergine.OpenXR&quot;</code></td>
+<td>The name sent to the runtime when the instance is created. Some runtimes show it in their dashboards.</td>
+</tr>
+<tr>
+<td><strong>UseSimultaneousHandsAndControllers</strong></td>
+<td><code>false</code></td>
+<td>Tracks hands and controllers at the same time, so a hand can be tracked while the other holds a controller. Needs <code>XR_META_simultaneous_hands_and_controllers</code>. Unlike the other properties, you can change it while the application runs.</td>
+</tr>
+<tr>
+<td><strong>PreferredEnvironmentBlendModes</strong></td>
+<td>Empty</td>
+<td>The <a href="#environment-blend-modes">environment blend modes</a> you want, in priority order. The first one the runtime supports is used. You can change it while the application runs.</td>
+</tr>
+<tr>
+<td><strong>SupportedEnvironmentBlendModes</strong></td>
+<td>Empty until the system exists</td>
+<td>The blend modes the runtime supports, the runtime's preferred one first. Read-only.</td>
+</tr>
+<tr>
+<td><strong>EnvironmentBlendMode</strong></td>
+<td>The runtime's preferred mode</td>
+<td>The blend mode used to submit frames. Read-only.</td>
+</tr>
+<tr>
+<td><strong>ExtensionsToEnable</strong></td>
+<td>The constructor argument</td>
+<td>The extensions requested at startup. Read-only.</td>
+</tr>
+<tr>
+<td><strong>GraphicBackend</strong></td>
+<td>Created on attach</td>
+<td>The OpenXR integration of the graphics backend: DirectX 11, Vulkan or OpenGL. Any other backend throws <code>InvalidOperationException</code> when the platform attaches.</td>
+</tr>
+</tbody>
+</table>
+<p><code>OpenXRPlatform</code> also inherits the <a href="../xrplatform.html#properties"><code>XRPlatform</code> properties</a>: <code>MirrorDisplay</code>, <code>RenderMirrorTexture</code>, <code>MSAASampleCount</code>, <code>NearClipDistance</code>, <code>FarClipDistance</code>, and the <code>InputTracking</code>, <code>RenderableModels</code> and <code>Passthrough</code> subsystems.</p>
+<h3 id="reference-spaces">Reference spaces</h3>
+<p>The reference space decides where the origin of the tracking space is, and so where the parent of your camera sits in the real world.</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Origin</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Stage</strong> (default)</td>
+<td>On the floor, at the centre of the play area the user set up</td>
+<td>Standing and room-scale experiences. The height of the camera above its parent is the user's real eye height.</td>
+</tr>
+<tr>
+<td><strong>Local</strong></td>
+<td>At the head position when the application started, facing forward</td>
+<td>Seated experiences. Content does not depend on the floor.</td>
+</tr>
+<tr>
+<td><strong>View</strong></td>
+<td>At the head, moving with it</td>
+<td>Head-locked content only. Rarely what you want for a whole scene.</td>
+</tr>
+<tr>
+<td><strong>Unbounded</strong></td>
+<td>World-locked, with no play area limit</td>
+<td>Large spaces where the user walks far from the start point. Requires the <code>XR_MSFT_unbounded_reference_space</code> extension in the constructor list.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// In the launcher: a seated experience, rendered 20% above the recommended resolution.
+openXRPlatform = new OpenXRPlatform(
+    new[] { &quot;XR_EXT_hand_tracking&quot; },
+    new[] { DefaultInteractionProfiles.OculusTouchProfile })
+{
+    ReferenceSpace = ReferenceSpaceType.Local,
+    OverSampling = 1.2f,
+    MirrorDisplay = mirrorDisplay,
+};
+</code></pre>
+<h2 id="vulkan-graphics-context">Vulkan graphics context</h2>
+<p>Some OpenXR runtimes, such as Android XR, have to take part in the creation of the Vulkan instance and device: they add the Vulkan extensions they need and choose the GPU. <code>OpenXRPlatform.InitializeForVulkan()</code> makes this possible. It creates the OpenXR instance and system before the graphics context exists, and returns an <code>OpenXRVulkanInterop</code> with what the <code>VKGraphicsContext</code> needs:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>InstanceExtensions</code>, <code>DeviceExtensions</code></td>
+<td>The Vulkan extensions the runtime requires. Add them to your own lists with <code>Union</code>. They are empty with <code>XR_KHR_vulkan_enable2</code>, where the runtime adds its extensions itself.</td>
+</tr>
+<tr>
+<td><code>CreateInstance</code>, <code>SelectPhysicalDevice</code>, <code>CreateDevice</code></td>
+<td>Methods with the signatures of the <code>VKGraphicsContextOptions</code> callbacks. Assign them directly.</td>
+</tr>
+<tr>
+<td><code>UsesVulkanEnable2</code></td>
+<td><code>true</code> when the runtime creates the Vulkan objects (<code>XR_KHR_vulkan_enable2</code>). <code>false</code> when Evergine creates them and the runtime only picks the GPU (<code>XR_KHR_vulkan_enable</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>The order is always the same, and every Vulkan template follows it:</p>
+<ol>
+<li>Create <code>OpenXRPlatform</code> and set its properties.</li>
+<li>Call <code>InitializeForVulkan()</code>.</li>
+<li>Create the <code>VKGraphicsContext</code> with a <code>VKGraphicsContextOptions</code> that uses the interop extensions and methods, and call <code>CreateDevice()</code>.</li>
+<li>Register the graphics context and the platform, and add the displays.</li>
+</ol>
+<p><code>OpenXRPlatform</code> prefers <code>XR_KHR_vulkan_enable2</code> and falls back to <code>XR_KHR_vulkan_enable</code> on older runtimes. When the session starts, it also checks that the Vulkan version of the graphics context is one the runtime accepts.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>A Vulkan graphics context created without these callbacks only works on runtimes that support <code>XR_KHR_vulkan_enable</code>. On a runtime that only supports <code>XR_KHR_vulkan_enable2</code> the platform throws <code>InvalidOperationException</code> and asks you to call <code>InitializeForVulkan()</code>. Calling <code>InitializeForVulkan()</code> and then creating the graphics context without the callbacks also throws. Projects created from a Meta Quest or Pico template of an earlier release create the graphics context first. They keep working on runtimes that support <code>XR_KHR_vulkan_enable</code>; update their <code>MainActivity.cs</code> to the order above to run them on any runtime.</p>
+</div>
+<h2 id="environment-blend-modes">Environment blend modes</h2>
+<p>The environment blend mode tells the compositor how to mix the frames of the application with the real world:</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Result</th>
+<th>Typical devices</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Opaque</code></td>
+<td>The frame covers the whole view.</td>
+<td>VR headsets. Some optical see-through devices dim their lenses in this mode.</td>
+</tr>
+<tr>
+<td><code>AlphaBlend</code></td>
+<td>Pixels with alpha 0 show the real world, through the device cameras.</td>
+<td>Video passthrough headsets, such as Samsung Galaxy XR.</td>
+</tr>
+<tr>
+<td><code>Additive</code></td>
+<td>The frame is added to the light of the real world, so black is transparent.</td>
+<td>Optical see-through glasses, such as XREAL Aura.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/openxr_blend_modes.png" alt="The three environment blend modes, and how OpenXRPlatform picks one"></p>
+<p><code>PreferredEnvironmentBlendModes</code> is the list of modes you want, in priority order. When the system is created, <code>SupportedEnvironmentBlendModes</code> is filled with the modes of the runtime, and <code>EnvironmentBlendMode</code> is set to the first preferred mode the runtime supports, or to the runtime's own preference when there is none. The platform logs the supported and selected modes, and a warning when none of your modes is supported.</p>
+<pre><code class="lang-csharp">openXRPlatform = new OpenXRPlatform(extensions, profiles)
+{
+    // Show the room where the scene is transparent, or add the scene to it on optical see-through glasses.
+    PreferredEnvironmentBlendModes = new[] { EnvironmentBlendMode.AlphaBlend, EnvironmentBlendMode.Additive },
+    MirrorDisplay = mirrorDisplay,
+};
+</code></pre>
+<p>With <code>AlphaBlend</code>, the room only shows where the scene is transparent: clear the camera to <code>Color.Transparent</code> and remove any sky or background entity. The <a href="androidxr.html">Android XR</a> template uses this mechanism to show the real world. On Meta Quest, use <a href="../passthrough.html">passthrough</a> layers instead.</p>
+<h2 id="extensions">Extensions</h2>
+<p>OpenXR features beyond the core are <strong>extensions</strong>. <code>OpenXRPlatform</code> enables some by itself and the rest only when you pass their names to the constructor.</p>
+<p>Always enabled when the runtime supports them:</p>
+<ul>
+<li>The extension of the graphics backend: <code>XR_KHR_D3D11_enable</code>, <code>XR_KHR_opengl_enable</code>, or for Vulkan <code>XR_KHR_vulkan_enable2</code> when you use <code>InitializeForVulkan</code> and the runtime supports it, and <code>XR_KHR_vulkan_enable</code> otherwise.</li>
+<li><code>XR_KHR_composition_layer_depth</code>, which lets the runtime use the depth buffer to reproject frames.</li>
+</ul>
+<p>Extensions that Evergine uses when you request them:</p>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>What it enables in Evergine</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>XR_EXT_hand_tracking</code></td>
+<td>Articulated hand devices for <a href="../input_tracking/trackxrarticulatedhand.html"><code>TrackXRArticulatedHand</code></a>.</td>
+</tr>
+<tr>
+<td><code>XR_FB_hand_tracking_aim</code></td>
+<td>A pinch reports as the hand's <code>Trigger</code> and <code>TriggerButton</code>, and the hand gets an aim <code>Pointer</code>. Meta Quest, Android XR.</td>
+</tr>
+<tr>
+<td><code>XR_FB_hand_tracking_mesh</code></td>
+<td>A skinned hand model for <a href="../input_tracking/trackxrarticulatedhand.html#render-the-hands"><code>XRDeviceRenderableModel</code></a>. Meta Quest, Android XR.</td>
+</tr>
+<tr>
+<td><code>XR_FB_passthrough</code></td>
+<td>The <a href="../passthrough.html">passthrough</a> subsystem. Meta Quest.</td>
+</tr>
+<tr>
+<td><code>XR_FB_triangle_mesh</code></td>
+<td>Passthrough projected on your own meshes (<code>XRPassthroughSurfaceMeshComponent</code>). Meta Quest.</td>
+</tr>
+<tr>
+<td><code>XR_META_simultaneous_hands_and_controllers</code></td>
+<td>The <code>UseSimultaneousHandsAndControllers</code> property. Meta Quest.</td>
+</tr>
+<tr>
+<td><code>XR_MSFT_unbounded_reference_space</code></td>
+<td>The <code>Unbounded</code> reference space.</td>
+</tr>
+</tbody>
+</table>
+<p>An extension the runtime does not support is skipped: the platform reports a warning through the graphics context's validation layer, when one is enabled, and starts without it. The feature it drives then stays unavailable, for example <code>Passthrough</code> stays <code>null</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Some extensions also need permissions or features in the Android manifest. See <a href="metaquest.html#optional-features">Meta Quest</a> for passthrough, and <a href="androidxr.html#the-hand-tracking-permission">Android XR</a> for the hand tracking permission.</p>
+</div>
+<h2 id="interaction-profiles">Interaction profiles</h2>
+<p>An <strong>interaction profile</strong> tells the runtime which physical controller you expect and how its inputs map to Evergine's actions. The runtime picks the profile that matches the controller in the user's hands. If none of the profiles you registered matches, the controller never connects, and <code>TrackXRController.IsConnected</code> stays <code>false</code>.</p>
+<p><code>DefaultInteractionProfiles</code> provides profiles for the common controllers:</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Interaction path</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>KhronosSimpleProfile</code></td>
+<td><code>/interaction_profiles/khr/simple_controller</code></td>
+<td>The default when you pass no profiles, and the Android XR template. Select and menu buttons only.</td>
+</tr>
+<tr>
+<td><code>OculusTouchProfile</code></td>
+<td><code>/interaction_profiles/oculus/touch_controller</code></td>
+<td>Meta Quest template, Windows template</td>
+</tr>
+<tr>
+<td><code>PicoNeo3Profile</code></td>
+<td><code>/interaction_profiles/pico/neo3_controller</code></td>
+<td>Pico template</td>
+</tr>
+<tr>
+<td><code>HTCViveControllerProfile</code></td>
+<td><code>/interaction_profiles/htc/vive_controller</code></td>
+<td>Windows template</td>
+</tr>
+<tr>
+<td><code>ValveIndexControllerProfile</code></td>
+<td><code>/interaction_profiles/valve/index_controller</code></td>
+<td>Windows template</td>
+</tr>
+<tr>
+<td><code>MixedRealityMotionControllerProfile</code></td>
+<td><code>/interaction_profiles/microsoft/motion_controller</code></td>
+<td>Windows template</td>
+</tr>
+<tr>
+<td><code>OculusGoProfile</code></td>
+<td><code>/interaction_profiles/oculus/go_controller</code></td>
+<td>Windows template</td>
+</tr>
+</tbody>
+</table>
+<p>Each profile maps Evergine action names to OpenXR input paths in its <code>SupportedComponents</code> dictionary. These are the actions and the part of the controller state they fill:</p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Fills</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>pose</code></td>
+<td>The device pose that moves the entity.</td>
+</tr>
+<tr>
+<td><code>aimpose</code></td>
+<td><code>Pointer</code>.</td>
+</tr>
+<tr>
+<td><code>trigger</code></td>
+<td><code>ControllerState.Trigger</code> (0 to 1).</td>
+</tr>
+<tr>
+<td><code>triggerclick</code></td>
+<td><code>ControllerState.TriggerButton</code>.</td>
+</tr>
+<tr>
+<td><code>gripclick</code></td>
+<td><code>ControllerState.Grip</code>.</td>
+</tr>
+<tr>
+<td><code>thumbstickx</code>, <code>thumbsticky</code></td>
+<td><code>ControllerState.ThumbStick</code>.</td>
+</tr>
+<tr>
+<td><code>thumbstickclick</code></td>
+<td><code>ControllerState.ThumbStickButton</code>.</td>
+</tr>
+<tr>
+<td><code>menu</code></td>
+<td><code>ControllerState.Menu</code>.</td>
+</tr>
+<tr>
+<td><code>button1</code>, <code>button2</code></td>
+<td><code>ControllerState.Button1</code> and <code>ControllerState.Button2</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>To support a controller that has no default profile, or to map its inputs differently, create an <code>OpenXRInteractionProfile</code> with its interaction path, the user paths it applies to, and the input path for each action, then pass it to the constructor with the others. A path that starts with <code>/input</code> applies to every user path. A full path such as <code>/user/hand/left/input/x/click</code> applies to that hand only, and several paths are separated by spaces.</p>
+<pre><code class="lang-csharp">using System.Collections.Generic;
+using Evergine.OpenXR;
+
+// The simple controller has no trigger: report its select button as the trigger button.
+var simpleProfile = new OpenXRInteractionProfile()
+{
+    InteractionPath = &quot;/interaction_profiles/khr/simple_controller&quot;,
+    UserPaths = new List&lt;string&gt;() { &quot;/user/hand/left&quot;, &quot;/user/hand/right&quot; },
+    SupportedComponents = new Dictionary&lt;string, string&gt;()
+    {
+        { &quot;triggerclick&quot;, &quot;/input/select/click&quot; },
+        { &quot;menu&quot;, &quot;/input/menu/click&quot; },
+        { &quot;pose&quot;, &quot;/input/grip/pose&quot; },
+        { &quot;aimpose&quot;, &quot;/input/aim/pose&quot; },
+    },
+};
+</code></pre>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="metaquest.html">Meta Quest</a></li>
+<li><a href="pico.html">Pico</a></li>
+<li><a href="androidxr.html">Android XR</a></li>
+<li><a href="windows.html">Windows (PC VR)</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Gear Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Gear Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="gear-constraint">Gear Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/gear_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>gear constraint</strong> couples the rotations of two bodies: turn one and the other turns with it, at a fixed ratio and in the opposite direction. Gear trains, geared doors, a differential, a hand on a clock face.</p>
+<h2 id="it-only-couples-rotations">It only couples rotations</h2>
+<p>A gear constraint says nothing about <strong>where</strong> the two bodies are. It relates how fast they turn, and nothing else. Each body still needs its own <a href="hinge_constraint.html">hinge constraint</a> to hold it in place and give it an axis to turn about.</p>
+<p>A gear is therefore always three components across two entities: a hinge on each body, and the gear between them.</p>
+<h2 id="gearconstraint-component">GearConstraint Component</h2>
+<p><img src="images/gearconstraint_component.png" alt="GearConstraint component"></p>
+<pre><code class="lang-csharp">// The driven gear: a hinge to hold it on its axle, and a motor to turn it.
+Entity driver = new Entity(&quot;driver&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 2f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new CylinderCollider() { Radius = 0.8f, Height = 0.3f })
+    .AddComponent(new HingeConstraint()
+    {
+        Axis = Vector3.UnitY,
+        NormalAxis = Vector3.UnitX,
+        MotorMode = MotorMode.Velocity,
+        TargetAngularVelocity = 2f,
+        MaxMotorTorque = 500f,
+    });
+
+// The follower: its own hinge to hold it, plus the gear that ties the two rotations together.
+Entity follower = new Entity(&quot;follower&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(1.8f, 2f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new CylinderCollider() { Radius = 0.8f, Height = 0.3f })
+    .AddComponent(new HingeConstraint() { Axis = Vector3.UnitY, NormalAxis = Vector3.UnitX })
+    .AddComponent(new GearConstraint()
+    {
+        ConnectedEntityPath = &quot;driver&quot;,
+        Axis = Vector3.UnitY,
+        ConnectedAxis = Vector3.UnitY,
+        Ratio = 1f,
+    });
+
+this.Managers.EntityManager.Add(driver);
+this.Managers.EntityManager.Add(follower);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Axis</strong></td>
+<td>0,0,1</td>
+<td>This body's rotation axis, in its local space. It must match the axis of its own hinge.</td>
+</tr>
+<tr>
+<td><strong>ConnectedAxis</strong></td>
+<td>0,0,1</td>
+<td>The other body's rotation axis, in <strong>its</strong> local space.</td>
+</tr>
+<tr>
+<td><strong>Ratio</strong></td>
+<td>1</td>
+<td>How many turns of this body make one turn of the other.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus the <a href="index.html#common-properties">common properties</a>.</p>
+<h2 id="ratios">Ratios</h2>
+<p>The ratio is the gear ratio, and it is what a difference in tooth count would give you on real gears:</p>
+<table>
+<thead>
+<tr>
+<th>Ratio</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>Both turn at the same speed, in opposite directions.</td>
+</tr>
+<tr>
+<td>2</td>
+<td>This body turns twice for each turn of the other: a small gear driven by a large one.</td>
+</tr>
+<tr>
+<td>0.5</td>
+<td>This body turns half as fast: a large gear driven by a small one.</td>
+</tr>
+<tr>
+<td>-1</td>
+<td>Both turn at the same speed, in the <strong>same</strong> direction, as though there were an idler between them.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// Radius decides the ratio on real gears, so deriving it from the radii keeps the teeth in step
+// however the two are resized.
+gear.Ratio = otherRadius / thisRadius;
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The two <code>Axis</code> values are each in their <strong>own</strong> body's local space, and each has to match the axis of that body's hinge. A gear whose axis disagrees with its hinge fights the hinge every step, which shows up as the pair juddering rather than turning.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A gear train is a chain of gear constraints: gear A to B, B to C, C to D. Only the first needs a motor; the rest are driven through the chain. If the far end of a long train lags, give the gears nearest the motor a higher <code>Priority</code>. Higher is solved last, and the last one solved is the one that wins.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

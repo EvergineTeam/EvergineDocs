@@ -1,0 +1,186 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cesium | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cesium | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cesium">Cesium</h1>
+
+<hr>
+<p><img src="images/TeaserAddon.png" alt="Cesium add-on"></p>
+<p>The <strong>Evergine Cesium</strong> add-on streams real-world geospatial content from <a href="https://cesium.com/platform/cesium-ion/">Cesium ion</a> into Evergine: global terrain, 3D buildings, and imagery. It also includes an Earth-aware camera, a component that places entities at latitude and longitude, and optional geocoding to search places by address. Use it to build digital twins, city viewers, or any application that shows content on the real globe.</p>
+<h2 id="features">Features</h2>
+<table>
+<thead>
+<tr>
+<th>Category</th>
+<th>Capabilities</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tilesets</strong></td>
+<td>Streams Cesium ion tilesets with <code>AddTileset</code>: terrain with an imagery overlay, such as Cesium World Terrain, and tilesets with their own textures, such as 3D buildings. Each one has its own screen space error.</td>
+</tr>
+<tr>
+<td><strong>Rendering</strong></td>
+<td>GPU-driven rendering: all the tiles share vertex and index buffers and a texture atlas, and they are drawn with indirect draw calls. Tiles cast and receive shadows.</td>
+</tr>
+<tr>
+<td><strong>Streaming</strong></td>
+<td>A dedicated worker thread updates the tilesets and samples the terrain height without blocking the scene update.</td>
+</tr>
+<tr>
+<td><strong>Imagery</strong></td>
+<td>Switchable overlays: Bing aerial and roads, and several Google Maps styles.</td>
+</tr>
+<tr>
+<td><strong>Camera</strong></td>
+<td><code>WorldCamera</code> navigates by latitude, longitude, and height, with an optional custom zoom controller, and <code>FlyTo</code> animates the camera to a place.</td>
+</tr>
+<tr>
+<td><strong>Placement</strong></td>
+<td><code>CesiumPlacerComponent</code> places any entity at geodetic coordinates, optionally relative to the terrain height.</td>
+</tr>
+<tr>
+<td><strong>Geocoding</strong></td>
+<td>Address search, reverse geocoding, and autocomplete through Azure Maps or Google Maps (requires a key for the service).</td>
+</tr>
+<tr>
+<td><strong>Lighting</strong></td>
+<td><code>SunLightDirection</code> orients a directional light like the sun for a day of the year and an hour, and adjusts its color and intensity to the height of the sun.</td>
+</tr>
+<tr>
+<td><strong>Diagnostics</strong></td>
+<td>Visible and resident tile counters, and the GPU memory usage of the vertex and index buffers and the texture atlas.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A <strong>Cesium ion</strong> access token with access to the assets you stream. You can <a href="https://ion.cesium.com/tokens">create one for free</a>.</li>
+<li>Optionally, an <strong>Azure Maps</strong> or <strong>Google Maps</strong> key for geocoding.</li>
+<li>A Windows profile. The add-on sample targets DirectX 11, DirectX 12, and Vulkan.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Evergine Cesium does not support Web platforms (WebGL and WebGPU).</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="getting_started.html">Getting started</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

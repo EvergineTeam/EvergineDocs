@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Export Assets | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Export Assets | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="export-assets">Export Assets</h1>
+
+<p><img src="Images/asset_pipeline.png" alt="The asset pipeline: a source file and its metafile are exported per profile into a .wep file in the application content folder"></p>
+<p><em>Exporting turns each asset into a binary file that is ready to load on the target platform.</em></p>
+<p>Evergine does not load source files such as <code>.png</code> or <code>.fbx</code> at runtime. When you build a launcher project, each asset is <strong>exported</strong>: its source file is imported, processed with the settings of the target profile, and written to a binary file that the engine can load quickly. An exported model, for example, contains vertex and index data that is copied straight into GPU buffers.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Evergine <em>can</em> import some source files at runtime with <code>AssetsService.Load&lt;T&gt;(name, stream)</code>, which is useful for content downloaded by the application. That path relies on the importers of the <code>Evergine.Assets</code> assembly, is slower, uses more memory, and ignores the properties you set in Evergine Studio. See <a href="use.html#load-an-asset-from-a-stream">Use Assets</a>.</p>
+</div>
+<h2 id="when-assets-are-exported">When assets are exported</h2>
+<p>Assets are exported as part of the build of each launcher project, such as <code>MyProject.Windows</code>. The build uses the profile of that launcher, writes the exported files to an intermediate folder so that unchanged assets are not exported again, and copies them to the <code>Content</code> folder next to the application binaries. <strong>File &gt; Build &amp; Run</strong> in Evergine Studio builds and starts a Windows profile, and exports its assets on the way.</p>
+<p>The exported files are named after the asset ID, for example <code>Content/01221b69-9685-4f0d-9862-6be704bd3cd2.weptx</code>. Your code does not need these names: it loads assets through the IDs in <code>EvergineContent</code>.</p>
+<h2 id="export-pipeline">Export pipeline</h2>
+<p>For every asset in the <code>Content</code> folder of the project and of its add-ons, the export does the following:</p>
+<ol>
+<li>Reads the asset <strong>metafile</strong>.</li>
+<li>Looks for the settings of the <strong>profile</strong> being built. If the asset overrides that profile (<strong>OverridesDefaultProperty</strong> in its editor), those values are used; otherwise the <strong>default</strong> profile values are used.</li>
+<li>Skips the asset if <strong>ExcludeAsset</strong> is enabled in the chosen settings.</li>
+<li>Imports the <strong>source file</strong>, if the asset has one, with the importer that matches its extension.</li>
+<li>Runs the <strong>exporter</strong> of the asset type, which writes <code>&lt;asset id&gt;.&lt;exported extension&gt;</code> to the output.</li>
+</ol>
+<p>Assets marked with <strong>Set to export as raw</strong> take a shortcut: the source file is copied to the output with its original name and folder, and a small <code>&lt;asset id&gt;.wepidx</code> index file records where it is, so <code>LoadRaw&lt;T&gt;</code> can find it by ID.</p>
+<h2 id="exported-file-extensions">Exported file extensions</h2>
+<table>
+<thead>
+<tr>
+<th>Asset type</th>
+<th>Metafile</th>
+<th>Exported file</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Texture</td>
+<td><code>.wetx</code></td>
+<td><code>.weptx</code></td>
+</tr>
+<tr>
+<td>Model</td>
+<td><code>.wemd</code></td>
+<td><code>.wepmd</code></td>
+</tr>
+<tr>
+<td>Sound</td>
+<td><code>.wesn</code></td>
+<td><code>.wepsn</code></td>
+</tr>
+<tr>
+<td>Font</td>
+<td><code>.weft</code></td>
+<td><code>.wepft</code></td>
+</tr>
+<tr>
+<td>Scene</td>
+<td><code>.wesc</code></td>
+<td><code>.wepsc</code></td>
+</tr>
+<tr>
+<td>Prefab</td>
+<td><code>.weprf</code></td>
+<td><code>.wepprf</code></td>
+</tr>
+<tr>
+<td>Effect</td>
+<td><code>.wefx</code></td>
+<td><code>.wepfx</code></td>
+</tr>
+<tr>
+<td>Material</td>
+<td><code>.wemt</code></td>
+<td><code>.wepmt</code></td>
+</tr>
+<tr>
+<td>Render Layer</td>
+<td><code>.werl</code></td>
+<td><code>.weprl</code></td>
+</tr>
+<tr>
+<td>Sampler</td>
+<td><code>.wesp</code></td>
+<td><code>.wepsp</code></td>
+</tr>
+<tr>
+<td>Particle System</td>
+<td><code>.weps</code></td>
+<td><code>.wepps</code></td>
+</tr>
+<tr>
+<td>Post-Processing Graph</td>
+<td><code>.wepp</code></td>
+<td><code>.weppp</code></td>
+</tr>
+<tr>
+<td>Reflection probe (scene sub-asset)</td>
+<td><code>.werp</code></td>
+<td><code>.weprp</code></td>
+</tr>
+<tr>
+<td>File, or any asset exported as raw</td>
+<td><code>.wefile</code></td>
+<td>The original file, plus <code>.wepidx</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="per-profile-export">Per-profile export</h2>
+<p>Because the profile is chosen at export time, the same project produces different content for each platform. Typical uses are:</p>
+<ul>
+<li>Compressing textures with a GPU format that the platform supports, such as <code>BC3_UNorm</code> on Windows or <code>ETC1_RGB8</code> on Android. The default formats come from the profile; see <a href="../settings/project_profiles.html">Manage Profiles</a>.</li>
+<li>Scaling textures down on mobile devices.</li>
+<li>Precompiling effects for platforms that cannot compile shaders at runtime, such as Web and Android.</li>
+<li>Excluding assets that a platform does not use.</li>
+</ul>
+<p>Set these values in the profile tabs of each asset editor, as described in <a href="edit.html#profile-properties">Edit Assets</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

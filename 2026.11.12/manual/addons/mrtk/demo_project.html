@@ -1,0 +1,150 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Demo project | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Demo project | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="demo-project">Demo project</h1>
+
+<hr>
+<p><img src="images/MRTK_Examples.png" alt="MRTK demo scene"></p>
+<p>The <a href="https://github.com/EvergineTeam/MixedRealityToolkit/tree/main/Samples/Evergine.MRTK.Demo">MRTK demo project</a> shows every feature of the toolkit in one scene, grouped in areas. It includes profiles for Windows, Meta Quest, and Pico, so you can run it with the <a href="pointers_and_control.html#desktop-emulation">desktop emulation</a> or on a headset. The <code>Content/Scenes/Samples</code> folder also contains one scene per control, such as <code>Buttons.wescene</code>, <code>Sliders.wescene</code>, and <code>ListViewScene.wescene</code>.</p>
+<h2 id="press-interaction">Press interaction</h2>
+<p>Examples of the <code>PressableButton</code> component:</p>
+<ul>
+<li>Standard buttons.</li>
+<li>Toggle buttons.</li>
+<li>Piano keys built from pressable buttons.</li>
+</ul>
+<h2 id="touch-interaction">Touch interaction</h2>
+<p>Examples of near interaction that use the demo's <code>HandInteractionTouch</code> behavior, which implements <code>IMixedRealityTouchHandler</code>.</p>
+<h2 id="slider-interaction">Slider interaction</h2>
+<p>Sliders built with the <code>PinchSlider</code> component. Moving them changes the color of a connected object in real time.</p>
+<h2 id="manipulation-interaction">Manipulation interaction</h2>
+<p>Objects with the <code>SimpleManipulationHandler</code> component, configured in different ways:</p>
+<ul>
+<li>Objects with constrained manipulation.</li>
+<li>Objects driven by the physics engine that the user can throw. They return to their starting position if they move too far.</li>
+</ul>
+<h2 id="bounding-box">Bounding box</h2>
+<p>Objects with the <code>BoundingBox</code> component, which adds handles to rotate and scale them. The handles can be hidden, and the component can be combined with <code>SimpleManipulationHandler</code> to move the object as well.</p>
+<h2 id="axis-manipulation-handler">Axis manipulation handler</h2>
+<p>An example of the <code>AxisManipulationHandler</code> component: a three-axis gizmo that moves an object along one axis or a plane without changing its other properties.</p>
+<h2 id="pan-and-zoom">Pan and zoom</h2>
+<p>The demo's <code>HandInteractionPanZoom</code> behavior lets the user pan and zoom content with near and far interaction.</p>
+<h2 id="voice-commands">Voice commands</h2>
+<p>The demo registers a <code>FakeVoiceCommandService</code> that implements <code>IVoiceCommandService</code>. Hold <strong>Tab</strong> and type the number of a command to simulate that it was recognized, which shows how <code>SpeechHandler</code> components react without a speech recognizer.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

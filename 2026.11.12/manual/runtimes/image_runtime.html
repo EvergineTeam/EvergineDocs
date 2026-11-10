@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Image Runtime | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Image Runtime | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="image-runtime">Image Runtime</h1>
+
+<hr>
+<p><img src="images/skia-logo.png" alt="SkiaSharp logo"></p>
+<p>The <strong>Evergine.Runtimes.Image</strong> package creates GPU textures from image files while the application runs. Use it for pictures that are not part of your content: user avatars, product photos from a catalog service, screenshots, or images uploaded by users.</p>
+<p>Images are decoded with <a href="https://github.com/mono/SkiaSharp">SkiaSharp</a>, the .NET binding of Google's Skia graphics library, and KTX containers are uploaded as they are. The other runtimes use this package to decode the textures inside model files, so the formats listed here are also the texture formats of the <a href="glb_runtime.html">GLB</a>, <a href="obj_runtime.html">OBJ</a> and <a href="usd_runtime.html">USD</a> runtimes.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>Evergine.Runtimes.Image</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>Evergine.Runtimes.Images</code></td>
+</tr>
+<tr>
+<td><strong>Class</strong></td>
+<td><code>ImageRuntime</code></td>
+</tr>
+<tr>
+<td><strong>Formats</strong></td>
+<td>PNG, JPEG, BMP, WebP, GIF (first frame) and any other format Skia decodes; KTX and KTX2</td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>Task&lt;Texture&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Dependencies</strong></td>
+<td>SkiaSharp 3.119.2</td>
+</tr>
+<tr>
+<td><strong>Platforms</strong></td>
+<td>All Evergine platforms (Web needs <a href="#web-projects">one extra package</a>)</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The package is <code>Evergine.Runtimes.Image</code> (singular), but its namespace is <code>Evergine.Runtimes.Images</code> (plural).</p>
+</div>
+<h2 id="read-parameters">Read parameters</h2>
+<p><code>ImageRuntime</code> has two overloads with the same optional parameters:</p>
+<pre><code class="lang-csharp">Task&lt;Texture&gt; Read(string filePath, bool generateMipmap = true, bool premulAlpha = true, bool? isGamma = null);
+Task&lt;Texture&gt; Read(Stream stream, bool generateMipmap = true, bool premulAlpha = true, bool? isGamma = null, string debugId = null);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>generateMipmap</strong></td>
+<td><code>true</code></td>
+<td>Builds the full mipmap chain on the CPU. Keep it for textures drawn at different sizes, such as on 3D surfaces; turn it off for UI images shown at their own size, which then load faster and use a quarter less memory.</td>
+</tr>
+<tr>
+<td><strong>premulAlpha</strong></td>
+<td><code>true</code></td>
+<td>Multiplies the color channels by alpha while decoding (premultiplied alpha). Turn it off when the shader that samples the texture expects straight alpha.</td>
+</tr>
+<tr>
+<td><strong>isGamma</strong></td>
+<td><code>null</code></td>
+<td>Color space of the texture. <code>true</code> creates an sRGB texture, for color images. <code>false</code> creates a linear texture, for data such as normal maps, masks or roughness. <code>null</code> follows the color profile stored in the image.</td>
+</tr>
+<tr>
+<td><strong>debugId</strong></td>
+<td><code>null</code></td>
+<td>Name given to KTX textures in graphics debuggers.</td>
+</tr>
+</tbody>
+</table>
+<p>KTX and KTX2 files skip the decoder: their data, mipmaps and format are uploaded as stored in the file, and the three options above have no effect.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The file path overload only forwards <code>generateMipmap</code> to the decoder. <code>premulAlpha</code> and <code>isGamma</code> are ignored, so the texture always uses premultiplied alpha and the color space stored in the image. Open the file as a stream and use the stream overload when you need to control them.</p>
+</div>
+<h2 id="load-an-image-from-a-file">Load an image from a file</h2>
+<p><code>Read(string filePath, ...)</code> opens the file through the application's <code>AssetsDirectory</code>, so the path is relative to the <code>Content</code> folder of the running application; absolute paths throw an <code>ArgumentException</code>. Images in <code>Content</code> are normally imported as texture assets, so mark the ones you want to read with <strong>Set to export as raw</strong> in the <a href="../evergine_studio/assets/edit.html">Assets Details panel</a>.</p>
+<p>The following scene shows an image on a plane:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.Images;
+
+public class MyScene : Scene
+{
+    protected override async void CreateScene()
+    {
+        Texture texture = await ImageRuntime.Instance.Read(&quot;Images/poster.png&quot;);
+
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+        var effect = assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID);
+
+        var material = new StandardMaterial(effect)
+        {
+            // A poster should show its own colors, not the scene lighting.
+            LightingEnabled = false,
+            BaseColorTexture = texture,
+            BaseColorSampler = assetsService.Load&lt;SamplerState&gt;(DefaultResourcesIDs.LinearClampSamplerID),
+            LayerDescription = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+        };
+
+        Entity poster = new Entity(&quot;poster&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material.Material })
+            .AddComponent(new PlaneMesh() { PlaneNormal = PlaneMesh.NormalAxis.ZPositive, Width = texture.Description.Width / (float)texture.Description.Height, Height = 1 })
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(poster);
+    }
+}
+</code></pre>
+<h2 id="load-an-image-from-the-internet">Load an image from the Internet</h2>
+<p><code>Read(Stream stream, ...)</code> accepts any readable stream. SkiaSharp may need to look ahead in the data to identify the format, so give it a seekable stream: copy downloads into a <code>MemoryStream</code> first.</p>
+<pre><code class="lang-csharp">using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Evergine.Common.Graphics;
+using Evergine.Runtimes.Images;
+
+public class AvatarLoader
+{
+    private static readonly HttpClient httpClient = new HttpClient();
+
+    public async Task&lt;Texture&gt; LoadAvatarAsync(string url)
+    {
+        using var buffer = new MemoryStream(await httpClient.GetByteArrayAsync(url));
+
+        // A photo shown at a fixed size in the UI: no mipmaps, sRGB color.
+        return await ImageRuntime.Instance.Read(buffer, generateMipmap: false, isGamma: true);
+    }
+}
+</code></pre>
+<h2 id="release-textures">Release textures</h2>
+<p>Textures created by <code>ImageRuntime</code> are not assets: the <code>AssetsService</code> does not track or unload them. Call <code>Dispose()</code> on the texture when you no longer need it, after removing it from every material that uses it.</p>
+<h2 id="web-projects">Web projects</h2>
+<p>SkiaSharp brings its native library for Windows, Android and iOS with it. A web project also needs the WebAssembly build of Skia: add <code>SkiaSharp.Views.Blazor</code>, which includes it, to the web launcher project, with the same version the runtime uses (3.119.2):</p>
+<pre><code class="lang-xml">&lt;ItemGroup&gt;
+  &lt;PackageReference Include=&quot;SkiaSharp.Views.Blazor&quot; Version=&quot;3.119.2&quot; /&gt;
+&lt;/ItemGroup&gt;
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

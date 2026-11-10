@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Entities | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Entities | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-entities">Using Entities</h1>
+
+<hr>
+<p>Entities can be created and edited in Evergine Studio, where they are saved with the scene asset, or from code, where they exist only while the application runs. Both kinds live side by side in the same scene.</p>
+<h2 id="from-evergine-studio">From Evergine Studio</h2>
+<h3 id="add-an-entity">Add an Entity</h3>
+<p>In the <strong>Entities Hierarchy</strong> panel of the <a href="../../scenes/scene_editor.html">Scene Editor</a>, click the <img src="../../../graphics/images/plusIcon.jpg" alt="Add Button"> button. A menu opens with the kinds of entity you can create:</p>
+<p><img src="images/create_entity.png" alt="Create Entity"></p>
+<p>Each option creates an entity with the components that kind needs, such as a mesh, a material and a <code>MeshRenderer</code> for a primitive, or a <code>Camera3D</code> for a camera. <strong>Empty entity</strong> creates an entity with only a <code>Transform3D</code>.</p>
+<h3 id="edit-an-entity">Edit an Entity</h3>
+<p>Select the entity to show it in the <strong>Entity Details</strong> panel, where you can change its name, tag and enabled state, and edit its components:</p>
+<p><img src="images/entity_details.png" alt="Entity details"></p>
+<p>Drag an entity onto another one in the <strong>Entities Hierarchy</strong> to make it a child of that entity.</p>
+<h2 id="from-code">From Code</h2>
+<h3 id="create-an-entity">Create an Entity</h3>
+<p>Create the entity, add its components, and add it to the scene's <code>EntityManager</code>:</p>
+<pre><code class="lang-csharp">// The default material of Evergine; load your own material assets the same way.
+var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+var material = assetsService.Load&lt;Material&gt;(DefaultResourcesIDs.DefaultMaterialID);
+
+var teapot = new Entity(&quot;Teapot&quot;)
+{
+    Tag = &quot;Props&quot;,
+}
+.AddComponent(new Transform3D())
+.AddComponent(new TeapotMesh())
+.AddComponent(new MaterialComponent() { Material = material })
+.AddComponent(new MeshRenderer());
+
+this.Managers.EntityManager.Add(teapot);
+</code></pre>
+<p>This code usually lives in the <code>CreateScene()</code> method of a <a href="../../scenes/create_scenes.html">scene class</a> or in a component that spawns entities at runtime.</p>
+<h3 id="create-a-hierarchy">Create a Hierarchy</h3>
+<p>Add the children to their parent, and only the parent to the <code>EntityManager</code>:</p>
+<pre><code class="lang-csharp">var parent = new Entity(&quot;Parent&quot;)
+    .AddComponent(new Transform3D());
+
+var child = new Entity(&quot;Child&quot;)
+    .AddComponent(new Transform3D() { LocalPosition = new Vector3(0, 1, 0) });
+
+parent.AddChild(child);
+
+this.Managers.EntityManager.Add(parent);
+</code></pre>
+<p>The child is placed one unit above its parent and follows it from then on. See <a href="entity_hierarchy.html">Entity Hierarchy</a>.</p>
+<h3 id="bind-an-entity-to-a-component-property">Bind an Entity to a Component Property</h3>
+<p>Components can expose properties that reference other entities in the scene. To make an <code>Entity</code> property assignable from Evergine Studio, decorate it with the <code>[RenderPropertyAsEntity]</code> attribute:</p>
+<pre><code class="lang-csharp">public class Follower : Behavior
+{
+    [RenderPropertyAsEntity]
+    public Entity Target { get; set; }
+
+    [BindComponent]
+    private Transform3D myTransform;
+
+    private Transform3D targetTransform;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        this.targetTransform = this.Target?.FindComponent&lt;Transform3D&gt;();
+    }
+}
+</code></pre>
+<p>In Evergine Studio, you can assign the <code>Target</code> property by dragging an entity from the <strong>Scene Hierarchy</strong> and dropping it onto the corresponding property in the component panel.</p>
+<p>The entity reference is stored as part of the component configuration. When the scene is loaded and the component dependencies are resolved, the property contains the corresponding <code>Entity</code> instance. Therefore, the referenced entity can be used directly from the component code.</p>
+<p>In the example above, once the <code>Follower</code> component starts, <code>Target</code> already references the entity selected in Evergine Studio. The component can then retrieve its <code>Transform3D</code> component using <code>FindComponent&lt;Transform3D&gt;()</code>.</p>
+<h3 id="remove-an-entity">Remove an Entity</h3>
+<pre><code class="lang-csharp">// Destroys the entity, its children and their components.
+this.Managers.EntityManager.Remove(teapot);
+</code></pre>
+<p>See <a href="entity_manager.html">EntityManager</a> for <code>Detach()</code>, which takes an entity out of the scene without destroying it.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

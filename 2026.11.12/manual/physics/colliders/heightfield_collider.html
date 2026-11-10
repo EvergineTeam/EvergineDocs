@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Height Field Collider | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Height Field Collider | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="height-field-collider">Height Field Collider</h1>
+
+<p><img src="images/heightfield_collider.png" alt="Height Field Collider"></p>
+<p>A terrain built from a square grid of heights. For the same ground it is far cheaper than a <a href="mesh_collider.html">triangle mesh</a>, one float per sample instead of three vertices per triangle, and it is the only collider that can be <strong>deformed while the simulation runs</strong>.</p>
+<h2 id="heightfieldcollider-component">HeightFieldCollider Component</h2>
+<p><img src="images/heightfieldcollider_component.png" alt="HeightFieldCollider component"></p>
+<p>The heights cannot come from the inspector, so they are always set from code:</p>
+<pre><code class="lang-csharp">public class TerrainBuilder : Behavior
+{
+    [BindComponent]
+    private HeightFieldCollider collider = null;
+
+    public uint Samples { get; set; } = 64;
+
+    public float Amplitude { get; set; } = 2f;
+
+    protected override void Start()
+    {
+        float[] heights = new float[this.Samples * this.Samples];
+
+        for (uint z = 0; z &lt; this.Samples; z++)
+        {
+            for (uint x = 0; x &lt; this.Samples; x++)
+            {
+                heights[(z * this.Samples) + x] =
+                    (float)(Math.Sin(x * 0.2f) * Math.Cos(z * 0.2f)) * this.Amplitude;
+            }
+        }
+
+        this.collider.SetHeights(heights, this.Samples);
+    }
+}
+</code></pre>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/heightfield_balls.mp4" type="video/mp4">
+</video>
+<p><img src="images/heightfield_debug.png" alt="The height field as the solver sees it"></p>
+<p><em>The same field with <code>PhysicsDebugFlags.Colliders</code> on. A height field is stored as a grid of heights rather than as triangles, and the wireframe is where that grid actually is.</em></p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scale</strong></td>
+<td>1,1,1</td>
+<td>The size of one grid cell along X and Z, and the vertical scale applied to the stored heights.</td>
+</tr>
+<tr>
+<td><strong>GridOrigin</strong></td>
+<td>0,0,0</td>
+<td>Where the first sample sits relative to the collider. This is the corner the grid grows from, and is separate from <code>Offset</code>, which moves the whole shape.</td>
+</tr>
+<tr>
+<td><strong>SampleCount</strong></td>
+<td><em>read-only</em></td>
+<td>How many samples there are along each side, as given to <code>SetHeights</code>.</td>
+</tr>
+<tr>
+<td><strong>Offset</strong></td>
+<td>0,0,0</td>
+<td>Moves the shape relative to the entity.</td>
+</tr>
+<tr>
+<td><strong>RotationOffset</strong></td>
+<td>0,0,0</td>
+<td>Rotates the shape relative to the entity.</td>
+</tr>
+<tr>
+<td><strong>Density</strong></td>
+<td>1000</td>
+<td>Unused: a height field has no volume.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>A height field cannot back a <strong>dynamic</strong> body: a <a href="../physics_bodies/static_body.html"><code>StaticBody</code></a> or a kinematic <code>RigidBody</code> only. Its sample count must also be a <strong>power of two</strong>, which is what the acceleration structure is built around. <code>SetHeights</code> throws if it is not.</p>
+</div>
+<h2 id="methods">Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SetHeights(samples, sampleCount)</strong></td>
+<td>Replaces the whole grid. One height per grid point, row major, <code>sampleCount</code> squared entries.</td>
+</tr>
+<tr>
+<td><strong>SetHeights(x, z, sizeX, sizeZ, regionHeights)</strong></td>
+<td>Deforms a rectangle <strong>in place</strong>, without rebuilding the shape or the body. Returns whether the deformation reached the simulation.</td>
+</tr>
+<tr>
+<td><strong>GetHeight(x, z)</strong></td>
+<td>The height stored at one grid point, before the vertical scale.</td>
+</tr>
+<tr>
+<td><strong>GetHeights(x, z, sizeX, sizeZ, destination)</strong></td>
+<td>Reads a rectangle back <strong>from the simulation</strong>, quantization included. That is what a ray actually hits, and it may differ slightly from what was written.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="deforming-terrain-at-run-time">Deforming Terrain at Run Time</h2>
+<p>The region overload is what craters, wheel ruts and excavation are made of. Nothing is rebuilt and no body is recreated, so it can be done every frame:</p>
+<pre><code class="lang-csharp">public void Crater(uint centreX, uint centreZ, uint size, float depth)
+{
+    float[] region = new float[size * size];
+
+    // Read what is there now, then push it down. Reading through the collider rather than from a copy
+    // kept alongside means the dents accumulate instead of each one starting from the original ground.
+    this.collider.GetHeights(centreX, centreZ, size, size, region);
+
+    for (int i = 0; i &lt; region.Length; i++)
+    {
+        region[i] -= depth;
+    }
+
+    this.collider.SetHeights(centreX, centreZ, size, size, region);
+}
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Two rules for the region overload. The rectangle must be <strong>aligned to the internal block size</strong>, so both its position and its size have to be multiples of it, and heights are <strong>quantized into the range the shape was created with</strong>. Terrain that will be raised later needs that headroom present in the grid it was first built from, or the raised part is clipped flat.</p>
+</div>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/terrain_grounds.mp4" type="video/mp4">
+</video>
+<p><em>The three grounds that are not primitives, in one scene: a height field on the left, a triangle mesh in the middle, and an infinite plane under all of it.</em></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The collider is only the physics side. Drawing the terrain is a separate job: generate a mesh from the same heights, and regenerate the part of it that a deformation touched.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

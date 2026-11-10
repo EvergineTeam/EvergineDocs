@@ -1,0 +1,157 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Static Body | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Static Body | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="static-body">Static Body</h1>
+
+<p><img src="images/static_bodies.gif" alt="Static bodies"></p>
+<p><code>StaticBody</code> is the component for everything in a scene that the simulation collides with but never moves: the floor, the walls, the terrain, the level. It is the cheapest kind of body there is. The solver never integrates it, never puts it to sleep or wakes it, and never tests two static bodies against each other, so a level built from a thousand of them costs nothing per step.</p>
+<h2 id="staticbody-component">StaticBody Component</h2>
+<p><img src="images/staticbody_component.png" alt="StaticBody component"></p>
+<p>Add a <code>StaticBody</code> to an entity, then at least one <a href="../colliders/index.html">collider</a>:</p>
+<pre><code class="lang-csharp">Entity floor = new Entity(&quot;floor&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, -0.2f, 0f), Scale = new Vector3(40f, 0.4f, 40f) })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new CubeMesh() { Size = 1f })
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new StaticBody() { Friction = 0.6f })
+    .AddComponent(new BoxCollider());
+
+this.Managers.EntityManager.Add(floor);
+</code></pre>
+<p>The component has no properties of its own. Everything it exposes comes from <code>PhysicsBody</code> and is listed under <a href="index.html#what-every-body-shares">What Every Body Shares</a>: <code>Friction</code>, <code>Restitution</code>, <code>CollisionCategory</code>, <code>IsSensor</code>, <code>SurfaceVelocity</code>, <code>EnhancedInternalEdgeRemoval</code>, the three collision events, <code>Teleport</code> and <code>InvalidateShape</code>.</p>
+<p>What it does <strong>not</strong> have is anything to do with motion: no mass, no velocity, no damping, no gravity factor, no <code>MoveTo</code>. The solver never reads those for a body it never moves, and the previous API accepted them silently on static bodies, which hid a good number of mistakes.</p>
+<h2 id="what-a-static-body-is-good-for">What a Static Body Is Good For</h2>
+<ul>
+<li><strong>Level geometry.</strong> Floors, walls, props that never move. This is where the triangle-mesh <a href="../colliders/mesh_collider.html"><code>MeshCollider</code></a>, the <a href="../colliders/plane_collider.html"><code>PlaneCollider</code></a> and the <a href="../colliders/heightfield_collider.html"><code>HeightFieldCollider</code></a> belong, since none of them can back a dynamic body.</li>
+<li><strong>Fixed trigger volumes.</strong> A checkpoint or a damage zone is a <code>StaticBody</code> with <code>IsSensor</code> set. See <a href="sensors.html">Sensors</a>.</li>
+<li><strong>Conveyors.</strong> <code>SurfaceVelocity</code> on a static body carries whatever rests on it without anything in the scene turning.</li>
+<li><strong>Anchors.</strong> A constraint whose <code>ConnectedEntityPath</code> points at a static body is pinned to the level, which is handier than pinning it to the world when the level is built from prefabs.</li>
+</ul>
+<h2 id="moving-a-static-body">Moving a Static Body</h2>
+<p>Writing to the <code>Transform3D</code> of a static body moves it, and the physics world follows. What it does not do is give the body a velocity, so anything resting on it is left behind and anything in its way is passed through rather than pushed. That is fine for placing scenery at load time, and wrong for anything that moves while the game runs.</p>
+<p>Something that has to move by code, even occasionally, is a <a href="rigid_body.html"><code>RigidBody</code></a> with <code>IsKinematic</code> set, driven with <code>MoveTo</code>. Two cases catch people out:</p>
+<ul>
+<li><strong>A sensor that follows the cursor, a controller or a hand.</strong> Jolt never generates contact pairs between two static bodies, so a static sensor swept across a static level reports nothing. Make it a kinematic <code>RigidBody</code> and, if it must notice static geometry, set <code>CollideKinematicVsNonDynamic</code>.</li>
+<li><strong>Scenery that becomes debris.</strong> A wall that can be knocked down is a dynamic <code>RigidBody</code> from the start, perhaps held in place by a breakable <a href="../constraints/fixed_constraint.html"><code>FixedConstraint</code></a>. There is no switching a <code>StaticBody</code> into a <code>RigidBody</code> at run time: they are different components, and the swap means removing one and adding the other.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Two static bodies never collide with each other, whatever the <a href="../collision_filtering.html">collision matrix</a> says. If two pieces of level have to report an overlap, one of them is kinematic.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,259 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Collisions | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Collisions | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="collisions">Collisions</h1>
+
+<p><img src="../images/physics.png" alt="Collisions"></p>
+<p>Every <a href="index.html">physics body</a> reports what it touches, <code>StaticBody</code> and <code>RigidBody</code> alike. The three collision events are how gameplay hangs off the simulation: a shot registers a hit, a trigger opens a door, a car scrapes a wall and plays a sound.</p>
+<h2 id="collision-events">Collision Events</h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>When it fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CollisionStarted</strong></td>
+<td>The first step in which the two bodies are touching.</td>
+</tr>
+<tr>
+<td><strong>CollisionUpdated</strong></td>
+<td>Once per step for as long as they stay touching.</td>
+</tr>
+<tr>
+<td><strong>CollisionEnded</strong></td>
+<td>The step in which they stop touching. Its <code>CollisionInfo</code> carries no point, normal or depth, because there is no longer a contact to describe.</td>
+</tr>
+</tbody>
+</table>
+<p>Two things are worth knowing about how they are delivered:</p>
+<ul>
+<li>They are raised <strong>on the main thread</strong>, after the step has finished. The solver produces contacts on its worker threads and they are buffered until it is safe to hand them out, so it is fine to create entities, load assets or touch the scene from a handler.</li>
+<li>They are raised <strong>once per pair of bodies</strong>, not once per pair of overlapping sub-shapes. A compound body of eight boxes landing flat on the floor reports one collision, not eight.</li>
+</ul>
+<h2 id="collisioninfo">CollisionInfo</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OtherBody</strong></td>
+<td>The body on the other side of the contact, as a <code>PhysicsBody</code>. Test it with <code>as RigidBody</code> when you need its velocity.</td>
+</tr>
+<tr>
+<td><strong>OtherEntity</strong></td>
+<td>Its entity, which is usually what gameplay code wants.</td>
+</tr>
+<tr>
+<td><strong>ThisCollider</strong></td>
+<td>Which of this body's colliders took part, when it can be resolved.</td>
+</tr>
+<tr>
+<td><strong>OtherCollider</strong></td>
+<td>The same for the other body.</td>
+</tr>
+<tr>
+<td><strong>Point</strong></td>
+<td>A contact point, in world space.</td>
+</tr>
+<tr>
+<td><strong>Normal</strong></td>
+<td>The contact normal, pointing away from the body raising the event.</td>
+</tr>
+<tr>
+<td><strong>PenetrationDepth</strong></td>
+<td>How far the two shapes overlap, in metres.</td>
+</tr>
+<tr>
+<td><strong>PointCount</strong></td>
+<td>How many points the contact manifold has.</td>
+</tr>
+</tbody>
+</table>
+<p><code>CollisionInfo</code> is a readonly struct, so it can be kept as it arrives: nothing else will mutate the instance you were handed.</p>
+<h2 id="using-collision-events">Using Collision Events</h2>
+<pre><code class="lang-csharp">public class Breakable : Behavior
+{
+    [BindComponent]
+    private RigidBody body = null;
+
+    public float ImpactThreshold { get; set; } = 6f;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        this.body.CollisionStarted += this.OnCollisionStarted;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+
+        // Always unsubscribed. The body outlives the handler only if the handler forgets to let go,
+        // and a scene reloaded a few times then reports the same collision to a dozen dead listeners.
+        this.body.CollisionStarted -= this.OnCollisionStarted;
+    }
+
+    private void OnCollisionStarted(object sender, CollisionInfo info)
+    {
+        // How hard the hit was, rather than that there was one at all: everything resting on the floor
+        // raises this event once, and a crate that shatters when it is set down is not a crate.
+        // The other body may be static, in which case it has no velocity to subtract.
+        Vector3 otherVelocity = info.OtherBody is RigidBody other ? other.LinearVelocity : Vector3.Zero;
+        float speed = (this.body.LinearVelocity - otherVelocity).Length();
+
+        if (speed &lt; this.ImpactThreshold)
+        {
+            return;
+        }
+
+        this.Spawn(info.Point, info.Normal);
+        this.Managers.EntityManager.Remove(this.Owner);
+    }
+}
+</code></pre>
+<h2 id="contact-validation">Contact Validation</h2>
+<p>The <a href="../collision_filtering.html">collision matrix</a> decides which pairs of categories touch at all. For rules it cannot express (a platform you can jump up through but not fall down through, an enemy that ignores its own projectiles) the world offers a callback consulted for every pair before a contact is made:</p>
+<pre><code class="lang-csharp">// A platform solid only from above: a contact is allowed when the other body is moving downwards.
+this.physicsManager.ContactValidator = (first, second) =&gt;
+{
+    PhysicsBody platform = first.Owner.Tag == &quot;oneway&quot; ? first : second;
+    PhysicsBody other = ReferenceEquals(platform, first) ? second : first;
+
+    if (platform.Owner.Tag != &quot;oneway&quot;)
+    {
+        return true;
+    }
+
+    // Both arguments are PhysicsBody; only a RigidBody has a velocity to look at.
+    return other is not RigidBody moving || moving.LinearVelocity.Y &lt;= 0f;
+};
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>ContactValidator</code> runs on the solver's worker threads, for every candidate pair, every step. It must be cheap, must not allocate, and must not touch the scene. Anything more involved belongs in a collision event handler, which runs on the main thread afterwards.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

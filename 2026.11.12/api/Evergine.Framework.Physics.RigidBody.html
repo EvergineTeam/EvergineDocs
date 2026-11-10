@@ -1,0 +1,1386 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class RigidBody | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class RigidBody | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.RigidBody">
+
+
+
+  <h1 id="Evergine_Framework_Physics_RigidBody" data-uid="Evergine.Framework.Physics.RigidBody" class="text-break">Class RigidBody</h1>
+  <div class="markdown level0 summary"><p>Turns an entity into a movable physics body, either kinematic or dynamic.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></div>
+    <div class="level7"><span class="xref">RigidBody</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_Transform3D">PhysicsBody.Transform3D</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_CollisionStarted">PhysicsBody.CollisionStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_CollisionUpdated">PhysicsBody.CollisionUpdated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_CollisionEnded">PhysicsBody.CollisionEnded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_Friction">PhysicsBody.Friction</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_Restitution">PhysicsBody.Restitution</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_CollisionCategory">PhysicsBody.CollisionCategory</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_IsSensor">PhysicsBody.IsSensor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_ShowAdvanced">PhysicsBody.ShowAdvanced</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_EnhancedInternalEdgeRemoval">PhysicsBody.EnhancedInternalEdgeRemoval</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_CenterOfMassPosition">PhysicsBody.CenterOfMassPosition</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_WorldBounds">PhysicsBody.WorldBounds</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_NativeBody">PhysicsBody.NativeBody</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_IsInWorld">PhysicsBody.IsInWorld</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_NativeBodyID">PhysicsBody.NativeBodyID</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_NativeObjectLayer">PhysicsBody.NativeObjectLayer</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_Colliders">PhysicsBody.Colliders</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_SurfaceVelocity">PhysicsBody.SurfaceVelocity</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_IsBodyCreated">PhysicsBody.IsBodyCreated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_PhysicsManager">PhysicsBody.PhysicsManager</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_InvalidateShape">PhysicsBody.InvalidateShape()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_OnAttached">PhysicsBody.OnAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_OnActivated">PhysicsBody.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_OnDeactivated">PhysicsBody.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_OnDetached">PhysicsBody.OnDetached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_BuildShape">PhysicsBody.BuildShape()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_RigidBody_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class RigidBody : PhysicsBody, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_RigidBody_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+A single component covers both movable kinds, selected with <a class="xref" href="Evergine.Framework.Physics.RigidBody.html#Evergine_Framework_Physics_RigidBody_IsKinematic">IsKinematic</a>, which lets a body
+switch between them at run time. A body that never moves is a <a class="xref" href="Evergine.Framework.Physics.StaticBody.html">StaticBody</a> instead: it has
+none of the settings this class exposes, since none of them mean anything for something that never moves.
+</p>
+<p>
+The shape comes from the <a class="xref" href="Evergine.Framework.Physics.Collider.html">Collider</a> components found on this entity and its descendants. A
+body with no collider is still valid, it just cannot collide with anything.
+</p>
+</div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_RigidBody_Activation_" data-uid="Evergine.Framework.Physics.RigidBody.Activation*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_Activation" data-uid="Evergine.Framework.Physics.RigidBody.Activation">Activation</h4>
+  <div class="markdown level1 summary"><p>Gets the activation state passed to the native calls that move or recreate this body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override Activation Activation { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">Activation</span></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_Activation">PhysicsBody.Activation</a></div>
+  <a id="Evergine_Framework_Physics_RigidBody_AllowSleeping_" data-uid="Evergine.Framework.Physics.RigidBody.AllowSleeping*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_AllowSleeping" data-uid="Evergine.Framework.Physics.RigidBody.AllowSleeping">AllowSleeping</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the body may go to sleep when it stops moving.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(ShowConditionFunction = &quot;ShowAdvanced&quot;, Tooltip = &quot;Allows the body to sleep when it stops moving.&quot;)]
+public bool AllowSleeping { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_AllowedDegreesOfFreedom_" data-uid="Evergine.Framework.Physics.RigidBody.AllowedDegreesOfFreedom*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_AllowedDegreesOfFreedom" data-uid="Evergine.Framework.Physics.RigidBody.AllowedDegreesOfFreedom">AllowedDegreesOfFreedom</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the axes this body is allowed to move and rotate along.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Axes the body may move and rotate along. Use Plane2D for two dimensional games.&quot;)]
+public DegreesOfFreedom AllowedDegreesOfFreedom { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.DegreesOfFreedom.html">DegreesOfFreedom</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_RigidBody_AllowedDegreesOfFreedom_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Changing this on a live body recreates it, because the value is part of how its mass properties are
+built.</p>
+</div>
+  <a id="Evergine_Framework_Physics_RigidBody_AngularDamping_" data-uid="Evergine.Framework.Physics.RigidBody.AngularDamping*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_AngularDamping" data-uid="Evergine.Framework.Physics.RigidBody.AngularDamping">AngularDamping</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how quickly the angular velocity fades away.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, MaxLimit = 1, AsSlider = true, DesiredChange = 0.01, DesiredLargeChange = 0.1, Tooltip = &quot;How quickly the angular velocity fades away.&quot;)]
+public float AngularDamping { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_AngularVelocity_" data-uid="Evergine.Framework.Physics.RigidBody.AngularVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_AngularVelocity" data-uid="Evergine.Framework.Physics.RigidBody.AngularVelocity">AngularVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the angular velocity of the body, in radians per second.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 AngularVelocity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_RigidBody_AngularVelocity_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>An assigned value is kept even before the body exists, and is what the body starts with once it is
+created.</p>
+</div>
+  <a id="Evergine_Framework_Physics_RigidBody_ApplyGyroscopicForce_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyGyroscopicForce*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_ApplyGyroscopicForce" data-uid="Evergine.Framework.Physics.RigidBody.ApplyGyroscopicForce">ApplyGyroscopicForce</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the gyroscopic force is applied, which makes spinning bodies
+behave more realistically.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(ShowConditionFunction = &quot;ShowDynamicAdvanced&quot;, Tooltip = &quot;Applies the gyroscopic force, which makes spinning bodies behave more realistically.&quot;)]
+public bool ApplyGyroscopicForce { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_CanMove_" data-uid="Evergine.Framework.Physics.RigidBody.CanMove*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_CanMove" data-uid="Evergine.Framework.Physics.RigidBody.CanMove">CanMove</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this body can move, which decides the object layer it is placed in.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool CanMove { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_CanMove">PhysicsBody.CanMove</a></div>
+  <a id="Evergine_Framework_Physics_RigidBody_CenterOfMassOffset_" data-uid="Evergine.Framework.Physics.RigidBody.CenterOfMassOffset*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_CenterOfMassOffset" data-uid="Evergine.Framework.Physics.RigidBody.CenterOfMassOffset">CenterOfMassOffset</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the offset applied to the center of mass, in local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Moves the center of mass away from its computed position.&quot;)]
+public Vector3 CenterOfMassOffset { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_CollideKinematicVsNonDynamic_" data-uid="Evergine.Framework.Physics.RigidBody.CollideKinematicVsNonDynamic*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_CollideKinematicVsNonDynamic" data-uid="Evergine.Framework.Physics.RigidBody.CollideKinematicVsNonDynamic">CollideKinematicVsNonDynamic</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this kinematic body collides against static and other
+kinematic bodies, which sensors need in order to detect them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(ShowConditionFunction = &quot;ShowAdvanced&quot;, Tooltip = &quot;Lets a kinematic body collide against static and kinematic bodies.&quot;)]
+public bool CollideKinematicVsNonDynamic { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_GravityFactor_" data-uid="Evergine.Framework.Physics.RigidBody.GravityFactor*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_GravityFactor" data-uid="Evergine.Framework.Physics.RigidBody.GravityFactor">GravityFactor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the factor applied to the world gravity for this body. Zero makes it weightless.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = -10, MaxLimit = 10, DesiredChange = 0.1, DesiredLargeChange = 1, ShowConditionFunction = &quot;IsDynamic&quot;, Tooltip = &quot;Scales world gravity for this body. Zero makes it weightless.&quot;)]
+public float GravityFactor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_InertiaMultiplier_" data-uid="Evergine.Framework.Physics.RigidBody.InertiaMultiplier*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_InertiaMultiplier" data-uid="Evergine.Framework.Physics.RigidBody.InertiaMultiplier">InertiaMultiplier</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how much harder than its shape suggests this body resists being turned.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.0001, ShowConditionFunction = &quot;IsDynamic&quot;, Tooltip = &quot;How much harder than its shape suggests the body resists turning. One leaves it alone.&quot;)]
+public float InertiaMultiplier { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_RigidBody_InertiaMultiplier_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+One leaves the inertia as the shape works it out, which is right for anything that is what it looks
+like. Above one makes a body harder to spin and to tip without making it heavier: a crate weighted at
+the bottom, a flywheel, a vehicle that should not roll over as readily as its box says it would. Below
+one makes it spin more freely than its shape allows.
+</p>
+<p>
+This is what Evergine offers in place of setting an inertia tensor outright, which is what the Bullet
+physics had. One number covers what that was nearly always used for, and it cannot describe a body
+that resists turning about one axis and not another.
+</p>
+<p>
+Read when the body is created, so changing it needs the body rebuilt.
+</p>
+</div>
+  <a id="Evergine_Framework_Physics_RigidBody_IsActive_" data-uid="Evergine.Framework.Physics.RigidBody.IsActive*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_IsActive" data-uid="Evergine.Framework.Physics.RigidBody.IsActive">IsActive</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the body is awake.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsActive { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_IsDynamicMotion_" data-uid="Evergine.Framework.Physics.RigidBody.IsDynamicMotion*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_IsDynamicMotion" data-uid="Evergine.Framework.Physics.RigidBody.IsDynamicMotion">IsDynamicMotion</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this body is fully simulated, as opposed to merely movable. Used to
+decide whether a collider that has no volume, such as a triangle mesh, can back it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool IsDynamicMotion { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_IsDynamicMotion">PhysicsBody.IsDynamicMotion</a></div>
+  <a id="Evergine_Framework_Physics_RigidBody_IsKinematic_" data-uid="Evergine.Framework.Physics.RigidBody.IsKinematic*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_IsKinematic" data-uid="Evergine.Framework.Physics.RigidBody.IsKinematic">IsKinematic</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether code, rather than the simulation, moves the body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Kinematic bodies are moved by code and dynamic bodies are fully simulated.&quot;)]
+public bool IsKinematic { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_LinearDamping_" data-uid="Evergine.Framework.Physics.RigidBody.LinearDamping*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_LinearDamping" data-uid="Evergine.Framework.Physics.RigidBody.LinearDamping">LinearDamping</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how quickly the linear velocity fades away.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, MaxLimit = 1, AsSlider = true, DesiredChange = 0.01, DesiredLargeChange = 0.1, Tooltip = &quot;How quickly the linear velocity fades away.&quot;)]
+public float LinearDamping { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_LinearVelocity_" data-uid="Evergine.Framework.Physics.RigidBody.LinearVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_LinearVelocity" data-uid="Evergine.Framework.Physics.RigidBody.LinearVelocity">LinearVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the linear velocity of the body, in meters per second.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LinearVelocity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_RigidBody_LinearVelocity_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>An assigned value is kept even before the body exists, and is what the body starts with once it is
+created.</p>
+</div>
+  <a id="Evergine_Framework_Physics_RigidBody_Mass_" data-uid="Evergine.Framework.Physics.RigidBody.Mass*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_Mass" data-uid="Evergine.Framework.Physics.RigidBody.Mass">Mass</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the mass of the body, in kilograms. Zero computes it from the collider volumes and their
+density.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.1, DesiredLargeChange = 1, ShowConditionFunction = &quot;IsDynamic&quot;, Tooltip = &quot;Mass in kilograms. Zero computes it from the collider volumes and densities.&quot;)]
+public float Mass { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_RigidBody_Mass_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+Setting and getting are not quite the same thing here. Setting overrides what the shapes would work out,
+and setting zero hands the decision back to their density. Getting asks the simulation what the body
+actually weighs, so a body left to work its own mass out reports what it worked out rather than the zero
+it was given. A kinematic body, which weighs nothing as far as the solver is concerned, reports the
+number that was set.
+</p>
+<p>
+Only a dynamic body with colliders is asked, and even then the answer is only used when it is above
+zero. A dynamic body whose colliders are all mesh shapes ends up with an empty shape and no mass at
+all, and reporting the zero that comes back from that would lose the number the body was given.
+</p>
+</div>
+  <a id="Evergine_Framework_Physics_RigidBody_MaxAngularVelocity_" data-uid="Evergine.Framework.Physics.RigidBody.MaxAngularVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_MaxAngularVelocity" data-uid="Evergine.Framework.Physics.RigidBody.MaxAngularVelocity">MaxAngularVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the largest angular velocity the body can reach, in radians per second.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 1, DesiredLargeChange = 10, Tooltip = &quot;Largest angular velocity the body can reach, in radians per second.&quot;)]
+public float MaxAngularVelocity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_MaxLinearVelocity_" data-uid="Evergine.Framework.Physics.RigidBody.MaxLinearVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_MaxLinearVelocity" data-uid="Evergine.Framework.Physics.RigidBody.MaxLinearVelocity">MaxLinearVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the largest linear velocity the body can reach.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 1, DesiredLargeChange = 10, Tooltip = &quot;Largest linear velocity the body can reach.&quot;)]
+public float MaxLinearVelocity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_MotionQuality_" data-uid="Evergine.Framework.Physics.RigidBody.MotionQuality*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_MotionQuality" data-uid="Evergine.Framework.Physics.RigidBody.MotionQuality">MotionQuality</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how carefully the motion of this body is checked against the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Continuous collision detection quality. LinearCast prevents fast bodies from tunnelling.&quot;)]
+public MotionQuality MotionQuality { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.MotionQuality.html">MotionQuality</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_SolverPositionIterationsOverride_" data-uid="Evergine.Framework.Physics.RigidBody.SolverPositionIterationsOverride*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_SolverPositionIterationsOverride" data-uid="Evergine.Framework.Physics.RigidBody.SolverPositionIterationsOverride">SolverPositionIterationsOverride</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the number of position iterations used for this body. Zero uses the world value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 0, MaxLimit = 64, DesiredChange = 1, DesiredLargeChange = 4, ShowConditionFunction = &quot;ShowAdvanced&quot;, Tooltip = &quot;Position iterations for this body. Zero uses the world value.&quot;)]
+public uint SolverPositionIterationsOverride { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_SolverVelocityIterationsOverride_" data-uid="Evergine.Framework.Physics.RigidBody.SolverVelocityIterationsOverride*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_SolverVelocityIterationsOverride" data-uid="Evergine.Framework.Physics.RigidBody.SolverVelocityIterationsOverride">SolverVelocityIterationsOverride</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the number of velocity iterations used for this body. Zero uses the world value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 0, MaxLimit = 64, DesiredChange = 1, DesiredLargeChange = 4, ShowConditionFunction = &quot;ShowAdvanced&quot;, Tooltip = &quot;Velocity iterations for this body. Zero uses the world value.&quot;)]
+public uint SolverVelocityIterationsOverride { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_RigidBody_ApplyAngularImpulse_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyAngularImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_ApplyAngularImpulse_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyAngularImpulse(Evergine.Mathematics.Vector3)">ApplyAngularImpulse(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Applies an instantaneous change of angular momentum.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyAngularImpulse(Vector3 impulse)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">impulse</span></td>
+        <td><p>The angular impulse.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_ApplyBuoyancy_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyBuoyancy*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_ApplyBuoyancy_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Single_System_Single_System_Single_Evergine_Mathematics_Vector3_System_Single_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyBuoyancy(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,System.Single,System.Single,System.Single,Evergine.Mathematics.Vector3,System.Single)">ApplyBuoyancy(Vector3, Vector3, float, float, float, Vector3, float)</h4>
+  <div class="markdown level1 summary"><p>Pushes this body up as a fluid would, for one step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ApplyBuoyancy(Vector3 surfacePosition, Vector3 surfaceNormal, float buoyancy, float linearDrag, float angularDrag, Vector3 fluidVelocity, float deltaTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">surfacePosition</span></td>
+        <td><p>Any point on the surface of the fluid.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">surfaceNormal</span></td>
+        <td><p>Which way is up out of the fluid.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">buoyancy</span></td>
+        <td><p>The density of the fluid over the density of this body. One neither floats nor sinks, above one floats.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">linearDrag</span></td>
+        <td><p>How much the fluid slows the body down. Around half is a reasonable start.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">angularDrag</span></td>
+        <td><p>How much the fluid stops it turning.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">fluidVelocity</span></td>
+        <td><p>How fast the fluid itself is moving, which is what a current is.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">deltaTime</span></td>
+        <td><p>The length of the step this is being applied for.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when any part of a dynamic body was under the surface; otherwise, <code>false</code>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_RigidBody_ApplyBuoyancy_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Single_System_Single_System_Single_Evergine_Mathematics_Vector3_System_Single__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+Call this from inside the fixed step, once per step, for every body that is in the fluid. It works out
+how much of the shape is under the surface and pushes accordingly, so a shape half in the water is
+pushed half as hard, and it applies the drag that makes something moving through water slow down and
+stop wobbling.
+</p>
+<p>
+There is no fluid density here, only <code class="paramref">buoyancy</code>, which is the ratio between the
+density of the fluid and the density of the body: one for something that neither floats nor sinks, more
+than one for something that floats. That ratio is also the answer to where it settles, since a body
+floats with one over the ratio of itself submerged: something twice as light as water floats half out
+of it.
+</p>
+</div>
+  <a id="Evergine_Framework_Physics_RigidBody_ApplyForce_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyForce*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_ApplyForce_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyForce(Evergine.Mathematics.Vector3)">ApplyForce(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Applies a force to the center of mass. It acts during the next step only, so it is meant to be called
+from <a class="xref" href="Evergine.Framework.Physics.PhysicsManager.html#Evergine_Framework_Physics_PhysicsManager_PhysicsStepStarting">PhysicsStepStarting</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyForce(Vector3 force)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">force</span></td>
+        <td><p>The force, in newtons.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_ApplyForce_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyForce*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_ApplyForce_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyForce(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3)">ApplyForce(Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Applies a force at a world position, which also produces torque.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyForce(Vector3 force, Vector3 worldPosition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">force</span></td>
+        <td><p>The force, in newtons.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">worldPosition</span></td>
+        <td><p>The world position where the force is applied.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_ApplyImpulse_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_ApplyImpulse_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyImpulse(Evergine.Mathematics.Vector3)">ApplyImpulse(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Applies an instantaneous change of momentum to the center of mass.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyImpulse(Vector3 impulse)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">impulse</span></td>
+        <td><p>The impulse, in newton seconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_ApplyImpulse_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_ApplyImpulse_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyImpulse(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3)">ApplyImpulse(Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Applies an instantaneous change of momentum at a world position, which also spins the body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyImpulse(Vector3 impulse, Vector3 worldPosition)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">impulse</span></td>
+        <td><p>The impulse, in newton seconds.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">worldPosition</span></td>
+        <td><p>The world position where the impulse is applied.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_ApplyTorque_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_ApplyTorque_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.RigidBody.ApplyTorque(Evergine.Mathematics.Vector3)">ApplyTorque(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Applies a torque to the body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void ApplyTorque(Vector3 torque)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">torque</span></td>
+        <td><p>The torque, in newton meters.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_GetPointVelocity_" data-uid="Evergine.Framework.Physics.RigidBody.GetPointVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_GetPointVelocity_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.RigidBody.GetPointVelocity(Evergine.Mathematics.Vector3)">GetPointVelocity(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Gets the velocity of a point of the body, taking its rotation into account.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 GetPointVelocity(Vector3 worldPoint)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">worldPoint</span></td>
+        <td><p>The world point.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><p>The velocity of that point, in meters per second.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_RigidBody_MoveTo_" data-uid="Evergine.Framework.Physics.RigidBody.MoveTo*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_MoveTo_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_" data-uid="Evergine.Framework.Physics.RigidBody.MoveTo(Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion)">MoveTo(Vector3, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Moves a kinematic body towards a pose, reaching it at the end of the frame's physics steps.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void MoveTo(Vector3 position, Quaternion orientation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The target world position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">orientation</span></td>
+        <td><p>The target world orientation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_RigidBody_MoveTo_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Unlike <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_Teleport_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_">Teleport(Vector3, Quaternion)</a>, this produces the velocity the contact solver needs, so the body
+carries and pushes dynamic bodies instead of going through them. Writing the entity transform while the
+simulation runs does the same.</p>
+</div>
+  <a id="Evergine_Framework_Physics_RigidBody_Sleep_" data-uid="Evergine.Framework.Physics.RigidBody.Sleep*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_Sleep" data-uid="Evergine.Framework.Physics.RigidBody.Sleep">Sleep()</h4>
+  <div class="markdown level1 summary"><p>Puts the body to sleep.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Sleep()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Physics_RigidBody_Teleport_" data-uid="Evergine.Framework.Physics.RigidBody.Teleport*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_Teleport_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_" data-uid="Evergine.Framework.Physics.RigidBody.Teleport(Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion)">Teleport(Vector3, Quaternion)</h4>
+  <div class="markdown level1 summary"><p>Places the body at a pose immediately, discarding any contact it had.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Teleport(Vector3 position, Quaternion orientation)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The world position.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">orientation</span></td>
+        <td><p>The world orientation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html#Evergine_Framework_Physics_PhysicsBody_Teleport_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_">PhysicsBody.Teleport(Vector3, Quaternion)</a></div>
+  <a id="Evergine_Framework_Physics_RigidBody_WakeUp_" data-uid="Evergine.Framework.Physics.RigidBody.WakeUp*"></a>
+  <h4 id="Evergine_Framework_Physics_RigidBody_WakeUp" data-uid="Evergine.Framework.Physics.RigidBody.WakeUp">WakeUp()</h4>
+  <div class="markdown level1 summary"><p>Wakes the body up.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void WakeUp()</code></pre>
+  </div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Physics_RigidBody_Activated" data-uid="Evergine.Framework.Physics.RigidBody.Activated">Activated</h4>
+  <div class="markdown level1 summary"><p>Raised when this body wakes up.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler Activated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_RigidBody_Activated_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Raised on the main thread once the step is over, so the scene can be touched safely from the handler.</p>
+</div>
+  <h4 id="Evergine_Framework_Physics_RigidBody_Slept" data-uid="Evergine.Framework.Physics.RigidBody.Slept">Slept</h4>
+  <div class="markdown level1 summary"><p>Raised when this body goes to sleep, meaning the simulation has stopped spending time on it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler Slept</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

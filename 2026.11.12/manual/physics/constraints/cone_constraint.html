@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cone Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cone Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cone-constraint">Cone Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/cone_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>cone constraint</strong> pins two bodies at a point, like a <a href="point_constraint.html">point constraint</a>, and then limits how far the joint may bend: its axis must stay inside a cone.</p>
+<p>It is the simplest of the limited ball joints. Twisting about the axis is left free. For a joint that limits that too, use a <a href="swing_twist_constraint.html">swing twist constraint</a>.</p>
+<p>This constraint had no equivalent in the previous API.</p>
+<h2 id="coneconstraint-component">ConeConstraint Component</h2>
+<p><img src="images/coneconstraint_component.png" alt="ConeConstraint component"></p>
+<pre><code class="lang-csharp">Entity lamp = new Entity(&quot;lampHead&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 2f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new SphereCollider() { Radius = 0.25f })
+    .AddComponent(new ConeConstraint()
+    {
+        ConnectedEntityPath = &quot;lampArm&quot;,
+        TwistAxis = Vector3.UnitY,
+
+        // Thirty degrees of play in any direction, and no more.
+        HalfConeAngle = MathHelper.ToRadians(30f),
+    });
+
+this.Managers.EntityManager.Add(lamp);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TwistAxis</strong></td>
+<td>0,1,0</td>
+<td>The axis at the centre of the cone, in this body's local space. The joint may bend away from it by up to the half angle.</td>
+</tr>
+<tr>
+<td><strong>HalfConeAngle</strong></td>
+<td>π/4</td>
+<td>The half angle of the cone, in radians. <code>0</code> locks the axis in place; π/2 allows a right angle in any direction.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus the <a href="index.html#common-properties">common properties</a>.</p>
+<h2 id="using-cone-constraint">Using Cone Constraint</h2>
+<p>A cone constraint is the right tool whenever something is attached at a point but must not fold all the way over: a rear-view mirror, a lamp head, a tow hitch, the segments of a robotic tentacle.</p>
+<pre><code class="lang-csharp">private void CreateTentacle(Vector3 root, int segments)
+{
+    string previous = &quot;tentacleRoot&quot;;
+
+    for (int i = 0; i &lt; segments; i++)
+    {
+        Entity segment = new Entity($&quot;segment{i}&quot;)
+            .AddComponent(new Transform3D() { Position = root - (Vector3.UnitY * (i * 0.5f)) })
+            .AddComponent(new RigidBody())
+            .AddComponent(new CapsuleCollider() { Radius = 0.12f, Height = 0.5f })
+            .AddComponent(new ConeConstraint()
+            {
+                ConnectedEntityPath = previous,
+                Anchor = new Vector3(0f, 0.25f, 0f),
+                TwistAxis = Vector3.UnitY,
+
+                // Kept well inside a right angle. A chain whose every joint may fold to ninety degrees
+                // can turn back on itself, and a tentacle tied in a knot never comes out of it.
+                HalfConeAngle = MathHelper.ToRadians(25f),
+            });
+
+        this.Managers.EntityManager.Add(segment);
+        previous = segment.Name;
+    }
+}
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Build the chain <strong>already inside its limits</strong>. A joint created bent further than its half angle starts the simulation fighting itself, and the first step snaps it into range, which reads as the chain exploding on frame one.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Nothing stops the bodies spinning about the cone's axis. If a segment should not be able to corkscrew, use a <a href="swing_twist_constraint.html">swing twist constraint</a>, which limits the swing and the twist separately.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>List view | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="List view | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="list-view">List view</h1>
+
+<hr>
+<p><img src="images/listview.png" alt="List view"></p>
+<p>The <code>ListView</code> control displays data in rows and columns. Its cells are not limited to text: a cell can contain any 3D element, such as icons, images, or models. The list scrolls when the rows do not fit, keeps track of the selected row, and can show a header and a loading indicator.</p>
+<p>The control is distributed as the <code>ListView.weprefab</code> prefab.</p>
+<h2 id="populate-data">Populate data</h2>
+<p>A list view gets its rows from a <strong>data adapter</strong>, a class derived from <code>DataAdapter</code> that links the UI with your data, in the style of Android adapters. The adapter tells the list how many rows there are, returns the value of each row, and chooses how each cell is rendered.</p>
+<table>
+<thead>
+<tr>
+<th><code>DataAdapter</code> member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Count</code></td>
+<td>Number of rows.</td>
+</tr>
+<tr>
+<td><code>GetRowValue(int rowIndex)</code></td>
+<td>Returns the object bound to a row.</td>
+</tr>
+<tr>
+<td><code>IndexOf(object value)</code></td>
+<td>Returns the row index of an object, or <code>-1</code>.</td>
+</tr>
+<tr>
+<td><code>GetRenderer(int rowIndex, int columnIndex)</code></td>
+<td>Returns the <code>CellRenderer</code> that draws a cell.</td>
+</tr>
+</tbody>
+</table>
+<p>MRTK includes <code>ArrayAdapter&lt;T&gt;</code>, which binds the list to an <code>IList&lt;T&gt;</code>. It renders one text cell per row with the <code>ToString()</code> value of each element, so it is enough for single-column lists:</p>
+<pre><code class="lang-csharp">using System.Collections.Generic;
+using Evergine.Framework;
+using Evergine.MRTK.SDK.Features.UX.Components.Lists;
+
+public class FruitList : Component
+{
+    [BindComponent(source: BindComponentSource.Children)]
+    private ListView listView = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        var fruits = new List&lt;string&gt; { &quot;Apple&quot;, &quot;Banana&quot;, &quot;Cherry&quot; };
+        this.listView.DataSource = new ArrayAdapter&lt;string&gt;(fruits);
+
+        // One column that takes the whole width of the list.
+        this.listView.Columns = new[]
+        {
+            new ColumnDefinition { Title = &quot;Fruit&quot;, PercentageSize = 1f },
+        };
+    }
+}
+</code></pre>
+<p>You can create design-time adapters too, so Evergine Studio shows sample data in the list while you design the scene. The MRTK demo project includes several adapters you can use as a starting point.</p>
+<h2 id="custom-cell-renderers">Custom cell renderers</h2>
+<p>To control how a cell looks, derive from <code>CellRenderer</code> and build the cell entities in <code>Render</code>. <code>TextCellRenderer</code>, the built-in renderer, draws the cell value as 3D text. Inside <code>Render</code>, the <code>Width</code>, <code>Height</code>, and <code>Layer</code> properties give you the cell size and the render layer the list uses to clip its content.</p>
+<p><img src="images/listview_custom-adapter.png" alt="List view with a custom adapter"></p>
+<p>The following renderer, taken from the demo project, draws a colored square that shows the status of a task:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+using Evergine.MRTK.SDK.Features.UX.Components.Lists;
+
+public enum TaskStatus
+{
+    Pending,
+    InProgress,
+    Done,
+}
+
+public class TaskStatusCellRenderer : CellRenderer
+{
+    private readonly AssetsService assetsService;
+
+    public TaskStatusCellRenderer(AssetsService assetsService)
+    {
+        this.assetsService = assetsService;
+    }
+
+    public TaskStatus Status { get; set; }
+
+    public override void Render(Entity parent)
+    {
+        var statusMaterial = this.assetsService.Load&lt;Material&gt;(this.GetStatusMaterialId());
+
+        parent.AddChild(new Entity()
+            .AddComponent(new Transform3D
+            {
+                LocalPosition = new Vector3(0.01f, -0.008f, 0),
+                LocalScale = new Vector3(0.008f, 0.008f, 0.001f),
+            })
+            .AddComponent(new MaterialComponent() { Material = statusMaterial })
+            .AddComponent(new PlaneMesh
+            {
+                PlaneNormal = PlaneMesh.NormalAxis.ZPositive,
+            })
+            .AddComponent(new MeshRenderer()));
+    }
+
+    private Guid GetStatusMaterialId()
+    {
+        // These materials belong to the demo project; use your own asset IDs.
+        switch (this.Status)
+        {
+            case TaskStatus.Pending:
+                return EvergineContent.Materials.Samples.ListView.Task_Status_Red;
+            case TaskStatus.InProgress:
+                return EvergineContent.Materials.Samples.ListView.Task_Status_Yellow;
+            case TaskStatus.Done:
+                return EvergineContent.Materials.Samples.ListView.Task_Status_Green;
+            default:
+                throw new ArgumentOutOfRangeException();
+        }
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The list calls <code>GetRenderer</code> for every cell, so return a shared renderer instance and update its properties, as <code>ArrayAdapter&lt;T&gt;</code> does with <code>TextCellRenderer.Instance</code>, instead of creating a renderer per cell.</p>
+</div>
+<h2 id="columns-and-custom-adapters">Columns and custom adapters</h2>
+<p><code>ColumnDefinition</code> sets the title, the relative width, and the header text color of each column. The <code>PercentageSize</code> values of all the columns must add up to 1.</p>
+<p>To fill several columns, derive from <code>ArrayAdapter&lt;T&gt;</code> and override <code>GetRenderer</code> to return a different renderer per column. This adapter, also from the demo project, shows a task name, its deadline, and the status square from the previous example:</p>
+<pre><code class="lang-csharp">using System;
+using System.Collections.Generic;
+using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+using Evergine.MRTK.SDK.Features.UX.Components.Lists;
+
+public class SampleTask
+{
+    public string Name { get; set; }
+
+    public DateTime Deadline { get; set; }
+
+    public TaskStatus Status { get; set; }
+}
+
+public class SampleTasksAdapter : ArrayAdapter&lt;SampleTask&gt;
+{
+    private readonly TaskStatusCellRenderer statusRenderer;
+
+    public SampleTasksAdapter(IList&lt;SampleTask&gt; data, AssetsService assetsService)
+        : base(data)
+    {
+        this.statusRenderer = new TaskStatusCellRenderer(assetsService);
+    }
+
+    public override CellRenderer GetRenderer(int rowIndex, int columnIndex)
+    {
+        SampleTask task = this.GetTypedRowValue(rowIndex);
+
+        switch (columnIndex)
+        {
+            case 0:
+            case 1:
+                var textRenderer = TextCellRenderer.Instance;
+                textRenderer.Text = columnIndex == 0 ? task.Name : task.Deadline.ToShortDateString();
+                textRenderer.Color = task.Status == TaskStatus.Pending ? Color.Orange : Color.White;
+                return textRenderer;
+            case 2:
+                this.statusRenderer.Status = task.Status;
+                return this.statusRenderer;
+            default:
+                throw new IndexOutOfRangeException();
+        }
+    }
+}
+
+public class TaskList : Component
+{
+    [BindComponent(source: BindComponentSource.Children)]
+    private ListView listView = null;
+
+    [BindService]
+    private AssetsService assetsService = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        var tasks = new List&lt;SampleTask&gt;
+        {
+            new SampleTask { Name = &quot;Design&quot;, Deadline = DateTime.Today.AddDays(1), Status = TaskStatus.Done },
+            new SampleTask { Name = &quot;Review&quot;, Deadline = DateTime.Today.AddDays(3), Status = TaskStatus.Pending },
+        };
+
+        this.listView.DataSource = new SampleTasksAdapter(tasks, this.assetsService);
+        this.listView.Columns = new[]
+        {
+            new ColumnDefinition { Title = &quot;Name&quot;, PercentageSize = 0.4f, HeaderTextColor = Color.Yellow },
+            new ColumnDefinition { Title = &quot;Deadline&quot;, PercentageSize = 0.4f, HeaderTextColor = Color.Yellow },
+            new ColumnDefinition { Title = &quot;Status&quot;, PercentageSize = 0.2f, HeaderTextColor = Color.White },
+        };
+        this.listView.HeaderEnabled = true;
+    }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><code>ColumnDefinition</code> property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Title</code></td>
+<td><code>null</code></td>
+<td>Text shown in the header.</td>
+</tr>
+<tr>
+<td><code>PercentageSize</code></td>
+<td><code>0</code></td>
+<td>Fraction of the list width used by the column.</td>
+</tr>
+<tr>
+<td><code>HeaderTextColor</code></td>
+<td><code>Color.DarkBlue</code></td>
+<td>Color of the header text.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Size</code></td>
+<td><code>(0.25, 0.18)</code></td>
+<td>Width and height of the list, in meters.</td>
+</tr>
+<tr>
+<td><code>ContentPadding</code></td>
+<td><code>0.02</code></td>
+<td>Padding of the rows inside the list. It is applied vertically.</td>
+</tr>
+<tr>
+<td><code>ElasticTime</code></td>
+<td><code>0.1</code></td>
+<td>Duration, in seconds, of the elastic animation when the content is dragged beyond its edges.</td>
+</tr>
+<tr>
+<td><code>ZContentDistance</code></td>
+<td><code>0.004</code></td>
+<td>Distance along the local Z axis between the background and the rows.</td>
+</tr>
+<tr>
+<td><code>RowHeight</code></td>
+<td><code>0.015</code></td>
+<td>Height of every row. All rows have the same height.</td>
+</tr>
+<tr>
+<td><code>BarWidth</code></td>
+<td><code>0.004</code></td>
+<td>Width of the scroll bar.</td>
+</tr>
+<tr>
+<td><code>DataSource</code></td>
+<td><code>null</code></td>
+<td>Data adapter that populates the list.</td>
+</tr>
+<tr>
+<td><code>SelectedIndex</code></td>
+<td><code>-1</code></td>
+<td>Index of the selected row. <code>-1</code> means no selection.</td>
+</tr>
+<tr>
+<td><code>SelectedItem</code></td>
+<td><code>null</code></td>
+<td>Object bound to the selected row.</td>
+</tr>
+<tr>
+<td><code>Columns</code></td>
+<td><code>null</code></td>
+<td>Column definitions.</td>
+</tr>
+<tr>
+<td><code>HeaderEnabled</code></td>
+<td><code>false</code></td>
+<td>Shows the header with the column titles.</td>
+</tr>
+<tr>
+<td><code>ShowLoadingIndicator</code></td>
+<td><code>false</code></td>
+<td>Shows the loading indicator. Your code decides when, for example while it downloads data.</td>
+</tr>
+<tr>
+<td><code>LoadingIndicator</code></td>
+<td>Spinner</td>
+<td>Entity used as the loading indicator. Assign your own entity to replace the default spinner.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods">Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Refresh()</code></td>
+<td>Rebuilds the rows and the layout. It recreates the whole hierarchy, so avoid calling it every frame.</td>
+</tr>
+<tr>
+<td><code>RefreshHeader()</code></td>
+<td>Rebuilds only the header.</td>
+</tr>
+<tr>
+<td><code>ScrollTo(int rowIndex, ScrollToPosition position)</code></td>
+<td>Scrolls until a row is visible, placed at the <code>Start</code>, <code>Center</code>, or <code>End</code> of the list.</td>
+</tr>
+<tr>
+<td><code>ScrollTo(object item, ScrollToPosition position)</code></td>
+<td>Same, for the row bound to an object.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="events">Events</h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SelectedItemChanged</code></td>
+<td>Raised when the selection changes.</td>
+</tr>
+<tr>
+<td><code>Scrolled</code></td>
+<td>Raised when the content scrolls.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Windows system | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Windows system | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="windows-system">Windows system</h1>
+
+<hr>
+<p><img src="images/windows_system_main.jpg" alt="Windows and dialogs"></p>
+<p>The windows system creates floating windows that the user can move, pin, or let follow them, and fills them with your own content. It also provides alert and confirmation dialogs, so you can inform the user or ask them to confirm an action and react to their choice. Access it through the <code>WindowsSystem</code> property of <code>XrvService</code>.</p>
+<h2 id="window-interaction">Window interaction</h2>
+<p>Every window includes buttons in its title bar that change how it behaves:</p>
+<ul>
+<li><img src="images/follow.png" alt="window follow"> <strong>Follow mode</strong>: the window follows the user and turns to face them. It stays between 0.4 m and 0.6 m away as the user moves.</li>
+<li><img src="images/pin.png" alt="window pin"> <strong>Pinned mode</strong>: the window stays at its current position and orientation. The user can move and rotate it by pinching its title bar or its content.</li>
+<li><img src="images/close.png" alt="window close"> <strong>Close</strong>: closes the window.</li>
+</ul>
+<h2 id="create-and-show-a-window">Create and show a window</h2>
+<p>Call <code>CreateWindow</code> and set the options of the new window in the configuration callback. You can create as many windows as you need.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Mathematics;
+using Evergine.Xrv.Core;
+
+var xrv = Application.Current.Container.Resolve&lt;XrvService&gt;();
+var window = xrv.WindowsSystem.CreateWindow(config =&gt;
+{
+    config.Title = &quot;Window #1&quot;;
+    config.Size = new Vector2(0.3f, 0.2f);
+});
+
+// Shows the window, empty in this case, in front of the user.
+window.Open();
+</code></pre>
+<p><code>CreateWindow</code> adds the window entity to the scene. It also has an overload with an <code>out Entity</code> parameter, which gives you the window entity before the scene finishes loading, and an <code>addToScene</code> parameter to add it yourself later.</p>
+<p>A window has three visual parts:</p>
+<ul>
+<li><strong>Title bar</strong>: at the top, with the title and the action buttons.</li>
+<li><strong>Back plate</strong>: uses the same material as the title bar and can show a logo.</li>
+<li><strong>Front plate</strong>: drawn over the back plate, behind the window contents.</li>
+</ul>
+<p><img src="images/windows_system_window_parts.jpg" alt="Parts of a window"></p>
+<h3 id="window-properties">Window properties</h3>
+<p><code>CreateWindow</code> returns the <code>Window</code> component, which controls the behavior of the window.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AllowPin</code></td>
+<td><code>true</code></td>
+<td>Shows the follow/pin toggle. Set it to <code>false</code> to keep the window in its current mode.</td>
+</tr>
+<tr>
+<td><code>EnableManipulation</code></td>
+<td><code>true</code></td>
+<td>Lets the user move and rotate the window while it is pinned.</td>
+</tr>
+<tr>
+<td><code>PlaceInFrontOfUserWhenOpened</code></td>
+<td><code>true</code></td>
+<td>Places the window in front of the user every time it opens.</td>
+</tr>
+<tr>
+<td><code>DistanceKey</code></td>
+<td><code>null</code></td>
+<td>Key of the <a href="#window-distances">distance</a> at which the window opens. <code>null</code> uses <code>Distances.MediumKey</code>.</td>
+</tr>
+<tr>
+<td><code>ShowCloseButton</code></td>
+<td><code>true</code></td>
+<td>Shows the close button of the title bar.</td>
+</tr>
+<tr>
+<td><code>ExtraActionButtons</code></td>
+<td>empty</td>
+<td>Extra buttons, described with <code>ButtonDescription</code>, for the title bar.</td>
+</tr>
+<tr>
+<td><code>AvailableActionSlots</code></td>
+<td><code>3</code></td>
+<td>Number of extra buttons shown in the title bar. The rest go to a <em>more actions</em> menu, sorted by their <code>Order</code>.</td>
+</tr>
+<tr>
+<td><code>MoreActionsPlacement</code></td>
+<td><code>BeforeFollowAndClose</code></td>
+<td>Where the <em>more actions</em> button goes: <code>BeforeFollowAndClose</code> or <code>BeforeActionButtons</code>.</td>
+</tr>
+<tr>
+<td><code>MoreActionsBehavior</code></td>
+<td><code>HideAutomatically</code></td>
+<td>Whether the <em>more actions</em> panel closes after a selection (<code>HideAutomatically</code>) or stays open (<code>StayOpen</code>).</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Open()</code></td>
+<td>Opens the window, if it is not already open.</td>
+</tr>
+<tr>
+<td><code>Close()</code></td>
+<td>Closes the window.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Opening</code>, <code>Opened</code></td>
+<td>Raised before and after the window opens.</td>
+</tr>
+<tr>
+<td><code>Closing</code>, <code>Closed</code></td>
+<td>Raised before and after the window closes.</td>
+</tr>
+<tr>
+<td><code>ActionButtonPressed</code></td>
+<td>Raised when the user presses one of the <code>ExtraActionButtons</code>. The arguments include the button <code>Description</code> and its toggle state <code>IsOn</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="window-configuration">Window configuration</h3>
+<p>The configuration callback receives the <code>WindowConfigurator</code> of the window, which controls its content and appearance.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Content</code></td>
+<td><code>null</code></td>
+<td>Entity shown as the window contents, such as buttons, 3D text, or images.</td>
+</tr>
+<tr>
+<td><code>Title</code></td>
+<td><code>null</code></td>
+<td>Fixed title text.</td>
+</tr>
+<tr>
+<td><code>LocalizedTitle</code></td>
+<td><code>null</code></td>
+<td>Function that returns the title, for <a href="../localization.html">localized</a> titles.</td>
+</tr>
+<tr>
+<td><code>Size</code></td>
+<td><code>(0.35, 0.3)</code></td>
+<td>Width and height of the window, in meters.</td>
+</tr>
+<tr>
+<td><code>FrontPlateSize</code></td>
+<td><code>(0, 0)</code></td>
+<td>Width and height of the front plate, in meters.</td>
+</tr>
+<tr>
+<td><code>FrontPlateOffsets</code></td>
+<td><code>(0, 0)</code></td>
+<td>XY offset of the front plate relative to the back plate.</td>
+</tr>
+<tr>
+<td><code>DisplayFrontPlate</code></td>
+<td><code>true</code></td>
+<td>Shows the front plate.</td>
+</tr>
+<tr>
+<td><code>DisplayBackPlate</code></td>
+<td><code>true</code></td>
+<td>Shows the back plate.</td>
+</tr>
+<tr>
+<td><code>DisplayLogo</code></td>
+<td><code>true</code></td>
+<td>Shows the logo on the back plate.</td>
+</tr>
+<tr>
+<td><code>LogoMaterial</code></td>
+<td><code>null</code></td>
+<td>Material of the logo. <code>null</code> keeps the default XRV logo.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="how-to-create-a-window-with-custom-contents">How-to: create a window with custom contents</h3>
+<p>Design the contents in a scene and save them as a prefab. To get the size right:</p>
+<ol>
+<li>Create a scene for the window contents. You will save them as a prefab and load them into the window.</li>
+<li>Add a plane that uses the <em>BorderlessFrontPlate</em> material as a size guide.</li>
+<li>Set the <code>PlaneMesh</code> width and height to the size you want for the window.
+<img src="images/windows_system_how-to.png" alt="Size guide for window contents"></li>
+<li>Lay out your contents over the guide.</li>
+<li>Create a prefab from the contents entity, without the guide.</li>
+<li>Create the window in code with the same size as the guide:</li>
+</ol>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Prefabs;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.UI.Windows;
+
+public class CustomWindowOpener : Component
+{
+    [BindService]
+    private XrvService xrvService = null;
+
+    [BindService]
+    private AssetsService assetsService = null;
+
+    private Window window;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        // Same size as the guide plane used to design the prefab.
+        var contentsSize = new Vector2(0.214f, 0.173f);
+        this.window = this.xrvService.WindowsSystem.CreateWindow(config =&gt;
+        {
+            config.Size = contentsSize;
+            config.FrontPlateSize = contentsSize;
+            config.Content = this.assetsService.Load&lt;Prefab&gt;(EvergineContent.Prefabs.MyWindowContents_weprefab).Instantiate();
+        });
+
+        this.window.Open();
+    }
+}
+</code></pre>
+<p><code>EvergineContent.Prefabs.MyWindowContents_weprefab</code> stands for the ID of your prefab.</p>
+<h2 id="built-in-dialogs">Built-in dialogs</h2>
+<p><img src="images/windows_system_dialogs.png" alt="Alert and confirmation dialogs"></p>
+<p>XRV includes two dialogs:</p>
+<ul>
+<li><strong>Alert dialog</strong> (<code>AlertDialog</code>): informs the user. It has a single accept button.</li>
+<li><strong>Confirmation dialog</strong> (<code>ConfirmationDialog</code>): asks the user to confirm an action, such as removing a 3D model. It has cancel and accept buttons.</li>
+</ul>
+<p>Only one dialog can be open at a time. If you open a dialog while another one is visible, XRV closes the first one, so the user always sees the latest prompt.</p>
+<p>When a dialog closes, its <code>Result</code> property holds the key of the option the user pressed:</p>
+<table>
+<thead>
+<tr>
+<th>Dialog</th>
+<th><code>Result</code></th>
+<th>When</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AlertDialog</code></td>
+<td><code>AlertDialog.AcceptKey</code></td>
+<td>The user pressed the accept button.</td>
+</tr>
+<tr>
+<td><code>ConfirmationDialog</code></td>
+<td><code>ConfirmationDialog.AcceptKey</code></td>
+<td>The user pressed the accept button.</td>
+</tr>
+<tr>
+<td><code>ConfirmationDialog</code></td>
+<td><code>ConfirmationDialog.CancelKey</code></td>
+<td>The user pressed the cancel button.</td>
+</tr>
+<tr>
+<td>Both</td>
+<td><code>null</code></td>
+<td>The user pressed the close button, or your code opened another dialog.</td>
+</tr>
+</tbody>
+</table>
+<p>The following component shows both dialogs and checks the result when they close. It subscribes to <code>Closed</code> and unsubscribes in the handler, because a dialog closes only once.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.UI.Dialogs;
+using Evergine.Xrv.Core.UI.Windows;
+
+public class DialogsSample : Component
+{
+    [BindService]
+    private XrvService xrvService = null;
+
+    private WindowsSystem WindowsSystem =&gt; this.xrvService.WindowsSystem;
+
+    public void ShowAlert()
+    {
+        var dialog = this.WindowsSystem.ShowAlertDialog(&quot;Alert title&quot;, &quot;Sample content.&quot;, &quot;OK&quot;);
+        dialog.Closed += this.OnAlertClosed;
+    }
+
+    public void ShowConfirmation()
+    {
+        // The arguments are the title, the text, the cancel text and the accept text.
+        var dialog = this.WindowsSystem.ShowConfirmationDialog(&quot;Remove model&quot;, &quot;Do you want to remove this model?&quot;, &quot;No&quot;, &quot;Yes&quot;);
+        dialog.Closed += this.OnConfirmationClosed;
+    }
+
+    private void OnAlertClosed(object sender, EventArgs e)
+    {
+        if (sender is AlertDialog dialog)
+        {
+            dialog.Closed -= this.OnAlertClosed;
+        }
+    }
+
+    private void OnConfirmationClosed(object sender, EventArgs e)
+    {
+        if (sender is ConfirmationDialog dialog)
+        {
+            dialog.Closed -= this.OnConfirmationClosed;
+
+            if (dialog.Result == ConfirmationDialog.AcceptKey)
+            {
+                // Run the action only when the user accepts.
+            }
+        }
+    }
+}
+</code></pre>
+<p><code>ShowAlertDialog</code> and <code>ShowConfirmationDialog</code> also have overloads that take <code>Func&lt;string&gt;</code> arguments, for <a href="../localization.html">localized</a> dialogs.</p>
+<h2 id="notifications">Notifications</h2>
+<p><code>ShowNotification(title, message)</code> shows a short notification to the user without blocking the interaction. An overload also takes the ID of an icon material.</p>
+<h2 id="windows-system-properties">Windows system properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AllWindows</code></td>
+<td>All the windows created by the system.</td>
+</tr>
+<tr>
+<td><code>Distances</code></td>
+<td>Predefined distances at which windows open. See below.</td>
+</tr>
+<tr>
+<td><code>OverrideIconMaterial</code></td>
+<td>Material for the logo of every window, so you do not have to set <code>LogoMaterial</code> on each one.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="window-distances">Window distances</h3>
+<p>XRV defines three distances that windows use when they open. You can change them or add your own.</p>
+<table>
+<thead>
+<tr>
+<th>Key</th>
+<th>Distance (meters)</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Distances.NearKey</code></td>
+<td>0.35</td>
+<td>Alert and confirmation dialogs.</td>
+</tr>
+<tr>
+<td><code>Distances.MediumKey</code></td>
+<td>0.5</td>
+<td>Windows by default.</td>
+</tr>
+<tr>
+<td><code>Distances.FarKey</code></td>
+<td>1</td>
+<td>Available for your own windows.</td>
+</tr>
+</tbody>
+</table>
+<p>Use <code>SetDistance</code> to change a distance or add a new key, and assign the key to a window:</p>
+<pre><code class="lang-csharp">var windowsSystem = this.xrvService.WindowsSystem;
+
+// Change an existing distance.
+windowsSystem.Distances.SetDistance(Distances.NearKey, 0.45f);
+
+// Add a new distance and use it in a window.
+windowsSystem.Distances.SetDistance(&quot;custom&quot;, 0.7f);
+window.DistanceKey = &quot;custom&quot;;
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

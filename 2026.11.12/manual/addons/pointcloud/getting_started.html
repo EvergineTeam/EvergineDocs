@@ -1,0 +1,272 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting started with Point Cloud | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with Point Cloud | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-point-cloud">Getting started with Point Cloud</h1>
+
+<hr>
+<p><img src="images/addon_installation.png" alt="Add-on installation"></p>
+<p>This page adds the Point Cloud add-on to a project and loads a cloud into a scene. The add-on plugs into three moments of the application lifecycle: when the application is created, when the scene registers its managers, and when the scene is created. After that, one call loads a file.</p>
+<h2 id="project-setup">Project setup</h2>
+<h3 id="1-create-a-project">1. Create a project</h3>
+<p>Create a project with <a href="../../evergine_launcher/create_project.html">Evergine Launcher</a> and keep the Windows profile.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The add-on does not support Web platforms.</p>
+</div>
+<h3 id="2-install-the-add-on">2. Install the add-on</h3>
+<p>In Evergine Studio, open the <a href="../index.html#add-ons-manager">Add-ons Manager</a> and install <strong>Evergine.PointCloud</strong>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The add-on references NuGet packages. To use nightly builds, add the Evergine nightly feed to your <code>nuget.config</code>:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;packageSources&gt;
+    &lt;add key=&quot;nuget.org&quot; value=&quot;https://api.nuget.org/v3/index.json&quot; /&gt;
+    &lt;add key=&quot;Evergine Nightly&quot; value=&quot;https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json&quot; /&gt;
+  &lt;/packageSources&gt;
+&lt;/configuration&gt;
+</code></pre>
+</div>
+<h3 id="3-register-the-services-in-the-application">3. Register the services in the application</h3>
+<p>Call <code>PointCloudRuntime.OnAppConstruction</code> at the end of your <code>Application</code> constructor. It registers the importers and the loader service in the container.</p>
+<pre><code class="lang-csharp">using Evergine.Common.IO;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+using Evergine.PointCloud;
+
+public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        this.Container.Register&lt;Settings&gt;();
+        this.Container.Register&lt;Clock&gt;();
+        this.Container.Register&lt;TimerFactory&gt;();
+        this.Container.Register&lt;Random&gt;();
+        this.Container.Register&lt;ErrorHandler&gt;();
+        this.Container.Register&lt;ScreenContextManager&gt;();
+        this.Container.Register&lt;GraphicsPresenter&gt;();
+        this.Container.Register&lt;AssetsDirectory&gt;();
+        this.Container.Register&lt;AssetsService&gt;();
+        this.Container.Register&lt;ForegroundTaskSchedulerService&gt;();
+        this.Container.Register&lt;WorkActionScheduler&gt;();
+
+        // Registers the E57, EPC, LAS and PCD importers and the loader service.
+        PointCloudRuntime.OnAppConstruction(this.Container);
+    }
+}
+</code></pre>
+<h3 id="4-set-up-the-scene">4. Set up the scene</h3>
+<p>In your scene, register the point data manager in <code>RegisterManagers</code>, and initialize the runtime in <code>CreateScene</code>. <code>OnSceneInitialization</code> replaces the default render path of the scene with <code>ProgressiveRenderPath</code>.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.PointCloud;
+
+public class MyScene : Scene
+{
+    public override void RegisterManagers()
+    {
+        base.RegisterManagers();
+
+        // Adds PointDataManager, which owns the GPU buffers of every cloud.
+        PointCloudRuntime.RegisterManagers(this.Managers);
+    }
+
+    protected override void CreateScene()
+    {
+        PointCloudRuntime.OnSceneInitialization(this.Managers);
+    }
+
+    protected override async void Start()
+    {
+        base.Start();
+        await PointCloudRuntime.LoadCloudAsync(@&quot;C:\Data\scans\building.e57&quot;);
+    }
+}
+</code></pre>
+<h2 id="load-a-point-cloud">Load a point cloud</h2>
+<p>Call <code>PointCloudRuntime.LoadCloudAsync</code> with the path of a <code>.e57</code>, <code>.las</code>, <code>.laz</code>, <code>.pcd</code>, or <code>.epc</code> file once the scene is initialized. It returns <code>null</code> if you call it before <code>OnSceneInitialization</code>. The loader then:</p>
+<ol>
+<li>Picks the importer from the file extension.</li>
+<li>Reads the file metadata and streams the points in chunks, in a background task.</li>
+<li>Instantiates the point cloud prefab, an entity tagged <code>PointCloud</code> named after the file, with a <code>PointCloudDrawable</code> component.</li>
+<li>Allocates GPU buffers for the cloud.</li>
+<li>Uploads each chunk and distributes its points over the buffers, so the image shows the whole cloud early and fills in as loading continues.</li>
+</ol>
+<p>You do not create the entity yourself. Each call to <code>LoadCloudAsync</code> adds a new entity, so you can load several clouds; the buffers grow automatically. To remove a cloud, remove its entity from the entity manager, and the add-on compacts the GPU memory.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The task returned by <code>LoadCloudAsync</code> completes when loading has started, not when every point is on the GPU. Use <code>PointCloudDrawable.IsPointCloudLoaded</code> to know when a cloud is complete.</p>
+</div>
+<p><code>PointCloudDrawable</code> reports the loading progress:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NumPoints</code></td>
+<td>Number of points in the file.</td>
+</tr>
+<tr>
+<td><code>LoadedPoints</code></td>
+<td>Number of points uploaded so far.</td>
+</tr>
+<tr>
+<td><code>IsPointCloudLoaded</code></td>
+<td><code>true</code> when every point has been uploaded.</td>
+</tr>
+<tr>
+<td><code>BoundingBox</code></td>
+<td>Bounds of the points loaded so far. Use it to frame the camera.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="tune-the-rendering">Tune the rendering</h2>
+<p><code>PointDataManager</code> (namespace <code>Evergine.PointCloud.ProgressiveRendering</code>) controls how the points are drawn. Find it with <code>this.Managers.FindManager&lt;PointDataManager&gt;()</code> and change its fields at any time.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PointSize</code></td>
+<td><code>1</code></td>
+<td>Size of each point, in pixels.</td>
+</tr>
+<tr>
+<td><code>MaxPointsPerFrame</code></td>
+<td><code>10000000</code></td>
+<td>Maximum number of points projected per frame. Lower it on slower GPUs; the image then takes more frames to fill in.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">using Evergine.PointCloud.ProgressiveRendering;
+
+var pointData = this.Managers.FindManager&lt;PointDataManager&gt;();
+pointData.PointSize = 2;
+pointData.MaxPointsPerFrame = 2 * 1000 * 1000;
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,282 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Lists in Property Panels | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lists in Property Panels | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lists-in-property-panels">Lists in Property Panels</h1>
+
+<p><img src="images/ilist.png" alt="A List property shown in the Entity Details panel"></p>
+<p>When a component exposes a list property, the <strong>Entity Details</strong> panel of Evergine Studio shows it as an editable list. You can add, edit, remove and reorder elements without writing custom editor code. If your component has to react to those edits, for example to rebuild a cache or validate the new values, mark a method with the <code>CollectionChangeCallback</code> attribute and Evergine Studio calls it after each operation.</p>
+<h2 id="editing-a-list">Editing a list</h2>
+<p>Any public property whose type implements <code>System.Collections.IList</code>, such as <code>List&lt;T&gt;</code>, is rendered as a list. The panel shows:</p>
+<ul>
+<li>The number of items, in a box you can edit to grow or shrink the list.</li>
+<li>One row per item, with a drag handle to reorder it and the editor that matches the item type (text box, numeric input, color picker, asset selector, and so on).</li>
+<li>An <strong>add</strong> button that appends a new item, and a <strong>delete</strong> button that removes the selected items.</li>
+</ul>
+<p>New items are created with the parameterless constructor of the item type (an empty string for <code>string</code>, and opaque white for <code>Color</code>). Use a <code>NewItemInstance</code> callback, described below, when you need a different starting value.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The item type must be concrete. A list declared as <code>List&lt;object&gt;</code> is not supported, because the editor cannot infer what to create.</p>
+</div>
+<h2 id="collectionchangecallback-attribute">CollectionChangeCallback attribute</h2>
+<p><code>CollectionChangeCallback</code> lives in <code>Evergine.Common.Attributes</code>. Apply it to an instance method of the component (it can be public or private) and indicate which list property it observes and which operation triggers it.</p>
+<pre><code class="lang-csharp">[CollectionChangeCallback(nameof(Names), CollectionChangeCallback.OperationType.Addition)]
+private void OnNamesAdded(CollectionChangeCallback.CollectionItem[] items)
+{
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PropertyName</code></td>
+<td>Name of the list property that the callback observes. Use <code>nameof</code> so the link survives a rename.</td>
+</tr>
+<tr>
+<td><code>Type</code></td>
+<td>The <code>OperationType</code> that triggers the callback.</td>
+</tr>
+</tbody>
+</table>
+<p>Both values can also be set as named properties: <code>[CollectionChangeCallback(PropertyName = nameof(Names), Type = OperationType.Update)]</code>.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The attribute is editor-only. Evergine Studio invokes these methods when the list is edited in the property panel. Changes made to the list from your own code at runtime do not call them.</p>
+</div>
+<h3 id="operation-types-and-signatures">Operation types and signatures</h3>
+<p>Each operation expects a specific method signature. Evergine Studio uses the first method it finds for each property and operation.</p>
+<table>
+<thead>
+<tr>
+<th>OperationType</th>
+<th>Expected signature</th>
+<th>When it is called</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Addition</code></td>
+<td><code>void M(CollectionItem[] items)</code></td>
+<td>After one or more items are added.</td>
+</tr>
+<tr>
+<td><code>Update</code></td>
+<td><code>void M(CollectionItem item)</code></td>
+<td>After the value of an item changes.</td>
+</tr>
+<tr>
+<td><code>Deletion</code></td>
+<td><code>void M(CollectionItem[] items)</code></td>
+<td>After one or more items are removed. <code>Index</code> is the position each item had.</td>
+</tr>
+<tr>
+<td><code>Reordering</code></td>
+<td><code>void M(CollectionItem item, int fromIndex)</code></td>
+<td>After an item is dragged to a new position. <code>item.Index</code> is the new position.</td>
+</tr>
+<tr>
+<td><code>NewItemInstance</code></td>
+<td><code>T M()</code></td>
+<td>Before an item is added, to create the instance that is added.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="collectionitem">CollectionItem</h3>
+<p><code>CollectionChangeCallback.CollectionItem</code> describes the affected element.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Item</code></td>
+<td><code>object</code></td>
+<td>The element that was added, updated, removed or moved. Cast it to the item type of the list.</td>
+</tr>
+<tr>
+<td><code>Index</code></td>
+<td><code>int</code></td>
+<td>The position of the element in the list.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example">Example</h2>
+<p>The following component keeps a list of names, gives new entries a readable default instead of an empty string, and logs every change. The <code>using static</code> directive imports the nested types of the attribute, so you can write <code>OperationType</code> and <code>CollectionItem</code> without the class prefix; the regular <code>using</code> is still needed for the attribute itself.</p>
+<pre><code class="lang-csharp">using System.Collections.Generic;
+using System.Diagnostics;
+using Evergine.Common.Attributes;
+using Evergine.Framework;
+using static Evergine.Common.Attributes.CollectionChangeCallback;
+
+namespace MyProject.Components
+{
+    public class NameListComponent : Component
+    {
+        // Initialize the list so the editor always has an instance to add items to.
+        public List&lt;string&gt; Names { get; set; } = new List&lt;string&gt;();
+
+        [CollectionChangeCallback(nameof(Names), OperationType.NewItemInstance)]
+        private string CreateName()
+        {
+            // Without this callback, new rows would start as an empty string.
+            return $&quot;Name {this.Names.Count}&quot;;
+        }
+
+        [CollectionChangeCallback(nameof(Names), OperationType.Addition)]
+        private void OnNamesAdded(CollectionItem[] items)
+        {
+            foreach (var item in items)
+            {
+                Debug.WriteLine($&quot;Added '{item.Item}' at {item.Index}&quot;);
+            }
+        }
+
+        [CollectionChangeCallback(nameof(Names), OperationType.Update)]
+        private void OnNameUpdated(CollectionItem item)
+        {
+            Debug.WriteLine($&quot;Updated '{item.Item}' at {item.Index}&quot;);
+        }
+
+        [CollectionChangeCallback(nameof(Names), OperationType.Deletion)]
+        private void OnNamesDeleted(CollectionItem[] items)
+        {
+            foreach (var item in items)
+            {
+                Debug.WriteLine($&quot;Removed '{item.Item}' from {item.Index}&quot;);
+            }
+        }
+
+        [CollectionChangeCallback(nameof(Names), OperationType.Reordering)]
+        private void OnNameReordered(CollectionItem item, int fromIndex)
+        {
+            Debug.WriteLine($&quot;Moved '{item.Item}' from {fromIndex} to {item.Index}&quot;);
+        }
+    }
+}
+</code></pre>
+<p>Add the component to an entity, select the entity in the <strong>Scene Hierarchy</strong> panel and edit the list in <strong>Entity Details</strong> to trigger each callback.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

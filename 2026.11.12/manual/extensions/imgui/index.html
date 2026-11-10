@@ -1,0 +1,177 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ImGui | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ImGui | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="imgui">ImGui</h1>
+
+<hr>
+<p><img src="images/ImGUI.png" alt="ImGui windows drawn over an Evergine scene"></p>
+<p>The <code>Evergine.ImGui</code> extension integrates <a href="https://github.com/ocornut/imgui">Dear ImGui</a>, the immediate-mode GUI library, into the Evergine render loop. Use it for the interface that you, not your end users, look at: debug panels, property editors, profilers and small in-app tools. You write the whole UI as plain function calls in a <code>Behavior</code>, and the extension draws it on top of the camera's image.</p>
+<p>The same package also exposes three libraries built on top of Dear ImGui: <a href="implot.html">ImPlot</a> for charts, <a href="imnodes.html">ImNodes</a> for node editors, and <a href="imguizmo.html">ImGuizmo</a> for 3D manipulation gizmos.</p>
+<h2 id="immediate-mode-in-one-paragraph">Immediate mode in one paragraph</h2>
+<p>A retained-mode UI keeps a tree of widget objects that you create once and update. Dear ImGui keeps nothing of yours. Every frame, your code calls <code>igBegin</code>, then one function per widget, then <code>igEnd</code>, and those calls <em>are</em> the UI. A button exists for as long as you keep calling <code>igButton</code>, and it tells you it was clicked by returning <code>true</code> from that call. The values a widget edits live in your own fields, so the UI can never drift out of sync with your data.</p>
+<h2 id="how-a-frame-is-drawn">How a frame is drawn</h2>
+<p><code>ImGuiManager</code> is a scene manager. It owns the Dear ImGui context, feeds it the mouse, keyboard and touch input of the camera's display, and renders the result.</p>
+<p><img src="images/imgui_frame.png" alt="The ImGui frame: ImGuiManager starts the frame, your Behavior issues ig calls during Update, and the camera's post-render step turns the draw data into one render pass"></p>
+<p><em>Your <code>Update()</code> only declares widgets. Nothing reaches the GPU until the camera has finished drawing the scene, when <code>ImGuiManager</code> converts the draw data into a single render pass over the same frame buffer.</em></p>
+<p>This has two practical consequences:</p>
+<ul>
+<li><strong>Call <code>ig*</code> functions from <code>Update()</code></strong>, or from anything that runs during the scene update. Calls made from another thread, or after the camera has rendered, land in the wrong frame.</li>
+<li><strong>The UI is always on top.</strong> It is drawn after the scene, into the frame buffer of the rendering camera, with no depth test.</li>
+</ul>
+<h2 id="namespaces">Namespaces</h2>
+<table>
+<thead>
+<tr>
+<th>Namespace</th>
+<th>Contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Evergine.UI</code></td>
+<td><code>ImGuiManager</code>, <code>CustomFont</code> and <code>ImGUIHelpers</code> (the <code>Pointer()</code> extension methods and texture loading helpers).</td>
+</tr>
+<tr>
+<td><code>Evergine.Bindings.Imgui</code></td>
+<td><code>ImguiNative</code> with every <code>ig*</code> function, plus the Dear ImGui enums and structs.</td>
+</tr>
+<tr>
+<td><code>Evergine.Bindings.Implot</code></td>
+<td><code>ImplotNative</code> and the ImPlot types.</td>
+</tr>
+<tr>
+<td><code>Evergine.Bindings.Imnodes</code></td>
+<td><code>ImnodesNative</code> and the ImNodes types.</td>
+</tr>
+<tr>
+<td><code>Evergine.Bindings.Imguizmo</code></td>
+<td><code>ImguizmoNative</code> and the ImGuizmo types.</td>
+</tr>
+</tbody>
+</table>
+<p>The bindings are generated from the <a href="https://github.com/cimgui/cimgui">cimgui</a> C API, so function names follow the C conventions: an <code>ig</code> prefix, and a suffix such as <code>_Vec4</code>, <code>_Int</code> or <code>_Nil</code> where C++ overloads had to be split into separate functions.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="setup.html">Getting Started</a></li>
+<li><a href="features.html">Features</a></li>
+<li><a href="implot.html">ImPlot</a></li>
+<li><a href="imnodes.html">ImNodes</a></li>
+<li><a href="imguizmo.html">ImGuizmo</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Colliders | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Colliders | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="colliders">Colliders</h1>
+
+<hr>
+<p><img src="images/colliders_overview.png" alt="Colliders"></p>
+<p>A <a href="../physics_bodies/index.html">physics body</a> has no shape of its own. <strong>Colliders</strong> are what give it one: where it is solid, what it can hit, and, through their density, how heavy it is. They work the same on a <code>RigidBody</code> and on a <code>StaticBody</code>, and <code>Collider.Body</code> hands back whichever it found as a <code>PhysicsBody</code>.</p>
+<p>A body collects <strong>every collider on its own entity and on its descendants</strong> when it is created, and builds one shape from them. The walk stops at any descendant that carries a body of its own, since that entity is a separate body.</p>
+<p><img src="images/compound_collider.png" alt="One body with one collider, and one with five"></p>
+<p><em>Two bodies, drawn with <code>PhysicsDebugFlags.Colliders</code> on. <strong>Left</strong>: the ordinary case, one <code>RigidBody</code>
+and one <code>BoxCollider</code> on the same entity, and the body's shape is that collider. <strong>Right</strong>: a table
+whose <code>RigidBody</code> is on the root and whose five <code>BoxCollider</code> components are on its children. The
+children carry no body of their own, and there is no compound collider component to add: the
+hierarchy is the compound.</em></p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/compound_collider_drop.mp4" type="video/mp4">
+</video>
+<p><em>Which is what &quot;one body&quot; means in practice: shoved over, the table tips as a single object rather
+than coming apart into a top and four legs.</em></p>
+<p><img src="images/colliders_overview_debug.png" alt="Every collider, with its wireframe"></p>
+<p><em>Every collider shape in the gallery scene with its wireframe drawn over it. This is the flag worth
+leaving on while a scene is being built: it says whether each shape is the size, and in the place,
+that you think it is.</em></p>
+<h2 id="base-properties">Base Properties</h2>
+<p>Every collider has these, whatever its shape:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Offset</strong></td>
+<td>0,0,0</td>
+<td>Moves the shape relative to the entity, in local space. The drawn mesh does not move with it.</td>
+</tr>
+<tr>
+<td><strong>RotationOffset</strong></td>
+<td>0,0,0</td>
+<td>Rotates the shape relative to the entity. Shown in degrees in the inspector and held in radians in code.</td>
+</tr>
+<tr>
+<td><strong>Density</strong></td>
+<td>1000</td>
+<td>Density in kg/m³, used to work out the body's mass when its <code>Mass</code> is left at 0. Water is 1000; oak is about 700; steel is about 7850.</td>
+</tr>
+</tbody>
+</table>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/box_collider_offset.mp4" type="video/mp4">
+</video>
+<p><em><code>Offset</code> in action. The mesh stays where the entity is and only the shape moves, which is what the gap between the two shows.</em></p>
+<h2 id="local-units-or-model-bounds">Local Units or Model Bounds</h2>
+<p>The six primitive colliders (box, sphere, capsule, cylinder and the two tapered shapes) share one more property:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UseModelBounds</strong></td>
+<td>false</td>
+<td>Off, the dimensions are <strong>local units</strong>: a box of size 1 is one unit wide before the entity's scale is applied. On, they are <strong>factors of the model's bounds</strong>: a box of size 1 is exactly as big as the model on the entity, and a size of 0.5 is half of it.</td>
+</tr>
+</tbody>
+</table>
+<p>Local units are the default and the simpler rule. Model bounds are the convention the previous Bullet API used, and they are still the handier one for a collider that has to fit a loaded model whose size you do not know in advance. The bounds come from the <code>BaseModel</code> on the same entity (a <code>MeshComponent</code>, a <code>CubeMesh</code>, anything that reports a bounding box), and the collider follows them when the model changes.</p>
+<p>How the three axes of the bounds turn into a shape depends on the shape:</p>
+<table>
+<thead>
+<tr>
+<th>Collider</th>
+<th>With <code>UseModelBounds</code> on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Box</td>
+<td><code>Size</code> is multiplied by the bounds size, axis by axis.</td>
+</tr>
+<tr>
+<td>Sphere</td>
+<td><code>Radius</code> is multiplied by the <strong>largest</strong> of the three axes.</td>
+</tr>
+<tr>
+<td>Capsule, Cylinder, Tapered Capsule, Tapered Cylinder</td>
+<td>The radii are multiplied by the larger of X and Z; <code>Height</code> is multiplied by Y.</td>
+</tr>
+</tbody>
+</table>
+<p>With the property on, the collider also centres itself on the model's bounds, so a model whose origin is at its feet still gets a collider around its middle. <code>Offset</code> is then measured from that centre.</p>
+<p>Switching the property on an existing collider <strong>does not change the shape</strong>. When a model is available the stored dimensions and offset are converted on the spot: a 20-unit box on a 20-unit model becomes a box of size 1 relative to the bounds, and back again. Only when there is no model yet, during deserialization for instance, is the value stored as it is, which is what lets a scene migrated from Bullet keep its relative sizes until its models load.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A planar model, a quad or a sheet of UI, has a bounding box that is almost zero along one axis. That axis is kept as it is rather than padded out to a unit: only the native shape is clamped to the smallest size Jolt accepts, 0.0001. A flat manipulator therefore gets a flat collider and not a cube.</p>
+</div>
+<h2 id="choosing-a-collider">Choosing a Collider</h2>
+<table>
+<thead>
+<tr>
+<th>Collider</th>
+<th>Convex</th>
+<th>Bodies</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="box_collider.html">Box</a></td>
+<td>yes</td>
+<td>any</td>
+<td>The cheapest shape there is. Reach for it first.</td>
+</tr>
+<tr>
+<td><a href="sphere_collider.html">Sphere</a></td>
+<td>yes</td>
+<td>any</td>
+<td>Cheaper still to test, and rolls.</td>
+</tr>
+<tr>
+<td><a href="capsule_collider.html">Capsule</a></td>
+<td>yes</td>
+<td>any</td>
+<td>The standard shape for anything that stands up. Never catches on a seam.</td>
+</tr>
+<tr>
+<td><a href="cylinder_collider.html">Cylinder</a></td>
+<td>yes</td>
+<td>any</td>
+<td>Wheels, barrels, columns.</td>
+</tr>
+<tr>
+<td><a href="tapered_capsule_collider.html">Tapered Capsule</a></td>
+<td>yes</td>
+<td>any</td>
+<td>A capsule with a different radius at each end.</td>
+</tr>
+<tr>
+<td><a href="tapered_cylinder_collider.html">Tapered Cylinder</a></td>
+<td>yes</td>
+<td>any</td>
+<td>A truncated cone, and a plain cone when its top radius is 0.</td>
+</tr>
+<tr>
+<td><a href="mesh_collider.html">Mesh (convex hull)</a></td>
+<td>yes</td>
+<td>any</td>
+<td>The convex wrapping of a model. Anything hollow or concave is filled in.</td>
+</tr>
+<tr>
+<td><a href="mesh_collider.html">Mesh (triangle mesh)</a></td>
+<td>no</td>
+<td><strong>not dynamic</strong></td>
+<td>Every triangle of a model, concavities and all. A <code>StaticBody</code> or a kinematic <code>RigidBody</code> only.</td>
+</tr>
+<tr>
+<td><a href="plane_collider.html">Plane</a></td>
+<td>no</td>
+<td><strong>not dynamic</strong></td>
+<td>An infinite ground plane, and the cheapest ground there is.</td>
+</tr>
+<tr>
+<td><a href="heightfield_collider.html">Height Field</a></td>
+<td>no</td>
+<td><strong>not dynamic</strong></td>
+<td>A grid of heights: terrain, deformable at run time.</td>
+</tr>
+</tbody>
+</table>
+<p>&quot;Not dynamic&quot; means a <a href="../physics_bodies/static_body.html"><code>StaticBody</code></a> or a <code>RigidBody</code> with <code>IsKinematic</code> set. A dynamic body given one of these traces a warning and ignores it.</p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/colliders_drop.mp4" type="video/mp4">
+</video>
+<p><em>Every convex collider dropped side by side: box, sphere, capsule, cylinder, tapered capsule, and a cone (a tapered cylinder with its top radius at zero).</em></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A pile of primitives beats a mesh collider nearly every time. A convex hull is more expensive to test than a box, a triangle mesh cannot go on a moving body at all, and three boxes describe most props well enough that no one will notice the difference.</p>
+</div>
+<h2 id="compound-shapes-from-code">Compound Shapes from Code</h2>
+<pre><code class="lang-csharp">// A table: one top and four legs, all on one body. The child entities carry the colliders; only the
+// root carries the RigidBody, so the five shapes end up as one compound body.
+Entity table = new Entity(&quot;table&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider() { Size = new Vector3(2f, 0.1f, 1.2f), Offset = new Vector3(0f, 0.7f, 0f) });
+
+foreach (Vector3 corner in legs)
+{
+    table.AddChild(new Entity()
+        .AddComponent(new Transform3D() { LocalPosition = corner })
+        .AddComponent(new BoxCollider() { Size = new Vector3(0.1f, 0.7f, 0.1f) }));
+}
+
+this.Managers.EntityManager.Add(table);
+</code></pre>
+<p>The compound keeps itself up to date. A collider added to or removed from the hierarchy registers itself with the body, a property changed on one rebuilds the shape, and a child entity that is moved, turned or scaled at run time updates its sub-shape in place, so the legs of the table can be animated and the body follows. The one thing to keep in mind is that the walk stops at a descendant with a body of its own: a collider under a nested <code>RigidBody</code> or <code>StaticBody</code> belongs to that body, not to the root.</p>
+<p>For a change the body cannot see, the shape can be rebuilt by hand:</p>
+<pre><code class="lang-csharp">this.body.InvalidateShape();
+</code></pre>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="box_collider.html">Box Collider</a></li>
+<li><a href="sphere_collider.html">Sphere Collider</a></li>
+<li><a href="capsule_collider.html">Capsule Collider</a></li>
+<li><a href="cylinder_collider.html">Cylinder Collider</a></li>
+<li><a href="tapered_capsule_collider.html">Tapered Capsule Collider</a></li>
+<li><a href="tapered_cylinder_collider.html">Tapered Cylinder Collider</a></li>
+<li><a href="mesh_collider.html">Mesh Collider</a></li>
+<li><a href="plane_collider.html">Plane Collider</a></li>
+<li><a href="heightfield_collider.html">Height Field Collider</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

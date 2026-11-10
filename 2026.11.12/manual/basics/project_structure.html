@@ -1,0 +1,274 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Project Structure | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Project Structure | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="project-structure">Project Structure</h1>
+
+<hr>
+<p><img src="images/projectStructure.png" alt="Project Structure"></p>
+<p>An Evergine project is a set of .NET projects that share one code base and one set of assets. The code that makes up your application lives in a single base project; each platform you target gets a small launcher project that starts it; and Evergine Studio adds an editor project for its own extensions. This page describes what each folder and file is for, so that you know where new code belongs.</p>
+<h2 id="folders-and-files">Folders and Files</h2>
+<p>A new project created from the <a href="../evergine_launcher/create_project.html">Evergine Launcher</a> contains the following:</p>
+<p><img src="images/projectFolder.png" alt="Project Folder"></p>
+<table>
+<thead>
+<tr>
+<th>Folder or file</th>
+<th>Example</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>[ProjectName].weproj</strong></td>
+<td><code>MyProject.weproj</code></td>
+<td>The <strong>Evergine project</strong> file. It stores the Evergine packages of the project, its <a href="../evergine_studio/settings/project_profiles.html">profiles</a> and the path of the <code>Content</code> folder. Double-click it to open the project in <strong>Evergine Studio</strong>.</td>
+</tr>
+<tr>
+<td><strong>[ProjectName].weservices</strong></td>
+<td><code>MyProject.weservices</code></td>
+<td>The services configured in Evergine Studio and their settings (see <a href="../evergine_studio/settings/project_services.html">Manage services</a>). It is created the first time you configure one, and a source generator turns it into registration code when the project builds.</td>
+</tr>
+<tr>
+<td><strong>Content/</strong></td>
+<td><code>Content/</code></td>
+<td>Every <strong>asset</strong> of the project: scenes, prefabs, models, textures, materials, sounds.</td>
+</tr>
+<tr>
+<td><strong>[ProjectName]/</strong></td>
+<td><code>MyProject/MyProject.csproj</code></td>
+<td>The <strong>base</strong> project. Your scenes, components, behaviors, services and scene managers go here, and it is shared by every profile. It also contains the generated <code>EvergineContent</code> class with the IDs of every asset.</td>
+</tr>
+<tr>
+<td><strong>[ProjectName].Editor/</strong></td>
+<td><code>MyProject.Editor/MyProject.Editor.csproj</code></td>
+<td>The <strong>editor</strong> project, for Evergine Studio extensions such as custom property editors for your components. It is only built for Evergine Studio and never ships with your application.</td>
+</tr>
+<tr>
+<td><strong>[ProjectName].[Profile]/</strong></td>
+<td><code>MyProject.Windows/MyProject.Windows.csproj</code></td>
+<td>One <strong>launcher</strong> project per profile. It creates the window or view of that platform, the graphics context and the audio device, registers them in the application container, and runs the frame loop. Keep code that only makes sense on one platform here.</td>
+</tr>
+<tr>
+<td><strong>[ProjectName].[Profile].sln</strong></td>
+<td><code>MyProject.Windows.sln</code></td>
+<td>One <strong>Visual Studio solution</strong> per profile, with the base project and the launcher of that profile. The Windows solution also contains the editor project.</td>
+</tr>
+<tr>
+<td><strong>Directory.Build.props</strong></td>
+<td></td>
+<td>MSBuild settings shared by every project. Evergine Studio uses it to add the <code>EVERGINE_EDITOR</code> build constant when it builds the project.</td>
+</tr>
+<tr>
+<td><strong>README.md</strong>, <strong>.gitignore</strong></td>
+<td></td>
+<td>A readme to fill in, and Git ignore rules suited to Evergine projects.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="profiles">Profiles</h2>
+<p>A <strong>profile</strong> is a target platform with its launcher project, its graphics backend and its asset settings. The Windows (DirectX12) profile is always present, because Evergine Studio runs your project through it. Add others from the Evergine Launcher when you create the project, or later from <a href="../evergine_studio/settings/project_profiles.html">Project Settings</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Profile template</th>
+<th>Platform</th>
+<th>Graphics backend</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows (DirectX12)</td>
+<td>Windows, Windows Forms</td>
+<td>DirectX 12</td>
+</tr>
+<tr>
+<td>Windows (DirectX11), Windows (Vulkan), Windows (OpenGL)</td>
+<td>Windows, Windows Forms</td>
+<td>DirectX 11, Vulkan, OpenGL</td>
+</tr>
+<tr>
+<td>Windows OpenXR (DirectX11)</td>
+<td>Windows, OpenXR headsets</td>
+<td>DirectX 11</td>
+</tr>
+<tr>
+<td>WinUI (DirectX11), Avalonia</td>
+<td>Windows, WinUI 3 or Avalonia</td>
+<td>DirectX 11</td>
+</tr>
+<tr>
+<td>Android</td>
+<td>Android</td>
+<td>Vulkan</td>
+</tr>
+<tr>
+<td>Android Meta Quest (OpenXR), Android Pico (OpenXR)</td>
+<td>Android XR headsets</td>
+<td>Vulkan</td>
+</tr>
+<tr>
+<td>iOS</td>
+<td>iOS</td>
+<td>Metal</td>
+</tr>
+<tr>
+<td>MAUI</td>
+<td>Windows, Android and iOS from one .NET MAUI project</td>
+<td>DirectX 11, Vulkan, Metal</td>
+</tr>
+<tr>
+<td>Web (WebGL2.0), React SPA (WebGL2.0)</td>
+<td>Browser, Blazor WebAssembly</td>
+<td>WebGL 2.0</td>
+</tr>
+<tr>
+<td>WebXR (Experimental AR)</td>
+<td>Browser, WebXR</td>
+<td>WebGL 2.0</td>
+</tr>
+<tr>
+<td>Web (Experimental WebGPU)</td>
+<td>Browser, Blazor WebAssembly</td>
+<td>WebGPU</td>
+</tr>
+</tbody>
+</table>
+<p>Each profile solution may need extra Visual Studio workloads, such as <strong>.NET Multi-platform App UI development</strong> for Android, iOS and MAUI, or <strong>ASP.NET and web development</strong> for the web profiles. Visual Studio offers to install whatever is missing when you open the solution. See <a href="../platforms/index.html">Platforms</a> for the details of each one.</p>
+<h2 id="projects-and-packages">Projects and Packages</h2>
+<p>Evergine is distributed as <a href="https://www.nuget.org/">NuGet packages</a>, and every project of your solution references the ones it needs:</p>
+<p><img src="images/nuget_packages.png" alt="The Evergine NuGet packages referenced by the base, editor and launcher projects"></p>
+<p><em>The base project carries the engine and is referenced by every launcher; each launcher adds only the packages of its platform, graphics backend and audio device.</em></p>
+<ul>
+<li>The <strong>base</strong> project references the engine: <code>Evergine.Framework</code>, <code>Evergine.Common</code>, <code>Evergine.Mathematics</code>, <code>Evergine.Components</code>, the physics package and <code>Evergine.CodeScenes</code>, which generates code from your scenes.</li>
+<li>The <strong>editor</strong> project adds <code>Evergine.Editor.Extension</code>, the API for extending Evergine Studio.</li>
+<li>Each <strong>launcher</strong> adds the platform (<code>Evergine.Forms</code>, <code>Evergine.Android</code>, <code>Evergine.iOS</code>, <code>Evergine.Web</code>...), the graphics backend (<code>Evergine.DirectX12</code>, <code>Evergine.Vulkan</code>, <code>Evergine.Metal</code>, <code>Evergine.OpenGL</code>...) and the audio backend (<code>Evergine.XAudio2</code> or <code>Evergine.OpenAL</code>).</li>
+<li><code>Evergine.Targets</code> and its platform variants (<code>Evergine.Targets.Windows</code>, <code>Evergine.Targets.Android</code>...) contain the build steps that process your assets and generate the <code>EvergineContent</code> class.</li>
+</ul>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>All Evergine packages of a project must have the same version. Update them with the <a href="../evergine_launcher/manage_versions.html">Evergine Launcher</a>, not with the NuGet Package Manager of Visual Studio, so that the <code>.weproj</code> file and every project change together.</p>
+</div>
+<h2 id="custom-structure">Custom Structure</h2>
+<p>You can reorganize the folders of your project. Evergine Studio can still open it as long as:</p>
+<ul>
+<li>The <strong>[ProjectName].weproj</strong> file and the <strong>[ProjectName].Windows.sln</strong> solution are in the same folder. Other solution files can be moved or renamed, but only the ones that stay next to the Windows solution with their original names appear in the <strong>File &gt; Open C# editor</strong> and <strong>File &gt; Build &amp; Run</strong> menus.</li>
+<li><strong>[ProjectName].Windows.sln</strong> references both the base project (<strong>[ProjectName].csproj</strong>) and the editor project (<strong>[ProjectName].Editor.csproj</strong>), and the solution builds in Visual Studio.</li>
+<li>If you move the <strong>Content</strong> folder, you update the <code>ResourcesPath</code> value in <strong>[ProjectName].weproj</strong> with its new relative path.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

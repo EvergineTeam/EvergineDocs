@@ -1,0 +1,172 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Effects | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Effects | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-effects">Using Effects</h1>
+
+<hr>
+<p><img src="images/effects.jpg" alt="Effects header"></p>
+<p>You rarely use an effect directly. An effect becomes visible through a <strong>material</strong> that references it and sets its parameters, and the material is what you assign to meshes. This page shows how to pick the effect of a material, how to create a material from an effect in code, and how effects are compiled for each platform.</p>
+<h2 id="choose-the-effect-of-a-material-in-evergine-studio">Choose the effect of a material in Evergine Studio</h2>
+<p>In the <a href="../materials/material_editor.html">Material Editor</a>, the effect selector at the top of the properties sets the effect the material uses:</p>
+<p><img src="images/ApplyEffect.jpg" alt="Selecting the effect in the Material Editor"></p>
+<h2 id="create-a-material-from-an-effect-in-code">Create a material from an effect in code</h2>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        Effect standardEffect = assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID);
+
+        Material material = new Material(standardEffect)
+        {
+            LayerDescription = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+        };
+
+        Entity sphere = new Entity(&quot;sphere&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new SphereMesh())
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(sphere);
+    }
+}
+</code></pre>
+<p>A <code>Material</code> created this way exposes the effect's parameters through its constant buffers and texture slots. For typed access, use the <a href="../materials/material_decorators.html">material decorator</a> generated for the effect, such as <code>StandardMaterial</code> for the Standard effect.</p>
+<h2 id="compile-on-demand-or-ahead-of-time">Compile on demand or ahead of time</h2>
+<p>Each combination of pass and directives is a separate shader. Evergine can compile them in two ways:</p>
+<ul>
+<li><strong>On demand.</strong> The first time a material needs a combination, the effect is compiled on the device. Nothing is prepared in advance, but that first use causes a hitch while it compiles. This is the default for Windows profiles.</li>
+<li><strong>Ahead of time.</strong> When the project is built, every combination the project needs is compiled and stored with the effect, and nothing is compiled on the device. This is the default for web, Android and iOS profiles, where compiling at runtime is slow or unavailable.</li>
+</ul>
+<p>For ahead-of-time compilation, Evergine collects the combinations from the materials in your project, the mandatory combinations of the effect and the <strong>Additional Effect Technique Combinations</strong> of the <a href="../../evergine_studio/settings/project_profiles.html">profile</a>, which lists combinations that only appear at runtime, such as shadow filtering or the kinds of lights in the scene.</p>
+<p>The <strong>Compile</strong> setting in the profile panel of the <a href="effect_editor.html#profile-panel">Effect Editor</a> overrides this per effect: <code>ByPlatform</code> follows the project profile, and <code>Yes</code> or <code>No</code> force it.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>With ahead-of-time compilation, a combination nobody declared is missing at runtime. If you switch directives from code, or create materials in code with combinations no material asset uses, add those combinations to the profile's list.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

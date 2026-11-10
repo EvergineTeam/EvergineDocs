@@ -1,0 +1,434 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Create Effects | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create Effects | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="create-effects">Create Effects</h1>
+
+<hr>
+<p><img src="images/effects.jpg" alt="Effect header"></p>
+<p>An <strong>effect</strong> is an <em>uber-shader</em>: one source file that describes a single shader or a large family of related shaders. This page shows how to create one in Evergine Studio or from code, and walks through the parts of an effect file. There are three kinds of effects:</p>
+<table>
+<thead>
+<tr>
+<th>Effect type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Graphics Effect</td>
+<td>Defines a rasterization pipeline with vertex, hull, domain, geometry and pixel shaders. Materials are built from graphics effects.</td>
+</tr>
+<tr>
+<td>Compute Effect</td>
+<td>Defines a compute pipeline with a compute shader. <a href="../compute_tasks/index.html">Compute tasks</a> and <a href="../postprocessing_graph/index.html">post-processing graph</a> nodes are built from compute effects.</td>
+</tr>
+<tr>
+<td>Library Effect</td>
+<td>Defines constants, structures, directives and functions that graphics and compute effects include. Libraries keep shared shader code in one place. See <a href="library_effect.html">Library Effects</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create-an-effect-asset-in-evergine-studio">Create an Effect Asset in Evergine Studio</h2>
+<p>Click the <img src="../images/plusIcon.jpg" alt="Plus Icon"> button in the <a href="../../evergine_studio/interface.html">Assets Details</a> panel and choose <strong>Create effect</strong>, then <strong>Graphics Effect</strong>, <strong>Compute Effect</strong> or <strong>Library Effect</strong>.</p>
+<p><img src="images/AssetsDetailsMenu.jpg" alt="Create new effect menu option"></p>
+<h3 id="inspect-effects-in-asset-details">Inspect Effects in Asset Details</h3>
+<p>You can find the effect assets in the <a href="../../evergine_studio/interface.html"><strong>Assets Details</strong></a> panel when you select a folder in the <a href="../../evergine_studio/interface.html"><strong>Project Explorer</strong></a>.</p>
+<p><img src="images/effectAsset.jpg" alt="Effect asset"></p>
+<h3 id="effect-files-in-the-content-directory">Effect Files in the Content Directory</h3>
+<p>The effect asset has the <code>.wefx</code> extension and is always accompanied by a folder with the same name. That folder holds the HLSL source:</p>
+<p><img src="images/effectFile.jpg" alt="Effect file"></p>
+<h2 id="effect-source-code-example">Effect Source Code Example</h2>
+<p>Effects are written in HLSL, extended with <a href="effect_metatags.html">metatags</a> in square brackets that tell Evergine how to build, bind and render the shader.</p>
+<p>A typical effect looks like this:</p>
+<pre><code class="lang-hlsl">[Begin_ResourceLayout]
+
+    [Directives:UseTexture TEX_OFF TEX]
+
+    cbuffer PerDrawCall : register(b0)
+    {
+        float4x4 WorldViewProj    : packoffset(c0);    [WorldViewProjection]
+    };
+
+    cbuffer Parameters : register(b1)
+    {
+        float3 Color            : packoffset(c0);   [Default(1, 1, 1)]
+    };
+    
+    Texture2D ColorTexture       : register(t0);
+    SamplerState ColorSampler    : register(s0);
+
+[End_ResourceLayout]
+
+[Begin_Pass:Default]
+    [Profile 10_0]
+    [Entrypoints VS=VertexShaderCode PS=PixelShaderCode]
+
+    struct VS_IN
+    {
+        float4 Position : POSITION;
+        #if TEX
+        float2 TexCoord : TEXCOORD;
+        #endif
+    };
+
+    struct PS_IN
+    {
+        float4 Pos : SV_POSITION;
+        #if TEX
+        float2 Tex : TEXCOORD;
+        #endif
+    };
+
+    PS_IN VertexShaderCode(VS_IN input)
+    {
+        PS_IN output = (PS_IN)0;
+
+        output.Pos = mul(input.Position, WorldViewProj);
+        
+        #if TEX
+        output.Tex = input.TexCoord;
+        #endif
+
+        return output;
+    }
+
+    float4 PixelShaderCode(PS_IN input) : SV_Target
+    {
+        float4 color = float4(Color,1);
+        
+        #if TEX
+        color *= ColorTexture.Sample(ColorSampler, input.Tex);
+        #endif
+        
+        return color;
+    }
+
+[End_Pass]
+</code></pre>
+<p>An effect file in Evergine is divided into the following sections:</p>
+<ul>
+<li>Resource Layout definition</li>
+<li>List of Passes</li>
+</ul>
+<h3 id="resource-layout-definition">Resource Layout Definition</h3>
+<p>This block declares every resource the passes use: constant buffers, structured buffers, textures and samplers. It sits between the <code>[Begin_ResourceLayout]</code> and <code>[End_ResourceLayout]</code> tags.</p>
+<pre><code class="lang-hlsl">[Begin_ResourceLayout]
+
+    [Directives:UseTexture TEX_OFF TEX]
+
+    cbuffer PerDrawCall : register(b0)
+    {
+        float4x4 WorldViewProj    : packoffset(c0);    [WorldViewProjection]
+    };
+
+    cbuffer Parameters : register(b1)
+    {
+        float3 Color            : packoffset(c0);   [Default(1, 1, 1)]
+    };
+    
+    Texture2D ColorTexture        : register(t0);
+    SamplerState ColorSampler    : register(s0);
+
+[End_ResourceLayout]
+</code></pre>
+<p>In this example:</p>
+<ul>
+<li><code>[Directives:UseTexture TEX_OFF TEX]</code> declares a <strong>directive</strong> named <code>UseTexture</code>, a switch that turns a feature of the effect on or off.
+<ul>
+<li>Its two values, <code>TEX_OFF</code> and <code>TEX</code>, select whether the shader samples a color texture. You can declare as many directives as you need, but every directive multiplies the number of shader combinations that can be compiled.</li>
+<li>The shader code tests the values with <code>#if</code>, <code>#else</code> and <code>#endif</code>.</li>
+</ul>
+</li>
+<li>Two constant buffers, a <code>Texture2D</code> and a <code>SamplerState</code>. Registers of each kind must be consecutive, starting at 0 (<code>b0</code>, <code>b1</code>...; <code>t0</code>...; <code>s0</code>...).</li>
+<li>Metatags after a constant buffer field either give it a default value or ask the engine to fill it:
+<ul>
+<li><code>[WorldViewProjection]</code> makes the engine write the object's world-view-projection matrix into <code>WorldViewProj</code> for every draw call.</li>
+<li><code>[Default(1, 1, 1)]</code> sets the initial value of <code>Color</code>, white in this case. Materials created from the effect start with that value.</li>
+</ul>
+</li>
+</ul>
+<p>The <a href="effect_metatags.html">Effect Metatags</a> page lists every tag.</p>
+<h3 id="list-of-passes">List of Passes</h3>
+<p>After the resource layout come one or more passes, each between <code>[Begin_Pass:Name]</code> and <code>[End_Pass]</code>. The name tells the render path when to run the pass. The default render pipeline looks for these names:</p>
+<table>
+<thead>
+<tr>
+<th>Pass name</th>
+<th>Run by</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ZPrePass</code></td>
+<td><code>ForwardRenderPath</code></td>
+<td>Depth prepass that fills the depth buffer before shading. Only materials whose render layer tests and writes depth take part.</td>
+</tr>
+<tr>
+<td><code>GBuffer</code></td>
+<td><code>ForwardRenderPath</code></td>
+<td>Writes normals, roughness and metallic, motion vectors and distortion to three render targets that post-processing reads.</td>
+</tr>
+<tr>
+<td><code>Default</code></td>
+<td><code>ForwardRenderPath</code></td>
+<td>The main shading pass. Every graphics effect needs one.</td>
+</tr>
+<tr>
+<td><code>ShadowMap</code></td>
+<td><code>ShadowRenderPath</code></td>
+<td>Renders depth from a light's point of view to build its shadow map.</td>
+</tr>
+</tbody>
+</table>
+<p>A pass that an effect does not define is skipped for materials of that effect. See <a href="../rendering_overview.html">Rendering Overview</a> for when each pass runs.</p>
+<p>The example effect defines only a <code>Default</code> pass:</p>
+<pre><code class="lang-hlsl">[Begin_Pass:Default]
+    [Profile 10_0]
+    [Entrypoints VS=VertexShaderCode PS=PixelShaderCode]
+
+    struct VS_IN
+    {
+        float4 Position : POSITION;
+        #if TEX
+        float2 TexCoord : TEXCOORD;
+        #endif
+    };
+
+    struct PS_IN
+    {
+        float4 Pos : SV_POSITION;
+        #if TEX
+        float2 Tex : TEXCOORD;
+        #endif
+    };
+
+    PS_IN VertexShaderCode(VS_IN input)
+    {
+        PS_IN output = (PS_IN)0;
+
+        output.Pos = mul(input.Position, WorldViewProj);
+        
+        #if TEX
+        output.Tex = input.TexCoord;
+        #endif
+
+        return output;
+    }
+
+    float4 PixelShaderCode(PS_IN input) : SV_Target
+    {
+        float4 color = float4(Color,1);
+        
+        #if TEX
+        color *= ColorTexture.Sample(ColorSampler, input.Tex);
+        #endif
+        
+        return color;
+    }
+
+[End_Pass]
+</code></pre>
+<p>In this pass:</p>
+<ul>
+<li><code>[Profile 10_0]</code> selects the shader model the pass is compiled with.</li>
+<li><code>[Entrypoints VS=VertexShaderCode PS=PixelShaderCode]</code> names the function that runs at each stage: <code>VertexShaderCode</code> for the vertex shader and <code>PixelShaderCode</code> for the pixel shader.</li>
+<li>The rest is ordinary HLSL. You can declare structures and functions and use every resource from the resource layout.</li>
+</ul>
+<h2 id="create-an-effect-from-code">Create an Effect from Code</h2>
+<p><code>EffectFromCode</code> compiles an effect from a source string at runtime. It is convenient for prototypes and generated shaders, but each combination is compiled on the device the first time it is used, so prefer effect assets for anything you ship.</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
+{
+    private const string ShaderSource = @&quot;
+        [Begin_ResourceLayout]
+
+            cbuffer PerDrawCall : register(b0)
+            {
+                float4x4 WorldViewProj : packoffset(c0); [WorldViewProjection]
+            };
+
+            cbuffer Parameters : register(b1)
+            {
+                float3 Color : packoffset(c0); [Default(1.0, 0.0, 0.0)]
+            };
+
+        [End_ResourceLayout]
+
+        [Begin_Pass:Default]
+            [Profile 10_0]
+            [Entrypoints VS=VS PS=PS]
+
+            struct VS_IN
+            {
+                float4 Position : POSITION;
+                float3 Normal   : NORMAL;
+                float2 TexCoord : TEXCOORD;
+            };
+
+            struct PS_IN
+            {
+                float4 Pos : SV_POSITION;
+            };
+
+            PS_IN VS(VS_IN input)
+            {
+                PS_IN output = (PS_IN)0;
+                output.Pos = mul(input.Position, WorldViewProj);
+                return output;
+            }
+
+            float4 PS(PS_IN input) : SV_Target
+            {
+                return float4(Color, 1);
+            }
+
+        [End_Pass]
+    &quot;;
+
+    protected override void CreateScene()
+    {
+        var graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        Effect effect = new EffectFromCode(graphicsContext, ShaderSource);
+
+        // A material needs a render layer to know its blend, depth and cull state.
+        Material material = new Material(effect)
+        {
+            LayerDescription = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+        };
+
+        Entity sphere = new Entity(&quot;sphere&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new SphereMesh())
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(sphere);
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

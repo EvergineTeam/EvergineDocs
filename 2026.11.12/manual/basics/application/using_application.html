@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Application | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Application | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-application">Using Application</h1>
+
+<hr>
+<p>This page walks through the application class that the project template creates, the frame loop that drives it, and the few places where you are expected to add your own code.</p>
+<h2 id="the-default-application">The Default Application</h2>
+<p>A new project (see <a href="../project_structure.html">Project Structure</a>) contains a <code>MyApplication</code> class in the base project:</p>
+<pre><code class="lang-csharp">using Evergine.Common.IO;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+
+namespace MyProject
+{
+    public partial class MyApplication : Application
+    {
+        public MyApplication()
+        {
+            this.Container.Register&lt;Settings&gt;();
+            this.Container.Register&lt;Clock&gt;();
+            this.Container.Register&lt;TimerFactory&gt;();
+            this.Container.Register&lt;Random&gt;();
+            this.Container.Register&lt;ErrorHandler&gt;();
+            this.Container.Register&lt;ScreenContextManager&gt;();
+            this.Container.Register&lt;GraphicsPresenter&gt;();
+            this.Container.Register&lt;AssetsDirectory&gt;();
+            this.Container.Register&lt;AssetsService&gt;();
+            this.Container.Register&lt;ForegroundTaskSchedulerService&gt;();
+            this.Container.Register&lt;WorkActionScheduler&gt;();
+        }
+
+        public override void Initialize()
+        {
+            base.Initialize();
+
+            // Get ScreenContextManager
+            var screenContextManager = this.Container.Resolve&lt;ScreenContextManager&gt;();
+            var assetsService = this.Container.Resolve&lt;AssetsService&gt;();
+
+            // Navigate to scene
+            var scene = assetsService.Load&lt;MyScene&gt;(EvergineContent.Scenes.MyScene_wescene);
+            ScreenContext screenContext = new ScreenContext(scene);
+            screenContextManager.To(screenContext);
+        }
+    }
+}
+</code></pre>
+<ul>
+<li>The <strong>constructor</strong> registers the services that every Evergine application needs. Add your own <a href="../services.html">services</a> here, after the default ones.</li>
+<li><strong>Initialize()</strong> runs once, when the launcher is ready to start the loop. <code>base.Initialize()</code> starts the services, so call it first. Then load your first <a href="../scenes/index.html">scene</a> and hand it to the <a href="screen_context_manager.html">ScreenContextManager</a>.</li>
+<li>The class is <code>partial</code> on purpose. When you configure services in Evergine Studio (<a href="../../evergine_studio/settings/project_services.html">Manage services</a>), a source generator adds the other half of the class, which overrides <code>RegisterApplicationServices()</code>. <code>base.Initialize()</code> calls that method, and it skips any service you already registered in the constructor, so registrations in code always win.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>EvergineContent</code> is also generated: it is a class with the ID of every asset in your project, so <code>EvergineContent.Scenes.MyScene_wescene</code> is the ID of <code>Content/Scenes/MyScene.wescene</code>.</p>
+</div>
+<h2 id="services-registered-by-each-profile">Services Registered by Each Profile</h2>
+<p>Services that depend on the platform are registered by the launcher project of each profile, not by the base project. The Windows launcher, for example, registers the window system, the graphics context and the audio device before calling <code>Initialize()</code>:</p>
+<pre><code class="lang-csharp">MyApplication application = new MyApplication();
+
+WindowsSystem windowsSystem = new Evergine.Forms.FormsWindowsSystem();
+application.Container.RegisterInstance(windowsSystem);
+
+GraphicsContext graphicsContext = new Evergine.DirectX12.DX12GraphicsContext();
+graphicsContext.CreateDevice();
+// ... create the swap chain and the display ...
+application.Container.RegisterInstance(graphicsContext);
+
+var xaudio = new Evergine.XAudio2.XAudioDevice();
+application.Container.RegisterInstance(xaudio);
+</code></pre>
+<p>The graphics context class changes with the profile:</p>
+<table>
+<thead>
+<tr>
+<th>Profile template</th>
+<th>Graphics context</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows (DirectX12)</td>
+<td><code>DX12GraphicsContext</code></td>
+</tr>
+<tr>
+<td>Windows (DirectX11), WinUI, Windows OpenXR, Avalonia</td>
+<td><code>DX11GraphicsContext</code></td>
+</tr>
+<tr>
+<td>Windows (Vulkan), Android, Meta Quest, Pico</td>
+<td><code>VKGraphicsContext</code></td>
+</tr>
+<tr>
+<td>Windows (OpenGL), Web (WebGL 2.0)</td>
+<td><code>GLGraphicsContext</code></td>
+</tr>
+<tr>
+<td>iOS</td>
+<td><code>MTLGraphicsContext</code></td>
+</tr>
+<tr>
+<td>Web (Experimental WebGPU)</td>
+<td><code>WGPUGraphicsContext</code></td>
+</tr>
+</tbody>
+</table>
+<p>Because they are all registered as <code>GraphicsContext</code>, the rest of your code never needs to know which one is running. See <a href="../../platforms/index.html">Platforms</a> for each profile.</p>
+<h2 id="the-frame-loop">The Frame Loop</h2>
+<p>The launcher calls <code>UpdateFrame()</code> and then <code>DrawFrame()</code> once per frame, passing the time elapsed since the previous one. Everything else in the engine is reached from these two calls:</p>
+<p><img src="images/frame_loop.png" alt="The calls made by UpdateFrame and DrawFrame, from the application down to behaviors and drawables"></p>
+<p><em>One frame, top to bottom. Updatable services run before any scene, every scene updates its scene managers, and drawables are drawn once for each camera.</em></p>
+<p><strong>UpdateFrame(gameTime)</strong></p>
+<ol>
+<li>The <code>Clock</code> service records the frame time, and the <code>GraphicsPresenter</code> starts a new frame.</li>
+<li>Every activated <code>UpdatableService</code> runs its <code>Update()</code>.</li>
+<li>The <code>ScreenContextManager</code> executes the next pending navigation (<code>To</code>, <code>Push</code> or <code>Pop</code>) and then updates every <code>ScreenContext</code> in its stack. A paused scene skips its update.</li>
+<li>Each scene updates its updatable scene managers. One of them is the <code>BehaviorManager</code>, which calls <code>Update()</code> on every started <a href="../component_arch/components/behaviours.html">behavior</a> in <code>UpdateOrder</code>.</li>
+</ol>
+<p><strong>DrawFrame(gameTime)</strong></p>
+<ol>
+<li>The <code>GraphicsPresenter</code> prepares the displays.</li>
+<li>The <code>ScreenContextManager</code> draws the current <code>ScreenContext</code>, plus any context below it flagged with <code>DrawInBackground</code>.</li>
+<li>Each visible scene asks its render manager to render. The render pipeline processes every camera, and calls <code>Draw()</code> on each activated <a href="../component_arch/components/drawables.html">drawable</a> once per camera.</li>
+<li>The <code>GraphicsPresenter</code> presents the result on every display: windows, XR headsets or off-screen targets.</li>
+</ol>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>UpdateFrame()</code> does nothing while the application is deactivated (between <code>OnDeactivated()</code> and <code>OnActivated()</code>). The launcher of each platform calls those methods when the app goes to the background and comes back.</p>
+</div>
+<p>You can override <code>UpdateFrame()</code> and <code>DrawFrame()</code> to add work around the default loop, but always call the base implementation.</p>
+<h2 id="application-lifecycle-methods">Application Lifecycle Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Initialize()</strong></td>
+<td>Registers the services configured in Evergine Studio, starts every service already created, and is the place to navigate to the first scene.</td>
+</tr>
+<tr>
+<td><strong>UpdateFrame(TimeSpan gameTime)</strong></td>
+<td>Runs the update half of the frame described above.</td>
+</tr>
+<tr>
+<td><strong>DrawFrame(TimeSpan gameTime)</strong></td>
+<td>Runs the draw half of the frame described above.</td>
+</tr>
+<tr>
+<td><strong>OnActivated()</strong> / <strong>OnDeactivated()</strong></td>
+<td>Resume and suspend the application when the platform moves it to the foreground or the background.</td>
+</tr>
+<tr>
+<td><strong>Dispose()</strong></td>
+<td>Destroys every service and releases the container. To release resources of your own, override the protected <code>Destroy()</code> method and call <code>base.Destroy()</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="check-whether-the-code-runs-in-evergine-studio">Check Whether the Code Runs in Evergine Studio</h2>
+<p>Your components also run inside Evergine Studio, where the scene is being edited rather than played. Use <code>IsEditor</code> to skip code that only makes sense at runtime:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsEditor</strong></td>
+<td><code>true</code> when the application is running inside Evergine Studio, either editing or simulating.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+namespace MyProject
+{
+    public class SpawnPoint : Component
+    {
+        [BindComponent]
+        private Transform3D transform;
+
+        protected override void Start()
+        {
+            base.Start();
+
+            // In the editor, keep the position the designer placed; at runtime, snap to the origin.
+            if (!Application.Current.IsEditor)
+            {
+                this.transform.Position = Vector3.Zero;
+            }
+        }
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

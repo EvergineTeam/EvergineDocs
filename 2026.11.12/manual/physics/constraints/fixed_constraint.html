@@ -1,0 +1,203 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Fixed Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Fixed Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="fixed-constraint">Fixed Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/fixed_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>fixed constraint</strong> welds two bodies together: no relative movement and no relative rotation. They behave as one body until the weld gives way.</p>
+<h2 id="when-to-use-it">When to use it</h2>
+<p>If two things are permanently attached, the cheaper answer is usually one body with two colliders, a <a href="../colliders/index.html">compound shape</a>, since the solver then has nothing to solve at all.</p>
+<p>A fixed constraint earns its place when the join has to be <strong>breakable</strong>, when the two halves need different physical properties, or when they are separate entities that come and go independently: a crate strapped to a pallet, a wing that can be torn off, a barrel welded to a truck bed until it is hit hard enough.</p>
+<h2 id="fixedconstraint-component">FixedConstraint Component</h2>
+<p><img src="images/fixedconstraint_component.png" alt="FixedConstraint component"></p>
+<pre><code class="lang-csharp">Entity load = new Entity(&quot;load&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 1.5f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider())
+    .AddComponent(new FixedConstraint()
+    {
+        ConnectedEntityPath = &quot;pallet&quot;,
+
+        // Welds break rather than bend, which is the reason to use one instead of a compound shape.
+        IsBreakable = true,
+        BreakForce = 4000f,
+        BreakTorque = 2500f,
+    });
+
+this.Managers.EntityManager.Add(load);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<p>A fixed constraint adds nothing of its own: it uses only the <a href="index.html#common-properties">common properties</a>. The two that matter most here are:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ConnectedEntityPath</strong></td>
+<td>null</td>
+<td>The entity to weld to. Left empty, the body is welded <strong>to the world</strong>: pinned in place, unable to move or turn.</td>
+</tr>
+<tr>
+<td><strong>Anchor</strong></td>
+<td>0,0,0</td>
+<td>Where the weld sits. It does not change what the constraint allows (nothing at all) but it is the point the breaking force is measured about.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Welding a body to the world with an empty <code>ConnectedEntityPath</code> is a quick way to pin a dynamic body in place while keeping it dynamic, so it can still be broken loose, pushed once released, or have forces read off it.</p>
+</div>
+<h2 id="using-fixed-constraint">Using Fixed Constraint</h2>
+<p>The weld gives way when it is loaded past its threshold:</p>
+<pre><code class="lang-csharp">public class Strap : Behavior
+{
+    [BindComponent]
+    private FixedConstraint constraint = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        this.constraint.Broken += this.OnBroken;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+
+        this.constraint.Broken -= this.OnBroken;
+    }
+
+    private void OnBroken(object sender, EventArgs e)
+    {
+        // Fires once. The bodies are already free by the time this runs, so there is nothing to undo,
+        // only something to react to.
+        this.PlaySnap();
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

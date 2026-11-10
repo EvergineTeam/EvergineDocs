@@ -1,0 +1,2866 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class PhysicsManager | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class PhysicsManager | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.PhysicsManager">
+
+
+
+  <h1 id="Evergine_Framework_Physics_PhysicsManager" data-uid="Evergine.Framework.Physics.PhysicsManager" class="text-break">Class PhysicsManager</h1>
+  <div class="markdown level0 summary"><p>Bookkeeping for the constraints of the world.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.Managers.SceneManager.html">SceneManager</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Managers.UpdatableSceneManager.html">UpdatableSceneManager</a></div>
+    <div class="level6"><span class="xref">PhysicsManager</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_Managers">SceneManager.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_Scene">SceneManager.Scene</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnLoaded">SceneManager.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnActivated">SceneManager.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_Start">SceneManager.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnDeactivated">SceneManager.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnDestroy">SceneManager.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_ShouldBeActivated">AttachableObject.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class PhysicsManager : UpdatableSceneManager, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Constraints capture the poses of the bodies they hold, so they can only be created once those bodies are
+in the world. Adding one is therefore deferred like every other structural change, and retried on the
+following frame while the bodies it needs are still pending.</p>
+</div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_PhysicsManager_AccumulatedTime_" data-uid="Evergine.Framework.Physics.PhysicsManager.AccumulatedTime*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_AccumulatedTime" data-uid="Evergine.Framework.Physics.PhysicsManager.AccumulatedTime">AccumulatedTime</h4>
+  <div class="markdown level1 summary"><p>Gets the time, in seconds, accumulated towards the next physics step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float AccumulatedTime { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_ActiveBodyCount_" data-uid="Evergine.Framework.Physics.PhysicsManager.ActiveBodyCount*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_ActiveBodyCount" data-uid="Evergine.Framework.Physics.PhysicsManager.ActiveBodyCount">ActiveBodyCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of awake bodies in the native world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ActiveBodyCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_AllowSleeping_" data-uid="Evergine.Framework.Physics.PhysicsManager.AllowSleeping*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_AllowSleeping" data-uid="Evergine.Framework.Physics.PhysicsManager.AllowSleeping">AllowSleeping</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether bodies are allowed to sleep.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Allows bodies to go to sleep when they stop moving.&quot;)]
+public bool AllowSleeping { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_AutoOptimizeBroadPhase_" data-uid="Evergine.Framework.Physics.PhysicsManager.AutoOptimizeBroadPhase*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_AutoOptimizeBroadPhase" data-uid="Evergine.Framework.Physics.PhysicsManager.AutoOptimizeBroadPhase">AutoOptimizeBroadPhase</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the broad phase is optimized automatically after large batches
+of bodies are inserted.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Optimizes the broad phase automatically after large batches of bodies are added.&quot;)]
+public bool AutoOptimizeBroadPhase { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_Bodies_" data-uid="Evergine.Framework.Physics.PhysicsManager.Bodies*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_Bodies" data-uid="Evergine.Framework.Physics.PhysicsManager.Bodies">Bodies</h4>
+  <div class="markdown level1 summary"><p>Gets the registered body components.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IEnumerable&lt;PhysicsBody&gt; Bodies { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ienumerable-1">IEnumerable</a>&lt;<a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_BodyCount_" data-uid="Evergine.Framework.Physics.PhysicsManager.BodyCount*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_BodyCount" data-uid="Evergine.Framework.Physics.PhysicsManager.BodyCount">BodyCount</h4>
+  <div class="markdown level1 summary"><p>Gets the total number of bodies in the native world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int BodyCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_CategoryNames_" data-uid="Evergine.Framework.Physics.PhysicsManager.CategoryNames*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_CategoryNames" data-uid="Evergine.Framework.Physics.PhysicsManager.CategoryNames">CategoryNames</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the name of each collision category, used by the editor to present readable options.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string[] CategoryNames { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_Characters_" data-uid="Evergine.Framework.Physics.PhysicsManager.Characters*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_Characters" data-uid="Evergine.Framework.Physics.PhysicsManager.Characters">Characters</h4>
+  <div class="markdown level1 summary"><p>Gets the characters walking in this world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;CharacterController&gt; Characters { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.CharacterController.html">CharacterController</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_CollisionMatrix_" data-uid="Evergine.Framework.Physics.PhysicsManager.CollisionMatrix*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_CollisionMatrix" data-uid="Evergine.Framework.Physics.PhysicsManager.CollisionMatrix">CollisionMatrix</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the collision matrix, one mask per category, where bit <code>j</code> of entry <code>i</code> tells
+whether categories <code>i</code> and <code>j</code> collide.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint[] CollisionMatrix { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_CollisionSteps_" data-uid="Evergine.Framework.Physics.PhysicsManager.CollisionSteps*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_CollisionSteps" data-uid="Evergine.Framework.Physics.PhysicsManager.CollisionSteps">CollisionSteps</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the number of collision sub steps performed inside every physics step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, MaxLimit = 8, AsSlider = true, DesiredChange = 1, DesiredLargeChange = 1, Tooltip = &quot;Collision sub steps per physics step. Increase it for very fast scenes.&quot;)]
+public int CollisionSteps { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_Constraints_" data-uid="Evergine.Framework.Physics.PhysicsManager.Constraints*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_Constraints" data-uid="Evergine.Framework.Physics.PhysicsManager.Constraints">Constraints</h4>
+  <div class="markdown level1 summary"><p>Gets the constraints currently holding bodies in this world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;Constraint&gt; Constraints { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.Constraint.html">Constraint</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_ContactValidator_" data-uid="Evergine.Framework.Physics.PhysicsManager.ContactValidator*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_ContactValidator" data-uid="Evergine.Framework.Physics.PhysicsManager.ContactValidator">ContactValidator</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a predicate consulted before two bodies are allowed to touch. Returning <code>false</code>
+makes the solver ignore the pair, which is how collisions can be filtered on data the category matrix
+cannot express.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Func&lt;PhysicsBody, PhysicsBody, bool&gt; ContactValidator { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.func-3">Func</a>&lt;<a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a>, <a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a>, <a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_ContactValidator_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This runs on a worker thread while the simulation is in flight. It must be cheap and must not touch
+the scene: read fields of the bodies and decide. For static filtering prefer the category matrix,
+which is resolved in the broad phase and costs nothing per pair.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_DebugFlags_" data-uid="Evergine.Framework.Physics.PhysicsManager.DebugFlags*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_DebugFlags" data-uid="Evergine.Framework.Physics.PhysicsManager.DebugFlags">DebugFlags</h4>
+  <div class="markdown level1 summary"><p>Gets or sets what the physics debug drawing shows. Nothing is drawn while this is
+<a class="xref" href="Evergine.Framework.Physics.PhysicsDebugFlags.html#Evergine_Framework_Physics_PhysicsDebugFlags_None">None</a>, which is the default.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;What the physics debug drawing shows.&quot;)]
+public PhysicsDebugFlags DebugFlags { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsDebugFlags.html">PhysicsDebugFlags</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_DebugFlags_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Drawing needs a render manager in the scene. The gizmos come from the simulation itself, which draws
+the cooked shapes it holds rather than the numbers the components were authored with: a gizmo that
+does not match the render is therefore a real divergence, not a difference of opinion between two
+drawing paths.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_DeterministicSimulation_" data-uid="Evergine.Framework.Physics.PhysicsManager.DeterministicSimulation*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_DeterministicSimulation" data-uid="Evergine.Framework.Physics.PhysicsManager.DeterministicSimulation">DeterministicSimulation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the simulation runs in deterministic mode.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Makes the simulation reproducible at the cost of some performance.&quot;)]
+public bool DeterministicSimulation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_DeterministicSimulation_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Determinism is guaranteed for the same binary and the same sequence of calls. It is not guaranteed
+across platforms.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_FixedTimeStep_" data-uid="Evergine.Framework.Physics.PhysicsManager.FixedTimeStep*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_FixedTimeStep" data-uid="Evergine.Framework.Physics.PhysicsManager.FixedTimeStep">FixedTimeStep</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the duration, in seconds, of a single physics step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.001, MaxLimit = 1, DesiredChange = 0.001, DesiredLargeChange = 0.01, Tooltip = &quot;Duration of one physics step. Frame time is accumulated and consumed in these steps.&quot;)]
+public float FixedTimeStep { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_Gravity_" data-uid="Evergine.Framework.Physics.PhysicsManager.Gravity*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_Gravity" data-uid="Evergine.Framework.Physics.PhysicsManager.Gravity">Gravity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the gravity of the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Gravity acceleration applied to every dynamic body.&quot;)]
+public Vector3 Gravity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_InterpolateTransforms_" data-uid="Evergine.Framework.Physics.PhysicsManager.InterpolateTransforms*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_InterpolateTransforms" data-uid="Evergine.Framework.Physics.PhysicsManager.InterpolateTransforms">InterpolateTransforms</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether rendered transforms are interpolated between physics steps.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Interpolates transforms between physics steps so motion stays smooth at any frame rate.&quot;)]
+public bool InterpolateTransforms { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_InterpolationAlpha_" data-uid="Evergine.Framework.Physics.PhysicsManager.InterpolationAlpha*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_InterpolationAlpha" data-uid="Evergine.Framework.Physics.PhysicsManager.InterpolationAlpha">InterpolationAlpha</h4>
+  <div class="markdown level1 summary"><p>Gets the blend factor, between 0 and 1, currently used to interpolate transforms.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float InterpolationAlpha { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_IsSimulationEnabled_" data-uid="Evergine.Framework.Physics.PhysicsManager.IsSimulationEnabled*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_IsSimulationEnabled" data-uid="Evergine.Framework.Physics.PhysicsManager.IsSimulationEnabled">IsSimulationEnabled</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the simulation is stepped.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Enables simulation stepping. Queries and body management keep working when disabled.&quot;)]
+public bool IsSimulationEnabled { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_IsSimulationEnabled_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Bodies, queries and events keep working while stepping is disabled, which is what the editor needs to
+pick and manipulate entities without the scene falling apart.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_MaxBodies_" data-uid="Evergine.Framework.Physics.PhysicsManager.MaxBodies*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_MaxBodies" data-uid="Evergine.Framework.Physics.PhysicsManager.MaxBodies">MaxBodies</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the maximum number of bodies the world can hold. Only read when the world is created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, DesiredChange = 1024, DesiredLargeChange = 8192, Tooltip = &quot;Maximum number of bodies supported by the physics world.&quot;)]
+public uint MaxBodies { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_MaxBodies_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is not a soft target: the simulation reserves room for all of them up front, and a body asked for
+beyond it is refused rather than squeezed in. Raising it costs a few hundred bytes per body whether the
+body ever exists or not.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_MaxBodyPairs_" data-uid="Evergine.Framework.Physics.PhysicsManager.MaxBodyPairs*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_MaxBodyPairs" data-uid="Evergine.Framework.Physics.PhysicsManager.MaxBodyPairs">MaxBodyPairs</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the maximum number of body pairs the broad phase can queue. Only read when the world is
+created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, DesiredChange = 1024, DesiredLargeChange = 8192, Tooltip = &quot;Maximum number of body pairs the broad phase can queue.&quot;)]
+public uint MaxBodyPairs { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_MaxBodyPairs_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A pair is two bodies close enough to be worth looking at in detail, so this grows with how crowded the
+world gets rather than with how many bodies it holds. Something like eight per body is a reasonable
+start for a pile; running out of them is reported by the step and drops collisions on the floor.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_MaxContactConstraints_" data-uid="Evergine.Framework.Physics.PhysicsManager.MaxContactConstraints*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_MaxContactConstraints" data-uid="Evergine.Framework.Physics.PhysicsManager.MaxContactConstraints">MaxContactConstraints</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the maximum number of contact constraints solved per step. Only read when the world is
+created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, DesiredChange = 1024, DesiredLargeChange = 8192, Tooltip = &quot;Maximum number of contact constraints solved in a single step.&quot;)]
+public uint MaxContactConstraints { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_MaxContactConstraints_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is the one that runs out first in a heap of bodies: a box resting in a pile touches three or four
+others, so a few thousand bodies settling on each other need tens of thousands of these. When they run
+out the step says so and the contacts that did not fit are simply not solved, which looks like bodies
+sinking into each other for no reason.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_MaxStepsPerFrame_" data-uid="Evergine.Framework.Physics.PhysicsManager.MaxStepsPerFrame*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_MaxStepsPerFrame" data-uid="Evergine.Framework.Physics.PhysicsManager.MaxStepsPerFrame">MaxStepsPerFrame</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the maximum number of steps executed in a single frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, MaxLimit = 32, DesiredChange = 1, DesiredLargeChange = 2, Tooltip = &quot;Maximum physics steps per frame. Exceeding time is discarded.&quot;)]
+public int MaxStepsPerFrame { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_MaxStepsPerFrame_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>When a frame takes longer than this budget the exceeding time is discarded instead of being simulated
+later, which prevents a slow frame from making the next ones even slower.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_NativeBodyInterface_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeBodyInterface*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_NativeBodyInterface" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeBodyInterface">NativeBodyInterface</h4>
+  <div class="markdown level1 summary"><p>Gets the native body interface handle, for advanced scenarios not covered by this API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public nint NativeBodyInterface { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_NativeJobSystem_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeJobSystem*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_NativeJobSystem" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeJobSystem">NativeJobSystem</h4>
+  <div class="markdown level1 summary"><p>Gets the native job system handle, for advanced scenarios not covered by this API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public nint NativeJobSystem { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_NativeObjectLayerPairFilter_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeObjectLayerPairFilter*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_NativeObjectLayerPairFilter" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeObjectLayerPairFilter">NativeObjectLayerPairFilter</h4>
+  <div class="markdown level1 summary"><p>Gets the native table that decides which object layers collide.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public nint NativeObjectLayerPairFilter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_NativePhysicsSystem_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativePhysicsSystem*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_NativePhysicsSystem" data-uid="Evergine.Framework.Physics.PhysicsManager.NativePhysicsSystem">NativePhysicsSystem</h4>
+  <div class="markdown level1 summary"><p>Gets the native physics system handle, for advanced scenarios not covered by this API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public nint NativePhysicsSystem { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_NativeTempAllocator_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeTempAllocator*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_NativeTempAllocator" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeTempAllocator">NativeTempAllocator</h4>
+  <div class="markdown level1 summary"><p>Gets the native temporary allocator handle, for advanced scenarios not covered by this API.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public nint NativeTempAllocator { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_PenetrationSlop_" data-uid="Evergine.Framework.Physics.PhysicsManager.PenetrationSlop*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_PenetrationSlop" data-uid="Evergine.Framework.Physics.PhysicsManager.PenetrationSlop">PenetrationSlop</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the penetration the solver tolerates before pushing bodies apart.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, MaxLimit = 1, DesiredChange = 0.001, DesiredLargeChange = 0.01, Tooltip = &quot;Penetration allowed before the solver pushes bodies apart.&quot;)]
+public float PenetrationSlop { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_PointVelocitySleepThreshold_" data-uid="Evergine.Framework.Physics.PhysicsManager.PointVelocitySleepThreshold*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_PointVelocitySleepThreshold" data-uid="Evergine.Framework.Physics.PhysicsManager.PointVelocitySleepThreshold">PointVelocitySleepThreshold</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the velocity below which a body is considered still.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.01, DesiredLargeChange = 0.1, Tooltip = &quot;Velocity below which a body is considered still and may sleep.&quot;)]
+public float PointVelocitySleepThreshold { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_SolverPositionIterations_" data-uid="Evergine.Framework.Physics.PhysicsManager.SolverPositionIterations*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_SolverPositionIterations" data-uid="Evergine.Framework.Physics.PhysicsManager.SolverPositionIterations">SolverPositionIterations</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the number of position iterations performed by the solver.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, MaxLimit = 64, AsSlider = true, DesiredChange = 1, DesiredLargeChange = 4, Tooltip = &quot;Solver position iterations, used to resolve penetration.&quot;)]
+public uint SolverPositionIterations { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_SolverVelocityIterations_" data-uid="Evergine.Framework.Physics.PhysicsManager.SolverVelocityIterations*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_SolverVelocityIterations" data-uid="Evergine.Framework.Physics.PhysicsManager.SolverVelocityIterations">SolverVelocityIterations</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the number of velocity iterations performed by the solver.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, MaxLimit = 64, AsSlider = true, DesiredChange = 1, DesiredLargeChange = 4, Tooltip = &quot;Solver velocity iterations. Higher values make contacts and joints stiffer.&quot;)]
+public uint SolverVelocityIterations { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_SpeculativeContactDistance_" data-uid="Evergine.Framework.Physics.PhysicsManager.SpeculativeContactDistance*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_SpeculativeContactDistance" data-uid="Evergine.Framework.Physics.PhysicsManager.SpeculativeContactDistance">SpeculativeContactDistance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the distance at which speculative contacts are created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, MaxLimit = 1, DesiredChange = 0.001, DesiredLargeChange = 0.01, Tooltip = &quot;Distance at which contacts are created before bodies actually touch.&quot;)]
+public float SpeculativeContactDistance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_TempAllocatorSizeMB_" data-uid="Evergine.Framework.Physics.PhysicsManager.TempAllocatorSizeMB*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_TempAllocatorSizeMB" data-uid="Evergine.Framework.Physics.PhysicsManager.TempAllocatorSizeMB">TempAllocatorSizeMB</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the size, in megabytes, of the allocator used for temporary data during a step. Only read
+when the world is created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, MaxLimit = 1024, DesiredChange = 1, DesiredLargeChange = 8, Tooltip = &quot;Size in megabytes of the temporary allocator used during simulation.&quot;)]
+public int TempAllocatorSizeMB { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_TimeBeforeSleep_" data-uid="Evergine.Framework.Physics.PhysicsManager.TimeBeforeSleep*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_TimeBeforeSleep" data-uid="Evergine.Framework.Physics.PhysicsManager.TimeBeforeSleep">TimeBeforeSleep</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the time, in seconds, a body must stay still before going to sleep.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.1, DesiredLargeChange = 1, Tooltip = &quot;Time in seconds a body must stay still before going to sleep.&quot;)]
+public float TimeBeforeSleep { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_TimeScale_" data-uid="Evergine.Framework.Physics.PhysicsManager.TimeScale*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_TimeScale" data-uid="Evergine.Framework.Physics.PhysicsManager.TimeScale">TimeScale</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the factor applied to the frame time before it is accumulated. Zero freezes time.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, MaxLimit = 10, AsSlider = true, DesiredChange = 0.05, DesiredLargeChange = 0.25, Tooltip = &quot;Scales simulation time. Zero freezes the simulation.&quot;)]
+public float TimeScale { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_WorkerThreadCount_" data-uid="Evergine.Framework.Physics.PhysicsManager.WorkerThreadCount*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_WorkerThreadCount" data-uid="Evergine.Framework.Physics.PhysicsManager.WorkerThreadCount">WorkerThreadCount</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the number of worker threads used by the simulation. A negative value uses the number of
+processors minus one, and zero runs every job on the calling thread. Only read when the world is
+created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = -1, MaxLimit = 64, DesiredChange = 1, DesiredLargeChange = 4, Tooltip = &quot;Number of worker threads for the simulation. -1 uses the processor count minus one.&quot;)]
+public int WorkerThreadCount { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_PhysicsManager_BoxCast_" data-uid="Evergine.Framework.Physics.PhysicsManager.BoxCast*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_BoxCast_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Vector3_System_Single_Evergine_Framework_Physics_QueryFilter__Evergine_Framework_Physics_ShapeCastHit__" data-uid="Evergine.Framework.Physics.PhysicsManager.BoxCast(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Vector3,System.Single,Evergine.Framework.Physics.QueryFilter@,Evergine.Framework.Physics.ShapeCastHit@)">BoxCast(Vector3, Vector3, Quaternion, Vector3, float, in QueryFilter, out ShapeCastHit)</h4>
+  <div class="markdown level1 summary"><p>Sweeps a box through the world and returns the first contact.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool BoxCast(Vector3 halfExtents, Vector3 from, Quaternion orientation, Vector3 direction, float maxDistance, in QueryFilter filter, out ShapeCastHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">halfExtents</span></td>
+        <td><p>Half the size of the box on each axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Where the sweep starts.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">orientation</span></td>
+        <td><p>The orientation of the box.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>The direction of the sweep.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>How far the box travels.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.ShapeCastHit.html">ShapeCastHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td><p>The first contact.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the sweep hit something.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_FlushPending_" data-uid="Evergine.Framework.Physics.PhysicsManager.FlushPending*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_FlushPending" data-uid="Evergine.Framework.Physics.PhysicsManager.FlushPending">FlushPending()</h4>
+  <div class="markdown level1 summary"><p>Applies every pending structural change, such as bodies waiting to enter or leave the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void FlushPending()</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_FlushPending_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+Structural changes are deferred so they never happen while the simulation is running, and so that
+several edits on the same frame collapse into a single operation. Call this when a query must observe
+a body that was created in the very same frame.
+</p>
+<p>
+This only applies what has already been queued, and a body queues itself when its component is
+activated. Entities added from <code>CreateScene</code> are not activated until the scene finishes
+initializing, so calling this from there flushes nothing and the world is still empty: queries that
+need those bodies belong in the first update, not in scene creation.
+</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_GetCategoryName_" data-uid="Evergine.Framework.Physics.PhysicsManager.GetCategoryName*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_GetCategoryName_Evergine_Framework_Physics_CollisionCategory_" data-uid="Evergine.Framework.Physics.PhysicsManager.GetCategoryName(Evergine.Framework.Physics.CollisionCategory)">GetCategoryName(CollisionCategory)</h4>
+  <div class="markdown level1 summary"><p>Gets the display name of a collision category.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string GetCategoryName(CollisionCategory category)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td><span class="parametername">category</span></td>
+        <td><p>The category.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_GetCollisionEnabled_" data-uid="Evergine.Framework.Physics.PhysicsManager.GetCollisionEnabled*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_GetCollisionEnabled_Evergine_Framework_Physics_CollisionCategory_Evergine_Framework_Physics_CollisionCategory_" data-uid="Evergine.Framework.Physics.PhysicsManager.GetCollisionEnabled(Evergine.Framework.Physics.CollisionCategory,Evergine.Framework.Physics.CollisionCategory)">GetCollisionEnabled(CollisionCategory, CollisionCategory)</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether two categories collide.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GetCollisionEnabled(CollisionCategory a, CollisionCategory b)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The first category.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second category.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when bodies of both categories collide.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_GetPairCollisionEnabled_" data-uid="Evergine.Framework.Physics.PhysicsManager.GetPairCollisionEnabled*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_GetPairCollisionEnabled_Evergine_Framework_Physics_PhysicsBody_Evergine_Framework_Physics_PhysicsBody_" data-uid="Evergine.Framework.Physics.PhysicsManager.GetPairCollisionEnabled(Evergine.Framework.Physics.PhysicsBody,Evergine.Framework.Physics.PhysicsBody)">GetPairCollisionEnabled(PhysicsBody, PhysicsBody)</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether two specific bodies are allowed to collide.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool GetPairCollisionEnabled(PhysicsBody first, PhysicsBody second)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">first</span></td>
+        <td><p>The first body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">second</span></td>
+        <td><p>The second body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the pair may collide.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_NativeShouldCollide_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeShouldCollide*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_NativeShouldCollide_Evergine_Framework_Physics_CollisionCategory_System_Boolean_Evergine_Framework_Physics_CollisionCategory_System_Boolean_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeShouldCollide(Evergine.Framework.Physics.CollisionCategory,System.Boolean,Evergine.Framework.Physics.CollisionCategory,System.Boolean)">NativeShouldCollide(CollisionCategory, bool, CollisionCategory, bool)</h4>
+  <div class="markdown level1 summary"><p>Asks the native layer table whether two categories are allowed to collide, for a given motion class
+on each side. Bypasses the managed copy of the matrix entirely.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool NativeShouldCollide(CollisionCategory first, bool firstMoving, CollisionCategory second, bool secondMoving)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td><span class="parametername">first</span></td>
+        <td><p>The first category.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">firstMoving</span></td>
+        <td><p>Whether the first side is a body that can move.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td><span class="parametername">second</span></td>
+        <td><p>The second category.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">secondMoving</span></td>
+        <td><p>Whether the second side is a body that can move.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the native layer table lets the pair collide.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_NativeShouldCollide_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeShouldCollide*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_NativeShouldCollide_Evergine_Framework_Physics_PhysicsBody_Evergine_Framework_Physics_PhysicsBody_" data-uid="Evergine.Framework.Physics.PhysicsManager.NativeShouldCollide(Evergine.Framework.Physics.PhysicsBody,Evergine.Framework.Physics.PhysicsBody)">NativeShouldCollide(PhysicsBody, PhysicsBody)</h4>
+  <div class="markdown level1 summary"><p>Asks the simulation itself whether two bodies are allowed to collide, bypassing the managed copy of
+the matrix. Useful to tell a wrong matrix apart from a matrix that never reached the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool NativeShouldCollide(PhysicsBody first, PhysicsBody second)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">first</span></td>
+        <td><p>The first body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">second</span></td>
+        <td><p>The second body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the native layer table lets the pair collide.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OnAttached_" data-uid="Evergine.Framework.Physics.PhysicsManager.OnAttached*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OnAttached" data-uid="Evergine.Framework.Physics.PhysicsManager.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnAttached">SceneManager.OnAttached()</a></div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OnDetached_" data-uid="Evergine.Framework.Physics.PhysicsManager.OnDetached*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OnDetached" data-uid="Evergine.Framework.Physics.PhysicsManager.OnDetached">OnDetached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetached()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.SceneManager.html#Evergine_Framework_Managers_SceneManager_OnDetached">SceneManager.OnDetached()</a></div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OptimizeBroadPhase_" data-uid="Evergine.Framework.Physics.PhysicsManager.OptimizeBroadPhase*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OptimizeBroadPhase" data-uid="Evergine.Framework.Physics.PhysicsManager.OptimizeBroadPhase">OptimizeBroadPhase()</h4>
+  <div class="markdown level1 summary"><p>Rebuilds the broad phase acceleration structure.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void OptimizeBroadPhase()</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_OptimizeBroadPhase_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Worth calling after inserting a large batch of static bodies, such as a freshly loaded level.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OverlapAABox_" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapAABox*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OverlapAABox_Evergine_Mathematics_BoundingBox_System_Collections_Generic_IList_Evergine_Framework_Physics_OverlapHit__Evergine_Framework_Physics_QueryFilter__" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapAABox(Evergine.Mathematics.BoundingBox,System.Collections.Generic.IList{Evergine.Framework.Physics.OverlapHit},Evergine.Framework.Physics.QueryFilter@)">OverlapAABox(BoundingBox, IList&lt;OverlapHit&gt;, in QueryFilter)</h4>
+  <div class="markdown level1 summary"><p>Finds the bodies whose bounds overlap an axis aligned box, using the broad phase only.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int OverlapAABox(BoundingBox box, IList&lt;OverlapHit&gt; results, in QueryFilter filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a></td>
+        <td><span class="parametername">box</span></td>
+        <td><p>The box to test.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.OverlapHit.html">OverlapHit</a>&gt;</td>
+        <td><span class="parametername">results</span></td>
+        <td><p>The list the hits are added to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of hits added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_OverlapAABox_Evergine_Mathematics_BoundingBox_System_Collections_Generic_IList_Evergine_Framework_Physics_OverlapHit__Evergine_Framework_Physics_QueryFilter___remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Much cheaper than <a class="xref" href="Evergine.Framework.Physics.PhysicsManager.html#Evergine_Framework_Physics_PhysicsManager_OverlapBox_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_System_Collections_Generic_IList_Evergine_Framework_Physics_OverlapHit__Evergine_Framework_Physics_QueryFilter__">OverlapBox(Vector3, Vector3, Quaternion, IList&lt;OverlapHit&gt;, in QueryFilter)</a> and approximate: it reports every body whose bounding box
+overlaps, without testing the shapes themselves. Good for coarse culling, not for precise answers.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OverlapBox_" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapBox*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OverlapBox_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_System_Collections_Generic_IList_Evergine_Framework_Physics_OverlapHit__Evergine_Framework_Physics_QueryFilter__" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapBox(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion,System.Collections.Generic.IList{Evergine.Framework.Physics.OverlapHit},Evergine.Framework.Physics.QueryFilter@)">OverlapBox(Vector3, Vector3, Quaternion, IList&lt;OverlapHit&gt;, in QueryFilter)</h4>
+  <div class="markdown level1 summary"><p>Finds the bodies overlapping a box.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int OverlapBox(Vector3 center, Vector3 halfExtents, Quaternion orientation, IList&lt;OverlapHit&gt; results, in QueryFilter filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">center</span></td>
+        <td><p>The center of the box.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">halfExtents</span></td>
+        <td><p>Half the size of the box on each axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">orientation</span></td>
+        <td><p>The orientation of the box.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.OverlapHit.html">OverlapHit</a>&gt;</td>
+        <td><span class="parametername">results</span></td>
+        <td><p>The list the hits are added to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of hits added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OverlapPoint_" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapPoint*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OverlapPoint_Evergine_Mathematics_Vector3_Evergine_Framework_Physics_QueryFilter__Evergine_Framework_Physics_OverlapHit__" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapPoint(Evergine.Mathematics.Vector3,Evergine.Framework.Physics.QueryFilter@,Evergine.Framework.Physics.OverlapHit@)">OverlapPoint(Vector3, in QueryFilter, out OverlapHit)</h4>
+  <div class="markdown level1 summary"><p>Finds a body a point is inside of.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool OverlapPoint(Vector3 point, in QueryFilter filter, out OverlapHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The point to test, in world space.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.OverlapHit.html">OverlapHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td><p>One of the bodies containing the point.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the point is inside a body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OverlapPointAll_" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapPointAll*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OverlapPointAll_Evergine_Mathematics_Vector3_System_Collections_Generic_IList_Evergine_Framework_Physics_OverlapHit__Evergine_Framework_Physics_QueryFilter__" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapPointAll(Evergine.Mathematics.Vector3,System.Collections.Generic.IList{Evergine.Framework.Physics.OverlapHit},Evergine.Framework.Physics.QueryFilter@)">OverlapPointAll(Vector3, IList&lt;OverlapHit&gt;, in QueryFilter)</h4>
+  <div class="markdown level1 summary"><p>Finds every body a point is inside of.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int OverlapPointAll(Vector3 point, IList&lt;OverlapHit&gt; results, in QueryFilter filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">point</span></td>
+        <td><p>The point to test, in world space.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.OverlapHit.html">OverlapHit</a>&gt;</td>
+        <td><span class="parametername">results</span></td>
+        <td><p>The list the hits are added to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of hits added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OverlapShape_" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapShape*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OverlapShape_Evergine_Framework_Physics_Collider_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_System_Collections_Generic_IList_Evergine_Framework_Physics_OverlapHit__Evergine_Framework_Physics_QueryFilter__" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapShape(Evergine.Framework.Physics.Collider,Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion,System.Collections.Generic.IList{Evergine.Framework.Physics.OverlapHit},Evergine.Framework.Physics.QueryFilter@)">OverlapShape(Collider, Vector3, Quaternion, IList&lt;OverlapHit&gt;, in QueryFilter)</h4>
+  <div class="markdown level1 summary"><p>Finds the bodies overlapping the shape of a collider placed in the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int OverlapShape(Collider collider, Vector3 position, Quaternion orientation, IList&lt;OverlapHit&gt; results, in QueryFilter filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.Collider.html">Collider</a></td>
+        <td><span class="parametername">collider</span></td>
+        <td><p>The collider whose shape is tested.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>Where the shape sits.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">orientation</span></td>
+        <td><p>The orientation of the shape.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.OverlapHit.html">OverlapHit</a>&gt;</td>
+        <td><span class="parametername">results</span></td>
+        <td><p>The list the hits are added to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of hits added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_OverlapSphere_" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapSphere*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_OverlapSphere_Evergine_Mathematics_Vector3_System_Single_System_Collections_Generic_IList_Evergine_Framework_Physics_OverlapHit__Evergine_Framework_Physics_QueryFilter__" data-uid="Evergine.Framework.Physics.PhysicsManager.OverlapSphere(Evergine.Mathematics.Vector3,System.Single,System.Collections.Generic.IList{Evergine.Framework.Physics.OverlapHit},Evergine.Framework.Physics.QueryFilter@)">OverlapSphere(Vector3, float, IList&lt;OverlapHit&gt;, in QueryFilter)</h4>
+  <div class="markdown level1 summary"><p>Finds the bodies overlapping a sphere.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int OverlapSphere(Vector3 center, float radius, IList&lt;OverlapHit&gt; results, in QueryFilter filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">center</span></td>
+        <td><p>The center of the sphere.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">radius</span></td>
+        <td><p>The radius of the sphere.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.OverlapHit.html">OverlapHit</a>&gt;</td>
+        <td><span class="parametername">results</span></td>
+        <td><p>The list the hits are added to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of hits added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_RayCast_" data-uid="Evergine.Framework.Physics.PhysicsManager.RayCast*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_RayCast_Evergine_Mathematics_Ray__System_Single_Evergine_Framework_Physics_QueryFilter__Evergine_Framework_Physics_RayCastHit__" data-uid="Evergine.Framework.Physics.PhysicsManager.RayCast(Evergine.Mathematics.Ray@,System.Single,Evergine.Framework.Physics.QueryFilter@,Evergine.Framework.Physics.RayCastHit@)">RayCast(ref Ray, float, in QueryFilter, out RayCastHit)</h4>
+  <div class="markdown level1 summary"><p>Casts a ray and returns the closest hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RayCast(ref Ray ray, float maxDistance, in QueryFilter filter, out RayCastHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Ray.html">Ray</a></td>
+        <td><span class="parametername">ray</span></td>
+        <td><p>The ray to cast.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>How far the ray reaches.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.RayCastHit.html">RayCastHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td><p>The closest hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the ray hit something.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_RayCast_" data-uid="Evergine.Framework.Physics.PhysicsManager.RayCast*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_RayCast_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Single_Evergine_Framework_Physics_QueryFilter__Evergine_Framework_Physics_RayCastHit__" data-uid="Evergine.Framework.Physics.PhysicsManager.RayCast(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,System.Single,Evergine.Framework.Physics.QueryFilter@,Evergine.Framework.Physics.RayCastHit@)">RayCast(Vector3, Vector3, float, in QueryFilter, out RayCastHit)</h4>
+  <div class="markdown level1 summary"><p>Casts a ray and returns the closest hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RayCast(Vector3 origin, Vector3 direction, float maxDistance, in QueryFilter filter, out RayCastHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">origin</span></td>
+        <td><p>Where the ray starts.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>The direction of the ray.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>How far the ray reaches.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.RayCastHit.html">RayCastHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td><p>The closest hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the ray hit something.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_RayCast_" data-uid="Evergine.Framework.Physics.PhysicsManager.RayCast*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_RayCast_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Single_Evergine_Framework_Physics_RayCastHit__" data-uid="Evergine.Framework.Physics.PhysicsManager.RayCast(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,System.Single,Evergine.Framework.Physics.RayCastHit@)">RayCast(Vector3, Vector3, float, out RayCastHit)</h4>
+  <div class="markdown level1 summary"><p>Casts a ray and returns the closest hit.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool RayCast(Vector3 origin, Vector3 direction, float maxDistance, out RayCastHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">origin</span></td>
+        <td><p>Where the ray starts.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>The direction of the ray. Does not need to be normalized.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>How far the ray reaches.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.RayCastHit.html">RayCastHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td><p>The closest hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the ray hit something.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_RayCastAll_" data-uid="Evergine.Framework.Physics.PhysicsManager.RayCastAll*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_RayCastAll_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Single_System_Collections_Generic_IList_Evergine_Framework_Physics_RayCastHit__Evergine_Framework_Physics_QueryFilter__" data-uid="Evergine.Framework.Physics.PhysicsManager.RayCastAll(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,System.Single,System.Collections.Generic.IList{Evergine.Framework.Physics.RayCastHit},Evergine.Framework.Physics.QueryFilter@)">RayCastAll(Vector3, Vector3, float, IList&lt;RayCastHit&gt;, in QueryFilter)</h4>
+  <div class="markdown level1 summary"><p>Casts a ray and returns every hit, ordered from closest to furthest.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int RayCastAll(Vector3 origin, Vector3 direction, float maxDistance, IList&lt;RayCastHit&gt; results, in QueryFilter filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">origin</span></td>
+        <td><p>Where the ray starts.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>The direction of the ray.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>How far the ray reaches.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.RayCastHit.html">RayCastHit</a>&gt;</td>
+        <td><span class="parametername">results</span></td>
+        <td><p>The list the hits are added to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of hits added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_RunStep_" data-uid="Evergine.Framework.Physics.PhysicsManager.RunStep*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_RunStep_System_Single_" data-uid="Evergine.Framework.Physics.PhysicsManager.RunStep(System.Single)">RunStep(float)</h4>
+  <div class="markdown level1 summary"><p>Executes one physics step and the tasks bound to it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void RunStep(float deltaTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">deltaTime</span></td>
+        <td><p>The step duration, in seconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_SetCategoryName_" data-uid="Evergine.Framework.Physics.PhysicsManager.SetCategoryName*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_SetCategoryName_Evergine_Framework_Physics_CollisionCategory_System_String_" data-uid="Evergine.Framework.Physics.PhysicsManager.SetCategoryName(Evergine.Framework.Physics.CollisionCategory,System.String)">SetCategoryName(CollisionCategory, string)</h4>
+  <div class="markdown level1 summary"><p>Sets the display name of a collision category.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetCategoryName(CollisionCategory category, string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td><span class="parametername">category</span></td>
+        <td><p>The category to name.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The name.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_SetCollisionEnabled_" data-uid="Evergine.Framework.Physics.PhysicsManager.SetCollisionEnabled*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_SetCollisionEnabled_Evergine_Framework_Physics_CollisionCategory_Evergine_Framework_Physics_CollisionCategory_System_Boolean_" data-uid="Evergine.Framework.Physics.PhysicsManager.SetCollisionEnabled(Evergine.Framework.Physics.CollisionCategory,Evergine.Framework.Physics.CollisionCategory,System.Boolean)">SetCollisionEnabled(CollisionCategory, CollisionCategory, bool)</h4>
+  <div class="markdown level1 summary"><p>Enables or disables the collision between two categories.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetCollisionEnabled(CollisionCategory a, CollisionCategory b, bool enabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td><span class="parametername">a</span></td>
+        <td><p>The first category.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>The second category.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">enabled</span></td>
+        <td><p>Whether bodies of both categories should collide.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_SetPairCollisionEnabled_" data-uid="Evergine.Framework.Physics.PhysicsManager.SetPairCollisionEnabled*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_SetPairCollisionEnabled_Evergine_Framework_Physics_PhysicsBody_Evergine_Framework_Physics_PhysicsBody_System_Boolean_" data-uid="Evergine.Framework.Physics.PhysicsManager.SetPairCollisionEnabled(Evergine.Framework.Physics.PhysicsBody,Evergine.Framework.Physics.PhysicsBody,System.Boolean)">SetPairCollisionEnabled(PhysicsBody, PhysicsBody, bool)</h4>
+  <div class="markdown level1 summary"><p>Stops two specific bodies from colliding with each other, which is what a constraint does when it is
+told not to let the bodies it holds touch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetPairCollisionEnabled(PhysicsBody first, PhysicsBody second, bool enabled)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">first</span></td>
+        <td><p>The first body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">second</span></td>
+        <td><p>The second body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">enabled</span></td>
+        <td><p>Whether the pair may collide.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_SetPairCollisionEnabled_Evergine_Framework_Physics_PhysicsBody_Evergine_Framework_Physics_PhysicsBody_System_Boolean__remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Implemented as a set of excluded pairs consulted while validating contacts, rather than with the group
+filter table Jolt also offers: a table would need a bit per pair of bodies, which for the default body
+budget is megabytes of memory for a handful of exclusions.</p>
+</div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_ShapeCast_" data-uid="Evergine.Framework.Physics.PhysicsManager.ShapeCast*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_ShapeCast_Evergine_Framework_Physics_Collider_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Vector3_System_Single_Evergine_Framework_Physics_QueryFilter__Evergine_Framework_Physics_ShapeCastHit__" data-uid="Evergine.Framework.Physics.PhysicsManager.ShapeCast(Evergine.Framework.Physics.Collider,Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Vector3,System.Single,Evergine.Framework.Physics.QueryFilter@,Evergine.Framework.Physics.ShapeCastHit@)">ShapeCast(Collider, Vector3, Quaternion, Vector3, float, in QueryFilter, out ShapeCastHit)</h4>
+  <div class="markdown level1 summary"><p>Sweeps the shape of a collider through the world and returns the first contact.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool ShapeCast(Collider collider, Vector3 from, Quaternion orientation, Vector3 direction, float maxDistance, in QueryFilter filter, out ShapeCastHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.Collider.html">Collider</a></td>
+        <td><span class="parametername">collider</span></td>
+        <td><p>The collider whose shape is swept. It is not required to be in the world.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Where the sweep starts.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">orientation</span></td>
+        <td><p>The orientation of the shape.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>The direction of the sweep.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>How far the shape travels.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.ShapeCastHit.html">ShapeCastHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td><p>The first contact.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the sweep hit something.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_ShapeCastAll_" data-uid="Evergine.Framework.Physics.PhysicsManager.ShapeCastAll*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_ShapeCastAll_Evergine_Framework_Physics_Collider_Evergine_Mathematics_Vector3_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Vector3_System_Single_System_Collections_Generic_IList_Evergine_Framework_Physics_ShapeCastHit__Evergine_Framework_Physics_QueryFilter__" data-uid="Evergine.Framework.Physics.PhysicsManager.ShapeCastAll(Evergine.Framework.Physics.Collider,Evergine.Mathematics.Vector3,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Vector3,System.Single,System.Collections.Generic.IList{Evergine.Framework.Physics.ShapeCastHit},Evergine.Framework.Physics.QueryFilter@)">ShapeCastAll(Collider, Vector3, Quaternion, Vector3, float, IList&lt;ShapeCastHit&gt;, in QueryFilter)</h4>
+  <div class="markdown level1 summary"><p>Sweeps the shape of a collider through the world and returns every contact.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int ShapeCastAll(Collider collider, Vector3 from, Quaternion orientation, Vector3 direction, float maxDistance, IList&lt;ShapeCastHit&gt; results, in QueryFilter filter)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.Collider.html">Collider</a></td>
+        <td><span class="parametername">collider</span></td>
+        <td><p>The collider whose shape is swept.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Where the sweep starts.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">orientation</span></td>
+        <td><p>The orientation of the shape.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>The direction of the sweep.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>How far the shape travels.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ilist-1">IList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.ShapeCastHit.html">ShapeCastHit</a>&gt;</td>
+        <td><span class="parametername">results</span></td>
+        <td><p>The list the hits are added to.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of hits added.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_SphereCast_" data-uid="Evergine.Framework.Physics.PhysicsManager.SphereCast*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_SphereCast_System_Single_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_System_Single_Evergine_Framework_Physics_QueryFilter__Evergine_Framework_Physics_ShapeCastHit__" data-uid="Evergine.Framework.Physics.PhysicsManager.SphereCast(System.Single,Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3,System.Single,Evergine.Framework.Physics.QueryFilter@,Evergine.Framework.Physics.ShapeCastHit@)">SphereCast(float, Vector3, Vector3, float, in QueryFilter, out ShapeCastHit)</h4>
+  <div class="markdown level1 summary"><p>Sweeps a sphere through the world and returns the first contact.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SphereCast(float radius, Vector3 from, Vector3 direction, float maxDistance, in QueryFilter filter, out ShapeCastHit hit)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">radius</span></td>
+        <td><p>The radius of the sphere.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Where the sweep starts.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">direction</span></td>
+        <td><p>The direction of the sweep.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">maxDistance</span></td>
+        <td><p>How far the sphere travels.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.QueryFilter.html">QueryFilter</a></td>
+        <td><span class="parametername">filter</span></td>
+        <td><p>Which bodies may be hit.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.ShapeCastHit.html">ShapeCastHit</a></td>
+        <td><span class="parametername">hit</span></td>
+        <td><p>The first contact.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the sweep hit something.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_StepOnce_" data-uid="Evergine.Framework.Physics.PhysicsManager.StepOnce*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_StepOnce" data-uid="Evergine.Framework.Physics.PhysicsManager.StepOnce">StepOnce()</h4>
+  <div class="markdown level1 summary"><p>Runs exactly one physics step, even when <a class="xref" href="Evergine.Framework.Physics.PhysicsManager.html#Evergine_Framework_Physics_PhysicsManager_IsSimulationEnabled">IsSimulationEnabled</a> is disabled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void StepOnce()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_TryGetBody_" data-uid="Evergine.Framework.Physics.PhysicsManager.TryGetBody*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_TryGetBody_System_UInt32_Evergine_Framework_Physics_PhysicsBody__" data-uid="Evergine.Framework.Physics.PhysicsManager.TryGetBody(System.UInt32,Evergine.Framework.Physics.PhysicsBody@)">TryGetBody(uint, out PhysicsBody)</h4>
+  <div class="markdown level1 summary"><p>Gets the body component associated with a native body identifier.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool TryGetBody(uint nativeBodyId, out PhysicsBody body)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">nativeBodyId</span></td>
+        <td><p>The native body identifier.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">body</span></td>
+        <td><p>The body component when found.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the body belongs to this world.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_Update_" data-uid="Evergine.Framework.Physics.PhysicsManager.Update*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_Update_System_TimeSpan_" data-uid="Evergine.Framework.Physics.PhysicsManager.Update(System.TimeSpan)">Update(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Updates this manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Update(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The game time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Managers.UpdatableSceneManager.html#Evergine_Framework_Managers_UpdatableSceneManager_Update_System_TimeSpan_">UpdatableSceneManager.Update(TimeSpan)</a></div>
+  <a id="Evergine_Framework_Physics_PhysicsManager_WereBodiesInContact_" data-uid="Evergine.Framework.Physics.PhysicsManager.WereBodiesInContact*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_WereBodiesInContact_Evergine_Framework_Physics_PhysicsBody_Evergine_Framework_Physics_PhysicsBody_" data-uid="Evergine.Framework.Physics.PhysicsManager.WereBodiesInContact(Evergine.Framework.Physics.PhysicsBody,Evergine.Framework.Physics.PhysicsBody)">WereBodiesInContact(PhysicsBody, PhysicsBody)</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether two bodies were touching during the last step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool WereBodiesInContact(PhysicsBody first, PhysicsBody second)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">first</span></td>
+        <td><p>The first body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><span class="parametername">second</span></td>
+        <td><p>The second body.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the simulation reported a contact between them.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_PhysicsManager_WriteBackTransforms_" data-uid="Evergine.Framework.Physics.PhysicsManager.WriteBackTransforms*"></a>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_WriteBackTransforms" data-uid="Evergine.Framework.Physics.PhysicsManager.WriteBackTransforms">WriteBackTransforms()</h4>
+  <div class="markdown level1 summary"><p>Writes the simulated poses back into the entity transforms.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void WriteBackTransforms()</code></pre>
+  </div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_BodyActivated" data-uid="Evergine.Framework.Physics.PhysicsManager.BodyActivated">BodyActivated</h4>
+  <div class="markdown level1 summary"><p>Raised for every body that woke up during a step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;RigidBody&gt; BodyActivated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.Physics.RigidBody.html">RigidBody</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_BodyActivated_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Raised on the main thread once the step is over, not from inside the simulation, so it is safe to
+touch the scene from here. A body counts as awake the moment the simulation starts spending time on
+it, which is what makes this worth listening to: it is the cheap way to notice something has been
+disturbed without asking every body every frame whether it is still still.</p>
+</div>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_BodySlept" data-uid="Evergine.Framework.Physics.PhysicsManager.BodySlept">BodySlept</h4>
+  <div class="markdown level1 summary"><p>Raised for every body that went to sleep during a step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;RigidBody&gt; BodySlept</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.Physics.RigidBody.html">RigidBody</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_PhysicsStepCompleted" data-uid="Evergine.Framework.Physics.PhysicsManager.PhysicsStepCompleted">PhysicsStepCompleted</h4>
+  <div class="markdown level1 summary"><p>Raised right after every fixed step, with the step duration in seconds as argument.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;float&gt; PhysicsStepCompleted</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_PhysicsStepStarting" data-uid="Evergine.Framework.Physics.PhysicsManager.PhysicsStepStarting">PhysicsStepStarting</h4>
+  <div class="markdown level1 summary"><p>Raised right before every fixed step, with the step duration in seconds as argument.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;float&gt; PhysicsStepStarting</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_PhysicsManager_PhysicsStepStarting_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is the place to apply forces and impulses. Doing it from a per frame update would make the
+resulting motion depend on the frame rate, because a frame can run zero, one or several steps.</p>
+</div>
+  <h4 id="Evergine_Framework_Physics_PhysicsManager_SimulationUpdated" data-uid="Evergine.Framework.Physics.PhysicsManager.SimulationUpdated">SimulationUpdated</h4>
+  <div class="markdown level1 summary"><p>Raised once per frame, after the simulated poses have been written back into the entity transforms.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler SimulationUpdated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

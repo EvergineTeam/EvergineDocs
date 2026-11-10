@@ -1,0 +1,236 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Entity Hierarchy | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Entity Hierarchy | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="entity-hierarchy">Entity Hierarchy</h1>
+
+<hr>
+<p>An entity can be the child of another entity. These parent and child relationships form a tree: the entities at the top are added to the scene's <a href="entity_manager.html">EntityManager</a>, and each of them can have children, which can have children of their own. Hierarchies group what belongs together, such as a car and its wheels, so that it moves, is enabled and is removed as a whole.</p>
+<h2 id="hierarchy-transformations">Hierarchy Transformations</h2>
+<p>When both entities have a <code>Transform3D</code>, the child moves, rotates and scales with its parent. Think of your arm and your body: when your body moves, your arm moves with it. Your hand is a child of your arm, and your fingers are children of your hand.</p>
+<p><img src="images/entity_hierarchy.png" alt="A parent entity translated and rotated, and its child following it"></p>
+<p>The child's <code>LocalPosition</code>, <code>LocalOrientation</code> and <code>LocalScale</code> are relative to its parent. See <a href="../../transform.html#local-and-world-space">Transform3D</a> for the difference between local and world values.</p>
+<p>Enabling and disabling work the same way: disabling an entity deactivates all its descendants too.</p>
+<h2 id="build-a-hierarchy">Build a Hierarchy</h2>
+<p>Build the tree with <code>AddChild()</code>, then add only the root to the <code>EntityManager</code>. The children are added to the scene with it:</p>
+<pre><code class="lang-csharp">var tire1 = new Entity(&quot;Tire1&quot;).AddComponent(new Transform3D());
+var tire2 = new Entity(&quot;Tire2&quot;).AddComponent(new Transform3D());
+
+var wheel1 = new Entity(&quot;Wheel1&quot;).AddComponent(new Transform3D()).AddChild(tire1);
+var wheel2 = new Entity(&quot;Wheel2&quot;).AddComponent(new Transform3D()).AddChild(tire2);
+
+var car = new Entity(&quot;Car&quot;)
+    .AddComponent(new Transform3D())
+    .AddChild(wheel1)
+    .AddChild(wheel2);
+
+this.Managers.EntityManager.Add(car);
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>An entity can only have one parent, and an entity that is already at the top of a scene cannot become a child. Detach it from the <code>EntityManager</code> first.</p>
+</div>
+<h2 id="hierarchy-properties-and-methods">Hierarchy Properties and Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Parent</strong></td>
+<td><code>Entity</code></td>
+<td>The direct parent of the entity, or <code>null</code> if it has none.</td>
+</tr>
+<tr>
+<td><strong>ChildEntities</strong></td>
+<td><code>IEnumerable&lt;Entity&gt;</code></td>
+<td>The direct children of the entity.</td>
+</tr>
+<tr>
+<td><strong>NumChildren</strong></td>
+<td><code>int</code></td>
+<td>The number of direct children.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddChild(Entity)</code></td>
+<td>Adds a child. If the parent is already in a running scene, the child is attached, activated and started at once. Returns the parent, so calls can be chained.</td>
+</tr>
+<tr>
+<td><code>RemoveChild(...)</code></td>
+<td>Removes a child and <strong>destroys</strong> it. The child can be given as the <code>Entity</code>, its <code>Name</code> or its <code>Id</code>.</td>
+</tr>
+<tr>
+<td><code>DetachChild(...)</code></td>
+<td>Removes a child <strong>without</strong> destroying it, so it can be added somewhere else. Takes the same arguments as <code>RemoveChild</code>.</td>
+</tr>
+<tr>
+<td><code>FindChild(string name, bool isRecursive = false)</code></td>
+<td>Returns the first child with that name, or <code>null</code>. With <code>isRecursive</code>, searches all descendants, level by level.</td>
+</tr>
+<tr>
+<td><code>FindChild(Guid id, bool isRecursive = false)</code></td>
+<td>The same, by <code>Id</code>.</td>
+</tr>
+<tr>
+<td><code>FindChildrenByTag(string tag, bool isRecursive = false, bool skipOwner = true)</code></td>
+<td>Returns the children with that tag. With <code>skipOwner: false</code>, the entity itself is included when it matches.</td>
+</tr>
+<tr>
+<td><code>FindParentsByTag(string tag, bool isRecursive = false, bool skipOwner = true)</code></td>
+<td>Returns the ancestors with that tag, nearest first. Without <code>isRecursive</code>, only the direct parent is checked.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>ChildAdded</code> and <code>ChildDetached</code> events notify you when the direct children of an entity change.</p>
+<h2 id="entity-paths">Entity Paths</h2>
+<p><img src="images/entity_path.png" alt="The entity tree of a scene, with the entity path of each entity"></p>
+<p><em>The path of an entity is the chain of names from the top of the tree down to it, separated by dots.</em></p>
+<p>Every entity in a scene has a path, exposed by its <code>EntityPath</code> property. It is made of the names of the entity and all its ancestors, from the root down, separated by the <code>.</code> character. In the scene above, the path of <code>Tire2</code> is <code>Car.Wheel2.Tire2</code>, and the path of <code>Road</code> is just <code>Road</code>.</p>
+<p>Paths are always <strong>absolute</strong>: they start at an entity added directly to the <code>EntityManager</code>. Because <code>.</code> is the separator, entity names cannot contain it; setting such a name throws an <code>InvalidOperationException</code>.</p>
+<h3 id="find-an-entity-by-path">Find an Entity by Path</h3>
+<p>Pass a path to <code>EntityManager.Find()</code>:</p>
+<pre><code class="lang-csharp">// The Tire1 entity, wherever the code that looks for it lives.
+Entity tire1 = this.Managers.EntityManager.Find(&quot;Car.Wheel1.Tire1&quot;);
+</code></pre>
+<p><code>Entity.Find(path)</code> resolves a path in the same way, through the scene of the entity, so it returns <code>null</code> for an entity that is not in a scene yet. The path is <strong>not</strong> relative to the entity you call it on.</p>
+<p>To search below a given entity, use <code>FindChild()</code> instead:</p>
+<pre><code class="lang-csharp">// Relative to car: its direct child named Wheel1.
+Entity wheel1 = car.FindChild(&quot;Wheel1&quot;);
+
+// Relative to car: the first descendant named Tire1, at any depth.
+Entity tire1 = car.FindChild(&quot;Tire1&quot;, isRecursive: true);
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>EntityManager.FindComponentFromEntityPath&lt;T&gt;(path)</code> combines both steps and returns a component of the entity at that path.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

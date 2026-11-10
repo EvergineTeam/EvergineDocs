@@ -1,0 +1,329 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Debug Rendering | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Debug Rendering | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="debug-rendering">Debug Rendering</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/debug_rendering.mp4" type="video/mp4">
+</video>
+<p>When a body behaves oddly, the first question is always whether its shape is what you think it is. Debug rendering answers it: the world draws its own shapes, bounds, contacts and constraints over the scene.</p>
+<p>There are two switches. The <code>RenderManager</code> decides <strong>whether</strong> debug lines are drawn at all, and the <a href="physics_manager.html"><code>PhysicsManager</code></a> decides <strong>what</strong> the physics contributes to them:</p>
+<pre><code class="lang-csharp">this.Managers.RenderManager.DebugLines = true;
+this.physicsManager.DebugFlags = PhysicsDebugFlags.Colliders | PhysicsDebugFlags.Constraints;
+</code></pre>
+<p><code>DebugLines</code> is the render manager's general switch for debug line drawing, so physics shows up alongside whatever else a scene draws that way. <code>DebugFlags</code> defaults to <code>Colliders | Constraints | Characters | SleepState</code>, which is why turning <code>DebugLines</code> on in a physics scene is usually enough on its own.</p>
+<h2 id="debug-flags">Debug Flags</h2>
+<p><code>PhysicsDebugFlags</code> is a flags enum, so any combination is allowed.</p>
+<table>
+<thead>
+<tr>
+<th>Flag</th>
+<th>What it draws</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>Nothing, whatever <code>DebugLines</code> says.</td>
+</tr>
+<tr>
+<td><strong>Colliders</strong></td>
+<td>The outline of every collider, in the interpolated pose it is drawn at.</td>
+</tr>
+<tr>
+<td><strong>BoundingBoxes</strong></td>
+<td>Each body's axis-aligned bounding box, which is what the broad phase sees.</td>
+</tr>
+<tr>
+<td><strong>CentersOfMass</strong></td>
+<td>A marker at each body's centre of mass.</td>
+</tr>
+<tr>
+<td><strong>Velocities</strong></td>
+<td>The linear velocity of every awake body, as a line.</td>
+</tr>
+<tr>
+<td><strong>Constraints</strong></td>
+<td>Constraints and the arcs of their limits: hinge ranges, swing cones, twist arcs, slider travel.</td>
+</tr>
+<tr>
+<td><strong>Characters</strong></td>
+<td>Each <a href="character_controller.html">character controller</a>'s capsule and its ground normal.</td>
+</tr>
+<tr>
+<td><strong>SleepState</strong></td>
+<td>Colours bodies by state: grey static, green kinematic, yellow dynamic and awake, red dynamic and asleep.</td>
+</tr>
+<tr>
+<td><strong>SoftBodyStructure</strong></td>
+<td>The vertices and the edge, volume and LRA constraints of every <a href="soft_bodies/index.html">soft body</a>.</td>
+</tr>
+<tr>
+<td><strong>All</strong></td>
+<td>Everything above.</td>
+</tr>
+</tbody>
+</table>
+<p>The default is <code>Colliders | Constraints | Characters | SleepState</code>.</p>
+<p>Five of them are only worth looking at against something they have a reason to draw, so the pictures
+below are all taken in one scene that carries a character, a chain of joints, a soft body, a convex
+hull over a mesh and a handful of primitives.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/debug_colliders.png" alt="Colliders"></td>
+<td><img src="images/debug_constraints.png" alt="Constraints"></td>
+</tr>
+<tr>
+<td><strong>Colliders</strong>: the flag worth leaving on while building a scene. The hull over the wedge is the case worth seeing: the wireframe and the surface it was generated from are not the same shape.</td>
+<td><strong>Constraints</strong>: each joint's frame drawn in place, with the cone a swing twist allows and the arc a hinge allows. This is how a <a href="ragdolls.html">ragdoll</a> is tuned.</td>
+</tr>
+<tr>
+<td><img src="images/debug_characters.png" alt="Characters"></td>
+<td><img src="images/debug_softbody.png" alt="Soft body structure"></td>
+</tr>
+<tr>
+<td><strong>Characters</strong>: the controller's capsule and the normal of the ground it is standing on, which is what to watch when a character catches on a seam.</td>
+<td><strong>SoftBodyStructure</strong>: the vertices and the edges the solver is working on, which is a different picture from the surface being rendered over them.</td>
+</tr>
+<tr>
+<td><img src="images/debug_bounding_boxes.png" alt="Bounding boxes"></td>
+<td><img src="images/debug_sleep_state.png" alt="Sleep state"></td>
+</tr>
+<tr>
+<td><strong>BoundingBoxes</strong>: what the broad phase sees, which is always bigger than the shape and, for a rotated body, considerably bigger.</td>
+<td><strong>SleepState</strong>: which bodies have stopped being simulated. A scene that has gone quiet when it should not have is this flag's question.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/debug_rendering_still.png" alt="Debug rendering"></p>
+<p><em>And every flag at once, which is rarely what you want but says what there is.</em></p>
+<h2 id="what-it-is-actually-showing-you">What it is actually showing you</h2>
+<p>The drawing comes from the <strong>simulation</strong>, not from the renderer. What you see is the shape the solver has, after everything that changed it on the way in:</p>
+<ul>
+<li>the <strong>convex radius</strong> applied, so a box is drawn very slightly smaller and rounder than its mesh;</li>
+<li>a <strong>height field</strong> quantized to the range it was built with;</li>
+<li>a <strong>compound shape</strong> assembled from every collider in the hierarchy;</li>
+<li>the entity's <strong>scale</strong> already applied.</li>
+</ul>
+<p>That is what makes it worth trusting: anything that disagrees with the drawn mesh is a real difference, not a drawing artefact. A collider that is visibly the wrong size, in the wrong place, or missing from a compound is the bug you were looking for.</p>
+<p>It needs a <code>RenderManager</code> in the scene with <code>DebugLines</code> on, and it draws on the same line batch everything else does. A scene without a render manager, a headless server for instance, simulates exactly the same and simply draws nothing.</p>
+<h2 id="turning-it-on-from-code">Turning it on from Code</h2>
+<p>A key that cycles through the useful combinations is worth having in any project that uses physics:</p>
+<pre><code class="lang-csharp">public class PhysicsGizmos : Behavior
+{
+    private static readonly PhysicsDebugFlags[] Steps =
+    {
+        PhysicsDebugFlags.None,
+        PhysicsDebugFlags.Colliders | PhysicsDebugFlags.SleepState,
+        PhysicsDebugFlags.Colliders | PhysicsDebugFlags.Constraints | PhysicsDebugFlags.CentersOfMass,
+        PhysicsDebugFlags.All,
+    };
+
+    [BindSceneManager]
+    private PhysicsManager physicsManager = null;
+
+    [BindSceneManager]
+    private RenderManager renderManager = null;
+
+    private int step;
+    private bool wasDown;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        KeyboardDispatcher keyboard = this.renderManager.ActiveCamera3D?.Display?.KeyboardDispatcher;
+        bool isDown = keyboard != null &amp;&amp; keyboard.IsKeyDown(Keys.G);
+
+        // On the edge, not while held: a key tested every frame would run through all four settings in
+        // a twentieth of a second and land back where it started.
+        if (isDown &amp;&amp; !this.wasDown)
+        {
+            this.step = (this.step + 1) % Steps.Length;
+            this.physicsManager.DebugFlags = Steps[this.step];
+
+            // The render manager's switch is what lets any of it reach the screen.
+            this.renderManager.DebugLines = Steps[this.step] != PhysicsDebugFlags.None;
+        }
+
+        this.wasDown = isDown;
+    }
+}
+</code></pre>
+<h2 id="what-each-flag-is-good-for">What each flag is good for</h2>
+<table>
+<thead>
+<tr>
+<th>Symptom</th>
+<th>Flag to turn on</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>A body rests too high, or sinks into the floor</td>
+<td><strong>Colliders</strong>: the shape is not the size the mesh is.</td>
+</tr>
+<tr>
+<td>A compound body behaves as though it were one box</td>
+<td><strong>Colliders</strong>: a child collider is missing from the hierarchy.</td>
+</tr>
+<tr>
+<td>A body tips over for no reason</td>
+<td><strong>CentersOfMass</strong>: its centre of mass is not where you assumed.</td>
+</tr>
+<tr>
+<td>A vehicle rolls in every corner</td>
+<td><strong>CentersOfMass</strong>: set <code>CenterOfMassOffset</code> lower.</td>
+</tr>
+<tr>
+<td>A ragdoll explodes on the first frame</td>
+<td><strong>Constraints</strong>: it was built outside its own limits.</td>
+</tr>
+<tr>
+<td>A hinge opens the wrong way</td>
+<td><strong>Constraints</strong>: the limit arc shows where zero is.</td>
+</tr>
+<tr>
+<td>A character catches on flat ground</td>
+<td><strong>Characters</strong>: watch the ground normal at the seams.</td>
+</tr>
+<tr>
+<td>Bodies stop reacting to each other</td>
+<td><strong>SleepState</strong>: they have gone to sleep.</td>
+</tr>
+<tr>
+<td>Cloth stretches away from its pins</td>
+<td><strong>SoftBodyStructure</strong>: the LRA constraints are missing.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>Colliders</code> and <code>SleepState</code> together are the pair to keep on while building a scene: the first says whether the shapes are right, and the second says whether anything is still awake that should not be.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Debug drawing is not free. It walks every body in the world and produces a line for every edge of every shape, so it costs real time in a large scene. It is a tool for development, not something to leave on.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

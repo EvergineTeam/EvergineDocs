@@ -1,0 +1,286 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Scroll view | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Scroll view | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="scroll-view">Scroll view</h1>
+
+<hr>
+<p><img src="images/scrollview.png" alt="Scroll view"></p>
+<p>The <code>ScrollView</code> control shows content that is larger than its visible area and lets the user scroll it by dragging with near or far interaction. Use it for long text, forms, or any group of UI elements that does not fit in a panel. It scrolls vertically, horizontally, or both, and shows a scroll bar for each direction when the content overflows.</p>
+<p>The control is distributed as the <code>ScrollView.weprefab</code> prefab.</p>
+<h2 id="usage">Usage</h2>
+<p>Add the prefab to your scene and place your UI elements inside its content entity. The scroll view clips the content to its visible area, so every <code>Text3DMesh</code> and material used inside it must render in the <strong>ScrollContent</strong> render layer that MRTK provides.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/scrollview_text_layer.png" alt="Text3D using the ScrollContent layer"></td>
+<td><img src="images/scrollview_material_layer.png" alt="Material using the ScrollContent layer"></td>
+</tr>
+<tr>
+<td>Scroll view layer for text</td>
+<td>Scroll view layer for materials</td>
+</tr>
+</tbody>
+</table>
+<p>To add content from code, position the entity and call <code>AddContent</code> with the entity, its position, and its size. <code>AddContent</code> does not move the entity; it records the position and size to compute the scrollable area.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+using Evergine.MRTK.SDK.Features.UX.Components.Scrolling;
+
+public class ScrollViewFiller : Component
+{
+    [BindComponent(source: BindComponentSource.Children)]
+    private ScrollView scrollView = null;
+
+    public Entity Item { get; set; }
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        // Place the item at the top-left corner of the visible area.
+        // Positions are relative to the scroll view center, in meters.
+        var size = new Vector2(0.2f, 0.05f);
+        var topLeft = new Vector2(-this.scrollView.Size.X * 0.5f, this.scrollView.Size.Y * 0.5f);
+        this.Item.FindComponent&lt;Transform3D&gt;().LocalPosition = new Vector3(topLeft.X, topLeft.Y, 0);
+        this.scrollView.AddContent(this.Item, topLeft, size);
+        this.scrollView.Refresh();
+    }
+}
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Size</code></td>
+<td><code>(0.25, 0.18)</code></td>
+<td>Width and height of the visible area, in meters. Changing it does not move the content; update the content positions yourself.</td>
+</tr>
+<tr>
+<td><code>ContentPadding</code></td>
+<td><code>0.01</code></td>
+<td>Padding between the edges of the visible area and the content.</td>
+</tr>
+<tr>
+<td><code>ElasticTime</code></td>
+<td><code>0.1</code></td>
+<td>Duration, in seconds, of the elastic animation when the content is dragged beyond its edges.</td>
+</tr>
+<tr>
+<td><code>ZContentDistance</code></td>
+<td><code>0.004</code></td>
+<td>Distance along the local Z axis between the background and the content.</td>
+</tr>
+<tr>
+<td><code>BarWidth</code></td>
+<td><code>0.004</code></td>
+<td>Width of the scroll bars.</td>
+</tr>
+<tr>
+<td><code>HorizontalScrollEnabled</code></td>
+<td><code>true</code></td>
+<td>Allows scrolling in the horizontal direction.</td>
+</tr>
+<tr>
+<td><code>VerticalScrollEnabled</code></td>
+<td><code>true</code></td>
+<td>Allows scrolling in the vertical direction.</td>
+</tr>
+<tr>
+<td><code>HorizontalScrollBarVisibility</code></td>
+<td><code>Auto</code></td>
+<td>Visibility of the horizontal bar: <code>Auto</code> shows it only when the content is wider than the visible area, <code>Visible</code> always shows it, and <code>Hidden</code> never does.</td>
+</tr>
+<tr>
+<td><code>VerticalScrollBarVisibility</code></td>
+<td><code>Auto</code></td>
+<td>Visibility of the vertical bar, with the same options.</td>
+</tr>
+<tr>
+<td><code>Debug</code></td>
+<td><code>false</code></td>
+<td>Draws debug information for the scroll area.</td>
+</tr>
+<tr>
+<td><code>ScrollPosition</code></td>
+<td></td>
+<td>Read-only. Current scroll offset of the content.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>DisplayScrollBar</code> is obsolete. Use <code>HorizontalScrollBarVisibility</code> and <code>VerticalScrollBarVisibility</code> instead.</p>
+</div>
+<h2 id="methods">Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddContent(Entity entity, Vector2 contentPosition, Vector2 contentSize)</code></td>
+<td>Adds an entity to the content container and records its position and size to compute the scrollable area.</td>
+</tr>
+<tr>
+<td><code>ClearContents(Func&lt;Entity, bool&gt; clearCriteria = null)</code></td>
+<td>Removes the content entities. When you pass a criteria function, only the entities for which it returns <code>true</code> are removed.</td>
+</tr>
+<tr>
+<td><code>Refresh()</code></td>
+<td>Recomputes the position and size of the scroll bars. Call it after you add or remove content.</td>
+</tr>
+<tr>
+<td><code>ScrollTo(Vector2 position)</code></td>
+<td>Moves the content to the given scroll offset.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="events">Events</h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Scrolled</code></td>
+<td>Raised when the content scrolls, either by user interaction or through <code>ScrollTo</code>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

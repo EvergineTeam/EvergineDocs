@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Pointers and control | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Pointers and control | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="pointers-and-control">Pointers and control</h1>
+
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Near pointer" src="images/near_pointer.png" height="200"></th>
+<th style="text-align: center;"><img alt="Far pointer" src="images/far_pointer.png" height="200"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Near pointer</strong></td>
+<td style="text-align: center;"><strong>Far pointer</strong></td>
+</tr>
+</tbody>
+</table>
+<p>MRTK replaces the mouse pointer with pointers that follow the user's hands and controllers. <code>XRScene</code> creates them for you, one near and one far pointer per hand, so your controls react to touch, pinch, and gaze without extra setup.</p>
+<h2 id="interaction-modes">Interaction modes</h2>
+<ul>
+<li><strong>Near interaction.</strong> When the hand is close to a control, the user touches it with the tip of the index finger. The near pointer (<code>CursorTouch</code>) is a small sensor sphere attached to that fingertip.</li>
+<li><strong>Far interaction.</strong> When the control is out of reach, the user points at it with a ray that comes out of the hand or controller. The far pointer (<code>CursorRay</code>) casts that ray and places a cursor where it hits. Pinching the thumb and index finger, the <em>air-tap</em> gesture, clicks the control under the cursor.</li>
+<li><strong>Gaze.</strong> The <code>GazeProvider</code> component, added to the camera by <code>XRScene</code>, casts a ray from the user's head. Controls that implement focus events also react when the user looks at them.</li>
+</ul>
+<p>On devices with hand tracking, the pointers follow the tracked index fingertip. With physical controllers, <code>XRScene</code> creates a second set of pointers attached to each controller.</p>
+<h2 id="how-pointer-events-reach-your-controls">How pointer events reach your controls</h2>
+<p>Pointers find controls through the physics engine: each cursor is a sensor body, and a control needs a collider so the cursor can hit it. When a cursor enters, touches, or clicks an entity, MRTK calls the handler interfaces implemented by the components on that entity.</p>
+<p><img src="images/mrtk_pointer_flow.png" alt="Diagram: hand tracking, controllers and the desktop emulation drive the near and far cursors; the cursors and the gaze provider hit a control's collider, and FocusProvider and the cursors call the focus, touch and pointer handlers on that entity"></p>
+<p><em>Input moves the cursors, the cursors hit colliders, and MRTK calls the handler interfaces on the entity that was hit.</em></p>
+<p>See <a href="custom_controls.html">Creating custom controls</a> for the events each interface receives.</p>
+<h2 id="desktop-emulation">Desktop emulation</h2>
+<p>You can test MRTK in a Windows desktop profile without a headset. When no XR input tracking is available, <code>XRScene</code> adds a <code>MouseControlBehavior</code> to each hand pointer, and the mouse and keyboard drive them:</p>
+<table>
+<thead>
+<tr>
+<th>Input</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hold <strong>Left Shift</strong></td>
+<td>Activates the right-hand pointer. Move the mouse to move it.</td>
+</tr>
+<tr>
+<td>Hold <strong>Space</strong></td>
+<td>Activates the left-hand pointer. Move the mouse to move it.</td>
+</tr>
+<tr>
+<td><strong>Mouse wheel</strong> (while a pointer is active)</td>
+<td>Moves the pointer closer to or farther from the camera.</td>
+</tr>
+<tr>
+<td><strong>Left mouse button</strong> (while a pointer is active)</td>
+<td>Pinches, which performs the air-tap on far controls and grabs objects.</td>
+</tr>
+<tr>
+<td>Hold <strong>Left Ctrl</strong> (while a pointer is active)</td>
+<td>Rotates the active pointer with the mouse instead of moving it.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

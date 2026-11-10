@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Sensors | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Sensors | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="sensors">Sensors</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/sensors_overlap.mp4" type="video/mp4">
+</video>
+<p>A <strong>sensor</strong> is a body that notices what passes through it without pushing back. Trigger volumes, checkpoints, pickup radii and damage zones are all sensors.</p>
+<p>There is no separate component for it. A sensor is a <a href="static_body.html"><code>StaticBody</code></a> or a <a href="rigid_body.html"><code>RigidBody</code></a> with one property set, which both inherit from <code>PhysicsBody</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsSensor</strong></td>
+<td>false</td>
+<td>The body detects overlaps and raises its collision events, but produces no contact response. Other bodies pass straight through.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="creating-a-sensor">Creating a Sensor</h2>
+<pre><code class="lang-csharp">Entity checkpoint = new Entity(&quot;checkpoint&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 1.5f, 0f) })
+    .AddComponent(new StaticBody() { IsSensor = true })
+    .AddComponent(new BoxCollider() { Size = new Vector3(4f, 3f, 1f) });
+
+this.Managers.EntityManager.Add(checkpoint);
+</code></pre>
+<p>A sensor that stays put is a <code>StaticBody</code>; one that moves, following a hand or a cursor, is a kinematic <code>RigidBody</code>. Either way it is usually invisible: it needs no mesh at all. Turn on <a href="../debug_rendering.html">debug rendering</a> while placing one, or give it a translucent material as the picture above does.</p>
+<h2 id="detecting-bodies">Detecting Bodies</h2>
+<p>Sensors raise the ordinary <a href="collisions.html">collision events</a>, so a trigger zone is a pair of handlers:</p>
+<pre><code class="lang-csharp">public class TriggerZone : Behavior
+{
+    // PhysicsBody rather than StaticBody, so the same zone works whether or not it moves.
+    [BindComponent(isExactType: false)]
+    private PhysicsBody body = null;
+
+    private int inside;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        this.body.CollisionStarted += this.OnEnter;
+        this.body.CollisionEnded += this.OnExit;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+
+        this.body.CollisionStarted -= this.OnEnter;
+        this.body.CollisionEnded -= this.OnExit;
+    }
+
+    private void OnEnter(object sender, CollisionInfo info)
+    {
+        // Counted rather than treated as a switch: several bodies can be inside a zone at once, and a
+        // door that closes when the first of three players leaves is a door with a bug in it.
+        if (++this.inside == 1)
+        {
+            this.Open();
+        }
+    }
+
+    private void OnExit(object sender, CollisionInfo info)
+    {
+        if (--this.inside == 0)
+        {
+            this.Close();
+        }
+    }
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>CollisionEnded</code> carries no contact point or normal. By the time it fires there is no contact left to describe, so only <code>OtherBody</code> and <code>OtherEntity</code> are meaningful.</p>
+</div>
+<h2 id="sensors-and-other-body-types">Sensors and Other Body Types</h2>
+<p>A <strong>static</strong> sensor notices dynamic bodies, which covers most uses. It never notices other static bodies, because Jolt never pairs two static bodies, so a sensor that has to be swept across the level is a <strong>kinematic</strong> <code>RigidBody</code>. That one needs one more property to notice static and kinematic bodies as well:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CollideKinematicVsNonDynamic</strong></td>
+<td>false</td>
+<td>Lets a kinematic body report contacts against static and other kinematic bodies. Without it, a kinematic sensor only ever sees dynamic ones.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This is the case the <a href="../migrating_from_bullet.html#migration-tool">migration tool</a> flags most often: a Bullet ghost body that followed the cursor, a controller or a hand was static, and worked because Bullet paired static ghosts with everything. Under Jolt it has to be kinematic, with the property above set.</p>
+</div>
+<h2 id="sensors-and-queries">Sensors and Queries</h2>
+<p><a href="../queries.html">Queries</a> skip sensors by default, which is nearly always right: a ray fired at the world should not stop at an invisible trigger volume. To include them, say so in the filter:</p>
+<pre><code class="lang-csharp">QueryFilter filter = QueryFilter.Default;
+filter.IncludeSensors = true;
+
+if (this.physicsManager.RayCast(origin, direction, 50f, filter, out RayCastHit hit))
+{
+    // Trigger volumes are candidates for this hit too.
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Serialization across the JavaScript bridge | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Serialization across the JavaScript bridge | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="serialization-across-the-javascript-bridge">Serialization across the JavaScript bridge</h1>
+
+<hr>
+<p><img src="images/web_architecture.png" alt="Architecture of an Evergine web application, with the JavaScript bridge between the page and the .NET runtime"></p>
+<p>Every value that crosses the JavaScript bridge is serialized to JSON with <code>System.Text.Json</code>. Without help, Evergine structs such as <code>Vector3</code> or <code>Color</code> would not survive the trip: their data lives in public fields, which <code>System.Text.Json</code> ignores by default. The <strong>Evergine.Serialization.Converters</strong> package adds JSON converters for the common types of <code>Evergine.Mathematics</code> and <code>Evergine.Common</code>, so you can pass them to <code>[JSInvokable]</code> methods and to <code>Invoke</code> calls as plain JavaScript objects.</p>
+<p>The converters are regular <code>JsonConverter&lt;T&gt;</code> classes, so you can also use them outside the browser, for example in an ASP.NET Core API that exchanges the same types.</p>
+<h2 id="register-the-converters">Register the converters</h2>
+<p>New web projects reference the package and register the converters in the launcher's <code>Program.cs</code>. The <code>HostConfiguration</code> class is assigned before the WebAssembly instance is created, because the converters are added to the JSON options of the Blazor runtime when that instance starts:</p>
+<pre><code class="lang-csharp">using Evergine.Serialization.Converters;
+using Evergine.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using System.Collections.Generic;
+using System.Text.Json.Serialization;
+
+namespace MyProject.Web
+{
+    public class Program
+    {
+        private static global::Evergine.Web.WebAssembly wasm;
+
+        public static void Main()
+        {
+            // Must be set before GetInstance(), which builds the host and reads it.
+            global::Evergine.Web.WebAssembly.HostConfiguration = new HostConfiguration();
+            wasm = global::Evergine.Web.WebAssembly.GetInstance();
+        }
+
+        private class HostConfiguration : IWasmHostConfiguration
+        {
+            public void ConfigureHost(WebAssemblyHostBuilder builder)
+            {
+                // Register services on the Blazor host here if you need them.
+                // Do not call builder.Build(): Evergine builds the host itself.
+            }
+
+            public void RegisterJsonConverters(IList&lt;JsonConverter&gt; converters)
+            {
+                // Adds every converter marked for automatic registration.
+                converters.AddEvergineConverters();
+            }
+        }
+    }
+}
+</code></pre>
+<p>If you upgrade an older project, add the package reference to the client project and add the <code>HostConfiguration</code> class above:</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Evergine.Serialization.Converters&quot; Version=&quot;EVERGINE_VERSION&quot; /&gt;
+</code></pre>
+<p>Replace <code>EVERGINE_VERSION</code> with the Evergine version of the rest of your packages.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The WebXR template does not register the converters. Add the <code>HostConfiguration</code> class and the package if you need them there.</p>
+</div>
+<h2 id="converters">Converters</h2>
+<p><code>AddEvergineConverters()</code> adds every converter marked as auto-registered. The two that are not, <code>ColorJsonConverter</code> and <code>ByteArrayJsonConverter</code>, must be added by hand: see <a href="#choose-between-converters">Choose between converters</a> and <a href="#use-the-converters-outside-the-bridge">Use the converters outside the bridge</a>.</p>
+<p>Blazor serializes property names in camelCase, so the JavaScript keys are lowercase (<code>x</code>, <code>halfExtent</code>), whatever the case of the C# field.</p>
+<table>
+<thead>
+<tr>
+<th>Converter</th>
+<th>.NET type</th>
+<th>JavaScript shape</th>
+<th>Auto-registered</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ColorAsHexJsonConverter</code></td>
+<td><code>Color</code></td>
+<td><code>&quot;#RRGGBBAA&quot;</code>; <code>&quot;#RRGGBB&quot;</code> is also read, as opaque</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>ColorJsonConverter</code></td>
+<td><code>Color</code></td>
+<td><code>{ r, g, b, a }</code>, each 0 to 255</td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>ByteArrayJsonConverter</code></td>
+<td><code>byte[]</code></td>
+<td><code>[0, 128, 255]</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>Vector2JsonConverter</code></td>
+<td><code>Vector2</code></td>
+<td><code>{ x, y }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Vector3JsonConverter</code></td>
+<td><code>Vector3</code></td>
+<td><code>{ x, y, z }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Vector4JsonConverter</code></td>
+<td><code>Vector4</code></td>
+<td><code>{ x, y, z, w }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>QuaternionJsonConverter</code></td>
+<td><code>Quaternion</code></td>
+<td><code>{ x, y, z, w }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>UInt2JsonConverter</code></td>
+<td><code>UInt2</code></td>
+<td><code>{ x, y }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>UInt3JsonConverter</code></td>
+<td><code>UInt3</code></td>
+<td><code>{ x, y, z }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Byte4JsonConverter</code></td>
+<td><code>Byte4</code></td>
+<td><code>{ x, y, z, w }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>PointJsonConverter</code></td>
+<td><code>Point</code></td>
+<td><code>{ x, y }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>RectangleJsonConverter</code></td>
+<td><code>Rectangle</code></td>
+<td><code>{ x, y, width, height }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>RectangleFJsonConverter</code></td>
+<td><code>RectangleF</code></td>
+<td><code>{ x, y, width, height }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Matrix3x3JsonConverter</code></td>
+<td><code>Matrix3x3</code></td>
+<td>Array of 3 rows: <code>[[m11, m12, m13], [m21, m22, m23], [m31, m32, m33]]</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Matrix4x4JsonConverter</code></td>
+<td><code>Matrix4x4</code></td>
+<td>Array of 4 rows: <code>[[m11, m12, m13, m14], ..., [m41, m42, m43, m44]]</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>PlaneJsonConverter</code></td>
+<td><code>Plane</code></td>
+<td><code>{ normal: {x, y, z}, d }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>RayJsonConverter</code></td>
+<td><code>Ray</code></td>
+<td><code>{ position: {x, y, z}, direction: {x, y, z} }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>RayStepJsonConverter</code></td>
+<td><code>RayStep</code></td>
+<td><code>{ origin: {x, y, z}, terminus: {x, y, z} }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>RayHit3DJsonConverter</code></td>
+<td><code>RayHit3D</code></td>
+<td><code>{ location: {x, y, z}, normal: {x, y, z}, t }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>BoundigBoxJsonConverter</code></td>
+<td><code>BoundingBox</code></td>
+<td><code>{ min: {x, y, z}, max: {x, y, z} }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>BoundingSphereJsonConverter</code></td>
+<td><code>BoundingSphere</code></td>
+<td><code>{ center: {x, y, z}, radius }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>BoundingOrientedBoxJsonConverter</code></td>
+<td><code>BoundingOrientedBox</code></td>
+<td><code>{ center: {x, y, z}, halfExtent: {x, y, z}, orientation: {x, y, z, w} }</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>BoundingFrustumJsonConverter</code></td>
+<td><code>BoundingFrustum</code></td>
+<td><code>{ matrix: [[...], [...], [...], [...]] }</code>, the 4x4 view-projection matrix</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>SplineJsonConverter</code></td>
+<td><code>Spline</code></td>
+<td><code>{ a, b, c, d }</code></td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<p>The two color converters live in the <code>Evergine.Serialization.Converters.Common.Graphics</code> namespace, the math converters in <code>Evergine.Serialization.Converters.Mathematics</code>, and <code>ByteArrayJsonConverter</code> in <code>Evergine.Serialization.Converters</code>. <code>BoundigBoxJsonConverter</code> is spelled that way in the library.</p>
+<p>Nested values use the converter of their own type, so the <code>min</code> of a <code>BoundingBox</code> has the same shape as a <code>Vector3</code>.</p>
+<h2 id="examples">Examples</h2>
+<h3 id="pass-a-vector-from-javascript-to-c">Pass a vector from JavaScript to C#</h3>
+<p>In the HTML5 template, <code>app.program.invoke</code> calls a static method on the launcher's <code>Program</code> class. The identifier follows the template's <code>&lt;Namespace&gt;.Program:&lt;Method&gt;</code> pattern (see <a href="getting_started.html#how-the-method-identifiers-are-built">Getting started</a>):</p>
+<pre><code class="lang-csharp">// In MyProject.Web/Program.cs, inside the Program class.
+// Requires: using Evergine.Mathematics; using Microsoft.JSInterop;
+[JSInvokable(&quot;MyProject.Web.Program:LogPosition&quot;)]
+public static float LogPosition(Vector3 position)
+{
+    Console.WriteLine($&quot;Received {position}&quot;);
+    return position.Length();
+}
+</code></pre>
+<pre><code class="lang-javascript">const length = app.program.invoke(&quot;LogPosition&quot;, { x: 1, y: 2, z: 2 });
+console.log(length); // 3
+</code></pre>
+<h3 id="return-an-evergine-type-from-c-to-javascript">Return an Evergine type from C# to JavaScript</h3>
+<p>Return values use the same converters, so JavaScript receives the documented shape:</p>
+<pre><code class="lang-csharp">// In MyProject.Web/Program.cs, inside the Program class.
+[JSInvokable(&quot;MyProject.Web.Program:GetBounds&quot;)]
+public static BoundingBox GetBounds()
+{
+    return new BoundingBox(new Vector3(-1, 0, -1), new Vector3(1, 2, 1));
+}
+</code></pre>
+<pre><code class="lang-javascript">const bounds = app.program.invoke(&quot;GetBounds&quot;);
+console.log(bounds.max.y - bounds.min.y); // 2
+</code></pre>
+<h3 id="choose-between-converters">Choose between converters</h3>
+<p>Registration order matters: for a given type, <code>System.Text.Json</code> uses the first converter in the list that can handle it. To send colors as objects instead of hexadecimal strings, remove <code>ColorAsHexJsonConverter</code> and add <code>ColorJsonConverter</code>. Add your own converters in the same method:</p>
+<pre><code class="lang-csharp">using Evergine.Serialization.Converters;
+using Evergine.Serialization.Converters.Common.Graphics;
+using Evergine.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json.Serialization;
+
+namespace MyProject.Web
+{
+    internal class HostConfiguration : IWasmHostConfiguration
+    {
+        public void ConfigureHost(WebAssemblyHostBuilder builder)
+        {
+        }
+
+        public void RegisterJsonConverters(IList&lt;JsonConverter&gt; converters)
+        {
+            converters.AddEvergineConverters();
+
+            // Colors as { r, g, b, a } instead of &quot;#RRGGBBAA&quot;.
+            var hexConverter = converters.OfType&lt;ColorAsHexJsonConverter&gt;().FirstOrDefault();
+            if (hexConverter != null)
+            {
+                converters.Remove(hexConverter);
+            }
+
+            converters.Add(new ColorJsonConverter());
+        }
+    }
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Converters registered here apply to every call across the bridge, in both directions. You do not need <code>[JsonConverter]</code> attributes on your own types' properties when their types are covered by a registered converter.</p>
+</div>
+<h3 id="use-the-converters-outside-the-bridge">Use the converters outside the bridge</h3>
+<p>The converters work with any <code>JsonSerializerOptions</code>, for example in an ASP.NET Core API or when you save data to a file. That is also where <code>ByteArrayJsonConverter</code> is useful: <code>System.Text.Json</code> writes <code>byte[]</code> as a base64 string by default, and this converter writes a number array instead. Across the bridge itself, Blazor already passes <code>byte[]</code> as a JavaScript <code>Uint8Array</code>, so prefer that there.</p>
+<pre><code class="lang-csharp">using Evergine.Mathematics;
+using Evergine.Serialization.Converters;
+using System.Text.Json;
+
+public static class SnapshotSerializer
+{
+    private static readonly JsonSerializerOptions Options = CreateOptions();
+
+    public static string Serialize(Vector3 position, byte[] payload) =&gt;
+        // {&quot;position&quot;:{&quot;x&quot;:1,&quot;y&quot;:2,&quot;z&quot;:3},&quot;payload&quot;:[0,128,255]}
+        JsonSerializer.Serialize(new { position, payload }, Options);
+
+    private static JsonSerializerOptions CreateOptions()
+    {
+        // Match the camelCase keys that Blazor uses on the bridge.
+        var options = new JsonSerializerOptions { PropertyNamingPolicy = JsonNamingPolicy.CamelCase };
+        options.Converters.AddEvergineConverters();
+        options.Converters.Add(new ByteArrayJsonConverter());
+        return options;
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

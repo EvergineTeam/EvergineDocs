@@ -1,0 +1,439 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Buffer | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Buffer | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="buffer">Buffer</h1>
+
+<p>A <code>Buffer</code> is a block of GPU memory. What it holds is up to you: vertex positions and normals, indices, constant data a shader reads each frame, or a structured buffer a compute shader writes into.</p>
+<p>What it can be used for, though, is fixed when you create it. <code>BufferFlags</code> decides which pipeline stages may bind it, which <a href="barriers.html">barrier</a> states it can be moved between, and which <a href="resourcelayout.html#resourcetype">ResourceType</a> slot it can fill in a <a href="resourceset.html">ResourceSet</a>.</p>
+<h2 id="creation">Creation</h2>
+<p>To create a buffer, first create the <code>BufferDescription</code> struct:</p>
+<pre><code class="lang-csharp">// Populate some data for the buffer...
+Vector4[] vertexData = new Vector4[]
+{
+    new Vector4(0.0f, 0.2f, 0.0f, 1.0f),   new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+    new Vector4(0.2f, -0.2f, 0.0f, 1.0f),  new Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+    new Vector4(-0.2f, -0.2f, 0.0f, 1.0f), new Vector4(0.0f, 0.0f, 1.0f, 1.0f),
+};
+
+uint expectedSize = (4 * 4) * (uint)vertexData.Length;
+BufferFlags expectedFlags = BufferFlags.VertexBuffer;
+ResourceUsage expectedUsage = ResourceUsage.Default;
+
+// Create the BufferDescription....
+BufferDescription bufferDescription = new BufferDescription(expectedSize, expectedFlags, expectedUsage);
+
+// Create the Buffer
+Buffer buffer = this.graphicsContext.Factory.CreateBuffer(vertexData, ref bufferDescription);
+</code></pre>
+<h3 id="bufferdescription">BufferDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SizeInBytes</strong></td>
+<td><code>uint</code></td>
+<td>Retrieves or sets the size of the new buffer.</td>
+</tr>
+<tr>
+<td><strong>Flags</strong></td>
+<td><code>BufferFlags</code></td>
+<td>Buffer flags describing the buffer type.</td>
+</tr>
+<tr>
+<td><strong>CpuAccess</strong></td>
+<td><code>ResourceCpuAccess</code></td>
+<td>Specifies the types of CPU access allowed for this buffer.</td>
+</tr>
+<tr>
+<td><strong>Usage</strong></td>
+<td><code>ResourceUsage</code></td>
+<td>Usage of this buffer.</td>
+</tr>
+<tr>
+<td><strong>StructureByteStride</strong></td>
+<td><code>int</code></td>
+<td>The structure byte stride.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resourceusage">ResourceUsage</h3>
+<p>Identifies expected resource usage during rendering.</p>
+<table>
+<thead>
+<tr>
+<th>ResourceUsage</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Default</strong></td>
+<td>A resource that requires read and write access by the GPU. <strong>Default value.</strong></td>
+</tr>
+<tr>
+<td><strong>Immutable</strong></td>
+<td>A resource that can only be read by the GPU. It cannot be written by the GPU and cannot be accessed at all by the CPU.</td>
+</tr>
+<tr>
+<td><strong>Dynamic</strong></td>
+<td>A resource that is accessible by both the GPU (read-only) and the CPU (write-only).</td>
+</tr>
+<tr>
+<td><strong>Staging</strong></td>
+<td>A resource that supports data transfer (copy) from the GPU to the CPU.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Dynamic</code> and <code>Staging</code> move data in opposite directions and are not interchangeable. A dynamic buffer is written by the CPU and read by the GPU, which is how you upload. A staging buffer is written by the GPU through a copy and read by the CPU, which is how you read back.</p>
+<h3 id="bufferflags">BufferFlags</h3>
+<p>Identifies how to bind a buffer. This flag gives a hint to the graphics API about how this buffer will be used.</p>
+<table>
+<thead>
+<tr>
+<th>BufferFlags</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>No option.</td>
+</tr>
+<tr>
+<td><strong>VertexBuffer</strong></td>
+<td>Bind a buffer as a vertex buffer to the input-assembler stage.</td>
+</tr>
+<tr>
+<td><strong>IndexBuffer</strong></td>
+<td>Bind a buffer as an index buffer to the input-assembler stage.</td>
+</tr>
+<tr>
+<td><strong>ConstantBuffer</strong></td>
+<td>Bind a buffer as a constant buffer to a shader stage. This flag may NOT be combined with any other bind flag.</td>
+</tr>
+<tr>
+<td><strong>ShaderResource</strong></td>
+<td>Bind a buffer or texture to a shader stage.</td>
+</tr>
+<tr>
+<td><strong>AccelerationStructure</strong></td>
+<td>Bind a buffer to be used in a raytracing stage.</td>
+</tr>
+<tr>
+<td><strong>RenderTarget</strong></td>
+<td>Bind a texture as a render target for the output-merger stage.</td>
+</tr>
+<tr>
+<td><strong>UnorderedAccess</strong></td>
+<td>Bind a buffer as an unordered access resource.</td>
+</tr>
+<tr>
+<td><strong>BufferStructured</strong></td>
+<td>Bind a buffer as a structured buffer resource.</td>
+</tr>
+<tr>
+<td><strong>IndirectBuffer</strong></td>
+<td>Bind a buffer as an indirect buffer to the input-assembler stage.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="resourcecpuaccess">ResourceCpuAccess</h3>
+<p>Specifies the types of CPU access allowed for a resource.</p>
+<table>
+<thead>
+<tr>
+<th>ResourceCpuAccess</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>Not specified. <strong>Default value.</strong></td>
+</tr>
+<tr>
+<td><strong>Write</strong></td>
+<td>The CPU can write to this resource.</td>
+</tr>
+<tr>
+<td><strong>Read</strong></td>
+<td>The CPU can read from this resource.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="usage-examples">Usage examples</h2>
+<h3 id="how-to-update-a-default-buffer">How to update a default buffer</h3>
+<p>Call <code>GraphicsContext.UpdateBufferData(...)</code>:</p>
+<pre><code class="lang-csharp">var vertexData = new Vector4[]
+{
+    new Vector4(0.0f, 0.2f, 0.0f, 1.0f),   new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+    new Vector4(0.2f, -0.2f, 0.0f, 1.0f),  new Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+    new Vector4(-0.2f, -0.2f, 0.0f, 1.0f), new Vector4(0.0f, 0.0f, 1.0f, 1.0f),
+};
+
+// Creates a Buffer without data...
+uint sizeInBytes = (4 * 4) * (uint)vertexData.Length;
+var bufferDescription = new BufferDescription(sizeInBytes, BufferFlags.VertexBuffer, ResourceUsage.Default);
+var buffer = this.graphicsContext.Factory.CreateBuffer(ref bufferDescription);
+
+// Update buffer...
+this.graphicsContext.UpdateBufferData(buffer, vertexData);
+</code></pre>
+<h3 id="how-to-copy-one-default-buffer-into-another">How to copy one default buffer into another</h3>
+<p>Get a <code>CommandBuffer</code> and record a <code>CopyBufferDataTo</code> command:</p>
+<pre><code class="lang-csharp">var vertexData = new Vector4[]
+{
+    new Vector4(0.0f, 0.2f, 0.0f, 1.0f),   new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+    new Vector4(0.2f, -0.2f, 0.0f, 1.0f),  new Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+    new Vector4(-0.2f, -0.2f, 0.0f, 1.0f), new Vector4(0.0f, 0.0f, 1.0f, 1.0f),
+};
+
+// Creates the source buffer with some vertex data...
+var description = new BufferDescription(
+    4 * 4 * (uint)vertexData.Length,
+    BufferFlags.VertexBuffer,
+    ResourceUsage.Default);
+
+var buffer = this.graphicsContext.Factory.CreateBuffer(vertexData, ref description);
+
+// Creates an empty buffer with the same size and properties as before...
+var bufferCopyDescription = new BufferDescription(
+    (4 * 4) * (uint)vertexData.Length,
+    BufferFlags.VertexBuffer,
+    ResourceUsage.Default);
+
+var bufferCopy = this.graphicsContext.Factory.CreateBuffer(ref bufferCopyDescription);
+
+// Creates a CommandBuffer to execute the copy command...
+var queue = this.graphicsContext.Factory.CreateCommandQueue();
+var command = queue.CommandBuffer();
+command.Begin();
+
+// Execute the CopyBufferDataTo() commandBuffer method to copy data from one buffer to another...
+command.CopyBufferDataTo(buffer, bufferCopy, buffer.Description.SizeInBytes);
+
+// Commit and submit the commandBuffer...
+command.End();
+command.Commit();
+queue.Submit();
+queue.WaitIdle();
+
+buffer.Dispose();
+bufferCopy.Dispose();
+queue.Dispose();
+</code></pre>
+<h3 id="how-to-read-a-default-buffer-through-a-staging-buffer">How to read a default buffer through a staging buffer</h3>
+<p>A default buffer lives in GPU memory the CPU cannot reach, so reading it takes two steps: copy it into a staging buffer, then map that buffer into CPU memory.</p>
+<pre><code class="lang-csharp">var vertexData = new Vector4[]
+{
+    new Vector4(0.0f, 0.2f, 0.0f, 1.0f),   new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+    new Vector4(0.2f, -0.2f, 0.0f, 1.0f),  new Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+    new Vector4(-0.2f, -0.2f, 0.0f, 1.0f), new Vector4(0.0f, 0.0f, 1.0f, 1.0f),
+};
+
+// Create the source buffer with some data...
+var description = new BufferDescription(
+    4 * 4 * (uint)vertexData.Length,
+    BufferFlags.VertexBuffer,
+    ResourceUsage.Default);
+
+var buffer = this.graphicsContext.Factory.CreateBuffer(vertexData, ref description);
+
+// Creates the staging buffer...
+var stagingDescription = new BufferDescription(
+    4 * 4 * (uint)vertexData.Length,
+    BufferFlags.None,
+    ResourceUsage.Staging, // Use Staging as ResourceUsage...
+    ResourceCpuAccess.Read);
+
+var stagingBuffer = this.graphicsContext.Factory.CreateBuffer(ref stagingDescription);
+
+// Copy the buffer data like the previous example...
+var queue = this.graphicsContext.Factory.CreateCommandQueue();
+var command = queue.CommandBuffer();
+
+command.Begin();
+command.CopyBufferDataTo(buffer, stagingBuffer, buffer.Description.SizeInBytes);
+command.End();
+command.Commit();
+queue.Submit();
+queue.WaitIdle();
+
+// To read the buffer data, map the buffer into the CPU memory...
+var readableResource = this.graphicsContext.MapMemory(stagingBuffer, MapMode.Read);
+
+// Reading through a pointer needs an unsafe context...
+var readBack = new Vector4[vertexData.Length];
+
+unsafe
+{
+    for (int i = 0; i &lt; readBack.Length; i++)
+    {
+        Vector4* pointer = (Vector4*)(readableResource.Data + (i * sizeof(Vector4)));
+        readBack[i] = *pointer;
+    }
+}
+
+// Unmap the memory to free the CPU memory resources...
+this.graphicsContext.UnmapMemory(stagingBuffer);
+
+buffer.Dispose();
+stagingBuffer.Dispose();
+queue.Dispose();
+</code></pre>
+<h3 id="how-to-map-a-dynamic-buffer">How to map a dynamic buffer</h3>
+<p>A dynamic buffer is written straight from the CPU. Map it, write to the mapped pointer, and unmap:</p>
+<pre><code class="lang-csharp">var vectorSize = (uint)Unsafe.SizeOf&lt;Vector4&gt;();
+var vertexData = new Vector4[]
+{
+    new Vector4(0.0f, 0.2f, 0.0f, 1.0f),   new Vector4(1.0f, 0.0f, 0.0f, 1.0f),
+    new Vector4(0.2f, -0.2f, 0.0f, 1.0f),  new Vector4(0.0f, 1.0f, 0.0f, 1.0f),
+    new Vector4(-0.2f, -0.2f, 0.0f, 1.0f), new Vector4(0.0f, 0.0f, 1.0f, 1.0f),
+};
+
+var dynamicDescription = new BufferDescription(
+    vectorSize * (uint)vertexData.Length,
+    BufferFlags.VertexBuffer,
+    ResourceUsage.Dynamic,
+    ResourceCpuAccess.Write);
+
+var dynamicBuffer = this.graphicsContext.Factory.CreateBuffer(ref dynamicDescription);
+
+// Map the dynamic buffer for writing and keep it mapped...
+var writableResource = this.graphicsContext.MapMemory(dynamicBuffer, MapMode.Write);
+
+Vector4* pointer = (Vector4*)writableResource.Data;
+for (int i = 0; i &lt; vertexData.Length; i++)
+{
+    *pointer = vertexData[i];
+    pointer++;
+}
+
+// Once the buffer is unmapped, the new buffer content is accessible by the GPU...
+this.graphicsContext.UnmapMemory(dynamicBuffer);
+
+dynamicBuffer.Dispose();
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

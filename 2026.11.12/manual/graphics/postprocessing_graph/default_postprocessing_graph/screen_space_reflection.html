@@ -1,0 +1,179 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Screen Space Reflections (SSR) | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Screen Space Reflections (SSR) | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="screen-space-reflections-ssr">Screen Space Reflections (SSR)</h1>
+
+<hr>
+<p><img src="images/SSR.jpg" alt="Screen space reflections on a glossy floor"></p>
+<p><strong>Screen Space Reflections</strong> add local, real-time reflections to glossy surfaces. For each pixel, a ray is marched through the depth buffer in the reflected direction until it hits something on screen, whose color becomes the reflection.</p>
+<p>Like every screen-space technique, SSR can only reflect what is visible: objects off screen, behind others or facing away from the camera cannot appear in it. Combine it with <a href="../../environment/index.html">environment reflections</a>, which fill in where SSR finds nothing.</p>
+<p>SSR reads the GBuffer (normals and roughness), so it needs the GBuffer pass.</p>
+<h2 id="parameters">Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enabled</strong></td>
+<td>On</td>
+<td>Turns the effect on.</td>
+</tr>
+<tr>
+<td><strong>Num. Rays</strong></td>
+<td>200</td>
+<td>Ray-march steps per pixel. More steps find more hits and cost more.</td>
+</tr>
+<tr>
+<td><strong>Max. Reflection Distance</strong></td>
+<td>10</td>
+<td>Longest distance, in world units, a ray travels.</td>
+</tr>
+<tr>
+<td><strong>Refinement Steps</strong></td>
+<td>6</td>
+<td>Extra steps that refine the hit point once a ray crosses a surface, for sharper reflections.</td>
+</tr>
+<tr>
+<td><strong>Pixel Thickness</strong></td>
+<td>0.00025</td>
+<td>How thick each depth sample is assumed to be. Raise it if reflections have holes; lower it if objects reflect things behind them.</td>
+</tr>
+<tr>
+<td><strong>Max. Roughness</strong></td>
+<td>0.8</td>
+<td>Surfaces rougher than this get no screen-space reflection.</td>
+</tr>
+<tr>
+<td><strong>Intensity</strong></td>
+<td>0.5</td>
+<td>Blend of the reflection over the image, from 0 to 1.</td>
+</tr>
+<tr>
+<td><strong>Debug Mode Enabled</strong></td>
+<td>Off</td>
+<td>Shows only the reflections, to tune the parameters.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

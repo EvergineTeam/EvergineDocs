@@ -1,0 +1,643 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting started with Cesium | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with Cesium | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-cesium">Getting started with Cesium</h1>
+
+<hr>
+<p><img src="images/addon_installation.png" alt="Add-on installation"></p>
+<p>This page adds Cesium to a project and streams terrain and buildings into a scene. Everything goes through <code>CesiumCoordinator</code>, a scene manager that connects to Cesium ion, streams the tilesets you configure, drives the camera, and places your entities on the globe.</p>
+<h2 id="project-setup">Project setup</h2>
+<h3 id="1-create-a-project">1. Create a project</h3>
+<p>Create a project with <a href="../../evergine_launcher/create_project.html">Evergine Launcher</a> with a <strong>Windows</strong> profile.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Evergine Cesium does not support Web platforms (WebGL and WebGPU).</p>
+</div>
+<h3 id="2-install-the-add-on">2. Install the add-on</h3>
+<p>In Evergine Studio, open the <a href="../index.html#add-ons-manager">Add-ons Manager</a> and install <strong>Evergine.Cesium</strong>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The add-on references NuGet packages. To use nightly builds, add the Evergine nightly feed to your <code>nuget.config</code>:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;packageSources&gt;
+    &lt;add key=&quot;nuget.org&quot; value=&quot;https://api.nuget.org/v3/index.json&quot; /&gt;
+    &lt;add key=&quot;Evergine Nightly&quot; value=&quot;https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json&quot; /&gt;
+  &lt;/packageSources&gt;
+&lt;/configuration&gt;
+</code></pre>
+</div>
+<h3 id="3-register-the-cesiumcoordinator">3. Register the CesiumCoordinator</h3>
+<p>Create the coordinator in your scene's <code>RegisterManagers</code>, add the tilesets to stream, and register it. The tilesets must be added before the coordinator starts, because it creates their streams when the scene starts.</p>
+<pre><code class="lang-csharp">using Evergine.Cesium;
+using Evergine.Cesium.Utils;
+using Evergine.Framework;
+
+public class MyScene : Scene
+{
+    public override void RegisterManagers()
+    {
+        base.RegisterManagers();
+
+        var cesium = new CesiumCoordinator
+        {
+            // Read the token from your configuration; do not commit it to source control.
+            AccessToken = &quot;&lt;CESIUM_ION_TOKEN&gt;&quot;,
+
+            // Optional: enables GeocodeAsync, ReverseGeocodeAsync and AutocompleteAsync.
+            GeocodingService = new AzureMapsGeocodingService(&quot;&lt;AZURE_MAPS_KEY&gt;&quot;),
+        };
+
+        // Cesium World Terrain (asset 1) with Bing aerial imagery.
+        // It is also the tileset used to sample the terrain height.
+        cesium.AddTileset(1, &quot;Terrain&quot;, maxScreenSpaceError: 4,
+            overlayProvider: RasterOverlayProvider.BingAerial, preferredForHeightSampling: true);
+
+        // Cesium OSM Buildings (asset 96188), geometry only.
+        cesium.AddTileset(96188, &quot;Buildings&quot;, maxScreenSpaceError: 1);
+
+        this.Managers.AddManager(cesium);
+    }
+}
+</code></pre>
+<p>When the scene starts, the coordinator checks the internet connection and the token, finds the active camera, adds a <code>WorldCamera</code> component to it if it has none, and creates a <code>CesiumRoot</code> entity that holds the tiles. It also registers the render feature that draws the tiles, and starts a dedicated worker thread that streams and updates the tilesets.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The scene must have an active camera with a <code>Camera3D</code> component. The token needs the <code>assets:read</code> scope.</p>
+</div>
+<h3 id="rendering-setup">Rendering setup</h3>
+<p>The add-on draws all the tiles with a single GPU-driven pipeline: the geometry of every tile lives in shared vertex and index buffers, the imagery in a shared texture atlas, and the draw calls are generated on the GPU with indirect draws. The materials, effects, and compute shaders it needs are installed with the add-on, so you do not have to create them.</p>
+<p>The tiles are rendered by the forward render path, and they are included in the shadow maps of directional lights, so they cast and receive shadows. The add-on sample enables the G-buffer pass and the Z pre-pass of the <code>ForwardRenderPath</code>, which is the recommended setup:</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    var renderPath = this.Managers.RenderManager.RenderPipeline.DefaultRenderPath as ForwardRenderPath;
+    renderPath.GBufferPassIsEnabled = true;
+    renderPath.ZPrePassIsEnabled = true;
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The compute shaders and the C# code of the add-on must come from the same version. When you reference the add-on sources instead of the NuGet package, point the Cesium package <code>LocalPath</code> of your <code>.weproj</code> to the <code>Source\Evergine.Cesium.Assets</code> folder, and rebuild your Windows launchers.</p>
+</div>
+<h2 id="cesiumcoordinator">CesiumCoordinator</h2>
+<p>Find the coordinator from any component or manager with <code>this.Managers.FindManager&lt;CesiumCoordinator&gt;()</code>.</p>
+<h3 id="configuration-and-status">Configuration and status</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AccessToken</code></td>
+<td><code>&quot;&quot;</code></td>
+<td>Cesium ion access token. It can only be set when the coordinator is created.</td>
+</tr>
+<tr>
+<td><code>GeocodingService</code></td>
+<td><code>null</code></td>
+<td>Service used for geocoding: <code>AzureMapsGeocodingService</code>, <code>GoogleMapsGeocodingService</code>, or your own <code>IGeocodingService</code>.</td>
+</tr>
+<tr>
+<td><code>OverlayProvider</code></td>
+<td><code>RasterOverlayProvider.BingAerial</code></td>
+<td>Imagery of the tilesets that have an overlay. Changing it reloads their imagery.</td>
+</tr>
+<tr>
+<td><code>UseCPUDrawCalls</code></td>
+<td><code>false</code></td>
+<td>When <code>true</code>, the draw calls are issued from the CPU instead of using GPU indirect draws.</td>
+</tr>
+<tr>
+<td><code>TextureAtlas</code></td>
+<td></td>
+<td>Read-only. The <code>Texture</code> atlas that holds the imagery of the tiles.</td>
+</tr>
+<tr>
+<td><code>CurrentStatus</code></td>
+<td><code>Status.Uninitialized</code></td>
+<td>Read-only. Connection state: <code>Ready</code>, <code>ReadyWithErrors</code>, <code>NoInternetConnection</code>, <code>CantReachEndpoint</code>, <code>CantAuthenticate</code>, <code>MissingTokenPermissions</code>, and others.</td>
+</tr>
+<tr>
+<td><code>IsInitialized</code></td>
+<td><code>false</code></td>
+<td>Read-only. <code>true</code> when <code>CurrentStatus</code> is <code>Ready</code> or <code>ReadyWithErrors</code>.</td>
+</tr>
+<tr>
+<td><code>IsGeocodingConfigured</code></td>
+<td><code>false</code></td>
+<td>Read-only. <code>true</code> when <code>GeocodingService</code> is set.</td>
+</tr>
+<tr>
+<td><code>WorldCamera</code></td>
+<td></td>
+<td>Read-only. The <code>WorldCamera</code> component of the active camera.</td>
+</tr>
+<tr>
+<td><code>Camera</code></td>
+<td></td>
+<td>Read-only. The <code>Camera3D</code> the coordinator drives.</td>
+</tr>
+<tr>
+<td><code>Root</code></td>
+<td></td>
+<td>Read-only. The <code>CesiumRoot</code> entity that contains the tiles.</td>
+</tr>
+<tr>
+<td><code>FetcherNames</code></td>
+<td></td>
+<td>Read-only. Names of the tilesets that are streaming.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="tilesets">Tilesets</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddTileset(int assetId, string name = &quot;Tileset&quot;, uint maxScreenSpaceError = 4, RasterOverlayProvider overlayProvider = RasterOverlayProvider.None, bool preferredForHeightSampling = false)</code></td>
+<td>Adds a Cesium ion tileset. With an <code>overlayProvider</code>, the tileset is drawn with that imagery, as terrain usually is; with <code>RasterOverlayProvider.None</code>, it is drawn with its own textures, such as 3D buildings.</td>
+</tr>
+<tr>
+<td><code>AddTileset(TilesetConfig config)</code></td>
+<td>The same, from a <code>TilesetConfig</code> record with the same parameters.</td>
+</tr>
+<tr>
+<td><code>RemoveTilesetByName(string name)</code></td>
+<td>Removes a configured tileset by name. Returns <code>true</code> if one was removed.</td>
+</tr>
+<tr>
+<td><code>RemoveTilesetByAssetId(int assetId)</code></td>
+<td>Removes a configured tileset by Cesium ion asset ID. Returns <code>true</code> if one was removed.</td>
+</tr>
+</tbody>
+</table>
+<p>These methods configure the tilesets that the coordinator creates when it initializes, so call them before the scene starts.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>maxScreenSpaceError</code></td>
+<td>Maximum screen space error, in pixels, before a tile is refined. Lower values load more detailed tiles at a higher cost.</td>
+</tr>
+<tr>
+<td><code>overlayProvider</code></td>
+<td>Imagery drawn over the tileset.</td>
+</tr>
+<tr>
+<td><code>preferredForHeightSampling</code></td>
+<td>Marks the tileset used by <code>QueryTerrainMinHeight</code>. If none is marked, the coordinator uses the first tileset with an overlay, and then the first tileset.</td>
+</tr>
+</tbody>
+</table>
+<p><code>RasterOverlayProvider</code> values: <code>None</code>, <code>BingAerial</code>, <code>BingAerialWithLabels</code>, <code>BingRoads</code>, <code>GoogleMapsSatellite</code>, <code>GoogleMapsSatelliteWithLabels</code>, <code>GoogleMapsRoads</code>, <code>GoogleMapsLabelsOnly</code>, and <code>GoogleMapsContours</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>AddOverlayedTileset</code> is obsolete. Use <code>AddTileset</code> with an <code>overlayProvider</code> and <code>preferredForHeightSampling: true</code> instead. <code>AddGeometryTileset</code> no longer exists: use <code>AddTileset</code> without an overlay.</p>
+</div>
+<h3 id="camera-and-terrain">Camera and terrain</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FlyTo(double latitude, double longitude, double seconds)</code></td>
+<td>Animates the camera to a latitude and longitude, in degrees, over the given time.</td>
+</tr>
+<tr>
+<td><code>QueryTerrainMinHeight(double latitude, double longitude, Action&lt;double?&gt; callback)</code></td>
+<td>Samples the terrain height at a latitude and longitude, in degrees, and calls the callback with the result, or <code>null</code> if it is not available yet.</td>
+</tr>
+</tbody>
+</table>
+<p><code>QueryTerrainMinHeight</code> does not block: the request is processed on the Cesium worker thread together with the tileset updates, and the callback is called later from the scene update, so it is safe to use Evergine objects in it. It needs at least one configured tileset.</p>
+<p><code>FlyTo</code> needs the <code>WorldCamera</code>, which exists once the coordinator is initialized. For example, from a component:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Cesium;
+using Evergine.Framework;
+
+public class FlyToMadrid : Behavior
+{
+    private bool done;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        var cesium = this.Managers.FindManager&lt;CesiumCoordinator&gt;();
+        if (!this.done &amp;&amp; cesium?.IsInitialized == true)
+        {
+            cesium.FlyTo(40.4168, -3.7038, 3.0);
+            this.done = true;
+        }
+    }
+}
+</code></pre>
+<h3 id="geocoding">Geocoding</h3>
+<p>These methods use the configured <code>GeocodingService</code>. Without one, they return a result with the <code>GeocodingStatus.NotConfigured</code> status.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>GeocodeAsync(string query)</code></td>
+<td><code>GeocodingLookupResult</code> with the places that match an address or name. <code>FirstResult</code> gives the best match.</td>
+</tr>
+<tr>
+<td><code>ReverseGeocodeAsync(double latitude, double longitude)</code></td>
+<td><code>ReverseGeocodingLookupResult</code> with the address at a position.</td>
+</tr>
+<tr>
+<td><code>AutocompleteAsync(string query, int maxResults = 5)</code></td>
+<td><code>GeocodingAutocompleteResult</code> with suggestions for a partial query.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">var result = await cesium.GeocodeAsync(&quot;Eiffel Tower, Paris&quot;);
+if (result.Status == GeocodingStatus.Success &amp;&amp; result.FirstResult is { } place)
+{
+    cesium.FlyTo(place.Latitude, place.Longitude, 3.0);
+}
+</code></pre>
+<h3 id="diagnostics">Diagnostics</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Diagnostics</code></td>
+<td><code>CesiumDiagnostics</code> snapshot of the streaming and GPU memory state. It is empty until the coordinator is initialized.</td>
+</tr>
+</tbody>
+</table>
+<p><code>CesiumDiagnostics</code> contains:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IsInitialized</code></td>
+<td><code>true</code> when the snapshot has data.</td>
+</tr>
+<tr>
+<td><code>Tilesets</code></td>
+<td><code>TilesetDiagnostics</code> per tileset, with its <code>Name</code> and <code>VisibleTileCount</code>.</td>
+</tr>
+<tr>
+<td><code>VisibleTileCount</code></td>
+<td>Visible tiles of all the tilesets.</td>
+</tr>
+<tr>
+<td><code>ResidentTileCount</code>, <code>TileCapacity</code></td>
+<td>Tiles loaded in the GPU buffers, and the maximum number of tiles they can hold.</td>
+</tr>
+<tr>
+<td><code>VertexBuffer</code>, <code>IndexBuffer</code>, <code>TextureAtlas</code></td>
+<td><code>GpuBufferDiagnostics</code> of each shared GPU resource, with its <code>Name</code>, <code>CapacityBytes</code>, <code>UsedBytes</code>, <code>FreeBytes</code>, and <code>UsedRatio</code>.</td>
+</tr>
+<tr>
+<td><code>GpuCapacityBytes</code>, <code>GpuUsedBytes</code></td>
+<td>Total capacity and usage of the three resources.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="worldcamera">WorldCamera</h2>
+<p><code>WorldCamera</code> moves the camera around the globe. With the mouse, drag with the left button to pan, drag with the middle button to tilt (up to 60 degrees from the vertical), and use the wheel to change the height. When the camera is low, it keeps a minimum height above the terrain. The mouse speed does not depend on the frame rate.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>latitude</code></td>
+<td><code>40.41</code></td>
+<td>Latitude of the camera, in degrees.</td>
+</tr>
+<tr>
+<td><code>longitude</code></td>
+<td><code>-3.71</code></td>
+<td>Longitude of the camera, in degrees.</td>
+</tr>
+<tr>
+<td><code>height</code></td>
+<td><code>1000</code></td>
+<td>Height of the camera above the ellipsoid, in meters.</td>
+</tr>
+<tr>
+<td><code>Heading</code>, <code>Tilt</code></td>
+<td><code>0</code></td>
+<td>Read-only. Orientation of the camera, in radians.</td>
+</tr>
+<tr>
+<td><code>UIHasFocus</code></td>
+<td><code>false</code></td>
+<td>Set it to <code>true</code> while your UI uses the mouse, so the camera ignores it.</td>
+</tr>
+<tr>
+<td><code>ZoomHeightUpdater</code></td>
+<td><code>null</code></td>
+<td>Optional callback that replaces the default mouse wheel zoom.</td>
+</tr>
+</tbody>
+</table>
+<p>The camera adjusts its near and far planes to its height, so you do not need to configure them.</p>
+<h3 id="customize-the-zoom">Customize the zoom</h3>
+<p>By default, the mouse wheel changes the height immediately. To change it, for example to smooth the zoom, assign <code>ZoomHeightUpdater</code>. It is called every frame with the current height, the wheel delta, the elapsed time, the minimum height allowed over the terrain, and whether the wheel zoom is enabled, and returns the new height. It is also called while the zoom is disabled, because <code>UIHasFocus</code> is <code>true</code> or a <code>FlyTo</code> is running, so that your controller can cancel any pending movement.</p>
+<pre><code class="lang-csharp">// WorldCamera is available once the coordinator is initialized.
+var worldCamera = cesium.WorldCamera;
+double targetHeight = worldCamera.height;
+
+worldCamera.ZoomHeightUpdater = (height, wheelDelta, elapsed, minHeight, enabled) =&gt;
+{
+    if (!enabled)
+    {
+        // A FlyTo or your UI took control: drop the pending zoom.
+        targetHeight = height;
+        return height;
+    }
+
+    // Change the target with the wheel and approach it smoothly.
+    targetHeight = Math.Clamp(targetHeight - wheelDelta * targetHeight * 0.1, minHeight, 10_000_000);
+    double blend = 1 - Math.Exp(-8 * elapsed.TotalSeconds);
+    return height + (targetHeight - height) * blend;
+};
+</code></pre>
+<h2 id="place-entities-on-the-globe">Place entities on the globe</h2>
+<p>Add a <code>CesiumPlacerComponent</code> (namespace <code>Evergine.Cesium.Components</code>) to an entity to place it at geodetic coordinates. Every frame, the coordinator converts the coordinates to world space and aligns the entity with the local up direction of the globe.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Latitude</code></td>
+<td><code>0</code></td>
+<td>Latitude, in <strong>radians</strong>. Evergine Studio shows and edits it in degrees.</td>
+</tr>
+<tr>
+<td><code>Longitude</code></td>
+<td><code>0</code></td>
+<td>Longitude, in <strong>radians</strong>. Evergine Studio shows and edits it in degrees.</td>
+</tr>
+<tr>
+<td><code>Height</code></td>
+<td><code>0</code></td>
+<td>Height, in meters.</td>
+</tr>
+<tr>
+<td><code>HeightIsRelativeToTerrain</code></td>
+<td><code>false</code></td>
+<td>When <code>true</code>, <code>Height</code> is measured from the terrain surface; otherwise, from the WGS84 ellipsoid.</td>
+</tr>
+<tr>
+<td><code>Rotation</code></td>
+<td></td>
+<td><code>Quaternion</code> applied after aligning the entity with the surface. Set it to <code>Quaternion.Identity</code> when you create the component from code.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">using System;
+using Evergine.Cesium.Components;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+const double DegreesToRadians = Math.PI / 180.0;
+
+// A marker 10 m above the ground at the Eiffel Tower.
+var marker = new Entity(&quot;EiffelTower&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(new CesiumPlacerComponent
+    {
+        Latitude = 48.8584 * DegreesToRadians,
+        Longitude = 2.2945 * DegreesToRadians,
+        Height = 10.0,
+        HeightIsRelativeToTerrain = true,
+        Rotation = Quaternion.Identity,
+    })
+    .AddComponent(new MaterialComponent())
+    .AddComponent(new SphereMesh() { Diameter = 5 })
+    .AddComponent(new MeshRenderer());
+
+this.Managers.EntityManager.Add(marker);
+</code></pre>
+<h2 id="light-the-scene-like-the-sun">Light the scene like the sun</h2>
+<p>Add a <code>SunLightDirection</code> component (namespace <code>Evergine.Cesium.Components</code>) to the entity of a <code>DirectionalLight</code>. It orients the light from the position of the sun for a day of the year, an hour, and a place on the Earth, and it adjusts the color temperature and the intensity of the light to the height of the sun over the horizon: warm and dim at sunrise and sunset, and white and bright at midday.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DayOfYear</code></td>
+<td><code>80</code></td>
+<td>Day of the year, from <code>0</code> to <code>364</code>.</td>
+</tr>
+<tr>
+<td><code>HourOfDay</code></td>
+<td><code>17</code></td>
+<td>Hour of the day in UTC, from <code>0</code> to <code>24</code>.</td>
+</tr>
+<tr>
+<td><code>TimeScale</code></td>
+<td><code>0</code></td>
+<td>Simulated hours per real second. With <code>0</code>, the sun does not move.</td>
+</tr>
+<tr>
+<td><code>latitude</code>, <code>longitude</code></td>
+<td><code>0</code></td>
+<td>Position of the observer, in degrees. Use them to feed the position of your <code>WorldCamera</code>.</td>
+</tr>
+<tr>
+<td><code>LocalHourOfDay</code></td>
+<td></td>
+<td>Read-only. The solar hour at the longitude of the observer.</td>
+</tr>
+<tr>
+<td><code>SunAltitudeDegrees</code></td>
+<td></td>
+<td>Read-only. Height of the sun over the horizon, in degrees. It is negative at night.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">var sun = this.Owner.FindComponent&lt;SunLightDirection&gt;();
+var worldCamera = this.Managers.FindManager&lt;CesiumCoordinator&gt;().WorldCamera;
+
+sun.latitude = worldCamera.latitude;
+sun.longitude = worldCamera.longitude;
+sun.DayOfYear = 172;   // Around the summer solstice.
+sun.HourOfDay = 12;
+</code></pre>
+<h2 id="faq">FAQ</h2>
+<p><strong>Can I change the imagery at runtime?</strong></p>
+<p>Yes. Set <code>CesiumCoordinator.OverlayProvider</code> to another <code>RasterOverlayProvider</code> value. The overlayed tilesets reload their imagery.</p>
+<p><strong>Do I have to manage tile or texture memory?</strong></p>
+<p>No. The add-on loads, caches, and evicts tiles automatically, and it stores them in shared GPU buffers and a texture atlas. You can check how full they are with <code>CesiumCoordinator.Diagnostics</code>.</p>
+<p><strong>Does streaming affect my frame rate?</strong></p>
+<p>The tilesets are updated on a dedicated worker thread, so streaming does not block your scene update. The worker runs with a lower priority than the render thread. To tune how many tiles are loaded, lower or raise the <code>maxScreenSpaceError</code> of each tileset.</p>
+<p><strong>What happens without a geocoding service?</strong></p>
+<p>The geocoding methods return results with the <code>NotConfigured</code> status. Terrain, buildings, imagery, camera navigation, and entity placement work normally.</p>
+<p><strong>The scene loads but there is no terrain. What should I check?</strong></p>
+<ol>
+<li><code>CesiumCoordinator.CurrentStatus</code>: it tells you whether the connection or the token failed.</li>
+<li>That you added at least one tileset with <code>AddTileset</code> before the scene started.</li>
+<li>That your Cesium ion token has the <code>assets:read</code> scope and access to those assets.</li>
+<li>That the scene has an active camera with a <code>Camera3D</code> component.</li>
+</ol>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

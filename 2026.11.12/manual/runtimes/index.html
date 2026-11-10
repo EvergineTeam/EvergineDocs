@@ -1,0 +1,308 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Runtimes | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Runtimes | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="runtimes">Runtimes</h1>
+
+<hr>
+<p><img src="images/runtime_load_pipeline.png" alt="A file or stream enters a runtime, which describes each material as MaterialData, the material assigner returns a Material, and the resulting Model is instantiated into entities"></p>
+<p>The <strong>Runtimes</strong> are a family of NuGet packages that load assets while the application runs, straight from their original file formats. Assets in the <code>Content</code> folder of a project are imported and converted by Evergine Studio at build time; the runtimes cover everything else: models downloaded from a server, drawings picked by the user, photos from a web service, or videos that change after you publish the application.</p>
+<p>Each runtime is a separate package, so an application only carries the readers and the native dependencies it uses.</p>
+<h2 id="available-runtimes">Available runtimes</h2>
+<table>
+<thead>
+<tr>
+<th>Runtime</th>
+<th>Package</th>
+<th>Formats</th>
+<th>Returns</th>
+<th>Platforms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="glb_runtime.html">GLB</a></td>
+<td><code>Evergine.Runtimes.GLB</code></td>
+<td>Binary glTF 2.0 (<code>.glb</code>), including Draco compression</td>
+<td><code>Model</code></td>
+<td>All</td>
+</tr>
+<tr>
+<td><a href="stl_runtime.html">STL</a></td>
+<td><code>Evergine.Runtimes.STL</code></td>
+<td>Binary and ASCII <code>.stl</code></td>
+<td><code>Model</code></td>
+<td>All</td>
+</tr>
+<tr>
+<td><a href="obj_runtime.html">OBJ</a></td>
+<td><code>Evergine.Runtimes.OBJ</code></td>
+<td><code>.obj</code> with <code>.mtl</code> materials</td>
+<td><code>Model</code></td>
+<td>All</td>
+</tr>
+<tr>
+<td><a href="usd_runtime.html">USD</a></td>
+<td><code>Evergine.Runtimes.USD</code></td>
+<td><code>.usd</code>, <code>.usda</code>, <code>.usdc</code>, <code>.usdz</code></td>
+<td><code>Model</code></td>
+<td>Windows</td>
+</tr>
+<tr>
+<td><a href="image_runtime.html">Images</a></td>
+<td><code>Evergine.Runtimes.Image</code></td>
+<td>PNG, JPEG, BMP, WebP, GIF, KTX, KTX2</td>
+<td><code>Texture</code></td>
+<td>All</td>
+</tr>
+<tr>
+<td><a href="cad_runtime.html">CAD</a></td>
+<td><code>Evergine.Runtimes.CAD</code></td>
+<td><code>.dwg</code>, <code>.dxf</code></td>
+<td><code>Entity</code></td>
+<td>Windows</td>
+</tr>
+<tr>
+<td><a href="ifc_runtime.html">IFC</a></td>
+<td><code>Evergine.Runtimes.IFC</code></td>
+<td><code>.ifc</code> (IFC2x3, IFC4)</td>
+<td><code>Model</code></td>
+<td>Windows</td>
+</tr>
+<tr>
+<td><a href="video_runtime.html">Videos</a></td>
+<td><code>Evergine.Runtimes.Video</code></td>
+<td>Formats supported by FFmpeg 7.1</td>
+<td><code>VideoPlayer</code> component</td>
+<td>Windows x64</td>
+</tr>
+</tbody>
+</table>
+<p>On the web, the runtimes that decode images (GLB, OBJ and Images) need one extra package; see <a href="image_runtime.html#web-projects">Web projects</a>.</p>
+<p>The runtimes that return a <code>Model</code> derive from <code>ModelRuntime</code> (namespace <code>Evergine.Framework.Runtimes</code>). You turn the model into entities with <code>InstantiateModelHierarchy</code>, exactly as with a model imported by Evergine Studio. The CAD runtime builds the entity itself, and the video runtime is a component you add to an entity.</p>
+<h2 id="how-each-runtime-reads">How each runtime reads</h2>
+<table>
+<thead>
+<tr>
+<th>Runtime</th>
+<th>File path</th>
+<th>Stream</th>
+<th>Material assigner</th>
+<th>Main dependencies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>GLB</td>
+<td>Relative to <code>Content</code></td>
+<td>Seekable stream</td>
+<td>Yes</td>
+<td><code>Evergine.Bindings.Draco</code>, Image runtime</td>
+</tr>
+<tr>
+<td>STL</td>
+<td>Relative to <code>Content</code></td>
+<td>Seekable stream</td>
+<td>Yes</td>
+<td>None</td>
+</tr>
+<tr>
+<td>OBJ</td>
+<td>Relative to <code>Content</code></td>
+<td>Seekable stream; materials resolved from <code>WorkingDirectory</code></td>
+<td>Yes</td>
+<td>Image runtime</td>
+</tr>
+<tr>
+<td>USD</td>
+<td>Relative to <code>Content</code>, or absolute</td>
+<td>Not supported</td>
+<td>Yes</td>
+<td>CSnakes, embedded Python 3.12.6, <code>usd-core</code>, Image runtime</td>
+</tr>
+<tr>
+<td>Images</td>
+<td>Relative to <code>Content</code></td>
+<td>Any readable stream (seekable recommended)</td>
+<td>Not applicable</td>
+<td>SkiaSharp 3.119.2</td>
+</tr>
+<tr>
+<td>CAD</td>
+<td>Relative to <code>Content</code>, or absolute</td>
+<td>Seekable stream, copied to a temporary file</td>
+<td>No</td>
+<td>ACadSharp 3.4.9</td>
+</tr>
+<tr>
+<td>IFC</td>
+<td>Relative to <code>Content</code>, or absolute</td>
+<td>Any readable stream, copied to a temporary file</td>
+<td>Accepted but not used</td>
+<td>xBIM Toolkit (Windows native geometry)</td>
+</tr>
+<tr>
+<td>Videos</td>
+<td>Relative to <code>Content</code>, or absolute</td>
+<td>Not supported</td>
+<td>Not applicable</td>
+<td>FFmpeg 7.1 (bundled for Windows x64)</td>
+</tr>
+</tbody>
+</table>
+<p>Every runtime exposes a ready-to-use singleton in its <code>Instance</code> field (<code>GLBRuntime.Instance</code>, <code>ImageRuntime.Instance</code>, and so on) that resolves the graphics context and the assets service from the application container on first use.</p>
+<h3 id="choose-the-runtime-from-the-file-extension">Choose the runtime from the file extension</h3>
+<p>Every <code>ModelRuntime</code> reports the extension it reads in <code>Extension</code> (for example <code>&quot;.glb&quot;</code> and <code>&quot;.stl&quot;</code>), and exposes the stream overload of <code>Read</code> through the base class. That lets one code path handle several formats:</p>
+<pre><code class="lang-csharp">private readonly Dictionary&lt;string, ModelRuntime&gt; loaders = new Dictionary&lt;string, ModelRuntime&gt;
+{
+    { GLBRuntime.Instance.Extension, GLBRuntime.Instance },
+    { STLRuntime.Instance.Extension, STLRuntime.Instance },
+};
+
+private Task&lt;Model&gt; ReadAnyModel(string fileName, Stream stream)
+{
+    var extension = Path.GetExtension(fileName).ToLowerInvariant();
+    if (!this.loaders.TryGetValue(extension, out var runtime))
+    {
+        throw new NotSupportedException($&quot;No runtime reads {extension} files.&quot;);
+    }
+
+    return runtime.Read(stream);
+}
+</code></pre>
+<p>The <a href="obj_runtime.html">OBJ</a>, <a href="usd_runtime.html">USD</a> and <a href="ifc_runtime.html">IFC</a> runtimes also derive from <code>ModelRuntime</code>. Check the table above for the stream support each one offers before adding it to such a dictionary: the USD runtime, for example, only reads from a file path.</p>
+<h2 id="where-the-files-come-from">Where the files come from</h2>
+<p><strong>Files shipped with the application.</strong> A file in the project's <code>Content</code> folder is imported by Evergine Studio and exported in the Evergine asset format, which a runtime cannot read. Mark it with <strong>Set to export as raw</strong> in the <a href="../evergine_studio/assets/edit.html">Assets Details panel</a>: raw assets are copied unchanged, with their name and folder, so <code>Content/Models/robot.glb</code> is read with the path <code>Models/robot.glb</code>. See also <a href="../evergine_studio/assets/use.html#load-raw-assets">Raw assets loading</a>.</p>
+<p><strong>Files anywhere on disk.</strong> The GLB, STL, OBJ and Image runtimes only accept paths relative to <code>Content</code>. For other files, open a <code>FileStream</code> with <code>File.OpenRead</code> and use the stream overload. The USD, CAD, IFC and video runtimes also accept absolute paths.</p>
+<p><strong>Downloads.</strong> Download with <code>HttpClient</code>, then pass the data to the stream overload. A network stream cannot seek, so copy it into a <code>MemoryStream</code> first for the runtimes that need a seekable stream. For USD and video, which only read files, save the download to a temporary file and pass its absolute path. Every runtime page has a complete example.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The <code>Read</code> methods are asynchronous, and code after an <code>await</code> on a download can continue on a thread-pool thread. Add the loaded entities to the scene on the Evergine main thread, for example with <code>await EvergineForegroundTask.Run(() =&gt; this.Managers.EntityManager.Add(entity))</code> (namespace <code>Evergine.Framework.Threading</code>).</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="glb_runtime.html">GLB</a></li>
+<li><a href="stl_runtime.html">STL</a></li>
+<li><a href="obj_runtime.html">OBJ</a></li>
+<li><a href="usd_runtime.html">USD</a></li>
+<li><a href="image_runtime.html">Images</a></li>
+<li><a href="cad_runtime.html">CAD</a></li>
+<li><a href="ifc_runtime.html">IFC</a></li>
+<li><a href="video_runtime.html">Videos</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

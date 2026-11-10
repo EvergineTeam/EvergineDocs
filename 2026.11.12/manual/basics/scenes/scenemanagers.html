@@ -1,0 +1,301 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Scene Managers | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Scene Managers | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="scene-managers">Scene Managers</h1>
+
+<hr>
+<p><img src="images/managers-panel.jpg" alt="The Scene Managers panel of Evergine Studio"></p>
+<p><strong>Scene managers</strong> are the subsystems of a scene. Each one controls one aspect of it for all entities at once: the <code>EntityManager</code> owns the entities, the <code>BehaviorManager</code> updates every behavior, the <code>RenderManager</code> draws every drawable. They are not attached to an entity because they belong to the whole scene, and components find them and register with them as they are attached.</p>
+<p>Write your own scene manager when some state or logic belongs to a scene rather than to an entity, and when many components need to share it: a spawner, a level timer, a spatial index of your own.</p>
+<p>All scene managers of a scene are reached through the <code>Scene.Managers</code> property, which is also available as <code>this.Managers</code> inside components and other scene managers.</p>
+<h2 id="default-scene-managers">Default Scene Managers</h2>
+<p>Every scene registers these managers:</p>
+<table>
+<thead>
+<tr>
+<th>Scene manager</th>
+<th>Access property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EntityManager</strong></td>
+<td><code>this.Managers.EntityManager</code></td>
+<td>Owns the entities of the scene. See <a href="../component_arch/entities/entity_manager.html">EntityManager</a>.</td>
+</tr>
+<tr>
+<td><strong>AssetSceneManager</strong></td>
+<td><code>this.Managers.AssetSceneManager</code></td>
+<td>Tracks the assets used by the scene. See <a href="#assetscenemanager">below</a>.</td>
+</tr>
+<tr>
+<td><strong>BehaviorManager</strong></td>
+<td><code>this.Managers.BehaviorManager</code></td>
+<td>Updates every behavior of the scene, in <code>UpdateOrder</code>. See <a href="../component_arch/components/behaviours.html">Behaviors</a>.</td>
+</tr>
+<tr>
+<td><strong>RenderManager</strong></td>
+<td><code>this.Managers.RenderManager</code></td>
+<td>Renders the scene: cameras, lights and drawables. See <a href="../../graphics/rendering_overview.html">Rendering</a>.</td>
+</tr>
+<tr>
+<td><strong>EnvironmentManager</strong></td>
+<td><code>this.Managers.EnvironmentManager</code></td>
+<td>Controls the environment lighting of the scene: reflection probes, radiance and irradiance maps. See <a href="../../graphics/environment/index.html">Environment</a>.</td>
+</tr>
+<tr>
+<td><strong>PhysicsManager</strong></td>
+<td><code>this.Managers.FindManager&lt;PhysicsManager&gt;()</code></td>
+<td>Manages the physics simulation. All the bodies, colliders and constraints are registered with this manager. More information in the <a href="../../physics/physics_manager.html">Physics Manager</a> article.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <strong>PhysicsManager</strong> scene manager is not registered by default, although in the project template, it's loaded in the <strong>RegisterManagers</strong> method of the template scene class.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>this.Managers.RenderManager</code> is typed as <code>BaseRenderManager</code>, the base class of every render manager. Members such as <code>DebugLines</code> and <code>LineBatch3D</code> belong to the <code>RenderManager</code> class, so bind it with <code>[BindSceneManager] private RenderManager renderManager;</code> when you need them.</p>
+</div>
+<h3 id="assetscenemanager">AssetSceneManager</h3>
+<p>The <strong>AssetSceneManager</strong> keeps track of the assets loaded for the scene. When the scene is disposed, it releases them, freeing their GPU memory. See <a href="../../evergine_studio/assets/use.html">Use Assets</a>.</p>
+<h2 id="create-a-custom-scene-manager">Create a Custom Scene Manager</h2>
+<p>Add a class to your project that derives from one of these base classes:</p>
+<table>
+<thead>
+<tr>
+<th>Base class</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SceneManager</code></td>
+<td>A manager with the <a href="../lifecycle_elements.html">lifecycle</a> callbacks (<code>OnAttached()</code>, <code>OnActivated()</code>, <code>Start()</code>, <code>OnDetached()</code> and the rest) but no per-frame call.</td>
+</tr>
+<tr>
+<td><code>UpdatableSceneManager</code></td>
+<td>A <code>SceneManager</code> with an abstract <code>Update(TimeSpan gameTime)</code> method, called once per frame while the scene is playing.</td>
+</tr>
+</tbody>
+</table>
+<p>This manager keeps the time of day of a level. Behaviors and lights read it instead of each keeping their own clock:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework.Managers;
+
+namespace MyProject
+{
+    public class DayNightManager : UpdatableSceneManager
+    {
+        // Real seconds that a full day lasts.
+        public float DayLengthInSeconds { get; set; } = 120;
+
+        // From 0 (midnight) to 1 (the next midnight).
+        public float TimeOfDay { get; private set; } = 0.25f;
+
+        public override void Update(TimeSpan gameTime)
+        {
+            // gameTime is already scaled by Scene.Speed, so slow motion also slows the day.
+            this.TimeOfDay = (this.TimeOfDay + ((float)gameTime.TotalSeconds / this.DayLengthInSeconds)) % 1;
+        }
+    }
+}
+</code></pre>
+<p>Scene managers can use <code>[BindSceneManager]</code> to depend on other managers and <code>[BindService]</code> to depend on services. See <a href="../bindings/index.html">Bindings</a>.</p>
+<h2 id="using-scene-managers">Using Scene Managers</h2>
+<h3 id="register-a-scene-manager">Register a Scene Manager</h3>
+<p>Register managers in the <code>RegisterManagers()</code> method of your <a href="create_scenes.html">scene class</a>, after calling the base implementation:</p>
+<pre><code class="lang-csharp">public override void RegisterManagers()
+{
+    base.RegisterManagers();
+
+    // Registered under its own type: DayNightManager.
+    this.Managers.AddManager(new DayNightManager());
+}
+</code></pre>
+<p><code>AddManager&lt;T&gt;(T sceneManager)</code> registers the manager under the type <code>T</code> instead, which is useful when the code that looks it up only knows a base class. Only one manager can be registered per type: adding a second one logs a warning and the new instance is ignored.</p>
+<p>A manager added to a scene that is already running is attached, activated and started straight away.</p>
+<h3 id="remove-a-scene-manager">Remove a Scene Manager</h3>
+<pre><code class="lang-csharp">// Remove a manager by instance.
+this.Managers.RemoveManager(myManagerInstance);
+
+// Or by the type it was registered with. For example, the next line will remove the PhysicsManager.
+this.Managers.RemoveManager&lt;PhysicsManager&gt;();
+</code></pre>
+<p><code>RemoveManager()</code> destroys the manager. Use <code>DetachManager()</code> instead to take it out of the scene without destroying it.</p>
+<h3 id="get-a-scene-manager">Get a Scene Manager</h3>
+<h4 id="with-the-bindscenemanager-attribute">With the [BindSceneManager] Attribute</h4>
+<p>Components and other scene managers can bind the manager they need (see <a href="../bindings/bind_scenemanagers.html">Bind Scene Managers</a>):</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+namespace MyProject
+{
+    public class SunController : Behavior
+    {
+        [BindSceneManager]
+        private DayNightManager dayNight;
+
+        [BindComponent]
+        private Transform3D transform;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            // Rotate the sun a full turn per day around the X axis.
+            float angle = this.dayNight.TimeOfDay * MathF.PI * 2;
+            this.transform.LocalRotation = new Vector3(angle, 0, 0);
+        }
+    }
+}
+</code></pre>
+<h4 id="with-findmanager">With FindManager</h4>
+<p><code>FindManager&lt;T&gt;()</code> returns the first registered manager that is a <code>T</code> or derives from it, or <code>null</code>. Pass <code>isExactType: true</code> to match only the exact type:</p>
+<pre><code class="lang-csharp">DayNightManager dayNight = this.Managers.FindManager&lt;DayNightManager&gt;();
+
+// This, for example, will return the PhysicsManager registered before.
+PhysicsManager physics = this.Managers.FindManager&lt;PhysicsManager&gt;();
+
+// The default managers also have shortcut properties.
+EntityManager entityManager = this.Managers.EntityManager;
+</code></pre>
+<p><code>FindManagers&lt;T&gt;()</code> returns all of them, and <code>RegisteredManagers</code> lists every manager of the scene.</p>
+<h2 id="scene-managers-in-evergine-studio">Scene Managers in Evergine Studio</h2>
+<p>Evergine Studio shows the managers of the open scene in the <strong>Scene Managers</strong> panel. It works like the <strong>Entity Details</strong> panel does for components: select a manager to edit its properties, and the values are saved with the scene.</p>
+<p><img src="images/scene_managers_panel.png" alt="The Scene Managers panel with the managers of the default scene"></p>
+<p>To add a manager, click the add button and search for it. The list includes the managers of Evergine and every manager in your project.</p>
+<p><img src="images/managers-add.jpg" alt="Adding a scene manager"></p>
+<p>If one of your managers must not appear in that list, mark it with <code>[Discoverable(false)]</code>:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Managers;
+
+namespace MyProject
+{
+    [Discoverable(false)]
+    public class MyInternalManager : SceneManager
+    {
+    }
+}
+</code></pre>
+<p>To remove a manager from the scene, right-click it and select the remove option. Some managers are required for the engine to work, and Evergine Studio asks for confirmation before removing one of them.</p>
+<p><img src="images/managers-remove.jpg" alt="Removing a scene manager"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

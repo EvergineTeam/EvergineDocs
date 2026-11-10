@@ -1,0 +1,359 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ScreenContext Manager | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ScreenContext Manager | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="screencontext-manager">ScreenContext Manager</h1>
+
+<hr>
+<p><img src="images/ScreenContextTypes.png" alt="A ScreenContext with one scene, and a ScreenContext that plays a 3D scene and a UI scene together"></p>
+<p><em>A screen context is the set of scenes that play together. It can hold a single scene or several, such as the game world and its UI.</em></p>
+<p>The <strong>ScreenContextManager</strong> is the <a href="../services.html">service</a> that decides which <a href="../scenes/index.html">scenes</a> are playing. It does not work with scenes directly but with <strong>screen contexts</strong>: groups of scenes that are loaded, updated and drawn together. The manager keeps a stack of them, so you can replace everything that is playing, or put something on top (a pause menu, a dialog) and come back to where you were.</p>
+<p>Navigation happens only from code. Evergine Studio edits scenes, but the order in which they play is decided by your application.</p>
+<h2 id="screencontext">ScreenContext</h2>
+<p>A <code>ScreenContext</code> is created from one or more scenes:</p>
+<pre><code class="lang-csharp">// A context with a single scene. It gets a generated name.
+var gameContext = new ScreenContext(gameScene);
+
+// A named context that plays two scenes: the 3D world first, its UI on top.
+var hudContext = new ScreenContext(&quot;Game&quot;, gameScene, uiScene);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Name</strong></td>
+<td>The name used by <code>ScreenContextManager.FindContextByName()</code>. If you do not give one, the context is named <code>ScreenContext0</code>, <code>ScreenContext1</code>, and so on.</td>
+</tr>
+<tr>
+<td><strong>Behavior</strong></td>
+<td>A <code>ScreenContextBehaviors</code> value that says what the context does while another one is on top of it. <code>None</code> by default. See <a href="#screencontext-behaviors">ScreenContext Behaviors</a>.</td>
+</tr>
+<tr>
+<td><strong>Count</strong></td>
+<td>The number of scenes in the context.</td>
+</tr>
+<tr>
+<td><strong>this[int]</strong></td>
+<td>The scene at the given index. Scenes are updated and drawn in this order.</td>
+</tr>
+<tr>
+<td><strong>FindScene&lt;T&gt;()</strong></td>
+<td>Returns the first scene of type <code>T</code>.</td>
+</tr>
+<tr>
+<td><strong>FindScenes&lt;T&gt;()</strong></td>
+<td>Returns every scene of type <code>T</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="load-a-scene-and-play-it">Load a Scene and Play It</h2>
+<p>To play a scene asset, load it with the <code>AssetsService</code> and navigate to a context that contains it. The template does it in <code>MyApplication.Initialize()</code>:</p>
+<pre><code class="lang-csharp">public override void Initialize()
+{
+    base.Initialize();
+
+    var screenContextManager = this.Container.Resolve&lt;ScreenContextManager&gt;();
+    var assetsService = this.Container.Resolve&lt;AssetsService&gt;();
+
+    // Loading a .wescene asset creates an instance of the class you ask for (MyScene here)
+    // and fills it with the entities saved in the asset.
+    var scene = assetsService.Load&lt;MyScene&gt;(EvergineContent.Scenes.MyScene_wescene);
+
+    var screenContext = new ScreenContext(scene);
+    screenContextManager.To(screenContext);
+}
+</code></pre>
+<p>A context with several scenes is built the same way. This one plays the game world and draws a separate UI scene over it:</p>
+<pre><code class="lang-csharp">var mainScene = assetsService.Load&lt;MainScene&gt;(EvergineContent.Scenes.MainScene_wescene);
+var uiScene = assetsService.Load&lt;UIScene&gt;(EvergineContent.Scenes.UIScene_wescene);
+
+screenContextManager.To(new ScreenContext(mainScene, uiScene));
+</code></pre>
+<p><code>MainScene</code> and <code>UIScene</code> are classes of your project that derive from <code>Scene</code> (see <a href="../scenes/create_scenes.html">Create Scenes</a>). A scene without custom code can be loaded as a plain <code>Scene</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <code>AssetsService</code> caches what it loads: loading the same scene twice returns the same instance. If the first instance was disposed by a navigation, call <code>Load&lt;T&gt;(id, forceNewInstance: true)</code> to get a new one.</p>
+</div>
+<h2 id="navigate-between-screencontexts">Navigate Between ScreenContexts</h2>
+<p><img src="images/screen_context_navigation.png" alt="To replaces the whole stack, Push adds a context on top and pauses the one below, Pop removes the top context and resumes the one below"></p>
+<p><em>Only the context at the top of the stack runs. The ones below are paused, unless their Behavior says otherwise.</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>To(ScreenContext nextContext, bool doDispose = true)</strong></td>
+<td>Removes every context in the stack and plays <code>nextContext</code>. With <code>doDispose</code> set to <code>true</code>, the scenes that are not part of <code>nextContext</code> are disposed.</td>
+</tr>
+<tr>
+<td><strong>Push(ScreenContext nextContext)</strong></td>
+<td>Pauses the current context and plays <code>nextContext</code> on top of it. The paused context keeps its state.</td>
+</tr>
+<tr>
+<td><strong>Pop(bool doDispose = true)</strong></td>
+<td>Removes the context at the top of the stack and resumes the one below. With <code>doDispose</code> set to <code>true</code>, its scenes are disposed. Popping the last context throws an <code>InvalidOperationException</code>.</td>
+</tr>
+<tr>
+<td><strong>FindContextByName(string name)</strong></td>
+<td>Returns the context in the stack with that name, or <code>null</code>.</td>
+</tr>
+<tr>
+<td><strong>CurrentContext</strong></td>
+<td>The context at the top of the stack, or <code>null</code> when the stack is empty.</td>
+</tr>
+</tbody>
+</table>
+<p>The manager also raises two events: <code>OnActivatingScene</code> when a scene starts playing, and <code>OnDesactivatingScene</code> when a scene stops playing because its context left the stack.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>To()</code>, <code>Push()</code> and <code>Pop()</code> do not navigate immediately. They queue a command that the manager executes at the start of its next update, one command per frame. The scene that called them finishes its current frame normally.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Pass <code>doDispose: false</code> when you plan to come back to the scenes you leave, for example a main menu that you show again later. You are then responsible for disposing them when they are no longer needed.</p>
+</div>
+<h2 id="screencontext-behaviors">ScreenContext Behaviors</h2>
+<p>When a context is paused, its scenes stop updating and are no longer drawn. The <code>Behavior</code> field changes that for the context it is set on:</p>
+<table>
+<thead>
+<tr>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>The default. A paused context neither updates nor draws.</td>
+</tr>
+<tr>
+<td><code>UpdateInBackground</code></td>
+<td>The scenes of the context keep updating while another context is on top of it.</td>
+</tr>
+<tr>
+<td><code>DrawInBackground</code></td>
+<td>The scenes of the context keep drawing, below the context on top, while it is paused.</td>
+</tr>
+</tbody>
+</table>
+<p><code>ScreenContextBehaviors</code> is a flags enum, so both values can be combined:</p>
+<pre><code class="lang-csharp">var gameContext = new ScreenContext(&quot;Game&quot;, gameScene)
+{
+    Behavior = ScreenContextBehaviors.UpdateInBackground | ScreenContextBehaviors.DrawInBackground,
+};
+</code></pre>
+<h2 id="example-a-pause-menu">Example: A Pause Menu</h2>
+<p>A pause menu is the typical use of <code>Push</code> and <code>Pop</code>: the game stops, stays visible behind the menu, and resumes exactly where it was.</p>
+<p>First, give the game context <code>DrawInBackground</code> when you navigate to it, so it keeps drawing while it is paused:</p>
+<pre><code class="lang-csharp">public override void Initialize()
+{
+    base.Initialize();
+
+    var screenContextManager = this.Container.Resolve&lt;ScreenContextManager&gt;();
+    var assetsService = this.Container.Resolve&lt;AssetsService&gt;();
+
+    var gameScene = assetsService.Load&lt;MyScene&gt;(EvergineContent.Scenes.MyScene_wescene);
+    var gameContext = new ScreenContext(&quot;Game&quot;, gameScene)
+    {
+        // Not UpdateInBackground: the game must freeze while the menu is open.
+        Behavior = ScreenContextBehaviors.DrawInBackground,
+    };
+
+    screenContextManager.To(gameContext);
+}
+</code></pre>
+<p>Then add this behavior to any entity of the game scene. It opens the menu when the player presses Escape:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+
+namespace MyProject
+{
+    public class OpenPauseMenu : Behavior
+    {
+        [BindService]
+        private GraphicsPresenter graphicsPresenter;
+
+        [BindService]
+        private AssetsService assetsService;
+
+        [BindService]
+        private ScreenContextManager screenContextManager;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            var keyboard = this.graphicsPresenter.FocusedDisplay?.KeyboardDispatcher;
+
+            // Pressing is only reported on the frame the key goes down, so the menu opens once.
+            if (keyboard?.ReadKeyState(Keys.Escape) == ButtonState.Pressing)
+            {
+                // Pop() disposes the menu scene, so ask for a new instance every time it opens.
+                var pauseScene = this.assetsService.Load&lt;Scene&gt;(EvergineContent.Scenes.PauseMenu_wescene, forceNewInstance: true);
+                this.screenContextManager.Push(new ScreenContext(&quot;Pause&quot;, pauseScene));
+            }
+        }
+    }
+}
+</code></pre>
+<p>Finally, add this behavior to an entity of the <code>PauseMenu.wescene</code> scene. It closes the menu and resumes the game:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+
+namespace MyProject
+{
+    public class ClosePauseMenu : Behavior
+    {
+        [BindService]
+        private GraphicsPresenter graphicsPresenter;
+
+        [BindService]
+        private ScreenContextManager screenContextManager;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            var keyboard = this.graphicsPresenter.FocusedDisplay?.KeyboardDispatcher;
+
+            if (keyboard?.ReadKeyState(Keys.Escape) == ButtonState.Pressing)
+            {
+                // Disposes the pause scene and resumes the game context below it.
+                this.screenContextManager.Pop();
+            }
+        }
+    }
+}
+</code></pre>
+<p>While the menu is open, the game scene is paused: its behaviors and updatable scene managers do not run, so nothing moves, but it is still drawn because of <code>DrawInBackground</code>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The camera of the pause scene draws after the game, over the same display. Set its <code>ClearFlags</code> to <code>ClearFlags.Depth</code> so that it clears only the depth buffer and the game stays visible behind the menu.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

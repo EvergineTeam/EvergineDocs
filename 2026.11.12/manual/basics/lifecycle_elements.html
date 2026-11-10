@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Lifecycle of Elements | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lifecycle of Elements | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lifecycle-of-elements">Lifecycle of Elements</h1>
+
+<hr>
+<p><img src="images/lifecycle.png" alt="The states of an AttachableObject and the callbacks invoked on each transition"></p>
+<p><em>Every component, entity, service and scene manager moves through the same four states. The callback on each arrow runs as the object changes state, so each one is the right place for a specific kind of work.</em></p>
+<p>Components, entities, <a href="services.html">services</a> and <a href="scenes/scenemanagers.html">scene managers</a> share one lifecycle. Evergine loads them, resolves their <a href="bindings/index.html">bindings</a>, attaches them, activates them and starts them, and runs the same steps backwards when they go away. Knowing which callback runs when tells you where to put initialization, event subscriptions and cleanup so that enabling, disabling and removing an element never leaves anything behind.</p>
+<p>All of these classes derive from <code>AttachableObject</code>:</p>
+<ul>
+<li><a href="component_arch/components/index.html">Components</a>, including <a href="component_arch/components/behaviours.html">Behaviors</a> and <a href="component_arch/components/drawables.html">Drawables</a></li>
+<li><a href="component_arch/entities/index.html">Entities</a></li>
+<li><a href="services.html">Services</a></li>
+<li><a href="scenes/scenemanagers.html">Scene managers</a></li>
+</ul>
+<h2 id="states">States</h2>
+<p>The current state is exposed by the <code>State</code> property, of type <code>AttachableObjectState</code>:</p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Detached</code></td>
+<td>The initial state. The object is not connected to a scene or to the application, and its bindings are not resolved.</td>
+</tr>
+<tr>
+<td><code>Deactivated</code></td>
+<td>The object is attached: its bindings are resolved and <code>OnAttached()</code> succeeded, but it is not running. A disabled component stays here.</td>
+</tr>
+<tr>
+<td><code>Activated</code></td>
+<td>The object is running. Behaviors are updated and drawables are drawn only in this state.</td>
+</tr>
+<tr>
+<td><code>Destroyed</code></td>
+<td>The object has been released. Nothing brings it back.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>AttachableStateChanged</code> event is raised every time the state changes.</p>
+<h2 id="lifecycle-properties">Lifecycle Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsEnabled</strong></td>
+<td><code>true</code></td>
+<td>Enables or disables the element. Setting it to <code>false</code> on an activated element deactivates it, and setting it back to <code>true</code> activates it again. A component is only activated when both the component and its entity are enabled.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td><code>Detached</code></td>
+<td>The current <code>AttachableObjectState</code>. Read only.</td>
+</tr>
+<tr>
+<td><strong>IsLoaded</strong></td>
+<td><code>false</code></td>
+<td><code>true</code> once <code>OnLoaded()</code> has run. It never goes back to <code>false</code>.</td>
+</tr>
+<tr>
+<td><strong>IsAttached</strong></td>
+<td><code>false</code></td>
+<td><code>true</code> while the state is <code>Deactivated</code> or <code>Activated</code>.</td>
+</tr>
+<tr>
+<td><strong>IsActivated</strong></td>
+<td><code>false</code></td>
+<td><code>true</code> while the state is <code>Activated</code>.</td>
+</tr>
+<tr>
+<td><strong>IsStarted</strong></td>
+<td><code>false</code></td>
+<td><code>true</code> once <code>Start()</code> has run and while the element is activated. It is reset when the element is detached.</td>
+</tr>
+<tr>
+<td><strong>IsDestroyed</strong></td>
+<td><code>false</code></td>
+<td><code>true</code> once the element has been destroyed.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="initialization">Initialization</h2>
+<p>These callbacks run when an element enters a scene or the application. Override the ones you need and call the base implementation.</p>
+<h3 id="onloaded">OnLoaded()</h3>
+<p>Runs <strong>once</strong> in the lifetime of the object, when it is created from code and added (for a component, when it is passed to <code>AddComponent()</code>) or when it is deserialized from a scene asset.</p>
+<ul>
+<li>Initialize here everything that does <strong>not</strong> depend on other elements: collections, default values, cached calculations.</li>
+<li>Bindings are not resolved yet, and a component has no <code>Owner</code> yet.</li>
+</ul>
+<h3 id="onattached">OnAttached()</h3>
+<p>Runs when the element is attached, for example when its entity is added to the <code>EntityManager</code>.</p>
+<ul>
+<li><strong>All bindings are resolved</strong> before this method runs. If a required binding cannot be resolved, <code>OnAttached()</code> is not called and the element stays <code>Detached</code> (see <a href="bindings/index.html#binding-errors">Binding Errors</a>).</li>
+<li>Use it to establish relationships with other elements, such as registering the component with a scene manager.</li>
+<li>It returns a <code>bool</code>. Return <code>true</code> if attaching succeeded. Returning <code>false</code> leaves the element <code>Detached</code>.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The elements you are bound to have been found, but they may not be attached yet. Do not call into them here.</p>
+</div>
+<h3 id="onactivated">OnActivated()</h3>
+<p>Runs when the element is activated, right after it is attached or when <code>IsEnabled</code> changes to <code>true</code>.</p>
+<ul>
+<li>It only runs when the element <strong>and</strong> its owner are enabled. If a component or its entity is disabled, the component stays <code>Deactivated</code>.</li>
+<li>Put here the setup that you undo in <code>OnDeactivated()</code>, such as event subscriptions. It can run many times in the lifetime of the object.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Your dependencies are attached at this point, but some of them may not be activated yet.</p>
+</div>
+<h3 id="start">Start()</h3>
+<p>Runs <strong>once per attachment</strong>, before the first update, and only if the element is activated.</p>
+<ul>
+<li>Disabling and enabling an element does not call <code>Start()</code> again. Detaching it and attaching it again does, after <code>OnAttached()</code> and <code>OnActivated()</code>.</li>
+<li>Use it for initialization that depends on other elements and must happen only once, such as reading the initial state of a bound component.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Your dependencies are activated at this point, but some of them may not be started yet.</p>
+</div>
+<h2 id="per-frame-loop">Per Frame Loop</h2>
+<p>Once started, some elements receive a call every frame. The <a href="application/using_application.html#the-frame-loop">Application</a> page shows where these calls come from.</p>
+<h3 id="updatetimespan-gametime">Update(TimeSpan gameTime)</h3>
+<p>Available on <a href="component_arch/components/behaviours.html">Behaviors</a>, <code>UpdatableService</code> (<a href="services.html">services</a>) and <code>UpdatableSceneManager</code> (<a href="scenes/scenemanagers.html">scene managers</a>).</p>
+<ul>
+<li>It runs once per frame, and only while the element is activated. A behavior is also skipped until it has started.</li>
+<li><code>gameTime</code> is the time elapsed since the previous frame, scaled by the scene <code>Speed</code> for behaviors and scene managers.</li>
+<li>Put here the logic that changes the state of the application: movement, input handling, game rules.</li>
+</ul>
+<h3 id="drawdrawcontext-drawcontext">Draw(DrawContext drawContext)</h3>
+<p>Available on <a href="component_arch/components/drawables.html">Drawables</a>.</p>
+<ul>
+<li>It runs while the drawable is activated, <strong>once for each camera</strong> that renders the scene.</li>
+<li>Put here the code that updates or submits render objects for that camera.</li>
+</ul>
+<h2 id="deinitialization">Deinitialization</h2>
+<p>These callbacks undo the initialization, in reverse order.</p>
+<h3 id="ondeactivated">OnDeactivated()</h3>
+<p>Runs when an activated element is disabled or is about to be detached.</p>
+<ul>
+<li>Undo here everything you did in <code>OnActivated()</code>, for example unsubscribe from events.</li>
+</ul>
+<h3 id="ondetached">OnDetached()</h3>
+<p>Runs when an element is detached, for example when its entity is removed from the scene or the component is removed from its entity.</p>
+<ul>
+<li>Undo here everything you did in <code>OnAttached()</code>. Bindings are released right after this method returns.</li>
+</ul>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Override <code>OnDetached()</code>. The older <code>OnDetach()</code> callback is obsolete; it is still invoked just before <code>OnDetached()</code> for compatibility, but new code must not use it.</p>
+</div>
+<h3 id="ondestroy">OnDestroy()</h3>
+<p>Runs when a detached element is destroyed, and only if it was loaded.</p>
+<ul>
+<li>A destroyed element cannot be attached again.</li>
+<li>Release here everything created in <code>OnLoaded()</code>: collections, native resources, anything that must not outlive the object.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If a <strong>required</strong> dependency is detached or destroyed, Evergine detaches the elements that depend on it as well, because their bindings can no longer be satisfied. An optional dependency (<code>isRequired: false</code>) is set back to <code>null</code> instead.</p>
+</div>
+<h2 id="example-log-every-callback">Example: Log Every Callback</h2>
+<p>Adding this behavior to an entity is the quickest way to see the lifecycle in action. It writes one line per callback to the debug output.</p>
+<pre><code class="lang-csharp">using System;
+using System.Diagnostics;
+using Evergine.Framework;
+
+namespace MyProject
+{
+    public class LifecycleLogger : Behavior
+    {
+        private bool isFirstUpdate = true;
+
+        protected override void OnLoaded()
+        {
+            base.OnLoaded();
+
+            // The component has no owner yet: it has only been added to an entity.
+            this.Log(nameof(this.OnLoaded));
+        }
+
+        protected override bool OnAttached()
+        {
+            this.Log(nameof(this.OnAttached));
+            return base.OnAttached();
+        }
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+            this.Log(nameof(this.OnActivated));
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+            this.Log(nameof(this.Start));
+        }
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            // Update runs every frame, so only the first call is logged.
+            if (this.isFirstUpdate)
+            {
+                this.isFirstUpdate = false;
+                this.Log(nameof(this.Update));
+            }
+        }
+
+        protected override void OnDeactivated()
+        {
+            base.OnDeactivated();
+            this.Log(nameof(this.OnDeactivated));
+        }
+
+        protected override void OnDetached()
+        {
+            this.Log(nameof(this.OnDetached));
+            base.OnDetached();
+        }
+
+        protected override void OnDestroy()
+        {
+            this.Log(nameof(this.OnDestroy));
+            base.OnDestroy();
+        }
+
+        private void Log(string callback)
+        {
+            Trace.WriteLine($&quot;[{this.Owner?.Name ?? &quot;no owner&quot;}] {callback}&quot;);
+        }
+    }
+}
+</code></pre>
+<p>Then exercise it from a scene or another component:</p>
+<pre><code class="lang-csharp">var entity = new Entity(&quot;Logged&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(new LifecycleLogger());   // OnLoaded
+
+this.Managers.EntityManager.Add(entity);    // OnAttached, OnActivated and Start, because the scene is running
+
+entity.IsEnabled = false;                   // OnDeactivated
+entity.IsEnabled = true;                    // OnActivated (Start does not run again)
+
+this.Managers.EntityManager.Remove(entity); // OnDeactivated, OnDetached, OnDestroy
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>EntityManager.Remove()</code> destroys the entity and its components. Use <code>EntityManager.Detach()</code> instead when you want to take an entity out of the scene and add it again later: it stops at <code>OnDetached()</code>, and adding the entity back runs <code>OnAttached()</code>, <code>OnActivated()</code> and <code>Start()</code> again.</p>
+</div>
+<h2 id="scenes">Scenes</h2>
+<p>A <a href="scenes/index.html">Scene</a> is not an <code>AttachableObject</code> and has its own, simpler sequence: <code>RegisterManagers()</code>, <code>CreateScene()</code>, <code>Start()</code>, then <code>Pause()</code>, <code>Resume()</code> and <code>End()</code>. The <a href="scenes/create_scenes.html">Create Scenes</a> page describes each of them.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1075 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class VehicleController | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class VehicleController | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.VehicleController">
+
+
+
+  <h1 id="Evergine_Framework_Physics_VehicleController" data-uid="Evergine.Framework.Physics.VehicleController" class="text-break">Class VehicleController</h1>
+  <div class="markdown level0 summary"><p>Base class of the vehicles. Turns the body on this entity into a chassis driven by the
+<a class="xref" href="Evergine.Framework.Physics.VehicleWheel.html">VehicleWheel</a> components found on its descendants.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><span class="xref">VehicleController</span></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.TrackedVehicleController.html">TrackedVehicleController</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.WheeledVehicleController.html">WheeledVehicleController</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_VehicleController_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class VehicleController : Component, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_VehicleController_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+A vehicle is a single constraint solved against the ground rather than a body per wheel. That is what keeps
+a car stable at speed, and it is why the wheels here are not bodies and never collide with anything
+themselves.
+</p>
+<p>
+The constraint registers itself as a step listener, so the powertrain runs inside the simulation step
+rather than between frames.
+</p>
+</div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_Physics_VehicleController_Body" data-uid="Evergine.Framework.Physics.VehicleController.Body">Body</h4>
+  <div class="markdown level1 summary"><p>The body acting as the chassis. It has to be dynamic.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(true, true, BindComponentSource.Owner, null, true)]
+public RigidBody Body</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.RigidBody.html">RigidBody</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Physics_VehicleController_Transform3D" data-uid="Evergine.Framework.Physics.VehicleController.Transform3D">Transform3D</h4>
+  <div class="markdown level1 summary"><p>The transform of the chassis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(true, true, BindComponentSource.Owner, null, true)]
+public Transform3D Transform3D</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_VehicleController_ClutchStrength_" data-uid="Evergine.Framework.Physics.VehicleController.ClutchStrength*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_ClutchStrength" data-uid="Evergine.Framework.Physics.VehicleController.ClutchStrength">ClutchStrength</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how hard the clutch couples the engine to the wheels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.01, DesiredChange = 0.5, DesiredLargeChange = 2, Tooltip = &quot;How hard the clutch couples the engine to the wheels. Lower launches softer without wheelspin.&quot;)]
+public float ClutchStrength { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_VehicleController_ClutchStrength_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The torque the clutch passes is this figure times the difference in speed between the engine
+side and the wheel side, so a stiff clutch on a revving engine slams a large torque into the
+wheels the instant it engages and spins them up. Lowering it makes the car pull away without
+lighting up the tyres, at the cost of a slower launch.</p>
+</div>
+  <a id="Evergine_Framework_Physics_VehicleController_CollisionTesterType_" data-uid="Evergine.Framework.Physics.VehicleController.CollisionTesterType*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_CollisionTesterType" data-uid="Evergine.Framework.Physics.VehicleController.CollisionTesterType">CollisionTesterType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how the wheels look for the ground.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;How the wheels look for the ground. A ray is cheapest, a cylinder most faithful.&quot;)]
+public VehicleCollisionTesterType CollisionTesterType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.VehicleCollisionTesterType.html">VehicleCollisionTesterType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_CurrentGear_" data-uid="Evergine.Framework.Physics.VehicleController.CurrentGear*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_CurrentGear" data-uid="Evergine.Framework.Physics.VehicleController.CurrentGear">CurrentGear</h4>
+  <div class="markdown level1 summary"><p>Gets the gear currently engaged. Zero is neutral and negative values are reverse.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CurrentGear { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_EngineMaxRPM_" data-uid="Evergine.Framework.Physics.VehicleController.EngineMaxRPM*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_EngineMaxRPM" data-uid="Evergine.Framework.Physics.VehicleController.EngineMaxRPM">EngineMaxRPM</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the highest speed the engine reaches, in revolutions per minute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 1, Tooltip = &quot;Highest speed the engine reaches.&quot;)]
+public float EngineMaxRPM { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_EngineMaxTorque_" data-uid="Evergine.Framework.Physics.VehicleController.EngineMaxTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_EngineMaxTorque" data-uid="Evergine.Framework.Physics.VehicleController.EngineMaxTorque">EngineMaxTorque</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the strongest torque the engine produces, in newton meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;Strongest torque the engine produces.&quot;)]
+public float EngineMaxTorque { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_EngineMinRPM_" data-uid="Evergine.Framework.Physics.VehicleController.EngineMinRPM*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_EngineMinRPM" data-uid="Evergine.Framework.Physics.VehicleController.EngineMinRPM">EngineMinRPM</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the idle speed of the engine, in revolutions per minute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;Idle speed of the engine.&quot;)]
+public float EngineMinRPM { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_EngineRPM_" data-uid="Evergine.Framework.Physics.VehicleController.EngineRPM*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_EngineRPM" data-uid="Evergine.Framework.Physics.VehicleController.EngineRPM">EngineRPM</h4>
+  <div class="markdown level1 summary"><p>Gets the current engine speed, in revolutions per minute.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float EngineRPM { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_Forward_" data-uid="Evergine.Framework.Physics.VehicleController.Forward*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_Forward" data-uid="Evergine.Framework.Physics.VehicleController.Forward">Forward</h4>
+  <div class="markdown level1 summary"><p>Gets or sets which way the chassis faces, in its local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Which way the chassis faces, in its local space.&quot;)]
+public Vector3 Forward { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_GearRatios_" data-uid="Evergine.Framework.Physics.VehicleController.GearRatios*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_GearRatios" data-uid="Evergine.Framework.Physics.VehicleController.GearRatios">GearRatios</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the gear ratios of the gearbox, first gear first.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float[] GearRatios { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_VehicleController_GearRatios_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>These multiply the engine torque on its way to the differentials, so they decide how much force
+reaches the ground in each gear far more than the engine does: a first gear of five turns the same
+engine into something that climbs. The defaults are the simulation's own, which are spaced for a
+car with a light body and no low range.</p>
+</div>
+  <a id="Evergine_Framework_Physics_VehicleController_IsCreated_" data-uid="Evergine.Framework.Physics.VehicleController.IsCreated*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_IsCreated" data-uid="Evergine.Framework.Physics.VehicleController.IsCreated">IsCreated</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the native vehicle exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsCreated { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_IsTracked_" data-uid="Evergine.Framework.Physics.VehicleController.IsTracked*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_IsTracked" data-uid="Evergine.Framework.Physics.VehicleController.IsTracked">IsTracked</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this vehicle uses tracked wheels rather than steered ones.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract bool IsTracked { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_MaxPitchRollAngle_" data-uid="Evergine.Framework.Physics.VehicleController.MaxPitchRollAngle*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_MaxPitchRollAngle" data-uid="Evergine.Framework.Physics.VehicleController.MaxPitchRollAngle">MaxPitchRollAngle</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how far the vehicle may lean before the wheels stop applying force, which stops a rolled
+vehicle from driving on its side.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(FloatRadianToDegreeConverter), Tooltip = &quot;How far the vehicle may lean before the wheels give up.&quot;)]
+public float MaxPitchRollAngle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_NativeConstraint_" data-uid="Evergine.Framework.Physics.VehicleController.NativeConstraint*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_NativeConstraint" data-uid="Evergine.Framework.Physics.VehicleController.NativeConstraint">NativeConstraint</h4>
+  <div class="markdown level1 summary"><p>Gets the native vehicle constraint, or zero when it does not exist.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public nint NativeConstraint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_NativeController_" data-uid="Evergine.Framework.Physics.VehicleController.NativeController*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_NativeController" data-uid="Evergine.Framework.Physics.VehicleController.NativeController">NativeController</h4>
+  <div class="markdown level1 summary"><p>Gets the native controller of this vehicle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected nint NativeController { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_PhysicsManager_" data-uid="Evergine.Framework.Physics.VehicleController.PhysicsManager*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_PhysicsManager" data-uid="Evergine.Framework.Physics.VehicleController.PhysicsManager">PhysicsManager</h4>
+  <div class="markdown level1 summary"><p>Gets the manager simulating this vehicle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected PhysicsManager PhysicsManager { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsManager.html">PhysicsManager</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_ReverseGearRatios_" data-uid="Evergine.Framework.Physics.VehicleController.ReverseGearRatios*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_ReverseGearRatios" data-uid="Evergine.Framework.Physics.VehicleController.ReverseGearRatios">ReverseGearRatios</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the reverse gear ratios. They are negative, because reverse turns the wheels the other
+way for the same engine rotation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float[] ReverseGearRatios { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_ShiftDownRPM_" data-uid="Evergine.Framework.Physics.VehicleController.ShiftDownRPM*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_ShiftDownRPM" data-uid="Evergine.Framework.Physics.VehicleController.ShiftDownRPM">ShiftDownRPM</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the engine speed an automatic transmission shifts down at.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, AttachToTag = 10, AttachToValue = TransmissionMode.Auto, Tooltip = &quot;Engine speed an automatic transmission shifts down at.&quot;)]
+public float ShiftDownRPM { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_ShiftUpRPM_" data-uid="Evergine.Framework.Physics.VehicleController.ShiftUpRPM*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_ShiftUpRPM" data-uid="Evergine.Framework.Physics.VehicleController.ShiftUpRPM">ShiftUpRPM</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the engine speed an automatic transmission shifts up at.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, AttachToTag = 10, AttachToValue = TransmissionMode.Auto, Tooltip = &quot;Engine speed an automatic transmission shifts up at.&quot;)]
+public float ShiftUpRPM { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_TransmissionMode_" data-uid="Evergine.Framework.Physics.VehicleController.TransmissionMode*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_TransmissionMode" data-uid="Evergine.Framework.Physics.VehicleController.TransmissionMode">TransmissionMode</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how gears are selected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 10, Tooltip = &quot;Whether gears are changed automatically or by the driver.&quot;)]
+public TransmissionMode TransmissionMode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.TransmissionMode.html">TransmissionMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_Up_" data-uid="Evergine.Framework.Physics.VehicleController.Up*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_Up" data-uid="Evergine.Framework.Physics.VehicleController.Up">Up</h4>
+  <div class="markdown level1 summary"><p>Gets or sets which way is up for the chassis, in its local space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Which way is up for the chassis, in its local space.&quot;)]
+public Vector3 Up { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_Wheels_" data-uid="Evergine.Framework.Physics.VehicleController.Wheels*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_Wheels" data-uid="Evergine.Framework.Physics.VehicleController.Wheels">Wheels</h4>
+  <div class="markdown level1 summary"><p>Gets the wheels of this vehicle, in the order the differentials and tracks refer to them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IReadOnlyList&lt;VehicleWheel&gt; Wheels { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Evergine.Framework.Physics.VehicleWheel.html">VehicleWheel</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_VehicleController_CreateControllerSettings_" data-uid="Evergine.Framework.Physics.VehicleController.CreateControllerSettings*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_CreateControllerSettings" data-uid="Evergine.Framework.Physics.VehicleController.CreateControllerSettings">CreateControllerSettings()</h4>
+  <div class="markdown level1 summary"><p>Builds the native controller settings for this kind of vehicle. The caller destroys the handle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract nint CreateControllerSettings()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><p>The native controller settings.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_FillEngineSettings_" data-uid="Evergine.Framework.Physics.VehicleController.FillEngineSettings*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_FillEngineSettings_Evergine_Bindings_JoltPhysics_VehicleEngineSettings__" data-uid="Evergine.Framework.Physics.VehicleController.FillEngineSettings(Evergine.Bindings.JoltPhysics.VehicleEngineSettings*)">FillEngineSettings(VehicleEngineSettings*)</h4>
+  <div class="markdown level1 summary"><p>Fills in the engine settings shared by every kind of vehicle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FillEngineSettings(VehicleEngineSettings* engine)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">VehicleEngineSettings</span>*</td>
+        <td><span class="parametername">engine</span></td>
+        <td><p>The settings to fill in.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_FillTransmissionSettings_" data-uid="Evergine.Framework.Physics.VehicleController.FillTransmissionSettings*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_FillTransmissionSettings_System_IntPtr_" data-uid="Evergine.Framework.Physics.VehicleController.FillTransmissionSettings(System.IntPtr)">FillTransmissionSettings(nint)</h4>
+  <div class="markdown level1 summary"><p>Applies the shared transmission settings.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FillTransmissionSettings(nint transmission)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><span class="parametername">transmission</span></td>
+        <td><p>The native transmission settings.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_GetAntiRollBars_" data-uid="Evergine.Framework.Physics.VehicleController.GetAntiRollBars*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_GetAntiRollBars" data-uid="Evergine.Framework.Physics.VehicleController.GetAntiRollBars">GetAntiRollBars()</h4>
+  <div class="markdown level1 summary"><p>The anti-roll bars this vehicle wants, if any. The base vehicle has none.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual VehicleAntiRollBar[] GetAntiRollBars()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="xref">VehicleAntiRollBar</span>[]</td>
+        <td><p>The bars, or an empty array.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_VehicleController_GetAntiRollBars_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A bar ties the two wheels of an axle together so the body leans less in a corner. Which axles a
+vehicle has is the subclass's business -- a tracked one has none at all -- so the base class only
+asks.</p>
+</div>
+  <a id="Evergine_Framework_Physics_VehicleController_GetNativeEngine_" data-uid="Evergine.Framework.Physics.VehicleController.GetNativeEngine*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_GetNativeEngine" data-uid="Evergine.Framework.Physics.VehicleController.GetNativeEngine">GetNativeEngine()</h4>
+  <div class="markdown level1 summary"><p>Gets the native engine of this vehicle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract nint GetNativeEngine()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><p>The native engine, or zero.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_GetNativeTransmission_" data-uid="Evergine.Framework.Physics.VehicleController.GetNativeTransmission*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_GetNativeTransmission" data-uid="Evergine.Framework.Physics.VehicleController.GetNativeTransmission">GetNativeTransmission()</h4>
+  <div class="markdown level1 summary"><p>Gets the native transmission of this vehicle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract nint GetNativeTransmission()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><p>The native transmission, or zero.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_VehicleController_OnActivated_" data-uid="Evergine.Framework.Physics.VehicleController.OnActivated*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_OnActivated" data-uid="Evergine.Framework.Physics.VehicleController.OnActivated">OnActivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is activated once it is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnActivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a></div>
+  <a id="Evergine_Framework_Physics_VehicleController_OnDeactivated_" data-uid="Evergine.Framework.Physics.VehicleController.OnDeactivated*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_OnDeactivated" data-uid="Evergine.Framework.Physics.VehicleController.OnDeactivated">OnDeactivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is deactivated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDeactivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a></div>
+  <a id="Evergine_Framework_Physics_VehicleController_OnDetached_" data-uid="Evergine.Framework.Physics.VehicleController.OnDetached*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_OnDetached" data-uid="Evergine.Framework.Physics.VehicleController.OnDetached">OnDetached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetached()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetached">Component.OnDetached()</a></div>
+  <a id="Evergine_Framework_Physics_VehicleController_Recreate_" data-uid="Evergine.Framework.Physics.VehicleController.Recreate*"></a>
+  <h4 id="Evergine_Framework_Physics_VehicleController_Recreate" data-uid="Evergine.Framework.Physics.VehicleController.Recreate">Recreate()</h4>
+  <div class="markdown level1 summary"><p>Builds the vehicle again before the next step, so a setting read only at construction takes effect.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void Recreate()</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_VehicleController_Recreate_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Deferred like a moved wheel: rebuilding from a property setter could destroy the constraint mid step.</p>
+</div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Physics_VehicleController_VehicleStepCompleted" data-uid="Evergine.Framework.Physics.VehicleController.VehicleStepCompleted">VehicleStepCompleted</h4>
+  <div class="markdown level1 summary"><p>Raised right after the simulation finishes stepping this vehicle.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;float&gt; VehicleStepCompleted</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_VehicleController_VehicleStepCompleted_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Raised on the thread that runs the physics update, once the step is over, while the tyre telemetry of
+the wheels (slip, combined friction and brake impulse) is still the one that step wrote.</p>
+</div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

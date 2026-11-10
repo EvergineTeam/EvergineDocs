@@ -1,0 +1,837 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Migrating from Bullet | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Migrating from Bullet | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="migrating-from-bullet">Migrating from Bullet</h1>
+
+<p><img src="images/physics.png" alt="Migrating"></p>
+<p>Evergine's physics has been rebuilt on <strong><a href="https://github.com/jrouwe/JoltPhysics">Jolt Physics</a></strong>, replacing Bullet. Every component has a new name, several have been merged, and a few concepts work differently.</p>
+<p>This page is the map from the old API to the new one. Most of the mechanical part of the work is done by the <a href="#migration-tool">migration tool</a> at the end of the page; the tables are for reading its report and for the pieces it leaves to you.</p>
+<h2 id="what-changed-and-why">What changed and why</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Before</th>
+<th>Now</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Engine</td>
+<td>Bullet, through the <code>Evergine.Bullet</code> package</td>
+<td>Jolt, built into <code>Evergine.Framework</code></td>
+</tr>
+<tr>
+<td>Namespace</td>
+<td><code>Evergine.Framework.Physics3D</code></td>
+<td><code>Evergine.Framework.Physics</code></td>
+</tr>
+<tr>
+<td>Suffix</td>
+<td><code>RigidBody3D</code>, <code>BoxCollider3D</code>, <code>HingeJoint3D</code></td>
+<td><code>RigidBody</code>, <code>BoxCollider</code>, <code>HingeConstraint</code></td>
+</tr>
+<tr>
+<td>Backend</td>
+<td>An abstract manager with a Bullet implementation</td>
+<td>One concrete <code>PhysicsManager</code></td>
+</tr>
+<tr>
+<td>Package</td>
+<td><code>Evergine.Bullet</code> had to be installed</td>
+<td>Nothing to install</td>
+</tr>
+</tbody>
+</table>
+<p>Three things come with the change: the solver is built to use several cores, it can be made deterministic, and it brings <a href="soft_bodies/index.html">soft bodies</a>, <a href="vehicles/tracked_vehicles.html">tracked vehicles</a>, <a href="colliders/heightfield_collider.html">height fields</a> and <a href="colliders/plane_collider.html">plane colliders</a>, none of which existed before.</p>
+<h2 id="the-manager">The Manager</h2>
+<pre><code class="lang-csharp">// Before
+this.Managers.AddManager&lt;PhysicManager3D&gt;(new Evergine.Bullet.BulletPhysicManager3D());
+
+// Now
+this.Managers.AddManager(new Evergine.Framework.Physics.PhysicsManager());
+</code></pre>
+<p>There is no abstract base and no backend to choose. <code>SceneManagers.PhysicManager3D</code> is gone too. Bind to the manager instead:</p>
+<pre><code class="lang-csharp">[BindSceneManager]
+private PhysicsManager physicsManager = null;
+</code></pre>
+<h2 id="bodies">Bodies</h2>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RigidBody3D</code></td>
+<td><a href="physics_bodies/rigid_body.html"><code>RigidBody</code></a></td>
+<td>Dynamic by default; <code>IsKinematic = true</code> for a kinematic one.</td>
+</tr>
+<tr>
+<td><code>StaticBody3D</code></td>
+<td><a href="physics_bodies/static_body.html"><code>StaticBody</code></a></td>
+<td>Still a component of its own, and now with no motion properties at all.</td>
+</tr>
+<tr>
+<td><code>BulletGhostBody3D</code></td>
+<td><code>StaticBody</code> or <code>RigidBody</code></td>
+<td>With <code>IsSensor = true</code>. Static if it stays put, kinematic if it moves.</td>
+</tr>
+<tr>
+<td><code>PhysicBodyType</code> (a <code>RigidBodyType3D</code>)</td>
+<td><em>Removed.</em></td>
+<td><code>Kinematic</code> and <code>Dynamic</code> are the two values of <code>RigidBody.IsKinematic</code>; static is a choice of component.</td>
+</tr>
+<tr>
+<td><em>None.</em></td>
+<td><code>PhysicsBody</code></td>
+<td>The new base class of both. Colliders, constraints, queries and collision events hand bodies out as this type.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A code-created <code>StaticBody3D</code> ghost that followed the cursor, a controller or a hand has to become a <strong>kinematic <code>RigidBody</code></strong>. Bullet paired static ghosts with everything; Jolt never generates a contact between two static bodies. If the sensor must also notice static geometry, set <code>CollideKinematicVsNonDynamic</code> on it. See <a href="physics_bodies/sensors.html">Sensors</a>.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Axis locking</td>
+<td><code>LinearFactor</code>, <code>AngularFactor</code> (0 to 1 per axis)</td>
+<td><code>AllowedDegreesOfFreedom</code>, a flags enum that locks an axis <strong>exactly</strong> rather than scaling it.</td>
+</tr>
+<tr>
+<td>Per-body gravity</td>
+<td><code>OverrideGravity</code> + <code>Gravity</code> (a vector)</td>
+<td><code>GravityFactor</code>, a scalar multiplying the world's gravity.</td>
+</tr>
+<tr>
+<td>Inertia</td>
+<td><code>LocalInertia</code> (a tensor)</td>
+<td><code>InertiaMultiplier</code>, a scalar scaling the inertia computed from the shape.</td>
+</tr>
+<tr>
+<td>Rolling friction</td>
+<td><code>RollingFriction</code></td>
+<td><em>Removed.</em> Use <code>AngularDamping</code> to stop things rolling for ever.</td>
+</tr>
+<tr>
+<td>Mass</td>
+<td><code>Mass</code>, default 1</td>
+<td><code>Mass</code>, default <strong>0</strong>, which means &quot;work it out from the colliders' <code>Density</code>&quot;.</td>
+</tr>
+<tr>
+<td>Friction</td>
+<td>default 0.5</td>
+<td>default <strong>0.2</strong>.</td>
+</tr>
+<tr>
+<td>Damping</td>
+<td>default 0</td>
+<td>default <strong>0.05</strong> for both linear and angular.</td>
+</tr>
+<tr>
+<td>Collision filtering</td>
+<td><code>CollisionCategory</code> + <code>MaskBits</code> per body</td>
+<td><code>CollisionCategory</code> per body, plus one <a href="collision_filtering.html">collision matrix</a> on the world. There is no per-body mask any more: every old mask rule has to be recreated with <code>SetCollisionEnabled</code>, and the migration tool reports each one it removed rather than guessing.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="methods">Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ApplyForce(force)</code></td>
+<td><code>ApplyForce(force)</code></td>
+</tr>
+<tr>
+<td><code>ApplyForceAtPosition(force, position)</code></td>
+<td><code>ApplyForce(force, worldPosition)</code></td>
+</tr>
+<tr>
+<td><code>ApplyImpulse(impulse)</code></td>
+<td><code>ApplyImpulse(impulse)</code></td>
+</tr>
+<tr>
+<td><code>ApplyImpulseAtPosition(impulse, position)</code></td>
+<td><code>ApplyImpulse(impulse, worldPosition)</code></td>
+</tr>
+<tr>
+<td><code>ApplyTorque(torque)</code></td>
+<td><code>ApplyTorque(torque)</code></td>
+</tr>
+<tr>
+<td><code>ApplyTorqueImpulse(impulse)</code></td>
+<td><code>ApplyAngularImpulse(impulse)</code></td>
+</tr>
+<tr>
+<td><code>ClearForces()</code></td>
+<td><em>Removed.</em> Forces are cleared at the end of each step.</td>
+</tr>
+<tr>
+<td><em>None.</em></td>
+<td><code>MoveTo</code>, <code>Teleport</code>, <code>ApplyBuoyancy</code>, <code>GetPointVelocity</code>, <code>InvalidateShape</code></td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Kinematic bodies now have a proper way to be moved: <code>MoveTo(position, orientation)</code>. It generates the velocity needed to get there this step, so the body pushes and carries as it should. Writing the <code>Transform3D</code> teleports it and drops whatever was standing on it.</p>
+</div>
+<h2 id="colliders">Colliders</h2>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Collider3D</code></td>
+<td><code>Collider</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>BoxCollider3D</code></td>
+<td><a href="colliders/box_collider.html"><code>BoxCollider</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><code>SphereCollider3D</code></td>
+<td><a href="colliders/sphere_collider.html"><code>SphereCollider</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><code>CapsuleCollider3D</code></td>
+<td><a href="colliders/capsule_collider.html"><code>CapsuleCollider</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><code>CylinderCollider3D</code></td>
+<td><a href="colliders/cylinder_collider.html"><code>CylinderCollider</code></a></td>
+<td></td>
+</tr>
+<tr>
+<td><code>ConeCollider3D</code></td>
+<td><a href="colliders/tapered_cylinder_collider.html"><code>TaperedCylinderCollider</code></a></td>
+<td>The old radius becomes <code>BottomRadius</code> and <code>TopRadius</code> stays at 0. A cone is a tapered cylinder.</td>
+</tr>
+<tr>
+<td><code>MeshCollider3D</code></td>
+<td><a href="colliders/mesh_collider.html"><code>MeshCollider</code></a></td>
+<td><code>MeshType = TriangleMesh</code>.</td>
+</tr>
+<tr>
+<td><code>BulletConvexHullCollider3D</code></td>
+<td><a href="colliders/mesh_collider.html"><code>MeshCollider</code></a></td>
+<td><code>MeshType = ConvexHull</code>, which is the default.</td>
+</tr>
+<tr>
+<td><code>BulletCompoundCollider3D</code></td>
+<td><em>Removed.</em></td>
+<td>A body builds a compound from every collider on its entity and its descendants, automatically.</td>
+</tr>
+<tr>
+<td><em>None.</em></td>
+<td><a href="colliders/tapered_capsule_collider.html"><code>TaperedCapsuleCollider</code></a></td>
+<td>New.</td>
+</tr>
+<tr>
+<td><em>None.</em></td>
+<td><a href="colliders/plane_collider.html"><code>PlaneCollider</code></a></td>
+<td>New.</td>
+</tr>
+<tr>
+<td><em>None.</em></td>
+<td><a href="colliders/heightfield_collider.html"><code>HeightFieldCollider</code></a></td>
+<td>New, and deformable at run time.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Dimensions</td>
+<td>Factors of the model's bounds: a <code>Size</code> of 1 fitted the mesh.</td>
+<td>Local units by default. <a href="colliders/index.html#local-units-or-model-bounds"><code>UseModelBounds</code></a> restores the Bullet convention, and the migration tool switches it on for every migrated primitive collider and vehicle wheel.</td>
+</tr>
+<tr>
+<td>Entity scale</td>
+<td>Applied to the model, not always to the collider.</td>
+<td>Baked into the native shape: a unit collider on a scaled entity collides at the size it is drawn.</td>
+</tr>
+<tr>
+<td>Collision margin</td>
+<td><code>Margin</code>, 0.04</td>
+<td><code>ConvexRadius</code>, 0.05, on the shapes that have one.</td>
+</tr>
+<tr>
+<td>Density</td>
+<td><em>None.</em></td>
+<td><code>Density</code>, 1000 kg/m³, which is what a body's mass is computed from.</td>
+</tr>
+<tr>
+<td>Compound</td>
+<td><code>BulletCompoundCollider3D</code></td>
+<td>The hierarchy. A child collider moved at run time updates the compound in place.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="joints-become-constraints">Joints become Constraints</h2>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FixedJoint3D</code></td>
+<td><a href="constraints/fixed_constraint.html"><code>FixedConstraint</code></a></td>
+</tr>
+<tr>
+<td><code>PointToPointJoint3D</code></td>
+<td><a href="constraints/point_constraint.html"><code>PointConstraint</code></a></td>
+</tr>
+<tr>
+<td><code>HingeJoint3D</code></td>
+<td><a href="constraints/hinge_constraint.html"><code>HingeConstraint</code></a></td>
+</tr>
+<tr>
+<td><code>SliderJoint3D</code></td>
+<td><a href="constraints/slider_constraint.html"><code>SliderConstraint</code></a></td>
+</tr>
+<tr>
+<td><code>ConeTwistJoint3D</code></td>
+<td><a href="constraints/swing_twist_constraint.html"><code>SwingTwistConstraint</code></a></td>
+</tr>
+<tr>
+<td><code>GearJoint3D</code></td>
+<td><a href="constraints/gear_constraint.html"><code>GearConstraint</code></a></td>
+</tr>
+<tr>
+<td><code>Generic6DofJoint3D</code></td>
+<td><a href="constraints/six_dof_constraint.html"><code>SixDOFConstraint</code></a></td>
+</tr>
+<tr>
+<td><code>Generic6DofSpringJoint3D</code></td>
+<td><a href="constraints/six_dof_constraint.html"><code>SixDOFConstraint</code></a> with <code>LimitsSpring</code></td>
+</tr>
+<tr>
+<td><code>SpringJoint3D</code></td>
+<td><em>No direct equivalent.</em> Springs are a property of a limit: <code>LimitsSpring</code> on a hinge, slider or distance constraint, or a six DOF constraint.</td>
+</tr>
+<tr>
+<td><em>None.</em></td>
+<td><a href="constraints/distance_constraint.html"><code>DistanceConstraint</code></a>, <a href="constraints/cone_constraint.html"><code>ConeConstraint</code></a>, <a href="constraints/rack_and_pinion_constraint.html"><code>RackAndPinionConstraint</code></a>, <a href="constraints/pulley_constraint.html"><code>PulleyConstraint</code></a>, all new.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>IXxxJoint3D</code> interfaces and the <code>XxxJointDef3D</code> structs are gone: a constraint is a component and nothing else.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Breaking</td>
+<td><code>BreakPoint</code></td>
+<td><code>IsBreakable</code> + <code>BreakForce</code> + <code>BreakTorque</code>, plus a <code>Broken</code> event.</td>
+</tr>
+<tr>
+<td>Auto anchor</td>
+<td><code>AutoConfigureConnected</code></td>
+<td><code>AutoConfigureConnectedAnchor</code></td>
+</tr>
+<tr>
+<td>Motors</td>
+<td><code>UseMotor</code>, <code>MotorTargetVelocity</code>, <code>MotorTargetImpulse</code></td>
+<td><code>MotorMode</code> (<code>Off</code>/<code>Velocity</code>/<code>Position</code>), <code>TargetAngularVelocity</code>/<code>TargetVelocity</code>, <code>TargetAngle</code>/<code>TargetPosition</code>, <code>MaxMotorTorque</code>/<code>MaxMotorForce</code>.</td>
+</tr>
+<tr>
+<td>Soft limits</td>
+<td><code>LimitSoftness</code>, <code>LimitBiasFactor</code>, <code>LimitRelaxationFactor</code></td>
+<td><code>LimitsSpring</code>, a <code>SpringParameters</code> in frequency-and-damping or stiffness-and-damping terms.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="character-controller">Character Controller</h2>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CharacterController3D</code></td>
+<td><a href="character_controller.html"><code>CharacterController</code></a></td>
+</tr>
+<tr>
+<td><code>StepHeight</code></td>
+<td><code>StepHeight</code></td>
+</tr>
+<tr>
+<td><code>MaxSlope</code> (45°)</td>
+<td><code>MaxSlopeAngle</code> (π/4, in <strong>radians</strong>)</td>
+</tr>
+<tr>
+<td><code>FallSpeed</code>, <code>Gravity</code></td>
+<td><code>ApplyGravity</code>, plus the world's gravity</td>
+</tr>
+<tr>
+<td><code>JumpSpeed</code></td>
+<td>An argument to <code>Jump(speed)</code></td>
+</tr>
+<tr>
+<td><code>SetVelocity(v)</code></td>
+<td><code>LinearVelocity</code></td>
+</tr>
+<tr>
+<td><code>Teleport(p)</code></td>
+<td><code>Teleport(p)</code></td>
+</tr>
+</tbody>
+</table>
+<p>Three real differences:</p>
+<ul>
+<li>It is built on Jolt's <code>CharacterVirtual</code> and is <strong>not a rigid body</strong>. Do not add a <code>RigidBody</code> or a <code>Collider</code> to the same entity.</li>
+<li>The entity's origin is at the character's <strong>feet</strong>, not the middle of its capsule.</li>
+<li>Write only the <strong>horizontal</strong> part of <code>LinearVelocity</code>. The component owns the vertical.</li>
+</ul>
+<h2 id="vehicles">Vehicles</h2>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PhysicVehicle3D</code></td>
+<td><a href="vehicles/wheeled_vehicles.html"><code>WheeledVehicleController</code></a></td>
+</tr>
+<tr>
+<td><code>PhysicWheel3D</code></td>
+<td><a href="vehicles/vehicle_wheel.html"><code>VehicleWheel</code></a></td>
+</tr>
+<tr>
+<td><code>ApplyEngineForce</code>, <code>SetSteeringValue</code>, <code>SetBrake</code></td>
+<td>One call: <code>SetDriverInput(forward, right, brake, handBrake)</code></td>
+</tr>
+<tr>
+<td><code>SearchVehicle</code>, <code>PhysicVehicleEntityPath</code></td>
+<td><em>Removed.</em> Wheels are child entities and are found by walking the hierarchy.</td>
+</tr>
+<tr>
+<td><code>SuspensionStiffness</code>, <code>SuspensionCompression</code></td>
+<td><code>SuspensionSpring</code>, a <code>SpringParameters</code>.</td>
+</tr>
+<tr>
+<td><code>MaxSuspensionTravel</code>, <code>SuspensionRestLength</code></td>
+<td><code>SuspensionMinLength</code>, <code>SuspensionMaxLength</code>.</td>
+</tr>
+<tr>
+<td><code>IsSteerableWheel</code></td>
+<td><code>MaxSteerAngle</code>. Zero means it does not steer.</td>
+</tr>
+<tr>
+<td><code>IsDriveWheel</code></td>
+<td><code>FrontWheelDrive</code> / <code>RearWheelDrive</code> on the controller.</td>
+</tr>
+<tr>
+<td><code>IsBrakableWheel</code></td>
+<td><code>MaxBrakeTorque</code>. Zero means it does not brake.</td>
+</tr>
+<tr>
+<td><em>None.</em></td>
+<td><a href="vehicles/tracked_vehicles.html"><code>TrackedVehicleController</code></a>, new.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="queries">Queries</h2>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RayCast(ref from, ref to, filterMask)</code></td>
+<td><code>RayCast(origin, direction, maxDistance, in filter, out hit)</code></td>
+</tr>
+<tr>
+<td><code>RayCastAll(...)</code></td>
+<td><code>RayCastAll(origin, direction, maxDistance, results, in filter)</code></td>
+</tr>
+<tr>
+<td><code>ConvexSweepTest(...)</code></td>
+<td><code>ShapeCast</code>, <code>SphereCast</code>, <code>BoxCast</code></td>
+</tr>
+<tr>
+<td><code>ConvexSweepTestAll(...)</code></td>
+<td><code>ShapeCastAll(...)</code></td>
+</tr>
+<tr>
+<td><code>PointTest(...)</code></td>
+<td><code>OverlapPoint</code>, <code>OverlapPointAll</code></td>
+</tr>
+<tr>
+<td><code>ContactTest(...)</code></td>
+<td><code>OverlapSphere</code>, <code>OverlapBox</code>, <code>OverlapShape</code>, <code>OverlapAABox</code></td>
+</tr>
+<tr>
+<td><code>ContactPairTest(...)</code></td>
+<td><code>WereBodiesInContact(first, second)</code></td>
+</tr>
+<tr>
+<td><code>HitResult3D</code></td>
+<td><code>RayCastHit</code>, <code>ShapeCastHit</code>, <code>OverlapHit</code></td>
+</tr>
+<tr>
+<td>A category mask argument</td>
+<td>A <a href="queries.html#query-filters"><code>QueryFilter</code></a> struct: categories, sensors, an ignored body and a predicate.</td>
+</tr>
+</tbody>
+</table>
+<p>Rays are now given an <strong>origin, a direction and a distance</strong> rather than two points, and hits carry both <code>Distance</code> and <code>Fraction</code>. Every hit's <code>Body</code> is a <code>PhysicsBody</code>; code that applied an impulse to whatever a ray hit needs <code>hit.Body as RigidBody</code> first.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Bullet's ray casts hit ghost objects. Jolt's skip sensors unless the filter says otherwise, so a migrated ray cast that used to stop at a trigger volume needs a <code>QueryFilter</code> with <code>IncludeSensors = true</code>. The migration tool writes that filter into the ray casts it converts.</p>
+</div>
+<h2 id="collisions">Collisions</h2>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BeginCollision</code></td>
+<td><code>CollisionStarted</code></td>
+</tr>
+<tr>
+<td><code>UpdateCollision</code></td>
+<td><code>CollisionUpdated</code></td>
+</tr>
+<tr>
+<td><code>EndCollision</code></td>
+<td><code>CollisionEnded</code></td>
+</tr>
+<tr>
+<td><code>CollisionInfo3D</code></td>
+<td><code>CollisionInfo</code></td>
+</tr>
+<tr>
+<td><code>ContactPoint3D</code></td>
+<td>Folded into <code>CollisionInfo</code>: <code>Point</code>, <code>Normal</code>, <code>PenetrationDepth</code>, <code>PointCount</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Events are now raised <strong>once per pair of bodies</strong> rather than per pair of sub-shapes, and always on the main thread after the step.</p>
+<h2 id="manager-settings">Manager Settings</h2>
+<table>
+<thead>
+<tr>
+<th>Bullet</th>
+<th>Jolt</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PerformPhysicSteps</code></td>
+<td><code>IsSimulationEnabled</code></td>
+</tr>
+<tr>
+<td><code>MaxSubSteps</code></td>
+<td><code>MaxStepsPerFrame</code></td>
+</tr>
+<tr>
+<td><code>PhysicWorldResolution</code></td>
+<td><code>CollisionSteps</code></td>
+</tr>
+<tr>
+<td><code>FixedTimeStep</code></td>
+<td><code>FixedTimeStep</code></td>
+</tr>
+<tr>
+<td><code>ApplySpeculativeContactRestitution</code></td>
+<td><code>SpeculativeContactDistance</code></td>
+</tr>
+<tr>
+<td><code>DrawFlags</code> / <code>DebugDrawFlags</code></td>
+<td><a href="debug_rendering.html"><code>DebugFlags</code></a>, a <code>PhysicsDebugFlags</code></td>
+</tr>
+<tr>
+<td><code>SetDebugDraw()</code> / <code>DebugDraw()</code></td>
+<td><em>Removed.</em> One property does it.</td>
+</tr>
+<tr>
+<td><code>InternalWorld</code></td>
+<td><code>NativePhysicsSystem</code>, <code>NativeBodyInterface</code></td>
+</tr>
+<tr>
+<td><code>OnPhysicStep</code></td>
+<td><code>PhysicsStepStarting</code>, <code>PhysicsStepCompleted</code>, <code>SimulationUpdated</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="migration-tool">Migration Tool</h2>
+<p>The Evergine repository ships a PowerShell script that does the mechanical part of all of the above, on the C# source, the project files and the <code>.wescene</code> and <code>.weprefab</code> assets of a project:</p>
+<pre><code class="lang-text">src/Tools/Migration/Migrate-BulletToJolt.ps1
+</code></pre>
+<p>It takes a project directory, a <code>.sln</code>, <code>.slnx</code>, <code>.csproj</code> or <code>.weproj</code>. Handed a solution that also references an Evergine checkout or another repository, it confines itself to the Git repository that owns the solution and reports the projects it left alone. <strong>It is a dry run unless <code>-Apply</code> is given</strong>, so the first run costs nothing.</p>
+<h3 id="recommended-process">Recommended process</h3>
+<ol>
+<li><p>Commit, or otherwise keep, the current state of the project.</p>
+</li>
+<li><p>Run it dry and write the findings to a file:</p>
+<pre><code class="lang-powershell">pwsh -File .\src\Tools\Migration\Migrate-BulletToJolt.ps1 `
+  -ProjectPath D:\Projects\MyGame\MyGame.Windows.sln `
+  -ReportPath D:\Projects\MyGame\bullet-to-jolt-report.json
+</code></pre>
+</li>
+<li><p>Read the list of files it would change and every warning in the report.</p>
+</li>
+<li><p>Apply it:</p>
+<pre><code class="lang-powershell">pwsh -File .\src\Tools\Migration\Migrate-BulletToJolt.ps1 `
+  -ProjectPath D:\Projects\MyGame\MyGame.Windows.sln `
+  -Apply
+</code></pre>
+</li>
+<li><p>The originals of every changed file, and the report, are kept under <code>&lt;project&gt;\.bullet-to-jolt-backup\&lt;timestamp&gt;\</code> unless <code>-NoBackup</code> says otherwise.</p>
+</li>
+<li><p>Rebuild the content. Generated assets are deliberately not touched; their source <code>.wescene</code> and <code>.weprefab</code> files are what was migrated.</p>
+</li>
+<li><p>Build the C# projects and work through what the report flagged.</p>
+</li>
+<li><p>Run the project with <a href="debug_rendering.html">debug rendering</a> on and check collider placement, sensors, constraints and vehicle wheels.</p>
+</li>
+<li><p>Run the tool dry once more. A fully migrated project reports zero changed files.</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Switch</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>-Apply</strong></td>
+<td>Writes the migration. Without it nothing on disk changes.</td>
+</tr>
+<tr>
+<td><strong>-AssetsOnly</strong></td>
+<td>Migrates the scene and prefab sources only, leaving the C# alone.</td>
+</tr>
+<tr>
+<td><strong>-NoBackup</strong></td>
+<td>Skips the timestamped backup. Only when source control already protects the tree.</td>
+</tr>
+<tr>
+<td><strong>-ReportPath &lt;file&gt;</strong></td>
+<td>Writes the full JSON report to a path of your choosing instead of the backup folder.</td>
+</tr>
+<tr>
+<td><strong>-PreserveConstraintMasses</strong></td>
+<td>Keeps the original masses in fragile constraint chains instead of applying the stability profile described below.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-it-does">What it does</h3>
+<ul>
+<li>Removes the <code>Evergine.Bullet</code> and <code>Evergine.LibBulletc</code> package and project references.</li>
+<li>Renames the namespace, the manager, and every body, collider, constraint, vehicle and query type, in code and in serialized components.</li>
+<li>Migrates <code>.wescene</code> and <code>.weprefab</code> component types and the properties that have an equivalent.</li>
+<li>Turns <code>PhysicBodyType</code> into <code>IsKinematic</code>, in assets and in C# comparisons and assignments, and <code>StaticBody3D</code> into <code>StaticBody</code>.</li>
+<li>Switches on <code>UseModelBounds</code> on every legacy primitive collider and vehicle wheel, including colliders created from C#, so their dimensions keep meaning what they meant.</li>
+<li>Converts collider offsets and orientations, <code>Margin</code> to <code>ConvexRadius</code> where a convex radius makes sense, CCD to <code>MotionQuality.LinearCast</code>, linear and angular factors to <code>AllowedDegreesOfFreedom</code>, and inherited negative solver iteration counts to the new zero sentinel.</li>
+<li>Converts the common <code>RayCast</code> forms to the <code>bool</code>/<code>out RayCastHit</code> API, with a filter that still hits sensors.</li>
+<li>Replaces dictionaries keyed by <code>CollisionInfo.Id</code> with <code>(ThisCollider, OtherCollider)</code> keys where it can prove the pattern, so simultaneous contacts from different sensors stay distinct.</li>
+<li>Folds adjacent <code>ApplyEngineForce</code>, <code>SetSteeringValue</code> and <code>SetBrake</code> calls into one <code>SetDriverInput</code>.</li>
+<li>Derives each wheel's radius, position, suspension and grip from the original Bullet asset, lowers the centre of mass, and scales inertia, damping, torque and anti-roll to the chassis, so a migrated car neither wheelies nor sinks its wheels into the ground.</li>
+<li>Stabilizes constraint chains carrying a heavy load, a plank bridge under a vehicle for instance, by adjusting mass ratios and per-constraint solver iterations.</li>
+<li>Sets <code>CollideKinematicVsNonDynamic</code> on serialized kinematic sensors.</li>
+<li>Scans every relevant C# file in the repository, not just the startup project, and is idempotent: running it again rewrites nothing.</li>
+</ul>
+<h3 id="what-it-leaves-to-you">What it leaves to you</h3>
+<p>The report keeps a warning for every conversion where the two engines do not mean the same thing:</p>
+<ul>
+<li><strong>Every <code>MaskBits</code> rule.</strong> Recreate each one in the <a href="collision_filtering.html">collision matrix</a>, and make sure rays and moving sensors exclude their own category where they should. The tool reports the original expression rather than guessing, because a wrong guess lets a cursor ray hit its own sensor.</li>
+<li><strong>Static sensors that move.</strong> A code-created <code>StaticBody</code> ghost that follows a cursor, controller or hand has to become a kinematic <code>RigidBody</code>.</li>
+<li><strong>Vehicles.</strong> Check the wheel order, the steering and drive indices and the visual wheel transforms, then retune torque, brakes, grip and suspension for the handling you want.</li>
+<li><strong>Constraints</strong> whose Bullet angular limits or motors have no exact equivalent.</li>
+<li><strong>Custom inertia and per-body gravity</strong> where the report flags them.</li>
+<li><strong>Custom query code</strong> (<code>RayCastAll</code>, sweeps, contact and point tests) that does not match one of the patterns the tool converts safely.</li>
+<li><strong>Cones.</strong> <code>ConeCollider3D</code> becomes a <code>TaperedCylinderCollider</code> with the old radius in <code>BottomRadius</code> and <code>TopRadius</code> at zero; check the result looks right.</li>
+</ul>
+<h2 id="migration-checklist">Migration Checklist</h2>
+<p>For a project migrated by hand, or for checking one the tool has been through:</p>
+<ol>
+<li><strong>Remove the <code>Evergine.Bullet</code> package reference.</strong> Nothing replaces it; the new physics ships in <code>Evergine.Framework</code>.</li>
+<li><strong>Change the manager registration</strong> to <code>new Evergine.Framework.Physics.PhysicsManager()</code>.</li>
+<li><strong>Change the using</strong> from <code>Evergine.Framework.Physics3D</code> to <code>Evergine.Framework.Physics</code>.</li>
+<li><strong>Rename the components</strong> using the tables above, in code and in the <code>.wescene</code> and <code>.weprefab</code> sources. This is the part the <a href="#migration-tool">migration tool</a> does for you.</li>
+<li><strong>Replace <code>StaticBody3D</code></strong> with <code>StaticBody</code>, and <code>RigidBody3D</code> with <code>RigidBody</code>, setting <code>IsKinematic</code> where the body type was <code>Kinematic</code>.</li>
+<li><strong>Replace <code>LinearFactor</code>/<code>AngularFactor</code></strong> with <code>AllowedDegreesOfFreedom</code>, and <code>OverrideGravity</code> with <code>GravityFactor</code>.</li>
+<li><strong>Decide on collider units.</strong> Turn on <code>UseModelBounds</code> to keep the Bullet sizes, or re-author the colliders in local units.</li>
+<li><strong>Move collision filtering</strong> from per-body mask bits to the world's <a href="collision_filtering.html">collision matrix</a>.</li>
+<li><strong>Rework the queries</strong>: two points become an origin, a direction and a distance, the mask argument becomes a <code>QueryFilter</code>, and a ray that must stop at a trigger volume sets <code>IncludeSensors</code>.</li>
+<li><strong>Check the defaults.</strong> Friction is 0.2 rather than 0.5, damping is 0.05 rather than 0, and <code>Mass = 0</code> now means &quot;compute from density&quot; rather than &quot;static&quot;.</li>
+<li><strong>Turn on <a href="debug_rendering.html">debug rendering</a></strong> (<code>RenderManager.DebugLines</code>) and look at the scene. Shapes that were subtly wrong under the old margins and defaults are visible at a glance.</li>
+</ol>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

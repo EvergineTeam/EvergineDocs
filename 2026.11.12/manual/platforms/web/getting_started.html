@@ -1,0 +1,597 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting started with a web application | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with a web application | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-a-web-application">Getting started with a web application</h1>
+
+<hr>
+<p>This page creates an Evergine web application, explains what each file of the two main templates does, and shows how to call C# from JavaScript and JavaScript from C#. Read <a href="index.html">Web</a> first for the prerequisites and the overall architecture.</p>
+<h2 id="create-the-project">Create the project</h2>
+<p>In Evergine Launcher, create a project and select a web template in <strong>Initial platforms</strong>. To add the web profile to an existing project, open <strong>Settings &gt; Project Settings</strong> in Evergine Studio and add it there (see <a href="../../evergine_studio/settings/project_profiles.html">Manage profiles</a>).</p>
+<ul>
+<li><strong>Web (WebGL2.0)</strong> is the default HTML5 template. Start here unless your site is already a React application.</li>
+<li><strong>React SPA (WebGL2.0)</strong> embeds the canvas in a React single-page application.</li>
+<li><strong>Web (Experimental WebGPU)</strong> and <strong>WebXR (Experimental AR)</strong> follow the structure of the HTML5 template.</li>
+</ul>
+<p>After you edit your scene in Evergine Studio, open the web solution with <strong>File &gt; Open C# editor</strong> and run it from Visual Studio 2026. <a href="ops.html">DevOps</a> covers the command line.</p>
+<h2 id="the-html5-template">The HTML5 template</h2>
+<p>The <strong>Web (WebGL2.0)</strong> template adds two projects next to your application project. With a project named <code>MyProject</code>, they are:</p>
+<p><img src="images/explorer.png" alt="Solution Explorer with the Sample, Sample.Web and Sample.Web.Server projects"></p>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>SDK</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MyProject.Web</code></td>
+<td><code>Microsoft.NET.Sdk.BlazorWebAssembly</code></td>
+<td>The client. Compiles your application to WebAssembly, exports the assets and generates the page scripts. You can run it on its own during development.</td>
+</tr>
+<tr>
+<td><code>MyProject.Web.Server</code></td>
+<td><code>Microsoft.NET.Sdk.Web</code></td>
+<td>Optional ASP.NET Core server that hosts the client with response compression. Use it to publish (see <a href="ops.html">DevOps</a>).</td>
+</tr>
+</tbody>
+</table>
+<p>The client project contains:</p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Program.cs</code></td>
+<td>The launcher. <code>Main</code> starts the WebAssembly host; <code>Run</code>, <code>Destroy</code> and <code>UpdateCanvasSize</code> are <code>[JSInvokable]</code> methods the page calls.</td>
+</tr>
+<tr>
+<td><code>wwwroot/index.html</code></td>
+<td>The page: a canvas container, a splash screen with a progress bar, and the startup script.</td>
+</tr>
+<tr>
+<td><code>ts/app.ts</code></td>
+<td>Class <code>App</code>: creates the canvas, waits for the assets, calls <code>Run</code>, and forwards window resizes.</td>
+</tr>
+<tr>
+<td><code>ts/program.ts</code></td>
+<td>Class <code>Program</code>: a thin wrapper around <code>DotNet.invokeMethod</code> that builds the method identifiers.</td>
+</tr>
+<tr>
+<td><code>ts/helper.ts</code></td>
+<td>The functions the engine calls from C#: event listeners, <code>_evergine_EGL</code> (WebGL context), <code>_evergine_setRequestAnimationFrameCallback</code> (frame loop), <code>_evergine_ready</code> (hides the splash).</td>
+</tr>
+<tr>
+<td><code>ts/module.ts</code></td>
+<td>Class <code>EvergineModule</code>: binds the canvas to the WebAssembly runtime and updates the progress bar.</td>
+</tr>
+<tr>
+<td><code>tsconfig.json</code></td>
+<td>Compiles all of <code>ts/</code> into a single <code>wwwroot/evergine.js</code> at build time.</td>
+</tr>
+<tr>
+<td><code>link-descriptor.xml</code></td>
+<td>Types the trimmer must keep. See <a href="tips.html#keep-types-the-trimmer-cannot-see">Tips</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="startup-sequence">Startup sequence</h3>
+<p><img src="images/web_startup_sequence.png" alt="Call sequence between index.html, assets.js and the C# Program class when the HTML5 template starts"></p>
+<p><em>JavaScript drives the start (it decides when to call <code>Run</code>), and C# drives every frame through <code>requestAnimationFrame</code>.</em></p>
+<p>The page loads the Blazor script with <code>autostart=&quot;false&quot;</code>, then <code>assets.js</code>, and only then starts Blazor and Evergine:</p>
+<pre><code class="lang-html">&lt;!-- First we load web assembly code --&gt;
+&lt;script src=&quot;_framework/blazor.webassembly.js&quot; autostart=&quot;false&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Then, start loading the assets into the vfs --&gt;
+&lt;script src=&quot;assets.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- Finally, run evergine --&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+  var app = new App(
+    &quot;MyProject.Web&quot;,
+    &quot;MyProject.Web.Program&quot;,
+    new EvergineModule()
+  );
+  Blazor.start().then(function () {
+    // It is not mandatory to run Evergine now, but it must run after blazor is started
+    app.startEvergine();
+  });
+
+  //// It is possible to delete the Evergine instance by running
+  // app.destroyEvergine();
+&lt;/script&gt;
+</code></pre>
+<ol>
+<li><code>Blazor.start()</code> loads the runtime and calls <code>Program.Main</code>, which creates the WebAssembly host through <code>Evergine.Web.WebAssembly.GetInstance()</code> and registers the JSON converters (see <a href="serialization.html">Serialization</a>). It does not create the application yet.</li>
+<li><code>app.startEvergine()</code> creates a <code>&lt;canvas id=&quot;evergine-canvas&quot;&gt;</code> inside <code>evergine-canvas-container</code> and sizes it to the window times <code>devicePixelRatio</code>.</li>
+<li><code>waitAndRun()</code> starts the asset download and polls <code>areAllAssetsLoaded()</code> every 100 ms. While it waits, <code>assets.js</code> reports progress to the splash screen.</li>
+<li>When every asset is in the virtual file system, <code>program.Run(canvasId)</code> calls the C# <code>Run</code> method.</li>
+<li><code>Run</code> creates <code>MyApplication</code>, the <code>WebWindowsSystem</code>, the surface for the canvas and the <code>GLGraphicsContext</code> for WebGL 2.0. When <code>application.Initialize()</code> finishes, it calls <code>window._evergine_ready</code> to hide the splash.</li>
+<li>From then on, the window system asks the browser for an animation frame on every frame and runs <code>UpdateFrame</code> and <code>DrawFrame</code> in the callback. Window resizes call <code>UpdateCanvasSize</code>.</li>
+</ol>
+<p>The C# half of that sequence is the launcher's <code>Program</code> class (with the project name <code>MyProject</code>):</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.OpenGL;
+using Evergine.Serialization.Converters;
+using Evergine.Web;
+using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
+using Microsoft.JSInterop;
+using System;
+using System.Collections.Generic;
+using System.Diagnostics;
+using System.Text.Json.Serialization;
+
+namespace MyProject.Web
+{
+    public class Program
+    {
+        private static readonly Dictionary&lt;string, WebSurface&gt; appCanvas = new Dictionary&lt;string, WebSurface&gt;();
+
+        private static WindowsSystem windowsSystem;
+        private static MyApplication application;
+        private static global::Evergine.Web.WebAssembly wasm;
+
+        public static void Main()
+        {
+            // Referencing a type from Evergine.Components keeps that assembly in AOT builds.
+            var cp = new global::Evergine.Components.Graphics3D.Spinner();
+
+            // The WebAssembly instance must be created here for the debugger to attach.
+            global::Evergine.Web.WebAssembly.HostConfiguration = new HostConfiguration();
+            wasm = global::Evergine.Web.WebAssembly.GetInstance();
+        }
+
+        [JSInvokable(&quot;MyProject.Web.Program:Run&quot;)]
+        public static void Run(string canvasId)
+        {
+            // Send Trace output to the browser console.
+            Trace.Listeners.Add(new TextWriterTraceListener(Console.Out));
+            Trace.AutoFlush = true;
+
+            application = new MyApplication();
+
+            windowsSystem = new WebWindowsSystem();
+            application.Container.RegisterInstance(windowsSystem);
+
+            var canvas = wasm.GetElementById(canvasId);
+            var surface = (WebSurface)windowsSystem.CreateSurface(canvas);
+            appCanvas[canvasId] = surface;
+            ConfigureGraphicsContext(application, surface, canvasId);
+
+            Stopwatch clockTimer = Stopwatch.StartNew();
+            windowsSystem.Run(
+                () =&gt;
+                {
+                    application.Initialize();
+                    wasm.Invoke(&quot;window._evergine_ready&quot;);
+                },
+                () =&gt;
+                {
+                    var gameTime = clockTimer.Elapsed;
+                    clockTimer.Restart();
+
+                    application.UpdateFrame(gameTime);
+                    application.DrawFrame(gameTime);
+                });
+        }
+
+        [JSInvokable(&quot;MyProject.Web.Program:Destroy&quot;)]
+        public static void Destroy(string canvasId)
+        {
+            application.Dispose();
+            application = null;
+        }
+
+        [JSInvokable(&quot;MyProject.Web.Program:UpdateCanvasSize&quot;)]
+        public static void UpdateCanvasSize(string canvasId)
+        {
+            if (appCanvas.TryGetValue(canvasId, out var surface))
+            {
+                surface.RefreshSize();
+            }
+        }
+
+        private static void ConfigureGraphicsContext(Application application, Surface surface, string canvasId)
+        {
+            // Create the WebGL 2.0 context with the attributes set in helper.ts (antialias, no alpha).
+            wasm.Invoke(&quot;window._evergine_EGL&quot;, false, &quot;webgl2&quot;, canvasId);
+
+            GraphicsContext graphicsContext = new GLGraphicsContext(GraphicsBackend.WebGL2);
+            graphicsContext.CreateDevice();
+            SwapChainDescription swapChainDescription = new SwapChainDescription()
+            {
+                SurfaceInfo = surface.SurfaceInfo,
+                Width = surface.Width,
+                Height = surface.Height,
+                ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm,
+                ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+                DepthStencilTargetFormat = PixelFormat.D32_Float_S8X24_UInt,
+                DepthStencilTargetFlags = TextureFlags.DepthStencil,
+                SampleCount = TextureSampleCount.None,
+                IsWindowed = true,
+                RefreshRate = 60
+            };
+            var swapChain = graphicsContext.CreateSwapChain(swapChainDescription);
+            swapChain.VerticalSync = true;
+
+            var graphicsPresenter = application.Container.Resolve&lt;GraphicsPresenter&gt;();
+            graphicsPresenter.AddDisplay(&quot;DefaultDisplay&quot;, new Display(surface, swapChain));
+
+            application.Container.RegisterInstance(graphicsContext);
+        }
+
+        private class HostConfiguration : IWasmHostConfiguration
+        {
+            public void ConfigureHost(WebAssemblyHostBuilder builder)
+            {
+            }
+
+            public void RegisterJsonConverters(IList&lt;JsonConverter&gt; converters)
+            {
+                converters.AddEvergineConverters();
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="how-the-method-identifiers-are-built">How the method identifiers are built</h3>
+<p>Blazor finds a static <code>[JSInvokable]</code> method by <strong>assembly name</strong> and <strong>method identifier</strong>. The template names every identifier <code>&lt;Namespace&gt;.Program:&lt;Method&gt;</code>, and <code>ts/program.ts</code> builds the same string from the two values passed to <code>new App(...)</code> in <code>index.html</code>:</p>
+<pre><code class="lang-typescript">invoke(methodName: string, ...args: any[]) {
+  return DotNet.invokeMethod(
+    `${this.assemblyName}`,              // &quot;MyProject.Web&quot;
+    `${this.className}:${methodName}`,   // &quot;MyProject.Web.Program:Run&quot;
+    ...args);
+}
+</code></pre>
+<p>The launcher's assembly and namespace are both <code>&lt;Project&gt;.&lt;Profile&gt;</code>, so a project <code>MyProject</code> with the profile <code>Web</code> uses <code>MyProject.Web</code>. If you rename the project or the namespace, update the attribute strings and the two arguments of <code>new App(...)</code> together.</p>
+<h2 id="call-c-from-javascript">Call C# from JavaScript</h2>
+<p>Add a <code>[JSInvokable]</code> method to <code>Program</code> with an identifier that follows the same pattern. This one finds an entity and changes the speed of its <code>Spinner</code> component. The <code>Vector3</code> parameter arrives as a plain JavaScript object thanks to the Evergine converters:</p>
+<pre><code class="lang-csharp">// Add to MyProject.Web/Program.cs, inside the Program class.
+// Requires: using Evergine.Components.Graphics3D; using Evergine.Mathematics;
+[JSInvokable(&quot;MyProject.Web.Program:SetSpin&quot;)]
+public static bool SetSpin(string entityPath, Vector3 axisIncrease)
+{
+    var scene = application?.Container.Resolve&lt;ScreenContextManager&gt;()
+        .CurrentContext?.FindScene&lt;MyScene&gt;();
+    var spinner = scene?.Managers.EntityManager.Find(entityPath)?.FindComponent&lt;Spinner&gt;();
+    if (spinner == null)
+    {
+        // Returning a value lets the page know the call did nothing.
+        return false;
+    }
+
+    spinner.AxisIncrease = axisIncrease;
+    return true;
+}
+</code></pre>
+<p>From the page, call it through the <code>app</code> object that <code>index.html</code> creates. <code>invoke</code> is synchronous, which is allowed in Blazor WebAssembly because JavaScript and .NET share the same thread:</p>
+<pre><code class="lang-javascript">// Spin the entity &quot;Cube&quot; around its Y axis. Keys are camelCase.
+const changed = app.program.invoke(&quot;SetSpin&quot;, &quot;Cube&quot;, { x: 0, y: 2, z: 0 });
+console.log(changed ? &quot;Spinner updated&quot; : &quot;Entity or Spinner not found&quot;);
+</code></pre>
+<p>Call it only after <code>_evergine_ready</code> has run: before <code>Run</code> there is no application, and the method returns <code>false</code>.</p>
+<h2 id="call-javascript-from-c">Call JavaScript from C#</h2>
+<p>Use the same <code>WebAssembly</code> instance the template keeps in the <code>wasm</code> field. <code>Invoke</code> takes the function path, a <code>warn</code> flag that logs a warning instead of throwing when the call fails, and the arguments:</p>
+<pre><code class="lang-csharp">// Add to MyProject.Web/Program.cs, inside the Program class.
+public static void NotifySpinChanged(string entityPath, Vector3 axisIncrease)
+{
+    wasm.Invoke(&quot;window.onSpinChanged&quot;, true, entityPath, axisIncrease);
+}
+</code></pre>
+<p><code>Invoke&lt;T&gt;</code> returns a value, and <code>Invoke&lt;JSObject&gt;</code> returns a handle to a JavaScript object. Define the function in the page, for example in <code>index.html</code> before the startup script:</p>
+<pre><code class="lang-html">&lt;script type=&quot;text/javascript&quot;&gt;
+  // Called from C#. The Vector3 arrives as { x, y, z }.
+  window.onSpinChanged = function (entityPath, axisIncrease) {
+    console.log(`${entityPath} now spins at ${axisIncrease.y} rad/s on Y`);
+  };
+&lt;/script&gt;
+</code></pre>
+<p>Call <code>NotifySpinChanged</code> from anywhere in your launcher code, such as at the end of <code>SetSpin</code>. To call it from a component in the shared application project, which does not reference <code>Evergine.Web</code>, define an interface or event in the shared project and implement it in the launcher.</p>
+<h2 id="the-react-template">The React template</h2>
+<p>The <strong>React SPA (WebGL2.0)</strong> template splits the web application in three projects:</p>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MyProject.WebReact</code></td>
+<td>Blazor WebAssembly project with the launcher: <code>Program.cs</code>, <code>CanvasLifecycle.cs</code>, <code>WebIntegration.cs</code>, <code>WebReactApplication.cs</code> and the JavaScript bridge in <code>js/evergine.js</code>.</td>
+</tr>
+<tr>
+<td><code>myproject.react.spa</code></td>
+<td>The React 19 application, built with Vite. It uses the <a href="https://www.npmjs.com/package/evergine-react">evergine-react</a> package. Building it copies <code>_framework</code>, <code>Content</code>, <code>assets.js</code> and <code>evergine.js</code> from the WebReact output into its <code>public</code> folder.</td>
+</tr>
+<tr>
+<td><code>MyProject.Host</code></td>
+<td>ASP.NET Core host for production, with response compression.</td>
+</tr>
+</tbody>
+</table>
+<p>Build the solution once, then run the <code>myproject.react.spa</code> project: it starts the Vite development server, and React hot reload works for <code>.tsx</code> files. Changes to C# need a new build of <code>MyProject.WebReact</code>. The <code>README.md</code> generated in the WebReact project explains how to debug the C# code.</p>
+<h3 id="who-initializes-what">Who initializes what</h3>
+<p>There is no configuration file with assembly names on the React side. The C# <code>Program.Main</code> calls <code>CanvasLifecycle.Initialize()</code>, which hands a .NET object reference to the page, and the page drives the canvas through that reference. The sequence is:</p>
+<ol>
+<li><code>src/main.tsx</code> runs <code>Blazor.start().then(() =&gt; initializeEvergine())</code>.</li>
+<li><code>initializeEvergine</code> (in <code>src/evergine/evergine-initialize.ts</code>) sets <code>window.Evergine</code> and calls <code>initializeEvergineBase</code> from <code>evergine-react</code>. That defines <code>window.initializeCanvasLifecycle</code>, adds <code>Evergine.notifyEvergineReady</code>, and starts the asset download. When all assets are loaded, the store sets <code>webAssemblyLoaded</code> to <code>true</code>.</li>
+<li>In C#, <code>Program.Main</code> calls <code>CanvasLifecycle.Initialize()</code>, which calls <code>initializeCanvasLifecycle</code> with a <code>DotNetObjectReference&lt;CanvasLifecycle&gt;</code>. The page keeps it as <code>window.Evergine.canvasLifecycle</code>.</li>
+<li>When <code>webAssemblyLoaded</code> becomes <code>true</code>, the <code>&lt;EvergineCanvas&gt;</code> component calls <code>canvasLifecycle.initializeEvergineCanvas(canvasId)</code>, which invokes <code>StartEvergineOnCanvas</code> in C#, which calls <code>Program.Run(canvasId)</code>.</li>
+<li><code>WebReactApplication</code> registers the <code>WebIntegration</code> service. When the service starts, it calls <code>Evergine.initialize</code> with its own .NET reference, keeps the JavaScript object that function returns, and sets <code>IsEvergineReady</code>. That calls <code>Evergine.notifyEvergineReady(true)</code>, so the store sets <code>evergineReady</code>, and calls <code>onEvergineReadyChanged(true)</code> on the returned object.</li>
+<li>When <code>&lt;EvergineCanvas&gt;</code> unmounts, it calls <code>StopEvergineOnCanvas</code>, which disposes the surface, the window system and the application. Size changes call <code>RefreshCanvasSize</code>.</li>
+</ol>
+<p><code>useEvergineStore()</code> exposes <code>webAssemblyLoaded</code> and <code>evergineReady</code>. Wait for both before you call into Evergine. This is the template's <code>App.tsx</code>:</p>
+<pre><code class="lang-tsx">import { useEvergineStore, EvergineCanvas } from &quot;evergine-react&quot;;
+import { useContainerSize } from &quot;./evergine/useContainerSize&quot;;
+import { useRef } from &quot;react&quot;;
+import './App.css'
+
+function App() {
+    const { webAssemblyLoaded, evergineReady } = useEvergineStore();
+    const canvasContainer = useRef&lt;HTMLDivElement&gt;(null) as React.RefObject&lt;HTMLDivElement&gt;;
+
+    return (
+        &lt;div className=&quot;App&quot;&gt;
+            {(!webAssemblyLoaded || !evergineReady) &amp;&amp; (&lt;div className=&quot;loading&quot;&gt;Loading Evergine...&lt;/div&gt;)}
+            &lt;div className=&quot;canvas-container&quot; ref={canvasContainer}&gt;
+                &lt;EvergineCanvas
+                    canvasId=&quot;evergine-canvas&quot;
+                    width={useContainerSize(canvasContainer).width}
+                    height={useContainerSize(canvasContainer).height}
+                /&gt;
+            &lt;/div&gt;
+        &lt;/div&gt;
+    );
+}
+
+export default App;
+</code></pre>
+<h3 id="call-between-react-and-c">Call between React and C#</h3>
+<p><code>WebIntegration</code> is the place for your own calls, because it holds both directions: its .NET reference is what the page receives in <code>Evergine.initialize</code>, and the object the page returns is what C# calls back.</p>
+<p><strong>Step 1. Add the methods in C#.</strong> Extend <code>WebIntegration.cs</code> in the WebReact project:</p>
+<pre><code class="lang-csharp">using Evergine.Framework.Services;
+using Microsoft.JSInterop;
+using Microsoft.JSInterop.Implementation;
+using System;
+using System.Threading.Tasks;
+
+namespace MyProject.WebReact
+{
+    public class WebIntegration : Service, IDisposable
+    {
+        private JSObjectReference reference;
+        private DotNetObjectReference&lt;WebIntegration&gt; dotnetReference;
+
+        private bool isEvergineReady;
+
+        public bool IsEvergineReady
+        {
+            get =&gt; this.isEvergineReady;
+            set
+            {
+                if (this.isEvergineReady != value)
+                {
+                    this.isEvergineReady = value;
+                    Program.Wasm.Runtime.Invoke&lt;JSObjectReference&gt;(&quot;Evergine.notifyEvergineReady&quot;, this.isEvergineReady);
+                    this.reference.InvokeVoidAsync(&quot;onEvergineReadyChanged&quot;, this.isEvergineReady);
+                }
+            }
+        }
+
+        // Called from React through the .NET reference passed to Evergine.initialize.
+        [JSInvokable]
+        public ValueTask HelloFromSpa()
+        {
+            Console.WriteLine(&quot;Received a hello from the SPA&quot;);
+            return this.SayHelloToSpa();
+        }
+
+        // Calls a function on the object that Evergine.initialize returned.
+        public ValueTask SayHelloToSpa() =&gt; this.reference.InvokeVoidAsync(&quot;helloFromCSharp&quot;);
+
+        public void Dispose()
+        {
+            this.dotnetReference?.Dispose();
+        }
+
+        protected override void Start()
+        {
+            base.Start();
+
+            if (this.dotnetReference == null)
+            {
+                this.dotnetReference = DotNetObjectReference.Create(this);
+                this.reference = Program.Wasm.Runtime.Invoke&lt;JSObjectReference&gt;(&quot;Evergine.initialize&quot;, this.dotnetReference);
+            }
+
+            this.IsEvergineReady = true;
+        }
+    }
+}
+</code></pre>
+<p>Instance methods on a <code>DotNetObjectReference</code> need only <code>[JSInvokable]</code>: the page calls them by method name, without an assembly name.</p>
+<p><strong>Step 2. Add the functions in the SPA.</strong> In <code>src/evergine/evergine-initialize.ts</code>, extend the <code>WebIntegration</code> type that <code>evergine-react</code> declares, and add the two functions to the object you return:</p>
+<pre><code class="lang-typescript">import { initializeEvergineBase } from &quot;evergine-react&quot;;
+
+declare global {
+  let Blazor: { start(): Promise&lt;void&gt; };
+
+  interface MyWebIntegration extends WebIntegration {
+    helloFromCSharp: () =&gt; void;
+    sayHelloToCSharp: () =&gt; void;
+  }
+
+  interface Window {
+    App: MyWebIntegration;
+  }
+}
+
+const initializeEvergine = (): void =&gt; {
+  window.Evergine = {
+    initialize: (dotNetReference: DotNet.DotNetObject) =&gt; {
+      const evergineApp: MyWebIntegration = {
+        onEvergineReadyChanged: (isReady: boolean) =&gt; {
+          console.log(`Evergine ready ${isReady}`);
+        },
+        // Called from C# by WebIntegration.SayHelloToSpa.
+        helloFromCSharp: () =&gt; console.log(&quot;Received a hello from C#&quot;),
+        // Calls the [JSInvokable] instance method on the WebIntegration service.
+        sayHelloToCSharp: () =&gt; dotNetReference.invokeMethod(&quot;HelloFromSpa&quot;),
+      };
+
+      window.App = evergineApp;
+
+      return window.DotNet.createJSObjectReference(evergineApp);
+    },
+    onEvergineAssetLoaded: (asset: EvergineAsset) =&gt; {
+      console.log(`Evergine asset ${asset.name} loaded`);
+    },
+    onEvergineAllAssetsLoaded: () =&gt; {
+      console.log(&quot;Evergine assets loaded&quot;);
+    },
+  };
+
+  initializeEvergineBase(window.Evergine);
+};
+
+export { initializeEvergine };
+</code></pre>
+<p><strong>Step 3. Call it from a component.</strong> Add a button to <code>App.tsx</code>, enabled only when Evergine is ready:</p>
+<pre><code class="lang-tsx">&lt;button
+    disabled={!evergineReady}
+    onClick={() =&gt; window.App?.sayHelloToCSharp()}&gt;
+    Say hello to C#
+&lt;/button&gt;
+</code></pre>
+<p>Clicking the button prints both messages in the browser console:</p>
+<pre><code class="lang-text">Received a hello from the SPA
+Received a hello from C#
+</code></pre>
+<p>To pass Evergine types such as <code>Vector3</code> or <code>Color</code> in either direction, see <a href="serialization.html">Serialization</a>. Next, read how to <a href="ops.html">build and publish the app</a> and how to <a href="tips.html">make it load faster</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1210 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class XRSpatialInputManager | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class XRSpatialInputManager | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager">
+
+
+
+  <h1 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager" class="text-break">Class XRSpatialInputManager</h1>
+  <div class="markdown level0 summary"><p>Handles all the input events.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Framework.DisposableObject.html">DisposableObject</a></div>
+    <div class="level2"><span class="xref">XRSpatialInputManager</span></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.DisposableObject.html#Evergine_Framework_DisposableObject_Disposed">DisposableObject.Disposed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DisposableObject.html#Evergine_Framework_DisposableObject_Dispose">DisposableObject.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DisposableObject.html#Evergine_Framework_DisposableObject_Dispose_System_Boolean_">DisposableObject.Dispose(bool)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DisposableObject.html#Evergine_Framework_DisposableObject_Destroy">DisposableObject.Destroy()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.XR.html">XR</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.html">Interaction</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class XRSpatialInputManager : DisposableObject</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager__ctor_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.#ctor*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager__ctor_Evergine_Framework_Services_XRPlatform_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.#ctor(Evergine.Framework.Services.XRPlatform)">XRSpatialInputManager(XRPlatform)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XRSpatialInputManager(XRPlatform platform)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Services.XRPlatform.html">XRPlatform</a></td>
+        <td><span class="parametername">platform</span></td>
+        <td><p>The XR platform.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_currentSpatialState" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.currentSpatialState">currentSpatialState</h4>
+  <div class="markdown level1 summary"><p>An instance of the current SpatialState.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected SpatialState currentSpatialState</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialState.html">SpatialState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_EnabledGestures_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.EnabledGestures*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_EnabledGestures" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.EnabledGestures">EnabledGestures</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the enabled gestures.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract SpatialGestures EnabledGestures { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialGestures.html">SpatialGestures</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_GenericControllersArray_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.GenericControllersArray*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_GenericControllersArray" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.GenericControllersArray">GenericControllersArray</h4>
+  <div class="markdown level1 summary"><p>Gets the array of controllers.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public XRControllerGenericState[] GenericControllersArray { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.XRControllerGenericState.html">XRControllerGenericState</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_SpatialState_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.SpatialState*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_SpatialState" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.SpatialState">SpatialState</h4>
+  <div class="markdown level1 summary"><p>Gets the current spatial state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SpatialState SpatialState { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialState.html">SpatialState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireHoldCanceledEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireHoldCanceledEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireHoldCanceledEvent_Evergine_Framework_XR_Interaction_SpatialSource_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireHoldCanceledEvent(Evergine.Framework.XR.Interaction.SpatialSource)">FireHoldCanceledEvent(SpatialSource)</h4>
+  <div class="markdown level1 summary"><p>Fires when Hold is canceled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireHoldCanceledEvent(SpatialSource spatialSource)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireHoldCompletedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireHoldCompletedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireHoldCompletedEvent_Evergine_Framework_XR_Interaction_SpatialSource_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireHoldCompletedEvent(Evergine.Framework.XR.Interaction.SpatialSource)">FireHoldCompletedEvent(SpatialSource)</h4>
+  <div class="markdown level1 summary"><p>Fires the HoldCompleted event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireHoldCompletedEvent(SpatialSource spatialSource)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireHoldStartedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireHoldStartedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireHoldStartedEvent_Evergine_Framework_XR_Interaction_SpatialSource_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireHoldStartedEvent(Evergine.Framework.XR.Interaction.SpatialSource)">FireHoldStartedEvent(SpatialSource)</h4>
+  <div class="markdown level1 summary"><p>Fires the Hold started event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireHoldStartedEvent(SpatialSource spatialSource)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireManipulationCanceledEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireManipulationCanceledEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireManipulationCanceledEvent_Evergine_Framework_XR_Interaction_SpatialSource_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireManipulationCanceledEvent(Evergine.Framework.XR.Interaction.SpatialSource)">FireManipulationCanceledEvent(SpatialSource)</h4>
+  <div class="markdown level1 summary"><p>Fire manipulation canceled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireManipulationCanceledEvent(SpatialSource spatialSource)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireManipulationCompletedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireManipulationCompletedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireManipulationCompletedEvent_Evergine_Framework_XR_Interaction_SpatialSource_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireManipulationCompletedEvent(Evergine.Framework.XR.Interaction.SpatialSource,Evergine.Mathematics.Vector3)">FireManipulationCompletedEvent(SpatialSource, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Fire manipulation completed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireManipulationCompletedEvent(SpatialSource spatialSource, Vector3 cumulativeDelta)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">cumulativeDelta</span></td>
+        <td><p>The cumulative delta.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireManipulationStartedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireManipulationStartedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireManipulationStartedEvent_Evergine_Framework_XR_Interaction_SpatialSource_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireManipulationStartedEvent(Evergine.Framework.XR.Interaction.SpatialSource)">FireManipulationStartedEvent(SpatialSource)</h4>
+  <div class="markdown level1 summary"><p>Fire manipulation started.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireManipulationStartedEvent(SpatialSource spatialSource)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireManipulationUpdatedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireManipulationUpdatedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireManipulationUpdatedEvent_Evergine_Framework_XR_Interaction_SpatialSource_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireManipulationUpdatedEvent(Evergine.Framework.XR.Interaction.SpatialSource,Evergine.Mathematics.Vector3)">FireManipulationUpdatedEvent(SpatialSource, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Fires when manipulation is updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireManipulationUpdatedEvent(SpatialSource spatialSource, Vector3 cumulativeDelta)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">cumulativeDelta</span></td>
+        <td><p>The cumulative delta.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireNavigationCanceledEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireNavigationCanceledEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireNavigationCanceledEvent_Evergine_Framework_XR_Interaction_SpatialSource_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireNavigationCanceledEvent(Evergine.Framework.XR.Interaction.SpatialSource)">FireNavigationCanceledEvent(SpatialSource)</h4>
+  <div class="markdown level1 summary"><p>Fires when navigation is canceled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireNavigationCanceledEvent(SpatialSource spatialSource)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireNavigationCompletedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireNavigationCompletedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireNavigationCompletedEvent_Evergine_Framework_XR_Interaction_SpatialSource_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireNavigationCompletedEvent(Evergine.Framework.XR.Interaction.SpatialSource,Evergine.Mathematics.Vector3)">FireNavigationCompletedEvent(SpatialSource, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Fires when navigation is completed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireNavigationCompletedEvent(SpatialSource spatialSource, Vector3 normalizedOffset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">normalizedOffset</span></td>
+        <td><p>The normalized offset.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireNavigationStartedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireNavigationStartedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireNavigationStartedEvent_Evergine_Framework_XR_Interaction_SpatialSource_System_Boolean_System_Boolean_System_Boolean_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireNavigationStartedEvent(Evergine.Framework.XR.Interaction.SpatialSource,System.Boolean,System.Boolean,System.Boolean)">FireNavigationStartedEvent(SpatialSource, bool, bool, bool)</h4>
+  <div class="markdown level1 summary"><p>The navigation gesture has started.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireNavigationStartedEvent(SpatialSource source, bool isNavigatingX, bool isNavigatingY, bool isNavigatingZ)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source of the event.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isNavigatingX</span></td>
+        <td><p>Navigating on the X axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isNavigatingY</span></td>
+        <td><p>Navigating on the Y axis.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">isNavigatingZ</span></td>
+        <td><p>Navigating on the Z axis.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireNavigationUpdatedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireNavigationUpdatedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireNavigationUpdatedEvent_Evergine_Framework_XR_Interaction_SpatialSource_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireNavigationUpdatedEvent(Evergine.Framework.XR.Interaction.SpatialSource,Evergine.Mathematics.Vector3)">FireNavigationUpdatedEvent(SpatialSource, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Fires when navigation is updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireNavigationUpdatedEvent(SpatialSource spatialSource, Vector3 normalizedOffset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">spatialSource</span></td>
+        <td><p>The spatial source.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">normalizedOffset</span></td>
+        <td><p>The normalized offset.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireRecognitionEndedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireRecognitionEndedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireRecognitionEndedEvent_Evergine_Framework_XR_Interaction_SpatialSource_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireRecognitionEndedEvent(Evergine.Framework.XR.Interaction.SpatialSource)">FireRecognitionEndedEvent(SpatialSource)</h4>
+  <div class="markdown level1 summary"><p>The recognition gesture has ended.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireRecognitionEndedEvent(SpatialSource source)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source of the event.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireRecognitionStartedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireRecognitionStartedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireRecognitionStartedEvent_Evergine_Framework_XR_Interaction_SpatialSource_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireRecognitionStartedEvent(Evergine.Framework.XR.Interaction.SpatialSource)">FireRecognitionStartedEvent(SpatialSource)</h4>
+  <div class="markdown level1 summary"><p>The recognition gesture has started.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireRecognitionStartedEvent(SpatialSource source)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source of the event.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourceDetectedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourceDetectedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourceDetectedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourceDetectedEvent">FireSourceDetectedEvent()</h4>
+  <div class="markdown level1 summary"><p>Fires the SourceDetected event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireSourceDetectedEvent()</code></pre>
+  </div>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourceLostEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourceLostEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourceLostEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourceLostEvent">FireSourceLostEvent()</h4>
+  <div class="markdown level1 summary"><p>Fires the SourceLost event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireSourceLostEvent()</code></pre>
+  </div>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourcePressedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourcePressedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourcePressedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourcePressedEvent">FireSourcePressedEvent()</h4>
+  <div class="markdown level1 summary"><p>Fires the Source pressed event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireSourcePressedEvent()</code></pre>
+  </div>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourceReleasedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourceReleasedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourceReleasedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourceReleasedEvent">FireSourceReleasedEvent()</h4>
+  <div class="markdown level1 summary"><p>Fires the SourceReleased event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireSourceReleasedEvent()</code></pre>
+  </div>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourceUpdatedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourceUpdatedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireSourceUpdatedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireSourceUpdatedEvent">FireSourceUpdatedEvent()</h4>
+  <div class="markdown level1 summary"><p>Fires the SourceUpdated event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireSourceUpdatedEvent()</code></pre>
+  </div>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireTappedEvent_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireTappedEvent*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_FireTappedEvent_Evergine_Framework_XR_Interaction_SpatialSource_System_Int32_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.FireTappedEvent(Evergine.Framework.XR.Interaction.SpatialSource,System.Int32)">FireTappedEvent(SpatialSource, int)</h4>
+  <div class="markdown level1 summary"><p>Fires a tap event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireTappedEvent(SpatialSource source, int tapCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.SpatialSource.html">SpatialSource</a></td>
+        <td><span class="parametername">source</span></td>
+        <td><p>The source of the event.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><span class="parametername">tapCount</span></td>
+        <td><p>The number of consecutive taps.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_Initialize_" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.Initialize*"></a>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_Initialize" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.Initialize">Initialize()</h4>
+  <div class="markdown level1 summary"><p>Initializes all resources used by this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void Initialize()</code></pre>
+  </div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_HoldCanceledEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.HoldCanceledEvent">HoldCanceledEvent</h4>
+  <div class="markdown level1 summary"><p>The hold gesture is cancelled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.HoldCanceledEventDelegate HoldCanceledEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.HoldCanceledEventDelegate.html">HoldCanceledEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_HoldCompletedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.HoldCompletedEvent">HoldCompletedEvent</h4>
+  <div class="markdown level1 summary"><p>The hold gesture has been completed</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.HoldCompletedEventDelegate HoldCompletedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.HoldCompletedEventDelegate.html">HoldCompletedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_HoldStartedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.HoldStartedEvent">HoldStartedEvent</h4>
+  <div class="markdown level1 summary"><p>The hold gesture has started</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.HoldStartedEventDelegate HoldStartedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.HoldStartedEventDelegate.html">HoldStartedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_ManipulationCanceledEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.ManipulationCanceledEvent">ManipulationCanceledEvent</h4>
+  <div class="markdown level1 summary"><p>The manipulation gesture is canceled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.ManipulationCanceledEventDelegate ManipulationCanceledEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.ManipulationCanceledEventDelegate.html">ManipulationCanceledEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_ManipulationCompletedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.ManipulationCompletedEvent">ManipulationCompletedEvent</h4>
+  <div class="markdown level1 summary"><p>The manipulation gesture is complete</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.ManipulationCompletedEventDelegate ManipulationCompletedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.ManipulationCompletedEventDelegate.html">ManipulationCompletedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_ManipulationStartedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.ManipulationStartedEvent">ManipulationStartedEvent</h4>
+  <div class="markdown level1 summary"><p>The manipulation gesture has started</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.ManipulationStartedEventDelegate ManipulationStartedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.ManipulationStartedEventDelegate.html">ManipulationStartedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_ManipulationUpdatedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.ManipulationUpdatedEvent">ManipulationUpdatedEvent</h4>
+  <div class="markdown level1 summary"><p>The manipulation gesture is updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.ManipulationUpdatedEventDelegate ManipulationUpdatedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.ManipulationUpdatedEventDelegate.html">ManipulationUpdatedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_NavigationCanceledEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.NavigationCanceledEvent">NavigationCanceledEvent</h4>
+  <div class="markdown level1 summary"><p>The navigation gesture is cancelled.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.NavigationCanceledEventDelegate NavigationCanceledEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.NavigationCanceledEventDelegate.html">NavigationCanceledEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_NavigationCompletedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.NavigationCompletedEvent">NavigationCompletedEvent</h4>
+  <div class="markdown level1 summary"><p>The navigation gesture is complete.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.NavigationCompletedEventDelegate NavigationCompletedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.NavigationCompletedEventDelegate.html">NavigationCompletedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_NavigationStartedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.NavigationStartedEvent">NavigationStartedEvent</h4>
+  <div class="markdown level1 summary"><p>The navigation gesture has started</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.NavigationStartedEventDelegate NavigationStartedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.NavigationStartedEventDelegate.html">NavigationStartedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_NavigationUpdatedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.NavigationUpdatedEvent">NavigationUpdatedEvent</h4>
+  <div class="markdown level1 summary"><p>The navigation gesture gets updated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.NavigationUpdatedEventDelegate NavigationUpdatedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.NavigationUpdatedEventDelegate.html">NavigationUpdatedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_RecognitionEndedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.RecognitionEndedEvent">RecognitionEndedEvent</h4>
+  <div class="markdown level1 summary"><p>The recognition gesture has ended</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.RecognitionEndedEventDelegate RecognitionEndedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.RecognitionEndedEventDelegate.html">RecognitionEndedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_RecognitionStartedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.RecognitionStartedEvent">RecognitionStartedEvent</h4>
+  <div class="markdown level1 summary"><p>The recognition gesture has started</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.RecognitionStartedEventDelegate RecognitionStartedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.RecognitionStartedEventDelegate.html">RecognitionStartedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_SourceDetected" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.SourceDetected">SourceDetected</h4>
+  <div class="markdown level1 summary"><p>Occurs when a new hand, controller, or source of voice commands is detected.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.InputSourceDelegate SourceDetected</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.InputSourceDelegate.html">InputSourceDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_SourceLost" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.SourceLost">SourceLost</h4>
+  <div class="markdown level1 summary"><p>Occurs when a hand, controller, or source of voice commands is no longer available.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.InputSourceDelegate SourceLost</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.InputSourceDelegate.html">InputSourceDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_SourcePressed" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.SourcePressed">SourcePressed</h4>
+  <div class="markdown level1 summary"><p>Occurs when a hand or controller enters the pressed state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.InputSourceDelegate SourcePressed</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.InputSourceDelegate.html">InputSourceDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_SourceReleased" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.SourceReleased">SourceReleased</h4>
+  <div class="markdown level1 summary"><p>Occurs when a hand or controller exits the pressed state.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.InputSourceDelegate SourceReleased</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.InputSourceDelegate.html">InputSourceDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_SourceUpdated" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.SourceUpdated">SourceUpdated</h4>
+  <div class="markdown level1 summary"><p>Occurs when a hand or controller experiences a change to its SpatialInteractionSourceState.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.InputSourceDelegate SourceUpdated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.InputSourceDelegate.html">InputSourceDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_XR_Interaction_XRSpatialInputManager_TappedEvent" data-uid="Evergine.Framework.XR.Interaction.XRSpatialInputManager.TappedEvent">TappedEvent</h4>
+  <div class="markdown level1 summary"><p>Occurs when there is a tap gesture.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event XRSpatialInputManager.TappedEventDelegate TappedEvent</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.html">XRSpatialInputManager</a>.<a class="xref" href="Evergine.Framework.XR.Interaction.XRSpatialInputManager.TappedEventDelegate.html">TappedEventDelegate</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

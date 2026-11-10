@@ -1,0 +1,299 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Physics Bodies | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Physics Bodies | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="physics-bodies">Physics Bodies</h1>
+
+<hr>
+<p><img src="images/rigid_bodies.gif" alt="Physics Bodies"></p>
+<p>A <strong>physics body</strong> is what turns an entity into something the simulation knows about. It gives the entity a place in the collision world, and for the bodies that move, mass and velocity; the <a href="../colliders/index.html">colliders</a> on it and on its children give it a shape.</p>
+<p>There are two body components, and they share a base class:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>What it is for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="rigid_body.html"><code>RigidBody</code></a></td>
+<td>A body that moves. Either the solver moves it (<strong>dynamic</strong>, the default) or your code does (<strong>kinematic</strong>, with <code>IsKinematic</code> set).</td>
+</tr>
+<tr>
+<td><a href="static_body.html"><code>StaticBody</code></a></td>
+<td>A body that never moves. Level geometry, floors, walls, fixed trigger volumes.</td>
+</tr>
+<tr>
+<td><code>PhysicsBody</code></td>
+<td>The abstract base of both. Everything a body has whether it moves or not lives here: colliders, collision events, friction and restitution, category and sensor flag.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="types-of-physics-bodies">Types of Physics Bodies</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Type</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/static_bodies.gif" alt="Static"></td>
+<td><strong>Static</strong> (<code>StaticBody</code>)</td>
+<td>Never moves. The floor, the walls, the level. Static bodies never collide with each other, so a level made of a thousand of them costs nothing to simulate.</td>
+</tr>
+<tr>
+<td><img src="images/kinematic_bodies.gif" alt="Kinematic"></td>
+<td><strong>Kinematic</strong> (<code>RigidBody</code> with <code>IsKinematic</code>)</td>
+<td>Moved by you, not by the solver. It pushes dynamic bodies out of the way and carries what stands on it, but nothing can push it back. Lifts, moving platforms, doors.</td>
+</tr>
+<tr>
+<td><img src="images/rigid_bodies.gif" alt="Dynamic"></td>
+<td><strong>Dynamic</strong> (<code>RigidBody</code>)</td>
+<td>Moved by the simulation. Gravity pulls it, collisions push it, forces accelerate it. Crates, debris, anything that should fall over.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/body_types_still.png" alt="Three body types"></p>
+<p><em>All three in one scene: grey static scenery on the left, a blue kinematic platform carrying a crate in the middle, and a stack of dynamic crates on the right.</em></p>
+<p>Kinematic and dynamic are two settings of the same component, because a body switches between them at run time: a ragdoll is kinematic while its animation plays and dynamic when it falls. Static is a component of its own, because a static body has no motion properties at all, and the solver treats it differently from the start. Turning a crate into scenery means swapping <code>RigidBody</code> for <code>StaticBody</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The previous API also had two components, <code>RigidBody3D</code> and <code>StaticBody3D</code>, and a <code>PhysicBodyType</code> enum property on the first. The enum is gone: <code>IsKinematic</code> is a single flag on <code>RigidBody</code>, and there is nothing to set on a <code>StaticBody</code>. See <a href="../migrating_from_bullet.html">Migrating from Bullet</a>.</p>
+</div>
+<h2 id="what-every-body-shares">What Every Body Shares</h2>
+<p>The members below are defined on <code>PhysicsBody</code> and are the same on both components.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Friction</strong></td>
+<td>0.2</td>
+<td>Surface friction. The value used for a contact is combined from both bodies.</td>
+</tr>
+<tr>
+<td><strong>Restitution</strong></td>
+<td>0</td>
+<td>Bounciness, from 0 (all energy lost on impact) to 1 (none).</td>
+</tr>
+<tr>
+<td><strong>CollisionCategory</strong></td>
+<td><code>Cat1</code></td>
+<td>Which of the 32 <a href="../collision_filtering.html">categories</a> this body belongs to. A body is in exactly one.</td>
+</tr>
+<tr>
+<td><strong>IsSensor</strong></td>
+<td>false</td>
+<td>Makes the body detect overlaps and report them without any physical response. See <a href="sensors.html">Sensors</a>.</td>
+</tr>
+<tr>
+<td><strong>SurfaceVelocity</strong></td>
+<td>0,0,0</td>
+<td>Tells contacts that the surface is moving even though the body is not. This is how a conveyor belt is built.</td>
+</tr>
+<tr>
+<td><strong>EnhancedInternalEdgeRemoval</strong></td>
+<td>false</td>
+<td>Stops bodies catching on the seams between the triangles of a mesh collider.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Read-only</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CenterOfMassPosition</strong></td>
+<td>Where its centre of mass is in world space.</td>
+</tr>
+<tr>
+<td><strong>WorldBounds</strong></td>
+<td>Its axis-aligned bounding box.</td>
+</tr>
+<tr>
+<td><strong>IsInWorld</strong></td>
+<td>Whether the body has actually been created yet. Creation is deferred to a safe point in the step.</td>
+</tr>
+<tr>
+<td><strong>Colliders</strong></td>
+<td>The colliders its shape was built from.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Teleport(position, orientation)</strong></td>
+<td>Puts the body somewhere immediately, discarding its contacts.</td>
+</tr>
+<tr>
+<td><strong>InvalidateShape()</strong></td>
+<td>Rebuilds the shape now. Colliders added, removed or edited rebuild it on their own; this is for the cases the body cannot observe.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>When it fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CollisionStarted</strong> / <strong>CollisionUpdated</strong> / <strong>CollisionEnded</strong></td>
+<td>Two bodies began touching, stayed in contact for another step, or stopped touching. See <a href="collisions.html">Collisions</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>Everything that only makes sense for a body that moves (mass, velocity, damping, forces, <code>MoveTo</code>, sleeping) is on <a href="rigid_body.html"><code>RigidBody</code></a>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Code that does not care whether a body moves should hold a <code>PhysicsBody</code>. That is what colliders, constraints, queries and collision events hand out: <code>Collider.Body</code>, <code>RayCastHit.Body</code> and <code>CollisionInfo.OtherBody</code> are all <code>PhysicsBody</code>, and <code>body as RigidBody</code> is the test for whether it has a velocity to read.</p>
+</div>
+<h2 id="bodies-and-colliders">Bodies and Colliders</h2>
+<p>A body on its own has no shape. When it is created it collects <strong>every collider on its own entity and on its descendants</strong>, and builds one shape out of them. A hierarchy with several colliders in it becomes a compound shape automatically; the walk stops at any descendant that has a body of its own, since that entity is a body in its own right.</p>
+<p>See <a href="../colliders/index.html">Colliders</a> for the shapes available and how a compound one is put together.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="rigid_body.html">Rigid Body</a></li>
+<li><a href="static_body.html">Static Body</a></li>
+<li><a href="collisions.html">Collisions</a></li>
+<li><a href="sensors.html">Sensors</a></li>
+<li><a href="using_physics_bodies.html">Using Physics Bodies</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

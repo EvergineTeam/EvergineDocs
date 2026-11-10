@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>XR Input Tracking | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="XR Input Tracking | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="xr-input-tracking">XR Input Tracking</h1>
+
+<p><img src="images/motioncontrollers.jpg" alt="Motion controllers tracked in an XR scene"></p>
+<p>XR users interact through devices the platform tracks in space: motion controllers, their own hands, and on SteamVR also trackers and base stations. The <code>InputTracking</code> subsystem of <a href="../xrplatform.html"><code>XRPlatform</code></a> knows every one of them.</p>
+<p>You rarely talk to it directly. Evergine provides components that pick a device, move their entity with it every frame, and expose its input state. Put one on an entity and give the entity a mesh, and the mesh follows the device.</p>
+<h2 id="tracking-components">Tracking components</h2>
+<p>All of them derive from <code>TrackXRDevice</code>, which selects a device and copies its pose into the entity's <code>Transform3D</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Tracks</th>
+<th>Adds</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="trackxrcontroller.html"><code>TrackXRController</code></a></td>
+<td>A left or right motion controller</td>
+<td>The controller input state: trigger, grip, thumbstick and buttons.</td>
+</tr>
+<tr>
+<td><a href="trackxrarticulatedhand.html"><code>TrackXRArticulatedHand</code></a></td>
+<td>A left or right hand, where hand tracking is available</td>
+<td>The pose of each hand joint, plus the controller state (a pinch reports as the trigger on Meta Quest).</td>
+</tr>
+<tr>
+<td><a href="advancedtrackxrdevice.html"><code>AdvancedTrackXRDevice</code></a></td>
+<td>Any device, selected by type, handedness or index</td>
+<td>Everything above, for devices such as the HMD, generic trackers or base stations.</td>
+</tr>
+</tbody>
+</table>
+<p><a href="trackxrarticulatedhand.html#render-the-hands"><code>XRDeviceRenderableModel</code></a> complements them: added next to a tracking component, it loads the model the platform provides for that device, such as the Meta hand mesh or the SteamVR controller model.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The tracking components require the <code>XRPlatform</code> service. In a profile without an XR platform they do not attach, so their entities stay where you placed them.</p>
+</div>
+<h2 id="common-properties">Common properties</h2>
+<p>Every tracking component has these members, inherited from <code>TrackXRDevice</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TrackingLostMode</strong></td>
+<td><code>DisableEntityOnPoseInvalid</code></td>
+<td>What happens to the entity when tracking fails. <code>DisableEntityOnPoseInvalid</code> disables it while the pose is invalid and enables it again when tracking recovers. <code>DisableEntityOnDisconnection</code> only disables it when the device disconnects. <code>KeepLastPose</code> keeps it enabled at the last valid pose.</td>
+</tr>
+<tr>
+<td><strong>IsConnected</strong></td>
+<td>Read-only</td>
+<td>Whether a real device is connected.</td>
+</tr>
+<tr>
+<td><strong>PoseIsValid</strong></td>
+<td>Read-only</td>
+<td>Whether the pose of this frame is valid.</td>
+</tr>
+<tr>
+<td><strong>TrackingState</strong></td>
+<td>Read-only</td>
+<td>The <code>XRTrackingState</code> of the device.</td>
+</tr>
+<tr>
+<td><strong>Pose</strong></td>
+<td>Read-only</td>
+<td>The pose of the entity in world space, as a <code>ViewPose</code> (position and orientation).</td>
+</tr>
+<tr>
+<td><strong>LocalPose</strong></td>
+<td>Read-only</td>
+<td>The raw device pose, in tracking space.</td>
+</tr>
+<tr>
+<td><strong>Pointer</strong></td>
+<td>Read-only</td>
+<td>The pointing ray of the device in world space, for example the aim ray of a controller. Use it to raycast or draw a laser pointer.</td>
+</tr>
+<tr>
+<td><strong>LocalPointer</strong></td>
+<td>Read-only</td>
+<td>The pointing ray in tracking space.</td>
+</tr>
+<tr>
+<td><strong>Velocity</strong></td>
+<td>Read-only</td>
+<td>Linear velocity reported by the device, in tracking space.</td>
+</tr>
+<tr>
+<td><strong>AngularVelocity</strong></td>
+<td>Read-only</td>
+<td>Angular velocity reported by the device, in tracking space.</td>
+</tr>
+<tr>
+<td><strong>TrackedDevice</strong></td>
+<td>Read-only</td>
+<td>The <code>XRTrackedDevice</code> currently selected, or <code>null</code> while no device matches.</td>
+</tr>
+<tr>
+<td><strong>OnTrackedDeviceChanged</strong></td>
+<td>Event</td>
+<td>Raised when the component starts tracking another device, for example when a controller is replaced.</td>
+</tr>
+</tbody>
+</table>
+<p>The component writes the device pose into the <strong>local</strong> position and orientation of the entity. Devices are tracked relative to the tracking space, which is the parent of the camera, so place tracked entities as siblings of the camera. Then moving the tracking space moves the camera and the devices together. <code>Pose</code> and <code>Pointer</code> already include the transform of the parent.</p>
+<h2 id="querying-devices-without-a-component">Querying devices without a component</h2>
+<p><code>XRPlatform.InputTracking</code> finds devices with <code>GetDeviceByType</code>, <code>GetDeviceByHandedness</code>, <code>GetDeviceByTypeAndHandedness</code> and <code>GetDeviceByIndex</code>. Each returns an <code>XRTrackedDevice</code> you can read every frame. This behavior measures the height of the user's eyes above the floor:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+using Evergine.Framework.XR;
+using Evergine.Framework.XR.TrackedDevices;
+
+public class HeadHeight : Behavior
+{
+    [BindService]
+    private XRPlatform xrPlatform = null;
+
+    private XRTrackedDevice hmd;
+
+    // Height of the eyes above the tracking space origin (the floor, with the Stage reference space).
+    public float Height { get; private set; }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // Devices can appear after the session starts: keep asking until there is one.
+        this.hmd ??= this.xrPlatform.InputTracking?.GetDeviceByType(XRTrackedDeviceType.HMD);
+
+        if (this.hmd != null &amp;&amp; this.hmd.GetTrackingState(out XRTrackedDeviceState state) &amp;&amp; state.PoseIsValid)
+        {
+            this.Height = state.Pose.Position.Y;
+        }
+    }
+}
+</code></pre>
+<p><code>XRInputTracking</code> also has <code>OnDeviceAdded</code> and <code>OnDeviceRemoved</code> events. <code>OpenVRPlatform</code> raises them as SteamVR devices appear and disappear. <code>OpenXRPlatform</code> creates its devices (HMD, two controllers and, with hand tracking, two hands) once at startup and never raises them: watch <code>IsConnected</code> or the <code>OnConnectionChanged</code> event of each device instead.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="trackxrcontroller.html">Tracking Controllers (TrackXRController)</a></li>
+<li><a href="trackxrarticulatedhand.html">Tracking Hands (TrackXRArticulatedHand)</a></li>
+<li><a href="advancedtrackxrdevice.html">Advanced Tracking Devices (AdvancedTrackXRDevice)</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,544 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Meshes | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Meshes | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="meshes">Meshes</h1>
+
+<hr>
+<p><img src="images/Meshes.jpg" alt="Meshes"></p>
+<p>A <strong>mesh</strong> is the smallest thing Evergine draws: a set of vertices, usually an index buffer that joins them into triangles, and a topology that says how to read them. Each mesh is drawn with exactly one material, so an object with several materials is made of several meshes grouped in a <a href="../models/index.html">model</a>.</p>
+<p>Every vertex can carry more than a position: normals tell the lighting which way the surface faces, texture coordinates map textures onto it, and colors, tangents or custom data feed whatever the shader needs.</p>
+<p>You rarely build meshes by hand. Imported models and <a href="../primitives.html">primitives</a> create them for you. Build one from code when the geometry is procedural or comes from your own data.</p>
+<h2 id="mesh">Mesh</h2>
+<p>The <code>Mesh</code> class (namespace <code>Evergine.Framework.Graphics</code>) has these members:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VertexBuffers</strong></td>
+<td><code>VertexBuffer[]</code></td>
+<td>The vertex buffers of the mesh. See <a href="#vertex-buffers">Vertex buffers</a>.</td>
+</tr>
+<tr>
+<td><strong>IndexBuffer</strong></td>
+<td><code>IndexBuffer</code></td>
+<td>The index buffer. It is <code>null</code> for a non-indexed mesh. See <a href="#index-buffers">Index buffers</a>.</td>
+</tr>
+<tr>
+<td><strong>Buffers</strong></td>
+<td><code>Buffer[]</code></td>
+<td>The low-level <code>Buffer</code> of each vertex buffer, in the same order, ready to bind.</td>
+</tr>
+<tr>
+<td><strong>Offsets</strong></td>
+<td><code>uint[]</code></td>
+<td>The byte offset of each vertex buffer, in the same order.</td>
+</tr>
+<tr>
+<td><strong>InputLayouts</strong></td>
+<td><code>InputLayouts</code></td>
+<td>The layout descriptions of all the vertex buffers, used to build the pipeline.</td>
+</tr>
+<tr>
+<td><strong>PrimitiveTopology</strong></td>
+<td><code>PrimitiveTopology</code></td>
+<td>How vertices form primitives: <code>PointList</code>, <code>LineList</code>, <code>LineStrip</code>, <code>TriangleList</code>, <code>TriangleStrip</code>, the adjacency variants, or <code>Patch_List</code> for tessellation.</td>
+</tr>
+<tr>
+<td><strong>ElementCount</strong></td>
+<td><code>int</code></td>
+<td>Number of indices (or vertices for a non-indexed mesh) to draw.</td>
+</tr>
+<tr>
+<td><strong>PrimitiveCount</strong></td>
+<td><code>int</code></td>
+<td>Number of primitives, derived from <code>ElementCount</code> and the topology. A triangle list with 6 elements has 2 primitives.</td>
+</tr>
+<tr>
+<td><strong>VertexOffset</strong></td>
+<td><code>int</code></td>
+<td>First vertex to read.</td>
+</tr>
+<tr>
+<td><strong>IndexOffset</strong></td>
+<td><code>int</code></td>
+<td>First index to read.</td>
+</tr>
+<tr>
+<td><strong>BoundingBox</strong></td>
+<td><code>BoundingBox?</code></td>
+<td>Local-space bounds, used for culling and light assignment. Leave it <code>null</code> only for meshes that should never be culled.</td>
+</tr>
+<tr>
+<td><strong>MaterialIndex</strong></td>
+<td><code>int</code></td>
+<td>Which entry of the model's material list this mesh uses.</td>
+</tr>
+<tr>
+<td><strong>AllowBatching</strong></td>
+<td><code>bool</code></td>
+<td>Whether the mesh can be merged with others by dynamic batching. <code>true</code> by default.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vertex-buffers">Vertex buffers</h2>
+<p>A <code>VertexBuffer</code> pairs a GPU <code>Buffer</code> holding the raw vertex data with a <code>LayoutDescription</code> that says what each vertex contains: which attributes, in which format, at which offset.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Buffer</strong></td>
+<td><code>Buffer</code></td>
+<td>The buffer with the vertex data. It must be created with <code>BufferFlags.VertexBuffer</code>.</td>
+</tr>
+<tr>
+<td><strong>LayoutDescription</strong></td>
+<td><code>LayoutDescription</code></td>
+<td>The attributes of one vertex: format, semantic, semantic index and offset of each element, plus the <code>Stride</code> of the whole vertex.</td>
+</tr>
+<tr>
+<td><strong>VertexCount</strong></td>
+<td><code>int</code></td>
+<td>Number of vertices, computed from the buffer size and the stride.</td>
+</tr>
+<tr>
+<td><strong>Offset</strong></td>
+<td><code>int</code></td>
+<td>Byte offset of the first vertex inside the buffer.</td>
+</tr>
+<tr>
+<td><strong>Size</strong></td>
+<td><code>int</code></td>
+<td>Size of the data in bytes.</td>
+</tr>
+<tr>
+<td><strong>Data</strong></td>
+<td><code>IntPtr</code></td>
+<td>Optional pointer to a CPU copy of the data.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="interleaved-and-non-interleaved-data">Interleaved and non-interleaved data</h3>
+<p>A mesh can store all the attributes of a vertex together in one buffer (<strong>interleaved</strong>), or keep each attribute in its own buffer (<strong>non-interleaved</strong>), with one vertex buffer per stream.</p>
+<p><img src="images/InterleavedData.png" alt="Interleaved vertex data: one buffer in which each vertex stores its position and color next to each other"></p>
+<p><img src="images/NonInterleavedData.png" alt="Non-interleaved vertex data: one buffer of positions and another of colors, each a contiguous stream"></p>
+<p><em>Interleaved data is compact and simple. Separate streams let a pass read only what it needs: a shadow map pass that only reads positions touches far less memory.</em></p>
+<h3 id="predefined-vertex-types">Predefined vertex types</h3>
+<p>Evergine provides vertex structs in <code>Evergine.Common.Graphics</code> that already carry their <code>LayoutDescription</code> in a static <code>VertexFormat</code> field:</p>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Attributes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>VertexPosition</code></td>
+<td>Position</td>
+</tr>
+<tr>
+<td><code>VertexPositionColor</code></td>
+<td>Position, Color</td>
+</tr>
+<tr>
+<td><code>VertexPositionColorTexture</code></td>
+<td>Position, Color, TexCoord</td>
+</tr>
+<tr>
+<td><code>VertexPositionColorDualTexture</code></td>
+<td>Position, Color, TexCoord, TexCoord2</td>
+</tr>
+<tr>
+<td><code>VertexPositionColorTextureAxis</code></td>
+<td>Position, Color, TexCoord, and a second <code>TexCoord</code> (Float4) with the axis</td>
+</tr>
+<tr>
+<td><code>VertexPositionTexture</code></td>
+<td>Position, TexCoord</td>
+</tr>
+<tr>
+<td><code>VertexPositionDualTexture</code></td>
+<td>Position, TexCoord, TexCoord2</td>
+</tr>
+<tr>
+<td><code>VertexPositionNormal</code></td>
+<td>Position, Normal</td>
+</tr>
+<tr>
+<td><code>VertexPositionNormalColor</code></td>
+<td>Position, Normal, Color</td>
+</tr>
+<tr>
+<td><code>VertexPositionNormalTexture</code></td>
+<td>Position, Normal, TexCoord</td>
+</tr>
+<tr>
+<td><code>VertexPositionNormalColorTexture</code></td>
+<td>Position, Normal, Color, TexCoord</td>
+</tr>
+<tr>
+<td><code>VertexPositionNormalDualTexture</code></td>
+<td>Position, Normal, TexCoord, TexCoord2</td>
+</tr>
+<tr>
+<td><code>VertexPositionNormalColorDualTexture</code></td>
+<td>Position, Normal, Color, TexCoord, TexCoord2</td>
+</tr>
+<tr>
+<td><code>VertexPositionNormalTangentTexture</code></td>
+<td>Position, Normal, Tangent, TexCoord</td>
+</tr>
+<tr>
+<td><code>VertexPositionNormalTangentColorDualTexture</code></td>
+<td>Position, Normal, Tangent, Color, TexCoord, TexCoord2</td>
+</tr>
+</tbody>
+</table>
+<p>With your own arrays you build the <code>LayoutDescription</code> yourself, as shown <a href="#a-mesh-from-separate-streams">below</a>.</p>
+<h2 id="index-buffers">Index buffers</h2>
+<p>Most meshes share vertices between triangles. A quad drawn as two triangles needs six vertices, two of them duplicated; with an index buffer it needs four vertices and six indices that point at them. On real meshes, where each vertex is shared by several triangles, the saving is much larger.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Buffer</strong></td>
+<td><code>Buffer</code></td>
+<td>The buffer with the indices. It must be created with <code>BufferFlags.IndexBuffer</code>.</td>
+</tr>
+<tr>
+<td><strong>IndexFormat</strong></td>
+<td><code>IndexFormat</code></td>
+<td><code>UInt16</code> (the default) or <code>UInt32</code>. Use 32-bit indices only when the mesh has more than 65,535 vertices.</td>
+</tr>
+<tr>
+<td><strong>IndexCount</strong></td>
+<td><code>int</code></td>
+<td>Number of indices, computed from the buffer size.</td>
+</tr>
+<tr>
+<td><strong>FlipWinding</strong></td>
+<td><code>bool</code></td>
+<td>Reverses which winding order counts as front-facing for this mesh.</td>
+</tr>
+<tr>
+<td><strong>Offset</strong></td>
+<td><code>int</code></td>
+<td>Byte offset of the first index inside the buffer.</td>
+</tr>
+<tr>
+<td><strong>Size</strong></td>
+<td><code>int</code></td>
+<td>Size of the data in bytes.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create-a-mesh-from-code">Create a mesh from code</h2>
+<p>Both examples below build the same colored quad and are methods of a <code>Scene</code>, so they can be called from <code>CreateScene()</code>. They need these usings:</p>
+<pre><code class="lang-csharp">using System.Runtime.CompilerServices;
+using Evergine.Common.Graphics;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+using Buffer = Evergine.Common.Graphics.Buffer;
+</code></pre>
+<h3 id="a-mesh-from-a-predefined-vertex-type">A mesh from a predefined vertex type</h3>
+<p><code>VertexPositionColor</code> supplies the layout, so one interleaved vertex buffer is enough:</p>
+<pre><code class="lang-csharp">private Mesh CreateQuadMesh(GraphicsContext graphicsContext)
+{
+    ushort[] indexData = new ushort[] { 0, 1, 2, 0, 2, 3 };
+
+    VertexPositionColor[] vertexData = new VertexPositionColor[]
+    {
+        new VertexPositionColor(new Vector3(-0.5f, 0.5f, 0.0f), Color.Blue),
+        new VertexPositionColor(new Vector3(0.5f, 0.5f, 0.0f), Color.Red),
+        new VertexPositionColor(new Vector3(0.5f, -0.5f, 0.0f), Color.Green),
+        new VertexPositionColor(new Vector3(-0.5f, -0.5f, 0.0f), Color.Yellow),
+    };
+
+    var vertexBufferDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(Unsafe.SizeOf&lt;VertexPositionColor&gt;() * vertexData.Length),
+        Flags = BufferFlags.VertexBuffer,
+        Usage = ResourceUsage.Default,
+    };
+
+    Buffer vertexGpuBuffer = graphicsContext.Factory.CreateBuffer(vertexData, ref vertexBufferDescription);
+    var vertexBuffer = new VertexBuffer(vertexGpuBuffer, VertexPositionColor.VertexFormat);
+
+    var indexBufferDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(sizeof(ushort) * indexData.Length),
+        Flags = BufferFlags.IndexBuffer,
+        Usage = ResourceUsage.Default,
+    };
+
+    Buffer indexGpuBuffer = graphicsContext.Factory.CreateBuffer(indexData, ref indexBufferDescription);
+    var indexBuffer = new IndexBuffer(indexGpuBuffer);
+
+    return new Mesh(new VertexBuffer[] { vertexBuffer }, indexBuffer, PrimitiveTopology.TriangleList)
+    {
+        // Without bounds the culling system cannot tell whether the quad is in view.
+        BoundingBox = new BoundingBox(new Vector3(-0.5f, -0.5f, 0), new Vector3(0.5f, 0.5f, 0)),
+    };
+}
+</code></pre>
+<p>The layout of <code>VertexPositionColor.VertexFormat</code> is:</p>
+<table>
+<thead>
+<tr>
+<th>Element</th>
+<th>Semantic</th>
+<th>Semantic index</th>
+<th>Format</th>
+<th>Offset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Position</td>
+<td><code>Position</code></td>
+<td>0</td>
+<td><code>Float3</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td>Color</td>
+<td><code>Color</code></td>
+<td>0</td>
+<td><code>UByte4Normalized</code></td>
+<td>12</td>
+</tr>
+</tbody>
+</table>
+<h3 id="a-mesh-from-separate-streams">A mesh from separate streams</h3>
+<p>Here positions and colors live in two arrays, and each becomes its own vertex buffer with its own one-element layout:</p>
+<pre><code class="lang-csharp">private Mesh CreateQuadMeshFromStreams(GraphicsContext graphicsContext)
+{
+    ushort[] indexData = new ushort[] { 0, 1, 2, 0, 2, 3 };
+
+    Vector3[] positions = new Vector3[]
+    {
+        new Vector3(-0.5f, 0.5f, 0.0f),
+        new Vector3(0.5f, 0.5f, 0.0f),
+        new Vector3(0.5f, -0.5f, 0.0f),
+        new Vector3(-0.5f, -0.5f, 0.0f),
+    };
+
+    Vector4[] colors = new Vector4[]
+    {
+        Color.Blue.ToVector4(),
+        Color.Red.ToVector4(),
+        Color.Green.ToVector4(),
+        Color.Yellow.ToVector4(),
+    };
+
+    var positionsDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(Unsafe.SizeOf&lt;Vector3&gt;() * positions.Length),
+        Flags = BufferFlags.VertexBuffer,
+        Usage = ResourceUsage.Default,
+    };
+
+    Buffer positionsBuffer = graphicsContext.Factory.CreateBuffer(positions, ref positionsDescription);
+    var positionsLayout = new LayoutDescription()
+        .Add(new ElementDescription(ElementFormat.Float3, ElementSemanticType.Position));
+    var positionsVertexBuffer = new VertexBuffer(positionsBuffer, positionsLayout);
+
+    var colorsDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(Unsafe.SizeOf&lt;Vector4&gt;() * colors.Length),
+        Flags = BufferFlags.VertexBuffer,
+        Usage = ResourceUsage.Default,
+    };
+
+    Buffer colorsBuffer = graphicsContext.Factory.CreateBuffer(colors, ref colorsDescription);
+    var colorsLayout = new LayoutDescription()
+        .Add(new ElementDescription(ElementFormat.Float4, ElementSemanticType.Color));
+    var colorsVertexBuffer = new VertexBuffer(colorsBuffer, colorsLayout);
+
+    var indexBufferDescription = new BufferDescription()
+    {
+        SizeInBytes = (uint)(sizeof(ushort) * indexData.Length),
+        Flags = BufferFlags.IndexBuffer,
+        Usage = ResourceUsage.Default,
+    };
+
+    Buffer indexGpuBuffer = graphicsContext.Factory.CreateBuffer(indexData, ref indexBufferDescription);
+    var indexBuffer = new IndexBuffer(indexGpuBuffer);
+
+    // One vertex buffer per stream; the shader sees a single vertex with both attributes.
+    return new Mesh(new VertexBuffer[] { positionsVertexBuffer, colorsVertexBuffer }, indexBuffer, PrimitiveTopology.TriangleList)
+    {
+        BoundingBox = new BoundingBox(new Vector3(-0.5f, -0.5f, 0), new Vector3(0.5f, 0.5f, 0)),
+    };
+}
+</code></pre>
+<p>This time the color is stored as four floats, so the layouts are:</p>
+<table>
+<thead>
+<tr>
+<th>Vertex buffer</th>
+<th>Semantic</th>
+<th>Semantic index</th>
+<th>Format</th>
+<th>Offset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>0</td>
+<td><code>Position</code></td>
+<td>0</td>
+<td><code>Float3</code></td>
+<td>0</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>Color</code></td>
+<td>0</td>
+<td><code>Float4</code></td>
+<td>0</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The quad has vertex colors and no normals or texture coordinates. A <a href="../materials/index.html">StandardMaterial</a> drawing it needs <code>VertexColorEnabled</code> on and <code>LightingEnabled</code> and <code>IBLEnabled</code> off, because the lighting code reads normals the mesh does not have.</p>
+</div>
+<h2 id="next-steps">Next steps</h2>
+<p>A mesh on its own is not an entity. Wrap it in a model to add it to the scene, as shown in <a href="../models/create_model_from_code.html">Create a Model from Code</a>. The result looks like this:</p>
+<p><img src="images/Quad.png" alt="The colored quad rendered in a scene"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

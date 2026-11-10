@@ -1,0 +1,250 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bindings | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Bindings | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="bindings">Bindings</h1>
+
+<hr>
+<p><img src="images/binding_sources.png" alt="Where each binding attribute looks: BindComponent and BindEntity in the entity tree, BindSceneManager in the scene managers, BindService in the application container"></p>
+<p><em>Each attribute searches a different place. The two entity attributes walk the entity tree from the owner of the component; the other two ask the scene or the application.</em></p>
+<p><strong>Bindings</strong> connect an element to the things it depends on without any lookup code. You mark a field or property with an attribute such as <code>[BindComponent]</code>, and Evergine finds the dependency and assigns it when the element is attached. A component can require the <code>Transform3D</code> of its entity, the <code>RenderManager</code> of its scene or a service of the application, and simply use it.</p>
+<p>Bindings are resolved during the <strong>attach</strong> step of the <a href="../lifecycle_elements.html">lifecycle</a>, right before <code>OnAttached()</code> runs. If a required dependency cannot be found, the element is not attached at all, which is far easier to diagnose than a <code>NullReferenceException</code> later on.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Bound members are still <code>null</code> in the constructor and in <code>OnLoaded()</code>. Use them from <code>OnAttached()</code> onwards.</p>
+</div>
+<h2 id="the-four-binding-attributes">The Four Binding Attributes</h2>
+<table>
+<thead>
+<tr>
+<th>Attribute</th>
+<th>Finds</th>
+<th>Where it searches</th>
+<th>Usable in</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="bind_components.html"><code>[BindComponent]</code></a></td>
+<td>Components</td>
+<td>The owner entity by default; also its children, its parents or the whole scene.</td>
+<td>Components</td>
+</tr>
+<tr>
+<td><a href="bind_entities.html"><code>[BindEntity]</code></a></td>
+<td>Entities, by tag</td>
+<td>The whole scene by default; also the owner, its children or its parents.</td>
+<td>Components</td>
+</tr>
+<tr>
+<td><a href="bind_scenemanagers.html"><code>[BindSceneManager]</code></a></td>
+<td>Scene managers</td>
+<td>The scene managers of the current scene.</td>
+<td>Components, scene managers</td>
+</tr>
+<tr>
+<td><a href="bind_services.html"><code>[BindService]</code></a></td>
+<td>Services</td>
+<td>The <a href="../application/container.html">Application Container</a>.</td>
+<td>Components, scene managers, services</td>
+</tr>
+</tbody>
+</table>
+<p>Every attribute has an <code>isRequired</code> parameter, <code>true</code> by default. The pages of each attribute list the rest of their parameters.</p>
+<h2 id="example">Example</h2>
+<p>This component binds a service, a scene manager and a component, and uses all three in <code>Start()</code>:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+namespace MyProject
+{
+    public class DebugSetup : Component
+    {
+        [BindService]
+        private AssetsService assetsService;
+
+        [BindSceneManager]
+        private RenderManager renderManager;
+
+        [BindComponent]
+        private Transform3D transform;
+
+        private Material defaultMaterial;
+
+        protected override void Start()
+        {
+            base.Start();
+
+            // All three members were assigned before OnAttached() ran.
+            this.defaultMaterial = this.assetsService.Load&lt;Material&gt;(DefaultResourcesIDs.DefaultMaterialID);
+            this.renderManager.DebugLines = true;
+            this.transform.Position = Vector3.Zero;
+        }
+    }
+}
+</code></pre>
+<p>If the entity had no <code>Transform3D</code>, <code>DebugSetup</code> would not attach and <code>Start()</code> would never run.</p>
+<h2 id="binding-errors">Binding Errors</h2>
+<p>How a failed required binding is reported depends on the <code>ErrorHandler</code> service:</p>
+<table>
+<thead>
+<tr>
+<th><code>ErrorHandler.ThrowBindingExceptions</code></th>
+<th>What happens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>true</code> (the default)</td>
+<td>A <code>BindingException</code> is thrown that names the type and the member that could not be resolved.</td>
+</tr>
+<tr>
+<td><code>false</code></td>
+<td>An error with the same information is written to the trace output, and the element stays detached.</td>
+</tr>
+</tbody>
+</table>
+<p>Evergine Studio sets it to <code>false</code>, so a component with a missing dependency does not stop you from editing the scene; look for the error in the <strong>Output</strong> panel.</p>
+<h2 id="bind-collections">Bind Collections</h2>
+<p>When the bound member is a <code>List&lt;T&gt;</code>, the binding collects every match instead of the first one:</p>
+<pre><code class="lang-csharp">// The Transform3D of the owner entity.
+[BindComponent]
+private Transform3D transform;
+
+// Every Camera3D in the scene.
+[BindComponent(source: BindComponentSource.Scene)]
+private List&lt;Camera3D&gt; sceneCameras;
+</code></pre>
+<p>A list binding is always satisfied, even when the list is empty. It is filled once, when the element is attached: elements that appear later are not added to it, while bound elements that are removed are taken out of it. For a set of entities that changes over time, use an <a href="../component_arch/entities/entity_manager.html#entity-tag-collections">entity tag collection</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Only <code>List&lt;T&gt;</code> is recognized as a collection. Arrays and other collection types are treated as a single value.</p>
+</div>
+<h2 id="when-a-dependency-goes-away">When a Dependency Goes Away</h2>
+<p>Bindings keep track of what they found. If a <strong>required</strong> dependency is detached or destroyed, for example because its component is removed, the element that depends on it is detached too, since its binding no longer holds. An optional dependency is set back to <code>null</code> instead, so check it before using it.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="bind_components.html">Bind Components</a></li>
+<li><a href="bind_services.html">Bind Services</a></li>
+<li><a href="bind_entities.html">Bind Entities</a></li>
+<li><a href="bind_scenemanagers.html">Bind Scene Managers</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

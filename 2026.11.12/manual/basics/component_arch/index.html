@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Component-Based Architecture | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Component-Based Architecture | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="component-based-architecture">Component-Based Architecture</h1>
+
+<hr>
+<p><img src="images/component_based_arch.jpg" alt="Component Based Architecture"></p>
+<p>Evergine is built on entities and components. An <a href="entities/index.html"><strong>entity</strong></a> is an object in a scene, and it gets all of its functionality from the <a href="components/index.html"><strong>components</strong></a> attached to it. Each component does one job, such as holding a position, drawing a mesh or moving a camera, and the same component can be reused on any entity that needs that job done.</p>
+<h2 id="why-components">Why Components</h2>
+<p>Every object in a scene needs some kind of code: a car, a player, the sun. A natural first idea is a class hierarchy, with a base class such as <code>AppObject</code> for common code, a <code>Vehicle</code> class under it, and <code>Car</code>, <code>Motorbike</code> or <code>Train</code> under that.</p>
+<p>This works for small projects, but it breaks down as they grow:</p>
+<ul>
+<li>Base classes accumulate code that only some subclasses need, and they become hard to split into separate systems.</li>
+<li>Some objects do not fit a single branch of the tree. If there are <code>GroundVehicle</code> and <code>WaterVehicle</code> classes, which one should an <code>AmphibianVehicle</code> derive from? Either choice leaves out half of what it needs.</li>
+</ul>
+<p><img src="images/class_inheritance_issue.png" alt="A class hierarchy where AmphibianVehicle cannot derive from both GroundVehicle and WaterVehicle"></p>
+<p>Evergine uses <strong>aggregation</strong> instead. The <code>Entity</code> class has no behavior of its own, only a collection of independent components that derive from <code>Component</code>. An object gets exactly the features it needs by combining components, and a new feature is a new component rather than a change to a base class. The amphibian is an entity with a ground movement component and a water movement component.</p>
+<h2 id="entities-and-components">Entities and Components</h2>
+<p><strong>Entities</strong> represent everything in a scene: characters, lights, models, cameras. An entity without components does nothing; it is not drawn and nothing interacts with it.</p>
+<p>What an entity is depends on its components. Add a <code>Camera3D</code> and it becomes a camera; add a mesh, a material and a <code>MeshRenderer</code> and it becomes a visible model.</p>
+<h3 id="scene-managers-and-components">Scene Managers and Components</h3>
+<p>A <strong>scene</strong> has a set of subsystems called <a href="../scenes/scenemanagers.html"><strong>scene managers</strong></a>. Each one runs one aspect of the scene for all entities at once: the <code>RenderManager</code> draws the scene, the <code>BehaviorManager</code> updates every behavior, the <code>PhysicsManager</code> runs the physics simulation, and so on.</p>
+<p>Components register themselves with the scene managers that need them when they are attached. That way, every scene manager only sees the components it cares about and can ignore the rest.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>For instance: Every physics-related component (RigidBody, BoxCollider, etc.) is internally registered into the PhysicsManager when an Entity is spawned into the scene. This allows PhysicsManager to gather and control all the physics information in the scene.</p>
+</div>
+<h3 id="the-whole-picture">The Whole Picture</h3>
+<p>A <strong>scene</strong> contains <a href="entities/index.html"><strong>entities</strong></a>. Each entity has a collection of components that give it its data and functionality, and each component can be registered with one or more <strong>scene managers</strong> of the scene:</p>
+<p><img src="images/component_arch.png" alt="Five entities with their components, and the scene managers each component registers with"></p>
+<p><em>Read the diagram by columns to see what each entity is made of, and by rows to see which components each scene manager drives.</em></p>
+<h2 id="in-this-section">In This Section</h2>
+<ul>
+<li><a href="entities/index.html">Entities</a></li>
+<li><a href="components/index.html">Components</a></li>
+<li><a href="prefabs/index.html">Prefabs</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

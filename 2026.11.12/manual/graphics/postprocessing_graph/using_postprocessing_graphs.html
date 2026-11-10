@@ -1,0 +1,188 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using the Post-Processing Graph | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using the Post-Processing Graph | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-the-post-processing-graph">Using the Post-Processing Graph</h1>
+
+<hr>
+<p><img src="images/PostProcessingGraph.jpg" alt="Post-processing graph header"></p>
+<p>A post-processing graph affects a scene through a <strong>post-processing volume</strong>: an entity with a <code>PostProcessingGraphRenderer</code> component that references the graph. This page shows how to add one in Evergine Studio and from code, and how volumes decide which cameras they affect.</p>
+<h2 id="load-a-post-processing-graph-from-code">Load a post-processing graph from code</h2>
+<p>Load the graph asset and add a volume that uses it:</p>
+<pre><code class="lang-csharp">using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        var graph = assetsService.Load&lt;PostProcessingGraph&gt;(EvergineContent.PostprocessingGraph.MyPostProcessingGraph);
+
+        // A global volume affects every camera, so it needs no position or collider.
+        Entity postprocessingVolume = new Entity(&quot;postProcessingVolume&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new PostProcessingGraphRenderer() { ppGraph = graph, IsGlobal = true });
+
+        this.Managers.EntityManager.Add(postprocessingVolume);
+    }
+}
+</code></pre>
+<p>Without a <code>ppGraph</code>, the component uses the default post-processing graph of Evergine.Core.</p>
+<h2 id="add-a-post-processing-volume-in-evergine-studio">Add a post-processing volume in Evergine Studio</h2>
+<p>Click the <img src="../images/plusIcon.jpg" alt="Plus Icon"> button in the <a href="../../evergine_studio/interface.html">Entities Hierarchy</a> panel and select <strong>Post-processing Volume</strong>. The new volume uses the default post-processing graph.</p>
+<p><img src="images/CreatePostprocessingGraph.jpg" alt="Create Postprocessing Volume"></p>
+<p>A Postprocessing Volume is an entity in your scene composed of 3 components:</p>
+<ul>
+<li><code>Transform3D</code></li>
+<li><code>PostProcessingGraphRenderer</code></li>
+<li><code>BoxCollider</code></li>
+</ul>
+<h2 id="postprocessinggraphrenderer">PostProcessingGraphRenderer</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ppGraph</strong></td>
+<td>Default post-processing graph</td>
+<td>The graph asset the volume applies.</td>
+</tr>
+<tr>
+<td><strong>IsGlobal</strong></td>
+<td>true</td>
+<td>When true, the graph applies to every camera. When false, it applies only to the cameras that enter the volume defined by a BoxCollider, so you can change the look of a room or a cave.</td>
+</tr>
+<tr>
+<td><strong>LayerOrder</strong></td>
+<td>10</td>
+<td>When the graph runs, compared with the <code>Order</code> of the <a href="../renderlayers/index.html">render layers</a>. The graph runs after every layer with a lower order, so the default of 10 runs it after opaque (0), alpha (2) and additive (3) objects. Give a UI layer an order above it to keep the UI out of post-processing.</td>
+</tr>
+</tbody>
+</table>
+<p>Below these properties, the component shows the parameters of the graph: either all of its node inputs or, when the graph has one, the panels of its <a href="custom_postprocessing_graph.html#post-processing-graph-decorator">decorator</a>.</p>
+<p><img src="images/PostprocessingGraphRenderer.jpg" alt="Postprocessing Renderer"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

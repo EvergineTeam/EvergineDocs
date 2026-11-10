@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Add-ons | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Add-ons | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="add-ons">Add-ons</h1>
+
+<hr>
+<p>Add-ons are Evergine packages that bring a complete feature to your project: assets, prefabs, components, behaviors, effects, and the NuGet packages that implement them. You install them from Evergine Studio, and their assets appear in your project as read-only dependencies that you can use like your own.</p>
+<p>The Evergine team publishes add-ons for extended reality, medical imaging, geospatial data, point clouds, and Gaussian Splatting. You can also consume add-ons from your own private or nightly sources.</p>
+<h2 id="available-add-ons">Available add-ons</h2>
+<table>
+<thead>
+<tr>
+<th>Add-on</th>
+<th>Package</th>
+<th>What it is for</th>
+<th>Platforms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="mrtk/index.html">MRTK</a></td>
+<td><code>Evergine.MRTK</code></td>
+<td>Hand and controller pointers, pressable buttons, sliders, bounding boxes, and XR user controls.</td>
+<td>Meta Quest, Pico, Windows (OpenXR, OpenVR, or mouse and keyboard emulation)</td>
+</tr>
+<tr>
+<td><a href="xrv/index.html">XRV</a></td>
+<td><code>Evergine.Xrv.Core</code> and one package per module</td>
+<td>An application framework built on MRTK: hand menu, floating windows, settings, help, themes, localization, and ready-made modules.</td>
+<td>Meta Quest, Pico, Windows (for development)</td>
+</tr>
+<tr>
+<td><a href="gaussiansplatting/index.html">Gaussian Splatting</a></td>
+<td><code>Evergine.GaussianSplatting</code></td>
+<td>Load and render 3D Gaussian Splatting scenes (<code>.ply</code>, <code>.splat</code>, <code>.spz</code>, <code>.ksplat</code>, <code>.sog</code>, LCC).</td>
+<td>Windows, Android, iOS, Web (WebGL and WebGPU)</td>
+</tr>
+<tr>
+<td><a href="dicom/index.html">DICOM</a></td>
+<td><code>Evergine.Dicom</code></td>
+<td>Load DICOM medical image series and render them as 2D slices or as a 3D volume.</td>
+<td>Windows, Web</td>
+</tr>
+<tr>
+<td><a href="pointcloud/index.html">Point Cloud</a></td>
+<td><code>Evergine.PointCloud</code></td>
+<td>Stream and render massive point clouds (E57, LAS, LAZ, PCD, EPC) with a progressive GPU render path.</td>
+<td>Windows</td>
+</tr>
+<tr>
+<td><a href="cesium/index.html">Cesium</a></td>
+<td><code>Evergine.Cesium</code></td>
+<td>Stream Cesium ion terrain, 3D buildings, and imagery, and place entities at geodetic coordinates.</td>
+<td>Windows</td>
+</tr>
+</tbody>
+</table>
+<h2 id="add-ons-in-evergine-studio">Add-ons in Evergine Studio</h2>
+<p>The <strong>Dependencies</strong> node of the <strong>Project Explorer</strong> lists the add-ons installed in your project. Each add-on shows its assets in its own folder, so you can drag its prefabs, materials, and other assets into your scenes.</p>
+<p><img src="images/mrtk_package.png" alt="Add-ons listed under Dependencies in the Project Explorer"></p>
+<h2 id="add-ons-manager">Add-ons Manager</h2>
+<p>The <strong>Add-ons Manager</strong> installs, updates, and removes add-ons. It lives in the <strong>Add-Ons</strong> tab of <a href="../evergine_studio/settings.html">Project Settings</a>, and you can open it in three ways:</p>
+<ol>
+<li>From the <strong>File</strong> menu, select <strong>Manage dependencies</strong>.</li>
+<li>In the <strong>Project Explorer</strong>, right-click the <strong>Dependencies</strong> node and select <strong>Manage dependencies</strong>.</li>
+<li>Open <strong>Project Settings</strong> and select the <strong>Add-Ons</strong> tab.</li>
+</ol>
+<p><img src="images/addons_manager.png" alt="The Add-Ons tab of Project Settings with Evergine.GaussianSplatting selected"></p>
+<p>The manager has two tabs: <strong>Browse</strong> lists every add-on available in the configured sources, and <strong>Installed</strong> lists the add-ons your project uses. Above the tabs you find:</p>
+<ul>
+<li>A search box that filters by name and tags.</li>
+<li>A <strong>Source</strong> selector that limits the results to one package source.</li>
+</ul>
+<p>Each item in the list shows the add-on name, icon, and description, and:</p>
+<ul>
+<li>A badge under the icon: a green tick when you use the latest version, or a blue arrow when a newer version is available.</li>
+<li>The latest available version and, if the add-on is installed, the installed version. When both match, a single label is shown.</li>
+<li>Buttons to install the latest version or remove the add-on, which appear when you move the mouse over the item.</li>
+</ul>
+<p><img src="images/packageinfo.png" alt="Add-on items with their version labels and badges"></p>
+<p>Select an item to open its detail view. From there you can install or uninstall the add-on, or pick a specific version to install.</p>
+<p><img src="images/package_manager.png" alt="Add-on detail view with the version selector and NuGet dependencies"></p>
+<p>The <strong>NuGet deps</strong> section lists the minimum versions of the engine packages and third-party NuGet packages that the add-on needs:</p>
+<ul>
+<li>Engine package versions must be aligned across your project. If an add-on requires a newer engine version than the one you use, Evergine Studio schedules a project restart to update it.</li>
+<li>Third-party NuGet packages with an explicit version are added or updated automatically when you install the add-on.</li>
+<li>NuGet packages listed without a version number are not added for you. Add them to your projects manually.</li>
+</ul>
+<p>Core add-ons such as <code>Evergine.Core</code> show a lock icon. You cannot remove or update them from the manager; Evergine Launcher updates them when you update the project's Evergine version.</p>
+<p><img src="images/package_manager_protected.png" alt="A core add-on with the lock icon and the disclaimer in the detail view"></p>
+<h2 id="private-and-nightly-add-on-sources">Private and nightly add-on sources</h2>
+<p>The public source contains the add-ons published by the Evergine team. Evergine can also read add-ons from your own sources: a local folder or an Azure Storage container. Use them to test nightly builds or to distribute internal add-ons that are not published.</p>
+<p>Sources are declared in an <code>Evergine.config</code> file placed next to your project's <code>.weproj</code> file. You can write it by hand or add entries with the <code>sources add &lt;name&gt; &lt;uri&gt;</code> command of the Evergine project CLI.</p>
+<pre><code class="lang-json">{
+  &quot;Sources&quot;: {
+    &quot;evergine-nightly&quot;: &quot;https://everginestudio.blob.core.windows.net/nightly&quot;,
+    &quot;local-repo&quot;: &quot;C:/EvergineFeeds/local&quot;
+  }
+}
+</code></pre>
+<ul>
+<li><strong>Name</strong> (the key): any unique name. The Add-ons Manager shows it in the <strong>Source</strong> selector.</li>
+<li><strong>URI</strong> (the value): an absolute local folder path or an Azure Storage container URL. Append a SAS token to the URL if the container requires authentication.</li>
+</ul>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Local folders must be absolute paths. A relative path is interpreted as a storage URL and the source fails to load.</p>
+</div>
+<h2 id="customize-add-on-assets">Customize add-on assets</h2>
+<p>Assets that come from an add-on are read-only. The Project Explorer marks them with a lock icon: <img src="images/locked_icon.png" alt="lock icon"></p>
+<p>You can still edit one. When you save a modified add-on asset, Evergine Studio asks whether you want to create a copy of it in your project:</p>
+<p><img src="images/package_locked_save.png" alt="Dialog that offers to copy a locked add-on asset into the project"></p>
+<p>The copy is stored in your project folder and overrides the asset provided by the add-on. This lets you adapt Evergine core assets, or any add-on asset, to your application without changing the package.</p>
+<p><img src="images/asset_edit.png" alt="An add-on asset overridden by a local copy"></p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="mrtk/index.html">MRTK</a></li>
+<li><a href="xrv/index.html">XRV</a></li>
+<li><a href="gaussiansplatting/index.html">Gaussian Splatting</a></li>
+<li><a href="dicom/index.html">DICOM</a></li>
+<li><a href="pointcloud/index.html">Point Cloud</a></li>
+<li><a href="cesium/index.html">Cesium</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

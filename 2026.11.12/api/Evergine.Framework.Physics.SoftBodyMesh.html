@@ -1,0 +1,887 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SoftBodyMesh | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SoftBodyMesh | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.SoftBodyMesh">
+
+
+
+  <h1 id="Evergine_Framework_Physics_SoftBodyMesh" data-uid="Evergine.Framework.Physics.SoftBodyMesh" class="text-break">Class SoftBodyMesh</h1>
+  <div class="markdown level0 summary"><p>The surface a <a class="xref" href="Evergine.Framework.Physics.SoftBody.html">SoftBody</a> simulates, and the mesh that draws it.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Graphics.BaseModel.html">BaseModel</a></div>
+    <div class="level7"><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html">MeshComponent</a></div>
+    <div class="level8"><span class="xref">SoftBodyMesh</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_modelLink">MeshComponent.modelLink</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_meshContainer">MeshComponent.meshContainer</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_ChangedMesh">MeshComponent.ChangedMesh</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_modelMeshName">MeshComponent.modelMeshName</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_MeshCount">MeshComponent.MeshCount</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_MeshContainer">MeshComponent.MeshContainer</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_MeshNames">MeshComponent.MeshNames</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_Meshes">MeshComponent.Meshes</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_BoundingBox">MeshComponent.BoundingBox</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_UnloadModel">MeshComponent.UnloadModel()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_ThrowRefreshEvent">MeshComponent.ThrowRefreshEvent()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_RefreshMesh">MeshComponent.RefreshMesh()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseModel.html#Evergine_Framework_Graphics_BaseModel_customBoundingBoxSet">BaseModel.customBoundingBoxSet</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseModel.html#Evergine_Framework_Graphics_BaseModel_Refreshed">BaseModel.Refreshed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseModel.html#Evergine_Framework_Graphics_BaseModel_BoundingBoxRefreshed">BaseModel.BoundingBoxRefreshed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Graphics.BaseModel.html#Evergine_Framework_Graphics_BaseModel_GetBoneByMeshIndex_System_Int32_">BaseModel.GetBoneByMeshIndex(int)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_SoftBodyMesh_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SoftBodyMesh : MeshComponent, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_SoftBodyMesh_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+This is the shape half of a soft body: it says what the thing is -- a cloth, a sphere, a torus, a
+model from the project -- while <a class="xref" href="Evergine.Framework.Physics.SoftBody.html">SoftBody</a> says how it behaves. The same split the engine
+already makes between a cube mesh and a <a class="xref" href="Evergine.Framework.Physics.BoxCollider.html">BoxCollider</a>, and the reason the pair reads as
+an ordinary visible entity: material, mesh, renderer.
+</p>
+<p>
+It is a mesh and not a renderer, which is why it is not called one. A primitive mesh would not do:
+changing a primitive's geometry rebuilds the whole model and its GPU buffers, and a soft body moves
+every vertex every step. This owns a dynamic mesh instead and rewrites its position and normal
+buffers in place as the simulation hands over new vertices.
+</p>
+<p>
+The geometry exists as soon as the component is attached, with no physics involved, so the shape can
+be seen and picked in the editor before anything simulates. On its own, without a
+<a class="xref" href="Evergine.Framework.Physics.SoftBody.html">SoftBody</a> beside it, this is simply a procedural mesh that never moves.
+</p>
+</div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh__ctor_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.#ctor*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh__ctor" data-uid="Evergine.Framework.Physics.SoftBodyMesh.#ctor">SoftBodyMesh()</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Framework.Physics.SoftBodyMesh.html">SoftBodyMesh</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public SoftBodyMesh()</code></pre>
+  </div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_DoubleSided_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.DoubleSided*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_DoubleSided" data-uid="Evergine.Framework.Physics.SoftBodyMesh.DoubleSided">DoubleSided</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the surface is drawn from both sides, which is what an
+open surface like cloth needs to be visible and lit correctly from below.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Draw the surface from both sides. Meant for open surfaces like cloth.&quot;)]
+public bool DoubleSided { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_GridColumns_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.GridColumns*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_GridColumns" data-uid="Evergine.Framework.Physics.SoftBodyMesh.GridColumns">GridColumns</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the vertices along the local X axis for cloth, and the segments around the axis for
+the closed primitives.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 2, MaxLimit = 128, DesiredChange = 1, DesiredLargeChange = 4, ShowConditionFunction = &quot;IsTessellated&quot;, Tooltip = &quot;Vertices along X for cloth, segments around the axis for the closed shapes.&quot;)]
+public int GridColumns { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_GridRows_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.GridRows*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_GridRows" data-uid="Evergine.Framework.Physics.SoftBodyMesh.GridRows">GridRows</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the vertices along the local Z axis for cloth, the rings along the axis for the
+sphere and cylinder, and the segments around the tube for the torus.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 2, MaxLimit = 128, DesiredChange = 1, DesiredLargeChange = 4, ShowConditionFunction = &quot;IsTessellated&quot;, Tooltip = &quot;Vertices along Z for cloth, rings along the axis otherwise, segments around the tube for a torus.&quot;)]
+public int GridRows { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_GridSpacing_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.GridSpacing*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_GridSpacing" data-uid="Evergine.Framework.Physics.SoftBodyMesh.GridSpacing">GridSpacing</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the distance between neighbouring vertices, which is what sizes a cloth or a cube.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.01, ShowConditionFunction = &quot;UsesGridSpacing&quot;, Tooltip = &quot;Distance between neighbouring vertices, which is what sizes a cloth or a cube.&quot;)]
+public float GridSpacing { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_Length_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.Length*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_Length" data-uid="Evergine.Framework.Physics.SoftBodyMesh.Length">Length</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how long the cylinder is along its local Y axis.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.01, ShowConditionFunction = &quot;IsCylinder&quot;, Tooltip = &quot;Length of the cylinder along its local Y axis.&quot;)]
+public float Length { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_Model_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.Model*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_Model" data-uid="Evergine.Framework.Physics.SoftBodyMesh.Model">Model</h4>
+  <div class="markdown level1 summary"><p>Gets the generated model.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Model Model { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Model.html">Model</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SoftBodyMesh_Model_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Read-only on purpose: the model here is the dynamic mesh this component builds, not something to
+assign. Leaving the inherited setter public would put an asset picker for it in the inspector and
+write it into the scene file. The asset to point at is <a class="xref" href="Evergine.Framework.Physics.SoftBodyMesh.html#Evergine_Framework_Physics_SoftBodyMesh_SourceModel">SourceModel</a>.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_ModelMeshName_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.ModelMeshName*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_ModelMeshName" data-uid="Evergine.Framework.Physics.SoftBodyMesh.ModelMeshName">ModelMeshName</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the inherited mesh name. Hidden from the inspector: the surface is read from every mesh of
+<a class="xref" href="Evergine.Framework.Physics.SoftBodyMesh.html#Evergine_Framework_Physics_SoftBodyMesh_SourceModel">SourceModel</a>, so it selects nothing here.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override string ModelMeshName { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_ModelMeshName">MeshComponent.ModelMeshName</a></div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_ModelScale_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.ModelScale*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_ModelScale" data-uid="Evergine.Framework.Physics.SoftBodyMesh.ModelScale">ModelScale</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a uniform scale applied to the model geometry as it is read.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.001, ShowConditionFunction = &quot;IsFromModel&quot;, Tooltip = &quot;Uniform scale applied to the model geometry as it is read.&quot;)]
+public float ModelScale { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SoftBodyMesh_ModelScale_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A unit conversion for the model: one authored in centimetres takes 0.01 here. The entity's
+transform scale applies on top of it, through the <a class="xref" href="Evergine.Framework.Physics.SoftBody.html">SoftBody</a>, the way it does for
+every other shape.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_Radius_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.Radius*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_Radius" data-uid="Evergine.Framework.Physics.SoftBodyMesh.Radius">Radius</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the radius of the sphere and cylinder, and the distance from the centre to the
+middle of the tube for a torus.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.01, ShowConditionFunction = &quot;UsesRadius&quot;, Tooltip = &quot;Radius of the sphere or cylinder; centre to tube middle for a torus.&quot;)]
+public float Radius { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_RecenterModel_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.RecenterModel*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_RecenterModel" data-uid="Evergine.Framework.Physics.SoftBodyMesh.RecenterModel">RecenterModel</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the model is moved so that it sits around the origin of
+the entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(ShowConditionFunction = &quot;IsFromModel&quot;, Tooltip = &quot;Move the model so that it sits around the origin of the entity.&quot;)]
+public bool RecenterModel { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SoftBodyMesh_RecenterModel_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>A model is not obliged to be modelled around its own origin, and plenty are not: the duck of the
+glTF sample set sits eighty-seven units above it. That offset matters more here than it does for a
+rendered model, because the origin of the entity is what the gizmo drags and what the solver uses
+as the position of the body, and a body whose origin falls outside its own surface is awkward to
+place and stranger still to rotate.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_RestPositions_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.RestPositions*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_RestPositions" data-uid="Evergine.Framework.Physics.SoftBodyMesh.RestPositions">RestPositions</h4>
+  <div class="markdown level1 summary"><p>Gets the rest positions of the simulated vertices, local to the entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3[] RestPositions { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_ShapeType_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.ShapeType*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_ShapeType" data-uid="Evergine.Framework.Physics.SoftBodyMesh.ShapeType">ShapeType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the shape this mesh generates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;The shape simulated and drawn: a cloth grid, a closed primitive, or the surface of a model.&quot;)]
+public SoftBodyShapeType ShapeType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.SoftBodyShapeType.html">SoftBodyShapeType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_SourceModel_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.SourceModel*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_SourceModel" data-uid="Evergine.Framework.Physics.SoftBodyMesh.SourceModel">SourceModel</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the model whose surface is simulated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(ShowConditionFunction = &quot;IsFromModel&quot;, Tooltip = &quot;The model whose surface is simulated.&quot;)]
+public Model SourceModel { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Model.html">Model</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SoftBodyMesh_SourceModel_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Named apart from the inherited <a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_Model">Model</a>, which is the dynamic mesh this
+component generates and hands to the renderer. This one is the asset the geometry comes from.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_TriangleIndices_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.TriangleIndices*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_TriangleIndices" data-uid="Evergine.Framework.Physics.SoftBodyMesh.TriangleIndices">TriangleIndices</h4>
+  <div class="markdown level1 summary"><p>Gets the surface as vertex index triples, wound counter-clockwise seen from outside.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int[] TriangleIndices { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_TubeRadius_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.TubeRadius*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_TubeRadius" data-uid="Evergine.Framework.Physics.SoftBodyMesh.TubeRadius">TubeRadius</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how thick the tube of the torus is.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.01, ShowConditionFunction = &quot;IsTorus&quot;, Tooltip = &quot;Thickness of the torus tube.&quot;)]
+public float TubeRadius { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_WeldDistance_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.WeldDistance*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_WeldDistance" data-uid="Evergine.Framework.Physics.SoftBodyMesh.WeldDistance">WeldDistance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how close two vertices have to be before they are treated as one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, ShowConditionFunction = &quot;UsesWelding&quot;, Tooltip = &quot;How close two vertices have to be before they count as one, which is what stitches a model&#39;s seams.&quot;)]
+public float WeldDistance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SoftBodyMesh_WeldDistance_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Rendering meshes split vertices wherever a normal or a texture coordinate changes, so a model's
+seams arrive as pairs of vertices sitting on top of each other. Simulated as they are, the
+surface tears along every seam, because nothing connects the two halves. Welding stitches them
+back together. Only the simulated copy is welded: the drawn one keeps its split vertices and the
+texture coordinates that go with them, so closing a seam for the solver costs nothing on screen.</p>
+<p>Only models need it. The generated shapes repeat their seams by exactly zero distance and are
+always joined on that alone.</p>
+</div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_OnActivated_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnActivated*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_OnActivated" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnActivated">OnActivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is activated once it is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnActivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a></div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_OnAttached_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnAttached*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_OnAttached" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_OnAttached">MeshComponent.OnAttached()</a></div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_OnDeactivated_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnDeactivated*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_OnDeactivated" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnDeactivated">OnDeactivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is deactivated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDeactivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a></div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_OnDestroy_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnDestroy*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_OnDestroy" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnDestroy">OnDestroy()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is about to be disposed.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDestroy()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.Graphics3D.MeshComponent.html#Evergine_Components_Graphics3D_MeshComponent_OnDestroy">MeshComponent.OnDestroy()</a></div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_OnDetached_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnDetached*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_OnDetached" data-uid="Evergine.Framework.Physics.SoftBodyMesh.OnDetached">OnDetached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetached()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetached">Component.OnDetached()</a></div>
+  <a id="Evergine_Framework_Physics_SoftBodyMesh_SetCustomGeometry_" data-uid="Evergine.Framework.Physics.SoftBodyMesh.SetCustomGeometry*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_SetCustomGeometry_Evergine_Mathematics_Vector3___System_Int32___" data-uid="Evergine.Framework.Physics.SoftBodyMesh.SetCustomGeometry(Evergine.Mathematics.Vector3[],System.Int32[])">SetCustomGeometry(Vector3[], int[])</h4>
+  <div class="markdown level1 summary"><p>Hands over geometry built by code and rebuilds from it. It takes the place of
+<a class="xref" href="Evergine.Framework.Physics.SoftBodyMesh.html#Evergine_Framework_Physics_SoftBodyMesh_ShapeType">ShapeType</a> for as long as it is set, and is not serialized.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetCustomGeometry(Vector3[] positions, int[] indices)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>[]</td>
+        <td><span class="parametername">positions</span></td>
+        <td><p>The vertex positions, local to the entity.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</td>
+        <td><span class="parametername">indices</span></td>
+        <td><p>The faces as vertex index triples, wound counter-clockwise seen from outside.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Physics_SoftBodyMesh_GeometryChanged" data-uid="Evergine.Framework.Physics.SoftBodyMesh.GeometryChanged">GeometryChanged</h4>
+  <div class="markdown level1 summary"><p>Raised when the geometry has been rebuilt and anything simulating it has to start over.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler GeometryChanged</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

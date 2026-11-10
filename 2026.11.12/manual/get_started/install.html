@@ -1,0 +1,199 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Install Evergine | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Install Evergine | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="install-evergine">Install Evergine</h1>
+
+<p><img src="images/InstallLaunch.jpg" alt="Evergine setup wizard, last page"></p>
+<p>Evergine installs with a single setup program that adds the <strong>Evergine Launcher</strong> to your computer. From the Launcher you then download Evergine versions, create projects and open them in <strong>Evergine Studio</strong>. This page lists what your machine needs, walks through the installer, and explains how to fix the most common setup problems.</p>
+<h2 id="requirements">Requirements</h2>
+<p>The installer checks the .NET SDK and Visual Studio before it copies any file, and stops with a message if one is missing. Install them first.</p>
+<table>
+<thead>
+<tr>
+<th>Requirement</th>
+<th>Minimum</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Operating system</td>
+<td>Windows 10 or Windows 11, 64-bit</td>
+<td>Evergine Studio and the Evergine Launcher are Windows applications. Your projects can still target Android, iOS, the web and other platforms.</td>
+</tr>
+<tr>
+<td>.NET SDK</td>
+<td>.NET 10 SDK, version 10.0.201 or later (x64)</td>
+<td>Download it from <a href="https://dotnet.microsoft.com/download/dotnet/10.0">dotnet.microsoft.com</a>.</td>
+</tr>
+<tr>
+<td>Visual Studio</td>
+<td>Visual Studio 2026 (version 18.0 or later) with the <strong>.NET desktop development</strong> workload</td>
+<td>Needed to build and debug your projects. Add the <strong>ASP.NET and web development</strong> workload for Web profiles, and <strong>.NET Multi-platform App UI development</strong> for Android, iOS and MAUI profiles.</td>
+</tr>
+<tr>
+<td>GPU</td>
+<td>Direct3D 12 with feature level 12_2</td>
+<td>Evergine Studio and new Windows projects render with DirectX 12. On a GPU without feature level 12_2, use the DirectX 11 or Vulkan backend (see <a href="#troubleshooting">Troubleshooting</a>).</td>
+</tr>
+<tr>
+<td>Permissions</td>
+<td>A standard user account</td>
+<td>Evergine installs for the current user. Administrator rights are only requested to add the Windows <strong>Graphics Tools</strong> optional feature.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="run-the-installer">Run the installer</h2>
+<ol>
+<li><p>Download the Evergine installer (<strong>EvergineSetup.exe</strong>) from the <a href="https://evergine.com/download/">Evergine download page</a>.</p>
+</li>
+<li><p>Run the installer. It shows the license agreement (EULA) that defines the licensing terms of the engine. Accept it to continue:</p>
+<p><img src="images/installer_eula.png" alt="Evergine license agreement page of the installer"></p>
+</li>
+<li><p>Choose the optional tasks: a desktop shortcut, and associating <code>.weproj</code> project files with Evergine so that double-clicking a project opens it.</p>
+</li>
+<li><p>The installer then checks the <strong>DirectX Graphics Tools</strong>, the optional Windows feature that provides the DirectX debug layer. Adding it needs administrator rights, so Windows asks for permission:</p>
+<p><img src="images/InstallDependencies.jpg" alt="Installer message saying that admin rights are needed to check the DirectX Graphics Tools"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If you decline, Evergine still installs. You can add it later from the <strong>Optional features</strong> page of Windows Settings, where it is listed as <strong>Graphics Tools</strong>. Without it, the graphics validation layer is not available.</p>
+</div>
+</li>
+<li><p>When the wizard finishes, keep <strong>Launch Evergine</strong> checked and click <strong>Finish</strong> to open the Evergine Launcher.</p>
+</li>
+</ol>
+<h2 id="evergine-launcher">Evergine Launcher</h2>
+<p>The <strong>Evergine Launcher</strong> is a standalone Windows app. From it you install and remove Evergine versions, create and open projects, update projects to a newer version, and find samples, learning materials and support.</p>
+<p><img src="../evergine_launcher/images/Launcher.jpg" alt="Evergine Launcher"></p>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<h3 id="the-installer-asks-for-visual-studio">The installer asks for Visual Studio</h3>
+<p>The message <em>requires VisualStudio &gt;= 2026 with .NET desktop development workload installed</em> means the installer did not find Visual Studio 2026 with MSBuild. Install Visual Studio 2026 (any edition, including Community) with the <strong>.NET desktop development</strong> workload, then run the Evergine installer again. The installer opens the Visual Studio download page for you.</p>
+<h3 id="the-installer-asks-for-net">The installer asks for .NET</h3>
+<p>The message <em>requires Microsoft .NET &gt;= v10.0.201</em> means no .NET 10 SDK of that version or later is installed. Install the latest <strong>.NET 10 SDK for x64</strong>, not only the runtime, and run the Evergine installer again. To see which SDKs you have, run <code>dotnet --list-sdks</code> in a terminal.</p>
+<h3 id="evergine-studio-or-the-application-cannot-create-a-directx-12-device">Evergine Studio or the application cannot create a DirectX 12 device</h3>
+<p>The error <em>Couldn't find GPU device that supports feature level 12.2</em> means the GPU or its driver does not support Direct3D feature level 12_2. First update the GPU driver. If the error remains:</p>
+<ul>
+<li><strong>Evergine Studio</strong>: open <strong>Settings &gt; Preferences</strong>, set <strong>Editor backend</strong> to <strong>DirectX11</strong> or <strong>Vulkan</strong>, and restart Evergine Studio.</li>
+<li><strong>Your application</strong>: add the <strong>Windows (DirectX11)</strong> or <strong>Windows (Vulkan)</strong> platform to the project and run that profile. See <a href="../evergine_studio/settings/project_profiles.html">Manage profiles</a>.</li>
+</ul>
+<h3 id="a-project-does-not-open-from-the-file-explorer">A project does not open from the file explorer</h3>
+<p>Double-clicking a <code>.weproj</code> file only opens Evergine when you chose the file association during installation. Run the installer again and select it, or open the project from the Evergine Launcher.</p>
+<h2 id="next-steps">Next steps</h2>
+<p><a href="../evergine_launcher/create_project.html">Create a project with the Evergine Launcher</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

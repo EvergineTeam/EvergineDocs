@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Input | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Input | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="input">Input</h1>
+
+<p><img src="images/input_flow.png" alt="One frame of input: native events are queued by the dispatcher, applied at the start of the frame by DispatchEvents and ButtonStateTracker.Commit, and then read by components through ReadKeyState and IsKeyDown"></p>
+<p><em>Input is collected between frames and applied once, at the start of the next frame, before any component updates.</em></p>
+<p>Evergine reads the keyboard, the mouse and touch screens through three <strong>dispatchers</strong> that every display exposes. The API is the same on every platform: the same <code>Keys</code> and <code>MouseButtons</code> values, the same <a href="button_states.html">button states</a>, and the same order of events. You query the dispatchers from a component's <code>Update</code>, or subscribe to their events.</p>
+<h2 id="where-input-comes-from">Where input comes from</h2>
+<p><img src="images/input_dispatchers.png" alt="The Display exposes a KeyboardDispatcher, a MouseDispatcher and a TouchDispatcher; the mouse dispatcher is also a pointer dispatcher"></p>
+<p><em>Input belongs to a surface. Each window or embedded view has its own three dispatchers, reached through its <code>Display</code>.</em></p>
+<p>Every window or embedded view that Evergine renders to is a <code>Surface</code>. The application wraps each surface in a <code>Display</code> and registers it with the <code>GraphicsPresenter</code> service. Input is tied to the surface, so an application with two windows has two sets of dispatchers, and each one only receives what happens over its own window.</p>
+<table>
+<thead>
+<tr>
+<th>Member (on <code>Display</code> and <code>Surface</code>)</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>KeyboardDispatcher</strong></td>
+<td><code>KeyboardDispatcher</code></td>
+<td>Key states and the <code>KeyDown</code>, <code>KeyUp</code> and <code>KeyChar</code> events. See <a href="keyboard.html">Keyboard</a>.</td>
+</tr>
+<tr>
+<td><strong>MouseDispatcher</strong></td>
+<td><code>MouseDispatcher</code></td>
+<td>Cursor position, movement, wheel, buttons and cursor shape. See <a href="mouse.html">Mouse</a>.</td>
+</tr>
+<tr>
+<td><strong>TouchDispatcher</strong></td>
+<td><code>PointerDispatcher</code></td>
+<td>One <code>PointerPoint</code> per finger on the surface. See <a href="touch.html">Touch</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>A component usually reaches the display in one of two ways:</p>
+<ul>
+<li><strong><code>Camera.Display</code></strong>: the display a camera renders to. Use it when the input drives that camera or its view, as in the <a href="camera_controller.html">camera controller example</a>.</li>
+<li><strong><code>GraphicsPresenter.FocusedDisplay</code></strong>: the display that has the focus. When no display has been marked as focused, it returns the first one registered, which in a single-window application is the only one.</li>
+</ul>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Any of the three dispatchers can be <code>null</code> when the platform has no such device. Use the null-conditional operator (<code>?.</code>) or check for <code>null</code> before reading them.</p>
+</div>
+<h2 id="one-frame-of-input">One frame of input</h2>
+<p>The platform delivers native events whenever they happen, often several between two frames. The window system does not act on them immediately. It converts each one into an event argument object and stores it in the dispatcher's queue.</p>
+<p>At the start of every frame the <code>GraphicsPresenter</code> service calls <code>Display.DispatchInputEvents()</code> on each display. That calls <code>DispatchEvents()</code> on the keyboard, the mouse and the touch dispatcher, in that order. Each dispatcher empties its queue: for every event it updates its <code>ButtonStateTracker</code> and raises the matching C# event. Once the queue is empty it calls <code>ButtonStateTracker.Commit()</code>, which moves every key, button and pointer to its state for this frame.</p>
+<p>Services update before scenes, so all of this has finished before the first component runs. That has three consequences:</p>
+<ul>
+<li><code>ReadKeyState</code>, <code>ReadButtonState</code> and <code>PointerPoint.State</code> return the same value in every component during the whole frame.</li>
+<li>Event handlers run on the update thread, inside <code>DispatchEvents()</code>, before any <code>Update</code> method of that frame.</li>
+<li>A press shorter than a frame is never lost. The state still goes through <code>Pressing</code> and <code>Releasing</code>, one frame each. See <a href="button_states.html">Button states</a>.</li>
+</ul>
+<h2 id="dispatchers-per-window-system">Dispatchers per window system</h2>
+<p>Which dispatchers a display provides depends on the window system package that created its surface:</p>
+<table>
+<thead>
+<tr>
+<th>Window system</th>
+<th>Used for</th>
+<th>Keyboard</th>
+<th>Mouse</th>
+<th>Touch</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Evergine.Forms</code></td>
+<td>Windows desktop (the default Windows template)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Evergine.WPF</code></td>
+<td>WPF windows and embedded controls</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Evergine.WinUI</code></td>
+<td>WinUI 3 <code>SwapChainPanel</code> (also MAUI on Windows)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Evergine.SDL</code></td>
+<td>SDL windows</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Evergine.Avalonia</code></td>
+<td>Avalonia controls</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Evergine.Web</code></td>
+<td>Blazor WebAssembly canvas</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Evergine.Android</code></td>
+<td>Android (also MAUI on Android)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Evergine.iOS</code></td>
+<td>iOS (also MAUI on iOS)</td>
+<td>Present, raises no events</td>
+<td><code>null</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Evergine.MacOS</code></td>
+<td>macOS</td>
+<td>Yes</td>
+<td>Yes</td>
+<td><code>null</code></td>
+</tr>
+</tbody>
+</table>
+<p>On Android the mouse dispatcher only reports events whose source is a mouse; finger contacts go to the touch dispatcher.</p>
+<h2 id="example-react-to-any-device">Example: react to any device</h2>
+<p>This behavior toggles the entity's mesh when the user presses Space, clicks the left mouse button or touches the screen. It reads the focused display and tolerates any dispatcher being absent.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Common.Input.Mouse;
+using Evergine.Common.Input.Pointer;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+
+public class ToggleOnInput : Behavior
+{
+    [BindService]
+    private GraphicsPresenter graphicsPresenter = null;
+
+    [BindComponent]
+    private MeshRenderer meshRenderer = null;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        Display display = this.graphicsPresenter.FocusedDisplay;
+        if (display == null)
+        {
+            return;
+        }
+
+        // Pressing lasts one frame, so the mesh toggles once per press instead of every frame.
+        bool toggle = display.KeyboardDispatcher?.ReadKeyState(Keys.Space) == ButtonState.Pressing
+                   || display.MouseDispatcher?.ReadButtonState(MouseButtons.Left) == ButtonState.Pressing;
+
+        PointerDispatcher touch = display.TouchDispatcher;
+        if (touch != null)
+        {
+            foreach (PointerPoint point in touch.Points)
+            {
+                toggle |= point.State == ButtonState.Pressing;
+            }
+        }
+
+        if (toggle)
+        {
+            this.meshRenderer.IsEnabled = !this.meshRenderer.IsEnabled;
+        }
+    }
+}
+</code></pre>
+<p>Add it to any entity that has a <code>MeshRenderer</code>, for example in your scene's <code>CreateScene</code> method:</p>
+<pre><code class="lang-csharp">Entity cube = new Entity(&quot;cube&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new CubeMesh())
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new ToggleOnInput());
+
+this.Managers.EntityManager.Add(cube);
+</code></pre>
+<h2 id="xr-controllers-and-hands">XR controllers and hands</h2>
+<p>Motion controllers, articulated hands and other tracked devices are not dispatchers. They are read through XR tracking components. See <a href="../xr/input_tracking/index.html">XR input tracking</a>.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="button_states.html">Button states</a></li>
+<li><a href="keyboard.html">Keyboard</a></li>
+<li><a href="mouse.html">Mouse</a></li>
+<li><a href="touch.html">Touch</a></li>
+<li><a href="camera_controller.html">Example: camera controller</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Help system | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Help system | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="help-system">Help system</h1>
+
+<hr>
+<p><img src="images/help_system_menu.png" alt="Help hand menu button"></p>
+<p>The <strong>Help</strong> window contains text and images that teach users how to use your application. It opens from the <img src="images/help.png" alt="help"> button of the hand menu and works like the <a href="settings_system.html">settings system</a>: each module can add its own help tab, and your code can add and remove tabs at any time. The window also includes a <strong>General</strong> tab and an <strong>About</strong> tab provided by XRV.</p>
+<p>The window is a <code>TabbedWindow</code>, so each section is a <a href="ui/tabs_control.html#tab-items">tab item</a>.</p>
+<h2 id="add-a-help-tab-to-a-module">Add a help tab to a module</h2>
+<p>Set the <code>Help</code> property of your module in <code>Initialize</code>:</p>
+<pre><code class="lang-csharp">// Inside a class derived from Module.
+public override TabItem Help { get; protected set; }
+
+public override void Initialize(Scene scene)
+{
+    this.Help = new TabItem
+    {
+        Name = () =&gt; &quot;My module&quot;,
+        Contents = this.CreateHelpContents, // Returns the entity with the help contents.
+    };
+}
+</code></pre>
+<p>See <a href="modules/customModule/index.html">Create your own modules</a> for a complete module.</p>
+<h2 id="add-a-help-tab-from-code">Add a help tab from code</h2>
+<p>Use the <code>HelpSystem</code> property of <code>XrvService</code>:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.UI.Tabs;
+
+public class NavigationHelp : Component
+{
+    [BindService]
+    private XrvService xrvService = null;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        this.xrvService.HelpSystem.AddTabItem(new TabItem
+        {
+            Order = 1,
+            Name = () =&gt; &quot;Getting around&quot;,
+            Contents = this.CreateHelpContents,
+        });
+    }
+
+    private Entity CreateHelpContents()
+    {
+        // Build or instantiate the entity with your help texts and images.
+        return new Entity();
+    }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><code>HelpSystem</code> member</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AddTabItem(TabItem item)</code></td>
+<td></td>
+<td>Adds a tab to the help window.</td>
+</tr>
+<tr>
+<td><code>RemoveTabItem(TabItem item)</code></td>
+<td></td>
+<td>Removes a tab from the help window.</td>
+</tr>
+<tr>
+<td><code>DisplayAboutSection</code></td>
+<td><code>true</code></td>
+<td>Shows the <strong>About</strong> tab.</td>
+</tr>
+<tr>
+<td><code>AboutContents</code></td>
+<td><code>null</code></td>
+<td>Function that returns the text of the <strong>About</strong> tab.</td>
+</tr>
+<tr>
+<td><code>Window</code></td>
+<td></td>
+<td>The <code>TabbedWindow</code> of the help. Use it to open or close the window from code.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

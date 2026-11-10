@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Localization | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Localization | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="localization">Localization</h1>
+
+<hr>
+<p><img src="images/localization_sample.png" alt="Localized 3D text"></p>
+<p>XRV includes a localization service for applications that support several languages. It reads the strings from the embedded resource files (<code>.resx</code>) of your assemblies, and provides components that bind 3D texts and buttons to dictionary entries, so the UI updates when the language changes. Access it through <code>XrvService.Localization</code>.</p>
+<p>The service looks for resources in the assemblies marked with the <code>EvergineAssembly</code> attribute set to <code>EvergineAssemblyUsage.UserProject</code> or <code>EvergineAssemblyUsage.Extension</code>. Evergine project templates already mark your projects this way.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The available languages are English, the fallback, and Spanish.</p>
+</div>
+<h2 id="change-the-language">Change the language</h2>
+<p>Set <code>CurrentCulture</code> to change the UI culture:</p>
+<pre><code class="lang-csharp">using System.Globalization;
+
+var localization = this.xrvService.Localization;
+localization.CurrentCulture = CultureInfo.GetCultureInfo(&quot;es&quot;);
+</code></pre>
+<p>Setting <code>CurrentCulture</code> updates <code>CultureInfo.CurrentUICulture</code> and <code>CultureInfo.CurrentCulture</code>, and publishes a <code>CurrentCultureChangeMessage</code> through the <a href="messaging.html">messaging system</a>, whose <code>Culture</code> property holds the new culture.</p>
+<h2 id="localization-components">Localization components</h2>
+<p>These components localize texts in the editor or from code. Set <code>DictionaryName</code> and <code>DictionaryKey</code> to pick the entry, or <code>LocalizationFunc</code> to provide the text with a function.</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Localizes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Text3dLocalization</code></td>
+<td>The text of a <code>Text3DMesh</code> component on the same entity.</td>
+</tr>
+<tr>
+<td><code>ButtonLocalization</code></td>
+<td>The text of a button with a <code>StandardButtonConfigurator</code>.</td>
+</tr>
+<tr>
+<td><code>ToggleButtonLocalization</code></td>
+<td>The text of one state of a toggle button with a <code>ToggleStateManager</code>. Set <code>TargetState</code>, and add one component per state.</td>
+</tr>
+</tbody>
+</table>
+<p>For a toggle button, add one <code>ToggleButtonLocalization</code> for the <em>on</em> state and another for the <em>off</em> state:</p>
+<p><img src="images/localization_sample_toggle.png" alt="Localizing both states of a toggle button"></p>
+<h2 id="get-a-localized-string-from-code">Get a localized string from code</h2>
+<p><code>GetString</code> takes an expression that points at a property of the class generated for your <code>.resx</code> file. The service uses the class and property names to find the entry, so you keep compile-time checks on the keys.</p>
+<pre><code class="lang-csharp">var localization = this.xrvService.Localization;
+string text = localization.GetString(() =&gt; Resources.Strings.MyString);
+</code></pre>
+<p><code>GetString(string dictionaryName, string key)</code> does the same lookup by name. When an entry does not exist, both return <code>&lt;Not found&gt;</code>.</p>
+<p>Most XRV APIs take a <code>Func&lt;string&gt;</code> instead of a string, so the text is evaluated again when the culture changes. In the following examples, <code>localization</code> is <code>this.xrvService.Localization</code>, and <code>Resources.Strings</code> is the class generated for your resource file.</p>
+<h3 id="hand-menu-buttons">Hand menu buttons</h3>
+<p><a href="hand_menu.html#button-properties"><code>ButtonDescription</code></a> takes a function for each toggle state:</p>
+<pre><code class="lang-csharp">var description = new ButtonDescription
+{
+    IsToggle = true,
+    TextOn = () =&gt; localization.GetString(() =&gt; Resources.Strings.Menu_Hide),
+    TextOff = () =&gt; localization.GetString(() =&gt; Resources.Strings.Menu_Show),
+};
+</code></pre>
+<h3 id="tab-items">Tab items</h3>
+<p><a href="ui/tabs_control.html#tab-items"><code>TabItem.Name</code></a> is evaluated the first time the tab is shown and every time the culture changes:</p>
+<pre><code class="lang-csharp">var item = new TabItem
+{
+    Name = () =&gt; localization.GetString(() =&gt; Resources.Strings.Help_Tab_Name),
+    Contents = this.CreateHelpContents,
+};
+</code></pre>
+<h3 id="window-titles">Window titles</h3>
+<p><code>WindowConfigurator.LocalizedTitle</code> provides the title of a <a href="ui/windows_system.html">window</a>:</p>
+<pre><code class="lang-csharp">var window = this.xrvService.WindowsSystem.CreateWindow(config =&gt;
+{
+    config.LocalizedTitle = () =&gt; localization.GetString(() =&gt; Resources.Strings.Window_Title);
+});
+</code></pre>
+<h3 id="dialogs">Dialogs</h3>
+<p><code>ShowAlertDialog</code> and <code>ShowConfirmationDialog</code> have overloads that take functions:</p>
+<pre><code class="lang-csharp">var dialog = this.xrvService.WindowsSystem.ShowAlertDialog(
+    () =&gt; localization.GetString(() =&gt; Resources.Strings.Alert_Title),
+    () =&gt; localization.GetString(() =&gt; Resources.Strings.Alert_Message),
+    () =&gt; localization.GetString(() =&gt; Resources.Strings.Alert_Ok));
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

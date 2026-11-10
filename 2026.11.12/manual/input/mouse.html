@@ -1,0 +1,358 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Mouse | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Mouse | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="mouse">Mouse</h1>
+
+<p><img src="images/input_dispatchers.png" alt="The Display exposes three dispatchers; MouseDispatcher inherits PointerDispatcher, and holding the left mouse button adds pointer Id 0 to its Points"></p>
+<p><em>The mouse dispatcher is also a pointer dispatcher: the left button doubles as pointer 0.</em></p>
+<p>The mouse is the main pointing device on desktop platforms. <code>MouseDispatcher</code> reports the cursor position and how far it moved this frame, the wheel, the state of every button, and lets you change the cursor shape. It inherits from <a href="touch.html"><code>PointerDispatcher</code></a>, so the left button also behaves like a finger on a touch screen, which lets the same code handle clicks and taps.</p>
+<h2 id="mousedispatcher">MouseDispatcher</h2>
+<p>Get it from <code>display.MouseDispatcher</code> (see <a href="index.html#where-input-comes-from">Where input comes from</a>). It lives in the <code>Evergine.Common.Input.Mouse</code> namespace, together with <code>MouseButtons</code> and <code>CursorTypes</code>. Positions are <code>Evergine.Mathematics.Point</code> values in pixels, relative to the top-left corner of the surface.</p>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Position</strong></td>
+<td>Cursor position in this frame.</td>
+</tr>
+<tr>
+<td><strong>PositionDelta</strong></td>
+<td>How far the cursor moved since the previous frame: the sum of every move dispatched this frame. Zero when it did not move.</td>
+</tr>
+<tr>
+<td><strong>ScrollDelta</strong></td>
+<td>Wheel steps since the previous frame; every scroll event the platform reports counts as one step. <code>Y</code> is positive when the wheel rolls away from the user and negative toward the user. <code>X</code> is positive for a tilt to the right and negative to the left.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td><code>MouseButtons</code> flags with every button that is down.</td>
+</tr>
+<tr>
+<td><strong>IsMouseOver</strong></td>
+<td>True while the cursor is over the surface.</td>
+</tr>
+<tr>
+<td><strong>CursorType</strong></td>
+<td>The <code>CursorTypes</code> value of the current cursor.</td>
+</tr>
+<tr>
+<td><strong>Points</strong></td>
+<td>Inherited from <code>PointerDispatcher</code>. Contains pointer <code>0</code> while the left button is held. See <a href="#the-mouse-as-a-pointer">The mouse as a pointer</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="methods">Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ReadButtonState(MouseButtons button)</strong></td>
+<td>Returns the <a href="button_states.html">state</a> of the button in this frame.</td>
+</tr>
+<tr>
+<td><strong>IsButtonDown(MouseButtons button)</strong></td>
+<td>Returns true when the button is <code>Pressing</code> or <code>Pressed</code>.</td>
+</tr>
+<tr>
+<td><strong>TrySetCursorPosition(Point position)</strong></td>
+<td>Moves the cursor. Returns false when the platform does not allow it (Android, for example). On success <code>Position</code> is updated at once, as if the cursor had moved there, so the jump also counts in <code>PositionDelta</code>.</td>
+</tr>
+<tr>
+<td><strong>TrySetCursorType(CursorTypes cursorType)</strong></td>
+<td>Changes the cursor shape. Returns false when the platform does not support it (Android, for example).</td>
+</tr>
+</tbody>
+</table>
+<p><code>MouseButtons</code> is a <code>[Flags]</code> enumeration: <code>None</code>, <code>Left</code>, <code>Middle</code>, <code>Right</code>, <code>XButton1</code> and <code>XButton2</code>. <code>CursorTypes</code> has <code>Unknown</code>, <code>None</code> (hidden), <code>Arrow</code>, <code>IBeam</code>, <code>Wait</code>, <code>Crosshair</code>, <code>WaitArrow</code>, <code>Sizing</code>, <code>No</code> and <code>Hand</code>.</p>
+<h3 id="events">Events</h3>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Arguments</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MouseButtonDown</strong></td>
+<td><code>MouseButtonEventArgs</code></td>
+<td>A button went down.</td>
+</tr>
+<tr>
+<td><strong>MouseButtonUp</strong></td>
+<td><code>MouseButtonEventArgs</code></td>
+<td>A button went up.</td>
+</tr>
+<tr>
+<td><strong>MouseMove</strong></td>
+<td><code>MouseEventArgs</code></td>
+<td>The cursor moved over the surface.</td>
+</tr>
+<tr>
+<td><strong>MouseScroll</strong></td>
+<td><code>MouseScrollEventArgs</code></td>
+<td>The wheel moved one step.</td>
+</tr>
+<tr>
+<td><strong>MouseEnter</strong></td>
+<td><code>MouseEventArgs</code></td>
+<td>The cursor entered the surface. The first movement over the surface raises this instead of <code>MouseMove</code>.</td>
+</tr>
+<tr>
+<td><strong>MouseLeave</strong></td>
+<td><code>MouseEventArgs</code></td>
+<td>The cursor left the surface.</td>
+</tr>
+<tr>
+<td><strong>PointerDown</strong>, <strong>PointerUp</strong>, <strong>PointerMove</strong></td>
+<td><code>PointerEventArgs</code></td>
+<td>Inherited from <code>PointerDispatcher</code>, raised for pointer <code>0</code>. See <a href="touch.html#events">Touch</a>.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Event argument</th>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MouseEventArgs</code></td>
+<td><strong>Position</strong></td>
+<td>Cursor position when the event was dispatched.</td>
+</tr>
+<tr>
+<td><code>MouseEventArgs</code></td>
+<td><strong>State</strong></td>
+<td><code>MouseButtons</code> that were down when the event was dispatched.</td>
+</tr>
+<tr>
+<td><code>MouseButtonEventArgs</code></td>
+<td><strong>Button</strong></td>
+<td>The button that changed. Also has <code>Position</code> and <code>State</code>.</td>
+</tr>
+<tr>
+<td><code>MouseButtonEventArgs</code></td>
+<td><strong>IsPressed</strong></td>
+<td>True for <code>MouseButtonDown</code>, false for <code>MouseButtonUp</code>.</td>
+</tr>
+<tr>
+<td><code>MouseScrollEventArgs</code></td>
+<td><strong>Direction</strong></td>
+<td><code>MouseScrollDirections.Up</code>, <code>Down</code>, <code>Left</code> or <code>Right</code>. Also has <code>Position</code> and <code>State</code>.</td>
+</tr>
+<tr>
+<td><code>MouseScrollEventArgs</code></td>
+<td><strong>Delta</strong></td>
+<td>The same step as a <code>Point</code>: <code>(0, 1)</code> up, <code>(0, -1)</code> down, <code>(1, 0)</code> right, <code>(-1, 0)</code> left.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>When the cursor leaves the surface, the dispatcher releases every button that is still down. A drag that leaves the window ends with a normal <code>Releasing</code> frame and a <code>MouseButtonUp</code> event, so your code never waits for a button that will not come back up.</p>
+</div>
+<h2 id="the-mouse-as-a-pointer">The mouse as a pointer</h2>
+<p>Because <code>MouseDispatcher</code> inherits <code>PointerDispatcher</code>, the left button also produces a pointer with Id <code>0</code>:</p>
+<ul>
+<li>Pressing the left button adds pointer <code>0</code> to <code>mouseDispatcher.Points</code> and raises <code>PointerDown</code>.</li>
+<li>Moving while the left button is held moves that pointer and raises <code>PointerMove</code>.</li>
+<li>Releasing the button raises <code>PointerUp</code>, and the pointer leaves the list after its <code>Releasing</code> frame, exactly like a finger.</li>
+</ul>
+<p>The middle and right buttons do not create pointers. The pointer lives in the <strong>mouse</strong> dispatcher's <code>Points</code>, not in the touch dispatcher's, so code that should accept both clicks and taps has to look at both lists. The <a href="touch.html#example-drag-and-pinch">Touch</a> example shows how.</p>
+<h2 id="example-drag-to-rotate-wheel-to-zoom">Example: drag to rotate, wheel to zoom</h2>
+<p>This behavior turns its entity around the vertical axis while the left button is dragged, scales it with the wheel, and shows a hand cursor during the drag.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Mouse;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class MouseOrbitObject : Behavior
+{
+    [BindService]
+    private GraphicsPresenter graphicsPresenter = null;
+
+    [BindComponent]
+    private Transform3D transform = null;
+
+    public float RadiansPerPixel { get; set; } = 0.01f;
+
+    public float ScalePerStep { get; set; } = 0.1f;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        MouseDispatcher mouse = this.graphicsPresenter.FocusedDisplay?.MouseDispatcher;
+        if (mouse == null)
+        {
+            return;
+        }
+
+        ButtonState left = mouse.ReadButtonState(MouseButtons.Left);
+
+        // Change the cursor only on the edges, not every frame the button is held.
+        if (left == ButtonState.Pressing)
+        {
+            mouse.TrySetCursorType(CursorTypes.Hand);
+        }
+        else if (left == ButtonState.Releasing)
+        {
+            mouse.TrySetCursorType(CursorTypes.Arrow);
+        }
+
+        if (mouse.IsButtonDown(MouseButtons.Left))
+        {
+            // PositionDelta is already &quot;per frame&quot;, so it is not scaled by the elapsed time.
+            Vector3 rotation = this.transform.LocalRotation;
+            rotation.Y += mouse.PositionDelta.X * this.RadiansPerPixel;
+            this.transform.LocalRotation = rotation;
+        }
+
+        if (mouse.ScrollDelta.Y != 0)
+        {
+            float scale = Math.Max(0.1f, this.transform.LocalScale.X + (mouse.ScrollDelta.Y * this.ScalePerStep));
+            this.transform.LocalScale = new Vector3(scale);
+        }
+    }
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="button_states.html">Button states</a>: what <code>ReadButtonState</code> returns and when it changes.</li>
+<li><a href="touch.html">Touch</a>: <code>Points</code>, <code>PointerPoint</code> and the pointer events.</li>
+<li><a href="camera_controller.html">Example: camera controller</a>: mouse-look with <code>PositionDelta</code>.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

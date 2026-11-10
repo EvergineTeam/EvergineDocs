@@ -1,0 +1,684 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class RenderPipeline | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class RenderPipeline | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Graphics.RenderPipeline">
+
+
+
+  <h1 id="Evergine_Framework_Graphics_RenderPipeline" data-uid="Evergine.Framework.Graphics.RenderPipeline" class="text-break">Class RenderPipeline</h1>
+  <div class="markdown level0 summary"><p>Allows control over how the scene is rendered.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Framework.DisposableObject.html">DisposableObject</a></div>
+    <div class="level2"><span class="xref">RenderPipeline</span></div>
+      <div class="level3"><a class="xref" href="Evergine.Framework.Graphics.DefaultRenderPipeline.html">DefaultRenderPipeline</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.DisposableObject.html#Evergine_Framework_DisposableObject_Disposed">DisposableObject.Disposed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DisposableObject.html#Evergine_Framework_DisposableObject_Dispose">DisposableObject.Dispose()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DisposableObject.html#Evergine_Framework_DisposableObject_Dispose_System_Boolean_">DisposableObject.Dispose(bool)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Graphics.html">Graphics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Graphics_RenderPipeline_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class RenderPipeline : DisposableObject</code></pre>
+  </div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_Clock" data-uid="Evergine.Framework.Graphics.RenderPipeline.Clock">Clock</h4>
+  <div class="markdown level1 summary"><p>Gets the clock service instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Clock Clock</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Services.Clock.html">Clock</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_PerSceneCBufferCollection" data-uid="Evergine.Framework.Graphics.RenderPipeline.PerSceneCBufferCollection">PerSceneCBufferCollection</h4>
+  <div class="markdown level1 summary"><p>Gets the per-frame CBuffer collection of this scene.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CBufferCollectionUpdater PerSceneCBufferCollection</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.CBufferCollectionUpdater.html">CBufferCollectionUpdater</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_AdditionalEffectDirectives_" data-uid="Evergine.Framework.Graphics.RenderPipeline.AdditionalEffectDirectives*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_AdditionalEffectDirectives" data-uid="Evergine.Framework.Graphics.RenderPipeline.AdditionalEffectDirectives">AdditionalEffectDirectives</h4>
+  <div class="markdown level1 summary"><p>Gets the additional effects directives specified by this pipeline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public virtual List&lt;string&gt; AdditionalEffectDirectives { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_DefaultRenderPath_" data-uid="Evergine.Framework.Graphics.RenderPipeline.DefaultRenderPath*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_DefaultRenderPath" data-uid="Evergine.Framework.Graphics.RenderPipeline.DefaultRenderPath">DefaultRenderPath</h4>
+  <div class="markdown level1 summary"><p>Gets the default rendering path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract CameraRenderPath DefaultRenderPath { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.CameraRenderPath.html">CameraRenderPath</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_RenderManager_" data-uid="Evergine.Framework.Graphics.RenderPipeline.RenderManager*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_RenderManager" data-uid="Evergine.Framework.Graphics.RenderPipeline.RenderManager">RenderManager</h4>
+  <div class="markdown level1 summary"><p>Gets the render manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public RenderManager RenderManager { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Managers.RenderManager.html">RenderManager</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_SupportedRenderPaths_" data-uid="Evergine.Framework.Graphics.RenderPipeline.SupportedRenderPaths*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_SupportedRenderPaths" data-uid="Evergine.Framework.Graphics.RenderPipeline.SupportedRenderPaths">SupportedRenderPaths</h4>
+  <div class="markdown level1 summary"><p>Gets the supported render path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract IReadOnlyList&lt;CameraRenderPath&gt; SupportedRenderPaths { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.ireadonlylist-1">IReadOnlyList</a>&lt;<a class="xref" href="Evergine.Framework.Graphics.CameraRenderPath.html">CameraRenderPath</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_AddCamera_" data-uid="Evergine.Framework.Graphics.RenderPipeline.AddCamera*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_AddCamera_Evergine_Framework_Graphics_Camera_" data-uid="Evergine.Framework.Graphics.RenderPipeline.AddCamera(Evergine.Framework.Graphics.Camera)">AddCamera(Camera)</h4>
+  <div class="markdown level1 summary"><p>Adds a camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void AddCamera(Camera camera)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Camera.html">Camera</a></td>
+        <td><span class="parametername">camera</span></td>
+        <td><p>The camera.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_AddLight_" data-uid="Evergine.Framework.Graphics.RenderPipeline.AddLight*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_AddLight_Evergine_Framework_Graphics_Light_" data-uid="Evergine.Framework.Graphics.RenderPipeline.AddLight(Evergine.Framework.Graphics.Light)">AddLight(Light)</h4>
+  <div class="markdown level1 summary"><p>Adds a light.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void AddLight(Light light)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Light.html">Light</a></td>
+        <td><span class="parametername">light</span></td>
+        <td><p>The light.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_AddRenderPath_" data-uid="Evergine.Framework.Graphics.RenderPipeline.AddRenderPath*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_AddRenderPath_Evergine_Framework_Graphics_CameraRenderPath_" data-uid="Evergine.Framework.Graphics.RenderPipeline.AddRenderPath(Evergine.Framework.Graphics.CameraRenderPath)">AddRenderPath(CameraRenderPath)</h4>
+  <div class="markdown level1 summary"><p>Adds a render path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void AddRenderPath(CameraRenderPath renderPath)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.CameraRenderPath.html">CameraRenderPath</a></td>
+        <td><span class="parametername">renderPath</span></td>
+        <td><p>The render path.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_BaseInitialize_" data-uid="Evergine.Framework.Graphics.RenderPipeline.BaseInitialize*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_BaseInitialize_Evergine_Framework_Managers_RenderManager_" data-uid="Evergine.Framework.Graphics.RenderPipeline.BaseInitialize(Evergine.Framework.Managers.RenderManager)">BaseInitialize(RenderManager)</h4>
+  <div class="markdown level1 summary"><p>Initializes this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void BaseInitialize(RenderManager renderManager)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Managers.RenderManager.html">RenderManager</a></td>
+        <td><span class="parametername">renderManager</span></td>
+        <td><p>The render manager.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_Destroy_" data-uid="Evergine.Framework.Graphics.RenderPipeline.Destroy*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_Destroy" data-uid="Evergine.Framework.Graphics.RenderPipeline.Destroy">Destroy()</h4>
+  <div class="markdown level1 summary"><p>Destroys all resources of this instance.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void Destroy()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.DisposableObject.html#Evergine_Framework_DisposableObject_Destroy">DisposableObject.Destroy()</a></div>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_FireOnCameraRender_" data-uid="Evergine.Framework.Graphics.RenderPipeline.FireOnCameraRender*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_FireOnCameraRender_Evergine_Framework_Graphics_DrawContext_" data-uid="Evergine.Framework.Graphics.RenderPipeline.FireOnCameraRender(Evergine.Framework.Graphics.DrawContext)">FireOnCameraRender(DrawContext)</h4>
+  <div class="markdown level1 summary"><p>Fires on camera render event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void FireOnCameraRender(DrawContext drawContext)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.DrawContext.html">DrawContext</a></td>
+        <td><span class="parametername">drawContext</span></td>
+        <td><p>The draw context.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_FireOnPostRender_" data-uid="Evergine.Framework.Graphics.RenderPipeline.FireOnPostRender*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_FireOnPostRender" data-uid="Evergine.Framework.Graphics.RenderPipeline.FireOnPostRender">FireOnPostRender()</h4>
+  <div class="markdown level1 summary"><p>Fires on post render event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireOnPostRender()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_FireOnPreRender_" data-uid="Evergine.Framework.Graphics.RenderPipeline.FireOnPreRender*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_FireOnPreRender" data-uid="Evergine.Framework.Graphics.RenderPipeline.FireOnPreRender">FireOnPreRender()</h4>
+  <div class="markdown level1 summary"><p>Fires on the pre-render event.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void FireOnPreRender()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_Initialize_" data-uid="Evergine.Framework.Graphics.RenderPipeline.Initialize*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_Initialize" data-uid="Evergine.Framework.Graphics.RenderPipeline.Initialize">Initialize()</h4>
+  <div class="markdown level1 summary"><p>Initializes the Render Pipeline.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract void Initialize()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_PreparingNextFrame_" data-uid="Evergine.Framework.Graphics.RenderPipeline.PreparingNextFrame*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_PreparingNextFrame" data-uid="Evergine.Framework.Graphics.RenderPipeline.PreparingNextFrame">PreparingNextFrame()</h4>
+  <div class="markdown level1 summary"><p>Prepares items for the next frame.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual void PreparingNextFrame()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_RemoveCamera_" data-uid="Evergine.Framework.Graphics.RenderPipeline.RemoveCamera*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_RemoveCamera_Evergine_Framework_Graphics_Camera_" data-uid="Evergine.Framework.Graphics.RenderPipeline.RemoveCamera(Evergine.Framework.Graphics.Camera)">RemoveCamera(Camera)</h4>
+  <div class="markdown level1 summary"><p>Removes a camera.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void RemoveCamera(Camera camera)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Camera.html">Camera</a></td>
+        <td><span class="parametername">camera</span></td>
+        <td><p>The camera.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_RemoveLight_" data-uid="Evergine.Framework.Graphics.RenderPipeline.RemoveLight*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_RemoveLight_Evergine_Framework_Graphics_Light_" data-uid="Evergine.Framework.Graphics.RenderPipeline.RemoveLight(Evergine.Framework.Graphics.Light)">RemoveLight(Light)</h4>
+  <div class="markdown level1 summary"><p>Removes a light.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void RemoveLight(Light light)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Light.html">Light</a></td>
+        <td><span class="parametername">light</span></td>
+        <td><p>The light.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_RemoveRenderPath_" data-uid="Evergine.Framework.Graphics.RenderPipeline.RemoveRenderPath*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_RemoveRenderPath_Evergine_Framework_Graphics_CameraRenderPath_" data-uid="Evergine.Framework.Graphics.RenderPipeline.RemoveRenderPath(Evergine.Framework.Graphics.CameraRenderPath)">RemoveRenderPath(CameraRenderPath)</h4>
+  <div class="markdown level1 summary"><p>Removes the render path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract bool RemoveRenderPath(CameraRenderPath renderPath)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.CameraRenderPath.html">CameraRenderPath</a></td>
+        <td><span class="parametername">renderPath</span></td>
+        <td><p>The render path.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if it has been removed successfully.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Graphics_RenderPipeline_Render_" data-uid="Evergine.Framework.Graphics.RenderPipeline.Render*"></a>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_Render_System_TimeSpan_" data-uid="Evergine.Framework.Graphics.RenderPipeline.Render(System.TimeSpan)">Render(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Renders this scene.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract void Render(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The game time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_OnCameraRender" data-uid="Evergine.Framework.Graphics.RenderPipeline.OnCameraRender">OnCameraRender</h4>
+  <div class="markdown level1 summary"><p>Event fired when a camera is rendering</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;DrawContext&gt; OnCameraRender</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.Graphics.DrawContext.html">DrawContext</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_OnPostRender" data-uid="Evergine.Framework.Graphics.RenderPipeline.OnPostRender">OnPostRender</h4>
+  <div class="markdown level1 summary"><p>Event fired after the render finishes</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler OnPostRender</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Graphics_RenderPipeline_OnPreRender" data-uid="Evergine.Framework.Graphics.RenderPipeline.OnPreRender">OnPreRender</h4>
+  <div class="markdown level1 summary"><p>Event fired before the rendering starts</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler OnPreRender</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

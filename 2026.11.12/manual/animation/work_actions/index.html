@@ -1,0 +1,190 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Work Actions | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Work Actions | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="work-actions">Work Actions</h1>
+
+<p><img src="images/work_action_composition.png" alt="A sequence of work actions built with ContinueWith: a move, a delay and a parallel block where a rotation and a scale run at the same time, joined by WaitAll before a last action"></p>
+<p>Work actions animate from code. A work action is a small unit of work, such as moving an entity, waiting half a second, waiting for a condition or calling a method, that you start with <code>Run()</code> and that tells you when it has finished. You chain them into sequences, run them in parallel and wait for all or any of them, so a scripted motion that would otherwise be a state machine inside an <code>Update</code> method becomes one expression that reads in the order things happen.</p>
+<p>They complement the <a href="../animation3d_component.html">Animation3D</a> component rather than replace it. <code>Animation3D</code> plays the clips authored in a modelling tool; work actions interpolate any value you can set from code, which makes them the tool for procedural motion: a panel that slides in, a door that opens when the player arrives, a camera that flies to a point of interest, a light that pulses, a tutorial that waits for the user before showing the next hint.</p>
+<h2 id="the-parts">The parts</h2>
+<ul>
+<li><strong><a href="composing_work_actions.html">Composing Work Actions</a></strong>: the flow. The lifecycle of a work action, and how <code>WorkActionFactory</code> builds sequences, parallel blocks, delays, conditions and loops out of them.</li>
+<li><strong><a href="animation_work_actions.html">Animation Work Actions</a></strong>: the motion. Work actions that interpolate a <code>float</code>, <code>Vector2</code>, <code>Vector3</code> or <code>Quaternion</code> over a time with an easing function, and the ready-made <code>MoveTo3DWorkAction</code>, <code>RotateTo3DWorkAction</code> and <code>ScaleTo3DWorkAction</code>.</li>
+<li><strong><a href="custom_work_actions.html">Custom Work Actions</a></strong>: your own steps. The base classes to derive from when the built-in work actions are not enough.</li>
+</ul>
+<h2 id="setup">Setup</h2>
+<p>Work actions live in the <code>Evergine.Components.WorkActions</code> namespace of the <code>Evergine.Components</code> package. <code>IWorkAction</code> and <code>WorkActionState</code> are in <code>Evergine.Framework.Services</code>.</p>
+<p>They need two services: <code>WorkActionScheduler</code>, which tracks every running work action and updates the ones that wait for a condition, and <code>TimerFactory</code>, which runs the delays. The project template registers both in the constructor of your <a href="../../basics/application/using_application.html">application</a>:</p>
+<pre><code class="lang-csharp">this.Container.Register&lt;TimerFactory&gt;();
+this.Container.Register&lt;WorkActionScheduler&gt;();
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>WorkAction</code> looks up the <code>WorkActionScheduler</code> once, the first time the class is used, and keeps the result. If the service is not registered by then, every work action fails, and registering it afterwards does not help. Keep the registration in the constructor of the application.</p>
+</div>
+<p>The container creates a service the first time something asks for it, and the <code>WorkActionScheduler</code> only follows the scenes that start after it exists. To have the work actions of your first scene <a href="composing_work_actions.html#work-actions-and-scenes">canceled with that scene</a>, ask for the scheduler in <code>Initialize</code>, before you load the first scene:</p>
+<pre><code class="lang-csharp">public override void Initialize()
+{
+    base.Initialize();
+
+    // Create the scheduler now, so it sees the first scene start.
+    this.Container.Resolve&lt;WorkActionScheduler&gt;();
+
+    // Load the first scene and navigate to it as usual...
+}
+</code></pre>
+<h2 id="quick-start">Quick start</h2>
+<p>This component lifts its entity, holds it in the air for a moment and drops it with a bounce:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.WorkActions;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class Hop : Component
+{
+    [BindComponent]
+    private Transform3D transform = null;
+
+    private IWorkAction hop;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        Vector3 ground = this.transform.Position;
+
+        this.hop = new MoveTo3DWorkAction(this.Owner, ground + Vector3.Up, TimeSpan.FromSeconds(0.4), EaseFunction.CubicOutEase)
+            .Delay(TimeSpan.FromSeconds(0.2))
+            .ContinueWith(new MoveTo3DWorkAction(this.Owner, ground, TimeSpan.FromSeconds(0.6), EaseFunction.BounceOutEase));
+
+        // Running the last action of a chain starts the chain from its first action.
+        this.hop.Run();
+    }
+}
+</code></pre>
+<p>Every call returns a new <code>IWorkAction</code> that runs after the previous one, and <code>Run()</code> on the last one starts the whole chain. <a href="composing_work_actions.html">Composing Work Actions</a> explains how.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="composing_work_actions.html">Composing Work Actions</a></li>
+<li><a href="animation_work_actions.html">Animation Work Actions</a></li>
+<li><a href="custom_work_actions.html">Custom Work Actions</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

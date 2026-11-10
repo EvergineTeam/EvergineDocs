@@ -1,0 +1,261 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Mesh Collider | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Mesh Collider | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="mesh-collider">Mesh Collider</h1>
+
+<p><img src="images/mesh_collider.png" alt="A convex hull over a teapot"></p>
+<p><em>A convex hull drawn over the mesh it was built from. The two are visibly not the same object, which is the whole idea of a hull in one picture: the spout and the handle are inside it, not part of it.</em></p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/mesh_collider_hull.mp4" type="video/mp4">
+</video>
+<p>A collider built from triangle geometry: either the model already on the entity, or vertices handed over from code. It is how a prop gets a shape that primitives cannot describe.</p>
+<h2 id="convex-hull-or-triangle-mesh">Convex Hull or Triangle Mesh</h2>
+<p><code>MeshCollider</code> has two modes, and the difference between them decides what the collider can be used for.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Mode</th>
+<th>Shape</th>
+<th>Bodies</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/mesh_collider_convex.png" alt="Convex hull"></td>
+<td><strong>ConvexHull</strong></td>
+<td>The convex wrapping of the geometry. Every dent, hole and cavity is filled in.</td>
+<td>Any body, including dynamic ones.</td>
+</tr>
+<tr>
+<td><img src="images/mesh_collider_full.png" alt="Triangle mesh"></td>
+<td><strong>TriangleMesh</strong></td>
+<td>Every triangle, concavities and all.</td>
+<td><strong><code>StaticBody</code> or kinematic <code>RigidBody</code> only</strong>, never dynamic.</td>
+</tr>
+</tbody>
+</table>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/mesh_collider_types.mp4" type="video/mp4">
+</video>
+<p><em>The same wedge twice. On the left, as a triangle mesh: the balls settle into the dip. On the right, as a convex hull: the hull has put a lid over the dip and they roll straight off.</em></p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>A triangle mesh is a surface, not a solid. It has no volume, so it has no mass and no inertia, and the solver has no way to tell inside from outside, which is why it is rejected on dynamic bodies. For a moving object, use a convex hull, or better, a handful of primitives.</p>
+</div>
+<h2 id="meshcollider-component">MeshCollider Component</h2>
+<p><img src="images/meshcollider_component.png" alt="MeshCollider component"></p>
+<p>Put it on an entity that already carries a model and it reads the model's meshes:</p>
+<pre><code class="lang-csharp">Entity rock = new Entity(&quot;rock&quot;)
+    .AddComponent(new Transform3D() { Position = position })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new MeshComponent() { Model = rockModel })
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody())
+    .AddComponent(new MeshCollider() { MeshType = MeshColliderType.ConvexHull });
+
+this.Managers.EntityManager.Add(rock);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MeshType</strong></td>
+<td><code>ConvexHull</code></td>
+<td><code>ConvexHull</code> wraps the geometry and works on any body; <code>TriangleMesh</code> keeps every triangle and works on a <code>StaticBody</code> or a kinematic <code>RigidBody</code> only.</td>
+</tr>
+<tr>
+<td><strong>ConvexRadius</strong></td>
+<td>0.05</td>
+<td>Rounds the hull's edges. Ignored in <code>TriangleMesh</code> mode.</td>
+</tr>
+<tr>
+<td><strong>Offset</strong></td>
+<td>0,0,0</td>
+<td>Moves the shape relative to the entity.</td>
+</tr>
+<tr>
+<td><strong>RotationOffset</strong></td>
+<td>0,0,0</td>
+<td>Rotates the shape relative to the entity.</td>
+</tr>
+<tr>
+<td><strong>Density</strong></td>
+<td>1000</td>
+<td>Density in kg/m³, used to compute the body's mass when its <code>Mass</code> is 0. Only meaningful for a convex hull, which is the only one of the two with a volume.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="reading-the-model">Reading the Model</h2>
+<p>With no geometry set from code, the collider reads the meshes of the <code>BaseModel</code> on the same entity and merges all of them into one shape. There are three requirements:</p>
+<ul>
+<li>the meshes must be <strong>triangle lists</strong>;</li>
+<li>their positions must be <code>Float3</code> or <code>Float4</code>;</li>
+<li>their vertex buffers must be <strong>readable by the CPU</strong>.</li>
+</ul>
+<p>A convex hull needs at least four points to enclose a volume.</p>
+<p>The triangles are read with the winding the index buffer declares, <code>IndexBuffer.FlipWinding</code> included, so a model that renders with its faces the right way round collides that way too. The geometry is read once and kept: the shape is rebuilt only when the model reports a <code>Refreshed</code>, or when <code>SetGeometry</code> or <code>ClearGeometry</code> is called.</p>
+<h2 id="setting-geometry-from-code">Setting Geometry from Code</h2>
+<p>Generated geometry (terrain, a procedural mesh, a shape assembled at run time) is handed over directly, and takes precedence over the model:</p>
+<pre><code class="lang-csharp">public class WedgeBuilder : Behavior
+{
+    [BindComponent]
+    private MeshCollider collider = null;
+
+    protected override void Start()
+    {
+        Vector3[] vertices = BuildVertices();
+        int[] indices = BuildIndices();
+
+        // Vertices in the entity's local space. The collider applies the entity's scale itself, so
+        // geometry baked at world scale ends up scaled twice.
+        this.collider.SetGeometry(vertices, indices);
+    }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SetGeometry(vertices, indices)</strong></td>
+<td>Uses this geometry instead of the model's.</td>
+</tr>
+<tr>
+<td><strong>ClearGeometry()</strong></td>
+<td>Goes back to reading the model.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>For a heightmap, <a href="heightfield_collider.html"><code>HeightFieldCollider</code></a> beats a triangle mesh: it stores one float per sample instead of three vertices per triangle, tests faster, and can be deformed at run time without rebuilding the shape.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

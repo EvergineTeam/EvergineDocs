@@ -1,0 +1,2440 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class QuaternionAnimationWorkAction | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class QuaternionAnimationWorkAction | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction">
+
+
+
+  <h1 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction" class="text-break">Class QuaternionAnimationWorkAction</h1>
+  <div class="markdown level0 summary"><p>Work action involving a single float value.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Components.WorkActions.WorkAction.html">WorkAction</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Components.WorkActions.UpdatableWorkAction.html">UpdatableWorkAction</a></div>
+    <div class="level3"><span class="xref">QuaternionAnimationWorkAction</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Framework.Services.IWorkAction.html">IWorkAction</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Completed">WorkAction.Completed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Canceled">WorkAction.Canceled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_IsSkippable">WorkAction.IsSkippable</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Skipped">WorkAction.Skipped</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_State">WorkAction.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Scene">WorkAction.Scene</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_ChildActions">WorkAction.ChildActions</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Run">WorkAction.Run()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_TrySkip">WorkAction.TrySkip()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_Cancel">WorkAction.Cancel()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_PerformCompleted">WorkAction.PerformCompleted()</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Components.html">Components</a>.<a class="xref" href="Evergine.Components.WorkActions.html">WorkActions</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Components.dll</h6>
+  <h5 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class QuaternionAnimationWorkAction : UpdatableWorkAction, IWorkAction</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction__ctor_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.#ctor*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction__ctor_Evergine_Framework_Entity_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_TimeSpan_Evergine_Components_WorkActions_EaseFunction_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.#ctor(Evergine.Framework.Entity,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.TimeSpan,Evergine.Components.WorkActions.EaseFunction)">QuaternionAnimationWorkAction(Entity, Quaternion, Quaternion, TimeSpan, EaseFunction)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.html">QuaternionAnimationWorkAction</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected QuaternionAnimationWorkAction(Entity entity, Quaternion from, Quaternion to, TimeSpan time, EaseFunction ease)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Entity.html">Entity</a></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The entity.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Initial value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">time</span></td>
+        <td><p>The duration of the animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.WorkActions.EaseFunction.html">EaseFunction</a></td>
+        <td><span class="parametername">ease</span></td>
+        <td><p>Easing function.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction__ctor_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.#ctor*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction__ctor_Evergine_Framework_Entity_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_TimeSpan_Evergine_Components_WorkActions_EaseFunction_System_Action_Evergine_Mathematics_Quaternion__" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.#ctor(Evergine.Framework.Entity,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.TimeSpan,Evergine.Components.WorkActions.EaseFunction,System.Action{Evergine.Mathematics.Quaternion})">QuaternionAnimationWorkAction(Entity, Quaternion, Quaternion, TimeSpan, EaseFunction, Action&lt;Quaternion&gt;)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.html">QuaternionAnimationWorkAction</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public QuaternionAnimationWorkAction(Entity entity, Quaternion from, Quaternion to, TimeSpan time, EaseFunction ease, Action&lt;Quaternion&gt; updateAction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Entity.html">Entity</a></td>
+        <td><span class="parametername">entity</span></td>
+        <td><p>The entity.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Initial value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">time</span></td>
+        <td><p>The duration of the animation.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.WorkActions.EaseFunction.html">EaseFunction</a></td>
+        <td><span class="parametername">ease</span></td>
+        <td><p>Easing function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a>&gt;</td>
+        <td><span class="parametername">updateAction</span></td>
+        <td><p>The action that needs to be updated.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_from" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.from">from</h4>
+  <div class="markdown level1 summary"><p>Initial value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Quaternion from</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_to" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.to">to</h4>
+  <div class="markdown level1 summary"><p>End value.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Quaternion to</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_updateAction" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.updateAction">updateAction</h4>
+  <div class="markdown level1 summary"><p>The update action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Action&lt;Quaternion&gt; updateAction</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.action-1">Action</a>&lt;<a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BackInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BackInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BackInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BackInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">BackInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Back in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion BackInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BackInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BackInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BackInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BackInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">BackInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Back in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion BackInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BackOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BackOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BackOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BackOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">BackOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Back out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion BackOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BounceInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BounceInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BounceInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BounceInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">BounceInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Bounce in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion BounceInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BounceInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BounceInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BounceInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BounceInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">BounceInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Bounce in out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion BounceInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BounceOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BounceOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_BounceOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.BounceOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">BounceOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Bounce out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion BounceOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CircleInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CircleInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CircleInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CircleInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">CircleInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Circle in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion CircleInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CircleInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CircleInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CircleInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CircleInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">CircleInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Circle in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion CircleInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CircleOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CircleOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CircleOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CircleOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">CircleOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Circle out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion CircleOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CubicInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CubicInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CubicInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CubicInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">CubicInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Cubic in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion CubicInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CubicInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CubicInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CubicInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CubicInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">CubicInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Cubic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion CubicInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CubitOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CubitOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_CubitOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.CubitOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">CubitOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Cubic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion CubitOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_DeltaFunction_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.DeltaFunction*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_DeltaFunction_Evergine_Components_WorkActions_EaseFunction_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.DeltaFunction(Evergine.Components.WorkActions.EaseFunction,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single,System.Single)">DeltaFunction(EaseFunction, Quaternion, Quaternion, float, float)</h4>
+  <div class="markdown level1 summary"><p>Delta Function method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion DeltaFunction(EaseFunction function, Quaternion from, Quaternion to, float time, float totalTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Components.WorkActions.EaseFunction.html">EaseFunction</a></td>
+        <td><span class="parametername">function</span></td>
+        <td><p>Function.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">from</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">to</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">time</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">totalTime</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ElasticInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ElasticInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ElasticInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ElasticInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">ElasticInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Elastic in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion ElasticInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ElasticInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ElasticInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ElasticInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ElasticInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">ElasticInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Elastic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion ElasticInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ElasticOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ElasticOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ElasticOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ElasticOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">ElasticOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Elastic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion ElasticOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ExponentialInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ExponentialInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ExponentialInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ExponentialInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">ExponentialInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Exponential in-ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion ExponentialInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ExponentialInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ExponentialInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ExponentialInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ExponentialInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">ExponentialInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Exponential in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion ExponentialInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ExponentialOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ExponentialOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_ExponentialOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.ExponentialOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">ExponentialOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Exponential out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion ExponentialOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_LinearStep_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.LinearStep*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_LinearStep_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.LinearStep(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">LinearStep(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Smooth Step method.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion LinearStep(float time, Quaternion value1, Quaternion value2, float duration)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">time</span></td>
+        <td><p>Time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">value1</span></td>
+        <td><p>Value1.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">value2</span></td>
+        <td><p>Value2.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">duration</span></td>
+        <td><p>Duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Quaternion.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_PerformCancel_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.PerformCancel*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_PerformCancel" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.PerformCancel">PerformCancel()</h4>
+  <div class="markdown level1 summary"><p>Cancels the work action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void PerformCancel()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_PerformCancel">WorkAction.PerformCancel()</a></div>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_PerformRun_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.PerformRun*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_PerformRun" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.PerformRun">PerformRun()</h4>
+  <div class="markdown level1 summary"><p>Runs.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void PerformRun()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_PerformRun">WorkAction.PerformRun()</a></div>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_PerformSkip_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.PerformSkip*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_PerformSkip" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.PerformSkip">PerformSkip()</h4>
+  <div class="markdown level1 summary"><p>Notifies the skip.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool PerformSkip()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>If the action is successfully skipped.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.WorkActions.WorkAction.html#Evergine_Components_WorkActions_WorkAction_PerformSkip">WorkAction.PerformSkip()</a></div>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuadraticInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuadraticInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuadraticInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuadraticInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuadraticInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quadratic in-ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuadraticInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuadraticInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuadraticInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuadraticInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuadraticInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuadraticInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quadratic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuadraticInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Starting value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>Ending value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuadraticOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuadraticOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuadraticOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuadraticOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuadraticOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quadratic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuadraticOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuarticInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuarticInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuarticInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuarticInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuarticInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quartic in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuarticInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuarticInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuarticInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuarticInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuarticInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuarticInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quartic in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuarticInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuarticOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuarticOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuarticOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuarticOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuarticOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quartic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuarticOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuinticInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuinticInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuinticInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuinticInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuinticInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quintic in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuinticInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuinticInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuinticInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuinticInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuinticInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuinticInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quintic in-out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuinticInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuinticOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuinticOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_QuinticOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.QuinticOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">QuinticOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Quintic out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion QuinticOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_SineInEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.SineInEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_SineInEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.SineInEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">SineInEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Sine in ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion SineInEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_SineInOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.SineInOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_SineInOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.SineInOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">SineInOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Sine in and out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion SineInOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_SineOutEase_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.SineOutEase*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_SineOutEase_System_Single_Evergine_Mathematics_Quaternion_Evergine_Mathematics_Quaternion_System_Single_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.SineOutEase(System.Single,Evergine.Mathematics.Quaternion,Evergine.Mathematics.Quaternion,System.Single)">SineOutEase(float, Quaternion, Quaternion, float)</h4>
+  <div class="markdown level1 summary"><p>Sine out ease function.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion SineOutEase(float t, Quaternion b, Quaternion c, float d)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">t</span></td>
+        <td><p>Current time.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">b</span></td>
+        <td><p>Start value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><span class="parametername">c</span></td>
+        <td><p>End value.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">d</span></td>
+        <td><p>Animation duration.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td><p>Delta value.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_Update_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.Update*"></a>
+  <h4 id="Evergine_Components_WorkActions_QuaternionAnimationWorkAction_Update_System_TimeSpan_" data-uid="Evergine.Components.WorkActions.QuaternionAnimationWorkAction.Update(System.TimeSpan)">Update(TimeSpan)</h4>
+  <div class="markdown level1 summary"><p>Updates the single work action.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override void Update(TimeSpan gameTime)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.timespan">TimeSpan</a></td>
+        <td><span class="parametername">gameTime</span></td>
+        <td><p>The elapsed game time.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Components.WorkActions.UpdatableWorkAction.html#Evergine_Components_WorkActions_UpdatableWorkAction_Update_System_TimeSpan_">UpdatableWorkAction.Update(TimeSpan)</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Framework.Services.IWorkAction.html">IWorkAction</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_AndWaitCondition_Evergine_Framework_Services_IWorkAction_System_Func_System_Boolean__System_Int32_">WorkActionFactory.AndWaitCondition(IWorkAction, Func&lt;bool&gt;, int)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_AsSkippableWorkAction_Evergine_Framework_Services_IWorkAction_">WorkActionFactory.AsSkippableWorkAction(IWorkAction)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_Evergine_Framework_Services_IWorkAction_">WorkActionFactory.ContinueWith(IWorkAction, IWorkAction)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_Evergine_Framework_Services_IWorkAction___">WorkActionFactory.ContinueWith(IWorkAction, params IWorkAction[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_System_Collections_Generic_IEnumerable_Evergine_Framework_Services_IWorkAction__">WorkActionFactory.ContinueWith(IWorkAction, IEnumerable&lt;IWorkAction&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_System_Func_Evergine_Framework_Services_IWorkAction__">WorkActionFactory.ContinueWith(IWorkAction, Func&lt;IWorkAction&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWith_Evergine_Framework_Services_IWorkAction_System_Func_Evergine_Framework_Services_IWorkAction____">WorkActionFactory.ContinueWith(IWorkAction, params Func&lt;IWorkAction&gt;[])</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_ContinueWithAction_Evergine_Framework_Services_IWorkAction_System_Action_">WorkActionFactory.ContinueWithAction(IWorkAction, Action)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_CreateParallelWorkActions_Evergine_Framework_Services_IWorkAction_System_Collections_Generic_IEnumerable_Evergine_Framework_Services_IWorkAction__">WorkActionFactory.CreateParallelWorkActions(IWorkAction, IEnumerable&lt;IWorkAction&gt;)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Components.WorkActions.WorkActionFactory.html#Evergine_Components_WorkActions_WorkActionFactory_Delay_Evergine_Framework_Services_IWorkAction_System_TimeSpan_">WorkActionFactory.Delay(IWorkAction, TimeSpan)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,430 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Character Controller | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Character Controller | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="character-controller">Character Controller</h1>
+
+<p><img src="images/character_controller_section.png" alt="Character Controller"></p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/character_walk.mp4" type="video/mp4">
+</video>
+<p>A <strong>character controller</strong> moves a player or an NPC the way a game expects: it walks at the speed you ask for, climbs steps without jumping, slides off slopes that are too steep, rides moving platforms, and stops dead against walls instead of bouncing off them.</p>
+<h2 id="a-character-is-not-a-rigid-body">A character is not a rigid body</h2>
+<p>This is the thing to understand first, and everything else follows from it.</p>
+<p>A <a href="physics_bodies/rigid_body.html"><code>RigidBody</code></a> is moved by forces. Push it and it accelerates; let go and it keeps going; walk it into a wall and it either bounces or tips over. None of that is what a character should do. A character should move at exactly the speed the player is holding, stop the instant they let go, and stay upright whatever it walks into.</p>
+<p>So <code>CharacterController</code> is <strong>not</strong> a rigid body. Do not add a <code>RigidBody</code> or a <code>Collider</code> to the same entity: the component owns its own capsule and moves it by sweeping and sliding rather than by integrating forces.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The entity's origin is at the character's <strong>feet</strong>, not at the middle of its capsule. Standing on a floor whose top is at y = 0, the entity sits at exactly y = 0. Primitive meshes are centred, so a <code>CapsuleMesh</code> drawn on the same entity is buried half way into the ground. Put the visual on a child entity lifted by half the height.</p>
+</div>
+<p><img src="images/character_controller.png" alt="Character controller"></p>
+<p><em>The character's capsule, drawn by <a href="debug_rendering.html">debug rendering</a>. Its origin is at the bottom of it.</em></p>
+<h2 id="charactercontroller-component">CharacterController Component</h2>
+<p><img src="images/character_controller_component.png" alt="CharacterController component"></p>
+<pre><code class="lang-csharp">const float Height = 1.8f;
+const float Radius = 0.4f;
+
+Entity player = new Entity(&quot;player&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 2f, 0f) })
+    .AddComponent(new CharacterController()
+    {
+        Height = Height,
+        Radius = Radius,
+        StepHeight = 0.45f,
+        MaxSlopeAngle = MathHelper.ToRadians(48f),
+    })
+    .AddComponent(new PlayerInput());
+
+// The visual hangs off a child lifted by half the height, because the controller's origin is at the
+// feet while a CapsuleMesh is centred on its own middle.
+player.AddChild(new Entity(&quot;visual&quot;)
+    .AddComponent(new Transform3D() { LocalPosition = new Vector3(0f, Height * 0.5f, 0f) })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new CapsuleMesh() { Radius = Radius, Height = Height - (2f * Radius) })
+    .AddComponent(new MeshRenderer()));
+
+this.Managers.EntityManager.Add(player);
+</code></pre>
+<h2 id="shape-properties">Shape Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Radius</strong></td>
+<td>0.4</td>
+<td>The radius of the capsule.</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>1.8</td>
+<td>The <strong>total</strong> height of the capsule, caps included, from the feet up.</td>
+</tr>
+<tr>
+<td><strong>Up</strong></td>
+<td>0,1,0</td>
+<td>Which way is up for this character.</td>
+</tr>
+<tr>
+<td><strong>Mass</strong></td>
+<td>70</td>
+<td>How heavy the character is when it pushes a dynamic body.</td>
+</tr>
+<tr>
+<td><strong>Orientation</strong></td>
+<td>identity</td>
+<td>Turns the capsule itself. It does not turn the entity: a character's facing is the entity's business.</td>
+</tr>
+<tr>
+<td><strong>EnableInnerBody</strong></td>
+<td>true</td>
+<td>Gives the character a body inside its capsule, so other bodies and <a href="queries.html">queries</a> can see it. Without it the character is invisible to the rest of the simulation.</td>
+</tr>
+<tr>
+<td><strong>CharacterPadding</strong></td>
+<td>0.02</td>
+<td>A small skin kept between the capsule and the world.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="movement-properties">Movement Properties</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/character_steps.mp4" type="video/mp4">
+</video>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>StepHeight</strong></td>
+<td>0.4</td>
+<td>The tallest step the character walks up without jumping. Above this it is a wall.</td>
+</tr>
+<tr>
+<td><strong>MaxSlopeAngle</strong></td>
+<td>π/4 (45°)</td>
+<td>The steepest slope it can stand on. Steeper than this and it slides back down.</td>
+</tr>
+<tr>
+<td><strong>StickToFloorDistance</strong></td>
+<td>0.5</td>
+<td>How far down the character reaches for the floor when walking over a crest, so it follows the ground instead of launching off it.</td>
+</tr>
+<tr>
+<td><strong>MaxStrength</strong></td>
+<td>100</td>
+<td>The strongest force it may use to push dynamic bodies out of the way, in newtons.</td>
+</tr>
+<tr>
+<td><strong>ApplyGravity</strong></td>
+<td>true</td>
+<td>Whether gravity is applied. Turn it off for swimming or flying.</td>
+</tr>
+<tr>
+<td><strong>PenetrationRecoverySpeed</strong></td>
+<td>1</td>
+<td>How quickly the character pushes itself out of anything it has ended up inside.</td>
+</tr>
+<tr>
+<td><strong>PredictiveContactDistance</strong></td>
+<td>0.1</td>
+<td>How far ahead contacts are looked for, so a fast character is stopped before it overlaps rather than after.</td>
+</tr>
+<tr>
+<td><strong>SupportingVolumeOffset</strong></td>
+<td>1e10</td>
+<td>How far below the character a contact still counts as ground. The default accepts every contact; around <code>Radius</code> is the usual value when a character should not be held up by something it merely brushed.</td>
+</tr>
+<tr>
+<td><strong>EnhancedInternalEdgeRemoval</strong></td>
+<td>true</td>
+<td>Stops the character catching on the seams between the triangles of a mesh collider.</td>
+</tr>
+<tr>
+<td><strong>CollisionCategory</strong></td>
+<td><code>Cat1</code></td>
+<td>Which <a href="collision_filtering.html">category</a> the character belongs to.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>MaxSlopeAngle</code> is held in <strong>radians</strong> in code and shown in <strong>degrees</strong> in the inspector, as every angle in Evergine is. <code>MathHelper.ToRadians(48f)</code> in code and <code>48</code> in the inspector are the same value.</p>
+</div>
+<h2 id="velocity">Velocity</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LinearVelocity</strong></td>
+<td>The character's velocity.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Write only the <strong>horizontal</strong> part of <code>LinearVelocity</code>. The component owns the vertical: gravity, landing, jumping and being carried by a moving platform all live there, and overwriting Y every frame is what makes a character that cannot fall, or one that falls at a constant speed. Read the current value, replace X and Z, write it back.</p>
+</div>
+<h2 id="ground-state">Ground State</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GroundState</strong></td>
+<td><code>OnGround</code>, <code>OnSteepGround</code>, <code>NotSupported</code> or <code>InAir</code>.</td>
+</tr>
+<tr>
+<td><strong>IsOnGround</strong></td>
+<td>Shorthand for <code>GroundState == OnGround</code>.</td>
+</tr>
+<tr>
+<td><strong>GroundNormal</strong></td>
+<td>The normal of whatever it is standing on.</td>
+</tr>
+<tr>
+<td><strong>GroundVelocity</strong></td>
+<td>How fast that surface is moving, which is what carries the character on a moving platform.</td>
+</tr>
+<tr>
+<td><strong>GroundBody</strong></td>
+<td>The body it is standing on, if there is one, as a <code>PhysicsBody</code>. A floor is a <code>StaticBody</code>; a platform is a <code>RigidBody</code>.</td>
+</tr>
+<tr>
+<td><strong>IsCrouching</strong></td>
+<td>Whether it is currently crouched.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods-and-events">Methods and Events</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Jump(speed)</strong></td>
+<td>Jumps at the given upward speed. Returns <code>false</code>, and does nothing, if the character is not on the ground.</td>
+</tr>
+<tr>
+<td><strong>SetCrouching(crouching, crouchHeight = 0.9)</strong></td>
+<td>Crouches or stands. Returns <code>false</code> if standing up is blocked by a low ceiling.</td>
+</tr>
+<tr>
+<td><strong>Resize(newHeight)</strong></td>
+<td>Changes the capsule's height. Returns <code>false</code> if the new size does not fit.</td>
+</tr>
+<tr>
+<td><strong>Teleport(position)</strong></td>
+<td>Puts the character somewhere immediately.</td>
+</tr>
+<tr>
+<td><strong>ContactAdded</strong></td>
+<td>Raised for each new contact, with a <code>CharacterContact</code> carrying the body, entity, normal and surface velocity.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="building-a-player-controller">Building a Player Controller</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/character_jump.mp4" type="video/mp4">
+</video>
+<pre><code class="lang-csharp">public class PlayerInput : Behavior
+{
+    [BindComponent]
+    private CharacterController character = null;
+
+    public float Speed { get; set; } = 4.5f;
+
+    public float JumpSpeed { get; set; } = 6f;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        KeyboardDispatcher keyboard = this.Managers.RenderManager.ActiveCamera3D?.Display?.KeyboardDispatcher;
+
+        if (keyboard == null)
+        {
+            return;
+        }
+
+        Vector3 direction = new Vector3(
+            (keyboard.IsKeyDown(Keys.D) ? 1f : 0f) - (keyboard.IsKeyDown(Keys.A) ? 1f : 0f),
+            0f,
+            (keyboard.IsKeyDown(Keys.S) ? 1f : 0f) - (keyboard.IsKeyDown(Keys.W) ? 1f : 0f));
+
+        if (direction.LengthSquared() &gt; 0.000001f)
+        {
+            // Normalized, or holding two keys at once walks a diagonal forty per cent faster than a
+            // straight line.
+            direction = Vector3.Normalize(direction);
+        }
+
+        Vector3 velocity = this.character.LinearVelocity;
+
+        // X and Z replaced, Y left exactly as it was: that is the component's, and writing it here is
+        // what produces a character that cannot fall.
+        this.character.LinearVelocity = new Vector3(
+            direction.X * this.Speed,
+            velocity.Y,
+            direction.Z * this.Speed);
+
+        // Jump refuses in mid air by itself, so there is no need to check IsOnGround first.
+        if (keyboard.IsKeyDown(Keys.Space))
+        {
+            this.character.Jump(this.JumpSpeed);
+        }
+
+        // Crouching can fail: SetCrouching(false) under a low ceiling returns false and stays down,
+        // which is exactly the behaviour a crawlspace needs.
+        this.character.SetCrouching(keyboard.IsKeyDown(Keys.LeftControl));
+    }
+}
+</code></pre>
+<h3 id="riding-a-moving-platform">Riding a moving platform</h3>
+<p>Nothing extra is needed: the controller reads the surface's velocity and carries the character with it. <code>GroundVelocity</code> is there for when gameplay has to know:</p>
+<pre><code class="lang-csharp">if (this.character.IsOnGround &amp;&amp; this.character.GroundVelocity.LengthSquared() &gt; 0.01f)
+{
+    this.animation.Play(&quot;ride&quot;);
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Two settings between them decide how a character feels on rough ground. <code>StepHeight</code> is how tall a step it walks up, and <code>StickToFloorDistance</code> is how well it stays glued going over a crest. A character that launches off every bump wants more of the second; one that stops at kerbs wants more of the first.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

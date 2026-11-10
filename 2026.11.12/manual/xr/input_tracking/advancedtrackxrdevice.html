@@ -1,0 +1,336 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>AdvancedTrackXRDevice | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="AdvancedTrackXRDevice | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="advancedtrackxrdevice">AdvancedTrackXRDevice</h1>
+
+<p><img src="images/advancedtrackxrdevice.png" alt="AdvancedTrackXRDevice in Evergine Studio"></p>
+<p><code>AdvancedTrackXRDevice</code> makes an entity follow <strong>any</strong> tracked device, not only controllers and hands: the headset itself, Vive trackers strapped to props or people, or the base stations of the play area. You choose the device by type, handedness, index, or a combination of them.</p>
+<p>It exposes the union of the other tracking components: the controller state of <a href="trackxrcontroller.html"><code>TrackXRController</code></a> and the joints of <a href="trackxrarticulatedhand.html"><code>TrackXRArticulatedHand</code></a>. Use those simpler components when they fit, and this one for everything else.</p>
+<h2 id="selecting-the-device">Selecting the device</h2>
+<p><code>SelectionStrategy</code> decides which properties pick the device:</p>
+<table>
+<thead>
+<tr>
+<th>SelectionStrategy</th>
+<th>Uses</th>
+<th>Picks</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ByDeviceTypeAndHandedness</code> (default)</td>
+<td><code>DeviceType</code>, <code>Handedness</code>, <code>DeviceIndex</code></td>
+<td>The <code>DeviceIndex</code>-th device of that type and handedness. The left controller, for example.</td>
+</tr>
+<tr>
+<td><code>ByDeviceType</code></td>
+<td><code>DeviceType</code>, <code>DeviceIndex</code></td>
+<td>The <code>DeviceIndex</code>-th device of that type, whatever its handedness. The second generic tracker, for example.</td>
+</tr>
+<tr>
+<td><code>ByHandedness</code></td>
+<td><code>Handedness</code>, <code>DeviceIndex</code></td>
+<td>The <code>DeviceIndex</code>-th device with that handedness, whatever its type.</td>
+</tr>
+<tr>
+<td><code>ByDeviceIndex</code></td>
+<td><code>DeviceIndex</code></td>
+<td>The device at that position in the platform's list of tracked devices. The order depends on the platform.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SelectionStrategy</strong></td>
+<td><code>ByDeviceTypeAndHandedness</code></td>
+<td>How the device is selected, from the table above.</td>
+</tr>
+<tr>
+<td><strong>DeviceType</strong></td>
+<td><code>Controller</code></td>
+<td>The <code>XRTrackedDeviceType</code> to look for. See the values below.</td>
+</tr>
+<tr>
+<td><strong>Handedness</strong></td>
+<td><code>LeftHand</code></td>
+<td><code>LeftHand</code>, <code>RightHand</code>, or <code>Undefined</code> for devices with no side, such as the HMD or a tracker.</td>
+</tr>
+<tr>
+<td><strong>DeviceIndex</strong></td>
+<td>0</td>
+<td>A <code>uint</code>. With the type and handedness strategies, which of the matching devices to take (0 is the first). With <code>ByDeviceIndex</code>, the position in the platform's list.</td>
+</tr>
+<tr>
+<td><strong>TrackingLostMode</strong></td>
+<td><code>DisableEntityOnPoseInvalid</code></td>
+<td>What happens to the entity when tracking fails. See <a href="index.html#common-properties">common properties</a>.</td>
+</tr>
+<tr>
+<td><strong>ControllerState</strong></td>
+<td>Read-only</td>
+<td>The input state, when the device is a controller or a hand. See <a href="trackxrcontroller.html#controller-state">controller state</a>.</td>
+</tr>
+<tr>
+<td><strong>SupportedHandJointKind</strong></td>
+<td>Read-only</td>
+<td>The joints the device tracks, when it is a hand.</td>
+</tr>
+</tbody>
+</table>
+<p>It also has the members every tracking component shares, listed in <a href="index.html#common-properties">common properties</a>, and <code>TryGetArticulatedHandJoint(XRHandJointKind jointKind, out XRHandJoint joint)</code>, which returns the joint as the platform reports it, in tracking space.</p>
+<h3 id="device-types">Device types</h3>
+<table>
+<thead>
+<tr>
+<th>XRTrackedDeviceType</th>
+<th>Device</th>
+<th>Platforms</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HMD</code></td>
+<td>The headset.</td>
+<td>OpenXR, OpenVR</td>
+</tr>
+<tr>
+<td><code>Controller</code></td>
+<td>A motion controller.</td>
+<td>OpenXR, OpenVR</td>
+</tr>
+<tr>
+<td><code>Hand</code></td>
+<td>A tracked hand.</td>
+<td>OpenXR with <code>XR_EXT_hand_tracking</code></td>
+</tr>
+<tr>
+<td><code>GenericTracker</code></td>
+<td>A tracker without its own input, such as a Vive Tracker.</td>
+<td>OpenVR</td>
+</tr>
+<tr>
+<td><code>TrackingReference</code></td>
+<td>A device that supplies tracking ground truth, such as a base station or a tracking camera.</td>
+<td>OpenVR</td>
+</tr>
+<tr>
+<td><code>DisplayRedirect</code></td>
+<td>An accessory that is not tracked itself but can redirect video output from another tracked device.</td>
+<td>OpenVR</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-advancedtrackxrdevice">Using AdvancedTrackXRDevice</h2>
+<p>This scene tracks both controllers and two generic trackers. The trackers keep their last pose when tracking is lost, so a prop does not vanish when it is briefly occluded:</p>
+<pre><code class="lang-csharp">using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR;
+using Evergine.Framework.XR.TrackedDevices;
+
+public class TrackersScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        // The two controllers.
+        var leftController = new Entity(&quot;LeftController&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new AdvancedTrackXRDevice()
+            {
+                SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceTypeAndHandedness,
+                DeviceType = XRTrackedDeviceType.Controller,
+                Handedness = XRHandedness.LeftHand,
+            });
+
+        var rightController = new Entity(&quot;RightController&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new AdvancedTrackXRDevice()
+            {
+                SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceTypeAndHandedness,
+                DeviceType = XRTrackedDeviceType.Controller,
+                Handedness = XRHandedness.RightHand,
+            });
+
+        // Two generic trackers, told apart by their order of appearance.
+        var firstTracker = new Entity(&quot;Tracker0&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new AdvancedTrackXRDevice()
+            {
+                SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceType,
+                DeviceType = XRTrackedDeviceType.GenericTracker,
+                DeviceIndex = 0,
+                TrackingLostMode = TrackXRDevice.XRTrackingLostMode.KeepLastPose,
+            });
+
+        var secondTracker = new Entity(&quot;Tracker1&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new AdvancedTrackXRDevice()
+            {
+                SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceType,
+                DeviceType = XRTrackedDeviceType.GenericTracker,
+                DeviceIndex = 1,
+                TrackingLostMode = TrackXRDevice.XRTrackingLostMode.KeepLastPose,
+            });
+
+        this.Managers.EntityManager.Add(leftController);
+        this.Managers.EntityManager.Add(rightController);
+        this.Managers.EntityManager.Add(firstTracker);
+        this.Managers.EntityManager.Add(secondTracker);
+    }
+}
+</code></pre>
+<h3 id="attach-content-to-the-head">Attach content to the head</h3>
+<p>The camera renders from the head, but on stereo platforms its own transform does not move with it. To place something that follows the head, such as a reticle or a head-mounted light, track the HMD:</p>
+<pre><code class="lang-csharp">using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR;
+using Evergine.Framework.XR.TrackedDevices;
+
+public class HeadScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        var head = new Entity(&quot;Head&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new AdvancedTrackXRDevice()
+            {
+                SelectionStrategy = TrackXRDevice.SelectionDeviceStrategy.ByDeviceType,
+                DeviceType = XRTrackedDeviceType.HMD,
+            });
+
+        this.Managers.EntityManager.Add(head);
+    }
+}
+</code></pre>
+<p>Children of <code>Head</code> then move with the user's head, and <code>Transform3D.Forward</code> of the entity is the view direction. Use it rather than <code>Pointer</code>, which <code>OpenXRPlatform</code> does not fill for the HMD.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

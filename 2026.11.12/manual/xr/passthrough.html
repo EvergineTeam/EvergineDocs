@@ -1,0 +1,469 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Passthrough | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Passthrough | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="passthrough">Passthrough</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/xrpassthrough.mp4" type="video/mp4">
+</video>
+<p><strong>Passthrough</strong> shows the user's real surroundings inside the headset, reconstructed from the headset's cameras in real time. Mixing it with the scene turns a VR application into a mixed reality one: virtual objects on a real desk, a window into the room from inside a virtual world, or a stylized outline of the walls so the user does not walk into them.</p>
+<p>In Evergine you add passthrough with one component, <code>XRPassthroughLayerComponent</code>, and style it with its properties.</p>
+<h2 id="supported-devices">Supported devices</h2>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>Platform</th>
+<th>Requirement</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meta Quest headsets</td>
+<td><a href="openxr/metaquest.html">OpenXR</a></td>
+<td>The <code>XR_FB_passthrough</code> extension and the passthrough feature in the Android manifest</td>
+</tr>
+</tbody>
+</table>
+<p>On any other platform or device, <code>XRPlatform.Passthrough</code> is <code>null</code> and the component does nothing. <a href="openxr/androidxr.html#mixed-reality-with-environment-blend-modes">Android XR</a> shows the real world through the <code>AlphaBlend</code> environment blend mode instead of passthrough layers.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>Your application never receives the camera images. It submits a <strong>passthrough layer</strong>, a placeholder, and the XR compositor fills it with the camera feed when it assembles the final image. What you control is where that layer sits relative to the scene and how it looks:</p>
+<ul>
+<li><strong>Composition</strong>: the layer goes behind the scene (underlay) or in front of it (overlay), and several layers are ordered by <code>CompositionOrder</code>.</li>
+<li><strong>Projection surface</strong>: the feed is projected either on the room as the runtime reconstructs it, or only on meshes you provide.</li>
+<li><strong>Style</strong>: opacity, edge highlighting, and color adjustments or color maps.</li>
+</ul>
+<p><img src="images/passthrough_layers.png" alt="The XR compositor stacks underlay passthrough layers, then the Evergine scene, then overlay passthrough layers"></p>
+<p><em>The compositor draws the stack from the bottom up, every frame. Underlays sort below the scene and overlays above it; inside each group, a larger <code>CompositionOrder</code> is drawn later, in front.</em></p>
+<h2 id="enable-passthrough-in-a-meta-quest-project">Enable passthrough in a Meta Quest project</h2>
+<p>The Meta Quest template ships with passthrough disabled. Enable it in the launcher project:</p>
+<ol>
+<li><p>In <code>MainActivity.cs</code>, uncomment the passthrough extensions in the <code>OpenXRPlatform</code> constructor. <code>XR_FB_triangle_mesh</code> is only needed to <a href="#project-passthrough-on-a-mesh">project passthrough on a mesh</a>:</p>
+<pre><code class="lang-csharp">&quot;XR_FB_passthrough&quot;,         // Enable Passthrough in Meta Quest devices
+&quot;XR_FB_triangle_mesh&quot;,       // Allow to project Passthrough on Meshes
+</code></pre>
+</li>
+<li><p>In <code>AndroidManifest.xml</code>, uncomment the passthrough feature:</p>
+<pre><code class="lang-xml">&lt;uses-feature android:name=&quot;com.oculus.feature.PASSTHROUGH&quot; android:required=&quot;true&quot; /&gt;
+</code></pre>
+</li>
+</ol>
+<p>Keep the headset's operating system up to date: passthrough capabilities, such as color passthrough, depend on it.</p>
+<h2 id="xrpassthroughlayercomponent">XRPassthroughLayerComponent</h2>
+<p>Add an <code>XRPassthroughLayerComponent</code> to any entity to create a passthrough layer. It needs no other component.</p>
+<p><img src="images/xrpassthroughlayercomponent.png" alt="XRPassthroughLayerComponent in Evergine Studio"></p>
+<p>The layer is created when the component attaches and starts when it activates. Disabling the component or its entity pauses the layer, and removing it destroys the layer.</p>
+<h3 id="layer-properties">Layer properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ProjectionSurface</strong></td>
+<td><code>Reconstructed</code></td>
+<td><code>Reconstructed</code> projects the feed on the room as the runtime reconstructs it, which is what you want when you know nothing about the room. <code>UserDefined</code> shows the feed only on the meshes you register, and leaves the rest of the layer transparent.</td>
+</tr>
+<tr>
+<td><strong>Placement</strong></td>
+<td><code>Underlay</code></td>
+<td><code>Underlay</code> puts the layer behind the scene, <code>Overlay</code> in front of it. <code>None</code> keeps the layer out of the composition.</td>
+</tr>
+<tr>
+<td><strong>CompositionOrder</strong></td>
+<td>0</td>
+<td>Order among layers with the same placement. A larger value is drawn in front of a smaller one.</td>
+</tr>
+<tr>
+<td><strong>StartPassthroughAutomatically</strong></td>
+<td><code>true</code></td>
+<td>Starts the layer when the component activates. Set it to <code>false</code> to start it yourself.</td>
+</tr>
+<tr>
+<td><strong>IsRunning</strong></td>
+<td>Read-only</td>
+<td>Whether the layer is currently showing the feed. <code>false</code> when there is no layer.</td>
+</tr>
+<tr>
+<td><strong>PassthroughLayer</strong></td>
+<td>Read-only</td>
+<td>The underlying <code>XRPassthroughLayer</code>. <code>null</code> when the platform has no passthrough. Use it to call <code>StartPassthrough()</code> and <code>PausePassthrough()</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><video autoplay="" loop="" muted="" playsinline="" width="250px" height="auto"><source src="images/xrpassthroughreconstructed.mp4" type="video/mp4"></video></p>
+<p><em>A reconstructed layer: the whole room, projected on the geometry the runtime estimates.</em></p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>An underlay is only visible where the scene is transparent. Set the camera's <code>BackgroundColor</code> to <code>Color.Transparent</code> and disable or remove anything that fills the background, such as a sky atmosphere or a skybox. Otherwise the scene covers the passthrough completely.</p>
+</div>
+<h3 id="create-a-passthrough-background-from-code">Create a passthrough background from code</h3>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR.Passthrough;
+
+public class MixedRealityScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        // The passthrough underlay is only visible where the scene is transparent.
+        var camera = new Entity(&quot;Camera&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new Camera3D() { BackgroundColor = Color.Transparent });
+
+        var passthrough = new Entity(&quot;Passthrough&quot;)
+            .AddComponent(new XRPassthroughLayerComponent()
+            {
+                Placement = XROverlayType.Underlay,
+                EdgeRendering = true,
+                EdgeColor = Color.Cyan,
+            });
+
+        this.Managers.EntityManager.Add(camera);
+        this.Managers.EntityManager.Add(passthrough);
+    }
+}
+</code></pre>
+<h3 id="project-passthrough-on-a-mesh">Project passthrough on a mesh</h3>
+<p>With a user-defined surface, the feed only appears on meshes you choose. This is steadier than the reconstruction when you already know the geometry, and it lets you cut windows into a virtual world.</p>
+<ol>
+<li>Enable <code>XR_FB_triangle_mesh</code> in <code>MainActivity.cs</code>.</li>
+<li>Add <code>XRPassthroughLayerComponent</code> to an entity that has a mesh component (for example <code>PlaneMesh</code>, or a model's meshes).</li>
+<li>Add <code>XRPassthroughSurfaceMeshComponent</code> to the same entity. It registers the entity's meshes as projection surfaces, follows the entity's transform, and switches the layer's <code>ProjectionSurface</code> to <code>UserDefined</code>.</li>
+</ol>
+<pre><code class="lang-csharp">using Evergine.Components.Graphics3D;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR.Passthrough;
+using Evergine.Mathematics;
+
+public class PassthroughWindowScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        // A 1 x 1 m window to the real room, two metres in front of the start position.
+        // The plane has no MeshRenderer: its mesh is only the projection surface.
+        var window = new Entity(&quot;PassthroughWindow&quot;)
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 1.5f, -2) })
+            .AddComponent(new PlaneMesh() { PlaneNormal = PlaneMesh.NormalAxis.ZPositive, Width = 1, Height = 1 })
+            .AddComponent(new XRPassthroughLayerComponent() { Placement = XROverlayType.Overlay })
+            .AddComponent(new XRPassthroughSurfaceMeshComponent());
+
+        this.Managers.EntityManager.Add(window);
+    }
+}
+</code></pre>
+<p><video autoplay="" loop="" muted="" playsinline="" width="250px" height="auto"><source src="images/xrpassthroughuserdefined.mp4" type="video/mp4"></video></p>
+<p><em>A user-defined layer: the feed only appears on the registered mesh.</em></p>
+<p><code>XRPassthroughSurfaceMeshComponent</code> can also feed a layer on another entity:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SearchPassthroughLayer</strong></td>
+<td><code>OwnerEntity</code></td>
+<td>Where to find the layer: <code>OwnerEntity</code> uses the <code>XRPassthroughLayerComponent</code> of the same entity, <code>Scene</code> the one at <code>PassthroughLayerEntityPath</code>.</td>
+</tr>
+<tr>
+<td><strong>PassthroughLayerEntityPath</strong></td>
+<td><code>null</code></td>
+<td>Entity path of the layer entity, when <code>SearchPassthroughLayer</code> is <code>Scene</code>. Several surface entities can share one layer this way.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Projection on meshes needs both <code>XR_FB_passthrough</code> and <code>XR_FB_triangle_mesh</code>. Without them <code>XRPassthroughSurfaceMeshComponent</code> does not attach.</p>
+</div>
+<h2 id="style-properties">Style properties</h2>
+<p>These properties change how the feed looks. They apply to the layer immediately, also while it runs.</p>
+<p><img src="images/xrpassthrough_styling.png" alt="Passthrough with different styles applied"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Opacity</strong></td>
+<td>1</td>
+<td>Opacity of the passthrough image, clamped to [0, 1]. Edges drawn by <code>EdgeRendering</code> are not affected.</td>
+</tr>
+<tr>
+<td><strong>EdgeRendering</strong></td>
+<td><code>false</code></td>
+<td>Detects edges in the camera image and draws them over it.</td>
+</tr>
+<tr>
+<td><strong>EdgeColor</strong></td>
+<td><code>Color.White</code></td>
+<td>Color of the edges. Only shown in Evergine Studio when <code>EdgeRendering</code> is on.</td>
+</tr>
+<tr>
+<td><strong>ColorControl</strong></td>
+<td><code>None</code></td>
+<td>How the colors of the image are modified: <code>None</code>, <code>ColorAdjustment</code>, <code>ColorMap</code> or <code>GrayscaleMap</code>. Each mode uses the properties described below.</td>
+</tr>
+</tbody>
+</table>
+<p><video autoplay="" loop="" muted="" playsinline="" width="250px" height="auto"><source src="images/xrpassthrough_edgerendering.mp4" type="video/mp4"></video></p>
+<p><em>Edge rendering over the camera image.</em></p>
+<h3 id="coloradjustment">ColorAdjustment</h3>
+<p>Adjusts brightness, contrast and saturation. Saturation only has an effect on devices with color passthrough.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Brightness</strong></td>
+<td>0</td>
+<td>Brightness offset in the range [-100, 100]. 0 leaves the image unchanged.</td>
+</tr>
+<tr>
+<td><strong>Contrast</strong></td>
+<td>1</td>
+<td>Contrast factor, 0 or greater. 1 leaves the image unchanged.</td>
+</tr>
+<tr>
+<td><strong>Saturation</strong></td>
+<td>1</td>
+<td>Saturation factor, 0 or greater. 1 leaves the image unchanged.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="colormap">ColorMap</h3>
+<p>Converts the image to grayscale and replaces each luminance value with a color from a curve.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorMapMonoToRGBA</strong></td>
+<td><code>null</code></td>
+<td>A <code>ColorCurve</code> with keys between 0 (black) and 1 (white).</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">using Evergine.Common.Curves;
+using Evergine.Common.Graphics;
+using Evergine.Framework.XR.Passthrough;
+
+// Map dark areas to blue, mid tones to green and red, highlights to yellow and white.
+var colorMap = new ColorCurve();
+colorMap.Keyframes.Clear();
+colorMap.AddKey(0, Color.Black);
+colorMap.AddKey(0.1f, Color.Blue);
+colorMap.AddKey(0.4f, Color.Green);
+colorMap.AddKey(0.6f, Color.Red);
+colorMap.AddKey(0.8f, Color.Yellow);
+colorMap.AddKey(1, Color.White);
+
+passthroughLayer.ColorControl = XRPassthroughColorControlType.ColorMap;
+passthroughLayer.ColorMapMonoToRGBA = colorMap;
+</code></pre>
+<p><video autoplay="" loop="" muted="" playsinline="" width="250px" height="auto"><source src="images/xrpassthrough_colormap.mp4" type="video/mp4"></video></p>
+<p><em>The color map above applied to the room.</em></p>
+<h3 id="grayscalemap">GrayscaleMap</h3>
+<p>Converts the image to grayscale and remaps each luminance value through a curve.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorMapMonoToMono</strong></td>
+<td><code>null</code></td>
+<td>A <code>FloatCurve</code> with keys between 0 and 1, and values between 0 and 1.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">using Evergine.Common.Curves;
+using Evergine.Framework.XR.Passthrough;
+
+// Invert the grayscale image.
+var monoMap = new FloatCurve();
+monoMap.Keyframes.Clear();
+monoMap.AddKey(0, 1);
+monoMap.AddKey(1, 0);
+
+passthroughLayer.ColorControl = XRPassthroughColorControlType.GrayscaleMap;
+passthroughLayer.ColorMapMonoToMono = monoMap;
+</code></pre>
+<p><video autoplay="" loop="" muted="" playsinline="" width="250px" height="auto"><source src="images/xrpassthrough_monomap.mp4" type="video/mp4"></video></p>
+<p><em>The inverted grayscale map.</em></p>
+<p>In both examples, <code>passthroughLayer</code> is the <code>XRPassthroughLayerComponent</code>, for example obtained with <code>[BindComponent]</code> in a behavior on the same entity.</p>
+<h2 id="pause-and-resume-passthrough">Pause and resume passthrough</h2>
+<p>A layer shows the feed while its component is active. To stop the feed without removing the component, call <code>PausePassthrough()</code> on the layer, and <code>StartPassthrough()</code> to resume it. <code>XRPlatform.Passthrough</code> has the same two methods, which act on the passthrough as a whole.</p>
+<pre><code class="lang-csharp">using Evergine.Components.XR;
+using Evergine.Framework;
+
+public class PassthroughToggle : Component
+{
+    [BindComponent]
+    private XRPassthroughLayerComponent layer = null;
+
+    // Call it from a button or a controller input.
+    public void Toggle()
+    {
+        if (this.layer.IsRunning)
+        {
+            this.layer.PassthroughLayer?.PausePassthrough();
+        }
+        else
+        {
+            this.layer.PassthroughLayer?.StartPassthrough();
+        }
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

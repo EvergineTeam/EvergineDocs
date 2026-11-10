@@ -1,0 +1,1073 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Effect Metatags | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Effect Metatags | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="effect-metatags">Effect Metatags</h1>
+
+<hr>
+<p>Effects are written in <a href="https://learn.microsoft.com/windows/win32/direct3dhlsl/dx-graphics-hlsl">HLSL</a>, extended with <strong>metatags</strong>: keywords in square brackets that the effect analyzer reads and removes before the code reaches the shader compiler. Metatags split the file into blocks, declare the directives that turn it into many shaders, fill constant buffer fields and textures with engine data, and configure how each pass is compiled and rendered.</p>
+<p>This page is the reference for every metatag. For a walkthrough of a complete effect, see <a href="create_effects.html">Create Effects</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Block, directive and pass setting tags are matched without regard to case. Parameter and texture semantics such as <code>[WorldViewProjection]</code> or <code>[FrameBuffer]</code> are case-sensitive and must be written exactly as listed.</p>
+</div>
+<h2 id="blocks">Blocks</h2>
+<p>An effect file is divided into blocks:</p>
+<table>
+<thead>
+<tr>
+<th>Block</th>
+<th>Tags</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Resource layout</td>
+<td><code>[Begin_ResourceLayout]</code> ... <code>[End_ResourceLayout]</code></td>
+<td>Declares the resources every pass can use: constant buffers, structured buffers, textures, samplers and unordered access resources, plus the effect's directives.</td>
+</tr>
+<tr>
+<td>Pass</td>
+<td><code>[Begin_Pass:PassName]</code> ... <code>[End_Pass]</code></td>
+<td>One shader program. The render path decides when each pass name runs; see <a href="#pass-names">Pass names</a>.</td>
+</tr>
+<tr>
+<td>Library</td>
+<td><code>[Begin_Library]</code> ... <code>[End_Library]</code></td>
+<td>The body of a <a href="library_effect.html">library effect</a>: constants, structures, directives and functions that other effects include. A library effect has only this block, with no resource layout or passes.</td>
+</tr>
+<tr>
+<td>Global</td>
+<td>(none)</td>
+<td>Code outside every block. It is placed at the start of every pass, ahead of included libraries, which makes it the place for defines that configure a library.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pass-names">Pass names</h3>
+<p>The default render pipeline runs these passes. An effect only needs to define the ones it uses; every graphics effect needs <code>Default</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Pass</th>
+<th>Run by</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ZPrePass</code></td>
+<td><code>ForwardRenderPath</code></td>
+<td>Fills the depth buffer before shading so that the <code>Default</code> pass shades each pixel once. Only materials whose render layer tests and writes depth are drawn in it.</td>
+</tr>
+<tr>
+<td><code>GBuffer</code></td>
+<td><code>ForwardRenderPath</code></td>
+<td>Writes normals, roughness and metallic to the first target, motion vectors to the second and distortion to the third. Post-processing effects such as SSAO, SSR, TAA and motion blur read them.</td>
+</tr>
+<tr>
+<td><code>Default</code></td>
+<td><code>ForwardRenderPath</code></td>
+<td>The main shading pass. Post-processing also runs at the end of it.</td>
+</tr>
+<tr>
+<td><code>ShadowMap</code></td>
+<td><code>ShadowRenderPath</code></td>
+<td>Renders depth from a light to build its shadow map.</td>
+</tr>
+</tbody>
+</table>
+<p>A custom render path can run passes with any other names. See <a href="../rendering_overview.html">Rendering Overview</a>.</p>
+<h2 id="include-a-library">Include a library</h2>
+<p>To use a <a href="library_effect.html">library effect</a>, include it at the top of a graphics or compute effect:</p>
+<p><code>[Include_Library LibraryName LibraryId]</code></p>
+<ul>
+<li><strong>LibraryName</strong>: a readable name for the library.</li>
+<li><strong>LibraryId</strong>: the GUID of the library effect asset.</li>
+</ul>
+<p>Referencing the library by id means you can move the asset between folders without breaking the effects that include it.</p>
+<pre><code class="lang-hlsl">[Include_Library Common 7efb1394-cf61-4617-8dad-8dc5c7d46164]
+</code></pre>
+<h2 id="directives">Directives</h2>
+<p>Directives turn one effect into a family of shaders. Declare them inside the resource layout block (or the library block of a library effect):</p>
+<p><code>[Directives:Name VALUE_OFF VALUE]</code></p>
+<p><code>[Directives:Name VALUE_A VALUE_B VALUE_C ...]</code></p>
+<p>The name identifies the directive in the Material Editor and in generated decorators. The values are preprocessor symbols; exactly one of them is defined in each compiled shader. By convention, the first value of an on/off directive ends in <code>_OFF</code> and is the default.</p>
+<pre><code class="lang-hlsl">[Directives:Normal NORMAL_OFF NORMAL]
+[Directives:ShadowFilter SHADOW_FILTER_OFF SHADOWFILTER3 SHADOWFILTER5 SHADOWFILTER7]
+</code></pre>
+<p>The shader code tests the values with the usual preprocessor directives:</p>
+<pre><code class="lang-hlsl">#if NORMAL
+    float3 normal = NormalTexture.Sample(NormalSampler, input.TexCoord).xyz * 2.0 - 1.0;
+#else
+    float3 normal = input.Normal;
+#endif
+
+#if DIFF || EMIS
+    output.TexCoord = input.TexCoord;
+#endif
+</code></pre>
+<p>Every directive multiplies the number of combinations. Two directives with two and three values give six combinations per pass:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th><code>B_OFF</code></th>
+<th><code>C</code></th>
+<th><code>D</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>A_OFF</code></strong></td>
+<td><code>A_OFF</code> <code>B_OFF</code></td>
+<td><code>A_OFF</code> <code>C</code></td>
+<td><code>A_OFF</code> <code>D</code></td>
+</tr>
+<tr>
+<td><strong><code>A</code></strong></td>
+<td><code>A</code> <code>B_OFF</code></td>
+<td><code>A</code> <code>C</code></td>
+<td><code>A</code> <code>D</code></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/effect_compilation.png" alt="An effect expands into combinations of directives and passes, and each combination is translated to the language of the active graphics backend"></p>
+<p><em>One effect, many shaders: each material activates one value per directive, each pass is compiled for that combination, and the HLSL is translated to the language of the backend in use.</em></p>
+<p>Combinations can be compiled on demand at runtime, or precompiled when the effect is exported so that nothing is compiled on the device. <a href="using_effects.html">Using Effects</a> explains how to choose.</p>
+<h3 id="directives-set-by-the-engine">Directives set by the engine</h3>
+<p>Some directives are defined by the render pipeline rather than by the material. Declare them in your effect only if your code needs to react to them:</p>
+<table>
+<thead>
+<tr>
+<th>Directive value</th>
+<th>When it is defined</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LIT</code></td>
+<td>Set by the material. The forward render path only assigns lights to objects whose material has <code>LIT</code> active.</td>
+</tr>
+<tr>
+<td><code>SHADOW_SUPPORTED</code></td>
+<td>The device supports shadow maps.</td>
+</tr>
+<tr>
+<td><code>SHADOW_FILTER_OFF</code>, <code>SHADOWFILTER3</code>, <code>SHADOWFILTER5</code>, <code>SHADOWFILTER7</code></td>
+<td>The PCF filter chosen in the <code>ShadowMapManager</code>: 2x2, 3x3, 5x5 or 7x7.</td>
+</tr>
+<tr>
+<td><code>POINT_LIGHT</code>, <code>SPOT_LIGHT</code>, <code>AREA_LIGHT</code></td>
+<td>The scene contains at least one light of that kind.</td>
+</tr>
+<tr>
+<td><code>LOW_PROFILE</code></td>
+<td>The application runs in low profile mode.</td>
+</tr>
+<tr>
+<td><code>MULTIVIEW_RTI</code>, <code>MULTIVIEW_VI</code></td>
+<td>The camera renders several views at once (stereo), using render target index or view index.</td>
+</tr>
+<tr>
+<td><code>GAMMA_COLORSPACE</code></td>
+<td>The shader must encode gamma itself because it renders straight to a non-sRGB swap chain.</td>
+</tr>
+<tr>
+<td><code>DEBUG</code></td>
+<td>The application runs inside Evergine Studio.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="resource-tags">Resource tags</h2>
+<h3 id="default-values">Default values</h3>
+<p><code>[Default(value)]</code> after a constant buffer field gives it an initial value. Materials created from the effect start with it.</p>
+<pre><code class="lang-hlsl">cbuffer Parameters : register(b1)
+{
+    float  SpeedFactor : packoffset(c0.x); [Default(1.5)]
+    float3 Position    : packoffset(c0.y); [Default(2.3, 3.3, 5.6)]
+};
+</code></pre>
+<p>Supported types are <code>int</code>, <code>float</code>, <code>bool</code>, <code>float2</code>, <code>float3</code> and <code>float4</code>. Values use a dot as decimal separator.</p>
+<h3 id="engine-parameters">Engine parameters</h3>
+<p>A semantic tag after a constant buffer field makes the engine fill it for you:</p>
+<pre><code class="lang-hlsl">cbuffer PerDrawCall : register(b0)
+{
+    float4x4 WorldViewProj : packoffset(c0); [WorldViewProjection]
+};
+</code></pre>
+<p>Each tag has an update policy: how often the engine rewrites the value. A constant buffer is updated as often as its most frequently changing field requires, so group per-draw values in one buffer and per-frame values in another.</p>
+<table>
+<thead>
+<tr>
+<th>Policy</th>
+<th>Rewritten</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PerFrame</code></td>
+<td>Once per frame.</td>
+</tr>
+<tr>
+<td><code>PerView</code></td>
+<td>Once per camera, shadow cascade or cube face.</td>
+</tr>
+<tr>
+<td><code>PerDrawCall</code></td>
+<td>For every draw call.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="transforms">Transforms</h4>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>HLSL type</th>
+<th>Policy</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[World]</code></td>
+<td><code>float4x4</code></td>
+<td>PerDrawCall</td>
+<td>World matrix of the object.</td>
+</tr>
+<tr>
+<td><code>[PreWorld]</code></td>
+<td><code>float4x4</code></td>
+<td>PerDrawCall</td>
+<td>World matrix of the object in the previous frame, for motion vectors.</td>
+</tr>
+<tr>
+<td><code>[WorldInverse]</code></td>
+<td><code>float4x4</code></td>
+<td>PerDrawCall</td>
+<td>Inverse of the world matrix.</td>
+</tr>
+<tr>
+<td><code>[WorldInverseTranspose]</code></td>
+<td><code>float4x4</code></td>
+<td>PerDrawCall</td>
+<td>Inverse transpose of the world matrix, to transform normals.</td>
+</tr>
+<tr>
+<td><code>[WorldViewProjection]</code></td>
+<td><code>float4x4</code></td>
+<td>PerDrawCall</td>
+<td>World, view and projection combined.</td>
+</tr>
+<tr>
+<td><code>[WorldViewProjectionInverse]</code></td>
+<td><code>float4x4</code></td>
+<td>PerDrawCall</td>
+<td>Inverse of the above.</td>
+</tr>
+<tr>
+<td><code>[UnjitteredWorldViewProjection]</code></td>
+<td><code>float4x4</code></td>
+<td>PerDrawCall</td>
+<td>World-view-projection without the TAA jitter.</td>
+</tr>
+<tr>
+<td><code>[View]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>View matrix of the camera.</td>
+</tr>
+<tr>
+<td><code>[ViewInverse]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>Inverse view matrix: the camera's world transform.</td>
+</tr>
+<tr>
+<td><code>[Projection]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>Projection matrix, including the TAA jitter when TAA is on.</td>
+</tr>
+<tr>
+<td><code>[UnjitteredProjection]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>Projection without the TAA jitter.</td>
+</tr>
+<tr>
+<td><code>[ProjectionInverse]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>Inverse projection.</td>
+</tr>
+<tr>
+<td><code>[ViewProjection]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>View and projection combined.</td>
+</tr>
+<tr>
+<td><code>[UnjitteredViewProjection]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>View-projection without the TAA jitter.</td>
+</tr>
+<tr>
+<td><code>[ViewProjectionInverse]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>Inverse view-projection, to reconstruct positions from depth.</td>
+</tr>
+<tr>
+<td><code>[PreviousViewProjection]</code></td>
+<td><code>float4x4</code></td>
+<td>PerView</td>
+<td>View-projection of the previous frame.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="camera">Camera</h4>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>HLSL type</th>
+<th>Policy</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[CameraPosition]</code></td>
+<td><code>float3</code></td>
+<td>PerView</td>
+<td>World position of the camera.</td>
+</tr>
+<tr>
+<td><code>[CameraRight]</code></td>
+<td><code>float3</code></td>
+<td>PerView</td>
+<td>Right vector of the camera.</td>
+</tr>
+<tr>
+<td><code>[CameraUp]</code></td>
+<td><code>float3</code></td>
+<td>PerView</td>
+<td>Up vector of the camera.</td>
+</tr>
+<tr>
+<td><code>[CameraForward]</code></td>
+<td><code>float3</code></td>
+<td>PerView</td>
+<td>Forward vector of the camera.</td>
+</tr>
+<tr>
+<td><code>[CameraNearPlane]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Near plane distance.</td>
+</tr>
+<tr>
+<td><code>[CameraFarPlane]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Far plane distance.</td>
+</tr>
+<tr>
+<td><code>[CameraFieldOfView]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Vertical field of view, in radians.</td>
+</tr>
+<tr>
+<td><code>[CameraJitter]</code></td>
+<td><code>float2</code></td>
+<td>PerView</td>
+<td>TAA jitter of this frame.</td>
+</tr>
+<tr>
+<td><code>[CameraPreviousJitter]</code></td>
+<td><code>float2</code></td>
+<td>PerView</td>
+<td>TAA jitter of the previous frame.</td>
+</tr>
+<tr>
+<td><code>[CameraFocalDistance]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Focus distance, used by depth of field.</td>
+</tr>
+<tr>
+<td><code>[CameraFocalLength]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Focal length, in millimeters.</td>
+</tr>
+<tr>
+<td><code>[CameraAperture]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Aperture, in f-stops.</td>
+</tr>
+<tr>
+<td><code>[CameraExposure]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Exposure of the camera.</td>
+</tr>
+<tr>
+<td><code>[EV100]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Exposure value at ISO 100.</td>
+</tr>
+<tr>
+<td><code>[Exposure]</code></td>
+<td><code>float</code></td>
+<td>PerView</td>
+<td>Accepted by the analyzer but not filled by the default pipeline. Use <code>[CameraExposure]</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="depth-conventions">Depth conventions</h4>
+<p>These let one shader reconstruct positions from depth on every backend and with reversed depth.</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>HLSL type</th>
+<th>Policy</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[ClipDepthMin]</code></td>
+<td><code>float</code></td>
+<td>PerFrame</td>
+<td>Minimum clip-space depth: <code>-1</code> on OpenGL, <code>0</code> elsewhere.</td>
+</tr>
+<tr>
+<td><code>[ClipDepthMax]</code></td>
+<td><code>float</code></td>
+<td>PerFrame</td>
+<td>Maximum clip-space depth: always <code>1</code>.</td>
+</tr>
+<tr>
+<td><code>[ReverseDepth]</code></td>
+<td><code>float</code></td>
+<td>PerFrame</td>
+<td><code>1</code> when the depth buffer is reversed, <code>0</code> otherwise.</td>
+</tr>
+<tr>
+<td><code>[ReverseDepthFactor]</code></td>
+<td><code>float</code></td>
+<td>PerFrame</td>
+<td><code>-1</code> when reversed, <code>1</code> otherwise, so that <code>forwardDepth = ReverseDepthFactor * depth + ReverseDepth</code>.</td>
+</tr>
+</tbody>
+</table>
+<h4 id="time-multiview-and-lighting">Time, multiview and lighting</h4>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>HLSL type</th>
+<th>Policy</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[Time]</code></td>
+<td><code>float</code></td>
+<td>PerFrame</td>
+<td>Seconds since the draw context started rendering.</td>
+</tr>
+<tr>
+<td><code>[MultiviewCount]</code></td>
+<td><code>int</code></td>
+<td>PerView</td>
+<td>Number of views (eyes) rendered at once.</td>
+</tr>
+<tr>
+<td><code>[MultiviewView]</code></td>
+<td><code>float4x4[]</code></td>
+<td>PerView</td>
+<td>View matrix of each eye.</td>
+</tr>
+<tr>
+<td><code>[MultiviewProjection]</code></td>
+<td><code>float4x4[]</code></td>
+<td>PerView</td>
+<td>Projection of each eye.</td>
+</tr>
+<tr>
+<td><code>[MultiviewViewProjection]</code></td>
+<td><code>float4x4[]</code></td>
+<td>PerView</td>
+<td>View-projection of each eye.</td>
+</tr>
+<tr>
+<td><code>[MultiviewViewProjectionInverse]</code></td>
+<td><code>float4x4[]</code></td>
+<td>PerView</td>
+<td>Inverse view-projection of each eye.</td>
+</tr>
+<tr>
+<td><code>[MultiviewPosition]</code></td>
+<td><code>float4[]</code></td>
+<td>PerView</td>
+<td>Position of each eye.</td>
+</tr>
+<tr>
+<td><code>[ForwardLightMask]</code></td>
+<td><code>uint2</code></td>
+<td>PerDrawCall</td>
+<td>64-bit mask of the lights, out of the ones the camera sees, that affect this object.</td>
+</tr>
+<tr>
+<td><code>[LightCount]</code></td>
+<td><code>uint</code></td>
+<td>PerView</td>
+<td>Number of lights the camera sees.</td>
+</tr>
+<tr>
+<td><code>[LightBuffer]</code></td>
+<td>struct array</td>
+<td>PerView</td>
+<td>The data of those lights.</td>
+</tr>
+<tr>
+<td><code>[ShadowViewProjectionBuffer]</code></td>
+<td><code>float4x4[]</code></td>
+<td>PerView</td>
+<td>View-projection of every shadow map slice.</td>
+</tr>
+<tr>
+<td><code>[IBLMipMapLevel]</code></td>
+<td><code>uint</code></td>
+<td>PerFrame</td>
+<td>Number of mip levels of the IBL radiance texture.</td>
+</tr>
+<tr>
+<td><code>[IBLLuminance]</code></td>
+<td><code>float</code></td>
+<td>PerFrame</td>
+<td>Environment intensity multiplied by the camera exposure.</td>
+</tr>
+<tr>
+<td><code>[IrradianceSH]</code></td>
+<td><code>float4[]</code></td>
+<td>PerFrame</td>
+<td>Spherical harmonics of the IBL irradiance.</td>
+</tr>
+<tr>
+<td><code>[SunDirection]</code></td>
+<td><code>float3</code></td>
+<td>PerFrame</td>
+<td>Direction towards the sun light of the environment.</td>
+</tr>
+<tr>
+<td><code>[SunColor]</code></td>
+<td><code>float3</code></td>
+<td>PerFrame</td>
+<td>Color of the sun light.</td>
+</tr>
+<tr>
+<td><code>[SunIntensity]</code></td>
+<td><code>float</code></td>
+<td>PerFrame</td>
+<td>Intensity of the sun light.</td>
+</tr>
+<tr>
+<td><code>[SkyboxTransform]</code></td>
+<td><code>float4x4</code></td>
+<td>PerFrame</td>
+<td>Rotation applied to the skybox.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="texture-semantics">Texture semantics</h3>
+<p>A semantic tag after a texture declaration binds an engine texture to it. A number after the name selects one of several textures of the same kind, as in <code>[Custom0]</code>.</p>
+<pre><code class="lang-hlsl">Texture2D GBufferNormals : register(t3); [GBufferNormalsPass]
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Texture</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[FrameBuffer]</code></td>
+<td>First color target of the camera's frame buffer.</td>
+</tr>
+<tr>
+<td><code>[DFGLut]</code></td>
+<td>Precomputed DFG lookup table for image-based lighting.</td>
+</tr>
+<tr>
+<td><code>[Translucency]</code></td>
+<td>Lookup table for subsurface scattering translucency.</td>
+</tr>
+<tr>
+<td><code>[GBufferNormalsPass]</code></td>
+<td>GBuffer target 0: normals in RG, roughness in B, metallic in A.</td>
+</tr>
+<tr>
+<td><code>[GBufferMotionVectorsPass]</code></td>
+<td>GBuffer target 1: screen-space motion vectors.</td>
+</tr>
+<tr>
+<td><code>[GBufferDistortionPass]</code></td>
+<td>GBuffer target 2: distortion.</td>
+</tr>
+<tr>
+<td><code>[IBLRadiance]</code></td>
+<td>Prefiltered radiance cube map of the environment, one roughness level per mip.</td>
+</tr>
+<tr>
+<td><code>[IBLIrradiance]</code></td>
+<td>Diffuse irradiance cube map of the environment.</td>
+</tr>
+<tr>
+<td><code>[TemporalHistory]</code></td>
+<td>Previous frame, kept by TAA.</td>
+</tr>
+<tr>
+<td><code>[DirectionalShadowMap]</code></td>
+<td>Shadow map array of directional light cascades.</td>
+</tr>
+<tr>
+<td><code>[SpotShadowMap]</code></td>
+<td>Shadow map array of spot lights.</td>
+</tr>
+<tr>
+<td><code>[PunctualShadowMap]</code></td>
+<td>Shadow map cube array of point and area lights.</td>
+</tr>
+<tr>
+<td><code>[DepthBuffer]</code>, <code>[GBuffer]</code>, <code>[Lighting]</code>, <code>[Custom]</code></td>
+<td>Reserved for custom render pipelines. The default pipeline does not provide them.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="output-textures">Output textures</h3>
+<p>In a compute effect, <code>[Output(...)]</code> after a <code>RWTexture</code> tells the engine to create the texture the shader writes to, so the post-processing graph or compute task does not need you to allocate it:</p>
+<table>
+<thead>
+<tr>
+<th>Form</th>
+<th>Creates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[Output(Input)]</code></td>
+<td>A texture with the size and format of the resource called <code>Input</code>.</td>
+</tr>
+<tr>
+<td><code>[Output(Input, 0.5)]</code></td>
+<td>The same, with its size scaled by the factor.</td>
+</tr>
+<tr>
+<td><code>[Output(Input, 1.0, R32_Float)]</code></td>
+<td>The same, with a different <code>PixelFormat</code>.</td>
+</tr>
+<tr>
+<td><code>[Output(512, 512, R16G16B16A16_Float)]</code></td>
+<td>A texture of a fixed size and format.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-hlsl">Texture2D&lt;float4&gt; Input : register(t0);
+RWTexture2D&lt;float4&gt; Output : register(u0); [Output(Input, 0.5)]
+</code></pre>
+<h2 id="pass-settings">Pass settings</h2>
+<p>These tags go inside a pass block and control how the pass is compiled.</p>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[Profile Level]</code></td>
+<td>Shader model to compile with. <code>Level</code> is one of <code>9_1</code>, <code>9_2</code>, <code>9_3</code>, <code>10_0</code>, <code>10_1</code>, <code>11_0</code>, <code>11_1</code> and <code>12_0</code> to <code>12_7</code>. On DirectX 12, <code>12_0</code> to <code>12_7</code> select shader model 6.0 to 6.7; use them for shader model 6 features such as wave intrinsics, mesh shaders or ray tracing. The default is <code>10_0</code>.</td>
+</tr>
+<tr>
+<td><code>[Entrypoints Stage=Function ...]</code></td>
+<td>The function of each stage: <code>VS</code> vertex, <code>HS</code> hull, <code>DS</code> domain, <code>GS</code> geometry, <code>PS</code> pixel, <code>CS</code> compute. For example <code>[Entrypoints VS=VertexFunction PS=PixelFunction]</code>.</td>
+</tr>
+<tr>
+<td><code>[Mode Value]</code></td>
+<td>Compilation mode: <code>None</code> (the default), <code>Debug</code> (with debug information for tools such as <a href="https://renderdoc.org/">RenderDoc</a> or <a href="https://devblogs.microsoft.com/pix/">PIX</a>) or <code>Release</code> (fully optimized).</td>
+</tr>
+<tr>
+<td><code>[UsedDirectives A B ...]</code></td>
+<td>Directives this pass depends on besides the ones its own <code>#if</code> lines test, for example directives tested inside an included library. Other directives do not create new combinations of this pass.</td>
+</tr>
+<tr>
+<td><code>[RequireWith A B ...]</code></td>
+<td>The pass only runs when at least one of these directive values is active. Use it for passes that only make sense with a feature on.</td>
+</tr>
+<tr>
+<td><code>[numthreads(X, Y, Z)]</code></td>
+<td>Standard HLSL attribute on a compute entry point. Evergine also reads it to know the thread group size.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-hlsl">[Begin_Pass:GBuffer]
+    [Profile 12_1]
+    [Entrypoints VS=VertexFunction PS=PixelFunction]
+    [UsedDirectives PREV_POS NORMAL MT_RG_TEXTURED ATEST DIFF MULTIVIEW_VI MULTIVIEW_RTI]
+    ...
+[End_Pass]
+</code></pre>
+<h2 id="render-state-overrides">Render state overrides</h2>
+<p>Inside a graphics pass, these tags override one property of the material's <a href="../renderlayers/index.html">render layer</a> for that pass only. The rest of the render state still comes from the layer. They are not allowed in compute passes.</p>
+<pre><code class="lang-hlsl">[Begin_Pass:ZPrePass]
+    [Profile 10_0]
+    [Entrypoints VS=VS PS=PS]
+    [RT0ColorWriteChannels None]
+    ...
+[End_Pass]
+</code></pre>
+<h3 id="rasterizer-state">Rasterizer state</h3>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[FillMode Value]</code></td>
+<td><code>Solid</code>, <code>Wireframe</code></td>
+<td>How triangles are filled.</td>
+</tr>
+<tr>
+<td><code>[CullMode Value]</code></td>
+<td><code>None</code>, <code>Front</code>, <code>Back</code></td>
+<td>Which faces are discarded.</td>
+</tr>
+<tr>
+<td><code>[FrontCounterClockwise bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Whether counter-clockwise triangles are front-facing.</td>
+</tr>
+<tr>
+<td><code>[DepthBias int]</code></td>
+<td>integer</td>
+<td>Constant depth added to each pixel.</td>
+</tr>
+<tr>
+<td><code>[DepthBiasClamp float]</code></td>
+<td>float</td>
+<td>Maximum depth bias of a pixel.</td>
+</tr>
+<tr>
+<td><code>[SlopeScaledDepthBias float]</code></td>
+<td>float</td>
+<td>Depth bias scaled by the slope of the triangle.</td>
+</tr>
+<tr>
+<td><code>[DepthClipEnable bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Whether geometry is clipped against the near and far planes.</td>
+</tr>
+<tr>
+<td><code>[ScissorEnable bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Whether pixels outside the scissor rectangle are discarded.</td>
+</tr>
+<tr>
+<td><code>[AntialiasedLineEnable bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Line antialiasing, when drawing lines without multisampling.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>[DepthBiasClamp]</code> is currently not applied: the analyzer takes it for a malformed <code>[DepthBias]</code> tag and skips it. Set the clamp in the render layer instead.</p>
+</div>
+<h3 id="blend-state">Blend state</h3>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[AlphaToCoverageEnable bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Use alpha to coverage when rendering to a multisampled target.</td>
+</tr>
+<tr>
+<td><code>[IndependentBlendEnable bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Blend each render target with its own settings. When false, only render target 0's settings are used.</td>
+</tr>
+<tr>
+<td><code>[RT0BlendEnable bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Enable blending on render target 0.</td>
+</tr>
+<tr>
+<td><code>[RT0SourceBlendColor Value]</code></td>
+<td><code>Blend</code> value</td>
+<td>Factor applied to the color the shader outputs.</td>
+</tr>
+<tr>
+<td><code>[RT0DestinationBlendColor Value]</code></td>
+<td><code>Blend</code> value</td>
+<td>Factor applied to the color already in the target.</td>
+</tr>
+<tr>
+<td><code>[RT0BlendOperationColor Value]</code></td>
+<td><code>Add</code>, <code>Substract</code>, <code>ReverseSubstract</code>, <code>Min</code>, <code>Max</code></td>
+<td>How the two colors are combined.</td>
+</tr>
+<tr>
+<td><code>[RT0SourceBlendAlpha Value]</code></td>
+<td><code>Blend</code> value</td>
+<td>Factor applied to the alpha the shader outputs.</td>
+</tr>
+<tr>
+<td><code>[RT0DestinationBlendAlpha Value]</code></td>
+<td><code>Blend</code> value</td>
+<td>Factor applied to the alpha already in the target.</td>
+</tr>
+<tr>
+<td><code>[RT0BlendOperationAlpha Value]</code></td>
+<td><code>Add</code>, <code>Substract</code>, <code>ReverseSubstract</code>, <code>Min</code>, <code>Max</code></td>
+<td>How the two alphas are combined.</td>
+</tr>
+<tr>
+<td><code>[RT0ColorWriteChannels Value]</code></td>
+<td><code>None</code>, <code>Red</code>, <code>Green</code>, <code>Blue</code>, <code>Alpha</code>, <code>All</code></td>
+<td>Which channels of render target 0 are written.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The blend operation values are spelled <code>Substract</code> and <code>ReverseSubstract</code>, as in the <code>BlendOperation</code> enum.</p>
+</div>
+<p><code>Blend</code> values are <code>Zero</code>, <code>One</code>, <code>SourceColor</code>, <code>InverseSourceColor</code>, <code>SourceAlpha</code>, <code>InverseSourceAlpha</code>, <code>DestinationAlpha</code>, <code>InverseDestinationAlpha</code>, <code>DestinationColor</code>, <code>InverseDestinationColor</code>, <code>SourceAlphaSaturate</code>, <code>BlendFactor</code>, <code>InverseBlendFactor</code>, <code>SecondarySourceColor</code>, <code>InverseSecondarySourceColor</code>, <code>SecondarySourceAlpha</code> and <code>InverseSecondarySourceAlpha</code>.</p>
+<h3 id="depth-stencil-state">Depth-stencil state</h3>
+<table>
+<thead>
+<tr>
+<th>Tag</th>
+<th>Values</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>[DepthEnable bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Enable the depth test.</td>
+</tr>
+<tr>
+<td><code>[DepthWriteMask bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Whether the pass writes depth.</td>
+</tr>
+<tr>
+<td><code>[DepthFunction Value]</code></td>
+<td><code>ComparisonFunction</code> value</td>
+<td>How the new depth is compared with the stored one.</td>
+</tr>
+<tr>
+<td><code>[StencilEnable bool]</code></td>
+<td><code>true</code>, <code>false</code></td>
+<td>Enable the stencil test.</td>
+</tr>
+<tr>
+<td><code>[StencilReadMask byte]</code></td>
+<td>0-255</td>
+<td>Bits of the stencil buffer that are read.</td>
+</tr>
+<tr>
+<td><code>[StencilWriteMask byte]</code></td>
+<td>0-255</td>
+<td>Bits of the stencil buffer that are written.</td>
+</tr>
+<tr>
+<td><code>[FrontFaceStencilFailOperation Value]</code></td>
+<td><code>StencilOperation</code> value</td>
+<td>What to do on front faces when the stencil test fails.</td>
+</tr>
+<tr>
+<td><code>[FrontFaceStencilDepthFailOperation Value]</code></td>
+<td><code>StencilOperation</code> value</td>
+<td>What to do on front faces when the stencil test passes and the depth test fails.</td>
+</tr>
+<tr>
+<td><code>[FrontFaceStencilPassOperation Value]</code></td>
+<td><code>StencilOperation</code> value</td>
+<td>What to do on front faces when both tests pass.</td>
+</tr>
+<tr>
+<td><code>[FrontFaceStencilFunction Value]</code></td>
+<td><code>ComparisonFunction</code> value</td>
+<td>How stencil values are compared on front faces.</td>
+</tr>
+<tr>
+<td><code>[BackFaceStencilFailOperation Value]</code></td>
+<td><code>StencilOperation</code> value</td>
+<td>The same four settings for back faces.</td>
+</tr>
+<tr>
+<td><code>[BackFaceStencilDepthFailOperation Value]</code></td>
+<td><code>StencilOperation</code> value</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[BackFaceStencilPassOperation Value]</code></td>
+<td><code>StencilOperation</code> value</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[BackFaceStencilFunction Value]</code></td>
+<td><code>ComparisonFunction</code> value</td>
+<td></td>
+</tr>
+<tr>
+<td><code>[StencilReference int]</code></td>
+<td>integer</td>
+<td>Reference value for the stencil test.</td>
+</tr>
+</tbody>
+</table>
+<p><code>ComparisonFunction</code> values are <code>Never</code>, <code>Less</code>, <code>Equal</code>, <code>LessEqual</code>, <code>Greater</code>, <code>NotEqual</code>, <code>GreaterEqual</code> and <code>Always</code>. <code>StencilOperation</code> values are <code>Keep</code>, <code>Zero</code>, <code>Replace</code>, <code>IncrementSaturation</code>, <code>DecrementSaturation</code>, <code>Invert</code>, <code>Increment</code> and <code>Decrement</code>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

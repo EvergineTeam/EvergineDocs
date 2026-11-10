@@ -1,0 +1,681 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Animation Blend Tree | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation Blend Tree | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation-blend-tree">Animation Blend Tree</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/AnimationTransition.mp4" type="video/mp4">
+</video>
+<p>A blend tree combines several <a href="animation_clip.html">animation clips</a> into one pose. The leaves of the tree play clips of the model, and every node above them blends the poses of its two children: a crossfade from walk to run, a blend between walk and run driven by the character's speed, or a small additive motion on top of a cycle.</p>
+<p><code>Animation3D</code> plays the root of the tree like any other clip, and <a href="#animation-layers">animation layers</a> let you play several trees at once, for example one for the legs and one for the arms.</p>
+<h2 id="how-a-blend-tree-works">How a blend tree works</h2>
+<p>Every node is an <code>AnimationBlendClip</code>. An <code>AnimationTrackClip</code> samples one <code>AnimationClip</code> of the model; a <code>BinaryAnimationBlendClip</code> owns two child clips, <code>ClipA</code> and <code>ClipB</code>, and combines their samples. Each update, <code>Animation3D</code> calls <code>UpdateClip()</code> on the root, the call travels down to the leaves, and the blended pose travels back up and is written to the entities of the model.</p>
+<p><img src="images/animationBlendClip.png" alt="A SynchronizedTransitionClip at the root blends two SynchronizedTransitionClip nodes, crouch to walk and walk to run, and each of them blends two AnimationTrackClip leaves"></p>
+<p><em>The tree built in the <a href="#example-blend-crouch-walk-and-run-by-speed">speed blend example</a>. The <code>Lerp</code> of each node chooses how much of each child reaches its parent; only the leaves read clip data.</em></p>
+<table>
+<thead>
+<tr>
+<th>Clip</th>
+<th>Children</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#animationtrackclip"><code>AnimationTrackClip</code></a></td>
+<td>none</td>
+<td>Plays one <code>AnimationClip</code>, or a time range of it.</td>
+</tr>
+<tr>
+<td><a href="#dummytrackclip"><code>DummyTrackClip</code></a></td>
+<td>none</td>
+<td>Plays nothing. A placeholder leaf.</td>
+</tr>
+<tr>
+<td><a href="#transitionclip"><code>TransitionClip</code></a></td>
+<td>two</td>
+<td>Fades from <code>ClipA</code> to <code>ClipB</code> over a fixed time, then becomes <code>ClipB</code>.</td>
+</tr>
+<tr>
+<td><a href="#synchronizedtransitionclip"><code>SynchronizedTransitionClip</code></a></td>
+<td>two</td>
+<td>Blends <code>ClipA</code> and <code>ClipB</code> by a weight you control, keeping both at the same phase.</td>
+</tr>
+<tr>
+<td><a href="#additiveblendingclip"><code>AdditiveBlendingClip</code></a></td>
+<td>two</td>
+<td>Adds the motion of <code>ClipB</code> on top of <code>ClipA</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>All these types are in the <code>Evergine.Components.Animation</code> namespace.</p>
+<h2 id="animationblendclip">AnimationBlendClip</h2>
+<p>The abstract base of every node. What each property means for a particular node depends on its type: a <code>TransitionClip</code>, for example, reports the duration of the clip it fades to.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>State</strong></td>
+<td><code>Playing</code></td>
+<td><code>Playing</code> or <code>Stopped</code>. Change it with <code>Play()</code> and <code>Pause()</code>.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td></td>
+<td>Whether the clip restarts when it ends.</td>
+</tr>
+<tr>
+<td><strong>PlaybackRate</strong></td>
+<td>1</td>
+<td>Speed factor. A negative value plays backwards.</td>
+</tr>
+<tr>
+<td><strong>PlayTime</strong></td>
+<td>0</td>
+<td>Current time in seconds.</td>
+</tr>
+<tr>
+<td><strong>Phase</strong></td>
+<td>0</td>
+<td><code>PlayTime</code> divided by <code>Duration</code>: 0 at the start of the clip, 1 at its end. Setting it seeks.</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td></td>
+<td>Length of the clip in seconds.</td>
+</tr>
+<tr>
+<td><strong>Framerate</strong></td>
+<td></td>
+<td>Frames per second of the clip. 0 for clips loaded from a model asset.</td>
+</tr>
+<tr>
+<td><strong>Frame</strong></td>
+<td>0</td>
+<td><code>PlayTime</code> in frames.</td>
+</tr>
+<tr>
+<td><strong>StartAnimationTime</strong> / <strong>EndAnimationTime</strong></td>
+<td></td>
+<td>The time range that plays, in seconds.</td>
+</tr>
+<tr>
+<td><strong>GlobalStartTime</strong></td>
+<td></td>
+<td>The application time at which the clip would have started to reach its current <code>PlayTime</code>.</td>
+</tr>
+<tr>
+<td><strong>ListenKeyframeEvents</strong></td>
+<td>true</td>
+<td>Whether this clip raises <a href="#keyframe-events-in-a-blend-tree">keyframe events</a>.</td>
+</tr>
+<tr>
+<td><strong>HierarchyMapping</strong></td>
+<td>null</td>
+<td>The map from model nodes to entities. <code>Animation3D</code> sets it when it plays the clip.</td>
+</tr>
+<tr>
+<td><strong>Sample</strong></td>
+<td></td>
+<td>The pose computed in the last update.</td>
+</tr>
+<tr>
+<td><strong>UpdateRequired</strong></td>
+<td></td>
+<td>Whether the clip needs an update: it is playing, or its <code>PlayTime</code> was set.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Play()</strong></td>
+<td>Sets <code>State</code> to <code>Playing</code>.</td>
+</tr>
+<tr>
+<td><strong>Pause()</strong></td>
+<td>Sets <code>State</code> to <code>Stopped</code>. The clip keeps its time.</td>
+</tr>
+<tr>
+<td><strong>UpdateClip()</strong></td>
+<td>Advances the clip, computes its <code>Sample</code> and returns the clip to use from now on: itself, or, for a finished <code>TransitionClip</code>, its <code>ClipB</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A clip object can be played by one <code>Animation3D</code> only, and should appear only once in a tree: each clip keeps its own time and sample. To use the same <code>AnimationClip</code> in two places, create two <code>AnimationTrackClip</code> objects.</p>
+</div>
+<h2 id="animationtrackclip">AnimationTrackClip</h2>
+<p>The leaf that reads a clip of the model. <code>Animation3D.PlayAnimation(name)</code> builds one for you; build it yourself to put a clip into a tree.</p>
+<pre><code class="lang-csharp">AnimationClip walk = this.animation3D.Model.Animations[&quot;walk&quot;];
+
+// looping is false by default here, unlike PlayAnimation, where loop defaults to true.
+var walkClip = new AnimationTrackClip(walk, looping: true);
+
+// Only the range between seconds 0.5 and 1.5, at half speed.
+var partialClip = new AnimationTrackClip(walk, looping: true, playbackRate: 0.5f, startTime: 0.5f, endTime: 1.5f);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Constructor parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>track</strong></td>
+<td></td>
+<td>The <code>AnimationClip</code> to play.</td>
+</tr>
+<tr>
+<td><strong>looping</strong></td>
+<td>false</td>
+<td>Whether it restarts when it ends.</td>
+</tr>
+<tr>
+<td><strong>playbackRate</strong></td>
+<td>1</td>
+<td>Speed factor.</td>
+</tr>
+<tr>
+<td><strong>startTime</strong> / <strong>endTime</strong></td>
+<td>null</td>
+<td>The range to play, in seconds. Null means the start and the end of the clip.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Track</code> returns the <code>AnimationClip</code>, and <code>UpdateAnimationRange(startTime, endTime)</code> changes the range while it plays.</p>
+<h2 id="dummytrackclip">DummyTrackClip</h2>
+<p>A leaf with no data: it has no duration and writes nothing. Use it where a tree needs a child but there is nothing to play yet.</p>
+<h2 id="binaryanimationblendclip">BinaryAnimationBlendClip</h2>
+<p>The abstract base of the nodes with two children. The children are passed to the constructor and cannot be changed afterwards.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ClipA</strong></td>
+<td></td>
+<td>The first child.</td>
+</tr>
+<tr>
+<td><strong>ClipB</strong></td>
+<td></td>
+<td>The second child.</td>
+</tr>
+<tr>
+<td><strong>ListenAnimationThreshold</strong></td>
+<td>0</td>
+<td>Minimum weight a child needs for its keyframe events to be raised. See <a href="#keyframe-events-in-a-blend-tree">Keyframe events in a blend tree</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transitionclip">TransitionClip</h2>
+<p>Fades from <code>ClipA</code> to <code>ClipB</code> over a fixed time. Both children play during the fade; when it ends, <code>UpdateClip()</code> returns <code>ClipB</code>. This is the clip that <code>Animation3D.PlayAnimation</code> builds when you pass a <code>transitionTime</code>.</p>
+<pre><code class="lang-csharp">new TransitionClip(clipA, clipB, duration: 0.3f, playbackRate: 1, smoothTransition: false)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Constructor parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>clipA</strong></td>
+<td></td>
+<td>The clip to fade from, usually what is playing now (<code>Animation3D.Clip</code>).</td>
+</tr>
+<tr>
+<td><strong>clipB</strong></td>
+<td></td>
+<td>The clip to fade to.</td>
+</tr>
+<tr>
+<td><strong>duration</strong></td>
+<td></td>
+<td>Length of the fade, in seconds.</td>
+</tr>
+<tr>
+<td><strong>playbackRate</strong></td>
+<td>1</td>
+<td>Speed of the fade itself. 2 finishes it in half the <code>duration</code>.</td>
+</tr>
+<tr>
+<td><strong>smoothTransition</strong></td>
+<td>false</td>
+<td>Eases the weight in and out (a smoothstep) instead of changing it linearly.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Loop</code>, <code>PlayTime</code>, <code>Duration</code>, <code>PlaybackRate</code> and the time range of a <code>TransitionClip</code> are those of <code>ClipB</code>, so <code>Animation3D</code> reports the new clip as soon as the fade starts.</p>
+<h3 id="example-crossfade-from-walk-to-run">Example: crossfade from walk to run</h3>
+<p>This behavior fades between a walk and a run whenever <code>Run</code> changes. It keeps its own two <code>AnimationTrackClip</code> objects and always fades from the clip it faded to last, so the tree is never more than one transition deep, however many times the character switches.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.Animation;
+using Evergine.Framework;
+
+public class WalkRunCrossfade : Behavior
+{
+    [BindComponent]
+    private Animation3D animation3D = null;
+
+    private AnimationTrackClip walk;
+    private AnimationTrackClip run;
+    private AnimationTrackClip current;
+
+    // Set by your input or AI code.
+    public bool Run { get; set; }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        var animations = this.animation3D.Model.Animations;
+        this.walk = new AnimationTrackClip(animations[&quot;walk&quot;], looping: true);
+        this.run = new AnimationTrackClip(animations[&quot;run&quot;], looping: true);
+
+        this.current = this.walk;
+        this.animation3D.PlayAnimation(this.walk);
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        AnimationTrackClip next = this.Run ? this.run : this.walk;
+        if (next == this.current)
+        {
+            return;
+        }
+
+        // Both cycles start on the same foot, so starting the new one at the same phase
+        // keeps the steps roughly in time during the fade.
+        next.Phase = this.current.Phase;
+
+        // No transitionTime here: the TransitionClip replaces the first layer as it is,
+        // instead of being wrapped around the previous one.
+        this.animation3D.PlayAnimation(new TransitionClip(this.current, next, duration: 0.3f, smoothTransition: true));
+        this.current = next;
+    }
+}
+</code></pre>
+<h2 id="synchronizedtransitionclip">SynchronizedTransitionClip</h2>
+<p>Blends <code>ClipA</code> and <code>ClipB</code> by a weight, <code>Lerp</code>, that you set every frame. Before each update it sets both children to the same <code>Phase</code>, so two cycles of different length stay in step: the left foot of the walk lands together with the left foot of the run, and the blend never crosses its legs. That makes it the node for locomotion driven by a continuous value such as speed.</p>
+<pre><code class="lang-csharp">new SynchronizedTransitionClip(clipA, clipB, loop: true, playbackRate: 1)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lerp</strong></td>
+<td>0</td>
+<td>Weight of <code>ClipB</code>, clamped to [0, 1]. At 0 only <code>ClipA</code> plays, at 1 only <code>ClipB</code>. At exactly 0 or 1, the child with no weight is not updated at all.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>true</td>
+<td>Applied to both children.</td>
+</tr>
+<tr>
+<td><strong>PlaybackRate</strong></td>
+<td>1</td>
+<td>Applied to both children.</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td></td>
+<td>The durations of the children blended by <code>Lerp</code>, so the cycle stretches smoothly from one length to the other.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-blend-crouch-walk-and-run-by-speed">Example: blend crouch, walk and run by speed</h3>
+<p>A <code>SynchronizedTransitionClip</code> blends two clips, so three clips need two levels: one node blends crouch and walk, another walk and run, and the root chooses between them. This is the tree in the diagram at the top of the page.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.Animation;
+using Evergine.Framework;
+using Evergine.Mathematics;
+
+public class LocomotionBlend : Behavior
+{
+    [BindComponent]
+    private Animation3D animation3D = null;
+
+    private SynchronizedTransitionClip root;
+    private SynchronizedTransitionClip crouchToWalk;
+    private SynchronizedTransitionClip walkToRun;
+
+    // 0 is crouching, 1 walking and 2 running. Set it from the character's speed.
+    public float Speed { get; set; } = 1;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        var animations = this.animation3D.Model.Animations;
+
+        // Walk appears in both branches, and each branch needs its own clip object.
+        var crouch = new AnimationTrackClip(animations[&quot;crouch&quot;], looping: true);
+        var walkSlow = new AnimationTrackClip(animations[&quot;walk&quot;], looping: true);
+        var walkFast = new AnimationTrackClip(animations[&quot;walk&quot;], looping: true);
+        var run = new AnimationTrackClip(animations[&quot;run&quot;], looping: true);
+
+        this.crouchToWalk = new SynchronizedTransitionClip(crouch, walkSlow);
+        this.walkToRun = new SynchronizedTransitionClip(walkFast, run);
+        this.root = new SynchronizedTransitionClip(this.crouchToWalk, this.walkToRun);
+
+        this.animation3D.PlayAnimation(this.root);
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        float speed = MathHelper.Clamp(this.Speed, 0, 2);
+
+        // The root only picks a branch. Both branches are pure walk at speed 1,
+        // so switching there does not change the pose.
+        this.root.Lerp = speed &lt;= 1 ? 0 : 1;
+
+        // Lerp is clamped, so the branch that is not in use simply saturates.
+        this.crouchToWalk.Lerp = speed;
+        this.walkToRun.Lerp = speed - 1;
+    }
+}
+</code></pre>
+<h2 id="additiveblendingclip">AdditiveBlendingClip</h2>
+<p>Adds the motion of <code>ClipB</code> on top of <code>ClipA</code>: <code>ClipB</code> positions are added to those of <code>ClipA</code>, and <code>ClipB</code> rotations are combined with those of <code>ClipA</code>. The time, duration and loop of the node are those of <code>ClipA</code>.</p>
+<p><code>ClipB</code> must therefore hold <strong>offsets from a rest pose</strong>, not a full pose: a difference clip, such as a breathing or recoil motion authored as offsets, or a clip converted with <code>AnimationClip.SubstractSample</code>. Adding a full pose to another would apply every bone's rotation twice. To replace part of the body with another clip instead, use an <a href="#animation-layers">animation layer</a>.</p>
+<pre><code class="lang-csharp">var animations = this.animation3D.Model.Animations;
+var walk = new AnimationTrackClip(animations[&quot;walk&quot;], looping: true);
+var breathe = new AnimationTrackClip(animations[&quot;breathe_offsets&quot;], looping: true);
+
+// Set BlendFactor as a property: see the note below.
+var clip = new AdditiveBlendingClip(walk, breathe, loop: true) { BlendFactor = 0.5f };
+
+this.animation3D.PlayAnimation(clip);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BlendFactor</strong></td>
+<td>1</td>
+<td>How much of <code>ClipB</code> is added. 0 plays <code>ClipA</code> alone and does not update <code>ClipB</code>.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>true</td>
+<td>Applied to <code>ClipA</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>On the current engine version the <code>blendFactor</code> argument of the constructor is ignored and <code>BlendFactor</code> always starts at 1. Set the property after construction, as in the example.</p>
+</div>
+<h2 id="keyframe-events-in-a-blend-tree">Keyframe events in a blend tree</h2>
+<p>Every clip in a tree can raise the <a href="animation_clip.html#keyframe-events">keyframe events</a> of the clip it plays, and <code>Animation3D.OnKeyFrameEvent</code> receives all of them. During a blend that often means twice as many events as you want: a crossfade from walk to run raises the footsteps of both.</p>
+<p>Two settings choose which clips are heard:</p>
+<ul>
+<li><strong>ListenKeyframeEvents</strong> on any clip. Set it to <code>false</code> and that clip raises no events.</li>
+<li><strong>ListenAnimationThreshold</strong> on a <code>BinaryAnimationBlendClip</code>. A child raises events only while its weight reaches the threshold. In a transition the weights are <code>1 - w</code> for <code>ClipA</code> and <code>w</code> for <code>ClipB</code>, where <code>w</code> is the progress of a <code>TransitionClip</code> or the <code>Lerp</code> of a <code>SynchronizedTransitionClip</code>; in an <code>AdditiveBlendingClip</code>, <code>ClipA</code> always raises its events and <code>ClipB</code> only while <code>BlendFactor</code> is above the threshold.</li>
+</ul>
+<pre><code class="lang-csharp">// Only the clip that dominates the blend plays its footsteps.
+var transition = new TransitionClip(this.current, next, duration: 0.3f)
+{
+    ListenAnimationThreshold = 0.5f,
+};
+</code></pre>
+<h2 id="animation-layers">Animation layers</h2>
+<p>A blend tree produces one pose. Animation layers play several poses at once: <code>Animation3D</code> keeps a list of layers, each one an <code>AnimationBlendClip</code> (a single clip or a whole tree), and applies them in order every update.</p>
+<p><img src="images/animation_layers.png" alt="Animation3D holds a list of layers. Each update it walks the list in order; each layer computes its sample and writes the channels it animates to the model entities, so layer 1, an upper-body wave, overwrites the arm and spine bones that layer 0, a full-body walk, wrote first, and the legs keep the walk"></p>
+<p><em>Layers do not blend: each one writes the properties it animates, and the last write wins. A layer with only upper-body channels leaves the legs to the layers before it.</em></p>
+<ul>
+<li>The first layer is the one <code>PlayAnimation</code> starts and replaces, and the one <code>Animation3D.Clip</code>, <code>Loop</code>, <code>PlaybackRate</code> and <code>PlayTime</code> refer to.</li>
+<li><code>AddAnimationLayer(clip)</code> adds a layer at the end of the list: it is applied after, and so over, the layers already there. Start the first layer with <code>PlayAnimation</code> before adding others: on an empty list, <code>AddAnimationLayer</code> creates the first layer, and the next <code>PlayAnimation</code> replaces it.</li>
+<li><code>RemoveAnimationLayer(clip)</code> takes it out. From the next update, the nodes it animated follow the layers below it again, if those animate them.</li>
+<li>Each layer keeps its own time. Control it through the clip object you added: <code>Pause()</code>, <code>Play()</code>, <code>PlayTime</code>, <code>PlaybackRate</code>.</li>
+</ul>
+<p>There is no animation state machine in Evergine. The usual transitions of one are a <code>TransitionClip</code> in a layer, and the conditions that trigger them are ordinary code in a <code>Behavior</code>, as in the <a href="#example-crossfade-from-walk-to-run">crossfade example</a>.</p>
+<h3 id="example-an-upper-body-layer">Example: an upper-body layer</h3>
+<p>The walk keeps playing on the first layer. A second layer plays the wave clip, but only its channels for the spine and everything below it in the skeleton, so the arms and head wave and the legs keep walking.</p>
+<pre><code class="lang-csharp">using System;
+using System.Collections.Generic;
+using Evergine.Components.Animation;
+using Evergine.Framework;
+using Evergine.Framework.Animation;
+using Evergine.Framework.Graphics;
+
+public class UpperBodyWave : Component
+{
+    [BindComponent]
+    private Animation3D animation3D = null;
+
+    private AnimationTrackClip waveLayer;
+
+    // The first bone of the upper body. This name comes from a Mixamo skeleton.
+    public string UpperBodyRoot { get; set; } = &quot;mixamorig:Spine1&quot;;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        Model model = this.animation3D.Model;
+
+        // First layer: the whole body walks.
+        this.animation3D.PlayAnimation(&quot;walk&quot;);
+
+        // Collect the upper body: the root bone and all its descendants.
+        int upperBodyRoot = Array.FindIndex(model.AllNodes, node =&gt; node.Name == this.UpperBodyRoot);
+        if (upperBodyRoot &lt; 0)
+        {
+            throw new InvalidOperationException($&quot;The model has no node named {this.UpperBodyRoot}.&quot;);
+        }
+
+        var upperBody = new HashSet&lt;int&gt;();
+        var pending = new Stack&lt;int&gt;();
+        pending.Push(upperBodyRoot);
+        while (pending.Count &gt; 0)
+        {
+            int index = pending.Pop();
+            upperBody.Add(index);
+
+            foreach (int child in model.AllNodes[index].ChildIndices ?? Array.Empty&lt;int&gt;())
+            {
+                pending.Push(child);
+            }
+        }
+
+        // A new clip with only the upper-body channels of the wave. The channels are new,
+        // but they share the curves of the original: the keyframes are not copied.
+        AnimationClip wave = model.Animations[&quot;wave&quot;];
+        var upperBodyWave = new AnimationClip()
+        {
+            Name = &quot;wave_upper_body&quot;,
+            Duration = wave.Duration,
+            Framerate = wave.Framerate,
+        };
+
+        foreach (AnimationChannel channel in wave.Channels)
+        {
+            if (upperBody.Contains(channel.NodeIndex))
+            {
+                upperBodyWave.AddChannel(new AnimationChannel()
+                {
+                    NodeIndex = channel.NodeIndex,
+                    ComponentType = channel.ComponentType,
+                    PropertyName = channel.PropertyName,
+                    Duration = channel.Duration,
+                    Curve = channel.Curve,
+                });
+            }
+        }
+
+        // Second layer: applied after the walk, so it wins on the bones it animates.
+        this.waveLayer = new AnimationTrackClip(upperBodyWave, looping: true);
+        this.animation3D.AddAnimationLayer(this.waveLayer);
+    }
+
+    public void StopWaving()
+    {
+        // The walk writes the arms again on the next update.
+        this.animation3D.RemoveAnimationLayer(this.waveLayer);
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Use the <a href="animation_clip.html#example-inspect-a-clip">clip inspector example</a> to list the node names of your model and pick the bone where the upper body starts.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Build the channels as shown instead of calling <code>AnimationChannel.Clone()</code>: on the current engine version a cloned curve loses its start and end times and always returns its last keyframe.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

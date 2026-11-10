@@ -1,0 +1,167 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Import Audio | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Import Audio | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="import-audio">Import Audio</h1>
+
+<hr>
+<p><img src="images/importAudios.jpg" alt="Audio header"></p>
+<p>A <strong>sound asset</strong> is an audio file that Evergine has imported, ready to be played by a <a href="using_audio_from_editor.html"><code>SoundEmitter3D</code></a> or loaded from code as an <code>AudioBuffer</code>. Import your sound effects and music this way so that Evergine Studio can convert them to the format each platform profile needs.</p>
+<h2 id="import-an-audio-file-in-evergine-studio">Import an audio file in Evergine Studio</h2>
+<p>Drag an audio file into the <a href="../evergine_studio/interface.html">Assets Details</a> panel, as explained in <a href="../evergine_studio/assets/create.html">Create Assets</a>. Evergine Studio adds the file to your <code>Content</code> directory and creates the sound asset.</p>
+<p><img src="images/import_audio.jpg" alt="Create new audio menu option"></p>
+<h2 id="supported-formats">Supported formats</h2>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Format</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.wav</code></td>
+<td>Waveform audio</td>
+<td>Uncompressed PCM or 32-bit IEEE float. Float data is converted to 16-bit PCM on import. Compressed WAV encodings, such as ADPCM, are rejected.</td>
+</tr>
+<tr>
+<td><code>.mp3</code></td>
+<td>MPEG-1/2 Audio Layer III</td>
+<td>Decoded to 16-bit PCM on import.</td>
+</tr>
+<tr>
+<td><code>.ogg</code></td>
+<td>Ogg Vorbis</td>
+<td>Decoded and converted to 16-bit PCM on import.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The sample rate of the source file must be one of the rates Evergine supports: 8000, 11025, 12000, 16000, 22050, 24000, 32000, 44100 or 48000 Hz. A file recorded at another rate, 96 kHz for example, fails to import. Resample it in an audio tool first.</p>
+</div>
+<h2 id="files-in-the-content-directory">Files in the Content directory</h2>
+<p>Importing an audio file creates a metadata file with the <code>.wesn</code> extension next to it. The metadata stores the asset id and the export profiles described in <a href="audio_editor.html">Audio Editor</a>.</p>
+<p><img src="images/audioFile.jpg" alt="Audio file"></p>
+<p>When the project content is built, each sound asset is exported to a <code>.wepsn</code> file in the format its profile asks for: the audio is mixed down to mono or up to stereo, resampled and quantized to 8 or 16 bits as needed. The original file stays untouched, so you can change the profile at any time and export again.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A sound played by a <code>SoundEmitter3D</code> must be <strong>mono</strong>. Set <strong>ChannelFormat</strong> to <code>Mono</code> in the asset profile rather than preparing a separate mono file.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

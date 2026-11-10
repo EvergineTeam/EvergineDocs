@@ -1,0 +1,232 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Create a Custom LineBatch | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create a Custom LineBatch | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="create-a-custom-linebatch">Create a Custom LineBatch</h1>
+
+<hr>
+<p>The <code>LineBatch3D</code> of the <code>RenderManager</code> covers most needs. Create your own batch when you want to transform every line at once, draw into a different render layer, or keep a set of lines that does not change from frame to frame without affecting the shared batch.</p>
+<h2 id="how-to-create-a-custom-linebatch">How to create a custom LineBatch</h2>
+<p>A <code>LineBatch3D</code> is a render object: you create it with a <code>GraphicsContext</code> and a <code>RenderLayerDescription</code>, then register it with the render manager so that it is collected every frame.</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class MyDrawable : Drawable3D
+{
+    [BindService]
+    private AssetsService assetsService = null;
+
+    [BindService]
+    private GraphicsContext graphicsContext = null;
+
+    private LineBatch3D lineBatch;
+
+    protected override bool OnAttached()
+    {
+        // The render layer decides the render state (depth, blending, culling) the lines are drawn with.
+        var layer = this.assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID);
+
+        this.lineBatch = new LineBatch3D(this.graphicsContext, layer);
+
+        // Registering the batch is what makes the render manager collect and draw it.
+        this.Managers.RenderManager.AddRenderObject(this.lineBatch);
+
+        return base.OnAttached();
+    }
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+        this.lineBatch.IsEnabled = true;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+        this.lineBatch.IsEnabled = false;
+    }
+
+    protected override void OnDetached()
+    {
+        this.Managers.RenderManager.RemoveRenderObject(this.lineBatch);
+        this.lineBatch.Dispose();
+        base.OnDetached();
+    }
+
+    public override void Draw(DrawContext drawContext)
+    {
+        this.lineBatch.DrawCone(0.5f, 1.0f, Vector3.UnitY, Vector3.Down, Color.Blue);
+    }
+}
+</code></pre>
+<p><strong>Result</strong></p>
+<p><img src="images/customLinebatch.jpg" alt="MyDrawable component"></p>
+<h2 id="useful-members">Useful members</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Transform</strong></td>
+<td>Identity</td>
+<td>A <code>Matrix4x4</code> applied to every line in the batch. Use it to move, rotate or scale everything at once, for instance to rotate a whole CAD drawing. Set it with <code>SetTransform(ref matrix)</code> or the property.</td>
+</tr>
+<tr>
+<td><strong>ResetAfterRender</strong></td>
+<td>true</td>
+<td>When true, the batch is emptied each time it is collected, so you add the lines again every frame. Set it to false to build the batch once and draw the same lines every frame.</td>
+</tr>
+<tr>
+<td><strong>LineBatchOrderBias</strong></td>
+<td>0</td>
+<td>Moves the batch earlier or later inside its render layer.</td>
+</tr>
+<tr>
+<td><strong>IsEnabled</strong></td>
+<td>true</td>
+<td>Disabled batches are skipped by the render manager.</td>
+</tr>
+<tr>
+<td><strong>Reset()</strong></td>
+<td></td>
+<td>Empties the batch. With <code>ResetAfterRender</code> set to false, call it when the static lines need to change.</td>
+</tr>
+</tbody>
+</table>
+<p>For a batch that never changes, fill it once and turn the per-frame reset off:</p>
+<pre><code class="lang-csharp">this.lineBatch = new LineBatch3D(this.graphicsContext, layer)
+{
+    // Keep the vertices between frames; nothing is added after this point.
+    ResetAfterRender = false,
+};
+
+for (int i = -10; i &lt;= 10; i++)
+{
+    this.lineBatch.DrawLine(new Vector3(i, 0, -10), new Vector3(i, 0, 10), Color.Gray);
+    this.lineBatch.DrawLine(new Vector3(-10, 0, i), new Vector3(10, 0, i), Color.Gray);
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

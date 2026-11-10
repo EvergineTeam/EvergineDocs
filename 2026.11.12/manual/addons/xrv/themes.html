@@ -1,0 +1,414 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Themes system | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Themes system | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="themes-system">Themes system</h1>
+
+<hr>
+<p><img src="images/themes_custom_theme.png" alt="Theme with custom colors"></p>
+<p>The themes system controls the look of an XRV application: a palette of colors, two fonts, and a set of shared text styles. XRV windows, buttons, and menus take their colors and fonts from the current theme, so changing one theme value restyles the whole application at runtime. Access it through <code>XrvService.ThemesSystem</code>. The types live in <code>Evergine.Xrv.Core.Themes</code> and <code>Evergine.Xrv.Core.Themes.Texts</code>.</p>
+<h2 id="theme-colors">Theme colors</h2>
+<p>A theme defines its palette with generic color names:</p>
+<table>
+<thead>
+<tr>
+<th>Color</th>
+<th>Default</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PrimaryColor1</code></td>
+<td><code>#041C2C</code></td>
+<td>Window title bars, text of light buttons, and the background of selected list items.</td>
+</tr>
+<tr>
+<td><code>PrimaryColor2</code></td>
+<td><code>#00B5F1</code></td>
+<td>Scroll bars.</td>
+</tr>
+<tr>
+<td><code>PrimaryColor3</code></td>
+<td><code>#EBEBEB</code></td>
+<td>General texts and the active item of tab controls.</td>
+</tr>
+<tr>
+<td><code>SecondaryColor1</code></td>
+<td><code>#70F2F8</code></td>
+<td>Inactive items of tab controls, back plate of some buttons, selection texts, and some manipulators.</td>
+</tr>
+<tr>
+<td><code>SecondaryColor2</code></td>
+<td><code>#62CCD5</code></td>
+<td>Some manipulators.</td>
+</tr>
+<tr>
+<td><code>SecondaryColor3</code></td>
+<td><code>#F10A42</code></td>
+<td>Back plate of the accept option in confirmation dialogs.</td>
+</tr>
+<tr>
+<td><code>SecondaryColor4</code></td>
+<td><code>#0F72E8</code></td>
+<td>Start of the window front plate gradient, and the plate of dialog buttons.</td>
+</tr>
+<tr>
+<td><code>SecondaryColor5</code></td>
+<td><code>#552098</code></td>
+<td>End of the window front plate gradient.</td>
+</tr>
+</tbody>
+</table>
+<p>XRV provides one material per theme color. The themes system changes these materials at runtime to match the theme, and because material instances are shared by every <code>MaterialComponent</code> that uses them, the change applies to the whole application. Use these materials in your own UI elements when you want them to follow the theme. Materials you create yourself are not modified.</p>
+<p><img src="images/themes_default_materials.png" alt="Default theme materials"></p>
+<h2 id="change-theme-colors">Change theme colors</h2>
+<p><code>ThemesSystem.CurrentTheme</code> holds the active <code>Theme</code>. Change its colors, or assign a new <code>Theme</code> instance; a new instance starts with the XRV default values.</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+
+var theme = this.xrvService.ThemesSystem.CurrentTheme;
+theme.PrimaryColor1 = Color.DarkCyan;
+theme.SecondaryColor4 = Color.Blue;
+theme.SecondaryColor5 = Color.DarkBlue;
+</code></pre>
+<p>This code produces the look shown at the top of this page. You can keep several <code>Theme</code> instances and switch between them by assigning <code>CurrentTheme</code>.</p>
+<h2 id="change-theme-fonts">Change theme fonts</h2>
+<p>Themes also define two fonts:</p>
+<table>
+<thead>
+<tr>
+<th>Font</th>
+<th>Default</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PrimaryFont1</code></td>
+<td>Montserrat SemiBold</td>
+<td>Window titles, buttons, section labels, and tab items.</td>
+</tr>
+<tr>
+<td><code>PrimaryFont2</code></td>
+<td>Montserrat Regular</td>
+<td>Content texts, the hand menu, and window buttons.</td>
+</tr>
+</tbody>
+</table>
+<p>Add a font asset to your project and assign its ID:</p>
+<pre><code class="lang-csharp">theme.PrimaryFont1 = EvergineContent.Fonts.MyCustomFont_ttf;
+theme.PrimaryFont2 = EvergineContent.Fonts.MyCustomFont_ttf;
+</code></pre>
+<p><code>EvergineContent.Fonts.MyCustomFont_ttf</code> stands for the ID of your font asset.</p>
+<h2 id="shared-text-styles">Shared text styles</h2>
+<p>Text styles give your 3D texts a uniform look. A style defines a font, a scale, and a color, and you apply it to any number of texts by its key.</p>
+<table>
+<thead>
+<tr>
+<th><code>TextStyle</code> property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ThemeFont</code></td>
+<td><code>ThemeFont?</code></td>
+<td>Theme font used by the style.</td>
+</tr>
+<tr>
+<td><code>Font</code></td>
+<td><code>Guid?</code></td>
+<td>Font asset ID, used when <code>ThemeFont</code> is <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>TextScale</code></td>
+<td><code>float</code></td>
+<td>Scale of the text.</td>
+</tr>
+<tr>
+<td><code>ThemeColor</code></td>
+<td><code>ThemeColor?</code></td>
+<td>Theme color used by the style.</td>
+</tr>
+<tr>
+<td><code>TextColor</code></td>
+<td><code>Color?</code></td>
+<td>Explicit color, used when <code>ThemeColor</code> is <code>null</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Apply a style with these components, setting their <code>TextStyleKey</code>:</p>
+<ul>
+<li><code>Text3dStyle</code>: applies a style to a <code>Text3DMesh</code>.</li>
+<li><code>ButtonTextStyle</code>: applies a style to the text of a button with a <code>StandardButtonConfigurator</code>.</li>
+<li><code>ToggleButtonTextStyle</code>: applies a style to one state of a <code>ToggleButton</code>. Set <code>TargetState</code> and add one component per state.</li>
+</ul>
+<p>The components can also replace the style color: <code>OverrideThemeColor</code> with <code>ExplicitThemeColor</code> uses another theme color, and <code>OverrideColor</code> with <code>ExplicitColor</code> uses a fixed color.</p>
+<p><img src="images/themes_use_text_styles.png" alt="Using text styles"></p>
+<p>XRV defines these styles. All of them use theme fonts and colors, and their keys are constants of <code>DefaultTextStyles</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Style key</th>
+<th>Constant</th>
+<th>Font</th>
+<th>Scale</th>
+<th>Color</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Xrv.Primary1.Size1</code></td>
+<td><code>XrvPrimary1Size1</code></td>
+<td><code>PrimaryFont1</code></td>
+<td>0.012</td>
+<td><code>PrimaryColor3</code></td>
+</tr>
+<tr>
+<td><code>Xrv.Primary1.Size2</code></td>
+<td><code>XrvPrimary1Size2</code></td>
+<td><code>PrimaryFont1</code></td>
+<td>0.01</td>
+<td><code>PrimaryColor3</code></td>
+</tr>
+<tr>
+<td><code>Xrv.Primary1.Size3</code></td>
+<td><code>XrvPrimary1Size3</code></td>
+<td><code>PrimaryFont1</code></td>
+<td>0.008</td>
+<td><code>PrimaryColor3</code></td>
+</tr>
+<tr>
+<td><code>Xrv.Primary2.Size1</code></td>
+<td><code>XrvPrimary2Size1</code></td>
+<td><code>PrimaryFont2</code></td>
+<td>0.007</td>
+<td><code>PrimaryColor3</code></td>
+</tr>
+<tr>
+<td><code>Xrv.Primary2.Size2</code></td>
+<td><code>XrvPrimary2Size2</code></td>
+<td><code>PrimaryFont2</code></td>
+<td>0.006</td>
+<td><code>PrimaryColor3</code></td>
+</tr>
+<tr>
+<td><code>Xrv.Primary2.Size3</code></td>
+<td><code>XrvPrimary2Size3</code></td>
+<td><code>PrimaryFont2</code></td>
+<td>0.005</td>
+<td><code>PrimaryColor3</code></td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Text styles are read when the application starts. Changing a style at runtime has no effect.</p>
+</div>
+<h3 id="add-or-modify-text-styles">Add or modify text styles</h3>
+<p>Implement <code>ITextStyleRegistration</code> to add styles or change the default ones. XRV finds every implementation in your assemblies at startup and calls its <code>Register</code> method with the dictionary of styles.</p>
+<pre><code class="lang-csharp">using System.Collections.Generic;
+using Evergine.Common.Graphics;
+using Evergine.Xrv.Core.Themes;
+using Evergine.Xrv.Core.Themes.Texts;
+
+public class MyTextStylesRegistration : ITextStyleRegistration
+{
+    public void Register(Dictionary&lt;string, TextStyle&gt; registrations)
+    {
+        // Make the biggest default style a little bigger.
+        if (registrations.TryGetValue(DefaultTextStyles.XrvPrimary1Size1, out var defaultStyle))
+        {
+            defaultStyle.TextScale = 0.015f;
+        }
+
+        // Add a style with a fixed color that does not follow the theme.
+        registrations[&quot;RedStyle&quot;] = new TextStyle
+        {
+            ThemeFont = ThemeFont.PrimaryFont1,
+            TextScale = 0.013f,
+            TextColor = Color.Red,
+        };
+    }
+}
+</code></pre>
+<h2 id="react-to-theme-changes">React to theme changes</h2>
+<p>The themes system does not update your own materials, but it tells you when the theme changes. <code>ThemesSystem.ThemeUpdated</code> is raised with a <code>ThemeUpdatedEventArgs</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Theme</code></td>
+<td>The theme that is being applied.</td>
+</tr>
+<tr>
+<td><code>UpdatedColor</code></td>
+<td>The color that changed, when a single color of the current theme changed. <code>null</code> when a new theme was assigned.</td>
+</tr>
+<tr>
+<td><code>IsNewThemeInstance</code></td>
+<td><code>true</code> when a new theme instance was assigned to <code>CurrentTheme</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The following component tints a custom material when the theme changes:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.Themes;
+
+public class ThemedHighlight : Component
+{
+    [BindService]
+    private XrvService xrvService = null;
+
+    private ThemesSystem Themes =&gt; this.xrvService.ThemesSystem;
+
+    protected override bool OnAttached()
+    {
+        bool attached = base.OnAttached();
+        if (attached)
+        {
+            this.Themes.ThemeUpdated += this.OnThemeUpdated;
+        }
+
+        return attached;
+    }
+
+    protected override void OnDetached()
+    {
+        base.OnDetached();
+        this.Themes.ThemeUpdated -= this.OnThemeUpdated;
+    }
+
+    private void OnThemeUpdated(object sender, ThemeUpdatedEventArgs args)
+    {
+        if (args.IsNewThemeInstance || args.UpdatedColor == ThemeColor.PrimaryColor1)
+        {
+            var color = args.Theme.GetColor(ThemeColor.PrimaryColor1);
+            // Apply the color to your own material here.
+        }
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

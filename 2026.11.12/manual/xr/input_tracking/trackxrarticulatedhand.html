@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>TrackXRArticulatedHand | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="TrackXRArticulatedHand | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="trackxrarticulatedhand">TrackXRArticulatedHand</h1>
+
+<p><img src="images/trackxrarticulatedhand.jpg" alt="A tracked articulated hand"></p>
+<p><code>TrackXRArticulatedHand</code> makes an entity follow one of the user's hands, and gives you the pose of every joint of that hand. Use it to build hand interactions without controllers: touching buttons with a fingertip, grabbing with a pinch, or drawing the hand yourself.</p>
+<p>Hand tracking comes from the OpenXR <code>XR_EXT_hand_tracking</code> extension, which the <a href="../openxr/metaquest.html">Meta Quest</a>, <a href="../openxr/pico.html">Pico</a> and <a href="../openxr/androidxr.html">Android XR</a> templates enable. Android XR only enables it when the user grants the hand tracking permission. On platforms or runtimes without it, the component never connects.</p>
+<h2 id="hand-joints">Hand joints</h2>
+<p>Joints are identified by the <code>XRHandJointKind</code> enumeration: <code>Palm</code>, <code>Wrist</code>, and four joints per finger from the metacarpal to the tip (<code>ThumbMetacarpal</code> to <code>ThumbTip</code>, <code>IndexMetacarpal</code> to <code>IndexTip</code>, and so on for the middle, ring and little fingers).</p>
+<p><img src="images/hand-skeleton.png" alt="The hand joints tracked by Evergine"></p>
+<p>The entity follows the <code>Palm</code> joint.</p>
+<p>Each joint is an <code>XRHandJoint</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Pose</strong></td>
+<td>Position and orientation of the joint, as a <code>ViewPose</code>.</td>
+</tr>
+<tr>
+<td><strong>Radius</strong></td>
+<td>Radius of the joint in metres: roughly half the thickness of the finger at that point. Use it to size colliders or visual markers.</td>
+</tr>
+<tr>
+<td><strong>Accuracy</strong></td>
+<td>Tracking accuracy of the joint, as reported by the platform.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Handedness</strong></td>
+<td><code>LeftHand</code></td>
+<td>The hand to track: <code>LeftHand</code> or <code>RightHand</code>.</td>
+</tr>
+<tr>
+<td><strong>TrackingLostMode</strong></td>
+<td><code>DisableEntityOnPoseInvalid</code></td>
+<td>What happens to the entity when tracking fails. See <a href="index.html#common-properties">common properties</a>.</td>
+</tr>
+<tr>
+<td><strong>SupportedHandJointKind</strong></td>
+<td>Read-only</td>
+<td>The <code>XRHandJointKind[]</code> joints this device tracks, or <code>null</code> while no hand is selected. Some devices track fewer joints.</td>
+</tr>
+<tr>
+<td><strong>ControllerState</strong></td>
+<td>Read-only</td>
+<td>The hand as a controller. With <code>XR_FB_hand_tracking_aim</code> (Meta Quest), a pinch between thumb and index sets <code>Trigger</code> to the pinch strength and drives <code>TriggerButton</code>, and <code>Pointer</code> follows the aim ray.</td>
+</tr>
+</tbody>
+</table>
+<p>It also has the members every tracking component shares, listed in <a href="index.html#common-properties">common properties</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>bool TryGetArticulatedHandJoint(XRHandJointKind jointKind, out XRHandJoint joint)</code></td>
+<td>Gets a joint in <strong>world space</strong>, including the transform of the entity's parent. Returns <code>false</code> when the joint is not available.</td>
+</tr>
+<tr>
+<td><code>bool TryGetArticulatedHandJointLocal(XRHandJointKind jointKind, out XRHandJoint joint)</code></td>
+<td>Gets a joint in <strong>tracking space</strong>, as the platform reports it. Enough to compare two joints of the same hand.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="using-trackxrarticulatedhand">Using TrackXRArticulatedHand</h2>
+<h3 id="draw-the-joints">Draw the joints</h3>
+<p>This scene tracks the left hand and draws an axis at every joint, sized by the joint radius:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+using Evergine.Framework.XR;
+using Evergine.Mathematics;
+
+public class HandScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        var leftHand = new Entity(&quot;LeftHand&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new TrackXRArticulatedHand()
+            {
+                Handedness = XRHandedness.LeftHand,
+            })
+            .AddComponent(new DrawHandJoints());
+
+        this.Managers.EntityManager.Add(leftHand);
+    }
+}
+
+public class DrawHandJoints : Behavior
+{
+    [BindComponent]
+    private TrackXRArticulatedHand hand = null;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        var joints = this.hand.SupportedHandJointKind;
+        if (!this.hand.IsConnected || joints == null)
+        {
+            return;
+        }
+
+        var lineBatch = ((RenderManager)this.Managers.RenderManager).LineBatch3D;
+        foreach (var jointKind in joints)
+        {
+            // World-space pose, so the axes stay on the hand when the tracking space moves.
+            if (this.hand.TryGetArticulatedHandJoint(jointKind, out XRHandJoint joint))
+            {
+                Matrix4x4.CreateFromTR(ref joint.Pose.Position, ref joint.Pose.Orientation, out var jointTransform);
+                lineBatch.DrawAxis(jointTransform, joint.Radius * 2);
+            }
+        }
+    }
+}
+</code></pre>
+<h3 id="detect-a-pinch-from-the-joints">Detect a pinch from the joints</h3>
+<p>The pinch gesture of <code>ControllerState</code> needs a Meta extension. The joints alone are enough to detect it on any device with hand tracking:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.XR;
+using Evergine.Mathematics;
+
+public class PinchDetector : Behavior
+{
+    [BindComponent]
+    private TrackXRArticulatedHand hand = null;
+
+    // Fingertips closer than this count as a pinch, in metres.
+    public float Threshold { get; set; } = 0.02f;
+
+    public bool IsPinching { get; private set; }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // Both joints come from the same hand, so tracking space is enough to compare them.
+        if (this.hand.TryGetArticulatedHandJointLocal(XRHandJointKind.ThumbTip, out var thumb) &amp;&amp;
+            this.hand.TryGetArticulatedHandJointLocal(XRHandJointKind.IndexTip, out var index))
+        {
+            this.IsPinching = Vector3.Distance(thumb.Pose.Position, index.Pose.Position) &lt; this.Threshold;
+        }
+        else
+        {
+            this.IsPinching = false;
+        }
+    }
+}
+</code></pre>
+<h2 id="render-the-hands">Render the hands</h2>
+<p><code>XRDeviceRenderableModel</code> loads the 3D model the platform provides for a tracked device and adds it under the entity. Add it next to any tracking component:</p>
+<ul>
+<li>With <code>TrackXRArticulatedHand</code> on Meta Quest, the model is a skinned hand mesh that follows the user's fingers. It needs <code>XR_FB_hand_tracking_mesh</code>.</li>
+<li>With <code>TrackXRController</code> or <code>AdvancedTrackXRDevice</code> on <a href="../openvr.html">OpenVR</a>, the model is the SteamVR render model of the device.</li>
+<li>OpenXR provides no controller models, so draw your own mesh for controllers there.</li>
+</ul>
+<p><video autoplay="" loop="" muted="" playsinline="" width="512" height="512"><source src="images/renderhandsvideo.mp4" type="video/mp4"></video></p>
+<p><img src="images/xrdevicerenderablemodel.png" alt="TrackXRArticulatedHand, MaterialComponent and XRDeviceRenderableModel in Evergine Studio"></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RenderableEntity</strong></td>
+<td>The entity created for the model, or <code>null</code> until it loads. The model loads asynchronously when the component starts, and again when the tracked device changes.</td>
+</tr>
+</tbody>
+</table>
+<p>If the entity also has a <code>MaterialComponent</code>, its material replaces every material of the model. Without one, the model keeps the materials the platform gives it.</p>
+<pre><code class="lang-csharp">using Evergine.Components.Graphics3D;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR;
+
+public class HandsScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        var material = this.Managers.AssetSceneManager.Load&lt;Material&gt;(DefaultResourcesIDs.DefaultMaterialID);
+
+        foreach (var handedness in new[] { XRHandedness.LeftHand, XRHandedness.RightHand })
+        {
+            var hand = new Entity($&quot;{handedness}&quot;)
+                .AddComponent(new Transform3D())
+                // Optional: every material of the hand model is replaced by this one.
+                .AddComponent(new MaterialComponent() { Material = material })
+                .AddComponent(new TrackXRArticulatedHand() { Handedness = handedness })
+                .AddComponent(new XRDeviceRenderableModel());
+
+            this.Managers.EntityManager.Add(hand);
+        }
+    }
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="trackxrcontroller.html">TrackXRController</a>: the controller state that hands also expose.</li>
+<li><a href="../openxr/metaquest.html#simultaneous-hands-and-controllers">Meta Quest</a>: tracking hands and controllers at the same time.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

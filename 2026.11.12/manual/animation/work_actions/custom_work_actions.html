@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Custom Work Actions | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom Work Actions | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-work-actions">Custom Work Actions</h1>
+
+<p>The built-in work actions wait, call methods, check conditions and interpolate values. When a step of your sequence is something else, such as playing an animation clip to its end, waiting for a button or a network reply, or fading a sound, write it as a work action of your own, and it composes with <code>ContinueWith</code>, <code>WaitAll</code> and the rest like any other.</p>
+<p>There are three ways to do it, from the least to the most code:</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Use it when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ActionWorkAction</strong></td>
+<td>The step is one method call that finishes at once. <code>CreateWorkActionFromAction</code> and <code>ContinueWithAction</code> create one for you.</td>
+</tr>
+<tr>
+<td><strong>BasicWorkAction</strong></td>
+<td>The step starts something that finishes later and tells you through a callback or an event. No subclass needed.</td>
+</tr>
+<tr>
+<td><strong>A subclass of WorkAction</strong></td>
+<td>The step needs its own state, per-frame updates, or its own behavior when it is canceled or skipped.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="basicworkaction">BasicWorkAction</h2>
+<p><code>BasicWorkAction</code> raises <code>OnRun</code> when it starts and completes when you call <code>NotifyActionCompleted()</code>. That turns any event into a step of a sequence:</p>
+<pre><code class="lang-csharp">var waitForConfirm = new BasicWorkAction(this.Owner.Scene);
+
+EventHandler onClicked = null;
+onClicked = (sender, args) =&gt;
+{
+    this.confirmButton.Clicked -= onClicked;
+    waitForConfirm.NotifyActionCompleted();
+};
+
+waitForConfirm.OnRun += () =&gt; this.confirmButton.Clicked += onClicked;
+
+IWorkAction step = scene.CreateWorkActionFromAction(() =&gt; this.ShowPanel())
+    .ContinueWith(waitForConfirm)
+    .ContinueWith(new ScaleTo3DWorkAction(this.panel, Vector3.Zero, TimeSpan.FromSeconds(0.3), EaseFunction.BackInEase));
+
+step.Run();
+</code></pre>
+<p><code>NotifyActionCompleted()</code> does nothing unless the action is running, so a late callback after a cancel is harmless. <code>BasicWorkAction</code> has no hook for a cancel, though: if you cancel it, unsubscribe from the event yourself.</p>
+<h2 id="derive-from-workaction">Derive from WorkAction</h2>
+<p>Derive from <code>WorkAction</code> and override the steps of its <a href="composing_work_actions.html#lifecycle">lifecycle</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WorkAction(Scene scene = null)</strong></td>
+<td>Constructor for an action created on its own. Pass the scene it belongs to, so it is <a href="composing_work_actions.html#work-actions-and-scenes">canceled with its scene</a>.</td>
+</tr>
+<tr>
+<td><strong>WorkAction(IWorkAction parent)</strong></td>
+<td>Constructor for an action that runs after another one. It takes the scene of the parent and starts in <code>Waiting</code>.</td>
+</tr>
+<tr>
+<td><strong>PerformRun()</strong></td>
+<td>Required. Called when the action starts. Start the work here, then call <code>PerformCompleted()</code> when it is done, now or later.</td>
+</tr>
+<tr>
+<td><strong>PerformCompleted()</strong></td>
+<td>Call it to finish. It sets the state to <code>Finished</code> and raises <code>Completed</code>, which starts the next step. It does nothing unless the action is running.</td>
+</tr>
+<tr>
+<td><strong>PerformCancel()</strong></td>
+<td>Called by <code>Cancel()</code>. Override it to stop the work, then call the base method, which sets the state to <code>Aborted</code> and raises <code>Canceled</code>.</td>
+</tr>
+<tr>
+<td><strong>PerformSkip()</strong></td>
+<td>Called by <code>TrySkip()</code>. Override it to jump to the end state of the work, then return the base method, which checks <code>IsSkippable</code>, sets the state to <code>Finished</code> and raises <code>Skipped</code> and <code>Completed</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="per-frame-updates">Per-frame updates</h3>
+<p>To do something every frame while the action runs, also implement <code>IUpdatableWorkAction</code>, from <code>Evergine.Framework.Services</code>. The <code>WorkActionScheduler</code> calls its <code>Update(TimeSpan gameTime)</code> once per frame, from the moment the action starts until it finishes or is canceled.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The animation work actions derive from <code>UpdatableWorkAction</code>, but that class is updated by the <code>WorkActionUpdaterBehavior</code>, whose registration methods are internal to the engine. A subclass of <code>UpdatableWorkAction</code> of your own is never updated. Implement <code>IUpdatableWorkAction</code> instead.</p>
+</div>
+<h2 id="example-play-an-animation-clip-to-its-end">Example: play an animation clip to its end</h2>
+<p><code>Animation3D</code> has no event for the end of a clip. This work action plays a clip once and completes when its duration has elapsed, so a sequence can play a clip, wait for it and go on. Skipping it jumps to the last pose of the clip, and canceling it pauses the model where it is:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.Animation;
+using Evergine.Components.WorkActions;
+using Evergine.Framework.Services;
+
+public class PlayClipWorkAction : WorkAction, IUpdatableWorkAction
+{
+    private readonly Animation3D animation3D;
+    private readonly string clipName;
+    private readonly float playbackRate;
+    private float remainingSeconds;
+
+    public PlayClipWorkAction(Animation3D animation3D, string clipName, float playbackRate = 1)
+        : base(animation3D.Owner.Scene)
+    {
+        this.animation3D = animation3D;
+        this.clipName = clipName;
+        this.playbackRate = playbackRate;
+    }
+
+    protected override void PerformRun()
+    {
+        this.remainingSeconds = (float)this.animation3D.GetDuration(this.clipName) / this.playbackRate;
+        this.animation3D.PlayAnimation(this.clipName, loop: false, playbackRate: this.playbackRate);
+    }
+
+    public void Update(TimeSpan gameTime)
+    {
+        this.remainingSeconds -= (float)gameTime.TotalSeconds;
+        if (this.remainingSeconds &lt;= 0)
+        {
+            this.PerformCompleted();
+        }
+    }
+
+    protected override void PerformCancel()
+    {
+        this.animation3D.StopAnimation();
+        base.PerformCancel();
+    }
+
+    protected override bool PerformSkip()
+    {
+        if (!this.IsSkippable)
+        {
+            return false;
+        }
+
+        this.animation3D.PlayTime = (float)this.animation3D.GetDuration(this.clipName);
+        return base.PerformSkip();
+    }
+}
+</code></pre>
+<p>An extension method makes it read like the built-in steps:</p>
+<pre><code class="lang-csharp">public static class PlayClipWorkActionExtensions
+{
+    public static IWorkAction ContinueWithClip(this IWorkAction parent, Animation3D animation3D, string clipName, float playbackRate = 1)
+    {
+        return parent.ContinueWith(new PlayClipWorkAction(animation3D, clipName, playbackRate));
+    }
+}
+</code></pre>
+<pre><code class="lang-csharp">// Move to the door, play the clip that opens it, and go through.
+IWorkAction enter = new MoveTo3DWorkAction(character, doorPosition, TimeSpan.FromSeconds(2))
+    .ContinueWithClip(animation3D, &quot;open_door&quot;)
+    .ContinueWith(new MoveTo3DWorkAction(character, insidePosition, TimeSpan.FromSeconds(1.5)));
+
+enter.Run();
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

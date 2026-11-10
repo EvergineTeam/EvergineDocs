@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Rack and Pinion Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Rack and Pinion Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="rack-and-pinion-constraint">Rack and Pinion Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/rack_and_pinion_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>rack and pinion constraint</strong> turns rotation into straight-line movement: a turning pinion drives a sliding rack along its axis. Steering columns, sliding gates, screw jacks, a lift driven by a winch drum.</p>
+<p>It is the <a href="gear_constraint.html">gear constraint</a>'s cousin: one couples two rotations, this one couples a rotation to a translation.</p>
+<p>This constraint had no equivalent in the previous API.</p>
+<h2 id="it-only-couples-the-two-motions">It only couples the two motions</h2>
+<p>Like a gear, this constraint says nothing about where either body is. The pinion needs its own <a href="hinge_constraint.html">hinge</a> to hold it on its axle, and the rack needs its own <a href="slider_constraint.html">slider</a> to hold it on its rails. The rack and pinion constraint only ties their two motions together.</p>
+<p>That makes it four components across two entities.</p>
+<h2 id="rackandpinionconstraint-component">RackAndPinionConstraint Component</h2>
+<p><img src="images/rackandpinionconstraint_component.png" alt="RackAndPinionConstraint component"></p>
+<p>The constraint goes on the <strong>pinion</strong>, and names the rack as its connected entity.</p>
+<pre><code class="lang-csharp">// The rack: a slider to keep it on its rails, and nothing else.
+Entity rack = new Entity(&quot;rack&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 1.6f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider() { Size = new Vector3(2.5f, 0.25f, 0.4f) })
+    .AddComponent(new SliderConstraint()
+    {
+        Axis = Vector3.UnitX,
+        NormalAxis = Vector3.UnitY,
+        MinDistance = -1.5f,
+        MaxDistance = 1.5f,
+    });
+
+// The pinion: a hinge to hold it, a motor to turn it, and the constraint that drives the rack.
+Entity pinion = new Entity(&quot;pinion&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 2f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new CylinderCollider() { Radius = 0.3f, Height = 0.2f })
+    .AddComponent(new HingeConstraint()
+    {
+        Axis = Vector3.UnitZ,
+        NormalAxis = Vector3.UnitX,
+        MotorMode = MotorMode.Velocity,
+        TargetAngularVelocity = 1.5f,
+        MaxMotorTorque = 400f,
+    })
+    .AddComponent(new RackAndPinionConstraint()
+    {
+        ConnectedEntityPath = &quot;rack&quot;,
+        HingeAxis = Vector3.UnitZ,
+        SliderAxis = Vector3.UnitX,
+        Ratio = 1f,
+    });
+
+this.Managers.EntityManager.Add(rack);
+this.Managers.EntityManager.Add(pinion);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HingeAxis</strong></td>
+<td>0,0,1</td>
+<td>The pinion's rotation axis, in <strong>this</strong> body's local space. This body is the pinion. It must match the axis of its own hinge.</td>
+</tr>
+<tr>
+<td><strong>SliderAxis</strong></td>
+<td>1,0,0</td>
+<td>The direction the rack travels along, in the <strong>connected</strong> body's local space. It must match the axis of the rack's own slider.</td>
+</tr>
+<tr>
+<td><strong>Ratio</strong></td>
+<td>1</td>
+<td>How many radians the pinion turns for each metre the rack travels.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus the <a href="index.html#common-properties">common properties</a>.</p>
+<h2 id="choosing-the-ratio">Choosing the Ratio</h2>
+<p>For real teeth to mesh, one full turn of the pinion moves the rack by its circumference, so the ratio follows from the pinion's radius:</p>
+<pre><code class="lang-csharp">// 2π radians per 2πr metres, which is 1/r radians per metre.
+rackAndPinion.Ratio = 1f / pinionRadius;
+</code></pre>
+<p>Raise it above that and the rack moves less per turn: a slower, stronger drive. Lower it and the rack moves further per turn.</p>
+<p>Steering is the everyday case: a steering wheel that turns two and a half times lock to lock, driving a rack that travels fifteen centimetres each way.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The component goes on the <strong>pinion</strong>, not on the rack, and <code>ConnectedEntityPath</code> names the rack. That is also why <code>HingeAxis</code> is read in this entity's space and <code>SliderAxis</code> in the connected one's. Getting them the wrong way round leaves the constraint trying to slide the pinion and turn the rack.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Turn on <code>RenderManager.DebugLines</code> with <code>PhysicsDebugFlags.Constraints</code> while wiring one up. The four axes (the slider's, the hinge's, and this constraint's two) all have to agree, and seeing them drawn is much quicker than working out which of the four is wrong. See <a href="../debug_rendering.html">Debug Rendering</a>.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

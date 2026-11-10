@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>OpenXR | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="OpenXR | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="openxr">OpenXR</h1>
+
+<p><img src="images/openxr_overall.png" alt="OpenXR sits between applications and the runtimes of every conformant device"></p>
+<p><strong>OpenXR</strong> is an open, royalty-free API standard from the <a href="https://www.khronos.org/openxr/">Khronos Group</a>. Headset vendors ship an OpenXR runtime, and an application written against OpenXR runs on any of them without a vendor SDK.</p>
+<p>Evergine implements OpenXR in the <strong>Evergine.OpenXR</strong> package, through the <a href="openxr_platform.html"><code>OpenXRPlatform</code></a> service. It is the recommended way to build VR and mixed reality applications with Evergine: the same service drives standalone Android headsets, Android XR devices and PC headsets, and Evergine Studio has a project template for each.</p>
+<table>
+<thead>
+<tr>
+<th>Target</th>
+<th>Template</th>
+<th>Graphics backend</th>
+<th>Page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Meta Quest headsets</td>
+<td>Android Meta Quest (OpenXR)</td>
+<td>Vulkan</td>
+<td><a href="metaquest.html">Meta Quest</a></td>
+</tr>
+<tr>
+<td>Pico headsets</td>
+<td>Android Pico (OpenXR)</td>
+<td>Vulkan</td>
+<td><a href="pico.html">Pico</a></td>
+</tr>
+<tr>
+<td>Android XR headsets and glasses</td>
+<td>Android XR (OpenXR)</td>
+<td>Vulkan</td>
+<td><a href="androidxr.html">Android XR</a></td>
+</tr>
+<tr>
+<td>PC headsets (through the OpenXR runtime installed on Windows)</td>
+<td>Windows OpenXR (DirectX11)</td>
+<td>DirectX 11</td>
+<td><a href="windows.html">Windows (PC VR)</a></td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/openxr_project_setup.png" alt="The four steps from choosing a profile to running the frame loop"></p>
+<p><em>Choosing the profile is the only step you take in Evergine Studio. The template writes the launcher code that creates <code>OpenXRPlatform</code>, and your scene stays the same for every profile.</em></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>OpenXRPlatform</code> supports the DirectX 11, Vulkan and OpenGL graphics backends. It does not support DirectX 12, the default backend of the regular Windows template, which is why PC VR has its own <strong>Windows OpenXR (DirectX11)</strong> template.</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="openxr_platform.html">OpenXR Platform</a></li>
+<li><a href="metaquest.html">Meta Quest</a></li>
+<li><a href="pico.html">Pico</a></li>
+<li><a href="androidxr.html">Android XR</a></li>
+<li><a href="windows.html">Windows (PC VR)</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

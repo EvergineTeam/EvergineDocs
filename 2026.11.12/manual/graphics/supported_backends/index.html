@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Supported Graphics Backends | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Supported Graphics Backends | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="supported-graphics-backends">Supported Graphics Backends</h1>
+
+<hr>
+<p><img src="images/supported-apis.png" alt="Graphics backends by platform and the project templates that use them"></p>
+<p><em>Each platform has a default backend, and project templates add the others. Windows defaults to DirectX 12, Android and the standalone XR headsets to Vulkan, iOS to Metal and the web to WebGL 2.</em></p>
+<p>Evergine renders through DirectX 12, DirectX 11, Vulkan, Metal, OpenGL and OpenGL ES, WebGL and WebGPU. Your scenes, materials and effects are the same on all of them: the <a href="../low_level_api/index.html">low-level graphics API</a> hides the differences, and effects written in HLSL are compiled or translated to each backend's shading language when needed.</p>
+<p>You choose the backend through the project template of each <a href="../../evergine_studio/settings/project_profiles.html">profile</a>. A project can have several profiles, for example Windows with DirectX 12 and Web with WebGPU, and Evergine Studio builds and runs each one from <strong>File &gt; Build &amp; Run</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Platforms</th>
+<th>Project templates</th>
+<th>Compute</th>
+<th>Ray tracing</th>
+<th>Mesh shaders</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="directx12.html">DirectX 12</a></td>
+<td>Windows</td>
+<td><strong>Windows (DirectX12)</strong>, the default</td>
+<td>Yes</td>
+<td>Device dependent</td>
+<td>Device dependent</td>
+</tr>
+<tr>
+<td><a href="directx11.html">DirectX 11</a></td>
+<td>Windows</td>
+<td>Windows (DirectX11), WinUI, MAUI, Avalonia, Windows OpenXR</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="vulkan.html">Vulkan</a></td>
+<td>Windows, Android</td>
+<td><strong>Android</strong>, <strong>Android Meta Quest</strong>, <strong>Android Pico</strong>, MAUI, Windows (Vulkan)</td>
+<td>Yes</td>
+<td>Device dependent</td>
+<td>Device dependent</td>
+</tr>
+<tr>
+<td><a href="metal.html">Metal</a></td>
+<td>iOS</td>
+<td><strong>iOS</strong>, MAUI</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="opengl.html">OpenGL</a></td>
+<td>Windows, Web (WebGL 2)</td>
+<td><strong>Web</strong>, React SPA, WebXR, Windows (OpenGL)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="webgpu.html">WebGPU</a></td>
+<td>Web</td>
+<td>Web (Experimental WebGPU)</td>
+<td>Yes</td>
+<td>No</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<p>Templates in bold are the default for their platform.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Features such as ray tracing and mesh shaders depend on the device as well as on the backend. Check <code>graphicsContext.Capabilities</code> (<code>IsRaytracingSupported</code>, <code>IsMeshShaderSupported</code>, <code>IsComputeShaderSupported</code>...) at runtime rather than testing the backend type.</p>
+</div>
+<h2 id="options-common-to-every-backend">Options common to every backend</h2>
+<p><code>GraphicsContext</code> has two settings that apply to all backends. Set them before calling <code>CreateDevice()</code>, in the <code>Program.cs</code> of the platform project:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ReverseZBuffer</strong></td>
+<td>true</td>
+<td>Store depth reversed (1 at the near plane, 0 at the far one). It spreads depth precision far better and is what the default pipeline expects.</td>
+</tr>
+<tr>
+<td><strong>FramesInFlight</strong></td>
+<td>0</td>
+<td>How many frames the CPU can prepare while the GPU is still working on earlier ones, counting the one being recorded. <code>0</code> disables the limit. With a value of 2 or 3, the graphics presenter waits on a fence per frame, which keeps latency bounded.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="directx12.html">DirectX 12</a></li>
+<li><a href="directx11.html">DirectX 11</a></li>
+<li><a href="vulkan.html">Vulkan</a></li>
+<li><a href="metal.html">Metal</a></li>
+<li><a href="opengl.html">OpenGL</a></li>
+<li><a href="webgpu.html">WebGPU</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

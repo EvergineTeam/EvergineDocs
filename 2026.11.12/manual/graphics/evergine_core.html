@@ -1,0 +1,202 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Evergine.Core Package | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Evergine.Core Package | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="everginecore-package">Evergine.Core Package</h1>
+
+<hr>
+<p><strong>Evergine.Core</strong> is the asset package every Evergine project references. It contains the effects, materials, render layers, samplers, textures, fonts and compute effects the engine and its components need, so a new project can render, light and post-process a scene without creating any of them. Its assets appear in Evergine Studio under the package in the <strong>Project Explorer</strong>, and from code you load them by the ids in <code>DefaultResourcesIDs</code>.</p>
+<pre><code class="lang-csharp">var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+Material defaultMaterial = assetsService.Load&lt;Material&gt;(DefaultResourcesIDs.DefaultMaterialID);
+RenderLayerDescription alpha = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.AlphaRenderLayerID);
+SamplerState wrap = assetsService.Load&lt;SamplerState&gt;(DefaultResourcesIDs.LinearWrapSamplerID);
+</code></pre>
+<h2 id="contents">Contents</h2>
+<table>
+<thead>
+<tr>
+<th>Folder</th>
+<th>Assets</th>
+<th>See</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Effects</strong></td>
+<td><code>StandardEffect</code>, <code>SSSEffect</code>, <code>DistortionEffect</code>, <code>SkyboxEffect</code>, <code>AtmosphericEffect</code>, <code>AtmosphericQuadEffect</code>, <code>BillboardEffect</code>, <code>ParticlesEffect</code>, <code>SDFText</code>, <code>LineEffect</code>, <code>LineBatchEffect</code>, <code>RenderQuad</code>, <code>BackgroundImageEffect</code></td>
+<td><a href="effects/builtin_effects.html">Built-in Effects</a></td>
+</tr>
+<tr>
+<td><strong>Effects/Libraries</strong></td>
+<td><code>Common</code>, <code>Structures</code>, <code>Lighting</code>, <code>LightingModels</code>, <code>Shadow</code>, <code>Material</code>, <code>SSS</code>, <code>SSSMaterial</code></td>
+<td><a href="effects/library_effect.html">Library Effects</a></td>
+</tr>
+<tr>
+<td><strong>Materials</strong></td>
+<td><code>DefaultMaterial</code> (Standard effect, lit, with IBL) and <code>DistortionMat</code></td>
+<td><a href="materials/index.html">Materials</a></td>
+</tr>
+<tr>
+<td><strong>RenderLayers</strong></td>
+<td><code>Skybox</code>, <code>Opaque</code>, <code>Alpha</code>, <code>AlphaDoubleSided</code>, <code>Additive</code></td>
+<td><a href="renderlayers/index.html">Render Layers</a></td>
+</tr>
+<tr>
+<td><strong>Samplers</strong></td>
+<td><code>LinearWrapSampler</code>, <code>LinearClampSampler</code></td>
+<td><a href="samplers.html">Samplers</a></td>
+</tr>
+<tr>
+<td><strong>Textures</strong></td>
+<td><code>Checker</code>, <code>particle</code> (default particle texture), <code>dfgLut</code> (IBL lookup table), <code>translucency</code> (SSS lookup table), and the lens dirt and starburst textures of the post-processing graph</td>
+<td><a href="textures/index.html">Textures</a></td>
+</tr>
+<tr>
+<td><strong>Fonts</strong></td>
+<td><code>Arial</code>, the default font of <code>Text3D</code></td>
+<td><a href="fonts/index.html">Fonts and Texts</a></td>
+</tr>
+<tr>
+<td><strong>PostProcessingGraphs</strong></td>
+<td><code>DefaultPostProcessingGraph</code></td>
+<td><a href="postprocessing_graph/default_postprocessing_graph/index.html">Default Post-Processing Graph</a></td>
+</tr>
+<tr>
+<td><strong>Computes/PostProcessing</strong></td>
+<td>The nodes of the post-processing graph: SSAO, SSR, SSS blur, fog, TAA, motion blur, depth of field, bloom, lens flare, FSR, sharpen, tone mapping, FXAA and their helpers</td>
+<td><a href="postprocessing_graph/index.html">Post-Processing Graph</a></td>
+</tr>
+<tr>
+<td><strong>Computes/Environment</strong></td>
+<td><code>AtmosphereCompute</code>, <code>RadianceCompute</code>, <code>IrradianceCompute</code>, which generate the sky and the IBL</td>
+<td><a href="environment/index.html">Environment</a></td>
+</tr>
+<tr>
+<td><strong>Computes/Particles</strong></td>
+<td>GPU particle simulation and the particle forces</td>
+<td><a href="particles/index.html">Particle System</a></td>
+</tr>
+<tr>
+<td><strong>Computes/Skinning</strong>, <strong>Computes/Morphing</strong></td>
+<td>GPU skinning and morph targets for animated models</td>
+<td><a href="models/index.html">Models</a></td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

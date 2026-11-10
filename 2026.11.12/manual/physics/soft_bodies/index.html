@@ -1,0 +1,569 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Soft Bodies | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Soft Bodies | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="soft-bodies">Soft Bodies</h1>
+
+<hr>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/softbody_overview.mp4" type="video/mp4">
+</video>
+<p>A <strong>soft body</strong> deforms. Cloth drapes and folds, a balloon squashes when it lands, a jelly wobbles and springs back. Where a <a href="../physics_bodies/rigid_body.html">rigid body</a> has a pose, a soft body has a surface of vertices held together by constraints, and the solver moves every one of them.</p>
+<p>This is entirely new in the Jolt-based physics; the previous API had nothing like it.</p>
+<p>A soft body is <strong>two components</strong>, the same split as a mesh and a collider on a rigid body:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="soft_body_meshes.html"><code>SoftBodyMesh</code></a></td>
+<td>The <strong>shape</strong>: what surface it is and how it is drawn.</td>
+</tr>
+<tr>
+<td><code>SoftBody</code></td>
+<td>The <strong>behaviour</strong>: how that surface is simulated.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="creating-a-soft-body">Creating a Soft Body</h2>
+<pre><code class="lang-csharp">Entity flag = new Entity(&quot;flag&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 4f, 0f) })
+    .AddComponent(new MaterialComponent() { Material = clothMaterial })
+    .AddComponent(new SoftBodyMesh()
+    {
+        ShapeType = SoftBodyShapeType.Cloth,
+        GridColumns = 24,
+        GridRows = 22,
+        GridSpacing = 0.16f,
+        DoubleSided = true,
+    })
+    .AddComponent(new SoftBody()
+    {
+        Mass = 2f,
+        Compliance = 0f,
+        NumIterations = 8,
+        Friction = 0.8f,
+        VertexRadius = 0.02f,
+    })
+    .AddComponent(new MeshRenderer());
+
+this.Managers.EntityManager.Add(flag);
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Soft bodies do not take part in <a href="../physics_bodies/collisions.html">collision events</a> or in <a href="../queries.html">queries</a> in this version. They collide with rigid bodies and with the ground, but a ray cast will not find one, and no <code>CollisionStarted</code> is raised for one.</p>
+</div>
+<h2 id="softbody-component">SoftBody Component</h2>
+<p><img src="images/softbody_component.png" alt="SoftBody component"></p>
+<p>The body simulates at the entity's world scale, the same way a rigid body scales its colliders: a cloth on an entity scaled by two is simulated twice as large. Changing the scale rebuilds the body from its rest shape, and a negative scale mirrors the surface.</p>
+<h3 id="structure">Structure</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Compliance</strong></td>
+<td>0</td>
+<td>Inverse stiffness of the edges. <strong>Zero holds every edge at exactly its rest length</strong>, which is a rigid shell; a little slack is what lets a body squash and wobble.</td>
+</tr>
+<tr>
+<td><strong>ShearCompliance</strong></td>
+<td>0</td>
+<td>The same for the diagonal edges, which is what resists the surface skewing.</td>
+</tr>
+<tr>
+<td><strong>BendCompliance</strong></td>
+<td>1</td>
+<td>How easily the surface folds. Low makes stiff card; high makes limp fabric. Zero is a rigid plate.</td>
+</tr>
+<tr>
+<td><strong>BendType</strong></td>
+<td><code>Distance</code></td>
+<td>Which constraint resists folding: <code>None</code>, <code>Distance</code> or <code>Dihedral</code>. See <a href="#bending">Bending</a>.</td>
+</tr>
+<tr>
+<td><strong>LRAType</strong></td>
+<td><code>None</code></td>
+<td>Ties every free vertex to its nearest pinned vertex, so cloth cannot stretch away from its pins: <code>None</code>, <code>EuclideanDistance</code> or <code>GeodesicDistance</code>. See <a href="#long-range-attachments">Long-Range Attachments</a>.</td>
+</tr>
+<tr>
+<td><strong>LRAMaxDistanceMultiplier</strong></td>
+<td>1</td>
+<td>How far past its rest distance a vertex may get from its anchor. 1 is the rest distance, 1.05 allows five percent more.</td>
+</tr>
+</tbody>
+</table>
+<p>Changing any of these properties at run time rebuilds the body from its rest shape.</p>
+<h3 id="physical">Physical</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mass</strong></td>
+<td>1</td>
+<td>The total mass, spread over the vertices.</td>
+</tr>
+<tr>
+<td><strong>Pressure</strong></td>
+<td>0</td>
+<td>Gas pressure inside a <strong>closed</strong> surface, holding it inflated.</td>
+</tr>
+<tr>
+<td><strong>GravityFactor</strong></td>
+<td>1</td>
+<td>Multiplies the world's gravity for this body.</td>
+</tr>
+<tr>
+<td><strong>LinearDamping</strong></td>
+<td>0.1</td>
+<td>Slows the whole body down. High values stop a wobble feeding itself.</td>
+</tr>
+<tr>
+<td><strong>Friction</strong></td>
+<td>0.2</td>
+<td>Surface friction against other bodies.</td>
+</tr>
+<tr>
+<td><strong>Restitution</strong></td>
+<td>0</td>
+<td>Bounciness.</td>
+</tr>
+<tr>
+<td><strong>VertexRadius</strong></td>
+<td>0</td>
+<td>A skin around every vertex, which stops the surface grinding through thin geometry.</td>
+</tr>
+<tr>
+<td><strong>NumIterations</strong></td>
+<td>5</td>
+<td>Solver passes per step. A heavy or a stiff soft body needs more or its surface jitters.</td>
+</tr>
+<tr>
+<td><strong>AllowSleeping</strong></td>
+<td>true</td>
+<td>Lets it sleep when it stops moving.</td>
+</tr>
+<tr>
+<td><strong>CollisionCategory</strong></td>
+<td><code>Cat1</code></td>
+<td>Which <a href="../collision_filtering.html">category</a> it belongs to.</td>
+</tr>
+<tr>
+<td><strong>UpdatePosition</strong></td>
+<td>true</td>
+<td>Whether the entity's transform follows the body. Turn it off for something pinned in place, like a hanging banner.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="read-only">Read-only</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VertexCount</strong></td>
+<td>How many vertices the surface has.</td>
+</tr>
+<tr>
+<td><strong>Volume</strong></td>
+<td>The volume it currently encloses. Comparing this against the rest volume is how you tell whether a pressurised body is holding its shape.</td>
+</tr>
+<tr>
+<td><strong>IsInWorld</strong></td>
+<td>Whether it has been created yet.</td>
+</tr>
+<tr>
+<td><strong>LRAConstraintCount</strong></td>
+<td>How many <a href="#long-range-attachments">long-range attachments</a> the body was built with. Zero when it has no pinned vertices.</td>
+</tr>
+<tr>
+<td><strong>GetLocalBounds()</strong> / <strong>GetWorldBounds()</strong></td>
+<td>Its bounds.</td>
+</tr>
+<tr>
+<td><strong>CopyVertexPositions(destination)</strong></td>
+<td>Reads the vertices out.</td>
+</tr>
+<tr>
+<td><strong>GetFaceIndices()</strong></td>
+<td>The surface's triangles.</td>
+</tr>
+<tr>
+<td><strong>VerticesUpdated</strong></td>
+<td>An event raised after each step.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="bending">Bending</h2>
+<p>Every edge shared by two triangles is a hinge. <code>Compliance</code> and <code>ShearCompliance</code> keep the edges and the diagonals at their length, but a surface can keep every length and still fold along a hinge. <code>BendType</code> chooses the constraint that resists that fold, and <code>BendCompliance</code> sets how hard it resists.</p>
+<p><img src="images/softbody_bend_types.png" alt="The two faces of one hinge, seen along their shared edge, under each bend type"></p>
+<p><em>One hinge seen end-on. <code>Distance</code> holds the line between the two outer corners, <code>Dihedral</code> holds the angle itself.</em></p>
+<table>
+<thead>
+<tr>
+<th>BendType</th>
+<th>What it holds</th>
+<th>Cost</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>Nothing.</td>
+<td>None.</td>
+<td>Bodies whose shape comes from <code>Pressure</code>, such as balloons and cushions, and fabric that should crumple with no stiffness at all.</td>
+</tr>
+<tr>
+<td><code>Distance</code></td>
+<td>The distance between the two corners opposite each shared edge.</td>
+<td>Low: one extra edge per hinge.</td>
+<td>Flat cloth: banners, flags, curtains and hammocks. This is the default.</td>
+</tr>
+<tr>
+<td><code>Dihedral</code></td>
+<td>The angle between the two faces, including which way it folds.</td>
+<td>Highest: one angle constraint per hinge.</td>
+<td>Surfaces that are curved at rest, such as meshes read <a href="soft_body_meshes.html#from-a-model">from a model</a> or open shells without pressure, and stiff sheets such as card, leather or rubber.</td>
+</tr>
+</tbody>
+</table>
+<p>The two constraints fold differently in two ways:</p>
+<ul>
+<li><strong>Small folds.</strong> When a flat pair of triangles folds a little, the distance between the outer corners hardly changes. A <code>Distance</code> constraint therefore pushes back weakly on small folds and firmly on large ones. Cloth still wrinkles easily, but it cannot crease sharply, which suits fabric. <code>Dihedral</code> resists in proportion to the angle, so small folds are resisted too.</li>
+<li><strong>Fold direction.</strong> A hinge folded up and the same hinge folded down by the same angle have the same corner distance. On a surface that is curved at rest, <code>Distance</code> can let a region snap through to its mirror image, for example a dent popping inward. <code>Dihedral</code> keeps the rest angle and its direction, so a curved shell keeps its curve.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>BendCompliance</code> measures a different thing for each type. For <code>Distance</code> it is the compliance of a length, for <code>Dihedral</code> of an angle, so the same value does not give the same stiffness. Tune <code>BendCompliance</code> again after changing <code>BendType</code>.</p>
+</div>
+<h2 id="long-range-attachments">Long-Range Attachments</h2>
+<p>A hanging cloth stretches under its own weight. Each edge gives a little, and with many edges between a vertex and the pin, the stretch adds up. More vertices make it worse. Raising <code>NumIterations</code> helps but costs time on every step.</p>
+<p>A <strong>long-range attachment</strong> ties every free vertex to its nearest pinned vertex and caps the distance between them at the rest distance times <code>LRAMaxDistanceMultiplier</code>. It only sets a maximum, so the vertex can still come closer: the cloth folds and swings freely, but it cannot sag past its rest length.</p>
+<table>
+<thead>
+<tr>
+<th>LRAType</th>
+<th>Rest distance measured</th>
+<th>Use it for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>None</code></td>
+<td>No attachments.</td>
+<td>Bodies without pins, and pinned cloth that may stretch.</td>
+</tr>
+<tr>
+<td><code>EuclideanDistance</code></td>
+<td>In a straight line to the nearest pinned vertex.</td>
+<td>Flat cloth pinned along an edge, such as banners and curtains.</td>
+</tr>
+<tr>
+<td><code>GeodesicDistance</code></td>
+<td>Along the fabric, following its edges, to the nearest pinned vertex.</td>
+<td>Cloth whose rest shape is curved or folded, or whose path to the pin goes around a hole or a corner.</td>
+</tr>
+</tbody>
+</table>
+<p>For a flat cloth pinned along one edge, both measures give the same result. They differ when the straight line leaves the fabric. The straight-line distance is then shorter than the fabric really is, so <code>EuclideanDistance</code> holds the cloth too tight and it cannot hang to its full length. <code>GeodesicDistance</code> is correct in every case.</p>
+<p>Attachments need pinned vertices to anchor to. A body without any <a href="#pinning-vertices">pin group</a> gets no attachments, whatever <code>LRAType</code> says. The read-only <code>LRAConstraintCount</code> property tells you how many were created.</p>
+<h2 id="pressure">Pressure</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/softbody_pressure.mp4" type="video/mp4">
+</video>
+<p>A surface has no volume term of its own. What holds a hollow shape out is <code>Pressure</code>, and it needs <strong>one closed shell</strong> to push against. A mesh with separate pieces, holes or non-manifold edges has nothing to inflate, and lands flat however much pressure it is given.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>Pressure</code> is not a pressure. It is the <em>n</em> of <em>n·R·T</em>, and the force the solver applies is that divided by the enclosed volume. It therefore <strong>cannot be copied between bodies of different sizes</strong>: the value that inflates a small balloon will tear a large tube apart. Scale it with the volume: matching a body of twice the volume means twice the number.</p>
+</div>
+<h2 id="pinning-vertices">Pinning Vertices</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/softbody_cloth.mp4" type="video/mp4">
+</video>
+<p>A <strong>pin group</strong> fixes a set of vertices, optionally to another entity, so the rest of the surface hangs from them. A banner on a moving bar is one pin group naming the bar.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PinGroups</strong></td>
+<td>A list of <code>SoftBodyPinGroup</code>.</td>
+</tr>
+<tr>
+<td><strong>NotifyPinsChanged()</strong></td>
+<td>Tells the body the pins have been edited.</td>
+</tr>
+</tbody>
+</table>
+<p>Each group holds:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VertexIndices</strong></td>
+<td>Which vertices are pinned.</td>
+</tr>
+<tr>
+<td><strong>AnchorEntityPath</strong></td>
+<td>The entity that carries them. Empty pins them in world space.</td>
+</tr>
+<tr>
+<td><strong>AnchorOffset</strong></td>
+<td>An offset from that entity.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// A cloth is generated row by row along Z, so index = z * GridColumns + x, and its top edge is
+// simply the first row: 0 to GridColumns - 1.
+var top = new SoftBodyPinGroup
+{
+    AnchorEntityPath = &quot;flagpole&quot;,
+    VertexIndices = Enumerable.Range(0, columns).ToList(),
+};
+
+softBody.PinGroups.Add(top);
+softBody.NotifyPinsChanged();
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Pinning to a <strong>kinematic</strong> body moved with <code>MoveTo</code> is what makes cloth react properly to being carried: the pins are given a real velocity, so the fabric streams and drapes instead of being teleported along with the anchor.</p>
+</div>
+<h3 id="pinning-in-the-editor">Pinning in the Editor</h3>
+<p>Writing vertex indices out by hand only works while the surface is a grid whose numbering you can
+reason about. For anything else (a shape read off a model, a torus, one corner of a cube) the
+<code>SoftBody</code> inspector has a picking mode.</p>
+<p><img src="images/softbody_component.png" alt="SoftBody component"></p>
+<p><strong>Turn on <code>Edit nodes</code>.</strong> Everything below it appears with it. The vertices of the body are drawn in
+the viewport as points, colour-coded:</p>
+<p><img src="images/softbody_pin_viewport.png" alt="The cloth's vertices, colour coded"></p>
+<p><em>The banner from the sample scene. The row along the top is <strong>cyan</strong> because it is pinned to the bar
+that carries it; the band across the middle is <strong>yellow</strong> because it is selected; the rest are grey and
+free.</em></p>
+<table>
+<thead>
+<tr>
+<th>Colour</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Grey</td>
+<td>Free. The solver moves it.</td>
+</tr>
+<tr>
+<td>Orange</td>
+<td>Pinned in world space.</td>
+</tr>
+<tr>
+<td>Cyan</td>
+<td>Pinned to an entity, so it is carried by that entity.</td>
+</tr>
+<tr>
+<td>Yellow</td>
+<td>Currently selected.</td>
+</tr>
+</tbody>
+</table>
+<p><strong>Select in the viewport.</strong> Clicking a vertex toggles it, within about twelve pixels, so a point
+does not have to be hit exactly. Dragging draws a rectangle and takes everything inside it. Holding
+<strong>Ctrl</strong> adds to the selection instead of replacing it; <strong>Shift</strong> is not used for this, because the
+viewport camera has it.</p>
+<p><strong>Then pin.</strong> With at least one vertex selected the panel shows what to do with it:</p>
+<p><img src="images/softbody_pin_controls.png" alt="The pin controls, with a selection made"></p>
+<table>
+<thead>
+<tr>
+<th>Control</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong><code>Selected</code></strong></td>
+<td>How many vertices the buttons below will apply to. It follows the rectangle live.</td>
+</tr>
+<tr>
+<td><strong><code>Anchor entity</code></strong></td>
+<td>The dot-separated path of the entity that will carry the group. Left empty, the vertices are held in world space.</td>
+</tr>
+<tr>
+<td><strong><code>Anchor offset</code></strong></td>
+<td>An extra offset from that entity, on top of the spacing the vertices already have.</td>
+</tr>
+<tr>
+<td><strong><code>Pin selection</code></strong></td>
+<td>Makes a new group out of the selection.</td>
+</tr>
+<tr>
+<td><strong><code>Unpin selection</code></strong></td>
+<td>Frees the selected vertices again.</td>
+</tr>
+<tr>
+<td><strong><code>Clear selection</code></strong></td>
+<td>Deselects, without changing anything.</td>
+</tr>
+</tbody>
+</table>
+<p>Every group that exists is listed under <strong><code>Pinned vertices</code></strong>, one row each, labelled by what it holds
+rather than by a number, as in <em>&quot;24 vertices on sweepBar&quot;</em>.</p>
+<p><img src="images/softbody_pins.png" alt="The panel with the mode off"></p>
+<p><em>With <code>Edit nodes</code> off, the groups are still listed and still editable: it is only the viewport picking
+and the buttons that go away.</em> Each row's field is that group's anchor path,
+so a group can be moved onto a different entity by typing the new path over it.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><strong><code>Clear all pins</code> is there because changing the shape renumbers the vertices.</strong> A pin group is a
+list of indices into the surface, and changing <code>ShapeType</code>, <code>GridColumns</code>, <code>GridRows</code> or the source
+model regenerates that surface, so the indices survive and now point at completely different
+vertices. Starting the groups over is the way out.</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="soft_body_meshes.html">Soft Body Meshes</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

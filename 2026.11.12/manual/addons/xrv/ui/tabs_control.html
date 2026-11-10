@@ -1,0 +1,290 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tabs control | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tabs control | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tabs-control">Tabs control</h1>
+
+<hr>
+<p><img src="images/tabs_control_base.png" alt="Tab control"></p>
+<p>The tabs control arranges content in tabbed panels: a row of tab buttons and a container that shows the content of the selected tab. XRV uses it in the settings and help windows, and you can use it in your own windows.</p>
+<h2 id="create-a-tab-control">Create a tab control</h2>
+<p>Build the control with <code>TabControl.Builder</code>, a <code>TabControlBuilder</code> that XRV creates when you call <code>XrvService.Initialize</code>. It returns an entity that you can add to the scene or use as window contents.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Mathematics;
+using Evergine.Xrv.Core.UI.Tabs;
+
+public class TabsSample : Component
+{
+    protected override void Start()
+    {
+        base.Start();
+
+        Entity tabs = TabControl.Builder
+            .Create()
+            .WithSize(new Vector2(0.3f, 0.2f))
+            .AddItem(new TabItem
+            {
+                Name = () =&gt; &quot;General&quot;,
+                Contents = this.CreateGeneralContents,
+            })
+            .AddItem(new TabItem
+            {
+                Name = () =&gt; &quot;Advanced&quot;,
+                Contents = this.CreateAdvancedContents,
+            })
+            .Build();
+
+        this.Managers.EntityManager.Add(tabs);
+    }
+
+    private Entity CreateGeneralContents() =&gt; new Entity(&quot;General contents&quot;);
+
+    private Entity CreateAdvancedContents() =&gt; new Entity(&quot;Advanced contents&quot;);
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><code>TabControlBuilder</code> method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Create()</code></td>
+<td>Starts a new tab control.</td>
+</tr>
+<tr>
+<td><code>WithSize(Vector2 size)</code></td>
+<td>Sets the size of the control.</td>
+</tr>
+<tr>
+<td><code>AddItem(TabItem item)</code></td>
+<td>Adds one tab.</td>
+</tr>
+<tr>
+<td><code>AddItems(IEnumerable&lt;TabItem&gt; items)</code></td>
+<td>Adds several tabs.</td>
+</tr>
+<tr>
+<td><code>WithActiveItemTextColor(Color color)</code></td>
+<td>Sets the text color of the selected tab.</td>
+</tr>
+<tr>
+<td><code>WithInactiveItemTextColor(Color color)</code></td>
+<td>Sets the text color of the other tabs.</td>
+</tr>
+<tr>
+<td><code>Build()</code></td>
+<td>Returns the entity of the tab control.</td>
+</tr>
+</tbody>
+</table>
+<p>If the tab control is the only content of a window, use the <code>TabbedWindow</code> class instead. The settings and help windows are tabbed windows, and their <code>Tabs</code> property gives you their list of tabs.</p>
+<h2 id="tabcontrol-properties">TabControl properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Size</code></td>
+<td><code>(0.3, 0.2)</code></td>
+<td>Size of the control, in meters.</td>
+</tr>
+<tr>
+<td><code>Items</code></td>
+<td>empty</td>
+<td>The tabs of the control. Add or remove <code>TabItem</code> objects to change them.</td>
+</tr>
+<tr>
+<td><code>SelectedItem</code></td>
+<td></td>
+<td>The selected tab. Setting it shows its content.</td>
+</tr>
+<tr>
+<td><code>MaxVisibleItems</code></td>
+<td><code>null</code></td>
+<td>Maximum number of tab buttons shown at once. <code>null</code> shows all of them.</td>
+</tr>
+<tr>
+<td><code>DestroyContentOnTabChange</code></td>
+<td><code>false</code></td>
+<td>Destroys the content of a tab when the user selects another one. Otherwise the content is kept and reused.</td>
+</tr>
+<tr>
+<td><code>OverrideThemeColors</code></td>
+<td><code>false</code></td>
+<td>Uses <code>ActiveItemTextColor</code> and <code>InactiveItemTextColor</code> instead of the <a href="../themes.html">theme</a> colors.</td>
+</tr>
+<tr>
+<td><code>ActiveItemTextColor</code></td>
+<td></td>
+<td>Text color of the selected tab when <code>OverrideThemeColors</code> is <code>true</code>.</td>
+</tr>
+<tr>
+<td><code>InactiveItemTextColor</code></td>
+<td></td>
+<td>Text color of the other tabs when <code>OverrideThemeColors</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>SelectedItemChanged</code> event is raised when the selected tab changes. Its arguments include the new <code>Item</code>.</p>
+<h2 id="tab-items">Tab items</h2>
+<p><code>TabItem</code> describes a tab and its content.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Name</code></td>
+<td><code>Func&lt;string&gt;</code></td>
+<td>Returns the tab title. Using a function lets the title follow <a href="../localization.html">localization</a> changes.</td>
+</tr>
+<tr>
+<td><code>Contents</code></td>
+<td><code>Func&lt;Entity&gt;</code></td>
+<td>Returns the entity shown when the tab is selected. The control calls it when it needs the content.</td>
+</tr>
+<tr>
+<td><code>Order</code></td>
+<td><code>int</code></td>
+<td>Position of the tab. Lower values come first.</td>
+</tr>
+<tr>
+<td><code>Data</code></td>
+<td><code>object</code></td>
+<td>Any data you want to associate with the tab.</td>
+</tr>
+<tr>
+<td><code>Id</code></td>
+<td><code>Guid</code></td>
+<td>Read-only. Unique identifier generated when the item is created.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,429 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Constraints | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Constraints | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="constraints">Constraints</h1>
+
+<hr>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/constraints_overview.mp4" type="video/mp4">
+</video>
+<p>A <strong>constraint</strong> ties two bodies together and limits how they may move relative to each other. A door is a body on a hinge, a piston is a body on a slider, a rope is a chain of bodies on point constraints, and a ragdoll is a skeleton of swing-twist constraints.</p>
+<p>Every constraint is a component you add to the entity of the body it moves. That body is the <strong>source</strong>; the one it is tied to is the <strong>connected body</strong>.</p>
+<p><img src="images/constraints_overview_still.png" alt="Constraint rigs"></p>
+<p><em>One rig per constraint type. In each of them the grey block is bolted to the world and the red one is held by the constraint; the coloured arcs and lines are the constraints themselves, drawn by <a href="../debug_rendering.html">debug rendering</a>.</em></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>These replace the <code>*Joint3D</code> components of the previous API, with several renamed and four new ones. See <a href="../migrating_from_bullet.html">Migrating from Bullet</a>.</p>
+</div>
+<p>Either end of a constraint can be any <a href="../physics_bodies/index.html">physics body</a>. The source is nearly always a <code>RigidBody</code>, since a constraint on something that cannot move has nothing to do, but the connected body is just as often a <code>StaticBody</code>: a door hung on a wall that is part of the level, a rope tied to a post. <code>Body</code> and <code>ConnectedBody</code> are both typed as <code>PhysicsBody</code> for that reason.</p>
+<h2 id="common-properties">Common Properties</h2>
+<p>Every constraint has these. The pages that follow list only what is specific to each one.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ConnectedEntityPath</strong></td>
+<td>null</td>
+<td>The entity holding the other body. <strong>Left empty, the constraint anchors to the world</strong>, which is how a door is hung on a wall that is not itself a body. A path that names an entity that does not exist, or one without a body, leaves the constraint <strong>disconnected</strong> rather than silently pinning it to the world. Changing it on a live constraint recreates it against the new body.</td>
+</tr>
+<tr>
+<td><strong>ConnectedBody</strong></td>
+<td>null</td>
+<td>The other body, set directly from code, as a <code>PhysicsBody</code>. Takes precedence over the path.</td>
+</tr>
+<tr>
+<td><strong>Anchor</strong></td>
+<td>0,0,0</td>
+<td>Where the constraint attaches on this body, in its local space.</td>
+</tr>
+<tr>
+<td><strong>AutoConfigureConnectedAnchor</strong></td>
+<td>true</td>
+<td>Works out the matching anchor on the other body from where the two are standing when the constraint is created.</td>
+</tr>
+<tr>
+<td><strong>ConnectedAnchor</strong></td>
+<td>0,0,0</td>
+<td>Where it attaches on the other body, when the above is off.</td>
+</tr>
+<tr>
+<td><strong>CollideConnected</strong></td>
+<td>false</td>
+<td>Whether the two bodies still collide with each other. Off by default, because two bodies bolted together usually overlap and would otherwise fight their own contact every step.</td>
+</tr>
+<tr>
+<td><strong>IsHolding</strong></td>
+<td>true</td>
+<td>Whether the constraint is holding at all. Turning it off releases the bodies <strong>without moving the anchors</strong>, so turning it back on picks up where it left off.</td>
+</tr>
+<tr>
+<td><strong>Priority</strong></td>
+<td>0</td>
+<td>The order the solver works through constraints in. Higher is solved <strong>last</strong>, and the last one solved is the one that tends to win, which is what settles a fight between two constraints pulling the same body different ways. Leave it at zero otherwise.</td>
+</tr>
+<tr>
+<td><strong>SolverVelocityIterationsOverride</strong></td>
+<td>0</td>
+<td>Per-constraint solver override. <code>0</code> uses the world's.</td>
+</tr>
+<tr>
+<td><strong>SolverPositionIterationsOverride</strong></td>
+<td>0</td>
+<td>The same for position iterations.</td>
+</tr>
+</tbody>
+</table>
+<p>Read-only:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AppliedForce</strong></td>
+<td>How hard the constraint is currently pulling, in newtons.</td>
+</tr>
+<tr>
+<td><strong>AppliedTorque</strong></td>
+<td>How hard it is currently twisting.</td>
+</tr>
+<tr>
+<td><strong>IsBroken</strong></td>
+<td>Whether it has given way.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Recreate()</strong></td>
+<td>Rebuilds the constraint, picking up the bodies' current poses as the new rest state.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Anchors are captured <strong>when the constraint is created</strong>. Move a body afterwards and the constraint pulls it back to where the anchor says it should be. Position both bodies where they belong before adding the constraint, or call <code>Recreate()</code> after moving them.</p>
+</div>
+<h2 id="constraints-in-evergine-studio">Constraints in Evergine Studio</h2>
+<p><img src="images/constraint_gizmo.png" alt="A constraint selected in the editor"></p>
+<p><em>A door on a <code>HingeConstraint</code>, selected in Evergine Studio. Beside the transform manipulator, the editor draws the constraint itself: the cyan line along the door's edge is the hinge axis, and the yellow arc is the range the door may open through.</em></p>
+<p>Selecting an entity with a constraint draws the constraint in the viewport: its axis, its anchor and the limits it allows, a hinge's arc or a swing twist's cones. This is the same picture <a href="../debug_rendering.html">debug rendering</a> draws at run time, available while the scene is still being built, so an anchor placed on the wrong side of a door is visible before the scene is ever run.</p>
+<h2 id="breakable-constraints">Breakable Constraints</h2>
+<p>A constraint can be told to give way under load:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsBreakable</strong></td>
+<td>false</td>
+<td>Whether the constraint can break.</td>
+</tr>
+<tr>
+<td><strong>BreakForce</strong></td>
+<td>5000</td>
+<td>The pull, in newtons, that breaks it.</td>
+</tr>
+<tr>
+<td><strong>BreakTorque</strong></td>
+<td>5000</td>
+<td>The twist, in newton-metres, that breaks it.</td>
+</tr>
+</tbody>
+</table>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/breakable_constraint.mp4" type="video/mp4">
+</video>
+<pre><code class="lang-csharp">PointConstraint rope = entity.FindComponent&lt;PointConstraint&gt;();
+
+rope.IsBreakable = true;
+rope.BreakForce = 900f;
+rope.Broken += (sender, e) =&gt; this.PlaySnap();
+</code></pre>
+<p>The <strong>Broken</strong> event fires once, when it gives way.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Jolt does not break constraints by itself. Evergine reads the impulse the constraint applied after each step and turns it into a force, which is what the threshold is compared against.</p>
+</div>
+<p>There are three different ways to stop a constraint holding, and they are not interchangeable: <code>IsHolding = false</code> releases it but keeps the anchors, so it can be resumed; <code>IsEnabled = false</code> disables the component; and breaking it destroys it for good.</p>
+<h2 id="motors">Motors</h2>
+<p>A motor drives a constraint towards a speed or a position instead of leaving it to gravity. <code>HingeConstraint</code>, <code>SliderConstraint</code>, <code>SwingTwistConstraint</code> and <code>SixDOFConstraint</code> have one.</p>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Off</strong></td>
+<td>No motor. The constraint only restricts.</td>
+</tr>
+<tr>
+<td><strong>Velocity</strong></td>
+<td>Drives towards a target velocity: a wheel, a fan, a conveyor drum.</td>
+</tr>
+<tr>
+<td><strong>Position</strong></td>
+<td>Drives towards a target position or angle and holds there: a powered door, a piston, a servo.</td>
+</tr>
+</tbody>
+</table>
+<p>Every motor has a limit on how hard it may push: <code>MaxMotorTorque</code> or <code>MaxMotorForce</code>, and on a swing twist constraint the separate <code>MaxSwingTorque</code> and <code>MaxTwistTorque</code>. A motor that cannot reach its target falls short, which is what makes a powered door stoppable by something heavy enough.</p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/hinge_constraint_motor.mp4" type="video/mp4">
+</video>
+<h2 id="springs">Springs</h2>
+<p><img src="images/spring_diagram.png" alt="Springs"></p>
+<p>Several constraints take a <code>SpringParameters</code>, which makes their limits soft instead of hard. There is no separate spring constraint: a spring is a property of a limit.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mode</strong></td>
+<td><code>FrequencyAndDamping</code>, how many times a second it wants to oscillate, or <code>StiffnessAndDamping</code>, in newtons per metre.</td>
+</tr>
+<tr>
+<td><strong>FrequencyOrStiffness</strong></td>
+<td>The frequency or the stiffness, depending on the mode. <strong>Zero means a hard limit</strong>, with no spring at all.</td>
+</tr>
+<tr>
+<td><strong>Damping</strong></td>
+<td>How quickly the oscillation dies away. <code>1</code> is critical damping, which settles without overshooting.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// A suspension-like limit: two oscillations a second, well damped.
+slider.LimitsSpring = SpringParameters.FromFrequency(2f, 0.7f);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Factory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SpringParameters.FromFrequency(frequency, damping)</strong></td>
+<td>A spring described by how fast it wants to bounce.</td>
+</tr>
+<tr>
+<td><strong>SpringParameters.FromStiffness(stiffness, damping)</strong></td>
+<td>A spring described by its stiffness in N/m.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="choosing-a-constraint">Choosing a Constraint</h2>
+<table>
+<thead>
+<tr>
+<th>I want</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Two bodies welded together</td>
+<td><a href="fixed_constraint.html">Fixed</a></td>
+</tr>
+<tr>
+<td>A ball joint: free to rotate, fixed in place</td>
+<td><a href="point_constraint.html">Point</a></td>
+</tr>
+<tr>
+<td>A rope or a rod holding two bodies apart or together</td>
+<td><a href="distance_constraint.html">Distance</a></td>
+</tr>
+<tr>
+<td>A door, a wheel, a lever, a pendulum on an axis</td>
+<td><a href="hinge_constraint.html">Hinge</a></td>
+</tr>
+<tr>
+<td>A piston, a drawer, a lift on rails</td>
+<td><a href="slider_constraint.html">Slider</a></td>
+</tr>
+<tr>
+<td>A ball joint that may not bend past a cone</td>
+<td><a href="cone_constraint.html">Cone</a></td>
+</tr>
+<tr>
+<td>A shoulder, a hip, a ragdoll joint</td>
+<td><a href="swing_twist_constraint.html">Swing Twist</a>; see <a href="../ragdolls.html">Ragdolls</a> for a whole figure</td>
+</tr>
+<tr>
+<td>Anything else: per-axis limits and motors</td>
+<td><a href="six_dof_constraint.html">Six DOF</a></td>
+</tr>
+<tr>
+<td>Two rotations geared together</td>
+<td><a href="gear_constraint.html">Gear</a></td>
+</tr>
+<tr>
+<td>A rotation driving a linear motion</td>
+<td><a href="rack_and_pinion_constraint.html">Rack and Pinion</a></td>
+</tr>
+<tr>
+<td>One body rising as another falls</td>
+<td><a href="pulley_constraint.html">Pulley</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="fixed_constraint.html">Fixed Constraint</a></li>
+<li><a href="point_constraint.html">Point Constraint</a></li>
+<li><a href="distance_constraint.html">Distance Constraint</a></li>
+<li><a href="hinge_constraint.html">Hinge Constraint</a></li>
+<li><a href="slider_constraint.html">Slider Constraint</a></li>
+<li><a href="cone_constraint.html">Cone Constraint</a></li>
+<li><a href="swing_twist_constraint.html">Swing Twist Constraint</a></li>
+<li><a href="six_dof_constraint.html">Six DOF Constraint</a></li>
+<li><a href="gear_constraint.html">Gear Constraint</a></li>
+<li><a href="rack_and_pinion_constraint.html">Rack and Pinion Constraint</a></li>
+<li><a href="pulley_constraint.html">Pulley Constraint</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

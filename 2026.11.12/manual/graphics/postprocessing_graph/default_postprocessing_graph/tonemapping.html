@@ -1,0 +1,277 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tone Mapping, Chromatic Aberration, Grain, Vignette and Distortion | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tone Mapping, Chromatic Aberration, Grain, Vignette and Distortion | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tone-mapping-chromatic-aberration-grain-vignette-and-distortion">Tone Mapping, Chromatic Aberration, Grain, Vignette and Distortion</h1>
+
+<hr>
+<p>These effects are applied by a single node, <code>ToneMapping</code>, that reads each pixel once and applies all of them, which is cheaper than running them one after another. Each can be switched on independently.</p>
+<h2 id="tone-mapping">Tone Mapping</h2>
+<p><strong>Tone mapping</strong> converts the HDR image the camera renders, where values can be far above 1, into the limited range of the display, compressing highlights so bright areas keep their detail instead of clipping to white.</p>
+<p><img src="images/Tonemapping.jpg" alt="Tonemapping"></p>
+<p><em>Left, the render without tone mapping; right, with it.</em></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enabled</strong></td>
+<td>On</td>
+<td>Turns the node, and every effect on this page, on.</td>
+</tr>
+<tr>
+<td><strong>HDR Enabled</strong></td>
+<td>On</td>
+<td>Map HDR to the display range with the curve below. Turn it off only when the camera renders in LDR.</td>
+</tr>
+<tr>
+<td><strong>Curve</strong></td>
+<td><code>ACES</code></td>
+<td>The mapping curve: <code>REINHARD</code>, <code>REINHARDSQ</code>, <code>LUMAREINHARD</code>, <code>FILMIC</code>, <code>ACES</code> or <code>ROMBINDAHOUSE</code>. ACES gives the filmic contrast and color most people expect.</td>
+</tr>
+<tr>
+<td><strong>LUT Enabled</strong></td>
+<td>Off</td>
+<td>Color-grade the result with a lookup table.</td>
+</tr>
+<tr>
+<td><strong>LUT Texture</strong></td>
+<td>none</td>
+<td>A 16x16x16 color lookup table unwrapped into a 256x16 texture. Start from a neutral table, grade it in an image editor together with a screenshot, and use the result.</td>
+</tr>
+<tr>
+<td><strong>Dither Enabled</strong></td>
+<td>Off</td>
+<td>Add a small amount of noise to hide banding in smooth gradients.</td>
+</tr>
+</tbody>
+</table>
+<p>Two sample lookup tables, HDR and vintage:</p>
+<p><img src="images/LUTHDR.png" alt="HDR lookup table"></p>
+<p><img src="images/LUTVintage.png" alt="Vintage lookup table"></p>
+<h2 id="chromatic-aberration">Chromatic Aberration</h2>
+<p><strong>Chromatic aberration</strong> is the color fringing a lens produces because it bends each wavelength slightly differently. The effect shifts the red, green and blue channels apart, most visibly towards the edges of the image.</p>
+<p><img src="images/ChromaticAberration.jpg" alt="Chromatic aberration"></p>
+<p><em>Left, without chromatic aberration; right, with it.</em></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Chromatic Aberration</strong></td>
+<td>Off</td>
+<td>Turns the effect on.</td>
+</tr>
+<tr>
+<td><strong>Strength</strong></td>
+<td>5</td>
+<td>Distance between the color channels.</td>
+</tr>
+<tr>
+<td><strong>Offset</strong></td>
+<td>(0.005, 0.005)</td>
+<td>Direction and base amount of the shift.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="grain">Grain</h2>
+<p><strong>Grain</strong> adds the fine, moving noise of photographic film.</p>
+<p><img src="images/Grain.jpg" alt="Grain"></p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Grain Enabled</strong></td>
+<td>Off</td>
+<td>Turns the effect on.</td>
+</tr>
+<tr>
+<td><strong>Intensity</strong></td>
+<td>0.5</td>
+<td>Strength of the grain, from 0 to 1.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vignette">Vignette</h2>
+<p>A <strong>vignette</strong> darkens the image towards its corners, drawing the eye to the center.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vignette Enabled</strong></td>
+<td>Off</td>
+<td>Turns the effect on.</td>
+</tr>
+<tr>
+<td><strong>Power</strong></td>
+<td>1</td>
+<td>How dark the corners get.</td>
+</tr>
+<tr>
+<td><strong>Radio</strong></td>
+<td>1.25</td>
+<td>Scale applied to the distance from the center before darkening. Larger values bring the darkening closer to the center. Evergine Studio displays this value converted as if it were an angle, so the default reads 71.6.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="distortion">Distortion</h2>
+<p><strong>Distortion</strong> bends the image behind refractive objects, such as heat haze, glass or water. Objects write how much to bend the image into the distortion target of the GBuffer, and this effect offsets the pixels accordingly.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Distortion</strong></td>
+<td>Off</td>
+<td>Turns the effect on.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Only materials that write distortion produce it, such as those made with the <strong>Distortion</strong> effect of Evergine.Core. See <a href="../../effects/builtin_effects.html">Built-in Effects</a>.</p>
+</div>
+<p><img src="images/Distortion.jpg" alt="Distortion effect"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

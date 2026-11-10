@@ -1,0 +1,214 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Point Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Point Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="point-constraint">Point Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/point_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>point constraint</strong> pins two bodies together at a single point and lets them rotate freely about it. It is the ball-and-socket joint: the point cannot move, the rotation is unrestricted.</p>
+<p><img src="images/point_constraint_diagram.png" alt="Point constraint"></p>
+<h2 id="pointconstraint-component">PointConstraint Component</h2>
+<p><img src="images/pointconstraint_component.png" alt="PointConstraint component"></p>
+<pre><code class="lang-csharp">Entity pendulum = new Entity(&quot;pendulum&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 4f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider())
+    .AddComponent(new PointConstraint()
+    {
+        ConnectedEntityPath = &quot;anchor&quot;,
+        Anchor = new Vector3(0f, 0.5f, 0f),
+    });
+
+this.Managers.EntityManager.Add(pendulum);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<p>A point constraint adds nothing of its own beyond the <a href="index.html#common-properties">common properties</a>. The whole shape of the joint is in where its anchors sit:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Anchor</strong></td>
+<td>0,0,0</td>
+<td>The pin point on this body, in its local space.</td>
+</tr>
+<tr>
+<td><strong>ConnectedAnchor</strong></td>
+<td>0,0,0</td>
+<td>The pin point on the other body, when <code>AutoConfigureConnectedAnchor</code> is off.</td>
+</tr>
+<tr>
+<td><strong>ConnectedEntityPath</strong></td>
+<td>null</td>
+<td>Left empty, the body is pinned <strong>to a point in the world</strong> and swings freely from it.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="building-a-chain">Building a Chain</h2>
+<p>A rope or a chain is a row of bodies, each pinned to the one above it at the point where they meet:</p>
+<pre><code class="lang-csharp">private void CreateChain(Vector3 top, int links)
+{
+    const float LinkLength = 0.6f;
+
+    string previous = null;
+
+    for (int i = 0; i &lt; links; i++)
+    {
+        Entity link = new Entity($&quot;link{i}&quot;)
+            .AddComponent(new Transform3D() { Position = top - (Vector3.UnitY * (i * LinkLength)) })
+            .AddComponent(new MaterialComponent() { Material = this.material })
+            .AddComponent(new CapsuleMesh() { Radius = 0.1f, Height = LinkLength - 0.2f })
+            .AddComponent(new MeshRenderer())
+
+            // The first link is a StaticBody, so the chain has something to hang from. Everything below
+            // it is a dynamic RigidBody, held only by the constraint above it.
+            .AddComponent(i == 0 ? new StaticBody() : new RigidBody())
+            .AddComponent(new CapsuleCollider() { Radius = 0.1f, Height = LinkLength });
+
+        if (previous != null)
+        {
+            // Anchored at the top of this link and, by AutoConfigureConnectedAnchor, at the bottom of
+            // the one above: the two anchors meet exactly where the links touch.
+            link.AddComponent(new PointConstraint()
+            {
+                ConnectedEntityPath = previous,
+                Anchor = new Vector3(0f, LinkLength * 0.5f, 0f),
+            });
+        }
+
+        this.Managers.EntityManager.Add(link);
+        previous = link.Name;
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A long chain of point constraints stretches under load, because each link is solved in turn and the error accumulates. Three fixes, in order of cheapness: raise the world's <code>SolverVelocityIterations</code>, give the links nearest the anchor a higher <code>Priority</code> so they are solved last and win the argument, or use fewer, longer links.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A point constraint puts no limit on rotation at all, so a chain built from them can fold back on itself and spin about its own axis. For a joint that may only bend so far, use a <a href="cone_constraint.html">Cone</a> or <a href="swing_twist_constraint.html">Swing Twist</a> constraint.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

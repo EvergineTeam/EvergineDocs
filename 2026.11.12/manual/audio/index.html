@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Audio | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Audio | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="audio">Audio</h1>
+
+<hr>
+<p><img src="images/AudioHeader.jpg" alt="Audio Section"></p>
+<p>Evergine plays sound effects and music, positioned in 3D or not. You import audio files as assets, place <code>SoundEmitter3D</code> and <code>SoundListener3D</code> components in your scene, and the engine handles distance attenuation, panning and the Doppler effect for you. When you need more control, the same audio device is available from code, down to feeding it raw PCM samples you generate yourself.</p>
+<h2 id="how-audio-flows-through-evergine">How audio flows through Evergine</h2>
+<ol>
+<li>An audio file (<code>.wav</code>, <code>.mp3</code> or <code>.ogg</code>) added to the project becomes a <strong>sound asset</strong>. Its profile decides the channels, sample rate and sample size it is exported with. See <a href="import_audio.html">Import Audio</a> and <a href="audio_editor.html">Audio Editor</a>.</li>
+<li>At run time, the asset loads as an <code>AudioBuffer</code>: a block of PCM data in one <code>WaveFormat</code>.</li>
+<li>An <code>AudioSource</code> plays a queue of buffers. The <code>AudioDevice</code> registered by your platform launcher creates sources and buffers and sends the result to the speakers.</li>
+<li><code>SoundEmitter3D</code> wraps a source for one entity. <code>SoundListener3D</code> moves the device's listener with another entity, usually the camera. See <a href="using_audio_from_editor.html">Using Audio from Evergine Studio</a>.</li>
+</ol>
+<p>Everything from step 2 onwards is also available from your own components. See <a href="using_audio_from_code.html">Using Audio from Code</a>.</p>
+<h2 id="platform-support">Platform support</h2>
+<p>Audio needs an <code>AudioDevice</code> service. The launcher project of each profile creates it and registers it in the application container, so what you get depends on the template the profile was created from:</p>
+<table>
+<thead>
+<tr>
+<th>Project template</th>
+<th>Audio device registered</th>
+<th>Package</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows (DirectX12), Windows (DirectX11), Windows (Vulkan), Windows (OpenGL), Windows OpenXR (DirectX11), WinUI (DirectX11)</td>
+<td><code>XAudioDevice</code> (XAudio2)</td>
+<td><code>Evergine.XAudio2</code></td>
+</tr>
+<tr>
+<td>Avalonia</td>
+<td><code>XAudioDevice</code> when running on Windows. On macOS and Linux the template throws <code>NotImplementedException</code>.</td>
+<td><code>Evergine.XAudio2</code></td>
+</tr>
+<tr>
+<td>Android, Android Meta Quest (OpenXR), Android Pico (OpenXR)</td>
+<td><code>ALAudioDevice</code> (OpenAL Soft)</td>
+<td><code>Evergine.OpenAL</code></td>
+</tr>
+<tr>
+<td>MAUI</td>
+<td><code>ALAudioDevice</code> on Android. None on Windows (the package is referenced but no device is registered) or iOS.</td>
+<td><code>Evergine.OpenAL</code>, <code>Evergine.XAudio2</code></td>
+</tr>
+<tr>
+<td>iOS .NET 10</td>
+<td>None</td>
+<td></td>
+</tr>
+<tr>
+<td>Web (WebGL2.0), React SPA (WebGL2.0), WebXR (Experimental AR), Web (Experimental WebGPU)</td>
+<td>None</td>
+<td></td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>SoundEmitter3D</code> and <code>SoundListener3D</code> bind the <code>AudioDevice</code> service as a required dependency, and sound assets need it to load. On a profile that registers no device, these components are not attached and your scene is silent. To add audio to such a profile, create the device in its launcher and register it with <code>application.Container.RegisterInstance(...)</code>, as the Windows and Android launchers do.</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="import_audio.html">Import Audio</a></li>
+<li><a href="audio_editor.html">Audio Editor</a></li>
+<li><a href="using_audio_from_editor.html">Using Audio from Evergine Studio</a></li>
+<li><a href="using_audio_from_code.html">Using Audio from Code</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

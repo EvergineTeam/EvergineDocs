@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Gaussian Splatting on the web | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Gaussian Splatting on the web | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="gaussian-splatting-on-the-web">Gaussian Splatting on the web</h1>
+
+<hr>
+<p><img src="images/add_web_sorter.png" alt="Registering the web sorter"></p>
+<p>On the <a href="../../platforms/web/index.html">Web</a> platform, the add-on sorts the splats in a Web Worker, a background thread of the browser, so sorting millions of splats does not block rendering. This needs a NuGet package in your web project, one line of registration, a script in <code>index.html</code>, and two HTTP headers that allow the browser to share memory with the worker. The steps are the same for the <strong>Web</strong> (WebGL) and <strong>WebGPU</strong> profiles, and they match the <code>SplatRender</code> sample of the add-on repository.</p>
+<p>Before you start, complete the <a href="getting_started.html">Getting started</a> steps and make sure your application has a Web or WebGPU profile.</p>
+<h2 id="1-add-the-everginegaussiansplattingweb-package">1. Add the Evergine.GaussianSplatting.Web package</h2>
+<p>Add the <code>Evergine.GaussianSplatting.Web</code> NuGet package to your web project, usually named <strong>[ApplicationName].Web</strong> or <strong>[ApplicationName].WebGPU</strong>.</p>
+<p><img src="images/add_web_nuget.png" alt="Add web NuGet"></p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Use the same version as the Evergine.GaussianSplatting add-on installed in your project.</p>
+</div>
+<p>When the project builds, the package copies its scripts to the <code>wwwroot</code> folder of your project: <code>evergine_gaussiansplatting.js</code>, <code>evergine_sortworker.js</code>, <code>gsplat_native_bundle.js</code>, <code>gsplat_native_bundle.wasm</code>, and <code>gsplat_cache.js</code>. It also generates <code>gsplat_cache_manifest.js</code>, which holds a hash of each file.</p>
+<h2 id="2-register-the-web-sorter">2. Register the web sorter</h2>
+<p>In the <code>Program.cs</code> file of the same project, register <code>WorkerGSplatSorter</code> as the <code>IGSplatSorter</code> of the application, in the <code>Run</code> method, right after the application is created:</p>
+<pre><code class="lang-csharp">using Evergine.GaussianSplatting.Sorter;
+using Evergine.GaussianSplatting.Web;
+
+// Create app
+application = new MyApplication();
+
+// Sort the splats in a Web Worker instead of the default sorter.
+application.Container.Register&lt;IGSplatSorter, WorkerGSplatSorter&gt;();
+</code></pre>
+<p><code>GSplatRenderer</code> uses the sorter registered in the container before it chooses one of its own.</p>
+<h2 id="3-load-the-script-in-indexhtml">3. Load the script in index.html</h2>
+<p>Add the script at the end of the <code>body</code> of <code>wwwroot/index.html</code>, after the scripts that start Evergine:</p>
+<pre><code class="lang-html">&lt;script type=&quot;text/javascript&quot; src=&quot;evergine_gaussiansplatting.js&quot;&gt;&lt;/script&gt;
+</code></pre>
+<p><img src="images/add_html_script.png" alt="Add JS file"></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Browsers cache these scripts aggressively. The sample loads them through <code>gsplat_cache.js</code> and the generated manifest, which add the file hash to each URL, so users get the new files after you update the package:</p>
+<pre><code class="lang-html">&lt;!-- In the head, before evergine.js --&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;gsplat_cache_manifest.js&quot;&gt;&lt;/script&gt;
+&lt;script type=&quot;text/javascript&quot; src=&quot;gsplat_cache.js&quot;&gt;&lt;/script&gt;
+
+&lt;!-- At the end of the body, instead of the plain script tag --&gt;
+&lt;script type=&quot;text/javascript&quot;&gt;
+    window.gSplatCache.loadScript(&quot;gaussiansplatting&quot;, &quot;evergine_gaussiansplatting.js&quot;);
+&lt;/script&gt;
+</code></pre>
+</div>
+<h2 id="4-send-the-cross-origin-isolation-headers">4. Send the cross-origin isolation headers</h2>
+<p>The worker shares memory with the application through <code>SharedArrayBuffer</code>, which browsers only allow on cross-origin isolated pages. Make your server send these two headers with every response. In the <code>Program.cs</code> of your <strong>[ApplicationName].Web.Server</strong> or <strong>[ApplicationName].WebGPU.Server</strong> project, add this code right after <code>var app = builder.Build();</code>:</p>
+<pre><code class="lang-csharp">if (app.Environment.IsDevelopment())
+{
+    app.UseWebAssemblyDebugging();
+}
+
+void ApplyHeaders(IHeaderDictionary headers)
+{
+    headers[&quot;Cross-Origin-Embedder-Policy&quot;] = &quot;require-corp&quot;;
+    headers[&quot;Cross-Origin-Opener-Policy&quot;] = &quot;same-origin&quot;;
+}
+
+app.Use(async (context, next) =&gt;
+{
+    ApplyHeaders(context.Response.Headers);
+    await next();
+});
+</code></pre>
+<p><img src="images/add_cs_code.png" alt="Add cs code"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>With <code>Cross-Origin-Embedder-Policy: require-corp</code>, the page can only load resources from other origins that allow it. If your splat files or other assets come from another server, that server must send the matching CORS or <code>Cross-Origin-Resource-Policy</code> headers.</p>
+</div>
+<h3 id="static-hosting">Static hosting</h3>
+<p>Static hosts such as GitHub Pages cannot send custom headers. The <code>SplatRender</code> sample solves this with the third-party <a href="https://github.com/gzuidhof/coi-serviceworker">coi-serviceworker</a> script, which adds the headers from a service worker. It must be the first script loaded in the <code>head</code> of <code>index.html</code>.</p>
+<h3 id="react-template-vite">React template (Vite)</h3>
+<p>With the <strong>Evergine React template</strong>, the development server is Vite, so it must send the same headers. Add a plugin to <code>vite.config.ts</code>:</p>
+<pre><code class="lang-javascript">plugins: [
+    plugin(),
+    {
+        name: 'configure-response-headers',
+        configureServer: (server) =&gt; {
+            server.middlewares.use((_req, res, next) =&gt; {
+                res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
+                res.setHeader('Cross-Origin-Embedder-Policy', 'require-corp');
+                next();
+            });
+        },
+    },
+],
+</code></pre>
+<p>To check that the setup works, open the browser console on your page and evaluate <code>crossOriginIsolated</code>. It must return <code>true</code>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,193 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Project Settings | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Project Settings | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="project-settings">Project Settings</h1>
+
+<p><img src="Images/project_settings.png" alt="The Project Settings dialog on the Profiles tab, with the Windows profile selected"></p>
+<p><strong>Project Settings</strong> groups the options that affect the whole application rather than a single scene: the platforms it targets, the add-ons it uses, how source files are imported, and the application services it registers. Open it from <strong>Settings &gt; Project Settings</strong>. The changes are saved in the project files (<code>.weproj</code> and <code>.weservices</code>), so they are shared with everyone who works on the project.</p>
+<p>The dialog has four tabs:</p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>What you configure</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="settings/project_profiles.html">Profiles</a></td>
+<td>The launcher projects of the application, one per platform or variant, and the texture compression and shader settings of each one.</td>
+</tr>
+<tr>
+<td>Add-Ons</td>
+<td>The add-ons installed in the project. See below.</td>
+</tr>
+<tr>
+<td>Parameters</td>
+<td>Import options that apply to every asset of the project. See below.</td>
+</tr>
+<tr>
+<td><a href="settings/project_services.html">Services</a></td>
+<td>The application services that Evergine registers automatically at startup, and their property values.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="add-ons">Add-Ons</h2>
+<p>The <strong>Add-Ons</strong> tab lists the <a href="../addons/index.html">add-ons</a> of the project and lets you install new ones, update them or remove them.</p>
+<p><img src="Images/project_settings_addons.png" alt="The Add-Ons tab: the Browse list on the left and the details of the selected add-on on the right"></p>
+<ul>
+<li><strong>Browse</strong> searches the available add-ons. Filter them by <strong>Source</strong> and by text with <strong>Search</strong>, and click <strong>Refresh</strong> to query the sources again.</li>
+<li><strong>Installed</strong> lists the add-ons already in the project.</li>
+<li>Select an add-on to see its authors, description, tags, NuGet dependencies and versions. From there you can <strong>Install</strong> it, <strong>Update to this version</strong>, or <strong>Uninstall</strong> it.</li>
+</ul>
+<p>Before applying an update, Evergine Studio shows the add-ons and NuGet packages that will change. If the update moves the project to a new engine version, it asks you to restart Evergine Studio.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Core add-ons such as <strong>Evergine.Core</strong> cannot be removed or updated from this tab. They are updated together with the engine when you upgrade the project from the Evergine Launcher.</p>
+</div>
+<p><strong>File &gt; Manage dependencies</strong> opens this tab directly.</p>
+<h2 id="parameters">Parameters</h2>
+<p>The <strong>Parameters</strong> tab holds import options that apply to every asset of the project.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FBX Import &gt; Skinning Max Weights</strong></td>
+<td>4</td>
+<td>Maximum number of bone weights per vertex kept when an <code>.fbx</code>, <code>.obj</code>, <code>.dae</code> or <code>.3ds</code> model is converted. Higher values keep more detail in skinned meshes but make them heavier to render.</td>
+</tr>
+<tr>
+<td><strong>FBX Import &gt; Sparsed Morph Targets</strong></td>
+<td>Disabled</td>
+<td>Reserved for sparse morph target data. The importer does not use it yet, so morph targets are always stored dense.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="settings/project_profiles.html">Manage Profiles</a></li>
+<li><a href="settings/project_services.html">Manage Services</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

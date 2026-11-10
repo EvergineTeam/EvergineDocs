@@ -1,0 +1,266 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ImPlot | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ImPlot | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="implot">ImPlot</h1>
+
+<hr>
+<p><img src="images/ImPlot.png" alt="ImPlot charts drawn inside ImGui windows"></p>
+<p><a href="https://github.com/epezent/implot">ImPlot</a> is an immediate-mode plotting library for Dear ImGui. It draws interactive 2D charts inside an ImGui window, with zoom, pan, legends and tooltips built in, and is fast enough to redraw thousands of points every frame. Use it to watch values change while the application runs: frame times, sensor data, physics quantities, or any array you already have in memory.</p>
+<h2 id="enable-implot">Enable ImPlot</h2>
+<p>ImPlot needs its own context, which <code>ImGuiManager</code> only creates when <code>ImPlotEnabled</code> is set:</p>
+<pre><code class="lang-csharp">this.Managers.AddManager(new ImGuiManager()
+{
+    ImPlotEnabled = true,
+});
+</code></pre>
+<p>The functions are in <code>ImplotNative</code>, in the <code>Evergine.Bindings.Implot</code> namespace. Their names carry the type of the data as a suffix: <code>ImPlot_PlotLine_FloatPtrInt</code> plots an array of <code>float</code> values against their index, and <code>ImPlot_PlotLine_FloatPtrFloatPtr</code> plots <code>x</code> and <code>y</code> arrays.</p>
+<h2 id="plot-a-value-over-time">Plot a value over time</h2>
+<p>A chart is declared like a window. <code>ImPlot_BeginPlot</code> opens it inside the current ImGui window and returns <code>false</code> when it is not visible; everything between it and <code>ImPlot_EndPlot</code> configures the axes and adds series.</p>
+<p>This behavior keeps the last 200 frame times in a ring buffer, plots them as a line, and shows how they are distributed in a histogram below:</p>
+<pre><code class="lang-csharp">using Evergine.Bindings.Imgui;
+using Evergine.Bindings.Implot;
+using Evergine.Framework;
+using Evergine.Mathematics;
+using Evergine.UI;
+using System;
+
+public unsafe class FrameTimePlot : Behavior
+{
+    private const int Count = 200;
+
+    private bool open = true;
+
+    // Samples live in fields: the plot reads them again on every frame.
+    private float[] frameTimes = new float[Count];
+    private int offset;
+
+    // ImPlotSpec describes how a series is drawn. A zeroed struct would draw
+    // transparent lines and read every point from index 0, so start from the same
+    // defaults as the C++ ImPlotSpec constructor.
+    private ImPlotSpec spec = new ImPlotSpec
+    {
+        LineColor = new Vector4(0, 0, 0, -1),       // IMPLOT_AUTO_COL: next colour of the colormap
+        LineWeight = 1,
+        FillColor = new Vector4(0, 0, 0, -1),
+        FillAlpha = 1,
+        Marker = ImPlotMarker.None,
+        MarkerSize = 4,
+        MarkerLineColor = new Vector4(0, 0, 0, -1),
+        MarkerFillColor = new Vector4(0, 0, 0, -1),
+        Size = 4,
+        Offset = 0,
+        Stride = -1,                                // IMPLOT_AUTO: sizeof(float)
+        Flags = ImPlotItemFlags.None,
+    };
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        this.frameTimes[this.offset] = (float)gameTime.TotalMilliseconds;
+        this.offset = (this.offset + 1) % Count;
+
+        if (!this.open)
+        {
+            return;
+        }
+
+        ImguiNative.igSetNextWindowSize(new Vector2(500, 520), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin(&quot;Frame time&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            fixed (float* values = this.frameTimes)
+            {
+                if (ImplotNative.ImPlot_BeginPlot(&quot;Frame time (ms)&quot;, new Vector2(-1, 220), ImPlotFlags.None))
+                {
+                    ImplotNative.ImPlot_SetupAxes(&quot;frame&quot;, &quot;ms&quot;, ImPlotAxisFlags.None, ImPlotAxisFlags.AutoFit);
+                    ImplotNative.ImPlot_SetupAxisLimits(ImAxis.X1, 0, Count, ImPlotCond.Always);
+
+                    // ImPlot reads element (Offset + i) % count, so starting at the
+                    // oldest sample puts the newest one on the right.
+                    var lineSpec = this.spec;
+                    lineSpec.Offset = this.offset;
+                    ImplotNative.ImPlot_PlotLine_FloatPtrInt(&quot;Update&quot;, values, Count, 1, 0, lineSpec);
+                    ImplotNative.ImPlot_EndPlot();
+                }
+
+                if (ImplotNative.ImPlot_BeginPlot(&quot;Distribution&quot;, new Vector2(-1, 220), ImPlotFlags.NoLegend))
+                {
+                    ImplotNative.ImPlot_SetupAxes(&quot;ms&quot;, &quot;frames&quot;, ImPlotAxisFlags.AutoFit, ImPlotAxisFlags.AutoFit);
+
+                    // The order of the samples does not matter here. An empty range
+                    // lets ImPlot use the minimum and maximum of the data.
+                    ImplotNative.ImPlot_PlotHistogram_FloatPtr(&quot;Update&quot;, values, Count, 20, 1.0, new ImPlotRange(), this.spec);
+                    ImplotNative.ImPlot_EndPlot();
+                }
+            }
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><code>ImPlot_EndPlot</code> is only called when <code>ImPlot_BeginPlot</code> returned <code>true</code>, which is the opposite of <code>igBegin</code> and <code>igEnd</code>. A size of <code>-1</code> fills the available width.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Every plot function takes an <code>ImPlotSpec</code> by value. Build it from the defaults shown above and change only what you need, such as <code>LineColor</code>, <code>LineWeight</code> or <code>Marker</code>. <code>default(ImPlotSpec)</code> has a <code>Stride</code> of 0 and a fully transparent line colour, so the series reads the same element over and over and draws nothing visible.</p>
+</div>
+<h2 id="series-types">Series types</h2>
+<p>Each kind of chart is one function call inside <code>ImPlot_BeginPlot</code> and <code>ImPlot_EndPlot</code>, and several series of different kinds can share one plot. The images below come from the ImPlot demo window, which you can open with <code>ImplotNative.ImPlot_ShowDemoWindow(open.Pointer())</code> to see every type with its source.</p>
+<p><img src="images/implot_demo_window.png" alt="The ImPlot demo window of ImGui-Demo on the Line Plots section"></p>
+<h3 id="line-plots">Line plots</h3>
+<p><code>ImPlot_PlotLine_*</code> joins consecutive points with straight segments. It is the default choice for a value sampled at regular intervals, and the basis of a realtime plot: keep a ring buffer, as in the example above, and scroll the x axis.</p>
+<p><img src="images/LinePlots.png" alt="Two line series"></p>
+<p><img src="images/RealtimePlots.png" alt="Realtime line plots with scrolling axes"></p>
+<h3 id="shaded-and-filled-plots">Shaded and filled plots</h3>
+<p><code>ImPlot_PlotShaded_*</code> fills the area between a series and a reference value, or between two series. Filling down to zero turns a line into an area chart; filling between an upper and a lower bound shows a range or a confidence band.</p>
+<p><img src="images/FilledLinePlots.png" alt="Areas filled down to a reference line"></p>
+<p><img src="images/ShadedPlots.png" alt="A band shaded between two series"></p>
+<h3 id="scatter-plots">Scatter plots</h3>
+<p><code>ImPlot_PlotScatter_*</code> draws one marker per point and no lines. Use it when the order of the points carries no meaning, for example to show how two measurements relate to each other.</p>
+<p><img src="images/ScatterPlots.png" alt="Scatter plot of two point clouds"></p>
+<h3 id="stairstep-plots">Stairstep plots</h3>
+<p><code>ImPlot_PlotStairs_*</code> holds each value until the next point, which draws signals that change in discrete steps, such as a state or a quantized value, without the false slopes a line plot would suggest.</p>
+<p><img src="images/StairstepPlots.png" alt="Stairstep series"></p>
+<h3 id="bar-plots">Bar plots</h3>
+<p><code>ImPlot_PlotBars_*</code> draws one bar per value, vertical by default. <code>ImPlot_PlotBarGroups_FloatPtr</code> draws several series side by side for each category, and stacks them on top of each other when its spec's <code>Flags</code> include <code>ImPlotBarGroupsFlags.Stacked</code>.</p>
+<p><img src="images/BarPlots.png" alt="Vertical bars"></p>
+<p><img src="images/BarGroups.png" alt="Groups of bars, one per category"></p>
+<p><img src="images/BarStacks.png" alt="Stacked bar groups"></p>
+<h3 id="error-bars">Error bars</h3>
+<p><code>ImPlot_PlotErrorBars_*</code> draws a whisker above and below each point. Plot it together with a line or bar series to show the uncertainty of each value.</p>
+<p><img src="images/ErrorBars.png" alt="Bars and lines with error whiskers"></p>
+<h3 id="stem-plots">Stem plots</h3>
+<p><code>ImPlot_PlotStems_*</code> draws a vertical line from a reference value up to each point, with a marker at the end. It suits sparse or discrete samples, where a line between points would be misleading.</p>
+<p><img src="images/StemPlots.png" alt="Stem series"></p>
+<h3 id="infinite-lines">Infinite lines</h3>
+<p><code>ImPlot_PlotInfLines_FloatPtr</code> draws lines that span the whole plot at the given positions. Use it to mark thresholds or events that should stay visible whatever the zoom.</p>
+<p><img src="images/InfiniteLines.png" alt="Vertical and horizontal infinite lines"></p>
+<h3 id="pie-charts">Pie charts</h3>
+<p><code>ImPlot_PlotPieChart_*</code> divides a circle into slices proportional to the values, labelled with a format string. It reads best with a handful of slices and an equal-axes plot (<code>ImPlotFlags.Equal</code>).</p>
+<p><img src="images/PieCharts.png" alt="Two pie charts"></p>
+<h3 id="heatmaps">Heatmaps</h3>
+<p><code>ImPlot_PlotHeatmap_FloatPtr</code> colours each cell of a 2D array according to its value, using the current colormap. It shows a grid of values, such as a density map or a matrix, at a glance.</p>
+<p><img src="images/Heatmaps.png" alt="A heatmap with its colour scale"></p>
+<h3 id="histograms">Histograms</h3>
+<p><code>ImPlot_PlotHistogram_FloatPtr</code> sorts values into bins and draws the count of each bin as a bar, which shows how the values are distributed. <code>ImPlot_PlotHistogram2D_FloatPtr</code> does the same for pairs of values and draws the counts as a heatmap.</p>
+<p><img src="images/Histogram.png" alt="A histogram of a distribution"></p>
+<p><img src="images/Histogram2D.png" alt="A 2D histogram"></p>
+<h3 id="digital-plots">Digital plots</h3>
+<p><code>ImPlot_PlotDigital_FloatPtr</code> draws on/off or small integer signals as stacked lanes that do not scale with the y axis, like the traces of a logic analyser, so you can watch several of them next to an ordinary series.</p>
+<p><img src="images/DigitalPlots.png" alt="Digital signal lanes"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

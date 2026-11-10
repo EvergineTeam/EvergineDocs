@@ -1,0 +1,442 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Interface | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Interface | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="interface">Interface</h1>
+
+<p><img src="Images/interface_annotated.png" alt="The main window of Evergine Studio with a scene open, numbered by area"></p>
+<ol>
+<li><strong>Menu bar</strong></li>
+<li><strong>Toolbar</strong>: save, save all, undo and redo</li>
+<li><strong>Project and version</strong>: the open project and the Evergine Studio version with its graphics backend</li>
+<li><strong>Project Explorer</strong></li>
+<li><strong>Assets Details</strong></li>
+<li><strong>Document tabs</strong>, one per open asset</li>
+<li><strong>Viewport toolbar</strong> of the Scene Editor</li>
+<li><strong>Viewport</strong></li>
+<li><strong>Scene Hierarchy</strong></li>
+<li><strong>Entity Details</strong> and <strong>Scene Managers</strong>, which share a tabbed pane</li>
+<li><strong>Output</strong>, auto-hidden at the bottom in this layout</li>
+</ol>
+<p>Evergine Studio is organized in dockable panels around a central document area. The panels on the left browse the project, the document area hosts one editor per open asset, and the Output panel at the bottom shows the log. You can move, dock, float and auto-hide every panel to build the layout you prefer, and Evergine Studio remembers it for each project.</p>
+<h2 id="main-window">Main window</h2>
+<table>
+<thead>
+<tr>
+<th>Area</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Menu bar</strong></td>
+<td>The <strong>File</strong>, <strong>Edit</strong>, <strong>Settings</strong>, <strong>Assets</strong>, <strong>Window</strong> and <strong>Help</strong> menus, described <a href="#main-menu">below</a>.</td>
+</tr>
+<tr>
+<td><strong>Toolbar</strong></td>
+<td><strong>Save</strong> (Ctrl+S), <strong>Save All</strong> (Ctrl+Shift+S), <strong>Undo</strong> (Ctrl+Z) and <strong>Redo</strong> (Ctrl+Y), next to the menu bar.</td>
+</tr>
+<tr>
+<td><strong>Project and version</strong></td>
+<td>The name of the open project (hover it to see its path) and the Evergine Studio version with the graphics backend it uses.</td>
+</tr>
+<tr>
+<td><strong>Project Explorer</strong></td>
+<td>The folder tree of the project <code>Content</code> folder, plus a <strong>Dependencies</strong> node with the content of the installed add-ons. Type in the filter box to find a folder.</td>
+</tr>
+<tr>
+<td><strong>Assets Details</strong></td>
+<td>The assets of the folder selected in the Project Explorer. Use the <img src="assets/Images/plusIcon.jpg" alt="Plus icon"> button to import or create assets, <strong>Assets filter</strong> to search by name, and <strong>Columns</strong> to change the thumbnail size. The bar at the bottom shows the path of the selected asset.</td>
+</tr>
+<tr>
+<td><strong>Document area</strong></td>
+<td>One tab per open asset, each with its <a href="#asset-editors">asset editor</a>. Right-click a tab to <strong>Close</strong> it, <strong>Close Others</strong> or <strong>Close All</strong>.</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>The log of Evergine Studio and of your project code. Hover the panel to show its toolbar: <strong>Level</strong> (Verbose, Debug, Info, Warning or Error), <strong>Clear</strong>, <strong>Pause</strong> and <strong>Auto Scroll</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>When the project files change outside Evergine Studio, for example after you build in Visual Studio, a banner at the top of the window reads <em>The project files has been modified. Reload the project to stay updated.</em> Click it to reload the project. If something fails, a similar banner asks you to check the log and reload.</p>
+<h2 id="scene-editor-panels">Scene Editor panels</h2>
+<p>Double-click a scene to open it in the <strong>Scene Editor</strong>. Besides the 3D viewport and its toolbar, the Scene Editor adds three panels that are docked on the right by default:</p>
+<table>
+<thead>
+<tr>
+<th>Panel</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Scene Hierarchy</strong></td>
+<td>The entity tree of the scene. Use the <img src="assets/Images/plusIcon.jpg" alt="Plus icon"> button to add entities (primitives, cameras, lights, particles, text and more), the filter box to search, and the context menu to create or open prefabs.</td>
+</tr>
+<tr>
+<td><strong>Entity Details</strong></td>
+<td>The name, tag, enabled state and components of the selected entity. Use the <img src="assets/Images/plusIcon.jpg" alt="Plus icon"> button to add components, the filter to find one, and the buttons next to it to collapse or expand all of them.</td>
+</tr>
+<tr>
+<td><strong>Scene Managers</strong></td>
+<td>The scene managers registered in the scene and their properties. It shares a tabbed pane with <strong>Entity Details</strong>, which comes to the front when you select an entity.</td>
+</tr>
+</tbody>
+</table>
+<p>The viewport toolbar selects the camera, the manipulation mode (<strong>Move</strong>, <strong>Rotate</strong>, <strong>Scale</strong>), the <strong>Global</strong> or <strong>Local</strong> space, the selection mode, the snapping units for moving, rotating and scaling, the camera options and the <strong>Grid</strong>. When RenderDoc is enabled it also shows <strong>Capture next frame with RenderDoc</strong> (see <a href="renderdoc.html">Profile with RenderDoc</a>). The Scene Editor is described in detail in <a href="../basics/scenes/scene_editor.html">Scene Editor</a>.</p>
+<h2 id="main-menu">Main menu</h2>
+<h3 id="file">File</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Reload Project</strong></td>
+<td>Reloads the project, its assemblies and its assets.</td>
+</tr>
+<tr>
+<td><strong>Manage dependencies</strong></td>
+<td>Opens the <strong>Add-Ons</strong> tab of <a href="settings.html">Project Settings</a>.</td>
+</tr>
+<tr>
+<td><strong>Save</strong> / <strong>Save All</strong></td>
+<td>Saves the active editor, or every open editor.</td>
+</tr>
+<tr>
+<td><strong>Open C# editor</strong></td>
+<td>Opens the Visual Studio solution of a profile. With several profiles, pick one from the submenu.</td>
+</tr>
+<tr>
+<td><strong>Open project folder</strong></td>
+<td>Opens the project folder in <em>File Explorer</em>.</td>
+</tr>
+<tr>
+<td><strong>Build &amp; Run</strong></td>
+<td>Builds and starts one of the Windows desktop profiles. F5 runs the default Windows profile. <strong>Manage profile</strong> opens Project Settings.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="edit">Edit</h3>
+<p><strong>Undo</strong> (Ctrl+Z), <strong>Redo</strong> (Ctrl+Y), <strong>Cut</strong> (Ctrl+X), <strong>Copy</strong> (Ctrl+C), <strong>Paste</strong> (Ctrl+V), <strong>Duplicate</strong> (Ctrl+D) and <strong>Delete</strong> (Del). They act on the entities of the active scene or on the selected assets, depending on which panel has the focus.</p>
+<h3 id="settings">Settings</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enable RenderDoc</strong> / <strong>Disable RenderDoc</strong></td>
+<td>Loads RenderDoc into the editor so you can capture frames. See <a href="renderdoc.html">Profile with RenderDoc</a>.</td>
+</tr>
+<tr>
+<td><strong>Project Settings</strong></td>
+<td>Profiles, add-ons, import parameters and application services of the project. See <a href="settings.html">Project Settings</a>.</td>
+</tr>
+<tr>
+<td><strong>Preferences</strong></td>
+<td>Options of Evergine Studio itself, stored for your user. See <a href="#preferences">Preferences</a>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="assets">Assets</h3>
+<p>The same import and create items as the <img src="assets/Images/plusIcon.jpg" alt="Plus icon"> button of the <strong>Assets Details</strong> panel, plus <strong>Generative assets</strong>. See <a href="assets/create.html">Create Assets</a> and <a href="assets/generate.html">Generate AI-Driven Assets</a>.</p>
+<h3 id="window">Window</h3>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Save Layout</strong></td>
+<td>Saves the current position and size of the panels.</td>
+</tr>
+<tr>
+<td><strong>Load Layout</strong></td>
+<td>Restores the last saved layout.</td>
+</tr>
+<tr>
+<td><strong>Reset Layout</strong></td>
+<td>Goes back to the default layout and deletes the saved one.</td>
+</tr>
+<tr>
+<td><strong>Reset closed assets state</strong></td>
+<td>Forgets the viewer state (camera, toggles) that editors keep for assets you closed, so they open with their defaults.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="Images/RestoreLayout.jpg" alt="The Window menu"></p>
+<p>The layout is saved per project, and Evergine Studio also saves it when you close the main window, so the next session starts where you left it.</p>
+<h3 id="help">Help</h3>
+<p><strong>WebPage</strong> opens the Evergine website, <strong>Open Log Folder</strong> opens the folder with the Evergine Studio log files, <strong>Software Licenses</strong> lists third-party licenses, and <strong>About</strong> shows the version.</p>
+<h2 id="layouts-and-panels">Layouts and panels</h2>
+<p>Drag a panel by its title to dock it on another side, stack it as a tab with other panels, or leave it floating. The buttons and the context menu of the panel title let you <strong>Auto Hide</strong> it (it collapses to the window border and slides out on hover), <strong>Maximize</strong> or <strong>Restore</strong> it, or <strong>Close</strong> it. Use <strong>Window &gt; Reset Layout</strong> if you lose track of a panel.</p>
+<p>Evergine Studio uses a dark theme and an English user interface. There are no theme or language options in this version.</p>
+<h2 id="preferences">Preferences</h2>
+<p><strong>Settings &gt; Preferences</strong> opens the options of Evergine Studio. They are saved for your user and apply to every project.</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Number of decimal places to show in numeric inputs</td>
+<td>3</td>
+<td>Precision of floating-point fields in the property panels.</td>
+</tr>
+<tr>
+<td>Amount of increment in numeric up and down buttons</td>
+<td>0.005</td>
+<td>Step of the arrows, the mouse wheel and dragging for floating-point fields.</td>
+</tr>
+<tr>
+<td>Amount of large increment in numeric up and down buttons</td>
+<td>0.02</td>
+<td>Step used while holding the modifier key.</td>
+</tr>
+<tr>
+<td>Amount of increment in integer up and down buttons</td>
+<td>1</td>
+<td>Step for integer fields.</td>
+</tr>
+<tr>
+<td>Amount of large increment in integer up and down buttons</td>
+<td>2</td>
+<td>Large step for integer fields.</td>
+</tr>
+<tr>
+<td>Key to press to change values with mouse wheel</td>
+<td>Shift</td>
+<td>Modifier that makes the wheel change the value under the cursor.</td>
+</tr>
+<tr>
+<td>Key to press to change values on mouse dragging</td>
+<td>Shift</td>
+<td>Modifier that makes dragging change the value.</td>
+</tr>
+<tr>
+<td>Editor backend (Experimental)</td>
+<td>DirectX12</td>
+<td>Graphics backend of the editor viewports: DirectX11, DirectX12 or Vulkan. Restart Evergine Studio after changing it.</td>
+</tr>
+<tr>
+<td>Reload project automatically when changes in source files are detected</td>
+<td>Enabled</td>
+<td>Reloads the project when your C# code is rebuilt, instead of showing the reload banner.</td>
+</tr>
+<tr>
+<td>Only show folders in the assets hierarchy view</td>
+<td>Enabled</td>
+<td>Hides files in the Project Explorer tree.</td>
+</tr>
+<tr>
+<td>Use new viewer rendering control (experimental)</td>
+<td>Enabled</td>
+<td>Rendering control used by the viewports.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="asset-editors">Asset editors</h2>
+<p>Double-click an asset in the <strong>Assets Details</strong> panel to open its editor. Every asset type below has one:</p>
+<table>
+<thead>
+<tr>
+<th>Editor</th>
+<th>Asset</th>
+<th>Opens</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="../basics/scenes/scene_editor.html">Scene Editor</a></td>
+<td><a href="../basics/scenes/index.html">Scene</a></td>
+<td><code>.wescene</code></td>
+</tr>
+<tr>
+<td>Prefab Editor</td>
+<td><a href="../basics/component_arch/prefabs/index.html">Prefab</a></td>
+<td><code>.weprefab</code></td>
+</tr>
+<tr>
+<td><a href="../graphics/effects/effect_editor.html">Effect Editor</a></td>
+<td><a href="../graphics/effects/index.html">Effect</a></td>
+<td><code>.wefx</code></td>
+</tr>
+<tr>
+<td><a href="../graphics/materials/material_editor.html">Material Editor</a></td>
+<td><a href="../graphics/materials/index.html">Material</a></td>
+<td><code>.wemt</code></td>
+</tr>
+<tr>
+<td><a href="../graphics/textures/texture_editor.html">Texture Editor</a></td>
+<td><a href="../graphics/textures/index.html">Texture</a></td>
+<td>Image files</td>
+</tr>
+<tr>
+<td><a href="../graphics/models/model_editor.html">Model Editor</a></td>
+<td><a href="../graphics/models/index.html">Model</a></td>
+<td>Model files</td>
+</tr>
+<tr>
+<td><a href="../audio/audio_editor.html">Audio Editor</a></td>
+<td><a href="../audio/index.html">Sound</a></td>
+<td>Audio files</td>
+</tr>
+<tr>
+<td><a href="../graphics/fonts/font_editor.html">Font Editor</a></td>
+<td><a href="../graphics/fonts/index.html">Font</a></td>
+<td><code>.ttf</code>, <code>.otf</code></td>
+</tr>
+<tr>
+<td><a href="../graphics/samplers.html">Sampler Editor</a></td>
+<td><a href="../graphics/samplers.html">Sampler</a></td>
+<td><code>.wesp</code></td>
+</tr>
+<tr>
+<td><a href="../graphics/renderlayers/renderlayer_editor.html">Render Layer Editor</a></td>
+<td><a href="../graphics/renderlayers/index.html">Render Layer</a></td>
+<td><code>.werl</code></td>
+</tr>
+<tr>
+<td><a href="../graphics/particles/particles_editor.html">Particle System Editor</a></td>
+<td><a href="../graphics/particles/index.html">Particle System</a></td>
+<td><code>.weps</code></td>
+</tr>
+<tr>
+<td><a href="../graphics/postprocessing_graph/postprocessing_graph_editor.html">Post-Processing Graph Editor</a></td>
+<td><a href="../graphics/postprocessing_graph/index.html">Post-Processing Graph</a></td>
+<td><code>.wepp</code></td>
+</tr>
+</tbody>
+</table>
+<p>The Prefab Editor works like the Scene Editor, on the entities of a single prefab. Files imported as <strong>File</strong> assets, and assets marked to export as raw, have no editor.</p>
+<p><img src="Images/asset_editors.png" alt="One of each asset editor, open on an asset of a sample project"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

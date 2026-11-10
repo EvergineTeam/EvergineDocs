@@ -1,0 +1,204 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>STL Runtime | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="STL Runtime | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="stl-runtime">STL Runtime</h1>
+
+<hr>
+<p>The <strong>Evergine.Runtimes.STL</strong> package reads <code>.stl</code> files while the application runs and turns them into a <code>Model</code>, the same asset type that Evergine Studio produces when it imports a model. STL is the format CAD tools and 3D printing slicers export: geometry only, with no hierarchy, materials or textures. Use this runtime to show parts and prints that the user picks or that your application downloads.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>Evergine.Runtimes.STL</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>Evergine.Runtimes.STL</code></td>
+</tr>
+<tr>
+<td><strong>Class</strong></td>
+<td><code>STLRuntime</code> (derives from <code>ModelRuntime</code>)</td>
+</tr>
+<tr>
+<td><strong>Formats</strong></td>
+<td>Binary and ASCII STL (<code>.stl</code>)</td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>Task&lt;Model&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Platforms</strong></td>
+<td>All Evergine platforms</td>
+</tr>
+</tbody>
+</table>
+<p><code>ModelRuntime</code> lives in <code>Evergine.Framework.Runtimes</code>. <code>STLRuntime.Instance</code> is a ready-to-use singleton that resolves the graphics context and the assets service from the application container the first time it reads a file.</p>
+<h2 id="what-the-runtime-reads">What the runtime reads</h2>
+<p><code>STLRuntime</code> reads both variants of the format. It looks at the 80-byte header to tell binary files from ASCII ones, so the file extension does not matter when you read from a stream.</p>
+<ul>
+<li>Each facet keeps the normal stored in the file, which gives the model a flat-shaded look.</li>
+<li>Coordinates are converted from the Z-up convention of most CAD tools to the Y-up convention of Evergine.</li>
+<li>STL files carry no material, so the whole model uses one white material (<code>STLMaterialData</code>: metallic 0, roughness 1).</li>
+</ul>
+<h2 id="load-a-model-from-a-file">Load a model from a file</h2>
+<p><code>Read(string filePath, ...)</code> opens the file through the application's <code>AssetsDirectory</code>, so the path is <strong>relative to the <code>Content</code> folder of the running application</strong>. Absolute paths are rejected with an <code>ArgumentException</code>.</p>
+<p>A <code>.stl</code> file placed in the project's <code>Content</code> folder is normally imported by Evergine Studio and exported in the Evergine asset format. To read the original file with the runtime, mark the file with <strong>Set to export as raw</strong> in the <a href="../evergine_studio/assets/edit.html">Assets Details panel</a>. Raw assets keep their name and folder in the output, so <code>Content/Models/Bracket.stl</code> is read with the path <code>Models/Bracket.stl</code>.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.STL;
+
+public class MyScene : Scene
+{
+    protected override async void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        Model bracket = await STLRuntime.Instance.Read(&quot;Models/Bracket.stl&quot;);
+
+        // A Model is only data: InstantiateModelHierarchy builds the entities that render it.
+        Entity bracketEntity = bracket.InstantiateModelHierarchy(&quot;bracket&quot;, assetsService);
+        this.Managers.EntityManager.Add(bracketEntity);
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>CreateScene</code> is <code>async void</code>, so an exception thrown by <code>Read</code> does not reach any caller. Wrap the loading code in <code>try</code>/<code>catch</code> and log the error, or the model silently fails to appear.</p>
+</div>
+<h2 id="load-a-model-from-a-stream">Load a model from a stream</h2>
+<p><code>Read(Stream stream, ...)</code> reads from any stream that is <strong>readable and seekable</strong>. Use it for files outside the <code>Content</code> folder and for downloads.</p>
+<p>For a file anywhere on disk, open it with <code>File.OpenRead</code>, which returns a seekable <code>FileStream</code>:</p>
+<pre><code class="lang-csharp">using var stream = File.OpenRead(@&quot;C:\Models\Bracket.stl&quot;);
+Model model = await STLRuntime.Instance.Read(stream);
+</code></pre>
+<p>A network stream is not seekable: copy the response into a <code>MemoryStream</code> and set its <code>Position</code> back to 0 before reading it. The <a href="glb_runtime.html#load-a-model-from-a-stream">GLB runtime page</a> has a complete download example; replace <code>GLBRuntime</code> with <code>STLRuntime</code> to use it for STL files.</p>
+<h2 id="custom-materials">Custom materials</h2>
+<p>Pass a material assigner as the second argument of either <code>Read</code> overload to choose the material yourself, for example to show a part in the color of the plastic it will be printed in. The runtime describes the single material as an <code>STLMaterialData</code> (a <code>MaterialData</code>), and your function returns the <code>Material</code> to use. The <a href="glb_runtime.html#materials-and-the-material-assigner">GLB runtime page</a> explains <code>MaterialData</code> and has a complete assigner.</p>
+<pre><code class="lang-csharp">Model model = await STLRuntime.Instance.Read(&quot;Models/Bracket.stl&quot;, this.AssignMaterial);
+</code></pre>
+<p><code>STLMaterialData</code> always reports <code>HasVertexNormal = true</code>, because every facet carries its normal, and no texture coordinates or textures.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

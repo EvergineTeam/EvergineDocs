@@ -1,0 +1,428 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Android | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Android | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="android">Android</h1>
+
+<hr>
+<p><img src="images/app.jpg" alt="An Evergine scene running on an Android phone"></p>
+<p>Evergine runs on Android through <strong>.NET for Android</strong> (<code>net10.0-android</code>), renders with <strong>Vulkan</strong> and plays audio with <strong>OpenAL</strong>. Three templates target Android: a phone and tablet launcher, and two OpenXR launchers for the Meta Quest and Pico standalone headsets. All three share your application project with the Windows launcher, so the scene you edit in Evergine Studio is the one that runs on the device.</p>
+<h2 id="templates">Templates</h2>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Profile</th>
+<th>Minimum Android version</th>
+<th>Extra packages</th>
+<th>Entry activity</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Android</td>
+<td><code>Android</code></td>
+<td>API 21 (<code>SupportedOSPlatformVersion</code> 21)</td>
+<td>None</td>
+<td><code>SplashActivity</code>, which opens <code>MainActivity</code></td>
+</tr>
+<tr>
+<td>Android Meta Quest (OpenXR)</td>
+<td><code>Quest</code></td>
+<td>API 23</td>
+<td><code>Evergine.OpenXR</code>, <code>Evergine.OpenXR.Natives.Quest</code></td>
+<td><code>MainActivity</code></td>
+</tr>
+<tr>
+<td>Android Pico (OpenXR)</td>
+<td><code>Pico</code></td>
+<td>API 23</td>
+<td><code>Evergine.OpenXR</code>, <code>Evergine.OpenXR.Natives.Pico</code></td>
+<td><code>MainActivity</code></td>
+</tr>
+</tbody>
+</table>
+<p>Every Android launcher references <code>Evergine.Android</code> (window system), <code>Evergine.Vulkan</code> (graphics), <code>Evergine.OpenAL</code> (audio), <code>Evergine.Targets</code> and <code>Evergine.Targets.Android</code> (asset export), and the native Bullet library <code>Evergine.LibBulletc.Natives</code>.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The project builds for API 21, but Vulkan is only part of Android from <strong>Android 7.0 (API 24)</strong>, and it also needs a GPU driver that exposes it. On older devices or on devices without Vulkan, the application installs but cannot create its graphics device. The Quest and Pico manifests declare <code>android.hardware.vulkan.level</code> and <code>android.hardware.vulkan.compute</code> as required features so that stores filter out unsupported hardware.</p>
+</div>
+<p>Add Android to a project when you create it in Evergine Launcher, or later from <strong>Settings &gt; Project Settings</strong> in Evergine Studio (see <a href="../../evergine_studio/settings/project_profiles.html">Manage profiles</a>).</p>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><p>The <strong>.NET 10 SDK</strong> with the <strong>Android workload</strong>:</p>
+<pre><code class="lang-powershell">dotnet workload install android
+</code></pre>
+</li>
+<li><p>The Android SDK and a Java JDK. The easiest way to get both is the <strong>.NET Multi-platform App UI development</strong> workload in the Visual Studio 2026 installer, which also installs the Android workload and an emulator:</p>
+<p><img src="images/visual-studio-installer-mobile.jpg" alt="Visual Studio Installer with the .NET Multi-platform App UI development workload selected"></p>
+<p>Without Visual Studio, follow Microsoft's <a href="https://learn.microsoft.com/en-us/dotnet/android/getting-started/installation/">.NET for Android installation guide</a>.</p>
+</li>
+</ul>
+<h2 id="project-structure">Project structure</h2>
+<p>Adding the Android profile creates a solution with your application project and one launcher project, <code>&lt;Project&gt;.Android</code>:</p>
+<p><img src="images/project-structure.jpg" alt="Solution Explorer with the MyEvergineProject and MyEvergineProject.Android projects"></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MainActivity.cs</code></td>
+<td>Creates the application, the surface, the Vulkan context and the audio device, and runs the loop.</td>
+</tr>
+<tr>
+<td><code>SplashActivity.cs</code></td>
+<td>Launcher activity of the phone template. Shows the splash theme, then starts <code>MainActivity</code> with a fade.</td>
+</tr>
+<tr>
+<td><code>Resources/layout/Main.axml</code></td>
+<td>A full-screen <code>RelativeLayout</code> with the id <code>evergineContainer</code>. The Evergine surface is added to it at runtime, so you can place native Android views on top.</td>
+</tr>
+<tr>
+<td><code>AndroidManifest.xml</code></td>
+<td>Application manifest. The XR templates add the headset metadata, required features and permissions here.</td>
+</tr>
+<tr>
+<td><code>linker.xml</code></td>
+<td>Types the trimmer must keep because Evergine creates them by reflection: asset loaders and importers, binding attributes and the default services.</td>
+</tr>
+<tr>
+<td><code>&lt;Project&gt;.Android.csproj</code></td>
+<td>Target framework, minimum API and package references.</td>
+</tr>
+</tbody>
+</table>
+<p>The launcher project file of the phone template:</p>
+<pre><code class="lang-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;net10.0-android&lt;/TargetFramework&gt;
+    &lt;SupportedOSPlatformVersion&gt;21&lt;/SupportedOSPlatformVersion&gt;
+    &lt;OutputType&gt;Exe&lt;/OutputType&gt;
+    &lt;Nullable&gt;enable&lt;/Nullable&gt;
+    &lt;ImplicitUsings&gt;enable&lt;/ImplicitUsings&gt;
+    &lt;ApplicationId&gt;com.companyname.MyProject.Android&lt;/ApplicationId&gt;
+    &lt;ApplicationVersion&gt;1&lt;/ApplicationVersion&gt;
+    &lt;ApplicationDisplayVersion&gt;1.0&lt;/ApplicationDisplayVersion&gt;
+  &lt;/PropertyGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;PackageReference Include=&quot;Evergine.Android&quot; Version=&quot;...&quot; /&gt;
+    &lt;PackageReference Include=&quot;Evergine.Vulkan&quot; Version=&quot;...&quot; /&gt;
+    &lt;PackageReference Include=&quot;Evergine.OpenAL&quot; Version=&quot;...&quot; /&gt;
+    &lt;PackageReference Include=&quot;Evergine.Targets&quot; Version=&quot;...&quot; /&gt;
+    &lt;PackageReference Include=&quot;Evergine.Targets.Android&quot; Version=&quot;...&quot; /&gt;
+    &lt;PackageReference Include=&quot;Evergine.LibBulletc.Natives&quot; Version=&quot;...&quot; /&gt;
+  &lt;/ItemGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;ProjectReference Include=&quot;..\MyProject\MyProject.csproj&quot; /&gt;
+  &lt;/ItemGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;LinkDescription Include=&quot;linker.xml&quot; /&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;
+</code></pre>
+<p>Change <code>ApplicationId</code> before you publish: it is the package name that identifies your app on the device and in the store.</p>
+<h2 id="mainactivity-walkthrough">MainActivity walkthrough</h2>
+<p>This is the <code>MainActivity</code> of the phone template, with the project name <code>MyProject</code>:</p>
+<pre><code class="lang-csharp">using Android.Content.PM;
+using Android.Views;
+using Evergine.Common.Graphics;
+using Evergine.Common.Helpers;
+using Evergine.Framework.Services;
+using Evergine.Vulkan;
+using System.Diagnostics;
+using Display = Evergine.Framework.Graphics.Display;
+using Surface = Evergine.Common.Graphics.Surface;
+
+namespace MyProject.Android
+{
+    [Activity(Label = &quot;@string/app_name&quot;,
+        ConfigurationChanges = ConfigChanges.KeyboardHidden | ConfigChanges.Orientation,
+        ScreenOrientation = ScreenOrientation.Sensor,
+        LaunchMode = LaunchMode.SingleTask)]
+    public class MainActivity : global::Android.App.Activity
+    {
+        private SwapChain? swapChain;
+        private Evergine.Android.AndroidSurface? surface;
+
+        protected override void OnCreate(Bundle? savedInstanceState)
+        {
+            base.OnCreate(savedInstanceState);
+
+            // Full-screen window without a title bar.
+            this.RequestWindowFeature(WindowFeatures.NoTitle);
+            this.Window!.AddFlags(WindowManagerFlags.Fullscreen);
+            this.SetContentView(Resource.Layout.Main);
+
+            var application = new MyApplication();
+
+            // The window system wraps the activity and creates the native surface.
+            var windowsSystem = new global::Evergine.Android.AndroidWindowsSystem(this);
+            application.Container.RegisterInstance(windowsSystem);
+            this.surface = windowsSystem.CreateSurface(0, 0) as global::Evergine.Android.AndroidSurface;
+            this.surface!.OnSurfaceInfoChanged += this.Surface_OnSurfaceInfoChanged;
+            this.surface!.Closing += this.Surface_OnClosing;
+            this.surface!.OnScreenSizeChanged += this.Surface_OnScreenSizeChanged;
+
+            // Put the surface inside the layout container.
+            var view = this.FindViewById&lt;RelativeLayout&gt;(Resource.Id.evergineContainer);
+            view!.AddView(surface.NativeSurface);
+
+            // OpenAL audio device.
+            var audioDevice = new global::Evergine.OpenAL.ALAudioDevice();
+            application.Container.RegisterInstance(audioDevice);
+
+            Stopwatch clockTimer = Stopwatch.StartNew();
+            windowsSystem.Run(
+            () =&gt;
+            {
+                // Vulkan needs a native window, which exists only once the surface is created,
+                // so the graphics context is configured here and not in OnCreate.
+                ConfigureGraphicsContext(application, surface);
+                application.Initialize();
+            },
+            () =&gt;
+            {
+                var gameTime = clockTimer.Elapsed;
+                clockTimer.Restart();
+
+                application.UpdateFrame(gameTime);
+                application.DrawFrame(gameTime);
+            });
+        }
+
+        // Android destroys the native window when the app goes to the background and
+        // creates a new one when it returns. The swap chain must be rebuilt on the new window.
+        private void Surface_OnSurfaceInfoChanged(object? sender, SurfaceInfo surfaceInfo)
+        {
+            this.swapChain!.RefreshSurfaceInfo(surfaceInfo);
+            this.swapChain!.ResizeSwapChain(this.surface!.Width, this.surface!.Height);
+            this.surface!.OnScreenSizeChanged -= this.Surface_OnScreenSizeChanged;
+            this.surface!.OnScreenSizeChanged += this.Surface_OnScreenSizeChanged;
+        }
+
+        // Stop resizing while there is no window to present to.
+        private void Surface_OnClosing(object? sender, EventArgs e)
+        {
+            this.surface!.OnScreenSizeChanged -= this.Surface_OnScreenSizeChanged;
+        }
+
+        // Rotation and multi-window changes arrive here.
+        private void Surface_OnScreenSizeChanged(object? sender, SizeEventArgs e)
+        {
+            this.swapChain?.ResizeSwapChain(e.Width, e.Height);
+        }
+
+        private void ConfigureGraphicsContext(MyApplication application, Surface surface)
+        {
+            GraphicsContext graphicsContext = new VKGraphicsContext();
+            graphicsContext.CreateDevice();
+            var swapChainDescription = new SwapChainDescription()
+            {
+                SurfaceInfo = surface.SurfaceInfo,
+                Width = surface.Width,
+                Height = surface.Height,
+                ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm_SRgb,
+                ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+                DepthStencilTargetFormat = PixelFormat.D32_Float_S8X24_UInt,
+                DepthStencilTargetFlags = TextureFlags.DepthStencil,
+                SampleCount = TextureSampleCount.None,
+                IsWindowed = true,
+                RefreshRate = 60
+            };
+
+            this.swapChain = graphicsContext.CreateSwapChain(swapChainDescription);
+            this.swapChain.VerticalSync = true;
+
+            var graphicsPresenter = application.Container.Resolve&lt;GraphicsPresenter&gt;();
+            var firstDisplay = new Display(surface, this.swapChain);
+            graphicsPresenter.AddDisplay(&quot;DefaultDisplay&quot;, firstDisplay);
+
+            application.Container.RegisterInstance(graphicsContext);
+        }
+    }
+}
+</code></pre>
+<p>Three details are specific to Android:</p>
+<ul>
+<li><strong>The graphics context is created inside the load action</strong> of <code>windowsSystem.Run</code>. The first callback runs once the native surface exists, which Vulkan needs to create the swap chain.</li>
+<li><strong>The surface can be replaced while the app is alive.</strong> <code>OnSurfaceInfoChanged</code> fires with the new native window after the app returns from the background, and the swap chain is pointed at it with <code>RefreshSurfaceInfo</code>.</li>
+<li><strong><code>LaunchMode.SingleTask</code></strong> keeps a single instance of the activity, so tapping the launcher icon again brings the running app back instead of starting a second Evergine application.</li>
+</ul>
+<h2 id="meta-quest-pico-and-android-xr">Meta Quest, Pico and Android XR</h2>
+<p>The three headset templates keep the same structure and change four things:</p>
+<ul>
+<li><strong>OpenXR takes part in the creation of the Vulkan context.</strong> The template creates the <code>OpenXRPlatform</code> first and calls <code>InitializeForVulkan()</code>. <code>VKGraphicsContext</code> then receives a <code>VKGraphicsContextOptions</code> with the callbacks it returns, <code>VK_KHR_multiview</code>, <code>VK_KHR_external_memory</code>, <code>VK_KHR_external_memory_fd</code> and <code>VK_KHR_get_memory_requirements2</code> as device extensions, and <code>VK_KHR_get_physical_device_properties2</code> and <code>VK_KHR_external_memory_capabilities</code> as instance extensions. Android XR adds the Android hardware buffer extensions.</li>
+<li><strong>An <code>OpenXRPlatform</code> owns the headset display.</strong> It is registered in the container, its <code>Display</code> is added as <code>&quot;DefaultDisplay&quot;</code> and the surface becomes a <code>&quot;MirrorDisplay&quot;</code>. The loop calls <code>openXRPlatform?.Update()</code> before <code>UpdateFrame</code>.</li>
+<li><strong>The interaction profile and extensions depend on the vendor.</strong> The Quest template enables <code>XR_EXT_hand_tracking</code>, <code>XR_FB_hand_tracking_aim</code> and <code>XR_FB_hand_tracking_mesh</code> with <code>DefaultInteractionProfiles.OculusTouchProfile</code>, and leaves passthrough extensions commented out. The Pico template enables <code>XR_EXT_hand_tracking</code> with <code>DefaultInteractionProfiles.PicoNeo3Profile</code>. The Android XR template asks for the hand tracking permission first, enables the hand extensions only when it is granted, and uses <code>DefaultInteractionProfiles.KhronosSimpleProfile</code>.</li>
+<li><strong>The manifest marks the app as XR.</strong> The Quest manifest adds the <code>com.oculus.intent.category.VR</code> category and headset metadata; the Pico manifest adds <code>pvr.app.type</code> with the value <code>vr</code>. The Android XR manifest requires an OpenXR runtime and starts the activity in full space. All of them request head tracking and the hand-tracking permission.</li>
+</ul>
+<p>The XR section explains how to configure them: <a href="../../xr/openxr/metaquest.html">Meta Quest</a>, <a href="../../xr/openxr/pico.html">Pico</a> and <a href="../../xr/openxr/androidxr.html">Android XR</a>.</p>
+<h2 id="texture-compression-and-shaders">Texture compression and shaders</h2>
+<p>The Android, Quest and Pico profiles export assets with these defaults:</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Default</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Non-alpha compression</td>
+<td><code>ETC1_RGB8</code></td>
+<td>Supported by practically every Android GPU and a quarter the size of 16-bit color.</td>
+</tr>
+<tr>
+<td>Alpha compression</td>
+<td><code>R4G4B4A4</code></td>
+<td>ETC1 has no alpha channel, so textures with transparency use 16-bit color instead.</td>
+</tr>
+<tr>
+<td>Compile effects</td>
+<td>Yes</td>
+<td>Shaders are compiled at export time, so the device does not compile HLSL at startup.</td>
+</tr>
+<tr>
+<td>Directive combinations</td>
+<td><code>LOW_PROFILE</code>, <code>GAMMA_COLORSPACE</code>, shadow, point and spot light variants</td>
+<td>Precompiles the cheaper mobile variants of the standard effects. Quest and Pico also add <code>MULTIVIEW_VI</code> to render both eyes in one pass.</td>
+</tr>
+</tbody>
+</table>
+<p>You can change any of these per profile in <a href="../../evergine_studio/settings/project_profiles.html">Project Settings &gt; Profiles</a>, and override the format or size of individual textures in the <a href="../../graphics/textures/texture_editor.html">texture editor</a>.</p>
+<h2 id="deploy-and-debug">Deploy and debug</h2>
+<p>Connect a device with USB debugging enabled (see <a href="https://learn.microsoft.com/en-us/dotnet/maui/android/device/setup">Set up Android devices for debugging</a>) or start an emulator (see <a href="https://learn.microsoft.com/en-us/dotnet/maui/android/emulator/">Android emulator</a>). Then:</p>
+<ul>
+<li><p><strong>Visual Studio.</strong> Open the solution with <strong>File &gt; Open C# editor &gt; Android</strong> in Evergine Studio, set <code>&lt;Project&gt;.Android</code> as the startup project, pick the device in the run target list and press F5.</p>
+</li>
+<li><p><strong>Command line.</strong> Build, install and launch with the <code>Run</code> target:</p>
+<pre><code class="lang-powershell">dotnet build .\MyProject.Android\MyProject.Android.csproj -t:Run -f net10.0-android
+</code></pre>
+</li>
+</ul>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Emulators often expose Vulkan through a software or host-translated driver. Use them to check that the app starts, but measure performance and verify rendering on a real device.</p>
+</div>
+<p>For Meta Quest, enable developer mode on the headset first (see Meta's <a href="https://developer.oculus.com/documentation/native/android/mobile-device-setup/">device setup guide</a>); the headset then appears in the run target list like any other Android device.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Storage | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Storage | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="storage">Storage</h1>
+
+<hr>
+<p>When your application needs files from an external repository, such as 3D models or images, XRV's storage system gives you one API for all of them. <code>FileAccess</code> is the abstract base class: its implementations read and write files in local storage, Azure Blob Storage, or Azure Files, and you can derive your own for other repositories. Modules like the <a href="modules/modelViewer/index.html">Model Viewer</a> and the <a href="modules/imageGallery/index.html">Image Gallery</a> take a <code>FileAccess</code> as their data source.</p>
+<p>The storage types live in the <code>Evergine.Xrv.Core.Storage</code> namespace, and the disk cache in <code>Evergine.Xrv.Core.Storage.Cache</code>.</p>
+<h2 id="file-access">File access</h2>
+<p>Every <code>FileAccess</code> implementation offers these operations. Paths are relative to <code>BaseDirectory</code>, and every method accepts an optional <code>CancellationToken</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ClearAsync</code></td>
+<td>Deletes all the files and directories.</td>
+</tr>
+<tr>
+<td><code>CreateBaseDirectoryIfNotExistsAsync</code></td>
+<td>Creates the directory set in <code>BaseDirectory</code> if it does not exist.</td>
+</tr>
+<tr>
+<td><code>CreateDirectoryAsync</code></td>
+<td>Creates a directory.</td>
+</tr>
+<tr>
+<td><code>DeleteDirectoryAsync</code></td>
+<td>Deletes a directory.</td>
+</tr>
+<tr>
+<td><code>DeleteFileAsync</code></td>
+<td>Deletes a file.</td>
+</tr>
+<tr>
+<td><code>EnumerateDirectoriesAsync</code></td>
+<td>Lists the directories in the base directory or in a relative path. Returns <code>DirectoryItem</code> objects.</td>
+</tr>
+<tr>
+<td><code>EnumerateFilesAsync</code></td>
+<td>Lists the files in the base directory or in a relative path. Returns <code>FileItem</code> objects, with name, path, size, dates, and MD5 hash when available.</td>
+</tr>
+<tr>
+<td><code>ExistsDirectoryAsync</code></td>
+<td>Checks whether a directory exists.</td>
+</tr>
+<tr>
+<td><code>ExistsFileAsync</code></td>
+<td>Checks whether a file exists.</td>
+</tr>
+<tr>
+<td><code>GetFileAsync</code></td>
+<td>Opens a file and returns its content as a <code>Stream</code>.</td>
+</tr>
+<tr>
+<td><code>GetFileItemAsync</code></td>
+<td>Returns the metadata of a file as a <code>FileItem</code>.</td>
+</tr>
+<tr>
+<td><code>WriteFileAsync</code></td>
+<td>Writes a <code>Stream</code> to a file.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BaseDirectory</code></td>
+<td><code>null</code></td>
+<td>Directory, inside the storage, that relative paths start from.</td>
+</tr>
+<tr>
+<td><code>Cache</code></td>
+<td><code>null</code></td>
+<td>Optional <a href="#disk-cache">disk cache</a>.</td>
+</tr>
+<tr>
+<td><code>IsCachingEnabled</code></td>
+<td><code>false</code></td>
+<td>Read-only. <code>true</code> when <code>Cache</code> is set.</td>
+</tr>
+</tbody>
+</table>
+<p>For example, this method lists the files of a repository and reads the first one:</p>
+<pre><code class="lang-csharp">using System.IO;
+using System.Linq;
+using System.Threading.Tasks;
+using Evergine.Xrv.Core.Storage;
+
+public static class StorageSample
+{
+    public static async Task&lt;long&gt; ReadFirstFileAsync(FileAccess fileAccess)
+    {
+        var files = await fileAccess.EnumerateFilesAsync();
+        var first = files.FirstOrDefault();
+        if (first == null)
+        {
+            return 0;
+        }
+
+        using (Stream stream = await fileAccess.GetFileAsync(first.Path))
+        using (var memory = new MemoryStream())
+        {
+            await stream.CopyToAsync(memory);
+            return memory.Length;
+        }
+    }
+}
+</code></pre>
+<h2 id="local-application-data">Local application data</h2>
+<p><code>ApplicationDataFileAccess</code> stores files in the local application data folder of the device (<code>System.Environment.SpecialFolder.LocalApplicationData</code>, whose location depends on the platform). Set <code>BaseDirectory</code> to the folder you want to use. It suits caches and temporary files; depending on the platform, other applications may not be able to see these files.</p>
+<pre><code class="lang-csharp">var fileAccess = new ApplicationDataFileAccess()
+{
+    BaseDirectory = &quot;my-folder&quot;,
+};
+</code></pre>
+<p>The constructor that takes a <code>rootPath</code> stores the files under that path instead.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>XRV uses some folders internally. Do not use <code>cache</code> as the base directory name.</p>
+</div>
+<h2 id="azure-blob-storage">Azure Blob Storage</h2>
+<p><code>AzureBlobFileAccess</code> reads and writes blobs in an Azure Storage container. Create it from a connection string, from a container URI, or from a URI and a separate SAS token. Blob Storage has no real directories, so the directory methods may not behave as they do in a file system. If you authenticate with a SAS, give it the permissions for every operation you need.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Xrv.Core.Storage;
+
+// From a connection string and a container name.
+var fromConnectionString = AzureBlobFileAccess.CreateFromConnectionString(&quot;&lt;connection string&gt;&quot;, &quot;&lt;container name&gt;&quot;);
+
+// From a container URI that includes the SAS token. A public container needs no SAS for read-only access.
+var fromUri = AzureBlobFileAccess.CreateFromUri(new Uri(&quot;https://&lt;ACCOUNT&gt;.blob.core.windows.net/&lt;container&gt;?sv=...&quot;));
+
+// From a container URI and a separate SAS token.
+var fromSignature = AzureBlobFileAccess.CreateFromSignature(new Uri(&quot;https://&lt;ACCOUNT&gt;.blob.core.windows.net/&lt;container&gt;&quot;), &quot;sv=...&quot;);
+</code></pre>
+<h2 id="azure-files">Azure Files</h2>
+<p><code>AzureFileShareFileAccess</code> works the same way with an Azure Files share:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Xrv.Core.Storage;
+
+var fromConnectionString = AzureFileShareFileAccess.CreateFromConnectionString(&quot;&lt;connection string&gt;&quot;, &quot;&lt;share name&gt;&quot;);
+
+var fromUri = AzureFileShareFileAccess.CreateFromUri(new Uri(&quot;https://&lt;ACCOUNT&gt;.file.core.windows.net/&lt;share&gt;?sv=...&quot;));
+
+var fromSignature = AzureFileShareFileAccess.CreateFromSignature(new Uri(&quot;https://&lt;ACCOUNT&gt;.file.core.windows.net/&lt;share&gt;&quot;), &quot;sv=...&quot;);
+</code></pre>
+<h2 id="disk-cache">Disk cache</h2>
+<p>Any <code>FileAccess</code> can use a disk cache. When it is enabled, <code>GetFileAsync</code> looks for the file in the cache before downloading it again. Create a <code>DiskCache</code> with a name that is unique in your application and assign it to the <code>Cache</code> property:</p>
+<pre><code class="lang-csharp">var fileAccess = AzureFileShareFileAccess.CreateFromUri(new Uri(&quot;https://&lt;ACCOUNT&gt;.file.core.windows.net/&lt;share&gt;?sv=...&quot;));
+fileAccess.Cache = new DiskCache(&quot;images&quot;);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><code>DiskCache</code> property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SizeLimit</code></td>
+<td>100 MB</td>
+<td>Maximum size of the cache, in bytes. When it is exceeded, the least recently used files are removed.</td>
+</tr>
+<tr>
+<td><code>SlidingExpiration</code></td>
+<td><code>TimeSpan.MaxValue</code></td>
+<td>Time a file stays in the cache without being accessed. The default keeps files until the size limit removes them.</td>
+</tr>
+<tr>
+<td><code>CurrentCacheSize</code></td>
+<td></td>
+<td>Read-only. Current size of the cache, in bytes.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

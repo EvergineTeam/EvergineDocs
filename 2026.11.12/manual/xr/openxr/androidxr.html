@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Android XR | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Android XR | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="android-xr">Android XR</h1>
+
+<p><img src="images/androidxr.png" alt="Android XR"></p>
+<p><strong>Android XR</strong> is the version of Android that Google built for headsets and glasses, such as the Samsung Galaxy XR headset and optical see-through glasses like XREAL Aura, announced as Project Aura. Its runtime is an OpenXR runtime, so Evergine targets it through <a href="openxr_platform.html">OpenXR</a> with Vulkan, in the same way as <a href="metaquest.html">Meta Quest</a> and <a href="pico.html">Pico</a>.</p>
+<p>Two things set it apart from the other Android headsets. Hands are the main input, so the template asks for the hand tracking permission before it starts. And many Android XR devices show the real world around the user, so the template asks the runtime for a <a href="#mixed-reality-with-environment-blend-modes">blend mode</a> that lets the room show through the scene.</p>
+<h2 id="devices">Devices</h2>
+<p>Android XR runs on two kinds of devices, and the same application works on both. Each one shows the real world in its own way, so the template asks for both <a href="#mixed-reality-with-environment-blend-modes">blend modes</a> and lets the runtime choose.</p>
+<table>
+<thead>
+<tr>
+<th>Device</th>
+<th>Kind</th>
+<th>How the real world is shown</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Samsung Galaxy XR</td>
+<td>Headset with video passthrough</td>
+<td>The cameras capture the room and the compositor draws the scene over it (<code>AlphaBlend</code>).</td>
+</tr>
+<tr>
+<td>XREAL Aura (Project Aura)</td>
+<td>Optical see-through glasses, wired to a compute puck</td>
+<td>The user sees the room through the lenses and the scene is added to its light (<code>Additive</code>).</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/androidxr_galaxyxr.jpg" alt="Samsung Galaxy XR headset"></p>
+<p><em>Samsung Galaxy XR, shown here with its Project Moohan prototype name. Image by SsSeanChoi, <a href="https://creativecommons.org/licenses/by-sa/4.0/">CC BY-SA 4.0</a>, via <a href="https://commons.wikimedia.org/wiki/File:Samsung-Mobile-XR-Project-Moohan-Android-XR-platform-Google_main1.jpg">Wikimedia Commons</a>.</em></p>
+<p><img src="images/androidxr_xrealaura.jpg" alt="XREAL Aura glasses"></p>
+<p><em>XREAL Aura, the first wired XR glasses with Android XR. Image by <a href="https://www.xreal.com/aura">XREAL</a>.</em></p>
+<h2 id="requirements">Requirements</h2>
+<ul>
+<li>A device that runs Android XR. The launcher project targets Android 14 (API level 34) or later.</li>
+<li>The .NET 10 SDK with the Android workload, as for any <a href="../../platforms/android/index.html">Android</a> profile.</li>
+<li>Developer options and USB debugging enabled on the device.</li>
+</ul>
+<h2 id="create-an-android-xr-project">Create an Android XR project</h2>
+<p>Select the <strong>Android XR (OpenXR)</strong> template when you create a project:</p>
+<p><img src="images/openxr_androidxrtemplate.png" alt="The Android XR template in the new project dialog"></p>
+<p>To add Android XR to an existing project, open <strong>Project Settings</strong>, add a profile and choose the same template. The profile is named <strong>AndroidXR</strong> by default, and its launcher project is <code>&lt;YourProject&gt;.AndroidXR</code>.</p>
+<p><img src="images/openxr_project_setup.png" alt="The four steps from choosing a profile to running the frame loop"></p>
+<p><em>The profile adds a launcher project. Everything that is specific to the device is in it, and the scene is shared with the other profiles.</em></p>
+<h2 id="what-the-template-contains">What the template contains</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MainActivity.cs</code></td>
+<td>Asks for the hand tracking permission, creates <code>OpenXRPlatform</code>, lets OpenXR create the Vulkan graphics context, and runs the frame loop.</td>
+</tr>
+<tr>
+<td><code>AndroidManifest.xml</code></td>
+<td>Requires an OpenXR runtime, declares hand tracking as optional, asks for the hand tracking and OpenXR permissions, and starts the activity in full space.</td>
+</tr>
+<tr>
+<td><code>*.csproj</code></td>
+<td>References <code>Evergine.OpenXR</code>, <code>Evergine.Vulkan</code>, <code>Evergine.OpenAL</code> and <code>Evergine.OpenXR.Natives.AndroidXR</code>, the OpenXR loader for Android XR.</td>
+</tr>
+<tr>
+<td><code>linker.xml</code></td>
+<td>Keeps the Evergine types that are only reached through reflection when the application is trimmed.</td>
+</tr>
+<tr>
+<td><code>Resources</code></td>
+<td>The application icons and the splash screen shown while the application starts.</td>
+</tr>
+</tbody>
+</table>
+<p>This is what happens when the application starts:</p>
+<p><img src="images/androidxr_startup.png" alt="Android XR startup: permission, extensions, Vulkan created through OpenXR, and the frame loop in full space"></p>
+<h3 id="the-hand-tracking-permission">The hand tracking permission</h3>
+<p>On Android XR, hand tracking data is protected by the <code>android.permission.HAND_TRACKING</code> runtime permission. <code>OnCreate</code> checks it first. If the user already granted it, the application starts at once. Otherwise the system asks the user, and the application starts when the answer arrives, whatever the answer is.</p>
+<p>The OpenXR extensions are then chosen from that answer:</p>
+<pre><code class="lang-csharp">var requestedOpenXRExtensions = new List&lt;string&gt;();
+if (this.CheckSelfPermission(HandTrackingPermission) == Permission.Granted)
+{
+    requestedOpenXRExtensions.Add(&quot;XR_EXT_hand_tracking&quot;); // Enable hand tracking in OpenXR application
+    requestedOpenXRExtensions.Add(&quot;XR_FB_hand_tracking_aim&quot;); // System aim ray and pinch strength for each hand
+    requestedOpenXRExtensions.Add(&quot;XR_FB_hand_tracking_mesh&quot;); // Skinned hand mesh driven by the hand joints
+}
+</code></pre>
+<p>With the permission, hands work as they do on Meta Quest: <a href="../input_tracking/trackxrarticulatedhand.html"><code>TrackXRArticulatedHand</code></a> receives the joints, a pinch reports as the hand's trigger, and <code>XRDeviceRenderableModel</code> can draw the hand mesh. Without it, the application still runs, the hands never connect, and only controllers are tracked.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The user can change the permission later in the system settings. The extensions are chosen when the application starts, so a change takes effect the next time the application starts.</p>
+</div>
+<h3 id="the-openxr-platform">The OpenXR platform</h3>
+<p>The template creates the platform with the Khronos simple controller profile, which every OpenXR runtime supports, and with a list of preferred <a href="#mixed-reality-with-environment-blend-modes">environment blend modes</a>:</p>
+<pre><code class="lang-csharp">this.openXRPlatform = new OpenXRPlatform(
+    requestedOpenXRExtensions.ToArray(),
+    new OpenXRInteractionProfile[]
+    {
+        DefaultInteractionProfiles.KhronosSimpleProfile,
+    })
+{
+    ApplicationName = &quot;$safeprojectname$&quot;,
+    RenderMirrorTexture = false,
+    ReferenceSpace = ReferenceSpaceType.Stage,
+    MirrorDisplay = mirrorDisplay,
+    // For AR, uncomment to prefer the first supported mode below; otherwise the runtime preference is used.
+    // Opaque mode may dim optical see-through lenses (e.g. XREAL Aura).
+    PreferredEnvironmentBlendModes = new[] { EnvironmentBlendMode.AlphaBlend, EnvironmentBlendMode.Additive },
+};
+</code></pre>
+<p><code>ApplicationName</code> is replaced with the name of your project when the profile is created. The simple controller profile only has a select button and a menu button, so add other <a href="openxr_platform.html#interaction-profiles">interaction profiles</a> to the array if your users have controllers with more inputs.</p>
+<h3 id="vulkan-created-through-openxr">Vulkan created through OpenXR</h3>
+<p>Android XR creates the Vulkan instance and device itself, through the <code>XR_KHR_vulkan_enable2</code> extension, so the template initializes OpenXR <strong>before</strong> it creates the graphics context. <a href="openxr_platform.html#vulkan-graphics-context"><code>InitializeForVulkan</code></a> creates the OpenXR instance and system and returns the callbacks that the <code>VKGraphicsContext</code> uses to create its Vulkan objects:</p>
+<pre><code class="lang-csharp">// OpenXR is initialized first: the runtime takes part in the creation of the Vulkan instance and device
+var openXRVulkan = this.openXRPlatform.InitializeForVulkan();
+
+// Enable Vulkan extensions required by Android XR and OpenXR
+var graphicsContext = new global::Evergine.Vulkan.VKGraphicsContext(new global::Evergine.Vulkan.VKGraphicsContextOptions()
+{
+    DeviceExtensions = new[]
+    {
+        &quot;VK_KHR_multiview&quot;,
+        &quot;VK_ANDROID_external_memory_android_hardware_buffer&quot;,
+        &quot;VK_KHR_bind_memory2&quot;,
+        &quot;VK_KHR_dedicated_allocation&quot;,
+        &quot;VK_KHR_external_memory&quot;,
+        &quot;VK_KHR_external_memory_fd&quot;,
+        &quot;VK_KHR_get_memory_requirements2&quot;,
+        &quot;VK_KHR_sampler_ycbcr_conversion&quot;,
+    }.Union(openXRVulkan.DeviceExtensions),
+    InstanceExtensions = new[]
+    {
+        &quot;VK_KHR_get_physical_device_properties2&quot;,
+        &quot;VK_KHR_external_memory_capabilities&quot;,
+    }.Union(openXRVulkan.InstanceExtensions),
+    CreateInstance = openXRVulkan.CreateInstance,
+    SelectPhysicalDevice = openXRVulkan.SelectPhysicalDevice,
+    CreateDevice = openXRVulkan.CreateDevice,
+});
+
+graphicsContext.CreateDevice();
+application.Container.RegisterInstance&lt;GraphicsContext&gt;(graphicsContext);
+application.Container.RegisterInstance(this.openXRPlatform);
+</code></pre>
+<p>Compared with Meta Quest, the device extension list adds the Android hardware buffer extensions that the Android XR compositor uses to share its swapchain images with Vulkan.</p>
+<h3 id="the-manifest">The manifest</h3>
+<table>
+<thead>
+<tr>
+<th>Entry</th>
+<th>Why it is there</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>android.software.xr.api.openxr</code> (required)</td>
+<td>Only devices with an OpenXR runtime can install the application.</td>
+</tr>
+<tr>
+<td><code>android.hardware.xr.input.hand_tracking</code> (not required)</td>
+<td>Hand tracking is used when available, but devices without it can still install the application.</td>
+</tr>
+<tr>
+<td><code>android.permission.HAND_TRACKING</code></td>
+<td>The permission asked for at startup.</td>
+</tr>
+<tr>
+<td><code>org.khronos.openxr.permission.OPENXR_SYSTEM</code> and the <code>queries</code> block</td>
+<td>Let the OpenXR loader find the runtime and its API layers on the device.</td>
+</tr>
+<tr>
+<td><code>libopenxr.google.so</code> (native library, not required)</td>
+<td>The Android XR OpenXR runtime library.</td>
+</tr>
+<tr>
+<td><code>android.window.PROPERTY_XR_ACTIVITY_START_MODE</code> set to <code>XR_ACTIVITY_START_MODE_FULL_SPACE_UNMANAGED</code></td>
+<td>The activity opens in <strong>full space</strong>: the scene takes the whole view instead of a panel in the Android XR home space, and the application renders it with OpenXR.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="mixed-reality-with-environment-blend-modes">Mixed reality with environment blend modes</h2>
+<p>The environment blend mode tells the compositor how to mix each frame with the real world. On Android XR, this is how a scene shows the room: there is no passthrough layer as on Meta Quest, so <code>XRPlatform.Passthrough</code> is <code>null</code> and <code>XRPassthroughLayerComponent</code> does nothing.</p>
+<p><img src="images/openxr_blend_modes.png" alt="The three environment blend modes, and how OpenXRPlatform picks one"></p>
+<p>The template prefers <code>AlphaBlend</code> and then <code>Additive</code>. <code>OpenXRPlatform</code> uses the first one that the device supports, and the runtime's own preference when it supports neither:</p>
+<ul>
+<li>On a video passthrough headset, <code>AlphaBlend</code> shows the camera feed wherever the scene is transparent. To see the room, clear the camera to <code>Color.Transparent</code> and remove the sky or any background entity. Otherwise the scene covers the room, as in VR.</li>
+<li>On optical see-through glasses such as XREAL Aura, <code>Additive</code> adds the scene to the light that reaches the eye. Black is transparent, so keep the background black and use bright colors for the content.</li>
+</ul>
+<p>For a VR application that always hides the room, remove the <code>PreferredEnvironmentBlendModes</code> line, or put <code>EnvironmentBlendMode.Opaque</code> first in the array.</p>
+<p>Check what the device offers in <code>SupportedEnvironmentBlendModes</code>, and what the platform chose in <code>EnvironmentBlendMode</code>. Both are filled once the platform starts. <a href="openxr_platform.html#environment-blend-modes">OpenXR Platform</a> describes the three properties.</p>
+<h2 id="run-on-the-device">Run on the device</h2>
+<ol>
+<li>Enable developer options and USB debugging in the settings of the device.</li>
+<li>Connect the device to the PC with a USB cable and allow USB debugging when the device asks.</li>
+<li>Open the solution of the AndroidXR profile in Visual Studio, select the device as the target, and start debugging.</li>
+<li>Allow hand tracking when the application asks for it on its first start.</li>
+</ol>
+<h2 id="compared-with-meta-quest-and-pico">Compared with Meta Quest and Pico</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Android XR</th>
+<th>Android Meta Quest</th>
+<th>Android Pico</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenXR loader package</td>
+<td><code>Evergine.OpenXR.Natives.AndroidXR</code></td>
+<td><code>Evergine.OpenXR.Natives.Quest</code></td>
+<td><code>Evergine.OpenXR.Natives.Pico</code></td>
+</tr>
+<tr>
+<td>Interaction profile</td>
+<td><code>KhronosSimpleProfile</code></td>
+<td><code>OculusTouchProfile</code></td>
+<td><code>PicoNeo3Profile</code></td>
+</tr>
+<tr>
+<td>Hand extensions</td>
+<td>Requested only when the hand tracking permission is granted</td>
+<td>Always requested</td>
+<td><code>XR_EXT_hand_tracking</code> only</td>
+</tr>
+<tr>
+<td>Real world view</td>
+<td>Environment blend mode (<code>AlphaBlend</code> or <code>Additive</code>)</td>
+<td><a href="../passthrough.html">Passthrough</a> layers (<code>XR_FB_passthrough</code>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Manifest</td>
+<td>OpenXR runtime required, full space start mode</td>
+<td>Meta VR intent category</td>
+<td><code>pvr.app.type</code> set to <code>vr</code></td>
+</tr>
+<tr>
+<td>Minimum Android version</td>
+<td>Android 14 (API level 34)</td>
+<td>Android 6.0 (API level 23)</td>
+<td>Android 6.0 (API level 23)</td>
+</tr>
+</tbody>
+</table>
+<p>All three create the Vulkan graphics context through <code>InitializeForVulkan</code>, render with multiview, and share the same scene.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="openxr_platform.html">OpenXR Platform</a>: every <code>OpenXRPlatform</code> property, the Vulkan graphics context, blend modes and interaction profiles.</li>
+<li><a href="../input_tracking/index.html">Input Devices</a>: tracking controllers and hands in the scene.</li>
+<li><a href="https://developer.android.com/develop/xr/openxr">Android XR developer documentation</a>: the OpenXR extensions Android XR supports.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

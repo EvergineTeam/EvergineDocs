@@ -1,0 +1,320 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Swapchain | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Swapchain | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="swapchain">Swapchain</h1>
+
+<p>A swapchain is the set of buffers that puts your rendering on screen. You draw into one of them, and presenting hands it to the display while giving you back another to draw into.</p>
+<p>The reason it is not a single buffer is timing. Monitors refresh between 60 and 240 times a second, far slower than the GPU can produce frames, and they scan the image out from top to bottom. Writing into the buffer the monitor is currently scanning means the top of the screen shows the old frame and the bottom shows the new one, split at whatever line the scan had reached. That split is called tearing.</p>
+<p><img src="images/swapchain_present.png" alt="The back buffer, the front buffer, and the calls that move a frame between them"></p>
+<h2 id="creation">Creation</h2>
+<p>A swapchain is created from the <a href="graphicscontext.html">GraphicsContext</a>, not from the factory, because it binds to a window rather than to the device alone:</p>
+<pre><code class="lang-csharp">// Create a window...
+var windowSystem = new Evergine.Forms.FormsWindowsSystem();
+var window = windowSystem.CreateWindow(windowsTitle, width, height);
+
+// Describe the buffers, and point the description at the window's surface...
+var swapChainDescriptor = new SwapChainDescription()
+{
+    Width = window.Width,
+    Height = window.Height,
+    SurfaceInfo = window.SurfaceInfo,
+    ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm,
+    ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+    DepthStencilTargetFormat = PixelFormat.D24_UNorm_S8_UInt,
+    DepthStencilTargetFlags = TextureFlags.DepthStencil,
+    SampleCount = TextureSampleCount.None,
+    IsWindowed = true,
+    RefreshRate = 60,
+};
+
+var swapChain = this.graphicsContext.CreateSwapChain(swapChainDescriptor);
+swapChain.VerticalSync = false;
+</code></pre>
+<h3 id="swapchaindescription">SwapChainDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SurfaceInfo</strong></td>
+<td><code>SurfaceInfo</code></td>
+<td>The window surface to present to. See <a href="graphicscontext.html">GraphicsContext</a> for the windowing systems available.</td>
+</tr>
+<tr>
+<td><strong>Width</strong></td>
+<td><code>uint</code></td>
+<td>Width of the swapchain buffers.</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td><code>uint</code></td>
+<td>Height of the swapchain buffers.</td>
+</tr>
+<tr>
+<td><strong>RefreshRate</strong></td>
+<td><code>uint</code></td>
+<td>Target screen refresh rate.</td>
+</tr>
+<tr>
+<td><strong>ColorTargetFormat</strong></td>
+<td><code>PixelFormat</code></td>
+<td>Pixel format of the colour target.</td>
+</tr>
+<tr>
+<td><strong>ColorTargetFlags</strong></td>
+<td><code>TextureFlags</code></td>
+<td>How the colour target may be bound. Combine flags with a logical OR.</td>
+</tr>
+<tr>
+<td><strong>DepthStencilTargetFormat</strong></td>
+<td><code>PixelFormat</code></td>
+<td>Pixel format of the depth stencil target.</td>
+</tr>
+<tr>
+<td><strong>DepthStencilTargetFlags</strong></td>
+<td><code>TextureFlags</code></td>
+<td>How the depth target may be bound.</td>
+</tr>
+<tr>
+<td><strong>SampleCount</strong></td>
+<td><code>TextureSampleCount</code></td>
+<td>Multisample count for the swapchain buffers.</td>
+</tr>
+<tr>
+<td><strong>IsWindowed</strong></td>
+<td><code>bool</code></td>
+<td>Whether the output is windowed rather than fullscreen.</td>
+</tr>
+</tbody>
+</table>
+<p><code>TextureFlags</code> and <code>TextureSampleCount</code> are documented in full on the <a href="texture.html">Texture</a> page.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Add <code>TextureFlags.ShaderResource</code> to <code>ColorTargetFlags</code> when a post-processing pass needs to sample the result before it is presented. Leaving it out costs nothing, but adding it later means recreating the swapchain.</p>
+</div>
+<h2 id="presenting">Presenting</h2>
+<p>Four steps per frame:</p>
+<pre><code class="lang-csharp">this.swapChain.InitFrame();
+
+var commandBuffer = this.commandQueue.CommandBuffer();
+commandBuffer.Begin();
+
+RenderPassDescription renderPassDescription = new RenderPassDescription(
+    this.swapChain.FrameBuffer,
+    new ClearValue(ClearFlags.All, Color.CornflowerBlue));
+commandBuffer.BeginRenderPass(ref renderPassDescription);
+
+// ...draws...
+
+commandBuffer.EndRenderPass();
+commandBuffer.End();
+commandBuffer.Commit();
+
+this.commandQueue.Submit();
+
+this.swapChain.Present();
+</code></pre>
+<p><code>InitFrame()</code> acquires the next buffer, which is why it comes before any recording. <code>swapChain.FrameBuffer</code> is the <a href="framebuffer.html">Framebuffer</a> for the buffer it handed you, so read it after <code>InitFrame</code> rather than caching it across frames.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>A swapchain texture you wrote to yourself, rather than through a render pass, has to be transitioned into <code>Texture.StateFlags.PresentSrc</code> before <code>Present()</code>. A pass that ends with a copy into the swapchain is the usual case. See <a href="barriers.html">Barriers</a>.</p>
+<pre><code class="lang-csharp">commandBuffer.Barrier(new Texture.Barrier(swapchainColor, Texture.StateFlags.PresentSrc));
+</code></pre>
+</div>
+<h2 id="members">Members</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FrameBuffer</strong></td>
+<td>The framebuffer for the current back buffer.</td>
+</tr>
+<tr>
+<td><strong>SwapChainDescription</strong></td>
+<td>The description it was created from.</td>
+</tr>
+<tr>
+<td><strong>VerticalSync</strong></td>
+<td>Whether <code>Present</code> waits for the next refresh.</td>
+</tr>
+<tr>
+<td><strong>InitFrame()</strong></td>
+<td>Acquires the next back buffer. Call it at the start of each frame.</td>
+</tr>
+<tr>
+<td><strong>Present()</strong></td>
+<td>Hands the back buffer to the display.</td>
+</tr>
+<tr>
+<td><strong>ResizeSwapChain(width, height)</strong></td>
+<td>Recreates the buffers at a new size.</td>
+</tr>
+<tr>
+<td><strong>RefreshSurfaceInfo(surfaceInfo)</strong></td>
+<td>Points the swapchain at a new surface.</td>
+</tr>
+<tr>
+<td><strong>ChangeDepthStencilFormat(format)</strong></td>
+<td>Recreates the depth target with a different format.</td>
+</tr>
+<tr>
+<td><strong>GetCurrentFramebufferTexture()</strong></td>
+<td>The texture behind the current back buffer.</td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td>Debug name, shown in graphics debugging tools.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="vertical-sync">Vertical sync</h2>
+<pre><code class="lang-csharp">swapChain.VerticalSync = true;
+</code></pre>
+<p>With it on, <code>Present</code> waits for the next refresh before swapping. There is no tearing, and the frame rate is capped to the monitor. With it off, <code>Present</code> returns as soon as the swap is queued, the frame rate is uncapped, and a refresh can catch the swap partway down the screen.</p>
+<p>Leave it on for anything a person looks at. Turn it off to measure throughput, where a capped frame rate hides the difference you are trying to see.</p>
+<h2 id="resizing">Resizing</h2>
+<p>A window resize invalidates the buffers, so handle it before the next frame:</p>
+<pre><code class="lang-csharp">protected override void OnResized(uint width, uint height)
+{
+    this.swapChain.ResizeSwapChain(width, height);
+
+    this.viewports[0] = new Viewport(0, 0, width, height);
+    this.scissors[0] = new Rectangle(0, 0, (int)width, (int)height);
+}
+</code></pre>
+<p><code>ResizeSwapChain</code> recreates the underlying textures, so anything that captured the old ones has to be rebuilt: your own framebuffers over swapchain textures, and resource sets that sampled them. Pipelines survive, because a resize does not change formats.</p>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>Wait for the GPU to finish with the old buffers before resizing, with <code>commandQueue.WaitIdle()</code>. Resizing under a frame that is still in flight destroys textures the GPU is reading.</p>
+</div>
+<h2 id="cleaning-up">Cleaning up</h2>
+<pre><code class="lang-csharp">this.commandQueue.WaitIdle();
+swapChain.Dispose();
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,271 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>OBJ Runtime | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="OBJ Runtime | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="obj-runtime">OBJ Runtime</h1>
+
+<hr>
+<p><img src="images/OBJ/obj-header.png" alt="Evergine OBJ runtime"></p>
+<p>The <strong>Evergine.Runtimes.OBJ</strong> package reads Wavefront <code>.obj</code> files, together with their <code>.mtl</code> material libraries and textures, while the application runs. It returns a <code>Model</code>, so an OBJ file ends up in the scene exactly like a model imported by Evergine Studio. OBJ is the lowest common denominator of 3D formats, which makes this runtime a good fallback for files exported from scanners, older tools and online repositories.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>Evergine.Runtimes.OBJ</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>Evergine.Runtimes.OBJ</code></td>
+</tr>
+<tr>
+<td><strong>Class</strong></td>
+<td><code>OBJRuntime</code> (derives from <code>ModelRuntime</code>)</td>
+</tr>
+<tr>
+<td><strong>Formats</strong></td>
+<td><code>.obj</code> with optional <code>.mtl</code> material libraries</td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>Task&lt;Model&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Platforms</strong></td>
+<td>All Evergine platforms</td>
+</tr>
+</tbody>
+</table>
+<h2 id="what-the-runtime-reads">What the runtime reads</h2>
+<p><strong>Geometry</strong></p>
+<ul>
+<li>Vertex positions, normals and texture coordinates.</li>
+<li>Triangles, quads and larger polygons. Faces with more than three vertices are triangulated.</li>
+<li>Several groups and objects in one file. Each one becomes a mesh of the model.</li>
+<li>Files without normals get flat face normals computed on load.</li>
+</ul>
+<p>Only faces are turned into meshes. Point (<code>p</code>) and line (<code>l</code>) elements are parsed but not rendered.</p>
+<p><strong>Materials</strong></p>
+<ul>
+<li>The <code>.mtl</code> files referenced by <code>mtllib</code> statements, resolved relative to the folder of the <code>.obj</code> file.</li>
+<li>Diffuse color (<code>Kd</code>) and dissolve (<code>d</code>, or <code>Tr</code> as its inverse) as base color and alpha.</li>
+<li>The PBR extension values <code>Pm</code> (metallic) and <code>Pr</code> (roughness), and the emissive color <code>Ke</code>.</li>
+<li>The diffuse texture (<code>map_Kd</code>) as the base color texture, in any format the <a href="image_runtime.html">Image runtime</a> decodes (PNG, JPEG, BMP, WebP, KTX).</li>
+</ul>
+<p>The default material is a <code>StandardMaterial</code> with lighting and image-based lighting on. A material with an alpha map (<code>map_d</code>) or a PNG diffuse texture uses alpha test; a material with a dissolve value below 1 uses alpha blending.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The <code>.mtl</code> parser also reads normal, specular, metallic, roughness and emissive texture names, but <code>OBJMaterialData</code> only exposes the diffuse texture. The other <code>Get...TextureAndSampler()</code> methods return empty values, so neither the default material nor a custom assigner receives those maps.</p>
+</div>
+<h2 id="load-a-model-from-a-file">Load a model from a file</h2>
+<p><code>Read(string filePath, Func&lt;MaterialData, Task&lt;Material&gt;&gt; materialAssigner = null, bool useSmoothNormals = false)</code> reads the file through the application's <code>AssetsDirectory</code>, so the path is relative to the <code>Content</code> folder of the running application. Mark the <code>.obj</code>, <code>.mtl</code> and texture files with <strong>Set to export as raw</strong> in the <a href="../evergine_studio/assets/edit.html">Assets Details panel</a> so they reach the output unchanged and keep their relative folders.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.OBJ;
+
+public class MyScene : Scene
+{
+    protected override async void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        // The .mtl file and the textures are looked up in the Models folder, next to orc.obj.
+        Model model = await OBJRuntime.Instance.Read(&quot;Models/orc.obj&quot;, useSmoothNormals: true);
+
+        Entity entity = model.InstantiateModelHierarchy(&quot;orc&quot;, assetsService);
+        this.Managers.EntityManager.Add(entity);
+    }
+}
+</code></pre>
+<h3 id="smooth-normals">Smooth normals</h3>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>useSmoothNormals</strong></td>
+<td><code>false</code></td>
+<td>When <code>true</code>, the normals of vertices that share a position are averaged, which hides the facets of curved surfaces. Leave it <code>false</code> for hard-edged models, or when the file already contains the normals you want.</td>
+</tr>
+</tbody>
+</table>
+<p>The value is stored in the <code>UseSmoothNormals</code> property of the runtime, which the stream overload also uses.</p>
+<h2 id="load-a-model-from-a-stream">Load a model from a stream</h2>
+<p><code>Read(Stream stream, ...)</code> accepts any readable, seekable stream. A stream carries no folder, so the runtime resolves <code>mtllib</code> statements and textures against its <code>WorkingDirectory</code> property, a path inside the <code>Content</code> folder. While <code>WorkingDirectory</code> is <code>null</code>, material libraries are skipped and the model loads with default materials.</p>
+<p>The following scene downloads an OBJ file over HTTP. The geometry comes from the download; the materials come from the <code>Models</code> folder of the application.</p>
+<pre><code class="lang-csharp">using System.IO;
+using System.Net.Http;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+using Evergine.Runtimes.OBJ;
+
+public class MyScene : Scene
+{
+    private static readonly HttpClient httpClient = new HttpClient();
+
+    protected override async void CreateScene()
+    {
+        using var response = await httpClient.GetAsync(&quot;https://example.com/models/bunny.obj&quot;);
+        response.EnsureSuccessStatusCode();
+
+        // The OBJ reader needs a seekable stream; a network stream is not.
+        using var buffer = new MemoryStream();
+        await response.Content.CopyToAsync(buffer);
+        buffer.Position = 0;
+
+        OBJRuntime.Instance.WorkingDirectory = &quot;Models&quot;;
+        OBJRuntime.Instance.UseSmoothNormals = true;
+        Model model = await OBJRuntime.Instance.Read(buffer);
+
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+        Entity entity = model.InstantiateModelHierarchy(&quot;bunny&quot;, assetsService);
+
+        // Scene changes must happen on the Evergine main thread.
+        await EvergineForegroundTask.Run(() =&gt; this.Managers.EntityManager.Add(entity));
+    }
+}
+</code></pre>
+<h2 id="custom-materials">Custom materials</h2>
+<p>Pass a material assigner as the second argument of either <code>Read</code> overload to create the materials yourself. The runtime describes every OBJ material as an <code>OBJMaterialData</code> (a <code>MaterialData</code>), and your function returns the <code>Material</code> to use. The <a href="glb_runtime.html#materials-and-the-material-assigner">GLB runtime page</a> describes <code>MaterialData</code> and has a complete assigner.</p>
+<pre><code class="lang-csharp">Model model = await OBJRuntime.Instance.Read(&quot;Models/orc.obj&quot;, this.AssignMaterial);
+</code></pre>
+<p><code>OBJMaterialData</code> always reports <code>HasVertexNormal = true</code> and <code>HasVertexColor = false</code>, because every mesh the runtime builds has normals and no vertex colors. Cast to <code>OBJMaterialData</code> and read its <code>OBJMaterial</code> field to reach every value parsed from the <code>.mtl</code> file.</p>
+<h2 id="samples">Samples</h2>
+<p>The OBJ runtime has been tested against the <a href="http://casual-effects.com/data/index.html">Computer Graphics Archive</a> collection by Morgan McGuire, which covers a wide range of real-world meshes, materials and topologies. A few of those models, loaded at runtime:</p>
+<p><img src="images/OBJ/bunny.jpg" alt="Stanford Bunny loaded with the OBJ runtime">
+<em>Stanford Bunny, created by Greg Turk and Marc Levoy from range scans of a real object.</em></p>
+<p><img src="images/OBJ/sponza.jpg" alt="Crytek Sponza loaded with the OBJ runtime">
+<em>The Atrium Sponza Palace in Dubrovnik, remodeled by Frank Meinl at Crytek after Marko Dabrovic's original.</em></p>
+<p><img src="images/OBJ/mitsuba.jpg" alt="Mitsuba material test object loaded with the OBJ runtime">
+<em>The material test object of the Mitsuba renderer, converted to a single OBJ file with the backdrop as a separate mesh.</em></p>
+<p><img src="images/OBJ/orc.jpg" alt="Orc sculpture loaded with the OBJ runtime">
+<em>An orc sculpted in ZBrush and exported as OBJ.</em></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

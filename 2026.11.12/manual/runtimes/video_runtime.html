@@ -1,0 +1,452 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Video Runtime | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Video Runtime | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="video-runtime">Video Runtime</h1>
+
+<hr>
+<p><img src="images/video-header.png" alt="Evergine video runtime"></p>
+<p>The <strong>Evergine.Runtimes.Video</strong> package plays video files on any surface of your scene: a screen in a virtual showroom, a billboard, or the background of a menu. Its <code>VideoPlayer</code> component decodes the video with <a href="https://www.ffmpeg.org/">FFmpeg</a> frame by frame, uploads each frame to a GPU texture, and shows that texture through the material of its entity.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>Evergine.Runtimes.Video</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>Evergine.Runtimes.Video</code></td>
+</tr>
+<tr>
+<td><strong>Component</strong></td>
+<td><code>VideoPlayer</code> (a <code>Behavior</code>)</td>
+</tr>
+<tr>
+<td><strong>Formats</strong></td>
+<td>Containers and codecs supported by FFmpeg 7.1, tested with MP4 (H.264), MOV, WMV and FLV</td>
+</tr>
+<tr>
+<td><strong>Output</strong></td>
+<td>A <code>Texture</code> in <code>R8G8B8A8_UNorm</code>, updated at the frame rate of the video</td>
+</tr>
+<tr>
+<td><strong>Reads from</strong></td>
+<td>A file path only</td>
+</tr>
+<tr>
+<td><strong>Platforms</strong></td>
+<td>Windows x64</td>
+</tr>
+</tbody>
+</table>
+<h2 id="platform-support">Platform support</h2>
+<p><code>FFmpegBinariesHelper.RegisterFFmpegBinaries()</code>, which the component calls when it is attached, decides where the FFmpeg libraries come from:</p>
+<table>
+<thead>
+<tr>
+<th>Operating system</th>
+<th>FFmpeg libraries</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Windows</strong></td>
+<td>The package ships FFmpeg 7.1 for x64 and copies it to <code>runtimes\win-x64\native</code> in the output folder. Set <code>FFmpegBinariesHelper.WindowsLibraryPath</code> before the component is attached to load them from another folder.</td>
+</tr>
+<tr>
+<td><strong>Linux</strong></td>
+<td>The libraries installed on the system, from <code>/lib/x86_64-linux-gnu/</code>. They must be the FFmpeg 7.x versions the bindings expect.</td>
+</tr>
+<tr>
+<td><strong>Any other</strong></td>
+<td><code>NotSupportedException</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Evergine project templates target Windows, Web, Android and iOS, so in practice the video runtime is a <strong>Windows x64</strong> feature.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>FFmpeg is only initialized when the application runs. In the Evergine Studio viewport the component does nothing, and the entity shows its material without the video.</p>
+</div>
+<h2 id="add-a-video-in-evergine-studio">Add a video in Evergine Studio</h2>
+<ol>
+<li>Add the <code>Evergine.Runtimes.Video</code> NuGet package to the main project of your application.</li>
+<li>Copy the video to the <code>Content</code> folder and mark it with <strong>Set to export as raw</strong> in the <a href="../evergine_studio/assets/edit.html">Assets Details panel</a>, so the file reaches the output unchanged.</li>
+<li>Create an entity with a mesh (for example a plane), a <code>MeshRenderer</code>, and a <code>MaterialComponent</code> whose material uses the standard effect.</li>
+<li>Add a <strong>VideoPlayer</strong> component and set <strong>VideoPath</strong> to the path of the video inside <code>Content</code>.</li>
+</ol>
+<p><img src="images/new-videoplayer-component.png" alt="VideoPlayer component in the Entity Details panel"></p>
+<p>When playback starts, the component opens the video, creates the video texture and puts it in the <strong>base color texture</strong> of the entity's material. For any other material, or to show the video somewhere else, read the <code>VideoTexture</code> property and assign it yourself.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The component writes to the material in the <code>MaterialComponent</code>, not to a copy. If that material is shared, every entity that uses it shows the video. Give each screen its own material.</p>
+</div>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VideoPath</strong></td>
+<td><code>null</code></td>
+<td>Path of the video file, combined with the <code>Content</code> folder of the application; an absolute path is used as it is. Setting it at run time closes the current video and opens the new one.</td>
+</tr>
+<tr>
+<td><strong>Autoplay</strong></td>
+<td><code>false</code></td>
+<td>Starts playback when the component is attached, without calling <code>Play()</code>.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td><code>false</code></td>
+<td>Rewinds to the first frame when the video ends. Without it, the last frame stays on screen.</td>
+</tr>
+<tr>
+<td><strong>HWDevice</strong></td>
+<td><code>DXVA2</code></td>
+<td>Decoder device. <code>NONE</code> decodes on the CPU; the other values select an FFmpeg hardware decoder. See <a href="#hardware-decoding">Hardware decoding</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>These are read only, and valid once playback has started:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VideoTexture</strong></td>
+<td>The texture that receives the frames.</td>
+</tr>
+<tr>
+<td><strong>VideoWidth</strong></td>
+<td>Width of the video in pixels.</td>
+</tr>
+<tr>
+<td><strong>VideoHeight</strong></td>
+<td>Height of the video in pixels.</td>
+</tr>
+<tr>
+<td><strong>VideoState</strong></td>
+<td><code>Stopped</code>, <code>Playing</code> or <code>Paused</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="playback-control">Playback control</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Effect</th>
+<th>Event</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Play()</strong></td>
+<td>Starts or resumes playback.</td>
+<td><code>Playing</code></td>
+</tr>
+<tr>
+<td><strong>Pause()</strong></td>
+<td>Holds the current frame.</td>
+<td><code>Paused</code></td>
+</tr>
+<tr>
+<td><strong>Stop()</strong></td>
+<td>Stops playback and rewinds to the first frame. Only acts while the video is playing.</td>
+<td><code>Stopped</code></td>
+</tr>
+</tbody>
+</table>
+<p>The events are raised by the methods only. Playback started by <code>Autoplay</code> does not raise <code>Playing</code> and leaves <code>VideoState</code> at <code>Stopped</code> until you call one of the methods. Reaching the end of a video that does not loop leaves <code>VideoState</code> at <code>Playing</code> without raising <code>Stopped</code>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>When code needs to follow the playback state, leave <code>Autoplay</code> off and call <code>Play()</code> yourself, so that <code>VideoState</code> and the events stay in step with what is on screen.</p>
+</div>
+<h2 id="hardware-decoding">Hardware decoding</h2>
+<p>Decoding high-resolution video on the CPU is expensive. A hardware decoder moves that work to the GPU, which lets several videos play at once without slowing the application down.</p>
+<p><img src="images/decode-video-gpu.png" alt="Video decoded on the GPU through DXVA2 on Windows"></p>
+<p><em>A video decoded through DXVA2 on Windows. Video generated with OpenAI Sora.</em></p>
+<table>
+<thead>
+<tr>
+<th>HWDevice</th>
+<th>Decoder</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NONE</code></td>
+<td>CPU decoding. Works for every codec FFmpeg supports.</td>
+</tr>
+<tr>
+<td><code>DXVA2</code></td>
+<td>DirectX Video Acceleration 2 on Windows. The default.</td>
+</tr>
+<tr>
+<td><code>D3D11VA</code></td>
+<td>Direct3D 11 video decoding on Windows.</td>
+</tr>
+<tr>
+<td><code>CUDA</code>, <code>QSV</code>, <code>VDPAU</code>, <code>VAAPI</code>, <code>DRM</code>, <code>OPENCL</code>, <code>VULKAN</code>, <code>VIDEOTOOLBOX</code>, <code>MEDIACODEC</code></td>
+<td>FFmpeg device types for other GPUs and operating systems. Whether they work depends on the FFmpeg build and the driver.</td>
+</tr>
+</tbody>
+</table>
+<p>Only <code>DXVA2</code> and <code>D3D11VA</code> are mapped to the NV12 frames that Windows hardware decoders return, so on Windows use one of those two, or <code>NONE</code>.</p>
+<p>If the hardware decoder cannot be created, the component throws an exception the first time it updates; it does not fall back to the CPU. Set <code>HWDevice</code> to <code>NONE</code> on machines without a compatible GPU.</p>
+<h2 id="complete-example">Complete example</h2>
+<p>The scene below creates a 16:9 screen with its own unlit material and plays a video from the <code>Content</code> folder. A behavior on the same entity starts playback, toggles it with the space bar and stops it with <code>S</code>.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Graphics;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+using Evergine.Runtimes.Video;
+
+public class VideoScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+        var effect = assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID);
+
+        // A material of its own, so no other entity shows the video.
+        var screenMaterial = new StandardMaterial(effect)
+        {
+            // Video frames already contain their final colors.
+            LightingEnabled = false,
+            IBLEnabled = false,
+            LayerDescription = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorSampler = assetsService.Load&lt;SamplerState&gt;(DefaultResourcesIDs.LinearClampSamplerID),
+        };
+
+        Entity screen = new Entity(&quot;screen&quot;)
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 1, 0) })
+            .AddComponent(new MaterialComponent() { Material = screenMaterial.Material })
+            .AddComponent(new PlaneMesh() { PlaneNormal = PlaneMesh.NormalAxis.ZPositive, Width = 1.6f, Height = 0.9f })
+            .AddComponent(new MeshRenderer())
+            .AddComponent(new VideoPlayer()
+            {
+                VideoPath = &quot;Videos/intro.mp4&quot;,
+                Loop = true,
+            })
+            .AddComponent(new VideoKeyboardControl());
+
+        this.Managers.EntityManager.Add(screen);
+    }
+}
+
+public class VideoKeyboardControl : Behavior
+{
+    [BindComponent]
+    private VideoPlayer videoPlayer = null;
+
+    [BindService]
+    private GraphicsPresenter graphicsPresenter = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        // Play() instead of Autoplay keeps VideoState accurate from the start.
+        this.videoPlayer.Play();
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        KeyboardDispatcher keyboard = this.graphicsPresenter.FocusedDisplay?.KeyboardDispatcher;
+        if (keyboard == null)
+        {
+            return;
+        }
+
+        if (keyboard.ReadKeyState(Keys.Space) == ButtonState.Pressing)
+        {
+            if (this.videoPlayer.VideoState == VideoPlayer.VideoStateType.Playing)
+            {
+                this.videoPlayer.Pause();
+            }
+            else
+            {
+                this.videoPlayer.Play();
+            }
+        }
+        else if (keyboard.ReadKeyState(Keys.S) == ButtonState.Pressing)
+        {
+            // Stop only acts on a playing video, so resume a paused one first.
+            this.videoPlayer.Play();
+            this.videoPlayer.Stop();
+        }
+    }
+}
+</code></pre>
+<h2 id="play-a-video-downloaded-from-the-internet">Play a video downloaded from the Internet</h2>
+<p><code>VideoPlayer</code> only opens files, so download the video to a local file first and assign its absolute path to <code>VideoPath</code>:</p>
+<pre><code class="lang-csharp">using System.IO;
+using System.Net.Http;
+using System.Threading.Tasks;
+using Evergine.Framework.Threading;
+using Evergine.Runtimes.Video;
+
+public static class VideoDownloader
+{
+    private static readonly HttpClient httpClient = new HttpClient();
+
+    public static async Task PlayFromUrlAsync(VideoPlayer player, string url)
+    {
+        string localPath = Path.Combine(Path.GetTempPath(), Path.GetFileName(new System.Uri(url).LocalPath));
+
+        using (var response = await httpClient.GetAsync(url, HttpCompletionOption.ResponseHeadersRead))
+        {
+            response.EnsureSuccessStatusCode();
+            using var file = File.Create(localPath);
+            await response.Content.CopyToAsync(file);
+        }
+
+        // The component reads VideoPath from its Update, on the Evergine main thread.
+        await EvergineForegroundTask.Run(() =&gt;
+        {
+            player.VideoPath = localPath;
+            player.Play();
+        });
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

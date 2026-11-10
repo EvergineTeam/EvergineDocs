@@ -1,0 +1,1117 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.Constraint">
+
+
+
+  <h1 id="Evergine_Framework_Physics_Constraint" data-uid="Evergine.Framework.Physics.Constraint" class="text-break">Class Constraint</h1>
+  <div class="markdown level0 summary"><p>Base class of the constraints that tie a body to another body or to the world.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><span class="xref">Constraint</span></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.ConeConstraint.html">ConeConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.DistanceConstraint.html">DistanceConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.FixedConstraint.html">FixedConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.GearConstraint.html">GearConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.HingeConstraint.html">HingeConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.PointConstraint.html">PointConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.PulleyConstraint.html">PulleyConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.RackAndPinionConstraint.html">RackAndPinionConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.SixDOFConstraint.html">SixDOFConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.SliderConstraint.html">SliderConstraint</a></div>
+      <div class="level7"><a class="xref" href="Evergine.Framework.Physics.SwingTwistConstraint.html">SwingTwistConstraint</a></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_Constraint_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public abstract class Constraint : Component, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_Constraint_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+A constraint lives on the entity of the body it constrains. The other side is either the body held by
+<a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedEntity">ConnectedEntity</a>, or the world itself when no entity is selected, which is how a hinge is
+pinned to a wall that is not simulated.
+</p>
+<p>
+Anchors are given in the local space of their entity and converted to world space when the constraint is
+created, using the poses the bodies have at that moment. That is why a constraint has to be created after
+the bodies are in place: it captures the relationship it has to keep.
+</p>
+<p>
+Jolt does not break constraints on its own. When <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsBreakable">IsBreakable</a> is set, the manager reads the
+impulse the solver applied after every step and turns it into a force, which is what
+<a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_BreakForce">BreakForce</a> and <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_BreakTorque">BreakTorque</a> are compared against.
+</p>
+</div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_Physics_Constraint_Body" data-uid="Evergine.Framework.Physics.Constraint.Body">Body</h4>
+  <div class="markdown level1 summary"><p>The body this constraint holds.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(false, true, BindComponentSource.Owner, null, true)]
+public PhysicsBody Body</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Physics_Constraint_Transform3D" data-uid="Evergine.Framework.Physics.Constraint.Transform3D">Transform3D</h4>
+  <div class="markdown level1 summary"><p>The transform of the entity this constraint lives on.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(true, true, BindComponentSource.Owner, null, true)]
+public Transform3D Transform3D</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_Constraint_Anchor_" data-uid="Evergine.Framework.Physics.Constraint.Anchor*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_Anchor" data-uid="Evergine.Framework.Physics.Constraint.Anchor">Anchor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets where the constraint attaches on this body, in the local space of its entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Attachment point on this body, relative to its entity.&quot;)]
+public Vector3 Anchor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_AppliedForce_" data-uid="Evergine.Framework.Physics.Constraint.AppliedForce*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_AppliedForce" data-uid="Evergine.Framework.Physics.Constraint.AppliedForce">AppliedForce</h4>
+  <div class="markdown level1 summary"><p>Gets the force the solver is currently applying to hold this constraint, in newtons. Useful to pick a
+sensible <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_BreakForce">BreakForce</a>, and zero for the constraint types that do not report it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float AppliedForce { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_AppliedTorque_" data-uid="Evergine.Framework.Physics.Constraint.AppliedTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_AppliedTorque" data-uid="Evergine.Framework.Physics.Constraint.AppliedTorque">AppliedTorque</h4>
+  <div class="markdown level1 summary"><p>Gets the torque the solver is currently applying to hold this constraint, in newton meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float AppliedTorque { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_AutoConfigureConnectedAnchor_" data-uid="Evergine.Framework.Physics.Constraint.AutoConfigureConnectedAnchor*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_AutoConfigureConnectedAnchor" data-uid="Evergine.Framework.Physics.Constraint.AutoConfigureConnectedAnchor">AutoConfigureConnectedAnchor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the anchor on the other side is derived from the current poses
+of both bodies, which keeps them where they already are.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 1, Tooltip = &quot;Derive the other anchor from the current poses, so the bodies stay where they are.&quot;)]
+public bool AutoConfigureConnectedAnchor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_BreakForce_" data-uid="Evergine.Framework.Physics.Constraint.BreakForce*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_BreakForce" data-uid="Evergine.Framework.Physics.Constraint.BreakForce">BreakForce</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the force, in newtons, above which the constraint breaks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, AttachToTag = 2, AttachToValue = true, Tooltip = &quot;Force in newtons above which the constraint breaks.&quot;)]
+public float BreakForce { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_BreakTorque_" data-uid="Evergine.Framework.Physics.Constraint.BreakTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_BreakTorque" data-uid="Evergine.Framework.Physics.Constraint.BreakTorque">BreakTorque</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the torque, in newton meters, above which the constraint breaks.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, AttachToTag = 2, AttachToValue = true, Tooltip = &quot;Torque in newton meters above which the constraint breaks.&quot;)]
+public float BreakTorque { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_CollideConnected_" data-uid="Evergine.Framework.Physics.Constraint.CollideConnected*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_CollideConnected" data-uid="Evergine.Framework.Physics.Constraint.CollideConnected">CollideConnected</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the two constrained bodies still collide with each other.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Whether the two bodies held together still collide with each other.&quot;)]
+public bool CollideConnected { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_ConnectedAnchor_" data-uid="Evergine.Framework.Physics.Constraint.ConnectedAnchor*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_ConnectedAnchor" data-uid="Evergine.Framework.Physics.Constraint.ConnectedAnchor">ConnectedAnchor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets where the constraint attaches on the other body, in the local space of its entity.
+Ignored while <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_AutoConfigureConnectedAnchor">AutoConfigureConnectedAnchor</a> is set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(AttachToTag = 1, AttachToValue = false, Tooltip = &quot;Attachment point on the other body, relative to its entity.&quot;)]
+public Vector3 ConnectedAnchor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_ConnectedBody_" data-uid="Evergine.Framework.Physics.Constraint.ConnectedBody*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_ConnectedBody" data-uid="Evergine.Framework.Physics.Constraint.ConnectedBody">ConnectedBody</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the body on the other side directly from code.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PhysicsBody ConnectedBody { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_Constraint_ConnectedBody_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Assigning a body also records its owner as <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedEntity">ConnectedEntity</a> when available. The entity
+property is preferred for serialized data and editor use.</p>
+</div>
+  <a id="Evergine_Framework_Physics_Constraint_ConnectedEntity_" data-uid="Evergine.Framework.Physics.Constraint.ConnectedEntity*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_ConnectedEntity" data-uid="Evergine.Framework.Physics.Constraint.ConnectedEntity">ConnectedEntity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the entity holding the body on the other side. Empty attaches to the world.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsEntity(new Type[] { typeof(PhysicsBody) }, IsExactType = false, ExcludeOwner = true, CustomPropertyName = &quot;Connected Body&quot;, Tooltip = &quot;Entity holding the other physics body. Empty attaches this constraint to the world.&quot;)]
+public Entity ConnectedEntity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Entity.html">Entity</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_ConnectedEntityPath_" data-uid="Evergine.Framework.Physics.Constraint.ConnectedEntityPath*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_ConnectedEntityPath" data-uid="Evergine.Framework.Physics.Constraint.ConnectedEntityPath">ConnectedEntityPath</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the legacy path of the entity holding the body on the other side.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[EvergineMember(-1)]
+public string ConnectedEntityPath { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_Constraint_ConnectedEntityPath_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Kept serialized so scenes created before direct entity references were available continue to load.
+New code and assets should use <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedEntity">ConnectedEntity</a>.</p>
+</div>
+  <a id="Evergine_Framework_Physics_Constraint_IsBreakable_" data-uid="Evergine.Framework.Physics.Constraint.IsBreakable*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_IsBreakable" data-uid="Evergine.Framework.Physics.Constraint.IsBreakable">IsBreakable</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the constraint gives way when pushed hard enough.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tag = 2, Tooltip = &quot;Whether the constraint breaks when the force it applies exceeds the limits below.&quot;)]
+public bool IsBreakable { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_IsBroken_" data-uid="Evergine.Framework.Physics.Constraint.IsBroken*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_IsBroken" data-uid="Evergine.Framework.Physics.Constraint.IsBroken">IsBroken</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the constraint has broken.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsBroken { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_IsCreated_" data-uid="Evergine.Framework.Physics.Constraint.IsCreated*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_IsCreated" data-uid="Evergine.Framework.Physics.Constraint.IsCreated">IsCreated</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the native constraint exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected bool IsCreated { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_IsHolding_" data-uid="Evergine.Framework.Physics.Constraint.IsHolding*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_IsHolding" data-uid="Evergine.Framework.Physics.Constraint.IsHolding">IsHolding</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether this constraint is holding its bodies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Whether the joint is holding. Off lets the bodies come apart without moving the anchors.&quot;)]
+public bool IsHolding { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_Constraint_IsHolding_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+Switching it off lets the bodies come apart as if the joint were not there, while the joint itself
+stays where it is and remembers what it was holding. Switching it back on takes hold again from the
+original anchors, which is worth bearing in mind: a joint switched on after its bodies have drifted
+apart will pull them back together.
+</p>
+<p>
+This is not the same as disabling the component. Disabling the component removes the joint from the
+simulation altogether and re-enabling it builds a new one from wherever the bodies have got to, so the
+anchors move. This keeps the joint and its anchors and only stops it acting. Nor is it the same as
+breaking it, which is permanent and raises <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Broken">Broken</a>.
+</p>
+</div>
+  <a id="Evergine_Framework_Physics_Constraint_NativeConstraint_" data-uid="Evergine.Framework.Physics.Constraint.NativeConstraint*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_NativeConstraint" data-uid="Evergine.Framework.Physics.Constraint.NativeConstraint">NativeConstraint</h4>
+  <div class="markdown level1 summary"><p>Gets the native constraint handle, or zero when it does not exist.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public nint NativeConstraint { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_PhysicsManager_" data-uid="Evergine.Framework.Physics.Constraint.PhysicsManager*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_PhysicsManager" data-uid="Evergine.Framework.Physics.Constraint.PhysicsManager">PhysicsManager</h4>
+  <div class="markdown level1 summary"><p>Gets the manager simulating this constraint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected PhysicsManager PhysicsManager { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsManager.html">PhysicsManager</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_Priority_" data-uid="Evergine.Framework.Physics.Constraint.Priority*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_Priority" data-uid="Evergine.Framework.Physics.Constraint.Priority">Priority</h4>
+  <div class="markdown level1 summary"><p>Gets or sets where this constraint sits in the order the solver works through them. Higher goes later,
+and later means its bodies are more likely to end up where this constraint wants them.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 0, DesiredChange = 1, DesiredLargeChange = 10, Tooltip = &quot;Order the solver works through constraints in. Higher is solved later and tends to win.&quot;)]
+public uint Priority { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_Constraint_Priority_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Only worth reaching for when two constraints fight over the same body and one of them should win, such
+as a joint holding a limb against a joint dragging it. Leave it at zero otherwise.</p>
+</div>
+  <a id="Evergine_Framework_Physics_Constraint_SolverPositionIterationsOverride_" data-uid="Evergine.Framework.Physics.Constraint.SolverPositionIterationsOverride*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_SolverPositionIterationsOverride" data-uid="Evergine.Framework.Physics.Constraint.SolverPositionIterationsOverride">SolverPositionIterationsOverride</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how many position iterations the solver spends on this constraint. Zero uses the value
+configured on the manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 0, MaxLimit = 64, DesiredChange = 1, DesiredLargeChange = 4, Tooltip = &quot;Position iterations for this constraint alone. Zero uses the manager setting.&quot;)]
+public uint SolverPositionIterationsOverride { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_SolverVelocityIterationsOverride_" data-uid="Evergine.Framework.Physics.Constraint.SolverVelocityIterationsOverride*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_SolverVelocityIterationsOverride" data-uid="Evergine.Framework.Physics.Constraint.SolverVelocityIterationsOverride">SolverVelocityIterationsOverride</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how many velocity iterations the solver spends on this constraint. Zero uses the value
+configured on the manager.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 0, MaxLimit = 64, DesiredChange = 1, DesiredLargeChange = 4, Tooltip = &quot;Velocity iterations for this constraint alone. Zero uses the manager setting.&quot;)]
+public uint SolverVelocityIterationsOverride { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_WorldAnchor_" data-uid="Evergine.Framework.Physics.Constraint.WorldAnchor*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_WorldAnchor" data-uid="Evergine.Framework.Physics.Constraint.WorldAnchor">WorldAnchor</h4>
+  <div class="markdown level1 summary"><p>Gets the attachment point on this body, in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector3 WorldAnchor { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_WorldConnectedAnchor_" data-uid="Evergine.Framework.Physics.Constraint.WorldConnectedAnchor*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_WorldConnectedAnchor" data-uid="Evergine.Framework.Physics.Constraint.WorldConnectedAnchor">WorldConnectedAnchor</h4>
+  <div class="markdown level1 summary"><p>Gets the attachment point on the other body, in world space. When the anchor is configured
+automatically this is the same point, which is what keeps both bodies where they already are.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected Vector3 WorldConnectedAnchor { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_Constraint_CreateNativeConstraint_" data-uid="Evergine.Framework.Physics.Constraint.CreateNativeConstraint*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_CreateNativeConstraint_System_IntPtr_System_UInt32_System_UInt32_" data-uid="Evergine.Framework.Physics.Constraint.CreateNativeConstraint(System.IntPtr,System.UInt32,System.UInt32)">CreateNativeConstraint(nint, uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Creates the native constraint between two bodies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected abstract nint CreateNativeConstraint(nint system, uint body1, uint body2)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><span class="parametername">system</span></td>
+        <td><p>The native physics system.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">body1</span></td>
+        <td><p>The identifier of this body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">body2</span></td>
+        <td><p>The identifier of the other body, or an invalid identifier for the world.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><p>The native constraint, or zero when it could not be created.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_GetAppliedAngularImpulse_" data-uid="Evergine.Framework.Physics.Constraint.GetAppliedAngularImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_GetAppliedAngularImpulse" data-uid="Evergine.Framework.Physics.Constraint.GetAppliedAngularImpulse">GetAppliedAngularImpulse()</h4>
+  <div class="markdown level1 summary"><p>Gets the magnitude of the angular impulse the solver applied on the last step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual float GetAppliedAngularImpulse()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The impulse magnitude, in newton meter seconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_GetAppliedLinearImpulse_" data-uid="Evergine.Framework.Physics.Constraint.GetAppliedLinearImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_GetAppliedLinearImpulse" data-uid="Evergine.Framework.Physics.Constraint.GetAppliedLinearImpulse">GetAppliedLinearImpulse()</h4>
+  <div class="markdown level1 summary"><p>Gets the magnitude of the linear impulse the solver applied on the last step, used to decide whether a
+breakable constraint gives way.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected virtual float GetAppliedLinearImpulse()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The impulse magnitude, in newton seconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_OnActivated_" data-uid="Evergine.Framework.Physics.Constraint.OnActivated*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_OnActivated" data-uid="Evergine.Framework.Physics.Constraint.OnActivated">OnActivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is activated once it is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnActivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a></div>
+  <a id="Evergine_Framework_Physics_Constraint_OnDeactivated_" data-uid="Evergine.Framework.Physics.Constraint.OnDeactivated*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_OnDeactivated" data-uid="Evergine.Framework.Physics.Constraint.OnDeactivated">OnDeactivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is deactivated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDeactivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a></div>
+  <a id="Evergine_Framework_Physics_Constraint_OnDetached_" data-uid="Evergine.Framework.Physics.Constraint.OnDetached*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_OnDetached" data-uid="Evergine.Framework.Physics.Constraint.OnDetached">OnDetached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetached()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetached">Component.OnDetached()</a></div>
+  <a id="Evergine_Framework_Physics_Constraint_Recreate_" data-uid="Evergine.Framework.Physics.Constraint.Recreate*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_Recreate" data-uid="Evergine.Framework.Physics.Constraint.Recreate">Recreate()</h4>
+  <div class="markdown level1 summary"><p>Rebuilds the constraint, which is needed after changing anything captured when it was created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Recreate()</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_Constraint_Recreate_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The old constraint is destroyed here and now rather than queued for removal. Queuing both halves
+would cancel them out, since enqueuing an add drops the constraint from the removal queue, and it
+also has to happen while the bodies are still alive: this is what a body about to be destroyed calls
+so the solver is not left holding a constraint that points at freed memory. The add stays deferred,
+and retries on its own while the bodies it needs are out of the world.</p>
+</div>
+  <a id="Evergine_Framework_Physics_Constraint_ResolveConnectedBody_" data-uid="Evergine.Framework.Physics.Constraint.ResolveConnectedBody*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_ResolveConnectedBody" data-uid="Evergine.Framework.Physics.Constraint.ResolveConnectedBody">ResolveConnectedBody()</h4>
+  <div class="markdown level1 summary"><p>Resolves the body on the other side, from the selected entity, assigned component, or legacy entity path.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected PhysicsBody ResolveConnectedBody()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td><p>The other body, or <code>null</code> when the constraint attaches to the world.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_Constraint_WakeBodies_" data-uid="Evergine.Framework.Physics.Constraint.WakeBodies*"></a>
+  <h4 id="Evergine_Framework_Physics_Constraint_WakeBodies" data-uid="Evergine.Framework.Physics.Constraint.WakeBodies">WakeBodies()</h4>
+  <div class="markdown level1 summary"><p>Wakes both constrained bodies. Engaging a motor on a sleeping body would otherwise do nothing, since
+the solver does not touch bodies that are asleep.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected void WakeBodies()</code></pre>
+  </div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Physics_Constraint_Broken" data-uid="Evergine.Framework.Physics.Constraint.Broken">Broken</h4>
+  <div class="markdown level1 summary"><p>Raised when a breakable constraint gives way. The constraint stays on the entity but no longer holds
+anything.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler Broken</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

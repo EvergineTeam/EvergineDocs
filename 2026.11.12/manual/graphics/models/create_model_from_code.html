@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Create a Model from Code | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create a Model from Code | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="create-a-model-from-code">Create a Model from Code</h1>
+
+<hr>
+<p><img src="images/CustomModel.jpg" alt="Create Model header"></p>
+<p>Most models come from 3D tools such as Blender or 3ds Max, but procedural geometry, data visualization and CAD imports often build their meshes at runtime. To show such meshes in a scene you wrap them in a <code>Model</code> and instantiate it, exactly as you would an imported one.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>How to build the meshes themselves, with their vertex and index buffers, is covered in <a href="../meshes/index.html#create-a-mesh-from-code">Meshes</a>. The examples below call the <code>CreateQuadMesh</code> and <code>CreateQuadMeshFromStreams</code> methods from that page.</p>
+</div>
+<h2 id="single-mesh-model">Single-mesh model</h2>
+<p>For one mesh, the <code>Model(string name, Mesh mesh)</code> constructor does all the work. It creates one node and one mesh container named after the model, and assigns the mesh the default material of the Evergine.Core package.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>name</strong></td>
+<td>Name of the model, its node and its mesh container.</td>
+</tr>
+<tr>
+<td><strong>mesh</strong></td>
+<td>The mesh the model contains.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    var graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+    Mesh mesh = this.CreateQuadMesh(graphicsContext);
+    Model model = new Model(&quot;CustomModel&quot;, mesh);
+
+    Entity entity = model.InstantiateModelHierarchy(&quot;MyModel&quot;, assetsService);
+    this.Managers.EntityManager.Add(entity);
+}
+</code></pre>
+<h2 id="model-with-several-meshes">Model with several meshes</h2>
+<p>For anything more complex (several meshes, several nodes, your own materials) you fill in the <code>Model</code> yourself. This example puts two meshes in one mesh container on a single root node.</p>
+<pre><code class="lang-csharp">using System;
+using System.Collections.Generic;
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public partial class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        Mesh mesh1 = this.CreateQuadMesh(graphicsContext);
+        Mesh mesh2 = this.CreateQuadMeshFromStreams(graphicsContext);
+
+        var meshContainer = new MeshContainer()
+        {
+            Name = &quot;MultipleMeshes&quot;,
+            Meshes = new List&lt;Mesh&gt;() { mesh1, mesh2 },
+        };
+
+        var rootNode = new NodeContent()
+        {
+            Name = &quot;MultipleMeshes&quot;,
+            Mesh = meshContainer,
+            Translation = Vector3.Zero,
+            Orientation = Quaternion.Identity,
+            Scale = Vector3.One,
+            Children = new NodeContent[0],
+            ChildIndices = new int[0],
+        };
+
+        var model = new Model()
+        {
+            MeshContainers = new[] { meshContainer },
+
+            // Both meshes keep MaterialIndex 0, so they share this entry. An empty id leaves the
+            // material unassigned; it is set on the entity below.
+            Materials = new List&lt;(string, Guid)&gt;() { (&quot;Default&quot;, Guid.Empty) },
+            AllNodes = new[] { rootNode },
+            RootNodes = new[] { 0 },
+        };
+
+        model.RefreshBoundingBox();
+
+        var material = new StandardMaterial(assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+
+            // The quads have vertex colors but no normals, so lighting has nothing to work with.
+            VertexColorEnabled = true,
+            LightingEnabled = false,
+            IBLEnabled = false,
+        };
+
+        Entity entity = model.InstantiateModelHierarchy(&quot;MyModel&quot;, assetsService);
+        entity.FindComponent&lt;MaterialComponent&gt;().Material = material.Material;
+
+        this.Managers.EntityManager.Add(entity);
+    }
+}
+</code></pre>
+<p>The model's material list holds pairs of a slot name and a material asset id. <code>InstantiateModelHierarchy</code> loads each id through the <code>AssetsService</code> and puts the material in a <code>MaterialComponent</code>. A material you create in code is not an asset, so the example leaves the id empty and assigns the material to the component afterwards.</p>
+<table>
+<thead>
+<tr>
+<th>Model member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MeshContainers</strong></td>
+<td>Every mesh container of the model. A node refers to one of them through <code>NodeContent.Mesh</code>.</td>
+</tr>
+<tr>
+<td><strong>Materials</strong></td>
+<td>The material slots: a name and the id of a material asset. <code>Mesh.MaterialIndex</code> points into this list.</td>
+</tr>
+<tr>
+<td><strong>AllNodes</strong></td>
+<td>Every node, at any depth.</td>
+</tr>
+<tr>
+<td><strong>RootNodes</strong></td>
+<td>Indices into <code>AllNodes</code> of the nodes that have no parent.</td>
+</tr>
+<tr>
+<td><strong>Skins</strong></td>
+<td>Skinning data, when the model has skinned meshes.</td>
+</tr>
+<tr>
+<td><strong>Animations</strong></td>
+<td>Animation clips by name.</td>
+</tr>
+<tr>
+<td><strong>LOD</strong></td>
+<td>Level-of-detail groups. See <a href="level_of_detail.html">Level of Detail</a>.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

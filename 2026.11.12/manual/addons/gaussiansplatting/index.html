@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>3D Gaussian Splatting | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="3D Gaussian Splatting | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="3d-gaussian-splatting">3D Gaussian Splatting</h1>
+
+<hr>
+<p><img src="images/gaussian_splatting.jpg" alt="Gaussian Splatting"></p>
+<p>The <strong>Evergine Gaussian Splatting</strong> add-on loads and renders 3D Gaussian Splatting scenes in Evergine applications. Gaussian splats reproduce captured places and objects with photographic quality, and the add-on draws them in real time next to your regular 3D content, on desktop, mobile, and the web.</p>
+<h2 id="what-is-3d-gaussian-splatting">What is 3D Gaussian Splatting?</h2>
+<p>Gaussian Splatting is a rendering technique that represents a scene as millions of small, semi-transparent 3D Gaussians instead of triangles. The technique has existed since the 1990s, but it became popular after the 2023 SIGGRAPH paper that applied it to real-time rendering of scenes reconstructed from photographs.</p>
+<p>A training process computes the parameters of every Gaussian from a set of photos taken from different viewpoints. Rendering then works like triangle rasterization: each Gaussian is projected on the screen and blended with the others, sorted from back to front. Each Gaussian is described by:</p>
+<ul>
+<li><strong>Position</strong>: where it is (XYZ).</li>
+<li><strong>Covariance</strong>: how it is stretched and rotated, stored as a scale and a rotation.</li>
+<li><strong>Color</strong>: its base color, plus optional spherical harmonics that change the color with the viewing direction.</li>
+<li><strong>Opacity</strong>: its transparency (alpha).</li>
+</ul>
+<p><img src="images/gausian.png" alt="Gaussians"></p>
+<p>This scene contains 7 million Gaussian splats:</p>
+<p><img src="images/bicycle.png" alt="Gaussians example"></p>
+<h2 id="supported-formats">Supported formats</h2>
+<p>The add-on detects the format from the content of the file, not from its extension.</p>
+<table>
+<thead>
+<tr>
+<th>Format</th>
+<th>Extension</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PLY</td>
+<td><code>.ply</code></td>
+<td>The standard output of 3D Gaussian Splatting training: one splat per vertex with position, scale, rotation, opacity, and color coefficients. ASCII and binary little-endian files are supported.</td>
+</tr>
+<tr>
+<td>Compressed PLY</td>
+<td><code>.ply</code></td>
+<td>A compact variant of PLY. Splats are grouped in chunks of 256; each chunk stores the minimum and maximum position and scale, and each splat stores quantized position, scale, rotation, and color relative to them.</td>
+</tr>
+<tr>
+<td>Splat</td>
+<td><code>.splat</code></td>
+<td>A simple packed format with position, scale, color, and rotation for each splat.</td>
+</tr>
+<tr>
+<td>SPZ</td>
+<td><code>.spz</code></td>
+<td>A compressed format. Version 4 (NGSP) and legacy gzip SPZ files are supported.</td>
+</tr>
+<tr>
+<td>KSplat</td>
+<td><code>.ksplat</code></td>
+<td>A compressed format that groups splats in spatial buckets and quantizes their attributes.</td>
+</tr>
+<tr>
+<td>SOG</td>
+<td><code>.sog</code></td>
+<td>A ZIP archive with a <code>meta.json</code> file and the splat attributes stored as WebP images.</td>
+</tr>
+<tr>
+<td>LCC</td>
+<td>folder</td>
+<td>A folder that contains a <code>meta.lcc</code> or <code>meta.lcc2</code> file. Point the add-on to the folder or to the meta file.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>LCC scenes are loaded from the file system only, because they are folders. The other formats can also be loaded from your project content.</p>
+</div>
+<h2 id="rendering-pipeline">Rendering pipeline</h2>
+<p>The add-on renders splats in three stages. <code>GSplatMesh</code> reads the file into a <code>GSplatScene</code>, which uploads the splat data to the GPU. Every time the camera or the splat entity moves, <code>GSplatRenderer</code> asks a sorter to order the splats by depth. The render feature then draws the splats in that order, so their transparency blends correctly.</p>
+<p><img src="images/gs_pipeline.png" alt="Diagram: GSplatMesh reads the file with GSplatRuntime into a GSplatScene; GSplatRenderer sends the camera to an IGSplatSorter, which returns the splat order; GSRenderFeature draws the splats in that order into the render layer"></p>
+<p><em>Loading happens once per file; sorting and drawing happen whenever the view changes.</em></p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="getting_started.html">Getting started</a></li>
+<li><a href="web_setup.html">Web setup</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

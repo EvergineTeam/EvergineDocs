@@ -1,0 +1,215 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Logging | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Logging | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="logging">Logging</h1>
+
+<hr>
+<p>XRV includes a logging service that implements <code>Microsoft.Extensions.Logging.ILogger</code> and writes through <a href="https://serilog.net/">Serilog</a>. Once you enable it, XRV logs its own initialization steps, and your components and services can log through the same <code>ILogger</code>, to the debug output and optionally to a file.</p>
+<h2 id="enable-logging">Enable logging</h2>
+<p>Call <code>WithLogging</code> on <code>XrvService</code> with a <code>LoggingConfiguration</code>, before you call <code>Initialize</code>, so the initialization of XRV and its modules is logged too:</p>
+<pre><code class="lang-csharp">using Evergine.Xrv.Core;
+using Evergine.Xrv.Core.Services.Logging;
+using Microsoft.Extensions.Logging;
+
+var xrv = new XrvService()
+    .WithLogging(new LoggingConfiguration
+    {
+        LogLevel = LogLevel.Debug,
+        FileOptions = new FileLoggingOptions
+        {
+            FileName = &quot;xrv.log&quot;,
+            MaxFileSize = 10 * 1024 * 1024,
+        },
+    });
+
+this.Container.RegisterInstance(xrv);
+</code></pre>
+<p><code>WithLogging</code> registers the logger as an <code>ILogger</code> instance in the application container and exposes it as <code>XrvService.Services.Logging</code>.</p>
+<table>
+<thead>
+<tr>
+<th><code>LoggingConfiguration</code> property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>LogLevel</code></td>
+<td><code>LogLevel.Information</code></td>
+<td>Minimum level of the messages that are logged.</td>
+</tr>
+<tr>
+<td><code>FileOptions</code></td>
+<td><code>null</code></td>
+<td>File logging options. Leave it <code>null</code> to skip file logging.</td>
+</tr>
+<tr>
+<td><code>EnableFileLogging</code></td>
+<td><code>false</code></td>
+<td>Read-only. <code>true</code> when <code>FileOptions</code> is set.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>FileLoggingOptions</code> property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FileName</code></td>
+<td>Name of the log file. It is created in the <code>logs</code> folder of the local application data folder of the device.</td>
+</tr>
+<tr>
+<td><code>MaxFileSize</code></td>
+<td>Maximum size of each log file, in bytes. When a file reaches it, logging continues in a new file.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>File logging only starts when <code>MaxFileSize</code> has a value. Log files also roll every day, and the ten most recent files are kept.</p>
+</div>
+<h2 id="use-the-logger">Use the logger</h2>
+<p>Resolve the logger from the container anywhere in your code:</p>
+<pre><code class="lang-csharp">var log = Application.Current.Container.Resolve&lt;ILogger&gt;();
+</code></pre>
+<p>or bind it in a component:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Microsoft.Extensions.Logging;
+
+public class LoggedComponent : Component
+{
+    [BindService]
+    private ILogger log = null;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        this.log.LogDebug(&quot;Component started&quot;);
+        this.log.LogWarning(&quot;Something looks odd&quot;);
+        this.log.Log(LogLevel.Error, &quot;Something failed&quot;);
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,429 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting started with Gaussian Splatting | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with Gaussian Splatting | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-gaussian-splatting">Getting started with Gaussian Splatting</h1>
+
+<hr>
+<p><img src="images/add_splat_prefab.png" alt="Gaussian Splatting prefab"></p>
+<p>This page adds the Gaussian Splatting add-on to a project, loads a splat file into a scene, and describes the components that load and draw it. You can set everything up in Evergine Studio with the prefab that the add-on provides, or create the entity from code.</p>
+<p><img src="images/gsplat_sample_scene.png" alt="The SplatRender sample on Windows with a SOG scene loaded"></p>
+<h2 id="project-setup">Project setup</h2>
+<h3 id="1-create-a-project">1. Create a project</h3>
+<p>Create a project with <a href="../../evergine_launcher/create_project.html">Evergine Launcher</a>. Along with Windows, add the profiles for the other devices you target.</p>
+<h3 id="2-install-the-add-on">2. Install the add-on</h3>
+<p>In Evergine Studio, open the <a href="../index.html#add-ons-manager">Add-ons Manager</a> and install <strong>Evergine.GaussianSplatting</strong>.</p>
+<p><img src="images/addon_installation.png" alt="Add-on installation"></p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Web profiles (WebGL and WebGPU) need a few more steps, described in <a href="web_setup.html">Web setup</a>.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The add-on references NuGet packages. To use nightly builds, add the Evergine nightly feed to your <code>nuget.config</code>:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;packageSources&gt;
+    &lt;add key=&quot;nuget.org&quot; value=&quot;https://api.nuget.org/v3/index.json&quot; /&gt;
+    &lt;add key=&quot;Evergine Nightly&quot; value=&quot;https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json&quot; /&gt;
+  &lt;/packageSources&gt;
+&lt;/configuration&gt;
+</code></pre>
+</div>
+<h3 id="3-add-a-splat-file-to-the-project">3. Add a splat file to the project</h3>
+<p>Add a file in one of the <a href="index.html#supported-formats">supported formats</a> to your project content, for example by dragging it into the <strong>Assets Details</strong> panel.</p>
+<p><img src="images/add_splat_file.png" alt="Add splat file"></p>
+<h3 id="4-add-the-gaussian-splatting-prefab">4. Add the Gaussian Splatting prefab</h3>
+<p>Drag the <code>GSplatPrefab</code> prefab from <strong>Dependencies &gt; Evergine.GaussianSplatting &gt; Prefabs</strong> into your scene. In its <code>GSplatMesh</code> component, set <code>SplatPath</code> to the path of your splat file, relative to the content folder.</p>
+<p><img src="images/add_entity.png" alt="Setting SplatPath in GSplatMesh"></p>
+<p>The prefab contains an entity with these components:</p>
+<ul>
+<li><strong>GSplatMesh</strong>: loads the splat file.</li>
+<li><strong>GSplatRenderer</strong>: sorts and draws the splats.</li>
+<li><strong>GSplatPointRenderer</strong>: draws a point at the center of each splat. It is disabled by default.</li>
+<li><strong>GSplatCursorFollower</strong>: finds the 3D position of the splats under the mouse cursor. It is disabled by default.</li>
+</ul>
+<h2 id="create-the-entity-from-code">Create the entity from code</h2>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.GaussianSplatting;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var gaussianSplatting = new Entity(&quot;GaussianSplatting&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new GSplatMesh()
+            {
+                // Relative to the content folder, or an absolute path on disk.
+                SplatPath = &quot;Splats/bicycle.ply&quot;,
+            })
+            .AddComponent(new GSplatRenderer())
+            // Optional: shows the splat centers as points.
+            .AddComponent(new GSplatPointRenderer() { IsEnabled = false });
+
+        this.Managers.EntityManager.Add(gaussianSplatting);
+    }
+}
+</code></pre>
+<h2 id="gsplatmesh">GSplatMesh</h2>
+<p><code>GSplatMesh</code> loads the splat scene and exposes it as a <code>GSplatScene</code>. When you change <code>SplatPath</code> at runtime, it releases the current scene and loads the new file. <code>SplatPath</code> can be a path inside your project content, an absolute file path, or a folder for LCC scenes.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>SplatPath</code></td>
+<td><code>null</code></td>
+<td>Path of the splat file or LCC folder to load.</td>
+</tr>
+<tr>
+<td><code>SHBands</code></td>
+<td><code>3</code></td>
+<td>Number of spherical harmonics bands used to render, from 0 to 3. Fewer bands render faster but lose view-dependent color. The file must contain the bands you ask for.</td>
+</tr>
+<tr>
+<td><code>MinContribution</code></td>
+<td><code>0</code></td>
+<td>Minimum screen contribution, in alpha-pixels, that a splat must reach to be drawn. <code>0</code> disables the test. Higher values skip small, faint splats and can make rendering much faster on mobile devices, but values around 0.25 visibly remove fine detail such as fur or hair. Clamped between 0 and 1.</td>
+</tr>
+<tr>
+<td><code>SortIntervalMs</code></td>
+<td><code>0</code></td>
+<td>Minimum time, in milliseconds, between two sorts of the splats. <code>0</code> sorts every frame. A higher value lowers CPU work and power use, at the cost of ordering errors while the camera moves; the order is correct again shortly after the camera stops.</td>
+</tr>
+<tr>
+<td><code>UseSelectionTexture</code></td>
+<td><code>false</code></td>
+<td>Creates the per-splat selection texture when the scene loads. Needed for <a href="#selection-and-segmentation">selection</a>.</td>
+</tr>
+<tr>
+<td><code>UseSegmentationTexture</code></td>
+<td><code>false</code></td>
+<td>Creates the per-splat segmentation texture when the scene loads. Needed for <a href="#selection-and-segmentation">segmentation</a>.</td>
+</tr>
+<tr>
+<td><code>GSplatScene</code></td>
+<td></td>
+<td>Read-only. The loaded scene, or <code>null</code>.</td>
+</tr>
+<tr>
+<td><code>IsGSplatSceneLoaded</code></td>
+<td></td>
+<td>Read-only. <code>true</code> when a scene with at least one splat is loaded.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>SortIntervalMs</code> applies to the sorters that the renderer dispatches from its draw loop: the GPU sorter, the managed sorter, and the web worker sorter. The native sorter runs in its own thread and ignores it.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Arguments</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OnSplatSceneLoading</code></td>
+<td><code>EventArgs</code></td>
+<td>Raised before a scene starts loading, and before the previous one is released.</td>
+</tr>
+<tr>
+<td><code>OnSplatSceneLoaded</code></td>
+<td><code>GSplatScene</code></td>
+<td>Raised when a scene is loaded and ready to render.</td>
+</tr>
+</tbody>
+</table>
+<p>If a file cannot be found or read, <code>GSplatMesh</code> logs the error, clears <code>SplatPath</code>, and throws the exception.</p>
+<p>The following component waits for the scene to load and reduces the quality on mobile devices:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.GaussianSplatting;
+
+public class SplatQuality : Component
+{
+    [BindComponent]
+    private GSplatMesh gSplatMesh = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+        this.gSplatMesh.OnSplatSceneLoaded += this.OnSplatSceneLoaded;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+        this.gSplatMesh.OnSplatSceneLoaded -= this.OnSplatSceneLoaded;
+    }
+
+    private void OnSplatSceneLoaded(object sender, GSplatScene scene)
+    {
+        if (OperatingSystem.IsAndroid() || OperatingSystem.IsIOS())
+        {
+            // Fewer spherical harmonics bands and skipping faint splats keep the frame rate up.
+            this.gSplatMesh.SHBands = 1;
+            this.gSplatMesh.MinContribution = 0.05f;
+            this.gSplatMesh.SortIntervalMs = 50;
+        }
+    }
+}
+</code></pre>
+<h2 id="gsplatrenderer">GSplatRenderer</h2>
+<p><code>GSplatRenderer</code> is the <code>Drawable3D</code> that draws the scene loaded by <code>GSplatMesh</code>. When it is attached, it registers the Gaussian Splatting render feature, and it picks a sorter, checking these rules in order:</p>
+<table>
+<thead>
+<tr>
+<th>Condition</th>
+<th>Sorter</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>The backend is WebGPU or DirectX 11 and supports compute shaders.</td>
+<td><code>GSplatGpuSorter</code>, which sorts on the GPU.</td>
+</tr>
+<tr>
+<td>The application runs in Evergine Studio, on Android, or on iOS.</td>
+<td><code>GSplatSorter</code>, a managed sorter.</td>
+</tr>
+<tr>
+<td>Any other case, such as DirectX 12 or Vulkan on Windows.</td>
+<td><code>GSplatNativeSorter</code>, a native sorter that runs in its own thread.</td>
+</tr>
+</tbody>
+</table>
+<p>If the application container has an <code>IGSplatSorter</code> registered, the renderer uses it instead. The <a href="web_setup.html">Web setup</a> registers <code>WorkerGSplatSorter</code> this way.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Layer</code></td>
+<td><code>null</code></td>
+<td>Render layer used to draw the splats. <code>null</code> uses the add-on's <code>GSplatLayer</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gsplatpointrenderer">GSplatPointRenderer</h2>
+<p><code>GSplatPointRenderer</code> draws a point at the center of each splat. It helps you inspect the density of a scene or its position before the splats are sorted.</p>
+<p><img src="images/gsplat_points.png" alt="Gaussian Splatting point cloud"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Color</code></td>
+<td><code>Color.Blue</code></td>
+<td>Color of the points.</td>
+</tr>
+<tr>
+<td><code>PointSize</code></td>
+<td><code>1</code></td>
+<td>Size of the points, in pixels.</td>
+</tr>
+<tr>
+<td><code>Layer</code></td>
+<td><code>null</code></td>
+<td>Render layer used to draw the points. <code>null</code> uses the add-on's <code>GSplatPointLayer</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="gsplatcursorfollower">GSplatCursorFollower</h2>
+<p><code>GSplatCursorFollower</code> (namespace <code>Evergine.GaussianSplatting.Components</code>) finds the point of the splat scene under the mouse cursor. While it is enabled, the renderer writes the depth of the splats at the cursor position, and <code>CursorPosition</code> returns that point in world coordinates, or <code>null</code> when no scene is loaded. Use it to place markers or to measure on top of a splat scene.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Graphics;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Mouse;
+using Evergine.Framework;
+using Evergine.Framework.Managers;
+using Evergine.GaussianSplatting.Components;
+
+public class SplatPicker : Behavior
+{
+    [BindComponent(source: BindComponentSource.Scene)]
+    private GSplatCursorFollower cursorFollower = null;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        var mouse = this.Managers.RenderManager.ActiveCamera3D.Display.MouseDispatcher;
+        if (mouse.ReadButtonState(MouseButtons.Left) == ButtonState.Pressing
+            &amp;&amp; this.cursorFollower.CursorPosition is { } position)
+        {
+            // Draw a red point where the user clicked on the splats.
+            ((RenderManager)this.Managers.RenderManager).LineBatch3D.DrawPoint(position, 0.05f, Color.Red);
+        }
+    }
+}
+</code></pre>
+<p>Enable the <code>GSplatCursorFollower</code> component of the prefab for this to work. Reading the cursor depth has a cost, so enable the component only while you need it.</p>
+<h2 id="selection-and-segmentation">Selection and segmentation</h2>
+<p><code>GSplatScene</code> includes per-splat textures that let you highlight, hide, or color groups of splats. They are created only when you enable <code>UseSelectionTexture</code> or <code>UseSegmentationTexture</code> in <code>GSplatMesh</code> before the scene loads.</p>
+<ul>
+<li><strong>Selection.</strong> <code>GSplatScene.SelectionTexture</code> stores one byte per splat (<code>R8_UInt</code>). <code>0</code> means not selected, <code>1</code> is the preview selection, and higher IDs are selections: splats with an ID up to <code>CurrentSelectionID</code> are tinted with <code>SelectionColor</code>, and the preview with <code>PreviewSelectionColor</code>. Splats whose ID has the highest bit set (<code>0x80</code>) are treated as deleted: they are not drawn and they are skipped by <code>ExportAsSplat</code> and <code>ExportAsCompressedPLY</code>. Set <code>RenderSelection</code> to <code>true</code> to show the selection.</li>
+<li><strong>Segmentation.</strong> <code>GSplatMesh.SetSegmentationData(labelData, colorPalette)</code> assigns a label to each splat and a color to each label, with up to 256 labels; label 0 is reserved and keeps the original color. The alpha of each palette color controls how much it replaces the splat color. <code>RenderSegmentation</code> shows or hides the colors, and <code>ClearSegmentationData</code> removes them.</li>
+</ul>
+<pre><code class="lang-csharp">using Evergine.GaussianSplatting;
+using Evergine.Mathematics;
+
+public static class SegmentationSample
+{
+    // Colors the first half of the splats red and the rest green.
+    public static void ColorHalves(GSplatMesh gSplatMesh)
+    {
+        int count = gSplatMesh.GSplatScene.NumSplats;
+        var labels = new uint[count];
+        for (int i = 0; i &lt; count; i++)
+        {
+            labels[i] = i &lt; count / 2 ? 1u : 2u;
+        }
+
+        var palette = new[]
+        {
+            Vector4.Zero,                  // Label 0 is reserved.
+            new Vector4(1, 0, 0, 0.8f),    // Label 1: red, 80% over the splat color.
+            new Vector4(0, 1, 0, 0.8f),    // Label 2: green.
+        };
+
+        // Requires UseSegmentationTexture = true before the scene loads.
+        gSplatMesh.SetSegmentationData(labels, palette);
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

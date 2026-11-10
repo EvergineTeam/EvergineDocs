@@ -1,0 +1,230 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Library Effects | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Library Effects | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="library-effects">Library Effects</h1>
+
+<hr>
+<p><img src="images/libraries/Header.png" alt="Library effect"></p>
+<p>A <strong>library effect</strong> holds shader code that several effects share: constants, structures, directives and functions. Graphics and compute effects include it with one line, so a fix or an improvement in the library reaches every effect that uses it. The Standard effect itself is built this way, from the <code>Common</code>, <code>Structures</code>, <code>Lighting</code>, <code>Shadow</code> and <code>Material</code> libraries of Evergine.Core.</p>
+<h2 id="create-a-library-effect">Create a library effect</h2>
+<p>In the <strong>Assets Details</strong> panel, click the <img src="../images/plusIcon.jpg" alt="Plus Icon"> button, or right-click, and choose <strong>Create effect &gt; Library Effect</strong>.</p>
+<p><img src="images/libraries/CreatingALibrary.png" alt="Creating a library effect"></p>
+<h2 id="define-a-library-effect">Define a library effect</h2>
+<p>A library is a single <code>[Begin_Library]</code> ... <code>[End_Library]</code> block, with no resource layout or passes. It needs a <code>[Profile]</code> because Evergine compiles it on its own, which reports errors in the library before any effect includes it.</p>
+<p>This library implements an approximation of the ACES tone mapping curve:</p>
+<pre><code class="lang-hlsl">[Begin_Library]
+    [Profile 10_0]
+
+    // Curve fit of the ACES filmic tone mapping curve.
+    float3 ACESFitted(float3 color)
+    {
+        const float a = 2.51;
+        const float b = 0.03;
+        const float c = 2.43;
+        const float d = 0.59;
+        const float e = 0.14;
+        return saturate((color * (a * color + b)) / (color * (c * color + d) + e));
+    }
+
+[End_Library]
+</code></pre>
+<h2 id="include-a-library">Include a library</h2>
+<p>Add an <code>[Include_Library]</code> line at the top of the effect, before the resource layout:</p>
+<p><code>[Include_Library LibraryName LibraryId]</code></p>
+<ul>
+<li><strong>LibraryName</strong>: a readable name for the library.</li>
+<li><strong>LibraryId</strong>: the GUID of the library effect asset.</li>
+</ul>
+<p>Because the reference is the asset id, you can move or rename the library without breaking the effects that include it. The quickest way to get the line right is to drag the library asset from <strong>Assets Details</strong> into an effect open in the Effect Editor, which writes it for you:</p>
+<p><img src="images/libraries/DragAndDrop.gif" alt="Dragging a library into an effect"></p>
+<p>A compute effect that tone maps its input with the library above:</p>
+<pre><code class="lang-hlsl">[Include_Library Tonemapping 3f1b2c4d-5e6f-4a7b-8c9d-0e1f2a3b4c5d]
+
+[Begin_ResourceLayout]
+
+    Texture2D Input : register(t0);
+    RWTexture2D&lt;float4&gt; Output : register(u0); [Output(Input)]
+
+[End_ResourceLayout]
+
+[Begin_Pass:Default]
+    [Profile 11_0]
+    [Entrypoints CS=CS]
+
+    [numthreads(8, 8, 1)]
+    void CS(uint3 threadID : SV_DispatchThreadID)
+    {
+        float3 hdr = Input[threadID.xy].rgb;
+        Output[threadID.xy] = float4(ACESFitted(hdr), 1);
+    }
+
+[End_Pass]
+</code></pre>
+<p>Replace the GUID with the id of your library asset.</p>
+<h2 id="libraries-that-include-libraries">Libraries that include libraries</h2>
+<p>A library can include other libraries the same way, so shared code forms a dependency tree. Each library is added once, however many times it is included.</p>
+<pre><code class="lang-hlsl">[Include_Library Common 7efb1394-cf61-4617-8dad-8dc5c7d46164]
+
+[Begin_Library]
+    [Profile 10_0]
+
+    // PI comes from the Common library of Evergine.Core.
+    float3 LambertDiffuse(float3 albedo)
+    {
+        return albedo / PI;
+    }
+
+[End_Library]
+</code></pre>
+<h2 id="directives-in-libraries">Directives in libraries</h2>
+<p>A library can declare <a href="effect_metatags.html#directives">directives</a> inside its block. When an effect includes the library, those directives are merged with the effect's own and with those of every other library it includes, into a single set. Materials of the effect can then switch them like any other directive.</p>
+<pre><code class="lang-hlsl">[Begin_Library]
+    [Profile 10_0]
+
+    [Directives:ToneCurve CURVE_ACES CURVE_REINHARD]
+
+    float3 ToneMap(float3 color)
+    {
+    #if CURVE_REINHARD
+        return color / (1 + color);
+    #else
+        return ACESFitted(color);
+    #endif
+    }
+
+[End_Library]
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A pass only creates combinations for the directives it actually tests. When a directive is tested inside a library function the pass calls, list it in the pass's <code>[UsedDirectives ...]</code> so that the pass is compiled for each of its values.</p>
+</div>
+<h2 id="errors-in-libraries">Errors in libraries</h2>
+<p>The Effect Editor analyzes includes as you type and reports three kinds of problems:</p>
+<ol>
+<li><p><strong>Unresolved reference.</strong> The id in <code>[Include_Library]</code> does not match any library asset.</p>
+<p><img src="images/libraries/LibraryCannotBeResolved.png" alt="Unresolved library reference"></p>
+</li>
+<li><p><strong>Error in the library.</strong> The include line is marked in your effect, and the error is shown inside the library.</p>
+<p><img src="images/libraries/ErrorInsideLibrary.png" alt="Error inside an included library"></p>
+</li>
+<li><p><strong>Cyclic reference.</strong> Two libraries include each other, directly or through other libraries.</p>
+<p><img src="images/libraries/CrossReference.png" alt="Cyclic library reference"></p>
+</li>
+</ol>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

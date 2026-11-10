@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>WebXR | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="WebXR | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="webxr">WebXR</h1>
+
+<p><img src="images/ar.jpg" alt="An augmented reality experience"></p>
+<p><code>WebXRPlatform</code> is the <a href="xrplatform.html"><code>XRPlatform</code></a> implementation for the browser, in the <strong>Evergine.WebXR</strong> package. It runs an Evergine web application inside a WebXR session, so a phone browser can place the scene over its camera image with no app to install.</p>
+<p>The integration is <strong>experimental</strong> and focused on augmented reality. It provides the viewer pose and projection, and nothing else: there is no input tracking, no hand tracking and no passthrough subsystem.</p>
+<h2 id="create-a-webxr-project">Create a WebXR project</h2>
+<p>Select the <strong>WebXR (Experimental AR)</strong> template when you create a project, or add it later from <strong>Project Settings</strong> &gt; <strong>Profiles</strong>. The profile is named <strong>WebXR</strong>. It is a Blazor WebAssembly application that renders with WebGL 2.0, like the regular <a href="../platforms/web/index.html">Web</a> profile, plus an ASP.NET Core server project to host it.</p>
+<p>WebXR only starts on pages served over HTTPS (or from <code>localhost</code>), and only in browsers that implement the WebXR Device API with the <code>immersive-ar</code> session mode.</p>
+<h2 id="how-the-template-works">How the template works</h2>
+<p>In the web project's <code>Program.cs</code>, the template uses a <code>WebXRWindowsSystem</code> instead of the regular web windows system, creates the platform for the canvas, and registers it as <code>XRPlatform</code>:</p>
+<pre><code class="lang-csharp">// Create Services
+windowsSystem = new WebXRWindowsSystem();
+application.Container.RegisterInstance(windowsSystem);
+
+var canvas = wasm.GetElementById(canvasId);
+var surface = (WebSurface)windowsSystem.CreateSurface(canvas);
+appCanvas[canvasId] = surface;
+ConfigureGraphicsContext(application, surface, canvasId);
+
+// WebXRPlatform
+webxrPlatform = new WebXRPlatform((windowsSystem as WebXRWindowsSystem), canvasId);
+application.Container.RegisterInstance&lt;XRPlatform&gt;(webxrPlatform);
+</code></pre>
+<p>Unlike the OpenXR templates, it does not register an XR display: <code>WebXRPlatform.Display</code> is <code>null</code>, and the scene keeps rendering into the canvas display that <code>ConfigureGraphicsContext</code> registers as <code>DefaultDisplay</code>. The frame loop calls <code>webxrPlatform.Update()</code> before <code>UpdateFrame</code>, as every XR launcher does.</p>
+<h2 id="entering-and-leaving-the-immersive-session">Entering and leaving the immersive session</h2>
+<p>A page cannot start an immersive session on its own: the browser only allows it in response to a user action. The template exposes the platform's two methods to JavaScript:</p>
+<pre><code class="lang-csharp">[JSInvokable(&quot;$safeprojectname$.$safeprofilename$.Program:EnterImmersive&quot;)]
+public static Task EnterImmersive(string mode, string overlayId)
+{
+    return webxrPlatform.EnterImmersive(mode, overlayId);
+}
+
+[JSInvokable(&quot;$safeprojectname$.$safeprofilename$.Program:ExitImmersive&quot;)]
+public static void ExitImmersive()
+{
+    webxrPlatform.ExitImmersive();
+}
+</code></pre>
+<p><code>index.html</code> has an <strong>Enter AR</strong> button that is enabled only when <code>navigator.xr.isSessionSupported(&quot;immersive-ar&quot;)</code> resolves to <code>true</code>. Clicking it calls <code>app.enterARImmersive(&quot;overlay&quot;)</code>, which ends in <code>EnterImmersive(&quot;immersive-ar&quot;, &quot;overlay&quot;)</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>mode</strong></td>
+<td>The WebXR session mode. The platform is built for <code>&quot;immersive-ar&quot;</code>.</td>
+</tr>
+<tr>
+<td><strong>overlayId</strong></td>
+<td>The <code>id</code> of the HTML element to keep on top of the camera view during the session (the WebXR DOM overlay). The template passes <code>overlay</code>, the element that holds its header and button.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>In this release the native side of <code>Evergine.WebXR</code> always uses the element whose <code>id</code> is <code>overlay</code>, whatever <code>overlayId</code> says. Keep that <code>id</code> on your overlay element. The session uses the WebXR <code>local</code> reference space, so the origin is where the phone was when the session started.</p>
+</div>
+<h2 id="what-changes-in-the-scene">What changes in the scene</h2>
+<p>While an <code>immersive-ar</code> session runs, <code>WebXRPlatform</code>:</p>
+<ul>
+<li>Moves the active <code>Camera3D</code> with the phone and gives it the projection of the phone camera. <code>EyeCount</code> is 1, so the camera renders a single view, and its world position and orientation are set directly.</li>
+<li>Sets the camera <code>BackgroundColor</code> to <code>Color.Transparent</code>, so the real world shows behind the scene.</li>
+<li>Disables every entity whose <code>Tag</code> is <code>Skybox</code>, for the same reason.</li>
+</ul>
+<p>The platform only changes the background when a session starts. <code>ExitImmersive()</code> leaves it transparent; entering a later session in a mode other than <code>immersive-ar</code> restores the original color and the sky.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Give your sky or background entity the tag <code>Skybox</code>, so that it does not hide the camera image in AR.</p>
+</div>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="xrplatform.html">XR Platform</a>: the properties every platform shares.</li>
+<li><a href="../platforms/web/index.html">Web platform</a>: building and serving Evergine web applications.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

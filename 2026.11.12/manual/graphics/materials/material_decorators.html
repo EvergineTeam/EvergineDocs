@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Material Decorators | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Material Decorators | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="material-decorators">Material Decorators</h1>
+
+<p><strong>Material Decorator</strong> is a C# class that simplifies the use of custom materials for users. It allows defining how the effect resource layout elements are shown in the <a href="material_editor.html">Material Editor</a>. To generate a material decorator for your effects, you need to use the <a href="../effects/effect_editor.html">Effect Editor</a>.</p>
+<h2 id="generate-material-decorator">Generate Material Decorator</h2>
+<p>From the <a href="../effects/effect_editor.html">Effect Editor</a> toolbox, push the <img src="images/MaterialDecoratorIcon.jpg" alt="Generate Material Decorator button"> button to generate the Material Decorator.</p>
+<p><img src="images/GenerateMaterialDecorator.jpg" alt="Generate Material Decorator"></p>
+<p>A new C# class will be created in your C# solution, which you will see in <strong>Visual Studio</strong>.</p>
+<p><img src="images/MaterialDecoratorInVS.jpg" alt="Material Decorator In Visual Studio"></p>
+<h2 id="example">Example</h2>
+<p>Starting from the following effect resource layout block (This is the section marked in the effect code with the <code>[Begin_ResourceLayout]</code> and <code>[End_ResourceLayout]</code> tags):</p>
+<pre><code class="lang-csharp">[Begin_ResourceLayout]
+
+    cbuffer PerDrawCall : register(b0)
+    {
+        float4x4 WorldViewProj : packoffset(c0);    [WorldViewProjection]
+    };
+
+    cbuffer Parameters : register(b1)
+    {
+        float3 Color : packoffset(c0);   [Default(0.3, 0.3, 1.0)]
+    };
+
+[End_ResourceLayout]
+</code></pre>
+<p>The generated Material Decorator will be as follows:</p>
+<pre><code class="lang-csharp">//------------------------------------------------------------------------------
+// &lt;auto-generated&gt;
+//     This code was generated by a tool.
+//
+//     Changes to this file may cause incorrect behavior and will be lost if
+//     the code is regenerated.
+// &lt;/auto-generated&gt;
+//------------------------------------------------------------------------------
+
+namespace DocumentationWorkBench.Effects
+{
+    using Evergine.Common.Graphics;
+    using Evergine.Framework.Graphics;
+    using Evergine.Framework.Graphics.Effects;
+    using Evergine.Mathematics;
+    
+    
+    [Evergine.Framework.Graphics.MaterialDecoratorAttribute(&quot;67d3f67f-e1f0-4075-894d-5a58d3697fb6&quot;)]
+    public partial class MyGraphicEffect : Evergine.Framework.Graphics.MaterialDecorator
+    {        
+        public MyGraphicEffect(Evergine.Framework.Graphics.Effects.Effect effect) : base(new Material(effect))
+        {}
+        
+        public MyGraphicEffect(Evergine.Framework.Graphics.Material material) 
+        : base(material)
+        {}
+        
+        public Evergine.Mathematics.Matrix4x4 PerDrawCall_WorldViewProj
+        {
+            get { return this.material.CBuffers[0].GetBufferData&lt;Evergine.Mathematics.Matrix4x4&gt;(0);}
+            set { this.material.CBuffers[0].SetBufferData(value, 0); }
+        }
+        
+        public Evergine.Mathematics.Vector3 Parameters_Color
+        {
+            get { return this.material.CBuffers[1].GetBufferData&lt;Evergine.Mathematics.Vector3&gt;(0); }
+            set { this.material.CBuffers[1].SetBufferData(value, 0); }
+        }
+    }
+}
+</code></pre>
+<p>The above Material Decorator example shows how the effect resource layout is translated into get/set class properties to make it easier to use the effect from code.</p>
+<p>Now, when you open a material asset from the <a href="material_editor.html">Material Editor</a> and the material uses <em>MyGraphicEffect</em>, its properties will be shown as:</p>
+<p><img src="images/defaultMaterialDecorator.jpg" alt="Material properties"></p>
+<h2 id="customize-material-decorators">Customize Material Decorators</h2>
+<p>By editing the Material Decorator C# class, you can modify how the properties are shown in the <a href="material_editor.html">Material Editor</a>. For example, the Color property appears as a Vector3 property because this is the type used in the HLSL effect code. You can change it to use a Color picker to configure this parameter with the following code change:</p>
+<pre><code class="lang-csharp">public Evergine.Common.Graphics.Color Parameters_Color
+{
+    get
+    {
+        Vector3 v = this.material.CBuffers[1].GetBufferData&lt;Vector3&gt;(0);
+        return Color.FromVector3(ref v);
+    }
+    set
+    {
+        this.material.CBuffers[1].SetBufferData(value.ToVector3(), 0);
+    }
+}
+</code></pre>
+<p>After this change, if you reload the project in Evergine Studio, the Material Editor will show its color property as follows:
+<img src="images/customMaterialDecorator.jpg" alt="Custom Material Decorator"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,348 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Vehicles | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Vehicles | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="vehicles">Vehicles</h1>
+
+<hr>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/vehicle_drive.mp4" type="video/mp4">
+</video>
+<p>Evergine simulates vehicles as <strong>one rigid body with a constraint on it</strong>, not as a chassis with four bodies bolted to it. The wheels are not bodies and have no colliders: each one is a ray or a shape cast probing downwards for the ground, with a spring between it and the chassis.</p>
+<p>That is why a vehicle holds together at speed, does not shake itself apart on a kerb, and costs about as much to simulate as one crate.</p>
+<h2 id="how-a-vehicle-is-put-together">How a vehicle is put together</h2>
+<table>
+<thead>
+<tr>
+<th>Piece</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>The chassis</strong></td>
+<td>An entity with a <strong>dynamic</strong> <a href="../physics_bodies/rigid_body.html"><code>RigidBody</code></a> and one or more <a href="../colliders/index.html">colliders</a>. This is the only body in the vehicle.</td>
+</tr>
+<tr>
+<td><strong>The controller</strong></td>
+<td>A <a href="wheeled_vehicles.html"><code>WheeledVehicleController</code></a> or <a href="tracked_vehicles.html"><code>TrackedVehicleController</code></a> on the same entity. It owns the engine, the gearbox and the driver's input.</td>
+</tr>
+<tr>
+<td><strong>The wheels</strong></td>
+<td>A child entity per wheel, each with a <a href="vehicle_wheel.html"><code>VehicleWheel</code></a>. Its <strong>local position is where the wheel is mounted</strong>.</td>
+</tr>
+</tbody>
+</table>
+<p>The controller finds its wheels by walking its descendants, and <strong>the order it finds them in is the wheel index</strong> the controller's properties refer to.</p>
+<p><img src="images/vehicle_still.png" alt="Vehicle"></p>
+<p><em>One chassis body, four wheels that are not bodies at all.</em></p>
+<pre><code class="lang-csharp">Entity car = new Entity(&quot;car&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 1.2f, 0f) })
+    .AddComponent(new RigidBody()
+    {
+        Mass = 1200f,
+
+        // Low, and it is the single most important number in the whole vehicle: a car whose centre of
+        // mass sits at the middle of its box rolls over in the first corner.
+        CenterOfMassOffset = new Vector3(0f, -0.4f, 0f),
+    })
+    .AddComponent(new BoxCollider() { Size = new Vector3(1.8f, 0.8f, 4f) })
+    .AddComponent(new WheeledVehicleController()
+    {
+        FrontWheelLeft = 0,
+        FrontWheelRight = 1,
+        RearWheelLeft = 2,
+        RearWheelRight = 3,
+        FrontWheelDrive = false,
+        RearWheelDrive = true,
+    });
+
+// The four wheels, in the order the indices above refer to.
+foreach (var (name, offset, steer) in wheels)
+{
+    car.AddChild(new Entity(name)
+        .AddComponent(new Transform3D() { LocalPosition = offset })
+        .AddComponent(new VehicleWheel()
+        {
+            Radius = 0.35f,
+            Width = 0.25f,
+            MaxSteerAngle = steer,
+        }));
+}
+
+this.Managers.EntityManager.Add(car);
+</code></pre>
+<h2 id="engine">Engine</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EngineMaxTorque</strong></td>
+<td>500</td>
+<td>The strongest torque the engine makes, in newton-metres.</td>
+</tr>
+<tr>
+<td><strong>EngineMinRPM</strong></td>
+<td>1000</td>
+<td>Idle speed.</td>
+</tr>
+<tr>
+<td><strong>EngineMaxRPM</strong></td>
+<td>6000</td>
+<td>The red line.</td>
+</tr>
+<tr>
+<td><strong>EngineRPM</strong></td>
+<td><em>read-only</em></td>
+<td>What the engine is doing right now: the number a rev counter shows.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="transmission">Transmission</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TransmissionMode</strong></td>
+<td><code>Auto</code></td>
+<td><code>Auto</code> changes gear by itself; <code>Manual</code> leaves it to you.</td>
+</tr>
+<tr>
+<td><strong>GearRatios</strong></td>
+<td>2.66, 1.78, 1.3, 1.0, 0.74</td>
+<td>The forward gears, from first upwards.</td>
+</tr>
+<tr>
+<td><strong>ReverseGearRatios</strong></td>
+<td>-2.9</td>
+<td>The reverse gears.</td>
+</tr>
+<tr>
+<td><strong>ShiftUpRPM</strong></td>
+<td>4000</td>
+<td>The engine speed an automatic gearbox changes up at.</td>
+</tr>
+<tr>
+<td><strong>ShiftDownRPM</strong></td>
+<td>2000</td>
+<td>And down at.</td>
+</tr>
+<tr>
+<td><strong>ClutchStrength</strong></td>
+<td>10</td>
+<td>How firmly the clutch engages.</td>
+</tr>
+<tr>
+<td><strong>CurrentGear</strong></td>
+<td><em>read-only</em></td>
+<td>The gear it is in. <code>0</code> is neutral, negative is reverse.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="chassis-and-collision-testing">Chassis and Collision Testing</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Up</strong></td>
+<td>0,1,0</td>
+<td>Which way is up for this vehicle.</td>
+</tr>
+<tr>
+<td><strong>Forward</strong></td>
+<td>0,0,1</td>
+<td>Which way it faces.</td>
+</tr>
+<tr>
+<td><strong>MaxPitchRollAngle</strong></td>
+<td>π/3 (60°)</td>
+<td>How far it may tip before the wheels stop gripping. It is what stops an upside-down car driving along on its roof.</td>
+</tr>
+<tr>
+<td><strong>CollisionTesterType</strong></td>
+<td><code>CastSphere</code></td>
+<td>How each wheel looks for the ground.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Tester</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ray</strong></td>
+<td>One ray down the suspension. The cheapest, and the one that drops a wheel into every crack in the ground.</td>
+</tr>
+<tr>
+<td><strong>CastSphere</strong></td>
+<td>A sphere swept down the suspension. Rides over small obstacles the way a real tyre does. The default, and the right answer nearly always.</td>
+</tr>
+<tr>
+<td><strong>CastCylinder</strong></td>
+<td>A cylinder swept down. The most accurate on kerbs and steps, and the most expensive.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="events">Events</h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>When it fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>VehicleStepCompleted</strong></td>
+<td>After the vehicle has been stepped, with the step length.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>VehicleStepCompleted</code> fires <strong>inside the native step</strong>. Read telemetry from it if you must, but do not create or destroy anything, and do not touch other bodies from it.</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="wheeled_vehicles.html">Wheeled Vehicles</a></li>
+<li><a href="tracked_vehicles.html">Tracked Vehicles</a></li>
+<li><a href="vehicle_wheel.html">Vehicle Wheel</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,471 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class AssetItem | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class AssetItem | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Assets.Exporters.AssetItem">
+
+
+
+  <h1 id="Evergine_Assets_Exporters_AssetItem" data-uid="Evergine.Assets.Exporters.AssetItem" class="text-break">Class AssetItem</h1>
+  <div class="markdown level0 summary"><p>Class representing an asset item. It manages all the files of an asset (its metafile and its source file or directory) and offers a unified set of methods.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><span class="xref">AssetItem</span></div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Assets.html">Assets</a>.<a class="xref" href="Evergine.Assets.Exporters.html">Exporters</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Assets.dll</h6>
+  <h5 id="Evergine_Assets_Exporters_AssetItem_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class AssetItem</code></pre>
+  </div>
+  <h3 id="constructors">Constructors
+</h3>
+  <a id="Evergine_Assets_Exporters_AssetItem__ctor_" data-uid="Evergine.Assets.Exporters.AssetItem.#ctor*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem__ctor_Evergine_Assets_Contents_ContentFile_Evergine_Assets_Exporters_IAssetWithDirectory_Evergine_Assets_Exporters_IAssetMetaFile_" data-uid="Evergine.Assets.Exporters.AssetItem.#ctor(Evergine.Assets.Contents.ContentFile,Evergine.Assets.Exporters.IAssetWithDirectory,Evergine.Assets.Exporters.IAssetMetaFile)">AssetItem(ContentFile, IAssetWithDirectory, IAssetMetaFile)</h4>
+  <div class="markdown level1 summary"><p>Initializes a new instance of the <a class="xref" href="Evergine.Assets.Exporters.AssetItem.html">AssetItem</a> class.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public AssetItem(ContentFile file, IAssetWithDirectory parent, IAssetMetaFile asset)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Assets.Contents.ContentFile.html">ContentFile</a></td>
+        <td><span class="parametername">file</span></td>
+        <td><p>The content file of the .winfo.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Assets.Exporters.IAssetWithDirectory.html">IAssetWithDirectory</a></td>
+        <td><span class="parametername">parent</span></td>
+        <td><p>The parent directory asset.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Assets.Exporters.IAssetMetaFile.html">IAssetMetaFile</a></td>
+        <td><span class="parametername">asset</span></td>
+        <td><p>The asset.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Assets_Exporters_AssetItem_Asset_" data-uid="Evergine.Assets.Exporters.AssetItem.Asset*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_Asset" data-uid="Evergine.Assets.Exporters.AssetItem.Asset">Asset</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the asset information of the item.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IAssetMetaFile Asset { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Assets.Exporters.IAssetMetaFile.html">IAssetMetaFile</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Assets_Exporters_AssetItem_Id_" data-uid="Evergine.Assets.Exporters.AssetItem.Id*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_Id" data-uid="Evergine.Assets.Exporters.AssetItem.Id">Id</h4>
+  <div class="markdown level1 summary"><p>Gets the asset ID.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Guid Id { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.guid">Guid</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Assets_Exporters_AssetItem_MetaFile_" data-uid="Evergine.Assets.Exporters.AssetItem.MetaFile*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_MetaFile" data-uid="Evergine.Assets.Exporters.AssetItem.MetaFile">MetaFile</h4>
+  <div class="markdown level1 summary"><p>Gets the location of the .winfo file.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public ContentFile MetaFile { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Assets.Contents.ContentFile.html">ContentFile</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Assets_Exporters_AssetItem_Name_" data-uid="Evergine.Assets.Exporters.AssetItem.Name*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_Name" data-uid="Evergine.Assets.Exporters.AssetItem.Name">Name</h4>
+  <div class="markdown level1 summary"><p>Gets the name of the asset without the (.winfo) extension.
+For example: texture.jpg.wtex =&gt; texture.jpg.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public string Name { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Assets_Exporters_AssetItem_ParentDirectory_" data-uid="Evergine.Assets.Exporters.AssetItem.ParentDirectory*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_ParentDirectory" data-uid="Evergine.Assets.Exporters.AssetItem.ParentDirectory">ParentDirectory</h4>
+  <div class="markdown level1 summary"><p>Gets the parent directory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public IAssetWithDirectory ParentDirectory { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Assets.Exporters.IAssetWithDirectory.html">IAssetWithDirectory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Assets_Exporters_AssetItem_Type_" data-uid="Evergine.Assets.Exporters.AssetItem.Type*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_Type" data-uid="Evergine.Assets.Exporters.AssetItem.Type">Type</h4>
+  <div class="markdown level1 summary"><p>Gets the type of the asset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Type Type { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.type">Type</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Assets_Exporters_AssetItem_DeleteAsync_" data-uid="Evergine.Assets.Exporters.AssetItem.DeleteAsync*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_DeleteAsync" data-uid="Evergine.Assets.Exporters.AssetItem.DeleteAsync">DeleteAsync()</h4>
+  <div class="markdown level1 summary"><p>Deletes the asset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task DeleteAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Asynchronous task for the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Assets_Exporters_AssetItem_ExportAsync_" data-uid="Evergine.Assets.Exporters.AssetItem.ExportAsync*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_ExportAsync_Evergine_Assets_Exporters_ExportContext_" data-uid="Evergine.Assets.Exporters.AssetItem.ExportAsync(Evergine.Assets.Exporters.ExportContext)">ExportAsync(ExportContext)</h4>
+  <div class="markdown level1 summary"><p>Exports the asset to a directory.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task&lt;ExportResult&gt; ExportAsync(ExportContext exportContext)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Assets.Exporters.ExportContext.html">ExportContext</a></td>
+        <td><span class="parametername">exportContext</span></td>
+        <td><p>The export context.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task-1">Task</a>&lt;<a class="xref" href="Evergine.Assets.Exporters.ExportResult.html">ExportResult</a>&gt;</td>
+        <td><p>Awaitable task returning the export result.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Assets_Exporters_AssetItem_SaveAsync_" data-uid="Evergine.Assets.Exporters.AssetItem.SaveAsync*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_SaveAsync" data-uid="Evergine.Assets.Exporters.AssetItem.SaveAsync">SaveAsync()</h4>
+  <div class="markdown level1 summary"><p>Saves the asset.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Task SaveAsync()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.threading.tasks.task">Task</a></td>
+        <td><p>Asynchronous task for the operation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Assets_Exporters_AssetItem_SetName_" data-uid="Evergine.Assets.Exporters.AssetItem.SetName*"></a>
+  <h4 id="Evergine_Assets_Exporters_AssetItem_SetName_System_String_" data-uid="Evergine.Assets.Exporters.AssetItem.SetName(System.String)">SetName(string)</h4>
+  <div class="markdown level1 summary"><p>Sets the asset name.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SetName(string name)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.string">string</a></td>
+        <td><span class="parametername">name</span></td>
+        <td><p>The new name.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if the name could be changed.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,461 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting Started | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting Started | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started">Getting Started</h1>
+
+<hr>
+<p><img src="images/imgui_features.png" alt="The Dear ImGui demo window running inside an Evergine application"></p>
+<p>This page takes you from an empty project to your first ImGui window: install the package, register <code>ImGuiManager</code> in the scene, and write a <code>Behavior</code> that declares the UI every frame. It also covers the options of <code>ImGuiManager</code>, custom fonts, and how the UI shares input with the rest of your scene.</p>
+<h2 id="install-the-package">Install the package</h2>
+<p>Add the <code>Evergine.ImGui</code> NuGet package to your application project (the one that contains your scenes and components):</p>
+<pre><code class="lang-xml">&lt;!-- Use the same version as the other Evergine packages in your project. --&gt;
+&lt;PackageReference Include=&quot;Evergine.ImGui&quot; Version=&quot;EVERGINE_VERSION&quot; /&gt;
+</code></pre>
+<p><code>Evergine.ImGui</code> brings in <code>Evergine.Bindings.Imgui</code>, which contains the C# bindings for Dear ImGui, ImPlot, ImNodes and ImGuizmo, and the native <code>cimgui</code> library they call.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The bindings package ships native binaries for Windows (x64 and ARM64), Linux (x64 and ARM64), macOS (x64 and ARM64) and WebAssembly. There are no Android or iOS binaries, so ImGui is not available in mobile builds.</p>
+</div>
+<h2 id="allow-unsafe-code">Allow unsafe code</h2>
+<p>The bindings are a thin layer over the C API. Widgets that edit a value take a pointer to it, so the code that calls them must be compiled with unsafe code enabled. Add this property to the project file:</p>
+<pre><code class="lang-xml">&lt;PropertyGroup&gt;
+  &lt;AllowUnsafeBlocks&gt;True&lt;/AllowUnsafeBlocks&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+<p>In Visual Studio you can set the same option from the project properties, under <strong>Build</strong> &gt; <strong>Allow unsafe code</strong>.</p>
+<h2 id="register-imguimanager">Register ImGuiManager</h2>
+<p><code>ImGuiManager</code> is a scene manager. Add it in <code>RegisterManagers</code> of every scene that shows ImGui, and enable the extra libraries you need:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.UI;
+
+public class MyScene : Scene
+{
+    public override void RegisterManagers()
+    {
+        base.RegisterManagers();
+        this.Managers.AddManager(new global::Evergine.Framework.Physics.PhysicsManager());
+
+        // ImPlot, ImNodes and ImGuizmo each need their own context, which is only
+        // created when the flag is set before the manager is attached.
+        this.Managers.AddManager(new ImGuiManager()
+        {
+            ImPlotEnabled = true,
+            ImNodesEnabled = true,
+            ImGuizmoEnabled = true,
+        });
+    }
+
+    protected override void CreateScene()
+    {
+    }
+}
+</code></pre>
+<h3 id="imguimanager-properties">ImGuiManager properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ImGuizmoEnabled</strong></td>
+<td>false</td>
+<td>Connects ImGuizmo to the ImGui context and calls <code>ImGuizmo_BeginFrame()</code> at the start of every frame. Required before calling any <code>ImguizmoNative</code> function.</td>
+</tr>
+<tr>
+<td><strong>ImPlotEnabled</strong></td>
+<td>false</td>
+<td>Creates the ImPlot context. Required before calling any <code>ImplotNative</code> function.</td>
+</tr>
+<tr>
+<td><strong>ImNodesEnabled</strong></td>
+<td>false</td>
+<td>Creates the ImNodes context. Required before calling any <code>ImnodesNative</code> function.</td>
+</tr>
+<tr>
+<td><strong>CustomFonts</strong></td>
+<td>null</td>
+<td>Array of <code>CustomFont</code> loaded into the font atlas instead of the built-in font. See <a href="#custom-fonts">Custom fonts</a>.</td>
+</tr>
+<tr>
+<td><strong>MergeCustomFonts</strong></td>
+<td>true</td>
+<td>For custom fonts that declare a <code>GlyphRange</code>, merges their glyphs into the previous font instead of adding a separate font. This is how an icon font is combined with a text font.</td>
+</tr>
+<tr>
+<td><strong>RequiresExplicitRenderingCamera</strong></td>
+<td>false</td>
+<td>When false, the manager uses the render manager's <code>ActiveCamera3D</code>. When true, it does nothing until you assign <code>RenderingCamera</code>.</td>
+</tr>
+<tr>
+<td><strong>RenderingCamera</strong></td>
+<td>active 3D camera</td>
+<td>The camera whose display receives the UI and whose mouse, keyboard and touch input feed ImGui. Changing it at run time moves the UI to the new camera's display.</td>
+</tr>
+</tbody>
+</table>
+<p><code>ImGuiManager</code> also has three methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CreateImGuiBinding(Texture)</code></td>
+<td>Returns the <code>ImTextureRef</code> that <code>igImage</code> and other image widgets need to draw an Evergine texture. Calling it again with the same texture returns the same reference. See <a href="features.html#image">Image</a>.</td>
+</tr>
+<tr>
+<td><code>RemoveImGuiBinding(Texture)</code></td>
+<td>Releases the binding. Call it when you stop drawing the texture or dispose it.</td>
+</tr>
+<tr>
+<td><code>TrySetCurrentContext()</code></td>
+<td>Makes this manager's ImGui context current. Only needed when more than one scene with an <code>ImGuiManager</code> is alive at the same time.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The flags and fonts are read when the manager is attached to the scene. Set them in the object initializer, as above, rather than later from a component.</p>
+</div>
+<h2 id="write-your-first-window">Write your first window</h2>
+<p>Create a <code>Behavior</code> and declare the window in <code>Update()</code>. Everything the UI edits lives in fields, because the method runs every frame and local variables would be reset each time.</p>
+<pre><code class="lang-csharp">using Evergine.Bindings.Imgui;
+using Evergine.Framework;
+using Evergine.Mathematics;
+using Evergine.UI;
+using System;
+
+public unsafe class MyUI : Behavior
+{
+    // State that must survive from one frame to the next.
+    private bool open = true;
+    private float value;
+    private int saveCount;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // The close button of the window sets 'open' to false. Stop declaring the
+        // window from then on, or it would reappear on the next frame.
+        if (!this.open)
+        {
+            return;
+        }
+
+        // SetNextWindow* calls apply to the next igBegin, so they must come first.
+        ImguiNative.igSetNextWindowSize(new Vector2(300, 100), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin(&quot;Debug&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            ImguiNative.igText(&quot;Hello, world 123&quot;);
+
+            if (ImguiNative.igButton(&quot;Save&quot;, Vector2.Zero))
+            {
+                this.saveCount++;
+            }
+
+            fixed (float* valuePointer = &amp;this.value)
+            {
+                ImguiNative.igSliderFloat(&quot;float&quot;, valuePointer, 0.0f, 1.0f, &quot;%.3f&quot;, ImGuiSliderFlags.None);
+            }
+        }
+
+        // igEnd is always required, even when igBegin returns false because the
+        // window is collapsed or hidden.
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p>Then add the behavior to an entity. In Evergine Studio, create an empty entity and add the <code>MyUI</code> component to it. In code, add it from <code>CreateScene</code>:</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    var ui = new Entity(&quot;UI&quot;)
+        .AddComponent(new MyUI());
+
+    this.Managers.EntityManager.Add(ui);
+}
+</code></pre>
+<p>Run the project and the window appears over the scene. It can be moved, resized and collapsed with the mouse, and ImGui remembers its position between frames by its title, <code>&quot;Debug&quot;</code>.</p>
+<p><img src="images/imgui_simple.png" alt="A small ImGui window with a text line, a Save button and a slider"></p>
+<p><em>The window declared by <code>MyUI</code>. Dragging the slider changes the <code>value</code> field, and the next frame draws the slider from that field.</em></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>igText</code> and the other text widgets treat their argument as a printf-style format string. Write <code>%%</code> for a literal percent sign, or use <code>igTextUnformatted(text, null)</code> for text you do not control, such as file names or user input.</p>
+</div>
+<h2 id="the-built-in-demo-window">The built-in demo window</h2>
+<p>Dear ImGui includes a demo window that exercises almost every widget and flag. It is the fastest way to find out what a control looks like and which function draws it:</p>
+<pre><code class="lang-csharp">using Evergine.Bindings.Imgui;
+using Evergine.Framework;
+using Evergine.UI;
+using System;
+
+public unsafe class DemoWindow : Behavior
+{
+    private bool open = true;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (this.open)
+        {
+            ImguiNative.igShowDemoWindow(this.open.Pointer());
+        }
+    }
+}
+</code></pre>
+<p><img src="images/imgui_demo_window.png" alt="The Dear ImGui demo window of ImGui-Demo with the Widgets section expanded, over the default scene"></p>
+<p>The <a href="https://github.com/EvergineTeam/ImGui-Demo">ImGui-Demo</a> repository contains a complete Evergine project that shows the demo windows of Dear ImGui, ImPlot and ImNodes, and an ImGuizmo gizmo attached to an entity.</p>
+<h2 id="a-property-editor-for-an-entity">A property editor for an entity</h2>
+<p>Widgets that edit a <code>Vector3</code> take a pointer to an Evergine <code>Vector3</code> directly, so editing a component is a matter of copying the value out, passing its address, and writing it back when the widget reports a change:</p>
+<pre><code class="lang-csharp">using Evergine.Bindings.Imgui;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+using Evergine.UI;
+using System;
+
+public unsafe class TransformInspector : Behavior
+{
+    [BindComponent]
+    private Transform3D transform = null;
+
+    private bool open = true;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (!this.open)
+        {
+            return;
+        }
+
+        ImguiNative.igSetNextWindowPos(new Vector2(10, 10), ImGuiCond.FirstUseEver, Vector2.Zero);
+        ImguiNative.igSetNextWindowSize(new Vector2(320, 0), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin(this.Owner.Name, this.open.Pointer(), ImGuiWindowFlags.AlwaysAutoResize))
+        {
+            // Transform3D exposes properties, not fields, so work on a local copy
+            // and assign it back only when the widget reports a change.
+            Vector3 position = this.transform.LocalPosition;
+            if (ImguiNative.igDragFloat3(&quot;Position&quot;, &amp;position, 0.01f, 0, 0, &quot;%.2f&quot;, ImGuiSliderFlags.None))
+            {
+                this.transform.LocalPosition = position;
+            }
+
+            Vector3 rotation = this.transform.LocalRotation;
+            if (ImguiNative.igDragFloat3(&quot;Rotation&quot;, &amp;rotation, 0.01f, 0, 0, &quot;%.2f&quot;, ImGuiSliderFlags.None))
+            {
+                this.transform.LocalRotation = rotation;
+            }
+
+            Vector3 scale = this.transform.LocalScale;
+            if (ImguiNative.igDragFloat3(&quot;Scale&quot;, &amp;scale, 0.01f, 0.01f, 100f, &quot;%.2f&quot;, ImGuiSliderFlags.None))
+            {
+                this.transform.LocalScale = scale;
+            }
+
+            ImguiNative.igSeparator();
+            ImguiNative.igText($&quot;{ImguiNative.igGetIO_Nil()-&gt;Framerate:F0} FPS&quot;);
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p>Add <code>TransformInspector</code> to any entity that has a <code>Transform3D</code> and the window edits that entity. The same pattern scales to full tools: the UI of the <a href="https://github.com/EvergineTeam/Raytracing">path tracer demo</a> is a list of sliders bound to its render settings in exactly this way.</p>
+<p><img src="images/imgui_pathtracerui.png" alt="Sliders controlling the settings of a path tracer"></p>
+<h2 id="custom-fonts">Custom fonts</h2>
+<p>By default ImGui uses its built-in bitmap font. To use your own, place the <code>.ttf</code> files in the project's <code>Content</code> folder and list them in <code>CustomFonts</code>. Paths are relative to the root of the application's assets directory, which is the <code>Content</code> folder at run time.</p>
+<pre><code class="lang-csharp">this.Managers.AddManager(new ImGuiManager()
+{
+    CustomFonts = new[]
+    {
+        // The first font becomes the default font of every window.
+        new CustomFont(&quot;Fonts/Roboto-Regular.ttf&quot;, 16.0f),
+
+        // An icon font merged into the previous one. The glyph range is a list of
+        // [first, last] pairs terminated by 0, as Dear ImGui expects.
+        new CustomFont(&quot;Fonts/icons.ttf&quot;, 16.0f, new ushort[] { 0xE000, 0xF8FF, 0 }),
+    },
+    MergeCustomFonts = true,
+});
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><code>CustomFont</code> field</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Path</strong></td>
+<td></td>
+<td>Path of the font file, including its extension, relative to the assets directory root. A font that cannot be found is skipped with a warning.</td>
+</tr>
+<tr>
+<td><strong>Size</strong></td>
+<td>14</td>
+<td>Font size in pixels.</td>
+</tr>
+<tr>
+<td><strong>GlyphRange</strong></td>
+<td>null</td>
+<td>Zero-terminated pairs of the first and last character to load. Leave it null to load the font's default range. A range with fewer than three elements is ignored.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="draw-on-a-specific-camera">Draw on a specific camera</h2>
+<p>With more than one camera, the UI goes to the render manager's active 3D camera unless you choose another one. To wait for a camera that does not exist yet, for example one created later by your own code, set <code>RequiresExplicitRenderingCamera</code> and assign <code>RenderingCamera</code> when it is ready:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.UI;
+
+public class ImGuiCameraSelector : Component
+{
+    [BindComponent]
+    private Camera3D camera = null;
+
+    [BindSceneManager]
+    private ImGuiManager imGuiManager = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        // Requires the manager to be registered with RequiresExplicitRenderingCamera = true.
+        this.imGuiManager.RenderingCamera = this.camera;
+    }
+}
+</code></pre>
+<h2 id="sharing-input-with-the-scene">Sharing input with the scene</h2>
+<p><code>ImGuiManager</code> listens to the same mouse, keyboard and touch dispatchers as the rest of your application, and it does not consume the events. A drag over an ImGui slider also reaches, for example, a camera controller that orbits on mouse drag. Dear ImGui tells you when it is using the input, so check it before reacting to your own:</p>
+<pre><code class="lang-csharp">var io = ImguiNative.igGetIO_Nil();
+if (io-&gt;WantCaptureMouse == 0)
+{
+    // The mouse is not over an ImGui window: handle it in the scene.
+}
+</code></pre>
+<p><code>WantCaptureKeyboard</code> does the same for the keyboard, and is set while a text field has focus.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

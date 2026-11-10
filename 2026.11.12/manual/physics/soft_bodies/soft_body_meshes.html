@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Soft Body Meshes | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Soft Body Meshes | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="soft-body-meshes">Soft Body Meshes</h1>
+
+<p><img src="images/softbody_still.png" alt="Soft body shapes"></p>
+<p><code>SoftBodyMesh</code> is the shape half of a <a href="index.html">soft body</a>: it generates the surface, draws it, and hands it to the <code>SoftBody</code> beside it. It derives from <code>MeshComponent</code>, so the entity is drawn like any other: material, mesh, renderer.</p>
+<h2 id="built-in-shapes">Built-in Shapes</h2>
+<p><img src="images/softbodymesh_component.png" alt="SoftBodyMesh component"></p>
+<table>
+<thead>
+<tr>
+<th><code>ShapeType</code></th>
+<th>Surface</th>
+<th>Parameters it uses</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Cloth</strong></td>
+<td>A flat grid. Open, so it cannot hold pressure.</td>
+<td><code>GridColumns</code>, <code>GridRows</code>, <code>GridSpacing</code></td>
+</tr>
+<tr>
+<td><strong>Cube</strong></td>
+<td>A box shell, subdivided per face. Hollow, not a solid block of jelly.</td>
+<td><code>GridColumns</code>, <code>GridSpacing</code></td>
+</tr>
+<tr>
+<td><strong>Sphere</strong></td>
+<td>A closed sphere.</td>
+<td><code>Radius</code>, <code>GridColumns</code>, <code>GridRows</code></td>
+</tr>
+<tr>
+<td><strong>Cylinder</strong></td>
+<td>A closed cylinder with flat caps.</td>
+<td><code>Radius</code>, <code>Length</code>, <code>GridColumns</code>, <code>GridRows</code></td>
+</tr>
+<tr>
+<td><strong>Torus</strong></td>
+<td>A closed ring.</td>
+<td><code>Radius</code>, <code>TubeRadius</code>, <code>GridColumns</code>, <code>GridRows</code></td>
+</tr>
+<tr>
+<td><strong>FromModel</strong></td>
+<td>The surface of a model asset.</td>
+<td><code>SourceModel</code>, <code>ModelMeshName</code>, <code>ModelScale</code>, <code>WeldDistance</code>, <code>RecenterModel</code></td>
+</tr>
+</tbody>
+</table>
+<p>Each of them landing, one at a time:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><video autoplay="" loop="" muted="" playsinline="" width="100%"><source src="images/softbody_cloth.mp4" type="video/mp4"></video></td>
+<td><video autoplay="" loop="" muted="" playsinline="" width="100%"><source src="images/softbody_jelly.mp4" type="video/mp4"></video></td>
+</tr>
+<tr>
+<td><strong>Cloth</strong>: pinned along its top row to a moving bar, draping over what it is swept across.</td>
+<td><strong>Cube</strong>: a hollow shell, held out by its pressure and squashing against the block it lands on.</td>
+</tr>
+<tr>
+<td><video autoplay="" loop="" muted="" playsinline="" width="100%"><source src="images/softbody_pressure.mp4" type="video/mp4"></video></td>
+<td><video autoplay="" loop="" muted="" playsinline="" width="100%"><source src="images/softbody_bolster.mp4" type="video/mp4"></video></td>
+</tr>
+<tr>
+<td><strong>Sphere</strong>: a water balloon, heavy for its size, slack skin, no bounce.</td>
+<td><strong>Cylinder</strong>: lying on its side, so it squashes along its length instead of standing on one cap.</td>
+</tr>
+<tr>
+<td><video autoplay="" loop="" muted="" playsinline="" width="100%"><source src="images/softbody_torus.mp4" type="video/mp4"></video></td>
+<td><video autoplay="" loop="" muted="" playsinline="" width="100%"><source src="images/softbody_model.mp4" type="video/mp4"></video></td>
+</tr>
+<tr>
+<td><strong>Torus</strong>: dropped on edge, which is also what proves the transform's rotation reaches the solver.</td>
+<td><strong>FromModel</strong>: a duck read straight off a model asset, welded and pressurised.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ShapeType</strong></td>
+<td><code>Cloth</code></td>
+<td>Which surface to generate.</td>
+</tr>
+<tr>
+<td><strong>GridColumns</strong></td>
+<td>20</td>
+<td>Resolution across. More vertices means more detail and a slower solve.</td>
+</tr>
+<tr>
+<td><strong>GridRows</strong></td>
+<td>20</td>
+<td>Resolution along.</td>
+</tr>
+<tr>
+<td><strong>GridSpacing</strong></td>
+<td>0.1</td>
+<td>The distance between neighbouring grid points, which is what sets a cloth's size.</td>
+</tr>
+<tr>
+<td><strong>Radius</strong></td>
+<td>0.5</td>
+<td>The radius of a sphere, cylinder or torus.</td>
+</tr>
+<tr>
+<td><strong>Length</strong></td>
+<td>1</td>
+<td>The length of a cylinder.</td>
+</tr>
+<tr>
+<td><strong>TubeRadius</strong></td>
+<td>0.25</td>
+<td>The thickness of a torus's tube.</td>
+</tr>
+<tr>
+<td><strong>DoubleSided</strong></td>
+<td>false</td>
+<td>Draws both faces. Cloth wants this; a closed shell does not.</td>
+</tr>
+<tr>
+<td><strong>SourceModel</strong></td>
+<td>null</td>
+<td>The model to read, in <code>FromModel</code> mode.</td>
+</tr>
+<tr>
+<td><strong>ModelMeshName</strong></td>
+<td>null</td>
+<td>Which mesh of the model to use. Empty uses all of them.</td>
+</tr>
+<tr>
+<td><strong>ModelScale</strong></td>
+<td>1</td>
+<td>Unit conversion for the model geometry, applied before the entity scale. A model authored in centimetres takes 0.01.</td>
+</tr>
+<tr>
+<td><strong>WeldDistance</strong></td>
+<td>0.001</td>
+<td>How close two vertices must be to be merged into one.</td>
+</tr>
+<tr>
+<td><strong>RecenterModel</strong></td>
+<td>true</td>
+<td>Moves the geometry so its centre sits on the entity's origin.</td>
+</tr>
+</tbody>
+</table>
+<p>Read-only: <strong>Model</strong>, <strong>RestPositions</strong>, <strong>TriangleIndices</strong>. Method: <strong>SetCustomGeometry(vertices, indices)</strong>. Event: <strong>GeometryChanged</strong>.</p>
+<h2 id="cloth">Cloth</h2>
+<p>A cloth is generated in the local <strong>XZ</strong> plane, row by row along Z. That layout is what makes pinning straightforward: <code>index = z * GridColumns + x</code>, and the edge at local -Z is <code>0</code> to <code>GridColumns - 1</code>.</p>
+<pre><code class="lang-csharp">Entity banner = new Entity(&quot;banner&quot;)
+    .AddComponent(new Transform3D()
+    {
+        Position = hangFrom,
+
+        // A quarter turn about X stands the cloth up: local +Z maps onto -Y, so the far edge drops
+        // and the pinned first row is left at the top.
+        LocalOrientation = Quaternion.CreateFromAxisAngle(Vector3.UnitX, MathHelper.PiOver2),
+    })
+    .AddComponent(new MaterialComponent() { Material = clothMaterial })
+    .AddComponent(new SoftBodyMesh()
+    {
+        ShapeType = SoftBodyShapeType.Cloth,
+        GridColumns = 24,
+        GridRows = 22,
+        GridSpacing = 0.16f,
+        DoubleSided = true,
+    })
+    .AddComponent(new SoftBody()
+    {
+        Mass = 2f,
+        NumIterations = 8,
+        Friction = 0.8f,
+        VertexRadius = 0.02f,
+
+        // Long-range attachments: without them a hanging cloth stretches away from its pins under its
+        // own weight, and the more vertices it has the further it goes.
+        LRAType = SoftBodyLRAType.GeodesicDistance,
+        LRAMaxDistanceMultiplier = 1.05f,
+    })
+    .AddComponent(new MeshRenderer());
+</code></pre>
+<h2 id="closed-shapes">Closed Shapes</h2>
+<p>Cube, sphere, cylinder and torus are all <strong>closed shells</strong>, and every one of them needs <code>Pressure</code> on its <code>SoftBody</code> to hold its shape. A hollow box with no pressure lands and folds flat like a cardboard carton.</p>
+<pre><code class="lang-csharp">// A water balloon: heavy for its size, a slack skin, no bounce, and enough damping that its wobble
+// dies away instead of turning into a permanent roll.
+new SoftBody()
+{
+    Pressure = 180f,
+    Mass = 12f,
+    Compliance = 0.006f,
+    ShearCompliance = 0.006f,
+    Restitution = 0f,
+    Friction = 0.9f,
+    LinearDamping = 0.9f,
+    NumIterations = 12,
+    VertexRadius = 0.02f,
+}
+</code></pre>
+<h2 id="from-a-model">From a Model</h2>
+<p><code>FromModel</code> reads a model's surface, welds the seams the exporter split, and hands the result to the solver.</p>
+<pre><code class="lang-csharp">new SoftBodyMesh()
+{
+    ShapeType = SoftBodyShapeType.FromModel,
+    SourceModel = this.duckModel,
+    ModelScale = 1f,
+    WeldDistance = 0.001f,
+    RecenterModel = true,
+}
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>A model used with <code>Pressure</code> must be <strong>one closed shell</strong>. A model whose eyes, wheels or trim are separate pieces has no single enclosed volume, so the pressure has nothing to act on and the body lands flat whatever value you give it. Check Euler's formula on the welded mesh: <code>V - E + F</code> should come to 2 for a single closed surface.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>WeldDistance</code> is the dial that decides whether a model closes. Too small and the exporter's duplicated seam vertices stay separate, leaving the shell open; too large and real detail is collapsed. The default millimetre is right for most assets. Check it against the shortest real edge in the mesh.</p>
+</div>
+<h2 id="custom-geometry">Custom Geometry</h2>
+<p>For a surface generated at run time:</p>
+<pre><code class="lang-csharp">mesh.SetCustomGeometry(vertices, triangleIndices);
+</code></pre>
+<p>The same rules apply: a closed shell for pressure, and vertices in the entity's local space.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

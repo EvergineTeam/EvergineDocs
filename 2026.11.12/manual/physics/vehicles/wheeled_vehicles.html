@@ -1,0 +1,346 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Wheeled Vehicles | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Wheeled Vehicles | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="wheeled-vehicles">Wheeled Vehicles</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/vehicle_drive.mp4" type="video/mp4">
+</video>
+<p><code>WheeledVehicleController</code> drives anything with steered wheels: cars, trucks, buggies, motorbikes. It sits on the chassis entity beside the chassis's <a href="../physics_bodies/rigid_body.html"><code>RigidBody</code></a>, and drives the <a href="vehicle_wheel.html"><code>VehicleWheel</code></a> components on its child entities.</p>
+<p>Everything in <a href="index.html">Vehicles</a> about the engine, the gearbox and the collision testers applies here. This page is what a wheeled vehicle adds on top.</p>
+<h2 id="wheel-assignment">Wheel Assignment</h2>
+<p><img src="images/wheeledvehicle_component.png" alt="WheeledVehicleController component"></p>
+<p>The controller finds its wheels by walking its descendants, and the order it finds them in gives each one its index. These four properties say which index is which corner:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FrontWheelLeft</strong></td>
+<td>0</td>
+<td>The index of the front left wheel. Negative means there is none.</td>
+</tr>
+<tr>
+<td><strong>FrontWheelRight</strong></td>
+<td>1</td>
+<td>The front right.</td>
+</tr>
+<tr>
+<td><strong>RearWheelLeft</strong></td>
+<td>2</td>
+<td>The rear left.</td>
+</tr>
+<tr>
+<td><strong>RearWheelRight</strong></td>
+<td>3</td>
+<td>The rear right.</td>
+</tr>
+<tr>
+<td><strong>FrontWheelDrive</strong></td>
+<td>true</td>
+<td>Whether the front axle receives engine torque.</td>
+</tr>
+<tr>
+<td><strong>RearWheelDrive</strong></td>
+<td>true</td>
+<td>Whether the rear axle does.</td>
+</tr>
+<tr>
+<td><strong>AntiRollStiffness</strong></td>
+<td>0</td>
+<td>An anti-roll bar across each axle, in newtons per metre. It ties the two sides together so the body leans less in a corner.</td>
+</tr>
+</tbody>
+</table>
+<p>Leave both drive flags on for four-wheel drive; turn one off for a front- or rear-wheel-drive car. A three-wheeler sets one of the four indices to a negative number.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ForwardInput</strong></td>
+<td><em>Read-only.</em> The throttle the controller is currently acting on.</td>
+</tr>
+<tr>
+<td><strong>RightInput</strong></td>
+<td><em>Read-only.</em> The steering it is currently acting on.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="driving-the-vehicle">Driving the Vehicle</h2>
+<p>Everything the driver does goes through one call, once per frame:</p>
+<pre><code class="lang-csharp">vehicle.SetDriverInput(forward, right, brake, handBrake);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Range</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>forward</strong></td>
+<td>-1 to 1</td>
+<td>Throttle. Negative is reverse: with an automatic gearbox, asking for negative throttle while stopped selects reverse.</td>
+</tr>
+<tr>
+<td><strong>right</strong></td>
+<td>-1 to 1</td>
+<td>Steering, from full left to full right.</td>
+</tr>
+<tr>
+<td><strong>brake</strong></td>
+<td>0 to 1</td>
+<td>The brake pedal.</td>
+</tr>
+<tr>
+<td><strong>handBrake</strong></td>
+<td>0 to 1</td>
+<td>The hand brake, which acts on whichever wheels have a <code>MaxHandBrakeTorque</code>.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">public class CarInput : Behavior
+{
+    [BindComponent]
+    private WheeledVehicleController vehicle = null;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        KeyboardDispatcher keyboard = this.Managers.RenderManager.ActiveCamera3D?.Display?.KeyboardDispatcher;
+
+        if (keyboard == null)
+        {
+            return;
+        }
+
+        float forward = (keyboard.IsKeyDown(Keys.W) ? 1f : 0f) - (keyboard.IsKeyDown(Keys.S) ? 1f : 0f);
+        float right = (keyboard.IsKeyDown(Keys.D) ? 1f : 0f) - (keyboard.IsKeyDown(Keys.A) ? 1f : 0f);
+        float handBrake = keyboard.IsKeyDown(Keys.LeftShift) ? 1f : 0f;
+
+        // S is the brake while rolling forwards and reverse once stopped, which is how a car with an
+        // automatic gearbox behaves and saves the scene needing a separate reverse key.
+        float brake = 0f;
+
+        if (forward &lt; 0f &amp;&amp; this.vehicle.ForwardInput &gt; 0.1f)
+        {
+            brake = 1f;
+            forward = 0f;
+        }
+
+        this.vehicle.SetDriverInput(forward, right, brake, handBrake);
+    }
+}
+</code></pre>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/vehicle_handbrake.mp4" type="video/mp4">
+</video>
+<p><em>The hand brake locks the rear wheels, which is what lets the back end come round.</em></p>
+<h2 id="building-a-car-step-by-step">Building a Car, Step by Step</h2>
+<p><img src="images/wheelAxies.png" alt="Wheel axes"></p>
+<h3 id="1-the-chassis">1. The chassis</h3>
+<p>One dynamic body, one or two colliders, and a low centre of mass:</p>
+<pre><code class="lang-csharp">Entity car = new Entity(&quot;car&quot;)
+    .AddComponent(new Transform3D() { Position = start })
+    .AddComponent(new RigidBody()
+    {
+        Mass = 1200f,
+        CenterOfMassOffset = new Vector3(0f, -0.4f, 0f),
+        Friction = 0.5f,
+    })
+    .AddComponent(new BoxCollider() { Size = new Vector3(1.8f, 0.8f, 4f) });
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>CenterOfMassOffset</code> matters more than anything else here. Left at the middle of the collider, a car rolls over in the first corner it takes at speed. Real cars carry their mass low, and the simulation needs to be told.</p>
+</div>
+<h3 id="2-the-controller">2. The controller</h3>
+<pre><code class="lang-csharp">car.AddComponent(new WheeledVehicleController()
+{
+    FrontWheelLeft = 0,
+    FrontWheelRight = 1,
+    RearWheelLeft = 2,
+    RearWheelRight = 3,
+    FrontWheelDrive = false,
+    RearWheelDrive = true,
+    EngineMaxTorque = 500f,
+    AntiRollStiffness = 1000f,
+    GearRatios = new[] { 2.66f, 1.78f, 1.3f, 1.0f, 0.74f },
+    ReverseGearRatios = new[] { -2.9f },
+});
+</code></pre>
+<h3 id="3-the-wheels">3. The wheels</h3>
+<p>Four children, <strong>in index order</strong>. Each one's local position is where the wheel is mounted on the chassis:</p>
+<pre><code class="lang-csharp">var layout = new[]
+{
+    (&quot;wheelFL&quot;, new Vector3(-0.9f, -0.3f, 1.4f), 0.6f),
+    (&quot;wheelFR&quot;, new Vector3(0.9f, -0.3f, 1.4f), 0.6f),
+    (&quot;wheelRL&quot;, new Vector3(-0.9f, -0.3f, -1.4f), 0f),
+    (&quot;wheelRR&quot;, new Vector3(0.9f, -0.3f, -1.4f), 0f),
+};
+
+foreach (var (name, offset, steer) in layout)
+{
+    Entity wheel = new Entity(name)
+        .AddComponent(new Transform3D() { LocalPosition = offset })
+        .AddComponent(new VehicleWheel()
+        {
+            Radius = 0.35f,
+            Width = 0.25f,
+            MaxSteerAngle = steer,
+
+            // The hand brake acts on the rear only, which is what makes the back end step out.
+            MaxHandBrakeTorque = steer == 0f ? 4000f : 0f,
+        });
+
+    // The tyre is a child of the wheel, turned on its side, because the wheel entity is placed and
+    // spun by the controller and must not carry a rotation of its own.
+    wheel.AddChild(new Entity(&quot;tyre&quot;)
+        .AddComponent(new Transform3D() { LocalOrientation = Quaternion.CreateFromAxisAngle(Vector3.UnitZ, MathHelper.PiOver2) })
+        .AddComponent(new MaterialComponent() { Material = tyreMaterial })
+        .AddComponent(new CylinderMesh() { Diameter = 0.7f, Height = 0.25f })
+        .AddComponent(new MeshRenderer()));
+
+    car.AddChild(wheel);
+}
+</code></pre>
+<h3 id="4-the-body-shell">4. The body shell</h3>
+<p>The chassis entity itself must stay unscaled, because its scale would reach the wheels that the controller places itself, so the drawn body goes on a child of its own:</p>
+<pre><code class="lang-csharp">car.AddChild(new Entity(&quot;shell&quot;)
+    .AddComponent(new Transform3D() { LocalScale = new Vector3(1.8f, 0.8f, 4f) })
+    .AddComponent(new MaterialComponent() { Material = bodyMaterial })
+    .AddComponent(new CubeMesh() { Size = 1f })
+    .AddComponent(new MeshRenderer()));
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A car that will not turn usually has too little <code>MaxSteerAngle</code> or too much grip at the back; one that spins on every corner has too much steering or too little. <code>LateralFrictionScale</code> on the rear wheels is the dial for that, and it is on <a href="vehicle_wheel.html"><code>VehicleWheel</code></a>.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

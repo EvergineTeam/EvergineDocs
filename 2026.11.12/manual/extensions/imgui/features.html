@@ -1,0 +1,524 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Features | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Features | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="features">Features</h1>
+
+<hr>
+<p>This page is a tour of the Dear ImGui widgets you will use most, each with a complete <code>Behavior</code> you can drop on an entity. Every example follows the same three rules:</p>
+<ul>
+<li>The UI is declared in <code>Update()</code>, every frame.</li>
+<li>Anything a widget edits is a <strong>field</strong> of the behavior, so its value survives to the next frame.</li>
+<li>Every <code>igBegin</code> is paired with an <code>igEnd</code>, whatever <code>igBegin</code> returned.</li>
+</ul>
+<p>All the examples need these namespaces, and a class declared <code>unsafe</code> because widgets take pointers:</p>
+<pre><code class="lang-csharp">using Evergine.Bindings.Imgui;
+using Evergine.Framework;
+using Evergine.Mathematics;
+using Evergine.UI;
+using System;
+</code></pre>
+<p>For widgets that are not covered here, open the built-in demo window with <code>igShowDemoWindow</code> (see <a href="setup.html#the-built-in-demo-window">Getting Started</a>) and look for the function name in <code>ImguiNative</code>.</p>
+<h2 id="window">Window</h2>
+<p>A window is the container every other widget goes into. <code>igBegin</code> opens it and <code>igEnd</code> closes it, and the widgets declared between the two calls are laid out top to bottom inside it. The title doubles as the window's identity: ImGui keeps the position, size and collapsed state of each title from one frame to the next, and lets the user move and resize it.</p>
+<p>The <code>igSetNextWindow*</code> functions configure the window that the next <code>igBegin</code> opens. The <code>ImGuiCond</code> argument says when the value applies: <code>FirstUseEver</code> only the first time the window is created, <code>Appearing</code> every time it becomes visible, and <code>Always</code> on every frame, which also stops the user from changing it.</p>
+<pre><code class="lang-csharp">public unsafe class MyUI : Behavior
+{
+    private bool open = true;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (!this.open)
+        {
+            return;
+        }
+
+        // Anchor the window by its right edge (pivot 1, 0.5) at x = 420.
+        ImguiNative.igSetNextWindowPos(new Vector2(420, 120), ImGuiCond.Appearing, new Vector2(1, 0.5f));
+        ImguiNative.igSetNextWindowSize(new Vector2(400, 100), ImGuiCond.Appearing);
+
+        // Passing a pointer to 'open' adds a close button that sets it to false.
+        if (ImguiNative.igBegin(&quot;MyWindow&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            // Widgets go here.
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_Window.png" alt="An empty window titled MyWindow"></p>
+<p><code>ImGuiWindowFlags</code> changes the window's behaviour: <code>NoTitleBar</code>, <code>NoResize</code>, <code>NoMove</code>, <code>NoCollapse</code>, <code>AlwaysAutoResize</code> and <code>NoBackground</code> are the most common, and can be combined with <code>|</code>.</p>
+<h2 id="label-text">Label text</h2>
+<p><code>igLabelText</code> draws a value next to a label, aligned in two columns like the rest of the form widgets. It is read-only, which makes it the right choice for showing values the user should see but not edit.</p>
+<pre><code class="lang-csharp">public unsafe class MyUI : Behavior
+{
+    private bool open = true;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (ImguiNative.igBegin(&quot;MyWindow&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            // The first argument is the label on the right, the second the value on the left.
+            ImguiNative.igLabelText(&quot;This is a label&quot;, &quot;Value1&quot;);
+            ImguiNative.igLabelText(&quot;This is another label&quot;, &quot;Value2&quot;);
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_Label.png" alt="Two label and value pairs"></p>
+<h2 id="button">Button</h2>
+<p><code>igButton</code> draws a button and returns <code>true</code> on the one frame in which the user releases the mouse over it. React to the click inside the <code>if</code>, and keep any consequence of the click in a field. A size of <code>Vector2.Zero</code> fits the button to its label.</p>
+<pre><code class="lang-csharp">public unsafe class MyUI : Behavior
+{
+    private bool open = true;
+    private int clickCount;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (ImguiNative.igBegin(&quot;MyWindow&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            if (ImguiNative.igButton(&quot;Press me&quot;, new Vector2(100, 25)))
+            {
+                this.clickCount++;
+            }
+
+            // Drawn on every frame after the first click, not only on the frame of the click.
+            if (this.clickCount &gt; 0)
+            {
+                ImguiNative.igText(&quot;Thanks for clicking me!&quot;);
+            }
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_Button.png" alt="A button and the text shown after it is clicked"></p>
+<h2 id="text">Text</h2>
+<p><code>igText</code> draws a line of static text. It is not editable; for that, see <a href="#input-text">Input text</a>. Related functions cover the usual variations: <code>igTextColored</code> takes a colour, <code>igTextWrapped</code> wraps at the window edge, <code>igBulletText</code> adds a bullet, and <code>igSeparatorText</code> draws a heading with a line.</p>
+<pre><code class="lang-csharp">public unsafe class MyUI : Behavior
+{
+    private bool open = true;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (ImguiNative.igBegin(&quot;MyWindow&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            ImguiNative.igText(&quot;This is a text control&quot;);
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_Text.png" alt="A window with one line of text"></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The text functions interpret their argument as a printf-style format. Escape percent signs as <code>%%</code>, or pass text you do not control to <code>igTextUnformatted(text, null)</code>.</p>
+</div>
+<h2 id="input-text">Input text</h2>
+<p><code>igInputText</code> is an editable single-line text field. Dear ImGui edits a byte buffer in place, so you own a buffer of the maximum length you accept and convert it to a <code>string</code> when the widget reports a change. Allocate the buffer once, in a field: a buffer created inside <code>Update()</code> would lose the user's typing on the next frame.</p>
+<pre><code class="lang-csharp">using System.Text;
+
+public unsafe class MyUI : Behavior
+{
+    private bool open = true;
+
+    // UTF-8 bytes edited in place by ImGui. The text ends at the first zero byte.
+    private byte[] buffer = new byte[256];
+    private string text = string.Empty;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        ImguiNative.igSetNextWindowSize(new Vector2(400, 110), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin(&quot;Input Text Example&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            fixed (byte* bufferPointer = this.buffer)
+            {
+                if (ImguiNative.igInputText(&quot;Enter text:&quot;, bufferPointer, (uint)this.buffer.Length, ImGuiInputTextFlags.None, null, null))
+                {
+                    int length = Array.IndexOf(this.buffer, (byte)0);
+                    this.text = Encoding.UTF8.GetString(this.buffer, 0, length &lt; 0 ? this.buffer.Length : length);
+                }
+            }
+
+            ImguiNative.igTextUnformatted($&quot;Current text: {this.text}&quot;, null);
+
+            if (ImguiNative.igButton(&quot;Clear&quot;, new Vector2(100, 30)))
+            {
+                Array.Clear(this.buffer, 0, this.buffer.Length);
+                this.text = string.Empty;
+            }
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_InputText.png" alt="A text field with the text Evergine, the current value below it and a Clear button"></p>
+<p><code>ImGuiInputTextFlags</code> adds behaviour such as <code>CharsDecimal</code> (digits only), <code>Password</code> (hidden characters) and <code>EnterReturnsTrue</code> (report the change only when the user presses Enter).</p>
+<h2 id="checkbox">Checkbox</h2>
+<p><code>igCheckbox</code> toggles a <code>bool</code>. It takes a pointer to the field, flips it when clicked, and returns <code>true</code> on the frame the value changed, so you can react to the change without comparing with the previous value. The <code>Pointer()</code> extension method from <code>Evergine.UI</code> converts a <code>bool</code> field into the <code>byte*</code> that the C API expects.</p>
+<pre><code class="lang-csharp">public unsafe class MyUI : Behavior
+{
+    private bool open = true;
+    private bool isToggled;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (ImguiNative.igBegin(&quot;MyWindow&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            if (ImguiNative.igCheckbox(&quot;Toggle me&quot;, this.isToggled.Pointer()))
+            {
+                Console.WriteLine($&quot;Toggle state changed to: {this.isToggled}&quot;);
+            }
+
+            ImguiNative.igText($&quot;Toggle state: {(this.isToggled ? &quot;ON&quot; : &quot;OFF&quot;)}&quot;);
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_Toggle.png" alt="A checkbox and the text that shows its state"></p>
+<h2 id="buttons-in-a-row">Buttons in a row</h2>
+<p>Widgets are placed one below the other unless you call <code>igSameLine</code> between them, which puts the next widget on the same line after an optional gap. Combined with <code>igIsItemHovered</code> and <code>igSetTooltip</code>, which act on the widget declared just before them, this is how you build a toolbar. <code>igPushStyleColor_Vec4</code> changes a style colour for the widgets that follow until the matching <code>igPopStyleColor</code>, which here marks the active toggles.</p>
+<pre><code class="lang-csharp">public unsafe class MyUI : Behavior
+{
+    private bool open = true;
+
+    private bool isBold;
+    private bool isItalic;
+    private bool isUnderline;
+    private int fontSize = 12;
+    private string alignment = &quot;Left&quot;;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        ImguiNative.igSetNextWindowSize(new Vector2(390, 110), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin(&quot;Text Editor Toolbar&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            if (this.ToggleButton(&quot;B&quot;, this.isBold, &quot;Toggle Bold&quot;)) this.isBold = !this.isBold;
+            ImguiNative.igSameLine(0, 5);
+            if (this.ToggleButton(&quot;I&quot;, this.isItalic, &quot;Toggle Italic&quot;)) this.isItalic = !this.isItalic;
+            ImguiNative.igSameLine(0, 5);
+            if (this.ToggleButton(&quot;U&quot;, this.isUnderline, &quot;Toggle Underline&quot;)) this.isUnderline = !this.isUnderline;
+            ImguiNative.igSameLine(0, 15);
+
+            if (ImguiNative.igButton(&quot;-&quot;, new Vector2(30, 30)) &amp;&amp; this.fontSize &gt; 8) this.fontSize--;
+            ImguiNative.igSameLine(0, 5);
+            ImguiNative.igText($&quot;{this.fontSize}&quot;);
+            ImguiNative.igSameLine(0, 5);
+            if (ImguiNative.igButton(&quot;+&quot;, new Vector2(30, 30)) &amp;&amp; this.fontSize &lt; 72) this.fontSize++;
+            ImguiNative.igSameLine(0, 15);
+
+            foreach (var option in new[] { &quot;Left&quot;, &quot;Center&quot;, &quot;Right&quot; })
+            {
+                if (ImguiNative.igButton(option, new Vector2(50, 30))) this.alignment = option;
+                ImguiNative.igSameLine(0, 5);
+            }
+
+            // Ends the row started by the last igSameLine.
+            ImguiNative.igNewLine();
+
+            ImguiNative.igText($&quot;Text Style: {(this.isBold ? &quot;Bold &quot; : &quot;&quot;)}{(this.isItalic ? &quot;Italic &quot; : &quot;&quot;)}{(this.isUnderline ? &quot;Underline&quot; : &quot;&quot;)}&quot;);
+            ImguiNative.igText($&quot;Font Size: {this.fontSize}&quot;);
+            ImguiNative.igText($&quot;Alignment: {this.alignment}&quot;);
+        }
+
+        ImguiNative.igEnd();
+    }
+
+    private bool ToggleButton(string label, bool isActive, string tooltip)
+    {
+        var color = isActive ? new Vector4(0.2f, 0.7f, 0.2f, 1.0f) : new Vector4(0.2f, 0.2f, 0.2f, 1.0f);
+        ImguiNative.igPushStyleColor_Vec4(ImGuiCol.Button, color);
+        bool clicked = ImguiNative.igButton(label, new Vector2(30, 30));
+        ImguiNative.igPopStyleColor(1);
+
+        if (ImguiNative.igIsItemHovered(ImGuiHoveredFlags.None))
+        {
+            ImguiNative.igSetTooltip(tooltip);
+        }
+
+        return clicked;
+    }
+}
+</code></pre>
+<p><img src="images/Features_Toolbar.png" alt="A toolbar with style toggles, a font size stepper and alignment buttons"></p>
+<h2 id="image">Image</h2>
+<p><code>igImage</code> draws an Evergine texture. ImGui does not know about Evergine textures, so you first ask <code>ImGuiManager</code> for a binding with <code>CreateImGuiBinding</code>, which returns the <code>ImTextureRef</code> that identifies the texture in the draw data. Create the binding once and keep it in a field; release it with <code>RemoveImGuiBinding</code> when the component goes away.</p>
+<p>This behavior exposes a <code>Texture</code> property, so you can assign any texture asset of the project from Evergine Studio:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+
+public unsafe class ImageViewer : Behavior
+{
+    [BindSceneManager]
+    private ImGuiManager imGuiManager = null;
+
+    private bool open = true;
+    private ImTextureRef imageRef;
+
+    // Assign a texture asset to this property in Evergine Studio.
+    public Texture Texture { get; set; }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        if (this.Texture != null)
+        {
+            this.imageRef = this.imGuiManager.CreateImGuiBinding(this.Texture);
+        }
+    }
+
+    protected override void OnDetach()
+    {
+        base.OnDetach();
+
+        if (this.Texture != null)
+        {
+            this.imGuiManager.RemoveImGuiBinding(this.Texture);
+        }
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        ImguiNative.igSetNextWindowSize(new Vector2(420, 480), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin(&quot;Debug&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            ImguiNative.igText(&quot;Image Display:&quot;);
+
+            if (this.Texture != null)
+            {
+                var size = new Vector2(400, 400);
+
+                // uv0 and uv1 select the part of the texture to draw: here, all of it.
+                ImguiNative.igImage(this.imageRef, size, Vector2.Zero, Vector2.One);
+                ImguiNative.igText($&quot;Image Size: {this.Texture.Description.Width}x{this.Texture.Description.Height}&quot;);
+            }
+            else
+            {
+                ImguiNative.igTextColored(new Vector4(1, 0, 0, 1), &quot;No texture assigned&quot;);
+            }
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_Image.png" alt="A window showing a texture with its size below"></p>
+<p><code>igImage</code> draws the texture as it is. To draw it over a background colour or multiply it by a tint, use <code>igImageWithBg</code>, which takes both colours after the texture coordinates:</p>
+<pre><code class="lang-csharp">// Dark grey background, texture tinted at half opacity.
+ImguiNative.igImageWithBg(this.imageRef, size, Vector2.Zero, Vector2.One, new Vector4(0.1f, 0.1f, 0.1f, 1), new Vector4(1, 1, 1, 0.5f));
+</code></pre>
+<p>To load an image that is not a project asset, <code>ImGUIHelpers.LoadTextureFromFile(path)</code> decodes a PNG or JPEG file into a new <code>Texture</code>, and <code>ImGUIHelpers.DownloadTextureFromUrl(url)</code> does the same for a file on the web. Both are asynchronous and return the texture you then pass to <code>CreateImGuiBinding</code>.</p>
+<h2 id="selectable-grid">Selectable grid</h2>
+<p><code>igSelectable_Bool</code> draws a line of text that highlights when selected, and returns <code>true</code> when the user clicks it. You decide what a click means: here, each item toggles, so several can be selected at once. <code>igPushID_Int</code> gives each item a unique identity even when two labels are equal, which ImGui needs to track which one is being clicked.</p>
+<pre><code class="lang-csharp">public unsafe class MyUI : Behavior
+{
+    private const int Columns = 3;
+
+    private bool open = true;
+    private string[] items = { &quot;Item 1&quot;, &quot;Item 2&quot;, &quot;Item 3&quot;, &quot;Item 4&quot;, &quot;Item 5&quot;, &quot;Item 6&quot;, &quot;Item 7&quot;, &quot;Item 8&quot;, &quot;Item 9&quot;, &quot;Item 10&quot; };
+    private bool[] selected = new bool[10];
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        ImguiNative.igSetNextWindowSize(new Vector2(380, 160), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin(&quot;Selection Grid&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            ImguiNative.igText(&quot;Select items from the grid:&quot;);
+
+            // Split the available width between the columns, minus the spacing between them.
+            float spacing = ImguiNative.igGetStyle()-&gt;ItemSpacing.X;
+            float itemWidth = (ImguiNative.igGetContentRegionAvail().X - (Columns - 1) * spacing) / Columns;
+
+            for (int i = 0; i &lt; this.items.Length; i++)
+            {
+                if (i % Columns != 0)
+                {
+                    ImguiNative.igSameLine(0, -1);
+                }
+
+                ImguiNative.igPushID_Int(i);
+                if (ImguiNative.igSelectable_Bool(this.items[i], this.selected[i], ImGuiSelectableFlags.None, new Vector2(itemWidth, 0)))
+                {
+                    this.selected[i] = !this.selected[i];
+                }
+
+                ImguiNative.igPopID();
+            }
+
+            ImguiNative.igSeparator();
+            ImguiNative.igText(&quot;Selected items:&quot;);
+
+            for (int i = 0; i &lt; this.items.Length; i++)
+            {
+                if (this.selected[i])
+                {
+                    ImguiNative.igBulletText(this.items[i]);
+                }
+            }
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_SelectionGrid.png" alt="A three-column grid of items with one selected and listed below"></p>
+<h2 id="slider">Slider</h2>
+<p><code>igSliderFloat</code> edits a number by dragging a handle between a minimum and a maximum. It writes the new value through the pointer and returns <code>true</code> on every frame the value changes. The format string controls how the value is printed on the slider; a label that starts with <code>##</code> is hidden but still gives the widget its identity. <code>igSliderInt</code>, <code>igSliderFloat2</code> to <code>igSliderFloat4</code>, and the <code>igDragFloat</code> family, which edit without limits, work the same way.</p>
+<pre><code class="lang-csharp">public unsafe class MyUI : Behavior
+{
+    private bool open = true;
+    private float sliderValue = 50f;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        ImguiNative.igSetNextWindowSize(new Vector2(400, 110), ImGuiCond.FirstUseEver);
+
+        if (ImguiNative.igBegin(&quot;Horizontal Slider&quot;, this.open.Pointer(), ImGuiWindowFlags.None))
+        {
+            ImguiNative.igText(&quot;Adjust the slider:&quot;);
+
+            // Pin the field while ImGui writes to it.
+            fixed (float* value = &amp;this.sliderValue)
+            {
+                if (ImguiNative.igSliderFloat(&quot;##slider&quot;, value, 0f, 100f, &quot;%.1f&quot;, ImGuiSliderFlags.None))
+                {
+                    Console.WriteLine($&quot;Slider value changed to: {this.sliderValue}&quot;);
+                }
+            }
+
+            ImguiNative.igText($&quot;Current Value: {this.sliderValue:F1}&quot;);
+        }
+
+        ImguiNative.igEnd();
+    }
+}
+</code></pre>
+<p><img src="images/Features_Slider.png" alt="A slider from 0 to 100 and its current value"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

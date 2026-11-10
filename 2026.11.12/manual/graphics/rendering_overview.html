@@ -1,0 +1,368 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Rendering Overview | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Rendering Overview | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="rendering-overview">Rendering Overview</h1>
+
+<hr>
+<p><img src="images/render_pipeline_flow.png" alt="How one frame is rendered, from the render manager to the final image"></p>
+<p>Every scene has a <strong>render manager</strong> that turns its entities into an image each frame. It gathers what can be drawn, hands it to a <strong>render pipeline</strong> that decides which views to render (cameras, and lights for their shadow maps), and each view is drawn by a <strong>render path</strong>: an ordered list of <strong>render passes</strong> that record commands for the GPU through the <a href="low_level_api/index.html">low-level API</a>.</p>
+<p>You never need to touch this machinery to build a scene: cameras, lights, meshes and materials plug into it automatically. This page explains how it works so you can reason about performance, write effects for the right passes, hook your own code into a frame, or replace parts of the pipeline.</p>
+<h2 id="the-pieces">The pieces</h2>
+<p><img src="images/render_pipeline_classes.png" alt="The classes of the render pipeline and how they own each other"></p>
+<p><em>The render manager owns the pipeline and the render features. The pipeline creates one draw context per camera and per shadow-casting light, and each draw context is rendered by a render path made of passes.</em></p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Role</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>RenderManager</code></td>
+<td>The scene manager for rendering (namespace <code>Evergine.Framework.Managers</code>). It keeps the lists of cameras, lights and drawables, owns the render features and the <code>LineBatch3D</code>, and creates the render pipeline in <code>CreateRenderPipeline()</code>. Its base class, <code>BaseRenderManager</code>, is what <code>this.Managers.RenderManager</code> returns.</td>
+</tr>
+<tr>
+<td><code>RenderFeature</code></td>
+<td>Holds the render objects of one kind and the mesh processors that turn them into batches. The render manager registers four: <code>MeshRenderFeature</code>, <code>BillboardRenderFeature</code>, <code>LineBatchRenderFeature</code> and <code>PostProcessingGraphRenderFeature</code>.</td>
+</tr>
+<tr>
+<td><code>RenderObjectInfo</code></td>
+<td>One thing to draw: a mesh with its material, a billboard, a line batch or a post-processing graph. Drawables such as <code>MeshRenderer</code> add them to the render manager.</td>
+</tr>
+<tr>
+<td><code>RenderPipeline</code></td>
+<td>Decides what gets rendered each frame and in which order. The default is <code>DefaultRenderPipeline</code>.</td>
+</tr>
+<tr>
+<td><code>DrawContext</code></td>
+<td>One view of the scene: a <code>CameraDrawContext</code> for a camera, a <code>LightDrawContext</code> for a light's shadow map. It performs culling, sorting and batching for that view.</td>
+</tr>
+<tr>
+<td><code>RenderPath</code></td>
+<td>How a view is rendered: a <code>CameraRenderPath</code> for cameras (<code>ForwardRenderPath</code> by default) or a <code>LightRenderPath</code> for lights (<code>ShadowRenderPath</code>).</td>
+</tr>
+<tr>
+<td><code>RenderPass</code></td>
+<td>One step of a render path. Its name selects the pass of each effect that is used, so a material is drawn in a pass only if its effect defines a pass with that name.</td>
+</tr>
+<tr>
+<td><code>CullingSystem</code></td>
+<td>Decides which objects and lights a view can see. The default <code>FrustumCullingSystem</code> tests bounding boxes against the view frustum.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="one-frame">One frame</h2>
+<p>The render manager draws every frame after the scene has been updated. For each camera, in <code>CameraOrder</code>:</p>
+<ol>
+<li><strong>Prepare the camera.</strong> A disabled camera, or one without a target, is skipped. The camera refreshes its matrices and its frame buffer, and the lights it can see are culled.</li>
+<li><strong>Render shadow maps.</strong> For each visible light with <code>IsShadowEnabled</code>, the pipeline renders its shadow map with the <code>ShadowRenderPath</code>: four cascades for a directional light, one view for a spot light, six cube faces for point and area lights. Spot, point and area light shadows are rendered once per frame and shared by every camera; directional cascades are refitted for each camera.</li>
+<li><strong>Collect.</strong> The camera's draw context calls <code>Draw</code> on every active drawable, raises <code>OnCameraRender</code>, culls the render objects against the frustum, sorts them by render layer, material and distance, assigns lights to them and groups compatible ones into batches.</li>
+<li><strong>Render passes.</strong> The <code>ForwardRenderPath</code> runs its three passes into the camera's intermediate buffer:
+<ul>
+<li><strong>ZPrePass</strong> writes depth for opaque geometry, so the default pass shades each pixel only once. It is off on WebGL.</li>
+<li><strong>GBuffer</strong> writes normals, roughness and metallic, motion vectors and distortion for post-processing. It only runs on Windows and when the camera renders through an intermediate buffer.</li>
+<li><strong>Default</strong> shades everything, in render layer order. The post-processing graph of the camera runs as the last batch of this pass.</li>
+</ul>
+</li>
+<li><strong>Resolve.</strong> The intermediate buffer is copied to the camera's final target, a display or a frame buffer, and auto exposure and depth bounds are computed if enabled.</li>
+</ol>
+<p>Once every camera is rendered, the graphics presenter shows the result on each display.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Shadow views collect the scene too, so a drawable's <code>Draw</code> method runs once per camera and once per shadow view, every frame. Keep <code>Draw</code> cheap and do per-frame logic in a <code>Behavior</code> instead.</p>
+</div>
+<h3 id="the-intermediate-buffer">The intermediate buffer</h3>
+<p>A camera whose target has an intermediate buffer associated (every swap chain does, except on WebGL 1) renders first into an offscreen buffer of its own. It is 16-bit floating point when <code>HDREnabled</code> is on, so bright values survive until tone mapping, and it is what makes the GBuffer pass and post-processing possible. Without one, the camera renders straight into its target in low dynamic range, which is faster but skips both.</p>
+<p>For a frame buffer you create yourself, set <code>FrameBuffer.IntermediateBufferAssociated</code> to decide. See <a href="cameras.html#render-to-a-texture">Render to a texture</a>.</p>
+<h3 id="directives-from-the-pipeline">Directives from the pipeline</h3>
+<p>The pipeline adds preprocessor directives to every effect it compiles, so shaders can adapt to the scene without the material knowing: whether shadows are supported and which filter is used, whether the scene has point, spot or area lights, whether the camera renders several views for XR, and more. <a href="effects/effect_metatags.html#directives-set-by-the-engine">Effect Metatags</a> lists them.</p>
+<h2 id="hook-into-a-frame">Hook into a frame</h2>
+<p>The pipeline raises events at each stage. Subscribe to them to run code at the right moment without replacing anything.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Raised</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BaseRenderManager.OnPreRender</code> / <code>OnPostRender</code></td>
+<td>Once per frame, before and after the pipeline renders.</td>
+</tr>
+<tr>
+<td><code>RenderPipeline.OnPreRender</code> / <code>OnPostRender</code></td>
+<td>Once per frame, before the first view and after the last one.</td>
+</tr>
+<tr>
+<td><code>RenderPipeline.OnCameraRender</code></td>
+<td>For every draw context (each camera and each shadow view) after its drawables have been drawn and before culling. The argument is the <code>DrawContext</code>.</td>
+</tr>
+<tr>
+<td><code>DrawContext.OnPreRender</code> / <code>OnPostRender</code></td>
+<td>Around the passes of one view, with the <code>CommandBuffer</code> being recorded, so you can add your own GPU work.</td>
+</tr>
+<tr>
+<td><code>BaseRenderManager.OnAddCamera</code>, <code>OnRemoveCamera</code>, <code>OnAddLight</code>, <code>OnRemoveLight</code>, <code>OnAddDrawable</code>, <code>OnRemoveDrawable</code></td>
+<td>When the lists of the render manager change.</td>
+</tr>
+</tbody>
+</table>
+<p>This component marks the point each camera is focused on, which helps when tuning depth of field. It uses <code>OnCameraRender</code> because the handler receives the draw context of the view being rendered:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+using Evergine.Mathematics;
+
+public class FocusPointGizmo : Component
+{
+    [BindSceneManager]
+    private RenderManager renderManager = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+        this.renderManager.RenderPipeline.OnCameraRender += this.OnCameraRender;
+    }
+
+    protected override void OnDeactivated()
+    {
+        this.renderManager.RenderPipeline.OnCameraRender -= this.OnCameraRender;
+        base.OnDeactivated();
+    }
+
+    private void OnCameraRender(object sender, DrawContext drawContext)
+    {
+        // The event is raised for shadow views too; only cameras have a focus distance.
+        if (drawContext is CameraDrawContext cameraContext)
+        {
+            var camera = cameraContext.Camera;
+            Vector3 focusPoint = camera.Position + (camera.Transform.WorldTransform.Forward * camera.FocalDistance);
+            this.renderManager.LineBatch3D.DrawPoint(focusPoint, 0.1f, Color.Yellow);
+        }
+    }
+}
+</code></pre>
+<h2 id="change-how-a-camera-renders">Change how a camera renders</h2>
+<p>Each camera can have its own render path. A <code>ForwardRenderPath</code> has two switches:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ZPrePassIsEnabled</code></td>
+<td>true (false on WebGL)</td>
+<td>Run the depth prepass. Turning it off saves a geometry pass in scenes with little overdraw.</td>
+</tr>
+<tr>
+<td><code>GBufferPassIsEnabled</code></td>
+<td>true on Windows</td>
+<td>Run the GBuffer pass. Post-processing effects that read normals or motion vectors (SSAO, SSR, TAA, motion blur) need it.</td>
+</tr>
+</tbody>
+</table>
+<p>A camera that only renders a minimap or a UI overlay can skip both. This component gives its camera a render path of its own:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+
+public class LightweightRenderPath : Component
+{
+    [BindComponent]
+    private Camera3D camera = null;
+
+    [BindSceneManager]
+    private RenderManager renderManager = null;
+
+    private ForwardRenderPath renderPath;
+
+    protected override bool OnAttached()
+    {
+        if (!base.OnAttached())
+        {
+            return false;
+        }
+
+        this.renderPath = new ForwardRenderPath(this.renderManager)
+        {
+            ZPrePassIsEnabled = false,
+            GBufferPassIsEnabled = false,
+        };
+
+        // Registering the path lets the pipeline dispose of it with the scene.
+        this.renderManager.RenderPipeline.AddRenderPath(this.renderPath);
+
+        // Assigning the path makes the pipeline rebuild the camera's draw context with it.
+        this.camera.RenderPath = this.renderPath;
+
+        return true;
+    }
+}
+</code></pre>
+<p>Each camera draw context of the forward path also exposes <code>ZPrePassIsEnabled</code> and <code>GBufferPassIsEnabled</code>, to change a single camera without a new path: <code>(camera.DrawContext as ForwardDrawContext).GBufferPassIsEnabled = false</code>.</p>
+<p>Two more camera properties change what a view contains: <code>TagFilter</code> limits it to entities with a given tag, and <code>CullingSystem</code> replaces the culling system for that camera, for example with a <code>DummyCullingSystem</code> that culls nothing. See <a href="cameras.html#advanced-rendering-properties">Cameras</a>.</p>
+<h2 id="replace-the-render-pipeline">Replace the render pipeline</h2>
+<p>For deeper changes, derive your own render manager and override <code>CreateRenderPipeline()</code>. Deriving from <code>DefaultRenderPipeline</code> keeps shadows, lighting and the forward path and lets you add to them; deriving from <code>RenderPipeline</code> starts from nothing.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+
+public class MyRenderPipeline : DefaultRenderPipeline
+{
+    public long RenderedCameras { get; private set; }
+
+    public override void RenderSingleCamera(CameraDrawContext cameraContext)
+    {
+        base.RenderSingleCamera(cameraContext);
+        this.RenderedCameras++;
+    }
+}
+
+public class MyRenderManager : RenderManager
+{
+    protected override RenderPipeline CreateRenderPipeline()
+    {
+        return new MyRenderPipeline();
+    }
+}
+
+public class MyScene : Scene
+{
+    public override void RegisterManagers()
+    {
+        // Registered first, so the base class sees a RenderManager and does not add the default one.
+        this.Managers.AddManager(new MyRenderManager());
+        base.RegisterManagers();
+    }
+}
+</code></pre>
+<p>A custom <code>CameraRenderPath</code> overrides <code>CameraRender(CameraDrawContext, CommandBuffer)</code> and fills <code>Passes</code> with its own <code>RenderPass</code> subclasses. Each pass is matched by name to the passes of the effects, so a pass called <code>Outline</code> draws the materials whose effect has a <code>[Begin_Pass:Outline]</code> block. The <a href="low_level_api/index.html">low-level API</a> documents the command buffer those passes record into.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>To draw a new kind of object rather than to change how views are rendered, a custom <code>RenderFeature</code> registered with <code>RenderManager.RegisterRenderFeature</code> is usually enough.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

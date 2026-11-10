@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cylinder Collider | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cylinder Collider | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cylinder-collider">Cylinder Collider</h1>
+
+<p><img src="images/cylinder_collider.png" alt="Cylinder Collider"></p>
+<p>A cylinder standing along the local <strong>Y</strong> axis, with flat caps at each end. Wheels, barrels, columns, coins.</p>
+<h2 id="cylindercollider-component">CylinderCollider Component</h2>
+<p><img src="images/cylindercollider_component.png" alt="CylinderCollider component"></p>
+<pre><code class="lang-csharp">Entity column = new Entity(&quot;column&quot;)
+    .AddComponent(new Transform3D() { Position = position })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new CylinderMesh() { Diameter = 1f, Height = 1.2f })
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody())
+    .AddComponent(new CylinderCollider() { Radius = 0.5f, Height = 1.2f });
+
+this.Managers.EntityManager.Add(column);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Radius</strong></td>
+<td>0.5</td>
+<td>The radius of the cylinder. A <code>CylinderMesh</code> is measured by its <strong>diameter</strong>, so a mesh of diameter 1 matches a collider of radius 0.5.<br><video width="600" height="340" autoplay="" loop="" muted="" playsinline=""><source src="images/cylinder_collider_radius.mp4" type="video/mp4"></video></td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>1</td>
+<td>The full height along Y. The mesh and the collider agree about this one.<br><video width="600" height="340" autoplay="" loop="" muted="" playsinline=""><source src="images/cylinder_collider_height.mp4" type="video/mp4"></video></td>
+</tr>
+<tr>
+<td><strong>UseModelBounds</strong></td>
+<td>false</td>
+<td>Reads <code>Radius</code> as a factor of the larger of the model's X and Z extents, and <code>Height</code> as a factor of its Y extent, instead of local units. See <a href="index.html#local-units-or-model-bounds">Local Units or Model Bounds</a>.</td>
+</tr>
+<tr>
+<td><strong>ConvexRadius</strong></td>
+<td>0.05</td>
+<td>Rounds the rim where the caps meet the side.</td>
+</tr>
+<tr>
+<td><strong>Offset</strong></td>
+<td>0,0,0</td>
+<td>Moves the shape relative to the entity.</td>
+</tr>
+<tr>
+<td><strong>RotationOffset</strong></td>
+<td>0,0,0</td>
+<td>Rotates the shape relative to the entity. A cylinder stands along Y, so this is how one is laid on its side to become a wheel or a roller.</td>
+</tr>
+<tr>
+<td><strong>Density</strong></td>
+<td>1000</td>
+<td>Density in kg/m³, used to compute the body's mass when its <code>Mass</code> is 0.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>For anything that has to roll smoothly over uneven ground, a <a href="capsule_collider.html">capsule</a> beats a cylinder: the cylinder's rim is a hard edge, and a hard edge is what catches on the seam between two triangles. For a wheel on a vehicle, use <a href="../vehicles/vehicle_wheel.html"><code>VehicleWheel</code></a> instead, which is not a collider at all.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

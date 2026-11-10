@@ -1,0 +1,279 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Use Assets | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Use Assets | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="use-assets">Use Assets</h1>
+
+<p><img src="Images/useAssets.png" alt="A material that references texture assets in its properties"></p>
+<p>Once an asset is in the project, you can use it in three ways: reference it from a component, reference it from another asset, or load it from code. References made in Evergine Studio are stored as asset IDs, so renaming or moving an asset does not break them.</p>
+<h2 id="reference-an-asset-from-a-component">Reference an asset from a component</h2>
+<p>Many components expose asset properties. For example, <code>MaterialComponent</code> references a <strong>Material</strong>, <code>Billboard</code> references a <strong>Texture</strong>, and <code>Animation3D</code> references a <strong>Model</strong>. When a scene is loaded, every asset referenced by its components is loaded with it.</p>
+<p>In the <strong>Entity Details</strong> panel, an asset property is shown as an <strong>asset selection control</strong> with the thumbnail, name and path of the current asset.</p>
+<p><img src="Images/assetSelectionControl.png" alt="Asset selection control"></p>
+<p>Click the control to open the <strong>asset picker</strong>:</p>
+<p><img src="Images/assetPicker.png" alt="Asset picker"></p>
+<ul>
+<li>Type in <strong>Assets filter</strong> to narrow the list, which helps in large projects.</li>
+<li>Click an asset to assign it to the property.</li>
+<li>Select <strong>No asset</strong> <img src="Images/noAsset.png" alt="No asset entry"> (the first entry) to clear the reference.</li>
+<li>Click the lens icon <img src="Images/lensIcon.png" alt="Lens icon"> to select the current asset in the <strong>Assets Details</strong> panel, so you can find and edit it.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The picker only lists assets of the type the property expects. A <code>Texture</code> property only offers textures.</p>
+</div>
+<h2 id="reference-an-asset-from-another-asset">Reference an asset from another asset</h2>
+<p>Assets can reference other assets in the same way. A <strong>Material</strong> references <strong>Textures</strong> and <strong>Samplers</strong>, and a <strong>Texture</strong> references the <strong>Sampler</strong> it uses by default. The asset editors show the same selection control as the <strong>Entity Details</strong> panel.</p>
+<h2 id="load-assets-from-code">Load assets from code</h2>
+<p>At runtime you load assets through one of two objects, depending on how long the asset must live:</p>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Scope</th>
+<th>Who unloads the asset</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AssetsService</code></td>
+<td>Application. Use it for assets shared by several scenes.</td>
+<td>You, by calling <code>Unload</code>.</td>
+</tr>
+<tr>
+<td><code>AssetSceneManager</code></td>
+<td>One scene. Use it for assets that belong to that scene.</td>
+<td>The scene, when it is disposed.</td>
+</tr>
+</tbody>
+</table>
+<p>Both identify an asset by the ID that Evergine generates in the <code>EvergineContent</code> class. Each folder of the <code>Content</code> directory becomes a nested class, and each asset becomes a <code>Guid</code> field named after its file, so <code>Content/Textures/Logo.png</code> is <code>EvergineContent.Textures.Logo_png</code>.</p>
+<h3 id="assetscenemanager">AssetSceneManager</h3>
+<p><code>AssetSceneManager</code> is a scene manager that every scene registers by default. Components reach it through <code>this.Managers.AssetSceneManager</code>. Assets loaded here are released when the scene is disposed, for example when you navigate to another scene, so you do not have to track them.</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+
+namespace MyProject.Components
+{
+    public class LogoLoader : Component
+    {
+        [BindComponent]
+        private Billboard billboard = null;
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+
+            // The scene owns this texture and unloads it together with the scene.
+            this.billboard.Texture = this.Managers.AssetSceneManager.Load&lt;Texture&gt;(EvergineContent.Textures.Logo_png);
+        }
+    }
+}
+</code></pre>
+<h3 id="assetsservice">AssetsService</h3>
+<p><code>AssetsService</code> is an application service that manages every asset loaded in the application. The project template registers it in <code>MyApplication</code>. Resolve it from the container, and unload each asset when you no longer need it.</p>
+<pre><code class="lang-csharp">var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+// Load by ID. The same instance is returned to every caller until it is unloaded.
+Texture logo = assetsService.Load&lt;Texture&gt;(EvergineContent.Textures.Logo_png);
+
+// ...
+
+// Unload by ID when no one uses the texture any more.
+assetsService.Unload(EvergineContent.Textures.Logo_png);
+</code></pre>
+<p><code>AssetsService</code> and <code>AssetSceneManager</code> share the same loading methods:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Load&lt;T&gt;(Guid id, bool forceNewInstance = false)</code></td>
+<td>Loads the asset with the given ID. This is the usual way to load an asset.</td>
+</tr>
+<tr>
+<td><code>Load&lt;T&gt;(string path, bool forceNewInstance = false)</code></td>
+<td>Loads a file from the application content directory by its path.</td>
+</tr>
+<tr>
+<td><code>Load&lt;T&gt;(string name, Stream stream, bool forceNewInstance = false)</code></td>
+<td>Loads an asset from a stream. <code>name</code> identifies the asset in the cache, and its extension selects the importer.</td>
+</tr>
+<tr>
+<td><code>Unload(Guid id)</code> / <code>Unload(string path)</code></td>
+<td>Releases an asset loaded by ID or by path.</td>
+</tr>
+<tr>
+<td><code>LoadRaw&lt;T&gt;(Guid id, Func&lt;Stream, T&gt; loader)</code></td>
+<td>Reads a raw asset with your own loader (see below).</td>
+</tr>
+</tbody>
+</table>
+<h3 id="load-an-asset-from-a-stream">Load an asset from a stream</h3>
+<p><code>Load&lt;T&gt;(name, stream)</code> is useful for content that is not known at build time, such as an image downloaded by the application. The extension of <code>name</code> decides how the stream is read, so a <code>.png</code> name uses the PNG importer.</p>
+<pre><code class="lang-csharp">using (var stream = File.OpenRead(downloadedFilePath))
+{
+    Texture photo = assetsService.Load&lt;Texture&gt;(&quot;photo.png&quot;, stream);
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Importing source formats such as <code>.png</code> or <code>.gltf</code> at runtime requires the <code>Evergine.Assets</code> assembly in the application. It is slower and uses more memory than loading exported assets, so prefer assets exported by Evergine Studio whenever the content is known in advance. See <a href="export.html">Export Assets</a>.</p>
+</div>
+<h3 id="force-a-new-instance">Force a new instance</h3>
+<p>By default, loading an asset that is already loaded returns the existing instance. This saves memory and loading time, but a change made to that instance is visible everywhere it is used. Pass <code>forceNewInstance: true</code> when you need an independent copy, for example a material you want to modify for a single entity.</p>
+<pre><code class="lang-csharp">// Shared instance: every caller gets the same material.
+Material sharedMaterial = assetSceneManager.Load&lt;Material&gt;(EvergineContent.Materials.Floor);
+
+// Independent copy: changes to it do not affect sharedMaterial.
+Material uniqueMaterial = assetSceneManager.Load&lt;Material&gt;(EvergineContent.Materials.Floor, forceNewInstance: true);
+</code></pre>
+<h3 id="load-raw-assets">Load raw assets</h3>
+<p>A <strong>raw asset</strong> is a file that Evergine copies to the application output without converting it. Mark an asset as raw with <strong>Set to export as raw</strong> in its context menu (see <a href="edit.html">Edit Assets</a>). Raw assets keep their <code>EvergineContent</code> ID.</p>
+<p>Evergine does not know how to interpret a raw file, so you load it with <code>LoadRaw&lt;T&gt;</code> and a loader function that reads the stream and returns any type you need. A text file, for example:</p>
+<pre><code class="lang-csharp">var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+string text = assetsService.LoadRaw(
+    EvergineContent.Data.Notes_txt,
+    stream =&gt;
+    {
+        using var reader = new StreamReader(stream);
+        return reader.ReadToEnd();
+    });
+</code></pre>
+<p>The same method can deserialize a JSON file:</p>
+<pre><code class="lang-csharp">MyConfiguration configuration = assetsService.LoadRaw(
+    EvergineContent.Data.Configuration_json,
+    stream =&gt; JsonSerializer.Deserialize&lt;MyConfiguration&gt;(stream));
+</code></pre>
+<p><code>AssetSceneManager.LoadRaw&lt;T&gt;</code> behaves exactly the same way.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Raw assets are not cached. Every call to <code>LoadRaw&lt;T&gt;</code> opens the file and runs the loader again. If you reuse the result, keep it yourself and decide when to release it.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Evergine owns the <code>Stream</code> passed to the loader and closes it when the loader returns. Read what you need inside the loader and return the result, never the stream. Raw assets are not tracked by the asset cache, so there is nothing to <code>Unload</code>.</p>
+</div>
+<p><code>LoadRaw&lt;T&gt;</code> throws an <code>ArgumentException</code> if the ID belongs to a regular asset. Use <code>Load&lt;T&gt;</code> for those.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

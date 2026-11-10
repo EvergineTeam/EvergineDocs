@@ -1,0 +1,284 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Physics Bodies | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Physics Bodies | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-physics-bodies">Using Physics Bodies</h1>
+
+<p><img src="images/create_rigid_body.gif" alt="Using Physics Bodies"></p>
+<p>A walkthrough that builds a working physics scene from nothing: a floor, a stack of crates to knock over, a platform that carries things, and a way to shoot at all of it. Every step is code you can paste into a <code>Scene</code>.</p>
+<h2 id="1-register-the-world">1. Register the world</h2>
+<p>Nothing physical happens without a <a href="../physics_manager.html"><code>PhysicsManager</code></a>. Add one in <code>RegisterManagers</code>:</p>
+<pre><code class="lang-csharp">public class MyScene : Scene
+{
+    public override void RegisterManagers()
+    {
+        base.RegisterManagers();
+
+        this.Managers.AddManager(new Evergine.Framework.Physics.PhysicsManager());
+    }
+}
+</code></pre>
+<h2 id="2-give-it-a-floor">2. Give it a floor</h2>
+<p>A floor is a <a href="static_body.html"><code>StaticBody</code></a>. Static bodies never collide with each other, so a level built from a hundred of them is nearly free.</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    Material material = this.Managers.AssetSceneManager.Load&lt;Material&gt;(EvergineContent.Materials.DefaultMaterial);
+
+    Entity floor = new Entity(&quot;floor&quot;)
+        .AddComponent(new Transform3D() { Position = new Vector3(0f, -0.2f, 0f), Scale = new Vector3(40f, 0.4f, 40f) })
+        .AddComponent(new MaterialComponent() { Material = material })
+        .AddComponent(new CubeMesh() { Size = 1f })
+        .AddComponent(new MeshRenderer())
+        .AddComponent(new StaticBody() { Friction = 0.6f })
+        .AddComponent(new BoxCollider());
+
+    this.Managers.EntityManager.Add(floor);
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The <code>BoxCollider</code> needs no size here. Left at its default it takes the entity's scale, so scaling the entity scales the collider with the mesh. A collider on a loaded model can instead size itself from the model's bounds with <code>UseModelBounds</code>; see <a href="../colliders/index.html#local-units-or-model-bounds">Colliders</a>.</p>
+</div>
+<h2 id="3-stack-some-crates">3. Stack some crates</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/body_types.mp4" type="video/mp4">
+</video>
+<pre><code class="lang-csharp">private void CreateStack(Material material, Vector3 origin, int count)
+{
+    for (int i = 0; i &lt; count; i++)
+    {
+        // A hair over one unit apart. Stacked at exactly their own height the boxes start the
+        // simulation already touching, and the solver spends its first step pushing them apart.
+        Entity crate = new Entity($&quot;crate{i}&quot;)
+            .AddComponent(new Transform3D() { Position = origin + (Vector3.UnitY * (0.5f + (i * 1.02f))) })
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new CubeMesh() { Size = 1f })
+            .AddComponent(new MeshRenderer())
+            .AddComponent(new RigidBody() { Restitution = 0.05f })
+            .AddComponent(new BoxCollider());
+
+        this.Managers.EntityManager.Add(crate);
+    }
+}
+</code></pre>
+<p>A <code>RigidBody</code> is dynamic unless <code>IsKinematic</code> says otherwise, so nothing has to be said for a crate to fall.</p>
+<h2 id="4-add-a-platform-that-carries-them">4. Add a platform that carries them</h2>
+<p>A <strong>kinematic</strong> body is driven by your code and pushes everything else out of the way. The one rule is that it has to be moved with <code>MoveTo</code>:</p>
+<pre><code class="lang-csharp">public class MovingPlatform : Behavior
+{
+    [BindComponent]
+    private RigidBody body = null;
+
+    [BindComponent]
+    private Transform3D transform = null;
+
+    private Vector3 origin;
+    private float elapsed;
+
+    public Vector3 Travel { get; set; } = new Vector3(4f, 0f, 0f);
+
+    public float Period { get; set; } = 6f;
+
+    protected override bool OnAttached()
+    {
+        if (!base.OnAttached())
+        {
+            return false;
+        }
+
+        this.origin = this.transform.Position;
+
+        return true;
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // Capped, because a hitch must not become a teleport: the first frame of a scene can run to a
+        // second while content finishes loading, and advancing the whole of it in one step asks MoveTo
+        // for the velocity needed to cross that gap now, which flings anything standing on the platform.
+        this.elapsed += Math.Min((float)gameTime.TotalSeconds, 1f / 30f);
+
+        float phase = (float)Math.Sin(this.elapsed * MathHelper.TwoPi / this.Period);
+
+        this.body.MoveTo(this.origin + (this.Travel * phase), this.transform.Orientation);
+    }
+}
+</code></pre>
+<p>Give the platform entity a <code>RigidBody</code> with <code>IsKinematic = true</code>, a <code>BoxCollider</code>, and this behavior.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Writing <code>transform.Position</code> instead of calling <code>MoveTo</code> teleports the body every step. It ends up in the right place, but with no velocity: it passes through whatever was in its way and leaves behind whatever was standing on it.</p>
+</div>
+<h2 id="5-shoot-at-it">5. Shoot at it</h2>
+<p>Firing a body into a live world exercises the interesting part of the system (deferred creation, the broad phase taking a new body mid-simulation) and it is the quickest way to see whether the scene behaves.</p>
+<pre><code class="lang-csharp">public class BallLauncher : Behavior
+{
+    private Material material;
+
+    public float Speed { get; set; } = 18f;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        MouseDispatcher mouse = this.Managers.RenderManager.ActiveCamera3D?.Display?.MouseDispatcher;
+
+        if (mouse == null || mouse.ReadButtonState(MouseButtons.Left) != ButtonState.Pressing)
+        {
+            return;
+        }
+
+        Camera3D camera = this.Managers.RenderManager.ActiveCamera3D;
+        Vector3 direction = Vector3.Normalize(camera.Transform.WorldTransform.Forward);
+
+        this.material ??= this.Managers.AssetSceneManager.Load&lt;Material&gt;(EvergineContent.Materials.DefaultMaterial);
+
+        Entity shot = new Entity(&quot;shot&quot;)
+            .AddComponent(new Transform3D() { Position = camera.Transform.Position + (direction * 1.2f) })
+            .AddComponent(new MaterialComponent() { Material = this.material })
+            .AddComponent(new SphereMesh() { Diameter = 0.4f })
+            .AddComponent(new MeshRenderer())
+
+            // The velocity is set before the entity joins the scene, which is what makes it stick: the
+            // manager creates bodies deferred, so a velocity assigned now goes into the body's creation
+            // settings instead of having to wait a frame to be applied.
+            .AddComponent(new RigidBody()
+            {
+                Restitution = 0.3f,
+                LinearVelocity = direction * this.Speed,
+            })
+            .AddComponent(new SphereCollider() { Radius = 0.2f });
+
+        this.Managers.EntityManager.Add(shot);
+    }
+}
+</code></pre>
+<h2 id="6-react-to-the-impacts">6. React to the impacts</h2>
+<pre><code class="lang-csharp">this.crateBody.CollisionStarted += (sender, info) =&gt;
+{
+    // info.OtherEntity is what hit us, info.Point is where, info.Normal is from which side.
+    this.PlayThud(info.Point);
+};
+</code></pre>
+<p>See <a href="collisions.html">Collisions</a> for the full contact information, and <a href="sensors.html">Sensors</a> for bodies that report overlaps without stopping anything.</p>
+<h2 id="7-check-it-with-debug-rendering">7. Check it with debug rendering</h2>
+<p>When a body behaves oddly the first question is always whether its shape is what you think it is. Turn the wireframe on and look:</p>
+<pre><code class="lang-csharp">// The render manager's debug lines are the switch; the physics flags choose what is drawn.
+this.Managers.RenderManager.DebugLines = true;
+this.Managers.FindManager&lt;PhysicsManager&gt;().DebugFlags = PhysicsDebugFlags.Colliders;
+</code></pre>
+<p>The debug drawing shows the shapes <strong>as the solver has them</strong>, convex radius applied and compound shapes assembled, so anything that disagrees with the mesh is a real difference and not a drawing artefact. See <a href="../debug_rendering.html">Debug Rendering</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

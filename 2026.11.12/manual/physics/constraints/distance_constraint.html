@@ -1,0 +1,248 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Distance Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Distance Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="distance-constraint">Distance Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/distance_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>distance constraint</strong> keeps two points a certain distance apart, or between two distances. It is the rope, the rod and the spring, depending on how its limits and its spring are set.</p>
+<p>This constraint had no equivalent in the previous API; it was previously approximated with a generic six-degree-of-freedom joint.</p>
+<table>
+<thead>
+<tr>
+<th>Set as</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MinDistance = 0</code>, <code>MaxDistance = L</code></td>
+<td>A <strong>rope</strong>. It stops the bodies drifting further than L apart and does nothing when they are closer.</td>
+</tr>
+<tr>
+<td><code>MinDistance = MaxDistance = L</code></td>
+<td>A <strong>rigid rod</strong>. The bodies stay exactly L apart, pushed as well as pulled.</td>
+</tr>
+<tr>
+<td>Either, plus <code>LimitsSpring</code></td>
+<td>A <strong>spring</strong>. The limit becomes soft: the bodies can go past it and are pulled back.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="distanceconstraint-component">DistanceConstraint Component</h2>
+<p><img src="images/distanceconstraint_component.png" alt="DistanceConstraint component"></p>
+<pre><code class="lang-csharp">Entity load = new Entity(&quot;load&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 2f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider())
+    .AddComponent(new DistanceConstraint()
+    {
+        ConnectedEntityPath = &quot;crane&quot;,
+        MinDistance = 0f,        // A rope: it may swing closer...
+        MaxDistance = 3f,        // ...but never hang lower than three metres.
+    });
+
+this.Managers.EntityManager.Add(load);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MinDistance</strong></td>
+<td>-1</td>
+<td>The closest the two anchors may be, in metres. <strong>A negative value means &quot;the distance they are at when the constraint is created&quot;</strong>, so a rod built in place needs no measuring.</td>
+</tr>
+<tr>
+<td><strong>MaxDistance</strong></td>
+<td>-1</td>
+<td>The furthest they may be. Negative means the same.</td>
+</tr>
+<tr>
+<td><strong>LimitsSpring</strong></td>
+<td><em>hard</em></td>
+<td>Makes the limits soft. See <a href="index.html#springs">Springs</a>. A frequency of 0, which is the default, means a hard limit.</td>
+</tr>
+<tr>
+<td><strong>CurrentDistance</strong></td>
+<td><em>read-only</em></td>
+<td>How far apart the anchors are right now.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus the <a href="index.html#common-properties">common properties</a>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Both distances default to <code>-1</code>, which means &quot;however far apart they happen to be&quot;. Dropping a <code>DistanceConstraint</code> onto two bodies with nothing else set therefore gives a <strong>rigid rod</strong> holding them exactly where they were.</p>
+</div>
+<h2 id="using-distance-constraint">Using Distance Constraint</h2>
+<h3 id="a-winch">A winch</h3>
+<pre><code class="lang-csharp">public class Winch : Behavior
+{
+    [BindComponent]
+    private DistanceConstraint cable = null;
+
+    public float Speed { get; set; } = 1.5f;
+
+    public float ShortestLength { get; set; } = 0.5f;
+
+    public float LongestLength { get; set; } = 8f;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        float input = this.ReadWinchInput();
+
+        if (input == 0f)
+        {
+            return;
+        }
+
+        float length = MathHelper.Clamp(
+            this.cable.MaxDistance + (input * this.Speed * (float)gameTime.TotalSeconds),
+            this.ShortestLength,
+            this.LongestLength);
+
+        // Only the maximum moves. The minimum stays at zero so the load may still swing in towards the
+        // winch; driving both would make the cable a rigid rod that shoves as well as pulls.
+        this.cable.MaxDistance = length;
+    }
+}
+</code></pre>
+<h3 id="a-spring">A spring</h3>
+<pre><code class="lang-csharp">DistanceConstraint spring = entity.FindComponent&lt;DistanceConstraint&gt;();
+
+spring.MinDistance = 1f;
+spring.MaxDistance = 1f;
+
+// Both limits at the same place and a soft spring on them: the body is pulled towards one metre
+// from the anchor and bounces about it rather than being locked there.
+spring.LimitsSpring = SpringParameters.FromFrequency(1.5f, 0.4f);
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A rope made of one distance constraint does not drape: it is a straight line between two points that happens to have a maximum length. For a rope that hangs in a curve, chain several bodies together with <a href="point_constraint.html">point constraints</a> instead.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

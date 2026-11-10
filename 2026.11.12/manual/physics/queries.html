@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Queries | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Queries | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="queries">Queries</h1>
+
+<p><img src="images/raycasting.jpg" alt="Queries"></p>
+<p>A <strong>query</strong> asks the world what is there, without moving anything. Aiming a weapon, checking whether a character can step forward, finding everything caught in a blast: all of it is done with queries rather than by putting bodies into the scene and watching what they hit.</p>
+<p>All of them live on the <a href="physics_manager.html"><code>PhysicsManager</code></a>:</p>
+<table>
+<thead>
+<tr>
+<th>Query</th>
+<th>Answers</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Ray cast</strong></td>
+<td>What does this line hit first?</td>
+</tr>
+<tr>
+<td><strong>Shape cast</strong></td>
+<td>If I sweep this shape along this line, where does it first touch something?</td>
+</tr>
+<tr>
+<td><strong>Overlap</strong></td>
+<td>What is inside this volume right now?</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Queries see the world <strong>as the last step left it</strong>. A body created earlier in the same frame is not in it yet, because bodies are added at a safe point in the step. Call <code>physicsManager.FlushPending()</code> first if a query has to see something that was only just created.</p>
+</div>
+<h2 id="ray-casting">Ray Casting</h2>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/raycast.png" alt="Closest hit"></td>
+<td><strong>RayCast</strong> returns the closest hit along the ray, which is what &quot;what am I aiming at&quot; means.</td>
+</tr>
+<tr>
+<td><img src="images/raycastAll.png" alt="All hits"></td>
+<td><strong>RayCastAll</strong> returns every body the ray crosses, in no particular order.</td>
+</tr>
+</tbody>
+</table>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/raycast.mp4" type="video/mp4">
+</video>
+<p><em>A ray swept across a scene. The cross is the hit point and the yellow line is the surface normal there.</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RayCast(origin, direction, maxDistance, out hit)</strong></td>
+<td>The closest hit, with the default filter.</td>
+</tr>
+<tr>
+<td><strong>RayCast(origin, direction, maxDistance, in filter, out hit)</strong></td>
+<td>The closest hit, filtered.</td>
+</tr>
+<tr>
+<td><strong>RayCast(ref ray, maxDistance, in filter, out hit)</strong></td>
+<td>The same, from a <code>Ray</code>.</td>
+</tr>
+<tr>
+<td><strong>RayCastAll(origin, direction, maxDistance, results, in filter)</strong></td>
+<td>Every hit, appended to <code>results</code>. Returns how many there were.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">public class Picker : Behavior
+{
+    [BindSceneManager]
+    private PhysicsManager physicsManager = null;
+
+    [BindComponent]
+    private Transform3D transform = null;
+
+    public Entity PickAhead()
+    {
+        Vector3 origin = this.transform.Position;
+        Vector3 direction = this.transform.WorldTransform.Forward;
+
+        if (this.physicsManager.RayCast(origin, direction, 100f, out RayCastHit hit))
+        {
+            return hit.Entity;
+        }
+
+        return null;
+    }
+}
+</code></pre>
+<h3 id="raycasthit">RayCastHit</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Body</strong></td>
+<td>The body that was hit, as a <code>PhysicsBody</code>. It may be a <code>StaticBody</code>; <code>hit.Body as RigidBody</code> is the test for one that can be pushed.</td>
+</tr>
+<tr>
+<td><strong>Entity</strong></td>
+<td>Its entity, which is usually what gameplay code wants.</td>
+</tr>
+<tr>
+<td><strong>Collider</strong></td>
+<td>Which collider of a compound shape was hit.</td>
+</tr>
+<tr>
+<td><strong>Point</strong></td>
+<td>Where the ray met the surface, in world space.</td>
+</tr>
+<tr>
+<td><strong>Normal</strong></td>
+<td>The surface normal there.</td>
+</tr>
+<tr>
+<td><strong>Distance</strong></td>
+<td>How far along the ray the hit is, in metres.</td>
+</tr>
+<tr>
+<td><strong>Fraction</strong></td>
+<td>The same, as a fraction of <code>maxDistance</code>, from 0 to 1.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="shape-casting">Shape Casting</h2>
+<p><img src="images/sweep_test.png" alt="Shape cast"></p>
+<p>A shape cast sweeps a whole shape along a line instead of a single ray. It is what answers &quot;can I move there&quot;, since a ray through the middle of a character says nothing about its shoulders.</p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/shapecast.mp4" type="video/mp4">
+</video>
+<p><em>A sphere swept along the same line as the ray above. The green outline is where it stopped; the cross is where it touched.</em></p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SphereCast(radius, from, direction, maxDistance, in filter, out hit)</strong></td>
+<td>Sweeps a sphere.</td>
+</tr>
+<tr>
+<td><strong>BoxCast(halfExtents, from, orientation, direction, maxDistance, in filter, out hit)</strong></td>
+<td>Sweeps a box.</td>
+</tr>
+<tr>
+<td><strong>ShapeCast(collider, from, orientation, direction, maxDistance, in filter, out hit)</strong></td>
+<td>Sweeps the shape of an existing collider.</td>
+</tr>
+<tr>
+<td><strong>ShapeCastAll(collider, from, orientation, direction, maxDistance, results, in filter)</strong></td>
+<td>Every body the swept shape touches.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// Can this character move a step forward without clipping a wall?
+bool blocked = this.physicsManager.SphereCast(
+    radius: 0.4f,
+    from: this.transform.Position + Vector3.Up,
+    direction: this.facing,
+    maxDistance: 0.6f,
+    filter: QueryFilter.Ignoring(this.body),
+    out ShapeCastHit hit);
+</code></pre>
+<p><code>ShapeCastHit</code> carries everything <code>RayCastHit</code> does, plus <strong>PenetrationDepth</strong>, how deep the shape already overlapped at the start of the sweep.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A shape cast starting inside a body reports a hit at distance zero. Passing the body you are casting from in <code>QueryFilter.IgnoreBody</code> is nearly always what you want, and <code>QueryFilter.Ignoring(body)</code> is the one-liner for it.</p>
+</div>
+<h2 id="overlap-queries">Overlap Queries</h2>
+<p>An overlap asks what is inside a volume right now. Nothing is swept and nothing moves.</p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/overlap_sphere.mp4" type="video/mp4">
+</video>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OverlapPoint(point, in filter, out hit)</strong></td>
+<td>The first body containing a point.</td>
+</tr>
+<tr>
+<td><strong>OverlapPointAll(point, results, in filter)</strong></td>
+<td>Every body containing it.</td>
+</tr>
+<tr>
+<td><strong>OverlapSphere(centre, radius, results, in filter)</strong></td>
+<td>Every body inside a sphere.</td>
+</tr>
+<tr>
+<td><strong>OverlapBox(centre, halfExtents, orientation, results, in filter)</strong></td>
+<td>Every body inside a box.</td>
+</tr>
+<tr>
+<td><strong>OverlapShape(collider, position, orientation, results, in filter)</strong></td>
+<td>Every body inside an existing collider's shape.</td>
+</tr>
+<tr>
+<td><strong>OverlapAABox(box, results, in filter)</strong></td>
+<td>Every body whose bounds meet an axis-aligned box. <strong>Broad phase only</strong>, so it is approximate and very fast.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">public void Explode(Vector3 centre, float radius, float force)
+{
+    // Reused between calls rather than allocated here: an explosion that runs every frame while a
+    // charge burns would otherwise hand the collector a list a frame.
+    this.hits.Clear();
+    this.physicsManager.OverlapSphere(centre, radius, this.hits, QueryFilter.Default);
+
+    foreach (OverlapHit hit in this.hits)
+    {
+        // The overlap reports walls and floors too. Only a RigidBody has an impulse to receive.
+        if (hit.Body is not RigidBody body)
+        {
+            continue;
+        }
+
+        Vector3 away = body.CenterOfMassPosition - centre;
+        float distance = away.Length();
+
+        if (distance &lt; 0.001f)
+        {
+            continue;
+        }
+
+        // Falls off with distance, so the edge of the blast nudges and the middle of it throws.
+        float falloff = Math.Max(0f, 1f - (distance / radius));
+
+        body.ApplyImpulse(away / distance * force * falloff);
+    }
+}
+</code></pre>
+<p><code>OverlapHit</code> carries <strong>Body</strong>, <strong>Entity</strong> and <strong>Collider</strong>, the same three as a ray hit. There is no point or normal: nothing was cast, so there is no contact to report.</p>
+<h2 id="query-filters">Query Filters</h2>
+<p>Every query takes a <code>QueryFilter</code>. Its default value hits every solid body and skips sensors, which is what a query usually wants.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CategoryMask</strong></td>
+<td><code>None</code></td>
+<td>The <a href="collision_filtering.html">categories</a> the query may hit. <strong>Zero means every category</strong>, not none.</td>
+</tr>
+<tr>
+<td><strong>IncludeSensors</strong></td>
+<td>false</td>
+<td>Whether sensors take part. Off by default: a sensor is a volume to be notified about, not an obstacle.</td>
+</tr>
+<tr>
+<td><strong>IgnoreBody</strong></td>
+<td>null</td>
+<td>A body the query always skips, normally the one it starts from. Any <code>PhysicsBody</code>.</td>
+</tr>
+<tr>
+<td><strong>Predicate</strong></td>
+<td>null</td>
+<td>An extra test per candidate body, a <code>Func&lt;PhysicsBody, bool&gt;</code>. Returning <code>false</code> skips it.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Factory</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>QueryFilter.Default</strong></td>
+<td>Every solid body, no sensors.</td>
+</tr>
+<tr>
+<td><strong>QueryFilter.FromCategories(categories)</strong></td>
+<td>Restricted to a set of categories.</td>
+</tr>
+<tr>
+<td><strong>QueryFilter.Ignoring(body)</strong></td>
+<td>Everything except one body.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// Only enemies, never the shooter, and only those still alive.
+QueryFilter filter = QueryFilter.FromCategories(CollisionCategory.Cat3);
+filter.IgnoreBody = this.body;
+filter.Predicate = candidate =&gt; candidate.Owner.FindComponent&lt;Health&gt;()?.IsAlive == true;
+
+int found = this.physicsManager.OverlapSphere(this.transform.Position, 8f, this.hits, filter);
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>Predicate</code> is called during the query, on the calling thread. Keep it to a test: do not create or destroy anything from inside one.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

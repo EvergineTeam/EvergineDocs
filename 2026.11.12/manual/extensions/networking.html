@@ -1,0 +1,880 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Networking | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Networking | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="networking">Networking</h1>
+
+<hr>
+<p><img src="images/networking_topology.png" alt="A matchmaking server with two rooms and a lobby, and four clients connected to it"></p>
+<p>The <code>Evergine.Networking</code> extension connects several Evergine applications over the network so they can share a session. One process runs a <strong>matchmaking server</strong>; the others, and usually the server's own process too, run a <strong>matchmaking client</strong> that connects to it, enters a <strong>room</strong>, and exchanges messages and synchronized properties with the other players in that room. It is designed for local networks: clients can find a server without knowing its address, and the processes can run on the same computer or on different devices.</p>
+<h2 id="how-it-works">How it works</h2>
+<p>Two services do all the work, one on each side:</p>
+<ul>
+<li><code>MatchmakingServerService</code>, in <code>Evergine.Networking.Server</code>, accepts connections, keeps the list of rooms and players, and forwards data between players.</li>
+<li><code>MatchmakingClientService</code>, in <code>Evergine.Networking.Client</code>, connects to a server, creates or joins rooms, and sends and receives data.</li>
+</ul>
+<p>A connected client starts in the <strong>lobby</strong>, where it sees the list of visible rooms. It then enters one room at a time. Rooms group players: messages sent to &quot;the room&quot; reach the other players in it, and each room has its own table of properties that every member sees.</p>
+<p>All traffic goes through the server. Clients never connect to each other; when a client sends a message to another player, the server receives it and forwards it. The picture at the top of the page shows a server with two rooms and one client still in the lobby.</p>
+<p>The transport is <a href="https://github.com/EvergineTeam/lidgren-network-gen3">Evergine.Lidgren</a>, Evergine's fork of the Lidgren.Network library, which sends messages over UDP with optional reliability and ordering.</p>
+<h2 id="install-the-package">Install the package</h2>
+<p>Add <code>Evergine.Networking</code> to the project that contains your scenes and components. It brings <code>Evergine.Lidgren</code> with it.</p>
+<pre><code class="lang-xml">&lt;!-- Use the same version as the other Evergine packages in your project. --&gt;
+&lt;PackageReference Include=&quot;Evergine.Networking&quot; Version=&quot;EVERGINE_VERSION&quot; /&gt;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The extension needs UDP sockets, which browsers do not provide, so it does not work in WebAssembly builds. Check that your firewall lets the server's port through, and that the network allows broadcast traffic if you use server discovery.</p>
+</div>
+<h2 id="register-the-services">Register the services</h2>
+<p>Both services are Evergine <a href="../basics/services.html">services</a>. Register the ones each process needs in the container, in the constructor of your <code>Application</code>:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Networking.Client;
+using Evergine.Networking.Server;
+
+public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        // ... the default registrations of the template ...
+
+        // Only the process that hosts the session needs the server.
+        this.Container.RegisterInstance(new MatchmakingServerService());
+
+        // Every process that takes part in the session, the host included, needs a client.
+        this.Container.RegisterInstance(new MatchmakingClientService());
+    }
+}
+</code></pre>
+<p>Components then get them with <code>[BindService]</code>.</p>
+<h2 id="configure-the-server">Configure the server</h2>
+<p>Set the server's properties before calling <code>StartAsync</code>. Once the server has started, changing any of them throws an <code>InvalidOperationException</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ApplicationIdentifier</strong></td>
+<td>null</td>
+<td><strong>Required.</strong> Separates your application from any other that uses the extension on the same network. Clients must use the same value.</td>
+</tr>
+<tr>
+<td><strong>ClientApplicationVersion</strong></td>
+<td>null</td>
+<td>Combined with the identifier, so clients of a different version neither discover nor connect to this server.</td>
+</tr>
+<tr>
+<td><strong>ServerName</strong></td>
+<td>null</td>
+<td>Sent in every discovery response, so clients can show a list of servers by name.</td>
+</tr>
+<tr>
+<td><strong>PingInterval</strong></td>
+<td>4 seconds</td>
+<td><code>TimeSpan</code> between the pings used to measure latency and detect lost connections.</td>
+</tr>
+<tr>
+<td><strong>ConnectionTimeout</strong></td>
+<td>25 seconds</td>
+<td><code>TimeSpan</code> without any message after which a connection is considered lost. Keep it several times longer than <code>PingInterval</code>, so a single lost ping does not drop the connection.</td>
+</tr>
+<tr>
+<td><strong>NetworkFactory</strong></td>
+<td><code>NetworkFactory</code></td>
+<td>Creates the underlying network peer. Replace it only to plug in a different transport, for example in tests.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">this.server.ApplicationIdentifier = &quot;MyApp&quot;;
+this.server.ClientApplicationVersion = &quot;1.0.0&quot;;
+this.server.ServerName = &quot;Workshop PC&quot;;
+this.server.PingInterval = TimeSpan.FromSeconds(4);
+this.server.ConnectionTimeout = TimeSpan.FromSeconds(8);
+
+await this.server.StartAsync(21000);
+</code></pre>
+<p><code>ShutdownAsync()</code> stops the server, disconnects every client and clears its rooms and players. After it completes, the properties can be changed and the server started again.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A breakpoint stops your process, but not the clock of the other peers, so a paused server or client is disconnected once <code>ConnectionTimeout</code> expires. While debugging, set it to something like <code>TimeSpan.FromHours(1)</code> on both sides.</p>
+</div>
+<h3 id="server-events">Server events</h3>
+<p>The server reports what its clients do through events. They are raised on the main thread, so handlers can touch entities and components directly.</p>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Arguments</th>
+<th>Raised when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PlayerConnected</strong></td>
+<td><code>ServerPlayer</code></td>
+<td>A client has connected. It is in the lobby.</td>
+</tr>
+<tr>
+<td><strong>PlayerDisconnected</strong></td>
+<td><code>ServerPlayer</code></td>
+<td>A client has disconnected or timed out. It has already left its room.</td>
+</tr>
+<tr>
+<td><strong>PlayerJoining</strong></td>
+<td><code>PlayerJoiningEventArgs</code></td>
+<td>A client asks to join an existing room. Call <code>e.Reject()</code> to refuse it; the client receives <code>EnterRoomResultCodes.Rejected</code>. Not raised for the player who creates the room.</td>
+</tr>
+<tr>
+<td><strong>PlayerJoined</strong></td>
+<td><code>ServerPlayer</code></td>
+<td>A client has entered a room, including the one that created it.</td>
+</tr>
+<tr>
+<td><strong>PlayerLeaving</strong> / <strong>PlayerLeft</strong></td>
+<td><code>ServerPlayer</code></td>
+<td>A client is about to leave, and has left, its room.</td>
+</tr>
+<tr>
+<td><strong>PlayerSynchronized</strong></td>
+<td><code>ServerPlayer</code></td>
+<td>The server has received new values of a player's properties.</td>
+</tr>
+<tr>
+<td><strong>RoomCreated</strong> / <strong>RoomDestroyed</strong></td>
+<td><code>ServerRoom</code></td>
+<td>A room has been created, or removed because its last player left.</td>
+</tr>
+<tr>
+<td><strong>RoomSynchronized</strong></td>
+<td><code>ServerRoom</code></td>
+<td>The server has received new values of a room's properties.</td>
+</tr>
+<tr>
+<td><strong>MessageReceivedFromClient</strong></td>
+<td><code>MessageReceivedEventArgs</code></td>
+<td>A client has sent a message to the server with <code>SendToServer</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>AllConnectedPlayers</code>, <code>PlayersInLobby</code> and <code>AllRooms</code> list the current state at any time, and <code>FindPlayer(endpoint)</code> returns the <code>ServerPlayer</code> behind a network endpoint.</p>
+<h2 id="connect-a-client">Connect a client</h2>
+<p>Configure the client with the same identifier and version as the server, and optionally a nickname, before it connects:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ApplicationIdentifier</strong></td>
+<td>null</td>
+<td><strong>Required.</strong> Must match the server's.</td>
+</tr>
+<tr>
+<td><strong>ClientApplicationVersion</strong></td>
+<td>null</td>
+<td>Must match the server's.</td>
+</tr>
+<tr>
+<td><strong>PingInterval</strong></td>
+<td>4 seconds</td>
+<td>As on the server. Use the same values on both sides.</td>
+</tr>
+<tr>
+<td><strong>ConnectionTimeout</strong></td>
+<td>25 seconds</td>
+<td>As on the server.</td>
+</tr>
+<tr>
+<td><strong>LocalPlayer</strong></td>
+<td></td>
+<td>The <code>LocalNetworkPlayer</code> of this client. Set <code>LocalPlayer.Nickname</code> before connecting to send it with the connection request.</td>
+</tr>
+</tbody>
+</table>
+<p>There are two ways to reach a server:</p>
+<pre><code class="lang-csharp">// 1. Discovery: broadcast on the local network and wait for answers.
+this.client.ServerDiscovered += this.OnServerDiscovered;
+this.client.DiscoverServers(21000);
+
+// 2. A known address.
+bool connected = await this.client.ConnectAsync(new NetworkEndpoint(&quot;192.168.1.20&quot;, 21000));
+</code></pre>
+<p><code>ServerDiscovered</code> passes a <code>HostDiscoveredEventArgs</code> with the server's <code>Host</code> endpoint and its <code>ServerName</code>; pass the endpoint to <code>ConnectAsync</code>. Every server that answers raises the event, so decide which one to use and ignore the rest. <code>Disconnect()</code> leaves the current room, closes the connection and returns the client to <code>Disconnected</code>.</p>
+<h3 id="client-state">Client state</h3>
+<p><code>ClientState</code> tells you where the client is, and <code>ClientStateChanged</code> reports every change. <code>IsConnectedAndReady</code> is <code>true</code> only in the two states in which room and message operations are allowed, <code>InLobby</code> and <code>Joined</code>.</p>
+<table>
+<thead>
+<tr>
+<th><code>ClientStates</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Disconnected</strong></td>
+<td>Not connected to any server.</td>
+</tr>
+<tr>
+<td><strong>InLobby</strong></td>
+<td>Connected, and not in a room. <code>RoomsInLobby</code> lists the visible rooms.</td>
+</tr>
+<tr>
+<td><strong>Joining</strong></td>
+<td>A create or join request is on its way to the server.</td>
+</tr>
+<tr>
+<td><strong>Joined</strong></td>
+<td>In a room. <code>CurrentRoom</code> and <code>LocalPlayer.Id</code> are valid.</td>
+</tr>
+<tr>
+<td><strong>Leaving</strong></td>
+<td>A leave request is on its way; the client returns to <code>InLobby</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="rooms">Rooms</h2>
+<p>A room is created with a <code>RoomOptions</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RoomName</strong></td>
+<td>null</td>
+<td>Unique name of the room on the server. Always set it.</td>
+</tr>
+<tr>
+<td><strong>IsVisible</strong></td>
+<td>true</td>
+<td>Whether the room appears in <code>RoomsInLobby</code> of clients in the lobby.</td>
+</tr>
+<tr>
+<td><strong>MaxPlayers</strong></td>
+<td>0</td>
+<td>Maximum number of players. <code>0</code> means no limit.</td>
+</tr>
+<tr>
+<td><strong>PropertiesListedInLobby</strong></td>
+<td>empty</td>
+<td>A set of names stored with the room's lobby entry and sent to the clients in the lobby. The extension does not interpret them.</td>
+</tr>
+</tbody>
+</table>
+<p>Three methods enter a room, all of them only from the lobby. Each returns an <code>EnterRoomResultCodes</code> when the server answers:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CreateRoomAsync(RoomOptions)</code></td>
+<td>Creates the room and enters it. Fails with <code>RoomAlreadyExists</code> if the name is taken.</td>
+</tr>
+<tr>
+<td><code>JoinRoomAsync(string name)</code></td>
+<td>Enters an existing room. Fails with <code>RoomNotExists</code>, <code>RoomIsFull</code> or <code>Rejected</code>.</td>
+</tr>
+<tr>
+<td><code>JoinOrCreateRoomAsync(RoomOptions)</code></td>
+<td>Enters the room, creating it with these options if it does not exist. The options are ignored when the room already exists.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th><code>EnterRoomResultCodes</code></th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Succeed</strong></td>
+<td>The client is in the room.</td>
+</tr>
+<tr>
+<td><strong>RoomNotExists</strong></td>
+<td>No room has that name.</td>
+</tr>
+<tr>
+<td><strong>RoomAlreadyExists</strong></td>
+<td>A room with that name already exists.</td>
+</tr>
+<tr>
+<td><strong>RoomIsFull</strong></td>
+<td>The room has <code>MaxPlayers</code> players.</td>
+</tr>
+<tr>
+<td><strong>Rejected</strong></td>
+<td>A <code>PlayerJoining</code> handler on the server rejected the player.</td>
+</tr>
+<tr>
+<td><strong>Aborted</strong></td>
+<td>The client disconnected before the server answered.</td>
+</tr>
+</tbody>
+</table>
+<p>The first player in a room is its master client (<code>IsMasterClient</code> on the player, <code>MasterClientId</code> on the room). When that player leaves, the remaining player with the lowest id takes over, which gives you a simple way to choose one client to own shared decisions.</p>
+<p><code>LeaveRoom()</code> returns the client to the lobby. While in a room, <code>CurrentRoom</code> is a <code>LocalNetworkRoom</code> with the room's <code>Name</code>, <code>PlayerCount</code>, <code>MaxPlayers</code>, its <code>RemotePlayers</code> and its <code>CustomProperties</code>. Its <code>PlayerJoined</code> and <code>PlayerLeft</code> events report other players arriving and leaving, and the client's <code>CurrentRoomSynchronized</code> event fires whenever the server sends new room or player data. In the lobby, <code>RoomsInLobbySynchronized</code> fires when the list of rooms changes.</p>
+<h2 id="messages">Messages</h2>
+<p>Messages are the way to send events: a chat line, a &quot;fire&quot; command, a request that only the server should handle. You create an <code>OutgoingMessage</code>, write values into it, and send it with a delivery method. The receiver reads the values back <strong>in the same order</strong>.</p>
+<p><img src="images/networking_message_flow.png" alt="Who sends what to whom: every message goes through the server"></p>
+<p><em>The server relays every message. A client names the destination, and the event that fires on the receiving side depends on how it was sent.</em></p>
+<table>
+<thead>
+<tr>
+<th>Send with</th>
+<th>Reaches</th>
+<th>Raised on the receiver</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>client.SendToCurrentRoom(message, delivery)</code></td>
+<td>Every other player in the sender's room.</td>
+<td><code>client.MessageReceivedFromCurrentRoom</code></td>
+</tr>
+<tr>
+<td><code>client.SendToPlayer(message, remotePlayer, delivery)</code></td>
+<td>One player in the sender's room.</td>
+<td><code>client.MessageReceivedFromPlayer</code></td>
+</tr>
+<tr>
+<td><code>client.SendToServer(message, delivery)</code></td>
+<td>The server.</td>
+<td><code>server.MessageReceivedFromClient</code></td>
+</tr>
+<tr>
+<td><code>server.SendToClient(message, endpoint, delivery)</code></td>
+<td>One client, by the <code>Endpoint</code> of its <code>ServerPlayer</code>.</td>
+<td><code>client.MessageReceivedFromServer</code></td>
+</tr>
+</tbody>
+</table>
+<p>The two room events pass a <code>MessageFromPlayerEventArgs</code>, whose <code>FromPlayer</code> is the <code>RemoteNetworkPlayer</code> who sent it. <code>SendToCurrentRoom</code> and <code>SendToPlayer</code> return <code>false</code> when the client is not in a room.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Subscribe to <code>MessageReceivedFromPlayer</code> on every client of a session that uses <code>SendToPlayer</code>. The client raises that event without checking for handlers, so a message sent to a client that has none throws a <code>NullReferenceException</code>.</p>
+</div>
+<p><code>OutgoingMessage.Write</code> has overloads for <code>bool</code>, <code>byte</code>, <code>short</code>, <code>int</code>, <code>long</code>, <code>float</code>, <code>string</code>, <code>byte[]</code>, <code>Vector2</code>, <code>Vector3</code>, <code>Vector4</code>, <code>Quaternion</code>, <code>Color</code>, <code>Matrix3x3</code>, <code>Matrix4x4</code>, <code>DateTime</code> and <code>TimeSpan</code>. <code>IncomingMessage</code> has the matching <code>ReadBoolean</code>, <code>ReadByte</code>, <code>ReadInt32</code>, <code>ReadString</code>, <code>ReadVector3</code> and so on.</p>
+<table>
+<thead>
+<tr>
+<th><code>DeliveryMethod</code></th>
+<th>Guarantees</th>
+<th>Use for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Unreliable</strong></td>
+<td>None: messages can be lost, duplicated or arrive out of order.</td>
+<td>Data that is replaced by the next message anyway.</td>
+</tr>
+<tr>
+<td><strong>UnreliableSequenced</strong></td>
+<td>Late messages are dropped, so only newer data is delivered.</td>
+<td>Continuous state such as positions.</td>
+</tr>
+<tr>
+<td><strong>ReliableUnordered</strong></td>
+<td>Every message arrives, in any order.</td>
+<td>Independent events.</td>
+</tr>
+<tr>
+<td><strong>ReliableSequenced</strong></td>
+<td>Only the newest message arrives, and it is guaranteed to.</td>
+<td>The latest value of something that changes rarely.</td>
+</tr>
+<tr>
+<td><strong>ReliableOrdered</strong></td>
+<td>Every message arrives, in the order it was sent.</td>
+<td>Commands and chat. The safe default.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="a-complete-session">A complete session</h2>
+<p>This component turns a scene into a small LAN chat. With <code>IsHost</code> set, it starts a server and connects its own client to it; otherwise it discovers a server on the local network. Either way the client enters the room <code>Main</code>, and <code>Send</code> delivers a line of text to everyone else in the room.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Networking;
+using Evergine.Networking.Client;
+using Evergine.Networking.Connection;
+using Evergine.Networking.Messages;
+using Evergine.Networking.Server;
+using System;
+using System.Diagnostics;
+using System.Linq;
+using System.Threading.Tasks;
+
+public class LanChat : Component
+{
+    private const int Port = 21000;
+
+    [BindService]
+    private MatchmakingServerService server = null;
+
+    [BindService]
+    private MatchmakingClientService client = null;
+
+    private bool connecting;
+
+    public bool IsHost { get; set; }
+
+    public string Nickname { get; set; } = &quot;Player&quot;;
+
+    public void Send(string text)
+    {
+        if (this.client.ClientState != ClientStates.Joined)
+        {
+            return;
+        }
+
+        var message = this.client.CreateMessage();
+        message.Write(text);
+        this.client.SendToCurrentRoom(message, DeliveryMethod.ReliableOrdered);
+    }
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        this.client.ApplicationIdentifier = &quot;LanChat&quot;;
+        this.client.ClientApplicationVersion = &quot;1.0&quot;;
+        this.client.LocalPlayer.Nickname = this.Nickname;
+
+        this.client.ClientStateChanged += this.OnClientStateChanged;
+        this.client.ServerDiscovered += this.OnServerDiscovered;
+        this.client.MessageReceivedFromCurrentRoom += this.OnRoomMessage;
+        this.client.MessageReceivedFromPlayer += this.OnRoomMessage;
+
+        if (this.IsHost)
+        {
+            this.server.PlayerJoined += this.OnPlayerJoined;
+        }
+
+        _ = this.StartAsync();
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+
+        this.client.ClientStateChanged -= this.OnClientStateChanged;
+        this.client.ServerDiscovered -= this.OnServerDiscovered;
+        this.client.MessageReceivedFromCurrentRoom -= this.OnRoomMessage;
+        this.client.MessageReceivedFromPlayer -= this.OnRoomMessage;
+        this.client.Disconnect();
+
+        if (this.IsHost)
+        {
+            this.server.PlayerJoined -= this.OnPlayerJoined;
+            _ = this.server.ShutdownAsync();
+        }
+    }
+
+    private async Task StartAsync()
+    {
+        if (this.IsHost)
+        {
+            this.server.ApplicationIdentifier = &quot;LanChat&quot;;
+            this.server.ClientApplicationVersion = &quot;1.0&quot;;
+            this.server.ServerName = Environment.MachineName;
+            await this.server.StartAsync(Port);
+
+            // The host plays too: connect its own client to the server it just started.
+            await this.ConnectAndJoinAsync(new NetworkEndpoint(&quot;127.0.0.1&quot;, Port));
+        }
+        else
+        {
+            this.client.DiscoverServers(Port);
+        }
+    }
+
+    private async void OnServerDiscovered(object sender, HostDiscoveredEventArgs e)
+    {
+        // Every server that answers raises this event: keep the first one.
+        if (!this.connecting &amp;&amp; this.client.ClientState == ClientStates.Disconnected)
+        {
+            Debug.WriteLine($&quot;Found server '{e.ServerName}' at {e.Host}&quot;);
+            await this.ConnectAndJoinAsync(e.Host);
+        }
+    }
+
+    private async Task ConnectAndJoinAsync(NetworkEndpoint endpoint)
+    {
+        this.connecting = true;
+        try
+        {
+            if (await this.client.ConnectAsync(endpoint))
+            {
+                var result = await this.client.JoinOrCreateRoomAsync(new RoomOptions
+                {
+                    RoomName = &quot;Main&quot;,
+                    MaxPlayers = 8,
+                });
+
+                if (result != EnterRoomResultCodes.Succeed)
+                {
+                    Debug.WriteLine($&quot;Could not enter the room: {result}&quot;);
+                }
+            }
+        }
+        finally
+        {
+            this.connecting = false;
+        }
+    }
+
+    private void OnClientStateChanged(object sender, ClientStates state)
+    {
+        Debug.WriteLine($&quot;Client state: {state}&quot;);
+    }
+
+    private void OnRoomMessage(object sender, MessageFromPlayerEventArgs e)
+    {
+        // Read in the same order as Send wrote.
+        string text = e.ReceivedMessage.ReadString();
+        Debug.WriteLine($&quot;{e.FromPlayer.Nickname}: {text}&quot;);
+    }
+
+    private void OnPlayerJoined(object sender, ServerPlayer player)
+    {
+        Debug.WriteLine($&quot;{player.Nickname} joined room {player.Room.Name}. {this.server.AllConnectedPlayers.Count()} players connected.&quot;);
+    }
+}
+</code></pre>
+<p>Add <code>LanChat</code> to an entity in the scene of every instance, with <code>IsHost</code> set on exactly one of them. A service bound with <code>[BindService]</code> is required by default, so this component expects both services in the container of every instance, as registered above. An application that never hosts can drop the server and its field.</p>
+<h2 id="synchronized-properties">Synchronized properties</h2>
+<p>Messages are fire and forget. For <strong>state</strong> that every player must see, and that a late joiner must receive too, use properties instead. Every room and every player has a <code>NetworkPropertiesTable</code>, a small key-value table that the extension keeps in sync: when a client changes a value, its <code>MatchmakingClientService</code> sends the change on the next update, the server stores it and forwards it to the rest of the room.</p>
+<ul>
+<li><strong>Room properties</strong> belong to the room and any member can write them. Use them for shared world state, such as the position of an object.</li>
+<li><strong>Player properties</strong> belong to one player and only that player's client can write them; the other players see a read-only copy. Use them for per-player state, such as an avatar colour.</li>
+</ul>
+<p>Keys are bytes, so a table holds at most 256 properties. Values are the same types that messages support, plus <code>NetworkEndpoint</code> and your own <a href="#synchronize-a-custom-type">serializable types</a>. You can use the tables directly, through <code>client.CurrentRoom.CustomProperties</code> and <code>client.LocalPlayer.CustomProperties</code>, or with the components in <code>Evergine.Networking.Components</code>, which is what the rest of this section shows.</p>
+<h3 id="provider-and-sync-components">Provider and sync components</h3>
+<p>A property component reads and writes one key of one table. It finds the table through a <strong>provider</strong> component on the same entity or on one of its ancestors:</p>
+<table>
+<thead>
+<tr>
+<th>Provider</th>
+<th>Table it provides</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>NetworkRoomProvider</code></td>
+<td>The <code>CustomProperties</code> of the current room.</td>
+</tr>
+<tr>
+<td><code>NetworkPlayerProvider</code></td>
+<td>The <code>CustomProperties</code> of the player with id <code>PlayerId</code>. The default, <code>-1</code>, is the local player.</td>
+</tr>
+</tbody>
+</table>
+<p>The property components derive from <code>NetworkPropertySync&lt;K, V&gt;</code>, where <code>K</code> is an enum of your keys and <code>V</code> the value type. There is one for each supported type: <code>NetworkBooleanPropertySync</code>, <code>NetworkBytePropertySync</code>, <code>NetworkByteArrayPropertySync</code>, <code>NetworkIntegerPropertySync</code>, <code>NetworkLongIntegerPropertySync</code>, <code>NetworkFloatPropertySync</code>, <code>NetworkStringPropertySync</code>, <code>NetworkVector2PropertySync</code>, <code>NetworkVector3PropertySync</code>, <code>NetworkVector4PropertySync</code>, <code>NetworkQuaternionPropertySync</code>, <code>NetworkColorPropertySync</code>, <code>NetworkMatrix3x3PropertySync</code>, <code>NetworkMatrix4x4PropertySync</code>, <code>NetworkDateTimePropertySync</code>, <code>NetworkTimeSpanPropertySync</code>, <code>NetworkEndpointPropertySync</code> and <code>NetworkSerializablePropertySync</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PropertyKey</strong></td>
+<td>The key in the table, as a value of your enum.</td>
+</tr>
+<tr>
+<td><strong>ProviderFilter</strong></td>
+<td>Which provider to look for: <code>Any</code> (default), <code>Room</code> or <code>Player</code>. Cannot change once the provider is found.</td>
+</tr>
+<tr>
+<td><strong>IsReady</strong></td>
+<td><code>true</code> once the table is available, that is, once the client is in a room. Check it before writing.</td>
+</tr>
+<tr>
+<td><strong>PropertyValue</strong></td>
+<td>Reads the current value, or writes a new one to the table.</td>
+</tr>
+<tr>
+<td><strong>HasValue</strong></td>
+<td><code>true</code> when the table contains the key.</td>
+</tr>
+<tr>
+<td><code>OnPropertyReadyToSet()</code></td>
+<td>Called when the table becomes available and this client can write to it.</td>
+</tr>
+<tr>
+<td><code>OnPropertyAddedOrChanged()</code></td>
+<td>Called when the key appears or its value changes, whoever changed it.</td>
+</tr>
+<tr>
+<td><code>OnPropertyRemoved()</code></td>
+<td>Called when the key is removed from the table.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="synchronize-a-transform">Synchronize a transform</h3>
+<p>This component shares an entity's transform through a room property. Only one client should move the object at a time, so <code>CanManipulate</code> decides who writes and everyone else applies what they receive.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Networking.Components;
+using System;
+
+// One enum for all room keys, so two components never use the same key by mistake.
+public enum RoomProperties : byte
+{
+    MyObjectTransform = 0x00,
+    MapInfo = 0x01,
+}
+
+public class SyncLocalTransform : NetworkMatrix4x4PropertySync&lt;RoomProperties&gt;
+{
+    [BindComponent]
+    private Transform3D transform = null;
+
+    public SyncLocalTransform()
+    {
+        this.ProviderFilter = NetworkPropertyProviderFilter.Room;
+        this.PropertyKey = RoomProperties.MyObjectTransform;
+    }
+
+    // Decide in your own code which client owns the object, for example the one that grabbed it.
+    public bool CanManipulate { get; set; }
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+        this.transform.LocalTransformChanged += this.OnLocalTransformChanged;
+    }
+
+    protected override void OnDeactivated()
+    {
+        this.transform.LocalTransformChanged -= this.OnLocalTransformChanged;
+        base.OnDeactivated();
+    }
+
+    protected override void OnPropertyReadyToSet()
+    {
+        base.OnPropertyReadyToSet();
+        this.UpdatePropertyValue();
+    }
+
+    protected override void OnPropertyAddedOrChanged()
+    {
+        // The owner already has this transform. Applying it would only echo its own change.
+        if (!this.CanManipulate)
+        {
+            this.transform.LocalTransform = this.PropertyValue;
+        }
+    }
+
+    protected override void OnPropertyRemoved()
+    {
+    }
+
+    private void OnLocalTransformChanged(object sender, EventArgs e) =&gt; this.UpdatePropertyValue();
+
+    private void UpdatePropertyValue()
+    {
+        if (this.IsReady &amp;&amp; this.CanManipulate)
+        {
+            this.PropertyValue = this.transform.LocalTransform;
+        }
+    }
+}
+</code></pre>
+<p>Put the provider and the sync component on the entity, together with its usual components:</p>
+<pre><code class="lang-csharp">var sharedObject = new Entity(&quot;SharedObject&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(new NetworkRoomProvider())
+    .AddComponent(new SyncLocalTransform());
+
+this.Managers.EntityManager.Add(sharedObject);
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The providers get <code>MatchmakingClientService</code> with <code>[BindService]</code>, so the client service must be registered before the scene that contains them is loaded.</p>
+</div>
+<h3 id="synchronize-a-custom-type">Synchronize a custom type</h3>
+<p>For a value that is not one of the built-in types, implement <code>INetworkSerializable</code> and use <code>NetworkSerializablePropertySync&lt;K, V&gt;</code>. The interface has two methods that write and read a Lidgren <code>NetBuffer</code>; read the fields in the same order you wrote them. Keep these objects small: the whole value is sent each time any part of it changes.</p>
+<pre><code class="lang-csharp">using Evergine.Networking;
+using Evergine.Networking.Components;
+using Lidgren.Network;
+
+public class MapInfo : INetworkSerializable
+{
+    public double Latitude { get; set; }
+
+    public double Longitude { get; set; }
+
+    public short ZoomLevel { get; set; }
+
+    public void Write(NetBuffer buffer)
+    {
+        buffer.Write(this.Latitude);
+        buffer.Write(this.Longitude);
+        buffer.Write(this.ZoomLevel);
+    }
+
+    public void Read(NetBuffer buffer)
+    {
+        this.Latitude = buffer.ReadDouble();
+        this.Longitude = buffer.ReadDouble();
+        this.ZoomLevel = buffer.ReadInt16();
+    }
+}
+
+public class SyncMapInfo : NetworkSerializablePropertySync&lt;RoomProperties, MapInfo&gt;
+{
+    public SyncMapInfo()
+    {
+        this.ProviderFilter = NetworkPropertyProviderFilter.Room;
+        this.PropertyKey = RoomProperties.MapInfo;
+    }
+
+    protected override void OnPropertyAddedOrChanged()
+    {
+        MapInfo info = this.PropertyValue;
+
+        // Move your map view to info.Latitude, info.Longitude and info.ZoomLevel.
+    }
+
+    protected override void OnPropertyRemoved()
+    {
+    }
+}
+</code></pre>
+<p>To change the map for everyone, assign a new <code>MapInfo</code> to <code>PropertyValue</code> once <code>IsReady</code> is <code>true</code>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

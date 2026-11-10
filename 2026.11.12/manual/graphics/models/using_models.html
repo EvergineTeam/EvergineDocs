@@ -1,0 +1,182 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Models | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Models | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-models">Using Models</h1>
+
+<hr>
+<p><img src="images/UsingModels.jpg" alt="Models header"></p>
+<p>A <strong>model</strong> asset becomes part of a scene when it is instantiated as a hierarchy of entities. This page shows how to do it in Evergine Studio and from code, and what the resulting entities contain.</p>
+<h2 id="add-a-model-in-evergine-studio">Add a model in Evergine Studio</h2>
+<p>Drag the model asset from the <strong>Assets Details</strong> panel into the scene viewport or the <strong>Entities Hierarchy</strong>.</p>
+<p><img src="images/DragModel.jpg" alt="Dragging a model into the scene"></p>
+<p>Evergine Studio creates one entity per node of the model:</p>
+<p><img src="images/NewModel.jpg" alt="The entity hierarchy created from a model"></p>
+<table>
+<thead>
+<tr>
+<th>Node type</th>
+<th>Components</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Root</strong></td>
+<td>The root entity of the hierarchy. If the model has animations it gets an <code>Animation3D</code> component, and if it has levels of detail, a <code>LODGroup</code>.</td>
+</tr>
+<tr>
+<td><strong>Node</strong></td>
+<td>A node without geometry: a <code>Transform3D</code> with the node's position, orientation and scale.</td>
+</tr>
+<tr>
+<td><strong>Mesh</strong></td>
+<td>A node with geometry: <code>MeshComponent</code> (which mesh container of the model to show), one <code>MaterialComponent</code> per material the mesh uses, and <code>MeshRenderer</code>.</td>
+</tr>
+<tr>
+<td><strong>Skin</strong></td>
+<td>A skinned or morphed mesh. It has the same components as a mesh node, with <code>SkinnedMeshRenderer</code> in place of <code>MeshRenderer</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The hierarchy mirrors the node structure described in <a href="index.html">Models</a>.</p>
+<h2 id="load-a-model-from-code">Load a model from code</h2>
+<p><code>Model.InstantiateModelHierarchy</code> builds the same hierarchy from code. Load the asset through the <code>AssetsService</code>, instantiate it and add the root entity to the scene:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        Model cameraModel = assetsService.Load&lt;Model&gt;(EvergineContent.Models.Camera_fbx);
+
+        // The name is optional; without it the root entity gets a generated name.
+        Entity camera = cameraModel.InstantiateModelHierarchy(&quot;coolCamera&quot;, assetsService);
+
+        this.Managers.EntityManager.Add(camera);
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>InstantiateModelHierarchy</code> creates new entities every time you call it, while the model data (meshes and buffers) is shared. Instantiating the same model many times is cheap in memory.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

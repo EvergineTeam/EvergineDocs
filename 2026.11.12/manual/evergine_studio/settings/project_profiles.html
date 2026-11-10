@@ -1,0 +1,396 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Manage Profiles | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Manage Profiles | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="manage-profiles">Manage Profiles</h1>
+
+<p><img src="images/profile_edit-profile.jpg" alt="The Profiles tab of Project Settings with a Windows profile selected"></p>
+<p>Evergine is cross-platform, and each platform your application runs on has its own <strong>launcher project</strong>: a small C# project with the <code>Main</code> method, the window or view, and the graphics backend of that platform. Each launcher is a <strong>profile</strong> of the project. Profiles also decide how assets are exported for that platform, such as the texture compression and whether shaders are compiled ahead of time.</p>
+<p>You choose the first profiles when you create the project in the Evergine Launcher. Add, remove and configure them later from <strong>Settings &gt; Project Settings &gt; Profiles</strong>.</p>
+<h2 id="add-a-profile">Add a profile</h2>
+<ol>
+<li><p>Click <strong>Add</strong> under the list of profiles.</p>
+<p><img src="images/profile_add-profile.jpg" alt="The Add and Remove buttons under the list of profiles"></p>
+</li>
+<li><p>In the <strong>Add project profile</strong> dialog, find the template you need. Type in <strong>Search</strong> or pick a platform in the drop-down to filter the list.</p>
+</li>
+<li><p>Select the template. Evergine Studio proposes a profile name, which you can change. The name must be unique in the project.</p>
+</li>
+<li><p>Click <strong>Add</strong>.</p>
+</li>
+</ol>
+<p>Evergine Studio creates the launcher project and its Visual Studio solution in the project folder, named after the project and the profile, for example <code>MyProject.Windows.Vulkan</code> and <code>MyProject.Windows.Vulkan.sln</code>. You can add several profiles for the same platform, such as a DirectX 12 and a Vulkan build for Windows.</p>
+<h3 id="available-templates">Available templates</h3>
+<p>These are the launcher templates of this version, with the default settings each profile starts with:</p>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Default profile name</th>
+<th>Platform</th>
+<th>Graphics backend</th>
+<th>Compile effects</th>
+<th>Texture compression (alpha / non-alpha)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows (DirectX12)</td>
+<td><code>Windows</code></td>
+<td>Windows</td>
+<td>DirectX 12</td>
+<td>No</td>
+<td><code>BC3_UNorm</code> / <code>BC3_UNorm</code></td>
+</tr>
+<tr>
+<td>Windows (DirectX11)</td>
+<td><code>Windows.DirectX11</code></td>
+<td>Windows</td>
+<td>DirectX 11</td>
+<td>No</td>
+<td><code>BC3_UNorm</code> / <code>BC3_UNorm</code></td>
+</tr>
+<tr>
+<td>Windows (Vulkan)</td>
+<td><code>Windows.Vulkan</code></td>
+<td>Windows</td>
+<td>Vulkan</td>
+<td>No</td>
+<td><code>R8G8B8A8_UNorm</code> / <code>R8G8B8A8_UNorm</code></td>
+</tr>
+<tr>
+<td>Windows (OpenGL)</td>
+<td><code>Windows.OpenGL</code></td>
+<td>Windows</td>
+<td>OpenGL</td>
+<td>No</td>
+<td><code>R8G8B8A8_UNorm</code> / <code>R8G8B8A8_UNorm</code></td>
+</tr>
+<tr>
+<td>Windows OpenXR (DirectX11)</td>
+<td><code>Windows.OpenXR</code></td>
+<td>Windows</td>
+<td>DirectX 11</td>
+<td>No</td>
+<td><code>BC3_UNorm</code> / <code>BC3_UNorm</code></td>
+</tr>
+<tr>
+<td>WinUI (DirectX11)</td>
+<td><code>WinUI</code></td>
+<td>Windows</td>
+<td>DirectX 11</td>
+<td>No</td>
+<td><code>BC3_UNorm</code> / <code>BC3_UNorm</code></td>
+</tr>
+<tr>
+<td>Avalonia</td>
+<td><code>Avalonia</code></td>
+<td>Windows</td>
+<td>DirectX 11</td>
+<td>No</td>
+<td><code>BC3_UNorm</code> / <code>BC3_UNorm</code></td>
+</tr>
+<tr>
+<td>Web (WebGL2.0)</td>
+<td><code>Web</code></td>
+<td>Web</td>
+<td>WebGL 2.0</td>
+<td>Yes</td>
+<td><code>R8G8B8A8_UNorm</code> / <code>R8G8B8A8_UNorm</code></td>
+</tr>
+<tr>
+<td>React SPA (WebGL2.0)</td>
+<td><code>WebReact</code></td>
+<td>Web</td>
+<td>WebGL 2.0</td>
+<td>Yes</td>
+<td><code>R8G8B8A8_UNorm</code> / <code>R8G8B8A8_UNorm</code></td>
+</tr>
+<tr>
+<td>Web (Experimental WebGPU)</td>
+<td><code>WebGPU</code></td>
+<td>Web</td>
+<td>WebGPU</td>
+<td>Yes</td>
+<td><code>R8G8B8A8_UNorm</code> / <code>R8G8B8A8_UNorm</code></td>
+</tr>
+<tr>
+<td>WebXR (Experimental AR)</td>
+<td><code>WebXR</code></td>
+<td>Web</td>
+<td>WebGL 2.0</td>
+<td>Yes</td>
+<td><code>R8G8B8A8_UNorm</code> / <code>R8G8B8A8_UNorm</code></td>
+</tr>
+<tr>
+<td>Android</td>
+<td><code>Android</code></td>
+<td>Android</td>
+<td>Vulkan</td>
+<td>Yes</td>
+<td><code>R4G4B4A4</code> / <code>ETC1_RGB8</code></td>
+</tr>
+<tr>
+<td>Android Meta Quest (OpenXR)</td>
+<td><code>Quest</code></td>
+<td>Android</td>
+<td>Vulkan</td>
+<td>Yes</td>
+<td><code>R4G4B4A4</code> / <code>ETC1_RGB8</code></td>
+</tr>
+<tr>
+<td>Android Pico (OpenXR)</td>
+<td><code>Pico</code></td>
+<td>Android</td>
+<td>Vulkan</td>
+<td>Yes</td>
+<td><code>R4G4B4A4</code> / <code>ETC1_RGB8</code></td>
+</tr>
+<tr>
+<td>iOS .NET 10</td>
+<td><code>iOS</code></td>
+<td>iOS</td>
+<td>Metal</td>
+<td>Yes</td>
+<td><code>BC3_UNorm</code> / <code>BC3_UNorm</code></td>
+</tr>
+<tr>
+<td>MAUI</td>
+<td><code>Windows</code>, <code>Android</code>, <code>iOS</code></td>
+<td>Windows, Android, iOS</td>
+<td>DirectX 11, Vulkan, Metal</td>
+<td>No, Yes, Yes</td>
+<td>Per platform, as in the rows above</td>
+</tr>
+</tbody>
+</table>
+<p>The MAUI template creates one solution with three profiles, which Evergine Studio shows as a single group.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A project always needs a Windows desktop profile, because Evergine Studio itself runs on Windows. The first profile of the project, usually <strong>Windows</strong>, cannot be removed.</p>
+</div>
+<h2 id="edit-a-profile">Edit a profile</h2>
+<p>Select a profile in <strong>Current project profiles</strong> to see its settings. After changing them, click <strong>Update</strong> to save them to the project. Profile settings take effect the next time you build that launcher.</p>
+<h3 id="textures">Textures</h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Alpha compression</strong></td>
+<td><code>PixelFormat</code> used for textures with an alpha channel.</td>
+</tr>
+<tr>
+<td><strong>Non alpha compression</strong></td>
+<td><code>PixelFormat</code> used for opaque textures.</td>
+</tr>
+</tbody>
+</table>
+<p>Pick formats that the GPUs of the platform support. Block-compressed formats such as <code>BC3_UNorm</code> suit desktop GPUs, <code>ETC1_RGB8</code> suits Android, and <code>R8G8B8A8_UNorm</code> works everywhere at a higher memory cost. Each texture can still override these values in its own <a href="../assets/edit.html#profile-properties">profile properties</a>.</p>
+<h3 id="shaders">Shaders</h3>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Compile effects</strong></td>
+<td>Compiles every effect when the assets are exported and ships the compiled bytecode. Web, Android and iOS profiles enable it by default. Windows profiles compile effects at runtime instead.</td>
+</tr>
+<tr>
+<td><strong>Directives</strong></td>
+<td>The effect directives, and their combinations, to precompile.</td>
+</tr>
+</tbody>
+</table>
+<p>The directive grid lists the directives that Evergine effects use, with two check boxes each:</p>
+<ul>
+<li><strong>E</strong> (enable) includes the directive.</li>
+<li><strong>C</strong> (combine) generates the variants with and without it. An enabled directive without <strong>C</strong> is present in every variant.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Directive</th>
+<th>Effect directive</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Low profile</td>
+<td><code>LOW_PROFILE</code></td>
+<td>Cheaper shading path for mobile and web GPUs.</td>
+</tr>
+<tr>
+<td>Gamma</td>
+<td><code>GAMMA_COLORSPACE</code></td>
+<td>Output in gamma space instead of linear.</td>
+</tr>
+<tr>
+<td>Shadow</td>
+<td><code>SHADOW_SUPPORTED</code></td>
+<td>Shadow support.</td>
+</tr>
+<tr>
+<td>Shadow filter</td>
+<td><code>SHADOWFILTER3</code>, <code>SHADOWFILTER5</code> or <code>SHADOWFILTER7</code></td>
+<td>Size of the shadow filter kernel.</td>
+</tr>
+<tr>
+<td>Multiview</td>
+<td><code>MULTIVIEW_RTI</code> or <code>MULTIVIEW_VI</code></td>
+<td>Stereo rendering in a single pass, for XR devices.</td>
+</tr>
+<tr>
+<td>Point lights</td>
+<td><code>POINT_LIGHT</code></td>
+<td>Support for point lights.</td>
+</tr>
+<tr>
+<td>Spot lights</td>
+<td><code>SPOT_LIGHT</code></td>
+<td>Support for spot lights.</td>
+</tr>
+<tr>
+<td>Area lights</td>
+<td><code>AREA_LIGHT</code></td>
+<td>Support for area lights.</td>
+</tr>
+</tbody>
+</table>
+<p>The read-only box under the grid shows the resulting combinations, separated by commas, which is the value stored in the profile. For example, enabling <strong>Shadow</strong> and <strong>Shadow filter</strong> and combining <strong>Point lights</strong> gives <code>SHADOW_SUPPORTED-SHADOWFILTER3,SHADOW_SUPPORTED-SHADOWFILTER3-POINT_LIGHT</code>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Every combined directive doubles the number of variants to compile, which increases the export time and the package size. Combine only the directives your scenes need.</p>
+</div>
+<h3 id="reset-a-profile">Reset a profile</h3>
+<p><strong>Reset Profile</strong> restores the texture compression, <strong>Compile effects</strong> and directives to the defaults of the template the profile was created from. Click <strong>Update</strong> afterwards to save them.</p>
+<h2 id="remove-a-profile">Remove a profile</h2>
+<p>Select the profile and click <strong>Remove</strong>. The profile is removed from the project.</p>
+<h2 id="open-a-platform-project">Open a platform project</h2>
+<p>Every profile gets an entry in <strong>File &gt; Open C# editor</strong>. Pick one to open the Visual Studio solution of that launcher. With a single profile, the menu item opens its solution directly.</p>
+<p><img src="images/profile_open-project.jpg" alt="The Open C# editor submenu with one entry per profile"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

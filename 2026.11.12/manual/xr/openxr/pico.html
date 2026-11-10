@@ -1,0 +1,189 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Pico | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Pico | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="pico">Pico</h1>
+
+<p><img src="images/picovr.png" alt="Pico headset"></p>
+<p>Pico headsets, such as the Pico 4, are standalone Android VR devices with inside-out tracking, their own controllers and hand tracking. Evergine targets them through <a href="openxr_platform.html">OpenXR</a> with Vulkan, in the same way as <a href="metaquest.html">Meta Quest</a>. The two templates share almost all of their code, so a project can have both profiles side by side, and an <a href="androidxr.html">Android XR</a> one too.</p>
+<h2 id="create-a-pico-project">Create a Pico project</h2>
+<p>Select the <strong>Android Pico (OpenXR)</strong> template when you create a project:</p>
+<p><img src="images/openxr_picotemplate.png" alt="The Android Pico template in the new project dialog"></p>
+<p>To add Pico to an existing project, open <strong>Project Settings</strong>, add a profile and choose the same template. The profile is named <strong>Pico</strong> by default.</p>
+<p><img src="images/openxr_addpicoprofile.png" alt="Adding the Pico profile in Project Settings"></p>
+<h2 id="what-the-template-contains">What the template contains</h2>
+<p>The launcher project follows the <a href="index.html">same four steps</a> as the Meta Quest one. What differs is the vendor-specific part:</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Android Pico</th>
+<th>Android Meta Quest</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>OpenXR loader package</td>
+<td><code>Evergine.OpenXR.Natives.Pico</code></td>
+<td><code>Evergine.OpenXR.Natives.Quest</code></td>
+</tr>
+<tr>
+<td>Interaction profile</td>
+<td><code>DefaultInteractionProfiles.PicoNeo3Profile</code></td>
+<td><code>DefaultInteractionProfiles.OculusTouchProfile</code></td>
+</tr>
+<tr>
+<td>Extensions requested</td>
+<td><code>XR_EXT_hand_tracking</code></td>
+<td><code>XR_EXT_hand_tracking</code>, <code>XR_FB_hand_tracking_aim</code>, <code>XR_FB_hand_tracking_mesh</code>, plus commented passthrough and multimodal extensions</td>
+</tr>
+<tr>
+<td>Manifest</td>
+<td><code>pvr.app.type</code> set to <code>vr</code></td>
+<td>Meta VR intent category and hand tracking feature</td>
+</tr>
+</tbody>
+</table>
+<p>This is how the Pico template creates the platform, in <code>MainActivity.cs</code>:</p>
+<pre><code class="lang-csharp">openXRPlatform = new OpenXRPlatform(
+    new string[]
+    {
+            &quot;XR_EXT_hand_tracking&quot;,         // Enable hand tracking in OpenXR application
+    },
+    new OpenXRInteractionProfile[]
+    {
+            DefaultInteractionProfiles.PicoNeo3Profile
+    })
+{
+    RenderMirrorTexture = false,
+    ReferenceSpace = ReferenceSpaceType.Stage,
+    MirrorDisplay = mirrorDisplay,
+};
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>With only <code>XR_EXT_hand_tracking</code>, hands are tracked and their joints are available to <a href="../input_tracking/trackxrarticulatedhand.html"><code>TrackXRArticulatedHand</code></a>, but there is no hand mesh and no pinch gesture: those come from Meta extensions. Draw the hands yourself from the joint poses.</p>
+</div>
+<h2 id="run-on-the-headset">Run on the headset</h2>
+<p>Enable developer mode on the headset, connect it to the PC with a USB cable, allow USB debugging inside the headset, and start the Pico profile from Visual Studio with the headset selected as the target device.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="openxr_platform.html">OpenXR Platform</a>: every <code>OpenXRPlatform</code> property, reference spaces and interaction profiles.</li>
+<li><a href="../input_tracking/index.html">Input Devices</a>: tracking controllers and hands in the scene.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

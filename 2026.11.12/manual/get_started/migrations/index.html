@@ -1,0 +1,180 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Upgrade My Project to the Latest Evergine Release | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Upgrade My Project to the Latest Evergine Release | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="upgrade-my-project-to-the-latest-evergine-release">Upgrade My Project to the Latest Evergine Release</h1>
+
+<p>Each Evergine release brings new features, performance work and bug fixes. Most releases update with a few clicks in the Evergine Launcher. Some also change project files or APIs, and those have a migration guide in this section with the exact steps.</p>
+<h2 id="before-you-upgrade">Before you upgrade</h2>
+<ul>
+<li><strong>Back up your project.</strong> Commit it to a version control system such as Git, or copy the folder. Upgrading changes package versions, project files and sometimes assets.</li>
+<li><strong>Read the guides for every version you skip.</strong> If you jump across several releases, apply the migration steps of each intermediate release in order, oldest first. Skipping one can leave the project with errors that the later guides do not cover.</li>
+</ul>
+<h2 id="general-upgrade-steps">General upgrade steps</h2>
+<ol>
+<li>Install the new Evergine version from the <strong>Evergine Launcher</strong>. See <a href="../../evergine_launcher/manage_versions.html">Manage Evergine Versions</a>.</li>
+<li>In the Launcher project list, find your project and select the new version in its version selector.</li>
+<li>Click <strong>Update</strong>. The Launcher analyzes the project and lists the packages it will update.</li>
+<li>Review the package list and accept the changes.</li>
+<li>Open the project in Evergine Studio and in Visual Studio, rebuild it, and fix any compilation errors with the help of the migration guide for that version.</li>
+</ol>
+<h2 id="migration-guides">Migration guides</h2>
+<table>
+<thead>
+<tr>
+<th>Guide</th>
+<th>Main changes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="upgrade_project_2026.10.html">2026.5.26 to 2026.10</a></td>
+<td>DirectX 12 as the default backend, Vulkan query results, timestamp query capability.</td>
+</tr>
+<tr>
+<td><a href="upgrade_project_2026.5.26.html">2025.10.21 to 2026.5.26</a></td>
+<td>.NET 10, Reverse-Z depth, <code>TextureDescription.Faces</code> removed. Migration script provided.</td>
+</tr>
+<tr>
+<td><a href="upgrade_project_2025.10.21.html">2025.3.18 to 2025.10.21</a></td>
+<td>sRGB textures and framebuffers, web template updates. Migration script provided.</td>
+</tr>
+<tr>
+<td><a href="upgrade_project_2025.3.18.html">2024.10.24 to 2025.3.18</a></td>
+<td><code>RenderManager</code> binding, HLSL 2021.</td>
+</tr>
+<tr>
+<td><a href="upgrade_project_2024.10.24.html">2024.6.28 to 2024.10.24</a></td>
+<td>.NET 8, package renames, end of UWP. Migration script provided.</td>
+</tr>
+<tr>
+<td><a href="upgrade_project_2024.6.28.html">2023.9.28 to 2024.6.28</a></td>
+<td>Prefab serialization, removal of the 2D API.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="upgrade_project_2026.10.html">Update from Evergine 2026.5.26 to Evergine 2026.10</a></li>
+<li><a href="upgrade_project_2026.5.26.html">Update from Evergine 2025.10.21 to Evergine 2026.5.26</a></li>
+<li><a href="upgrade_project_2025.10.21.html">Update from Evergine 2025.3.18 to Evergine 2025.10.21</a></li>
+<li><a href="upgrade_project_2025.3.18.html">Update from Evergine 2024.10.24 to Evergine 2025.3.18</a></li>
+<li><a href="upgrade_project_2024.10.24.html">Update from Evergine 2024.6.28 to Evergine 2024.10.24</a></li>
+<li><a href="upgrade_project_2024.6.28.html">Update from Evergine 2023.9.28 to Evergine 2024.6.28</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

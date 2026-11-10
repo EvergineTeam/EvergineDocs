@@ -1,0 +1,229 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Create Compute Tasks | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create Compute Tasks | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="create-compute-tasks">Create Compute Tasks</h1>
+
+<hr>
+<p>A <strong>compute task</strong> runs a compute effect on the GPU. Use one for work that is massively parallel and slow on the CPU: image filters, simulations, procedural data.</p>
+<h2 id="compute-effect">Compute Effect</h2>
+<p>First create a compute effect from the <strong>Assets Details</strong> panel (<strong>Create effect &gt; Compute Effect</strong>) and write the compute shader in HLSL.</p>
+<p><img src="images/CreateComputeEffect.jpg" alt="Create compute effect"></p>
+<h3 id="example">Example</h3>
+<p>This compute effect converts the input texture to grayscale and writes the result to an output texture. <a href="../effects/create_effects.html">Create Effects</a> explains the structure of the file.</p>
+<pre><code class="lang-hlsl">[Begin_ResourceLayout]
+
+    Texture2D Input             : register(t0);
+    RWTexture2D&lt;float4&gt; Output  : register(u0);
+
+[End_ResourceLayout]
+
+[Begin_Pass:Grayscale]
+
+    [Profile 11_0]
+    [Entrypoints CS = CS]
+
+    [numthreads(8, 8, 1)]
+    void CS(uint3 threadID : SV_DispatchThreadID)
+    {
+        float4 color = Input.Load(float3(threadID.xy, 0));
+        color.rgb = color.r * 0.3 + color.g * 0.59 + color.b * 0.11;
+        Output[threadID.xy] = color;
+    }
+
+[End_Pass]
+</code></pre>
+<p>The pass name, <code>Grayscale</code>, is how you select it when you run the task. <code>[numthreads(8, 8, 1)]</code> sets the thread group size, which must match the group size you pass to <code>Run2D</code>.</p>
+<h2 id="computetask-decorator">ComputeTask Decorator</h2>
+<p>From code you work with the compute task through a <strong>decorator</strong>: a generated class with one property per resource of the effect. Generate it from the <a href="../effects/effect_editor.html">Effect Editor</a>.</p>
+<p><img src="images/computeTaskDecoratorIcon.jpg" alt="Compute task decorator"></p>
+<h2 id="create-a-new-computetask-from-code">Create a new ComputeTask from code</h2>
+<p>This scene runs the <code>GPUFilter</code> compute effect above through its generated <code>GPUFilter</code> decorator, and shows the result on a spinning cube.</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class ComputeScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        Texture inputTexture = assetsService.Load&lt;Texture&gt;(EvergineContent.Textures.lena_png);
+        uint width = inputTexture.Description.Width;
+        uint height = inputTexture.Description.Height;
+
+        // UnorderedAccess lets the compute shader write it; ShaderResource lets the material read it.
+        var outputTextureDesc = new TextureDescription()
+        {
+            Type = TextureType.Texture2D,
+            Usage = ResourceUsage.Default,
+            Flags = TextureFlags.UnorderedAccess | TextureFlags.ShaderResource,
+            Format = PixelFormat.R8G8B8A8_UNorm,
+            Width = width,
+            Height = height,
+            Depth = 1,
+            MipLevels = 1,
+            ArraySize = 1,
+            CpuAccess = ResourceCpuAccess.None,
+            SampleCount = TextureSampleCount.None,
+        };
+        Texture outputTexture = graphicsContext.Factory.CreateTexture(ref outputTextureDesc);
+
+        Effect computeEffect = assetsService.Load&lt;Effect&gt;(EvergineContent.Effects.GPUFilter);
+
+        var task = new GPUFilter(computeEffect)
+        {
+            Input = inputTexture,
+            Output = outputTexture,
+        };
+
+        // One thread per pixel, in 8x8 groups to match [numthreads(8, 8, 1)].
+        task.Run2D(width, height, pass: &quot;Grayscale&quot;);
+
+        var material = new StandardMaterial(assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorTexture = outputTexture,
+            BaseColorSampler = assetsService.Load&lt;SamplerState&gt;(DefaultResourcesIDs.LinearClampSamplerID),
+        };
+
+        Entity cube = new Entity(&quot;filteredCube&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material.Material })
+            .AddComponent(new CubeMesh())
+            .AddComponent(new Spinner() { AxisIncrease = new Vector3(0.1f, 0.2f, 0.3f) })
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(cube);
+    }
+}
+</code></pre>
+<p>The result:</p>
+<p><img src="images/GPUFilter.jpg" alt="A spinning cube textured with the grayscale output of the compute task"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The overloads without a <code>CommandBuffer</code> record the dispatch, submit it to the compute queue and wait until the GPU finishes. That is simple for one-off work at load time. For work that repeats every frame, pass your own command buffer so the dispatch runs with the rest of the frame instead of stalling it.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

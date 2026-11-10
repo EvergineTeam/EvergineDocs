@@ -1,0 +1,392 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Ragdolls | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Ragdolls | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ragdolls">Ragdolls</h1>
+
+<hr>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/ragdoll_figure.mp4" type="video/mp4">
+</video>
+<p>A <strong>ragdoll</strong> is a figure the simulation moves instead of an animation: one <a href="physics_bodies/rigid_body.html">rigid body</a> per bone and one <a href="constraints/index.html">constraint</a> per joint. There is no ragdoll component: a ragdoll is those two things assembled in a particular way, and this page is about the way.</p>
+<h2 id="the-anatomy">The Anatomy</h2>
+<p>Two kinds of joint cover a whole body:</p>
+<table>
+<thead>
+<tr>
+<th>Joint</th>
+<th>Constraint</th>
+<th>Why</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Hips, waist, neck, shoulders</td>
+<td><a href="constraints/swing_twist_constraint.html"><code>SwingTwistConstraint</code></a></td>
+<td>Cones in two directions plus a twist about the limb's own length, which is what a ball joint does.</td>
+</tr>
+<tr>
+<td>Elbows, knees</td>
+<td><a href="constraints/hinge_constraint.html"><code>HingeConstraint</code></a></td>
+<td>One axis, one way, and a stop. A knee that bends both ways is the single most obvious thing wrong with a bad ragdoll.</td>
+</tr>
+</tbody>
+</table>
+<p>The reference figure below is eleven bodies and ten joints, about 1.8 m tall. Every part is built <strong>upright</strong>, so each capsule runs along its own Y axis and no shape needs a rotation of its own; that in turn means every joint anchor is a height that can be read straight off the plan.</p>
+<table>
+<thead>
+<tr>
+<th>Part</th>
+<th>Shape</th>
+<th>Mass</th>
+<th>Joint to its parent</th>
+<th>Limits</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Pelvis</td>
+<td>box 0.30 × 0.20 × 0.20</td>
+<td>12 kg</td>
+<td><em>None</em>, it is the root</td>
+<td><em>None</em></td>
+</tr>
+<tr>
+<td>Torso</td>
+<td>box 0.36 × 0.46 × 0.22</td>
+<td>22 kg</td>
+<td>swing twist to pelvis</td>
+<td>25° / 20° swing, ±25° twist</td>
+</tr>
+<tr>
+<td>Head</td>
+<td>sphere r 0.12</td>
+<td>5 kg</td>
+<td>swing twist to torso</td>
+<td>35° / 35° swing, ±45° twist</td>
+</tr>
+<tr>
+<td>Upper arm ×2</td>
+<td>capsule r 0.055, h 0.30</td>
+<td>2.5 kg</td>
+<td>swing twist to torso</td>
+<td>80° / 60° swing, ±30° twist</td>
+</tr>
+<tr>
+<td>Lower arm ×2</td>
+<td>capsule r 0.05, h 0.28</td>
+<td>2 kg</td>
+<td>hinge to upper arm</td>
+<td>0° to 140°</td>
+</tr>
+<tr>
+<td>Upper leg ×2</td>
+<td>capsule r 0.08, h 0.44</td>
+<td>7 kg</td>
+<td>swing twist to pelvis</td>
+<td>60° / 35° swing, ±20° twist</td>
+</tr>
+<tr>
+<td>Lower leg ×2</td>
+<td>capsule r 0.065, h 0.44</td>
+<td>4 kg</td>
+<td>hinge to upper leg</td>
+<td>0° to 140°</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// A shoulder or a hip. The anchor is in the child's own space: where the two bones meet.
+var shoulder = new SwingTwistConstraint()
+{
+    ConnectedBody = torso.FindComponent&lt;RigidBody&gt;(),
+    Anchor = new Vector3(0f, 0.15f, 0f),
+    TwistAxis = Vector3.UnitY,
+    PlaneAxis = Vector3.UnitX,
+    PlaneHalfConeAngle = MathHelper.ToRadians(80f),
+    NormalHalfConeAngle = MathHelper.ToRadians(60f),
+    TwistMinAngle = MathHelper.ToRadians(-30f),
+    TwistMaxAngle = MathHelper.ToRadians(30f),
+
+    // Limbs overlap at the joint on purpose, so they must not push each other apart from inside.
+    CollideConnected = false,
+};
+
+upperArm.AddComponent(shoulder);
+</code></pre>
+<pre><code class="lang-csharp">// An elbow or a knee: one axis, bending one way, with a stop.
+var knee = new HingeConstraint()
+{
+    ConnectedBody = upperLeg.FindComponent&lt;RigidBody&gt;(),
+    Anchor = new Vector3(0f, 0.22f, 0f),
+    Axis = Vector3.UnitX,
+    NormalAxis = Vector3.UnitY,
+    MinAngle = 0f,
+    MaxAngle = MathHelper.ToRadians(140f),
+    CollideConnected = false,
+};
+</code></pre>
+<h2 id="three-rules-that-decide-whether-it-holds-together">Three Rules That Decide Whether It Holds Together</h2>
+<p>Almost every ragdoll that explodes, jitters or folds through itself breaks one of these.</p>
+<p><strong><code>CollideConnected = false</code> on every joint.</strong> Limbs overlap where they meet, and that is what makes a figure look like a figure rather than a chain of sausages. Left connected, the solver spends every step pushing two bodies apart that a constraint is holding together, and the figure blows itself apart on the first frame.</p>
+<p><strong>Build the figure inside its own limits.</strong> A constraint measures its angles from the pose the two bodies were in when it was created. Assemble the figure with an elbow already bent past its stop and the solver's first job is to force it back, which reads as a limb snapping.</p>
+<p><strong>Keep neighbouring masses within about 10:1.</strong> The torso here is 22 kg and the upper arms are 2.5 kg, which is under 9:1 and about as far as it is worth going; 5:1 is comfortable. A light limb bolted to a very heavy one is a stiff problem: the solver has to move the light body a long way to satisfy a constraint the heavy one barely notices, and it shows up as jitter at the shoulder before it shows up anywhere else.</p>
+<h2 id="tuning-it-draw-the-joints">Tuning It: Draw the Joints</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/ragdoll_joints.mp4" type="video/mp4">
+</video>
+<p><code>PhysicsDebugFlags.Constraints</code> draws every joint's frame in place on the figure, with the cone a swing twist allows and the arc a hinge allows. This is how a ragdoll is tuned: a limb that reaches somewhere it should not is a cone drawn too wide, and it is visible before the figure has finished falling.</p>
+<pre><code class="lang-csharp">this.Managers.RenderManager.DebugLines = true;
+this.Managers.FindManager&lt;PhysicsManager&gt;().DebugFlags = PhysicsDebugFlags.Constraints;
+</code></pre>
+<p><img src="images/ragdoll_still.png" alt="Ragdoll joint limits"></p>
+<h2 id="powered-ragdolls">Powered Ragdolls</h2>
+<p>Every joint can hold a pose instead of hanging limp. Put its motors in <code>MotorMode.Position</code> and give it a target, and the constraint drives towards it:</p>
+<pre><code class="lang-csharp">foreach (SwingTwistConstraint joint in joints)
+{
+    // The identity is the pose the joint was built in, since both bodies were given the same axes.
+    joint.TargetOrientation = Quaternion.Identity;
+    joint.SwingMotorMode = MotorMode.Position;
+    joint.TwistMotorMode = MotorMode.Position;
+}
+
+foreach (HingeConstraint hinge in hinges)
+{
+    hinge.TargetAngle = 0f;
+    hinge.MotorMode = MotorMode.Position;
+}
+</code></pre>
+<p>This is what a figure driven by an animation is doing every frame, with the targets read out of the animation instead of fixed.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Motors make the figure <strong>rigid</strong>, not <strong>upright</strong>. Each target is the rotation of one limb relative to its parent, so a ragdoll lying on its face with its motors on becomes a mannequin lying on its face. Standing it up takes a force on the pelvis, which no joint can supply, since a joint only ever holds two bodies to each other. That is a job for a <a href="character_controller.html">character controller</a>, or for an external force on the root body.</p>
+</div>
+<h2 id="from-animation-to-ragdoll">From Animation to Ragdoll</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/ragdoll_from_animation.mp4" type="video/mp4">
+</video>
+<p>The reason to build a ragdoll over a skeleton rather than as a free-standing figure is the switch: a character walks under its animation, is hit, and falls under the simulation carrying the momentum it had.</p>
+<p>Nothing in the framework couples animation to physics, so the coupling is yours to write. It is four ideas.</p>
+<p><strong>One body per bone, in world space.</strong> A bone entity carries the model's own node scale, often a hundredth, so a collider placed directly on one has to be sized and offset in that space. It is far simpler to give each limb an entity of its own and record the fixed offset between it and its bone once, when the ragdoll is built:</p>
+<pre><code class="lang-csharp">// Built at the midpoint of the bone, turned so the capsule's own +Y runs down it.
+Vector3 along = tip.Position - bone.Position;
+Quaternion rotation = RotationFromTo(Vector3.UnitY, Vector3.Normalize(along));
+Vector3 centre = bone.Position + (along * 0.5f);
+
+// The offset, in the bone's own space. Read one way it drives the body from the animation.
+Quaternion boneInverse = Quaternion.Inverse(bone.Orientation);
+Vector3 localPosition = Vector3.Transform(centre - bone.Position, boneInverse);
+Quaternion localRotation = boneInverse * rotation;
+</code></pre>
+<p><strong>While animated, the bodies are kinematic and follow.</strong> Every limb is a <code>RigidBody</code> built with <code>IsKinematic = true</code>, and moved with <code>MoveTo</code> rather than a transform write, because that is what gives a kinematic body the velocity the contact solver needs:</p>
+<pre><code class="lang-csharp">private void OnPhysicsStepStarting(object sender, float fixedTimeStep)
+{
+    foreach (Limb limb in this.limbs)
+    {
+        limb.Body.MoveTo(
+            limb.Bone.Position + Vector3.Transform(limb.LocalPosition, limb.Bone.Orientation),
+            limb.Bone.Orientation * limb.LocalRotation);
+    }
+}
+</code></pre>
+<p>That single call is what lets a walking figure knock a wall down on its way through. Write the transform instead and it teleports through everything.</p>
+<p><strong>The switch itself is two lines.</strong></p>
+<pre><code class="lang-csharp">this.animation.IsEnabled = false;
+
+foreach (Limb limb in this.limbs)
+{
+    limb.Body.IsKinematic = false;
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Clearing <code>IsKinematic</code> does <strong>not</strong> recreate the body: it keeps its velocity, its constraints and its place in the world. That is what makes this transition look right: every limb inherits the velocity the animation had just given it, so the figure is thrown forward by the stride it was in the middle of instead of dropping straight down like a plank.</p>
+</div>
+<p><strong>And from there the coupling runs the other way.</strong> Until the switch the bones led and the bodies followed. After it the bodies lead, and their pose has to be written back onto the bones every frame, or the figure lies on the floor as a simulation while its skin stands where the animation left it.</p>
+<p>The offset recorded when the ragdoll was built is read in the other direction: take the body's world pose, take the offset back off it, and make what is left local to the bone's parent, because a bone's <code>LocalPosition</code> and <code>LocalOrientation</code> are what the skinning reads.</p>
+<pre><code class="lang-csharp">Quaternion orientation = limb.Body.Transform3D.Orientation * Quaternion.Inverse(limb.LocalRotation);
+Vector3 position = limb.Body.Transform3D.Position - Vector3.Transform(limb.LocalPosition, orientation);
+Matrix4x4 wanted = Matrix4x4.CreateFromTRS(position, orientation, limb.Bone.Scale);
+
+Matrix4x4 local = wanted * limb.Parent.WorldInverseTransform;
+
+limb.Bone.LocalPosition = local.Translation;
+limb.Bone.LocalOrientation = local.Orientation;
+</code></pre>
+<p>The root joint is the one bone that loop does not write. Its parent is not another bone: it is the entity carrying the model, so that is what moves instead. The chain between the two is fixed, which leaves the entity's own transform as the only unknown:</p>
+<pre><code class="lang-csharp">// hips = chain * walker, so walker = chain inverse * hips.
+this.transform.LocalTransform = Matrix4x4.Invert(this.hipsChain) * wanted;
+</code></pre>
+<p><strong>Tell the renderer the pose can leave the bind envelope.</strong> A skinned mesh is culled against the box its bind pose came in, carried along by the root joint. It changes place, never shape, which is enough while an animation keeps the pose inside the envelope it was authored in. A ragdoll leaves that envelope within a stride, and the moment the mesh fails the test it stops being drawn.</p>
+<p><code>SkinnedMeshRenderer.BoundsMode</code> chooses a volume built from the joints instead:</p>
+<pre><code class="lang-csharp">var skinned = this.character.FindComponentInChildren&lt;SkinnedMeshRenderer&gt;(isExactType: false);
+
+skinned.BoundsMode = SkinnedBoundsMode.Skeleton;
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Mode</th>
+<th>Volume</th>
+<th>Use it when</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BindPose</strong></td>
+<td>The bind pose box, moved with the root joint. Costs nothing per frame.</td>
+<td>An animation is the only thing moving the joints. This is the default.</td>
+</tr>
+<tr>
+<td><strong>Skeleton</strong></td>
+<td>Rebuilt each frame from where the joints actually are.</td>
+<td>Anything else writes the pose: a ragdoll, inverse kinematics, procedural code.</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/ragdoll_wall_still.png" alt="The ragdoll pose drawn on the character's own skin"></p>
+<h2 id="one-more-thing-the-clip-needed-root-motion">One more thing the clip needed: root motion</h2>
+<p>The Mixamo walk is <strong>not an in-place clip</strong>. Its hips channel carries the figure 184.53 node units
+forward over its one second and then snaps back to the start when it loops, so a character whose root
+is also being moved forward advances about two metres, jumps back one, and does it again, once a
+second.</p>
+<p>Take that translation out and let the root supply all the travel:</p>
+<pre><code class="lang-csharp">// Captured once, when the ragdoll is built.
+this.hipsRestZ = hips.LocalPosition.Z;
+
+// And put back every step, before anything reads the pose.
+Vector3 local = this.hips.LocalPosition;
+this.hips.LocalPosition = new Vector3(local.X, local.Y, this.hipsRestZ);
+</code></pre>
+<p>Only the axis along the walk. The other two carry the sway and the bob of a real stride (four and
+eight node units of it) and zeroing them gives a figure that glides.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>AnimationClip.InPlaceMode</code> looks like the setting for this, and today it is not: the enum and
+<code>ComputeRootMotion</code> are both written, but the block in <code>ModelExporter</code> that would find the root node
+and call it is commented out, so the value has no effect on an imported clip. Strip the translation at
+run time until that is connected.</p>
+</div>
+<p>Match the root's speed to what the clip animates, or the feet skate. Here the clip's 184.53 node units
+a second, at 0.0101 m a unit, come to <strong>1.87 m/s</strong>.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="constraints/index.html">Constraints</a></li>
+<li><a href="character_controller.html">Character Controller</a></li>
+<li><a href="debug_rendering.html">Debug Rendering</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

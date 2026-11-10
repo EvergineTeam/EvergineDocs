@@ -1,0 +1,516 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Cameras | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Cameras | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="cameras">Cameras</h1>
+
+<hr>
+<p><img src="images/cameras.jpg" alt="Cameras"></p>
+<p>A <strong>camera</strong> captures the scene from a point of view and renders it to the screen or to a texture. A scene can have any number of cameras: they render in a set order, each to its own display, frame buffer or part of the screen, so split screens, picture-in-picture, mirrors and minimaps are all combinations of cameras.</p>
+<p>The camera component is <code>Camera3D</code> (namespace <code>Evergine.Framework.Graphics</code>). Like any component, it lives on an entity, and the entity's <code>Transform3D</code> gives the camera its position and orientation: the camera looks along the transform's <strong>forward</strong> vector.</p>
+<h2 id="create-a-camera-in-evergine-studio">Create a camera in Evergine Studio</h2>
+<p>In the <strong>Entities Hierarchy</strong> panel of the scene editor, click <strong>Add Entity</strong>, open <strong>Cameras 3D</strong> and choose:</p>
+<ul>
+<li><strong>Fixed Camera</strong> or <strong>View Camera</strong>: an entity with a <code>Camera3D</code> and no controller. The camera stays where you put it until your code moves it.</li>
+<li><strong>Free Camera</strong>: a <code>Camera3D</code> plus the <code>FreeCamera3D</code> component, which lets you fly the camera with mouse, keyboard, touch or gamepad while the application runs.</li>
+</ul>
+<p><img src="images/createFreeCamera.png" alt="Create camera menu"></p>
+<h2 id="create-a-camera-from-code">Create a camera from code</h2>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Cameras;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        Entity cameraEntity = new Entity(&quot;mainCamera&quot;)
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 2, 6) })
+            .AddComponent(new Camera3D()
+            {
+                BackgroundColor = Color.CornflowerBlue,
+
+                // Field of view is set in radians in code, and shown in degrees in Evergine Studio.
+                FieldOfView = MathHelper.ToRadians(60),
+                NearPlane = 0.1f,
+                FarPlane = 500f,
+            })
+            .AddComponent(new FreeCamera3D());
+
+        this.Managers.EntityManager.Add(cameraEntity);
+    }
+}
+</code></pre>
+<h2 id="projection">Projection</h2>
+<p>A camera projects the scene either with <strong>perspective</strong>, where distant objects look smaller, or <strong>orthographically</strong>, where size does not change with distance. Perspective is what you want for most 3D views; orthographic suits technical views, isometric games and 2D.</p>
+<p><img src="images/camera_projection.png" alt="Perspective and orthographic projections, side by side, with the parameters that define each frustum"></p>
+<p><em>A perspective frustum widens with distance according to the field of view. An orthographic one is a box whose height is the orthographic size.</em></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ProjectionType</strong></td>
+<td><code>Perspective</code></td>
+<td><code>Perspective</code> or <code>Orthographic</code>. Shown as <strong>Projection</strong>.</td>
+</tr>
+<tr>
+<td><strong>FieldOfView</strong></td>
+<td>π/4 (45°)</td>
+<td>Perspective only. The view angle along <code>FieldOfViewAxis</code>, in radians in code and in degrees in Evergine Studio.</td>
+</tr>
+<tr>
+<td><strong>FieldOfViewAxis</strong></td>
+<td><code>Vertical</code></td>
+<td>Perspective only. Whether <code>FieldOfView</code> is measured vertically or horizontally. With <code>Vertical</code>, a wider window shows more to the sides; with <code>Horizontal</code>, it shows less above and below. Shown as <strong>View Axis</strong>.</td>
+</tr>
+<tr>
+<td><strong>OrthographicSize</strong></td>
+<td>5</td>
+<td>Orthographic only. The height of the view in world units (the width when the axis is <code>Horizontal</code>).</td>
+</tr>
+<tr>
+<td><strong>NearPlane</strong></td>
+<td>0.1</td>
+<td>Closest distance the camera renders. Anything nearer is clipped.</td>
+</tr>
+<tr>
+<td><strong>FarPlane</strong></td>
+<td>1000</td>
+<td>Farthest distance the camera renders, also called the draw distance.</td>
+</tr>
+<tr>
+<td><strong>AspectRatio</strong></td>
+<td>from the viewport</td>
+<td>Width divided by height. Computed from the target and the viewport unless you set it.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="frustum">Frustum</h3>
+<p>The volume the camera sees is its <strong>frustum</strong>: the region between the near and far planes inside the field of view. Objects whose bounds fall entirely outside it are culled and not drawn.</p>
+<p><img src="images/cameraFrustum.png" alt="Camera frustum"></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Depth precision is spread between the near and far planes, and most of it is used close to the near plane. Keep <code>NearPlane</code> as large as the scene allows; raising it from 0.01 to 0.1 does far more for depth precision than lowering <code>FarPlane</code>.</p>
+</div>
+<h2 id="clearing-and-background">Clearing and background</h2>
+<p>Before rendering, the camera clears its target.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BackgroundColor</strong></td>
+<td><code>CornflowerBlue</code></td>
+<td>Color the target is cleared to. A skybox or sky atmosphere, when present, covers it.</td>
+</tr>
+<tr>
+<td><strong>ClearFlags</strong></td>
+<td><code>All</code></td>
+<td>What is cleared: <code>Target</code> (color), <code>Depth</code>, <code>Stencil</code>, or a combination. <code>All</code> clears everything. Turn off <code>Target</code> to draw a camera on top of another one.</td>
+</tr>
+<tr>
+<td><strong>UseCustomClearDepth</strong></td>
+<td>false</td>
+<td>Clear depth to <code>ClearDepth</code> instead of the far value of the depth buffer.</td>
+</tr>
+<tr>
+<td><strong>ClearDepth</strong></td>
+<td>far plane</td>
+<td>Depth value to clear to when <code>UseCustomClearDepth</code> is on, from 0 to 1. Shown as <strong>Custom Clear Depth</strong>.</td>
+</tr>
+<tr>
+<td><strong>ClearStencil</strong></td>
+<td>0</td>
+<td>Stencil value to clear to.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="render-order-and-output">Render order and output</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CameraOrder</strong></td>
+<td>0</td>
+<td>Cameras render from lowest to highest order. A camera drawn later lands on top of the earlier ones.</td>
+</tr>
+<tr>
+<td><strong>HDREnabled</strong></td>
+<td>true</td>
+<td>Render into a 16-bit floating point intermediate buffer, so that bright values survive until tone mapping. Needed for physically based lighting and for most post-processing.</td>
+</tr>
+<tr>
+<td><strong>Viewport</strong></td>
+<td>(0, 0, 1, 1)</td>
+<td>The part of the target the camera draws to, in normalized coordinates: X, Y, width and height from 0 to 1. <code>(0, 0, 0.5, 1)</code> is the left half.</td>
+</tr>
+<tr>
+<td><strong>DisplayTag</strong></td>
+<td>empty</td>
+<td>Name of the display to render to. Each display is registered in the <code>GraphicsPresenter</code> with a tag; when empty, the camera renders to the first display.</td>
+</tr>
+<tr>
+<td><strong>FrameBuffer</strong></td>
+<td>null</td>
+<td>A frame buffer to render to instead of a display. It overrides <code>DisplayTag</code>. See <a href="#render-to-a-texture">Render to a texture</a>.</td>
+</tr>
+<tr>
+<td><strong>TagFilter</strong></td>
+<td>empty</td>
+<td>When set, the camera only draws objects whose entity <code>Tag</code> matches it. Use it to make a camera see a subset of the scene.</td>
+</tr>
+</tbody>
+</table>
+<p>This example splits the screen between two cameras:</p>
+<pre><code class="lang-csharp">var left = new Camera3D() { Viewport = new Viewport(0, 0, 0.5f, 1) };
+var right = new Camera3D() { Viewport = new Viewport(0.5f, 0, 0.5f, 1), CameraOrder = 1 };
+</code></pre>
+<h2 id="exposure">Exposure</h2>
+<p>Exposure scales the light that reaches the camera before tone mapping, the way opening or closing a real camera brightens or darkens the picture. It matters most with HDR rendering and photometric lights.</p>
+<table>
+<thead>
+<tr>
+<th>Exposure = 0.2</th>
+<th>Exposure = 1.0</th>
+<th>Exposure = 3.0</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/CameraExposure0.2.png" alt="The same scene rendered with exposure 0.2, noticeably dark"></td>
+<td><img src="images/CameraExposure1.png" alt="The scene with exposure 1.0"></td>
+<td><img src="images/CameraExposure3.png" alt="The scene with exposure 3.0, bright and partly overexposed"></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exposure</strong></td>
+<td>1</td>
+<td>Exposure factor. With physical parameters on, it is computed from the aperture, shutter speed and sensitivity.</td>
+</tr>
+<tr>
+<td><strong>EV100</strong></td>
+<td>read-only</td>
+<td>The exposure value at ISO 100 that corresponds to <code>Exposure</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="auto-exposure">Auto exposure</h3>
+<p>With auto exposure, the camera measures the brightness of each frame on the GPU and adapts its exposure over time, like an eye adjusting to the dark. It requires compute shader support.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AutoExposureEnabled</strong></td>
+<td>false</td>
+<td>Turns auto exposure on.</td>
+</tr>
+<tr>
+<td><strong>MinLogLuminance</strong></td>
+<td>-10</td>
+<td>Lowest luminance, in log2 units, taken into account.</td>
+</tr>
+<tr>
+<td><strong>LogLuminanceRange</strong></td>
+<td>12</td>
+<td>Range of luminance, in log2 units above the minimum, taken into account.</td>
+</tr>
+<tr>
+<td><strong>TAU</strong></td>
+<td>1.1</td>
+<td>Adaptation speed. Higher values adapt faster.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="physical-camera">Physical camera</h3>
+<p>By default you set the field of view and the exposure directly. With <strong>UsePhysicalParameters</strong> on, they are derived from the settings of a real camera instead, which is the natural choice with photometric lights.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UsePhysicalParameters</strong></td>
+<td>false</td>
+<td>Compute the field of view and the exposure from the properties below.</td>
+</tr>
+<tr>
+<td><strong>FocalLength</strong></td>
+<td>50</td>
+<td>Distance between the lens and the sensor, in millimeters. Longer lenses give a narrower field of view.</td>
+</tr>
+<tr>
+<td><strong>SensorSize</strong></td>
+<td>36 x 24</td>
+<td>Size of the sensor in millimeters. Together with the focal length it defines the field of view.</td>
+</tr>
+<tr>
+<td><strong>Aperture</strong></td>
+<td>1</td>
+<td><a href="https://en.wikipedia.org/wiki/Aperture">Aperture</a> in f-stops. Smaller numbers let in more light and give a shallower depth of field.</td>
+</tr>
+<tr>
+<td><strong>ShutterSpeed</strong></td>
+<td>1.2</td>
+<td><a href="https://en.wikipedia.org/wiki/Shutter_speed">Shutter speed</a> in seconds. Longer times let in more light and give more motion blur.</td>
+</tr>
+<tr>
+<td><strong>Sensitivity</strong></td>
+<td>100</td>
+<td><a href="https://en.wikipedia.org/wiki/Film_speed">Sensitivity</a> in ISO.</td>
+</tr>
+<tr>
+<td><strong>Compensation</strong></td>
+<td>0</td>
+<td><a href="https://en.wikipedia.org/wiki/Exposure_compensation">Exposure compensation</a> in EV, added to the computed exposure.</td>
+</tr>
+<tr>
+<td><strong>FocalDistance</strong></td>
+<td>1</td>
+<td>Distance in meters to the plane in focus, used by <a href="postprocessing_graph/default_postprocessing_graph/depth_of_field.html">depth of field</a>.</td>
+</tr>
+</tbody>
+</table>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The defaults (f/1, 1.2 s, ISO 100) give an exposure of 1, the same as a camera without physical parameters. For a sunny outdoor scene lit with a sun of around 100,000 lux, try f/16, 1/125 s and ISO 100.</p>
+</div>
+<h2 id="advanced-rendering-properties">Advanced rendering properties</h2>
+<p>These properties are only available from code.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RenderPath</strong></td>
+<td>null</td>
+<td>The render path that draws this camera. When null, the camera uses the default path of the render pipeline, the <code>ForwardRenderPath</code>. See <a href="rendering_overview.html">Rendering Overview</a>.</td>
+</tr>
+<tr>
+<td><strong>CullingSystem</strong></td>
+<td>null</td>
+<td>The culling system for this camera. When null, it uses the render manager's, a <code>FrustumCullingSystem</code>. Assign a <code>DummyCullingSystem</code> to draw everything without culling.</td>
+</tr>
+<tr>
+<td><strong>AutoDepthBounds</strong></td>
+<td>false</td>
+<td>Measure the real depth range of the visible scene each frame to fit shadow cascades to it. Usually set for every camera through the <code>ShadowMapManager</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>Camera3D</code> also has <code>FrustumCullingEnabled</code> and <code>LayerMask</code> properties. The default render pipeline does not use them; use <code>CullingSystem</code> and <code>TagFilter</code> instead.</p>
+</div>
+<h2 id="render-to-a-texture">Render to a texture</h2>
+<p>A camera can render into a frame buffer that you create, whose color texture you can then use in a material, for a security monitor, a mirror or a minimap.</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class MonitorScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        FrameBuffer frameBuffer = graphicsContext.Factory.CreateFrameBuffer(512, 512, debugName: &quot;MonitorCamera&quot;);
+
+        // Without an intermediate buffer the camera renders straight into the texture,
+        // which skips HDR and post-processing. With it, the camera renders like the main one.
+        frameBuffer.IntermediateBufferAssociated = true;
+
+        Entity monitorCamera = new Entity(&quot;monitorCamera&quot;)
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 5, 5), LocalRotation = new Vector3(-MathHelper.PiOver4, 0, 0) })
+            .AddComponent(new Camera3D()
+            {
+                FrameBuffer = frameBuffer,
+
+                // Render before the main camera so the texture is up to date when the screen samples it.
+                CameraOrder = -1,
+            });
+
+        var screenMaterial = new StandardMaterial(assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorTexture = frameBuffer.ColorTargets[0].Texture,
+            BaseColorSampler = assetsService.Load&lt;SamplerState&gt;(DefaultResourcesIDs.LinearClampSamplerID),
+            LightingEnabled = false,
+        };
+
+        Entity screen = new Entity(&quot;screen&quot;)
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 1.5f, -2) })
+            .AddComponent(new MaterialComponent() { Material = screenMaterial.Material })
+            .AddComponent(new PlaneMesh() { PlaneNormal = PlaneMesh.NormalAxis.ZPositive, Width = 1.6f, Height = 0.9f })
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(monitorCamera);
+        this.Managers.EntityManager.Add(screen);
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

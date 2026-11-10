@@ -1,0 +1,292 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>IFC Runtime | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="IFC Runtime | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ifc-runtime">IFC Runtime</h1>
+
+<hr>
+<p><img src="images/IFC/HeaderIFC.png" alt="IFC building model loaded with the IFC runtime"></p>
+<p>The <strong>Evergine.Runtimes.IFC</strong> package reads Industry Foundation Classes (<code>.ifc</code>) files, the open exchange format of BIM tools such as Revit, ArchiCAD and Tekla, while the application runs. It returns a <code>Model</code> built for fast display of whole buildings: all geometry is merged into at most two meshes, one opaque and one translucent.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>Evergine.Runtimes.IFC</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>Evergine.Runtimes.IFC</code></td>
+</tr>
+<tr>
+<td><strong>Class</strong></td>
+<td><code>IFCRuntime</code> (derives from <code>ModelRuntime</code>)</td>
+</tr>
+<tr>
+<td><strong>Formats</strong></td>
+<td><code>.ifc</code> with the IFC2x3 or IFC4 schema</td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>Task&lt;Model&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Platforms</strong></td>
+<td>Windows desktop</td>
+</tr>
+<tr>
+<td><strong>Dependencies</strong></td>
+<td><a href="https://docs.xbim.net/">xBIM Toolkit</a>: <code>Xbim.Essentials</code> 6.0.578, <code>Xbim.Geometry</code> 6.1.801, <code>Xbim.Tessellator</code> 6.0.521</td>
+</tr>
+</tbody>
+</table>
+<p>The runtime is Windows only because the xBIM geometry engine that tessellates IFC solids is a native Windows library.</p>
+<h2 id="what-the-runtime-returns">What the runtime returns</h2>
+<p><img src="images/cad_ifc_output.png" alt="IFCRuntime.Read returns a Model whose root node, named after the IFC project and scaled to meters, has up to two child nodes: an opaque batch and a translucent batch"></p>
+<p><em>The building arrives as a Model with two meshes at most, which keeps it to two draw calls however many elements it has.</em></p>
+<p>The xBIM engine turns every product in the file (walls, slabs, windows, and so on) into a triangle mesh, whether the IFC describes it as a triangulated face set, an extruded solid or the result of boolean operations. The runtime then:</p>
+<ol>
+<li>Colors each vertex with the surface style of its element, taking the transparency of the style as alpha.</li>
+<li>Sorts the elements into two groups: <strong>translucent</strong> when the transparency of their style is above 0.5, <strong>opaque</strong> otherwise.</li>
+<li>Transforms every element to its world position and merges each group into one mesh.</li>
+<li>Places both meshes under a root node named after the IFC project, scaled by the length unit of the project so that the model is in meters.</li>
+</ol>
+<p>Two built-in <code>StandardMaterial</code> instances render the result: <code>DefaultOpaque</code> and <code>DefaultAlpha</code> (alpha 0.2), both with vertex colors enabled so each element keeps its own color.</p>
+<p>Because the elements are merged, the model has no entity per wall or window, and the IFC properties of the elements are not kept. Use this runtime to show a building, not to query it.</p>
+<h2 id="normals">Normals</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>useSmoothNormals</strong></td>
+<td><code>false</code></td>
+<td>Off, every face gets its own normal: a faceted look and the fastest load. On, normals are averaged per vertex, which gives curved elements a smoother look.</td>
+</tr>
+</tbody>
+</table>
+<p>The parameter is only available on the file path overload. The stream overload always uses flat normals.</p>
+<h2 id="progress-reporting">Progress reporting</h2>
+<p>Opening a large IFC file takes seconds. <code>IFCRuntime</code> reports the progress of each stage through three <code>IProgress&lt;int&gt;</code> properties, all <code>null</code> by default. Each receives a percentage from 0 to 100.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Stage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OpenProgress</strong></td>
+<td>Opening and parsing the file.</td>
+</tr>
+<tr>
+<td><strong>ContextProgress</strong></td>
+<td>Building the geometry context of the model.</td>
+</tr>
+<tr>
+<td><strong>GeometryProgress</strong></td>
+<td>Generating the meshes.</td>
+</tr>
+</tbody>
+</table>
+<p>Set them on the runtime before calling <code>Read</code>.</p>
+<h2 id="load-a-model-from-a-file">Load a model from a file</h2>
+<p><code>Read(string filePath, Func&lt;MaterialData, Task&lt;Material&gt;&gt; materialAssigner = null, bool useSmoothNormals = false)</code> combines the path with the <code>Content</code> folder of the running application, so a relative path is resolved inside <code>Content</code> and an absolute path is used as it is. Mark IFC files that you ship in <code>Content</code> with <strong>Set to export as raw</strong> in the <a href="../evergine_studio/assets/edit.html">Assets Details panel</a> so they are copied unchanged.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.IFC;
+
+public class MyScene : Scene
+{
+    protected override async void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        IFCRuntime.Instance.OpenProgress = new Progress&lt;int&gt;(p =&gt; Console.WriteLine($&quot;Open: {p}%&quot;));
+        IFCRuntime.Instance.ContextProgress = new Progress&lt;int&gt;(p =&gt; Console.WriteLine($&quot;Context: {p}%&quot;));
+        IFCRuntime.Instance.GeometryProgress = new Progress&lt;int&gt;(p =&gt; Console.WriteLine($&quot;Geometry: {p}%&quot;));
+
+        Model model = await IFCRuntime.Instance.Read(&quot;Models/AC20-Institute.ifc&quot;, useSmoothNormals: true);
+
+        Entity building = model.InstantiateModelHierarchy(&quot;building&quot;, assetsService);
+        this.Managers.EntityManager.Add(building);
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Loading runs on background threads, and <code>Progress&lt;int&gt;</code> only returns to the calling thread when that thread has a synchronization context. To update scene or UI state from a progress callback, queue the change with <code>EvergineForegroundTask.Run</code>.</p>
+</div>
+<h2 id="load-a-model-from-a-stream">Load a model from a stream</h2>
+<p><code>Read(Stream stream, ...)</code> copies the stream to a temporary <code>.ifc</code> file, reads it and deletes the file. The stream is read once from start to end, so a network stream works without buffering it first:</p>
+<pre><code class="lang-csharp">using System.Net.Http;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+using Evergine.Runtimes.IFC;
+
+public class MyScene : Scene
+{
+    private static readonly HttpClient httpClient = new HttpClient();
+
+    protected override async void CreateScene()
+    {
+        using var response = await httpClient.GetAsync(&quot;https://example.com/bim/BasicHouse.ifc&quot;, HttpCompletionOption.ResponseHeadersRead);
+        response.EnsureSuccessStatusCode();
+
+        using var stream = await response.Content.ReadAsStreamAsync();
+        Model model = await IFCRuntime.Instance.Read(stream);
+
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+        Entity building = model.InstantiateModelHierarchy(&quot;house&quot;, assetsService);
+
+        // Scene changes must happen on the Evergine main thread.
+        await EvergineForegroundTask.Run(() =&gt; this.Managers.EntityManager.Add(building));
+    }
+}
+</code></pre>
+<h2 id="materials">Materials</h2>
+<p>Both <code>Read</code> overloads accept a <code>materialAssigner</code> argument because <code>IFCRuntime</code> shares the <code>ModelRuntime</code> signature, but the IFC runtime does not call it: the model always uses the two built-in materials described above. To change how the building looks, replace the <code>Material</code> of the <code>MaterialComponent</code> on the two mesh entities of the instantiated hierarchy after loading. The <a href="glb_runtime.html#materials-and-the-material-assigner">GLB runtime page</a> explains the material assigner used by the other model runtimes.</p>
+<h2 id="samples">Samples</h2>
+<p>The IFC runtime has been tested with these public datasets:</p>
+<ul>
+<li><a href="https://openifcmodel.cs.auckland.ac.nz/">Open IFC Model Repository</a></li>
+<li><a href="https://www.steptools.com/docs/stpfiles/ifc/">STEP Tools IFC samples</a></li>
+<li><a href="https://github.com/andrewisen/bim-whale-ifc-samples">BIM Whale sample files</a></li>
+</ul>
+<p><img src="images/IFC/OpenIFC.png" alt="Model from the Open IFC Model Repository loaded with the IFC runtime">
+<em>Model from the Open IFC Model Repository.</em></p>
+<p><img src="images/IFC/AC20-Institute.png" alt="AC20 Institute building loaded with the IFC runtime">
+<em>Karlsruhe Institute of Technology (KIT), Institute for Automation and Applied Informatics.</em></p>
+<p><img src="images/IFC/BasicHouse.png" alt="BIM Whale BasicHouse sample loaded with the IFC runtime">
+<em>BIM Whale sample: BasicHouse.</em></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

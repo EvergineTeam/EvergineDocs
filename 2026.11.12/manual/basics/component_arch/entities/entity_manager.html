@@ -1,0 +1,304 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>EntityManager | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="EntityManager | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="entitymanager">EntityManager</h1>
+
+<hr>
+<p>The <strong>EntityManager</strong> is the <a href="../../scenes/scenemanagers.html">scene manager</a> that owns the entities of a scene. Adding an entity to it is what puts the entity in the scene: from that moment its components are attached, activated and started, and removing it runs the same steps in reverse. It is also where you look entities up, by path, by id or by tag.</p>
+<p>Every scene has one, available as <code>this.Managers.EntityManager</code> inside components, scene managers and scene classes.</p>
+<h2 id="add-and-remove-entities">Add and Remove Entities</h2>
+<pre><code class="lang-csharp">EntityManager entityManager = this.Managers.EntityManager;
+
+// Add an entity, and all its children, to the scene.
+entityManager.Add(entity);
+
+// Add several entities at once. They are all in the scene before any of them is attached,
+// so scene-wide bindings between them resolve regardless of the order of the list.
+entityManager.Add(new[] { player, enemy, pickup });
+
+// Take an entity out of the scene and destroy it, with its children and components.
+entityManager.Remove(entity);
+
+// Take an entity out of the scene but keep it, so it can be added again later.
+entityManager.Detach(entity);
+</code></pre>
+<p>Only root entities are passed to <code>Add()</code>. To put an entity under another one, use <code>AddChild()</code> on the parent (see <a href="entity_hierarchy.html">Entity Hierarchy</a>). <code>Remove()</code> and <code>Detach()</code> accept child entities too, and take them out of their parent.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>Add()</code> throws an <code>InvalidOperationException</code> when the entity has been destroyed, already has a parent, or has the same <code>Id</code> as an entity already in the scene.</p>
+</div>
+<h2 id="properties-and-events">Properties and Events</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EntityGraph</strong></td>
+<td>The entities at the top of the hierarchy, the ones added with <code>Add()</code>.</td>
+</tr>
+<tr>
+<td><strong>AllEntities</strong></td>
+<td>Every entity in the scene, including all descendants.</td>
+</tr>
+<tr>
+<td><strong>Count</strong></td>
+<td>The number of entities at the top of the hierarchy.</td>
+</tr>
+<tr>
+<td><strong>Contains(Entity)</strong></td>
+<td><code>true</code> if the entity was added to this manager.</td>
+</tr>
+<tr>
+<td><strong>EntityAdded</strong></td>
+<td>Event raised when an entity, root or child, enters the scene.</td>
+</tr>
+<tr>
+<td><strong>EntityDetached</strong></td>
+<td>Event raised when an entity leaves the scene. It is raised for removed entities too, because removing an entity detaches it first.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="find-entities">Find Entities</h2>
+<h3 id="by-path">By Path</h3>
+<p>The most common way to find an entity is by its <a href="entity_hierarchy.html#entity-paths">entity path</a>, the names from the root down to it separated by <code>.</code>:</p>
+<pre><code class="lang-csharp">Entity tire = entityManager.Find(&quot;Car.Wheel1.Tire1&quot;);
+</code></pre>
+<p>A path without separators finds a root entity by name.</p>
+<h3 id="by-id">By Id</h3>
+<p>Every entity has a unique <code>Id</code>, which is stable across saves of the scene:</p>
+<pre><code class="lang-csharp">Guid id = entity.Id;
+Entity sameEntity = entityManager.Find(id);
+</code></pre>
+<h3 id="by-tag">By Tag</h3>
+<p>The <code>Tag</code> property groups entities. <code>FindAllByTag()</code> returns every entity with a given tag, at any depth of the hierarchy:</p>
+<pre><code class="lang-csharp">IEnumerable&lt;Entity&gt; enemies = entityManager.FindAllByTag(&quot;Enemy&quot;);
+</code></pre>
+<p>All the <code>Find</code> methods return <code>null</code> (or an empty collection) when nothing matches.</p>
+<h2 id="find-components">Find Components</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FindComponentFromEntityPath&lt;T&gt;(string path)</code></td>
+<td>The component of type <code>T</code> on the entity at that path.</td>
+</tr>
+<tr>
+<td><code>FindComponentsFromEntityPath&lt;T&gt;(string path)</code></td>
+<td>Every component of type <code>T</code> on the entity at that path.</td>
+</tr>
+<tr>
+<td><code>FindFirstComponentOfType&lt;T&gt;(bool isExactType = true, string tag = null)</code></td>
+<td>The first component of type <code>T</code> in the whole scene, optionally only on entities with a tag.</td>
+</tr>
+<tr>
+<td><code>FindComponentsOfType&lt;T&gt;(bool isExactType = true, string tag = null)</code></td>
+<td>Every component of type <code>T</code> in the whole scene.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>FindFirstComponentOfType</code> and <code>FindComponentsOfType</code> walk the entire scene. Call them once, in <code>OnAttached()</code> or <code>Start()</code>, and keep the result, or use a <a href="../../bindings/bind_components.html"><code>[BindComponent(source: BindComponentSource.Scene)]</code></a> binding. Do not call them from <code>Update()</code>.</p>
+</div>
+<h2 id="entity-tag-collections">Entity Tag Collections</h2>
+<p><code>FindAllByTag()</code> returns the entities that have the tag <strong>now</strong>. When you need to follow a group of entities over time, such as the enemies that are still alive, ask for an <code>EntityManager.EntityTagCollection</code> instead. It is a live collection: entities join it when they are added to the scene with that tag or get the tag later, and leave it when they are removed or their tag changes.</p>
+<pre><code class="lang-csharp">using System;
+using System.Diagnostics;
+using System.Linq;
+using Evergine.Framework;
+using Evergine.Framework.Managers;
+
+namespace MyProject
+{
+    public class EnemyCounter : Component
+    {
+        private EntityManager.EntityTagCollection enemies;
+
+        public int Remaining =&gt; this.enemies.Entities.Count();
+
+        protected override void OnActivated()
+        {
+            base.OnActivated();
+
+            this.enemies = this.Managers.EntityManager.GetEntityTagCollection(&quot;Enemy&quot;);
+            this.enemies.OnEntityAdded += this.OnEnemyAdded;
+            this.enemies.OnEntityRemoved += this.OnEnemyRemoved;
+        }
+
+        protected override void OnDeactivated()
+        {
+            base.OnDeactivated();
+
+            // The collection belongs to the EntityManager and outlives this component.
+            this.enemies.OnEntityAdded -= this.OnEnemyAdded;
+            this.enemies.OnEntityRemoved -= this.OnEnemyRemoved;
+        }
+
+        private void OnEnemyAdded(object sender, Entity enemy)
+        {
+            Trace.WriteLine($&quot;Enemy spawned: {enemy.EntityPath}&quot;);
+        }
+
+        private void OnEnemyRemoved(object sender, Entity enemy)
+        {
+            if (this.Remaining == 0)
+            {
+                Trace.WriteLine(&quot;Wave cleared&quot;);
+            }
+        }
+    }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Tag</strong></td>
+<td>The tag of the collection.</td>
+</tr>
+<tr>
+<td><strong>Entities</strong></td>
+<td>The entities that currently have the tag.</td>
+</tr>
+<tr>
+<td><strong>OnEntityAdded</strong></td>
+<td>Raised when an entity with the tag enters the scene, or an entity in the scene gets the tag.</td>
+</tr>
+<tr>
+<td><strong>OnEntityRemoved</strong></td>
+<td>Raised when an entity leaves the collection, because it was removed from the scene or its tag changed.</td>
+</tr>
+</tbody>
+</table>
+<p><code>GetEntityTagCollection()</code> always returns the same collection for the same tag, so several components can share it.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

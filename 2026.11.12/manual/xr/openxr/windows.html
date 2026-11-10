@@ -1,0 +1,200 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Windows (PC VR) | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Windows (PC VR) | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="windows-pc-vr">Windows (PC VR)</h1>
+
+<p><img src="../images/xrsample.jpg" alt="A scene rendered in an XR headset"></p>
+<p>The <strong>Windows OpenXR (DirectX11)</strong> template runs your scene on a PC and renders it into any headset connected to that PC through its OpenXR runtime: SteamVR headsets, Meta Quest over Link, Windows Mixed Reality headsets and others. The application also opens a desktop window that mirrors what the user sees, which is useful for spectators and for debugging.</p>
+<p>The template uses DirectX 11 because <code>OpenXRPlatform</code> does not support DirectX 12, the backend of the default Windows template.</p>
+<h2 id="create-the-profile">Create the profile</h2>
+<p>Select <strong>Windows OpenXR (DirectX11)</strong> when you create a project, or add it later from <strong>Project Settings</strong> &gt; <strong>Profiles</strong>. The profile is named <strong>Windows.OpenXR</strong>.</p>
+<p>Before you run it, install the runtime of your headset (for example SteamVR or the Meta Quest PC app) and make it the <strong>active OpenXR runtime</strong> in its settings. <code>OpenXRPlatform</code> connects to whichever runtime Windows reports as active.</p>
+<h2 id="what-the-template-contains">What the template contains</h2>
+<p>The launcher project is a Windows Forms application (<code>net10.0-windows</code>) that references <code>Evergine.OpenXR</code>, <code>Evergine.DirectX11</code>, <code>Evergine.XAudio2</code> and <code>Evergine.Forms</code>. Its <code>Program.cs</code>:</p>
+<ol>
+<li>Opens a window and creates a DirectX 11 graphics context with a swapchain for it.</li>
+<li>Uses that window as the mirror display.</li>
+<li>Creates <code>OpenXRPlatform</code> with no optional extensions and with the profiles of the most common PC controllers, so that whichever headset is plugged in gets working controllers.</li>
+<li>Registers the platform, adds its display as <code>DefaultDisplay</code> and the window as <code>MirrorDisplay</code>, and calls <code>openXRPlatform.Update()</code> at the start of every frame.</li>
+</ol>
+<pre><code class="lang-csharp">// Create OpenXR Platform
+openXRPlatform = new OpenXRPlatform(
+    new string[]
+    {
+        // OpenXR extensions to enable...
+        //&quot;XR_EXT_hand_tracking&quot;,         // Enable hand tracking in OpenXR application
+        //&quot;XR_FB_hand_tracking_aim&quot;,      // Allow to use hand gestures in Meta Quest devices
+        //&quot;XR_FB_hand_tracking_mesh&quot;,     // Obtain hand mesh in Meta Quest devices
+    }
+    ,
+    new OpenXRInteractionProfile[]
+    {
+            // Interaction profile to use...
+            DefaultInteractionProfiles.OculusTouchProfile,
+            DefaultInteractionProfiles.HTCViveControllerProfile,
+            DefaultInteractionProfiles.MixedRealityMotionControllerProfile,
+            DefaultInteractionProfiles.ValveIndexControllerProfile,
+            DefaultInteractionProfiles.OculusGoProfile,
+    })
+{
+    RenderMirrorTexture = true,
+    ReferenceSpace = ReferenceSpaceType.Stage,
+    MirrorDisplay = mirrorDisplay
+};
+</code></pre>
+<p><a href="../xrplatform.html#creating-and-registering-a-platform">XR Platform</a> shows the complete <code>ConfigureGraphicsContext</code> method and the frame loop of this template.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Uncomment <code>XR_EXT_hand_tracking</code> to get articulated hands when the runtime supports them. An extension the runtime lacks is skipped with a warning, so enabling one is safe.</p>
+</div>
+<h2 id="command-line-options">Command-line options</h2>
+<p>The template's <code>Program.cs</code> parses these arguments:</p>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-Width &lt;pixels&gt;</code></td>
+<td>Width of the mirror window. Default 1280.</td>
+</tr>
+<tr>
+<td><code>-Height &lt;pixels&gt;</code></td>
+<td>Height of the mirror window. Default 720.</td>
+</tr>
+<tr>
+<td><code>-Vsync</code> / <code>-NoVsync</code></td>
+<td>Turns vertical sync of the mirror window on (default) or off.</td>
+</tr>
+<tr>
+<td><code>-Windowed</code> / <code>-FullScreen</code></td>
+<td>Runs the mirror window windowed (default) or full screen.</td>
+</tr>
+</tbody>
+</table>
+<p>Without arguments, the template hides the console window.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="openxr_platform.html">OpenXR Platform</a>: every <code>OpenXRPlatform</code> property, reference spaces and interaction profiles.</li>
+<li><a href="../openvr.html">OpenVR</a>: the SteamVR alternative, without a template.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

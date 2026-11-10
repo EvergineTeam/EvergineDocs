@@ -1,0 +1,303 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>OpenVR | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="OpenVR | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="openvr">OpenVR</h1>
+
+<p><img src="images/xrsample.jpg" alt="A scene rendered in an XR headset"></p>
+<p><code>OpenVRPlatform</code> is the <a href="xrplatform.html"><code>XRPlatform</code></a> implementation for <strong>SteamVR</strong>, in the <strong>Evergine.OpenVR</strong> package. It talks to SteamVR through Valve's OpenVR API instead of OpenXR, which gives it access to every device SteamVR tracks: headsets, controllers, Vive trackers and base stations, each with its SteamVR render model.</p>
+<p>Use it when you need those extra devices. For a headset and its controllers alone, prefer <a href="openxr/index.html">OpenXR</a>: SteamVR is also an OpenXR runtime, and OpenXR has a project template and runs on more headsets.</p>
+<h2 id="what-openvrplatform-provides">What OpenVRPlatform provides</h2>
+<table>
+<thead>
+<tr>
+<th>Subsystem</th>
+<th>Support</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Head tracking and stereo rendering</td>
+<td>Yes. It also updates <code>XRPlatform.TrackingState</code>, which OpenXR does not.</td>
+</tr>
+<tr>
+<td><code>InputTracking</code></td>
+<td>Every SteamVR device: <code>HMD</code>, <code>Controller</code>, <code>GenericTracker</code>, <code>TrackingReference</code> and <code>DisplayRedirect</code>. Track them with <a href="input_tracking/advancedtrackxrdevice.html"><code>AdvancedTrackXRDevice</code></a>.</td>
+</tr>
+<tr>
+<td><code>RenderableModels</code></td>
+<td>The SteamVR render model of each device, for <a href="input_tracking/trackxrarticulatedhand.html#render-the-hands"><code>XRDeviceRenderableModel</code></a>.</td>
+</tr>
+<tr>
+<td>Articulated hands</td>
+<td>No.</td>
+</tr>
+<tr>
+<td><code>Passthrough</code></td>
+<td>No (<code>null</code>).</td>
+</tr>
+</tbody>
+</table>
+<p>Controllers report their state through <code>XRControllerGenericState</code> like on OpenXR, with this mapping from SteamVR buttons:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>SteamVR input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ThumbStick</code></td>
+<td>Axis 0: the thumbstick, or the touchpad on Vive wands.</td>
+</tr>
+<tr>
+<td><code>Trigger</code></td>
+<td>Axis 1: the trigger value.</td>
+</tr>
+<tr>
+<td><code>ThumbStickButton</code></td>
+<td>Touchpad or thumbstick click.</td>
+</tr>
+<tr>
+<td><code>TriggerButton</code>, <code>Grip</code>, <code>Menu</code></td>
+<td>Trigger, grip and application menu buttons.</td>
+</tr>
+<tr>
+<td><code>Button1</code></td>
+<td>The A button.</td>
+</tr>
+<tr>
+<td><code>Button2</code></td>
+<td>Not mapped: always <code>Released</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OpenVRApplicationType</strong></td>
+<td><code>EVRApplicationType.VRApplication_Scene</code></td>
+<td>The kind of SteamVR application to start as. <code>VRApplication_Scene</code> renders into the headset. Other values, such as <code>VRApplication_Background</code>, only make sense together with <code>SkipHMD</code>.</td>
+</tr>
+<tr>
+<td><strong>SkipHMD</strong></td>
+<td><code>false</code></td>
+<td>Starts OpenVR without rendering into the headset: no <code>Display</code> is created and the camera is not moved. Device tracking keeps working, for example to drive a desktop application with Vive trackers.</td>
+</tr>
+<tr>
+<td><strong>MSAASampleCount</strong></td>
+<td><code>Count4</code></td>
+<td>Multisampling of the headset render targets. Higher than on the other platforms.</td>
+</tr>
+</tbody>
+</table>
+<p><code>OpenVRPlatform</code> also inherits the <a href="xrplatform.html#properties"><code>XRPlatform</code> properties</a>: <code>MirrorDisplay</code>, <code>RenderMirrorTexture</code>, <code>NearClipDistance</code> and <code>FarClipDistance</code>.</p>
+<h2 id="set-up-a-windows-profile">Set up a Windows profile</h2>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Evergine does not include an OpenVR project template. Start from a <strong>Windows (DirectX11)</strong> profile, add the <code>Evergine.OpenVR</code> package to its launcher project, and make the changes below. SteamVR must be installed on the PC.</p>
+</div>
+<p>The setup follows the <a href="xrplatform.html#creating-and-registering-a-platform">same steps as OpenXR</a>, with one difference: <code>OpenVRPlatform</code> creates its <code>Display</code> when the service <strong>attaches</strong>, which happens inside <code>application.Initialize()</code>, not when you register it. The launcher registers the platform and the mirror window, and the application registers the headset display as soon as it exists.</p>
+<p>In the launcher's <code>Program.cs</code>, create a DirectX 11 context, then the platform:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.OpenVR;
+
+class Program
+{
+    private static OpenVRPlatform openVRPlatform;
+
+    // Main() stays as in the template: it creates the window, calls this method and runs the frame loop.
+    private static void ConfigureGraphicsContext(Application application, Window window)
+    {
+        GraphicsContext graphicsContext = new global::Evergine.DirectX11.DX11GraphicsContext();
+        graphicsContext.CreateDevice();
+        SwapChainDescription swapChainDescription = new SwapChainDescription()
+        {
+            SurfaceInfo = window.SurfaceInfo,
+            Width = window.Width,
+            Height = window.Height,
+            ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm_SRgb,
+            ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+            DepthStencilTargetFormat = PixelFormat.D32_Float_S8X24_UInt,
+            DepthStencilTargetFlags = TextureFlags.DepthStencil,
+            SampleCount = TextureSampleCount.None,
+            IsWindowed = true,
+            RefreshRate = 60,
+        };
+        var swapChain = graphicsContext.CreateSwapChain(swapChainDescription);
+        application.Container.RegisterInstance(graphicsContext);
+
+        // The desktop window shows a copy of what the headset renders.
+        var mirrorDisplay = new Display(window, swapChain);
+
+        // Set MirrorDisplay before registering: the platform reads it when it attaches.
+        openVRPlatform = new OpenVRPlatform()
+        {
+            MirrorDisplay = mirrorDisplay,
+        };
+
+        application.Container.RegisterInstance(openVRPlatform);
+
+        var graphicsPresenter = application.Container.Resolve&lt;GraphicsPresenter&gt;();
+        graphicsPresenter.AddDisplay(&quot;MirrorDisplay&quot;, mirrorDisplay);
+    }
+}
+</code></pre>
+<p>In the frame loop, call <code>openVRPlatform.Update()</code> before <code>application.UpdateFrame(gameTime)</code>, as the OpenXR templates do.</p>
+<p>In <code>MyApplication.Initialize()</code>, register the headset display between <code>base.Initialize()</code> and the navigation to the first scene. The check keeps the code harmless in profiles that registered their own <code>DefaultDisplay</code>, such as the OpenXR ones:</p>
+<pre><code class="lang-csharp">public override void Initialize()
+{
+    base.Initialize();
+
+    // OpenVRPlatform creates its display when the service attaches, inside base.Initialize().
+    // Register it before the scene loads, so that the scene camera finds it.
+    var graphicsPresenter = this.Container.Resolve&lt;GraphicsPresenter&gt;();
+    var xrPlatform = this.Container.Resolve&lt;XRPlatform&gt;();
+    if (xrPlatform?.Display != null &amp;&amp; !graphicsPresenter.TryGetDisplay(&quot;DefaultDisplay&quot;, out Display _))
+    {
+        graphicsPresenter.AddDisplay(&quot;DefaultDisplay&quot;, xrPlatform.Display);
+    }
+
+    // Get ScreenContextManager
+    var screenContextManager = this.Container.Resolve&lt;ScreenContextManager&gt;();
+    var assetsService = this.Container.Resolve&lt;AssetsService&gt;();
+
+    // Navigate to scene
+    var scene = assetsService.Load&lt;MyScene&gt;(EvergineContent.Scenes.MyScene_wescene);
+    ScreenContext screenContext = new ScreenContext(scene);
+    screenContextManager.To(screenContext);
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="xrplatform.html">XR Platform</a>: the properties every platform shares.</li>
+<li><a href="input_tracking/advancedtrackxrdevice.html">Advanced Tracking Devices</a>: tracking trackers and base stations.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

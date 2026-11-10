@@ -1,0 +1,374 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>GraphicsContext | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="GraphicsContext | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="graphicscontext">GraphicsContext</h1>
+
+<p>The <code>GraphicsContext</code> is the device. It is the first object you create and the last one you dispose, it owns the <a href="resourcefactory.html">ResourceFactory</a> that allocates everything else, and it reports what the hardware underneath can do.</p>
+<p>Like most classes in this section it is abstract, and the concrete class you instantiate is the one decision in your application that names a backend. Everything after that point is written once and runs on all of them.</p>
+<pre><code class="lang-csharp">var graphicsContext = new Evergine.DirectX11.DX11GraphicsContext();
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Backend</th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DirectX 11</strong></td>
+<td><code>new DX11GraphicsContext()</code></td>
+</tr>
+<tr>
+<td><strong>DirectX 12</strong></td>
+<td><code>new DX12GraphicsContext()</code></td>
+</tr>
+<tr>
+<td><strong>Vulkan</strong></td>
+<td><code>new VKGraphicsContext()</code></td>
+</tr>
+<tr>
+<td><strong>Metal</strong></td>
+<td><code>new MTLGraphicsContext()</code></td>
+</tr>
+<tr>
+<td><strong>OpenGL and OpenGL ES</strong></td>
+<td><code>new GLGraphicsContext()</code></td>
+</tr>
+<tr>
+<td><strong>WebGPU</strong></td>
+<td><code>new WGPUGraphicsContext()</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="creating-the-device">Creating the device</h2>
+<p>Nothing can be allocated until the device exists:</p>
+<pre><code class="lang-csharp">graphicsContext.CreateDevice();
+</code></pre>
+<h3 id="validation-layer">Validation layer</h3>
+<p>Pass a <code>ValidationLayer</code> to have the backend check what you ask of it and report native and internal errors:</p>
+<pre><code class="lang-csharp">graphicsContext.CreateDevice(new ValidationLayer());
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Notify method</th>
+<th>Declaration</th>
+<th>Behaviour</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Exception</strong></td>
+<td><code>new ValidationLayer()</code></td>
+<td>Throws on each error and stops execution. <strong>Default value.</strong></td>
+</tr>
+<tr>
+<td><strong>Trace</strong></td>
+<td><code>new ValidationLayer(ValidationLayer.NotifyMethod.Trace)</code></td>
+<td>Writes errors to the console and keeps going.</td>
+</tr>
+<tr>
+<td><strong>Event</strong></td>
+<td><code>new ValidationLayer(ValidationLayer.NotifyMethod.Event)</code></td>
+<td>Raises <code>ValidationLayer.Error</code> so you can route the message yourself.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The validation layer is the only thing that reports a missing or wrong <a href="barriers.html">barrier</a>. Without it, a resource left in the wrong state renders incorrectly and says nothing. Develop with it on, even when the application ships without it.</p>
+</div>
+<h2 id="asking-what-the-hardware-supports">Asking what the hardware supports</h2>
+<p><code>Capabilities</code> answers per device, not per backend, so query it rather than testing <code>BackendType</code>:</p>
+<pre><code class="lang-csharp">if (this.graphicsContext.Capabilities.IsRaytracingSupported)
+{
+    // ...
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Capability</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsComputeShaderSupported</strong></td>
+<td>Whether <a href="computepipeline.html">compute pipelines</a> can run.</td>
+</tr>
+<tr>
+<td><strong>IsRaytracingSupported</strong></td>
+<td>Whether <a href="raytracingpipeline.html">ray tracing</a> is available. Depends on the device as well as on the backend.</td>
+</tr>
+<tr>
+<td><strong>IsMeshShaderSupported</strong></td>
+<td>Whether mesh and amplification shaders are available.</td>
+</tr>
+<tr>
+<td><strong>IsMRTSupported</strong></td>
+<td>Whether a <a href="framebuffer.html">framebuffer</a> may have several colour targets.</td>
+</tr>
+<tr>
+<td><strong>IsShadowMapSupported</strong></td>
+<td>Whether depth textures can be sampled as shadow maps.</td>
+</tr>
+<tr>
+<td><strong>IsTextureFormatSupported(format)</strong></td>
+<td>Whether one <code>PixelFormat</code> is usable on this device.</td>
+</tr>
+<tr>
+<td><strong>FlipProjectionRequired</strong></td>
+<td>Whether the projection matrix needs flipping vertically for this backend.</td>
+</tr>
+<tr>
+<td><strong>MatrixMajorness</strong></td>
+<td>Row or column major, which decides how matrices are uploaded.</td>
+</tr>
+<tr>
+<td><strong>ClipDepth</strong></td>
+<td>The depth range of clip space, which is not the same on every backend.</td>
+</tr>
+</tbody>
+</table>
+<p><code>BackendType</code> returns the <code>GraphicsBackend</code> in use. Its one honest use is picking which <a href="shader.html">shader</a> language to load, since that is the only thing the abstraction cannot hide. For anything else, ask <code>Capabilities</code>.</p>
+<h2 id="creating-a-swapchain">Creating a swapchain</h2>
+<p>A window comes first, because the swapchain binds to its surface:</p>
+<pre><code class="lang-csharp">// Create a window...
+var windowSystem = new Evergine.Forms.FormsWindowsSystem();
+var window = windowSystem.CreateWindow(windowTitle, width, height);
+
+// Describe the buffers and point them at that window's surface...
+var swapChainDescriptor = new SwapChainDescription()
+{
+    Width = window.Width,
+    Height = window.Height,
+    SurfaceInfo = window.SurfaceInfo,
+    ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm,
+    ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+    DepthStencilTargetFormat = PixelFormat.D24_UNorm_S8_UInt,
+    DepthStencilTargetFlags = TextureFlags.DepthStencil,
+    SampleCount = TextureSampleCount.None,
+    IsWindowed = true,
+    RefreshRate = 60,
+};
+
+// Finally, create the swapchain...
+var swapChain = this.graphicsContext.CreateSwapChain(swapChainDescriptor);
+swapChain.VerticalSync = false;
+</code></pre>
+<p>See <a href="swapchain.html">Swapchain</a> for the description properties and for how a frame is presented.</p>
+<h3 id="windowing-systems">Windowing systems</h3>
+<table>
+<thead>
+<tr>
+<th>Platform or UI</th>
+<th>Class</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Windows Forms</strong></td>
+<td><code>Evergine.Forms.FormsWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>WPF</strong></td>
+<td><code>Evergine.WPF.WPFWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>WinUI</strong></td>
+<td><code>Evergine.WinUI.WinUIWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>Avalonia</strong></td>
+<td><code>Evergine.Avalonia.AvaloniaWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>SDL</strong></td>
+<td><code>Evergine.SDL.SDLWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>Android</strong></td>
+<td><code>Evergine.Android.AndroidWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>iOS</strong></td>
+<td><code>Evergine.iOS.IOSWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>macOS</strong></td>
+<td><code>Evergine.MacOS.MacWindowsSystem</code></td>
+</tr>
+<tr>
+<td><strong>Web</strong></td>
+<td><code>Evergine.Web.WebWindowsSystem</code></td>
+</tr>
+</tbody>
+</table>
+<h2 id="other-members">Other members</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Factory</strong></td>
+<td>The <a href="resourcefactory.html">ResourceFactory</a>.</td>
+</tr>
+<tr>
+<td><strong>UpdateBufferData</strong></td>
+<td>Writes CPU data into a <a href="buffer.html">Buffer</a> outside a command buffer.</td>
+</tr>
+<tr>
+<td><strong>UpdateTextureData</strong></td>
+<td>Writes CPU data into a <a href="texture.html">Texture</a>.</td>
+</tr>
+<tr>
+<td><strong>MapMemory(resource, mode)</strong></td>
+<td>Maps a resource for CPU access and returns a <code>MappedResource</code>.</td>
+</tr>
+<tr>
+<td><strong>UnmapMemory(resource, subResource)</strong></td>
+<td>Releases a mapping.</td>
+</tr>
+<tr>
+<td><strong>ShaderCompile(source, entryPoint, stage, parameters)</strong></td>
+<td>Compiles shader source to bytecode. See <a href="shader.html">Shader</a>.</td>
+</tr>
+<tr>
+<td><strong>GenerateTextureMipmapping(texture)</strong></td>
+<td>Fills a texture's mip chain.</td>
+</tr>
+<tr>
+<td><strong>NativeDevicePointer</strong></td>
+<td>The underlying device handle, for interop with native libraries.</td>
+</tr>
+<tr>
+<td><strong>ReverseZBuffer</strong></td>
+<td>Whether depth runs from 1 at the near plane to 0 at the far plane.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="building-on-this-api-directly">Building on this API directly</h2>
+<p>The <a href="https://github.com/evergineteam/LowLevelAPIDemo">Low-Level API samples repository</a> contains complete applications written against this API, with no scene, entities or components involved.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

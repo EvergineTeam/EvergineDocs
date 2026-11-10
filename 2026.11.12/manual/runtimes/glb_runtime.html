@@ -1,0 +1,457 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>GLB Runtime | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="GLB Runtime | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="glb-runtime">GLB Runtime</h1>
+
+<hr>
+<p><img src="images/glb-header.png" alt="Evergine GLB runtime"></p>
+<p>The <strong>Evergine.Runtimes.GLB</strong> package reads <code>.glb</code> files while the application runs and turns them into a <code>Model</code>, the same asset type that Evergine Studio produces when it imports a model. Use it when the model is not known at build time: a file the user picks, a catalog downloaded from your server, or content that changes more often than you publish the application. glTF is the format most 3D tools and online libraries export, so this is the runtime to reach for first.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>Evergine.Runtimes.GLB</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>Evergine.Runtimes.GLB</code></td>
+</tr>
+<tr>
+<td><strong>Class</strong></td>
+<td><code>GLBRuntime</code> (derives from <code>ModelRuntime</code>)</td>
+</tr>
+<tr>
+<td><strong>Formats</strong></td>
+<td>Binary glTF 2.0 (<code>.glb</code>)</td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>Task&lt;Model&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Platforms</strong></td>
+<td>All Evergine platforms</td>
+</tr>
+</tbody>
+</table>
+<p><code>ModelRuntime</code> lives in <code>Evergine.Framework.Runtimes</code>. <code>GLBRuntime.Instance</code> is a ready-to-use singleton that resolves the graphics context and the assets service from the application container the first time it reads a file.</p>
+<h2 id="what-the-runtime-reads">What the runtime reads</h2>
+<p><code>GLBRuntime</code> reads the binary form of glTF 2.0. It checks the <code>glTF</code> magic number at the start of the file, so a text <code>.gltf</code> file with a separate <code>.bin</code> buffer is rejected; convert it to <code>.glb</code> first.</p>
+<ul>
+<li><strong>Scene hierarchy.</strong> Every node becomes an entity with its own <code>Transform3D</code> when you call <code>InstantiateModelHierarchy</code>.</li>
+<li><strong>Meshes</strong> with triangle lists, triangle strips, lines and line strips. Other primitive modes are skipped.</li>
+<li><strong>Draco-compressed geometry.</strong> Primitives that use the <code>KHR_draco_mesh_compression</code> extension are decompressed with the <code>Evergine.Bindings.Draco</code> package, a dependency of the GLB runtime that ships native decoders for Windows, Linux, macOS, Android, iOS and WebAssembly. No setup is needed.</li>
+<li><strong>PBR metallic-roughness materials</strong> with base color, metallic-roughness, normal, emissive and occlusion textures, plus the base color of <code>KHR_materials_pbrSpecularGlossiness</code> materials.</li>
+<li><strong>Embedded textures</strong> in PNG, JPEG or KTX, decoded by the <a href="image_runtime.html">Image runtime</a>.</li>
+<li><strong>Skins and animations.</strong> When the file has animations, the root entity gets an <code>Animation3D</code> component that references the model.</li>
+</ul>
+<h2 id="load-a-model-from-a-file">Load a model from a file</h2>
+<p><code>Read(string filePath, ...)</code> opens the file through the application's <code>AssetsDirectory</code>, so the path is <strong>relative to the <code>Content</code> folder of the running application</strong>. Absolute paths are rejected with an <code>ArgumentException</code>.</p>
+<p>A <code>.glb</code> file placed in the project's <code>Content</code> folder is normally imported by Evergine Studio and exported in the Evergine asset format. To read the original file with the runtime, mark the file with <strong>Set to export as raw</strong> in the <a href="../evergine_studio/assets/edit.html">Assets Details panel</a>. Raw assets keep their name and folder in the output, so <code>Content/Models/DamagedHelmet.glb</code> is read with the path <code>Models/DamagedHelmet.glb</code>.</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.GLB;
+
+public class MyScene : Scene
+{
+    protected override async void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        Model helmet = await GLBRuntime.Instance.Read(&quot;Models/DamagedHelmet.glb&quot;);
+
+        // A Model is only data: InstantiateModelHierarchy builds the entities that render it.
+        Entity helmetEntity = helmet.InstantiateModelHierarchy(&quot;helmet&quot;, assetsService);
+        this.Managers.EntityManager.Add(helmetEntity);
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>CreateScene</code> is <code>async void</code>, so an exception thrown by <code>Read</code> does not reach any caller. Wrap the loading code in <code>try</code>/<code>catch</code> and log the error, or the model silently fails to appear.</p>
+</div>
+<h2 id="load-a-model-from-a-stream">Load a model from a stream</h2>
+<p><code>Read(Stream stream, ...)</code> reads from any stream that is <strong>readable and seekable</strong>. Use it for files outside the <code>Content</code> folder and for downloads.</p>
+<p>For a file anywhere on disk, open it with <code>File.OpenRead</code>, which returns a seekable <code>FileStream</code>:</p>
+<pre><code class="lang-csharp">using var stream = File.OpenRead(@&quot;C:\Models\DamagedHelmet.glb&quot;);
+Model model = await GLBRuntime.Instance.Read(stream);
+</code></pre>
+<p>A network stream is not seekable, so copy the response into a <code>MemoryStream</code> before reading it. The following scene downloads a GLB file with <code>HttpClient</code> and adds it to the scene:</p>
+<pre><code class="lang-csharp">using System.IO;
+using System.Net.Http;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+using Evergine.Runtimes.GLB;
+
+public class MyScene : Scene
+{
+    // HttpClient is designed to be created once and reused.
+    private static readonly HttpClient httpClient = new HttpClient();
+
+    protected override async void CreateScene()
+    {
+        const string url = &quot;https://example.com/models/DamagedHelmet.glb&quot;;
+
+        using var response = await httpClient.GetAsync(url);
+        response.EnsureSuccessStatusCode();
+
+        // The GLB reader seeks inside the file, and a network stream cannot seek.
+        using var buffer = new MemoryStream();
+        await response.Content.CopyToAsync(buffer);
+        buffer.Position = 0;
+
+        Model model = await GLBRuntime.Instance.Read(buffer);
+
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+        Entity entity = model.InstantiateModelHierarchy(&quot;downloaded&quot;, assetsService);
+
+        // After awaiting the download the code may run on a thread-pool thread.
+        // Scene changes must happen on the Evergine main thread.
+        await EvergineForegroundTask.Run(() =&gt; this.Managers.EntityManager.Add(entity));
+    }
+}
+</code></pre>
+<h2 id="play-the-animations">Play the animations</h2>
+<p>To play an animation, find the <code>Animation3D</code> on the root entity after adding it to the scene:</p>
+<pre><code class="lang-csharp">using System.Linq;
+using Evergine.Components.Animation;
+
+Entity entity = model.InstantiateModelHierarchy(&quot;robot&quot;, assetsService);
+this.Managers.EntityManager.Add(entity);
+
+var animation = entity.FindComponent&lt;Animation3D&gt;();
+string firstClip = animation?.AnimationNames.FirstOrDefault();
+if (firstClip != null)
+{
+    animation.PlayAnimation(firstClip, loop: true);
+}
+</code></pre>
+<h2 id="materials-and-the-material-assigner">Materials and the material assigner</h2>
+<p>Model files describe materials in their own terms. The runtime translates each one into a <code>MaterialData</code> object and then asks a <strong>material assigner</strong> to turn it into an Evergine <code>Material</code>. When you pass no assigner, the runtime creates a <code>StandardMaterial</code> for you.</p>
+<p><img src="images/runtime_load_pipeline.png" alt="A file or stream enters a runtime, which describes each material as MaterialData, the material assigner returns a Material, and the resulting Model is instantiated into entities"></p>
+<p><em>The runtime owns geometry, hierarchy and animation. The material assigner is the one point where your code decides how the model looks.</em></p>
+<p><code>MaterialData</code> lives in <code>Evergine.Framework.Runtimes</code> and is shared by every model runtime:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Name</strong></td>
+<td><code>string</code></td>
+<td>Material name from the file.</td>
+</tr>
+<tr>
+<td><strong>BaseColor</strong></td>
+<td><code>Color</code></td>
+<td>Base (diffuse) color, including alpha.</td>
+</tr>
+<tr>
+<td><strong>AlphaMode</strong></td>
+<td><code>AlphaMode</code></td>
+<td><code>Opaque</code>, <code>Mask</code> (alpha test) or <code>Blend</code> (alpha blending).</td>
+</tr>
+<tr>
+<td><strong>AlphaCutoff</strong></td>
+<td><code>float</code></td>
+<td>Alpha test threshold used with <code>AlphaMode.Mask</code>.</td>
+</tr>
+<tr>
+<td><strong>MetallicFactor</strong></td>
+<td><code>float</code></td>
+<td>Metallic factor.</td>
+</tr>
+<tr>
+<td><strong>RoughnessFactor</strong></td>
+<td><code>float</code></td>
+<td>Roughness factor.</td>
+</tr>
+<tr>
+<td><strong>EmissiveColor</strong></td>
+<td><code>LinearColor</code></td>
+<td>Emissive color.</td>
+</tr>
+<tr>
+<td><strong>HasVertexColor</strong></td>
+<td><code>bool</code></td>
+<td>The mesh has a vertex color channel.</td>
+</tr>
+<tr>
+<td><strong>HasVertexTexcoord</strong></td>
+<td><code>bool</code></td>
+<td>The mesh has texture coordinates.</td>
+</tr>
+<tr>
+<td><strong>HasVertexNormal</strong></td>
+<td><code>bool</code></td>
+<td>The mesh has normals. Without them, lighting has nothing to work with.</td>
+</tr>
+<tr>
+<td><strong>HasVertexTangent</strong></td>
+<td><code>bool</code></td>
+<td>The mesh has tangents, which normal mapping needs.</td>
+</tr>
+<tr>
+<td><strong>HasDoubleSided</strong></td>
+<td><code>bool</code></td>
+<td>The material is rendered from both sides.</td>
+</tr>
+<tr>
+<td><strong>GetBaseColorTextureAndSampler()</strong></td>
+<td><code>Task&lt;(Texture, SamplerState)&gt;</code></td>
+<td>Base color texture and its sampler, or <code>null</code> values when the material has none.</td>
+</tr>
+<tr>
+<td><strong>GetMetallicRoughnessTextureAndSampler()</strong></td>
+<td><code>Task&lt;(Texture, SamplerState)&gt;</code></td>
+<td>Metallic-roughness texture and sampler.</td>
+</tr>
+<tr>
+<td><strong>GetNormalTextureAndSampler()</strong></td>
+<td><code>Task&lt;(Texture, SamplerState)&gt;</code></td>
+<td>Normal map and sampler.</td>
+</tr>
+<tr>
+<td><strong>GetEmissiveTextureAndSampler()</strong></td>
+<td><code>Task&lt;(Texture, SamplerState)&gt;</code></td>
+<td>Emissive texture and sampler.</td>
+</tr>
+<tr>
+<td><strong>GetOcclusionTextureAndSampler()</strong></td>
+<td><code>Task&lt;(Texture, SamplerState)&gt;</code></td>
+<td>Ambient occlusion texture and sampler.</td>
+</tr>
+</tbody>
+</table>
+<p>The texture methods are asynchronous because a texture is only decoded when an assigner asks for it. An assigner that ignores the normal map never pays for decoding it.</p>
+<p>An assigner is any <code>Func&lt;MaterialData, Task&lt;Material&gt;&gt;</code>. Pass it as the second argument of <code>Read</code>; both the path and the stream overloads accept it. The runtime calls it once for every distinct material in the file, and registers the returned materials in the <code>AssetsService</code> so that <code>InstantiateModelHierarchy</code> can find them.</p>
+<h3 id="example-a-product-configurator">Example: a product configurator</h3>
+<p>The assigner below builds the same kind of <code>StandardMaterial</code> the GLB runtime builds by default, with one change: any material named <code>Paint</code> takes the color the user picked instead of the color in the file. Everything a material needs comes from the <code>MaterialData</code>.</p>
+<pre><code class="lang-csharp">using System.Threading.Tasks;
+using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Runtimes;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.GLB;
+
+public class ConfiguratorScene : Scene
+{
+    public Color PaintColor { get; set; } = Color.Red;
+
+    protected override async void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        Model model = await GLBRuntime.Instance.Read(&quot;Models/Car.glb&quot;, this.AssignMaterial);
+
+        this.Managers.EntityManager.Add(model.InstantiateModelHierarchy(&quot;car&quot;, assetsService));
+    }
+
+    private async Task&lt;Material&gt; AssignMaterial(MaterialData data)
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+        var effect = assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID);
+
+        var baseColor = await data.GetBaseColorTextureAndSampler();
+        var metallicRoughness = await data.GetMetallicRoughnessTextureAndSampler();
+        var emissive = await data.GetEmissiveTextureAndSampler();
+        var occlusion = await data.GetOcclusionTextureAndSampler();
+
+        // Blended materials go to the alpha layer so they are sorted and drawn after opaque geometry.
+        RenderLayerDescription layer;
+        if (data.AlphaMode == AlphaMode.Blend)
+        {
+            layer = assetsService.Load&lt;RenderLayerDescription&gt;(data.HasDoubleSided
+                ? DefaultResourcesIDs.AlphaDoubleSidedRenderLayerID
+                : DefaultResourcesIDs.AlphaRenderLayerID);
+        }
+        else
+        {
+            layer = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID);
+        }
+
+        bool isPaint = data.Name == &quot;Paint&quot;;
+
+        var material = new StandardMaterial(effect)
+        {
+            // Lighting needs normals. Unlit is the only sensible choice for a mesh without them.
+            LightingEnabled = data.HasVertexNormal,
+            IBLEnabled = data.HasVertexNormal,
+            BaseColor = isPaint ? this.PaintColor : data.BaseColor,
+            Alpha = data.BaseColor.A / 255.0f,
+            BaseColorTexture = isPaint ? null : baseColor.Texture,
+            BaseColorSampler = baseColor.Sampler,
+            Metallic = data.MetallicFactor,
+            Roughness = data.RoughnessFactor,
+            MetallicRoughnessTexture = metallicRoughness.Texture,
+            MetallicRoughnessSampler = metallicRoughness.Sampler,
+            EmissiveColor = data.EmissiveColor.ToColor(),
+            EmissiveTexture = emissive.Texture,
+            EmissiveSampler = emissive.Sampler,
+            OcclusionTexture = occlusion.Texture,
+            OcclusionSampler = occlusion.Sampler,
+            VertexColorEnabled = data.HasVertexColor,
+            LayerDescription = layer,
+        };
+
+        // A normal map is meaningless without tangents to orient it.
+        if (data.HasVertexTangent)
+        {
+            var normal = await data.GetNormalTextureAndSampler();
+            material.NormalTexture = normal.Texture;
+            material.NormalSampler = normal.Sampler;
+        }
+
+        if (data.AlphaMode == AlphaMode.Mask)
+        {
+            material.AlphaCutout = data.AlphaCutoff;
+        }
+
+        return material.Material;
+    }
+}
+</code></pre>
+<p>The assigner can return a material built from any effect, including one of your own. Build a <a href="../graphics/materials/material_decorators.html">material decorator</a> for your effect and fill it from <code>MaterialData</code> in the same way.</p>
+<p>When you need information that <code>MaterialData</code> does not expose, cast it to the format-specific class. <code>GLBMaterialData.GLBMaterial</code> is the material exactly as the glTF file describes it, and <code>VertexAttributes</code> lists the attributes of the primitive that uses it:</p>
+<pre><code class="lang-csharp">if (data is GLBMaterialData glb &amp;&amp; glb.GLBMaterial.Extensions?.ContainsKey(&quot;KHR_materials_unlit&quot;) == true)
+{
+    // The file asks for an unlit material: honor it.
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The material assigner replaces the default material creation entirely, so it must return a material for every call. The runtime registers each returned material in the <code>AssetsService</code>.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

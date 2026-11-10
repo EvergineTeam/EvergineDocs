@@ -1,0 +1,206 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>XRV modules | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="XRV modules | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="xrv-modules">XRV modules</h1>
+
+<hr>
+<p>Modules are reusable features that plug into XRV. Each one is an <a href="../../index.html">Evergine add-on</a> that you install from the Add-ons Manager and then register in your <code>XrvService</code> with <code>AddModule</code>. A module can add a button to the <a href="../hand_menu.html">hand menu</a>, tabs to the <a href="../settings_system.html">settings</a> and <a href="../help_system.html">help</a> windows, and its own windows and entities. The <a href="https://github.com/EvergineTeam/XRV/tree/develop/samples">XRV samples</a> project runs all the public modules together.</p>
+<pre><code class="lang-csharp">var xrv = new XrvService()
+    .AddModule(new RulerModule())
+    .AddModule(new PainterModule());
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Module</th>
+<th>Add-on</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="imageGallery/index.html">Image Gallery</a></td>
+<td><code>Evergine.Xrv.ImageGallery</code></td>
+<td>Shows images from a storage repository, one at a time.</td>
+</tr>
+<tr>
+<td><a href="modelViewer/index.html">Model Viewer</a></td>
+<td><code>Evergine.Xrv.ModelViewer</code></td>
+<td>Loads 3D models from storage repositories and lets the user move, rotate, and scale them.</td>
+</tr>
+<tr>
+<td><a href="painter/index.html">Painter</a></td>
+<td><code>Evergine.Xrv.Painter</code></td>
+<td>Draws 3D lines in space with different colors and thicknesses.</td>
+</tr>
+<tr>
+<td><a href="ruler/index.html">Ruler</a></td>
+<td><code>Evergine.Xrv.Ruler</code></td>
+<td>Measures the distance between two points.</td>
+</tr>
+<tr>
+<td><a href="streamingviewer/index.html">Streaming Viewer</a></td>
+<td><code>Evergine.Xrv.StreamingViewer</code></td>
+<td>Shows a video stream from an MJPEG source, such as an IP camera.</td>
+</tr>
+<tr>
+<td>Audio Notes</td>
+<td><code>Evergine.Xrv.AudioNotes</code></td>
+<td>Records audio notes and plays them back.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Image Gallery" src="imageGallery/images/snapshot.png" height="180"></th>
+<th style="text-align: center;"><img alt="Model Viewer" src="modelViewer/images/snapshot2.png" height="180"></th>
+<th style="text-align: center;"><img alt="Painter" src="painter/images/snapshot2.png" height="180"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Image Gallery</strong></td>
+<td style="text-align: center;"><strong>Model Viewer</strong></td>
+<td style="text-align: center;"><strong>Painter</strong></td>
+</tr>
+<tr>
+<td style="text-align: center;"><img alt="Ruler" src="ruler/images/snapshot.png" height="180"></td>
+<td style="text-align: center;"><img alt="Streaming Viewer" src="streamingviewer/images/snapshot.png" height="180"></td>
+<td style="text-align: center;"></td>
+</tr>
+<tr>
+<td style="text-align: center;"><strong>Ruler</strong></td>
+<td style="text-align: center;"><strong>Streaming Viewer</strong></td>
+<td style="text-align: center;"></td>
+</tr>
+</tbody>
+</table>
+<h2 id="custom-modules">Custom modules</h2>
+<p>If your application has specific needs, <a href="customModule/index.html">create your own module</a> and reuse it in several applications.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="imageGallery/index.html">Image Gallery</a></li>
+<li><a href="modelViewer/index.html">Model Viewer</a></li>
+<li><a href="painter/index.html">Painter</a></li>
+<li><a href="ruler/index.html">Ruler</a></li>
+<li><a href="streamingviewer/index.html">Streaming Viewer</a></li>
+<li><a href="customModule/index.html">Custom modules</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

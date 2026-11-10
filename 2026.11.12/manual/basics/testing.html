@@ -1,0 +1,431 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Testing | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Testing | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="testing">Testing</h1>
+
+<hr>
+<p><img src="images/testsHeader.png" alt="A test project for an Evergine application in the Visual Studio Test Explorer"></p>
+<p>Unit tests catch regressions early and make debugging faster, but Evergine code is hard to test in isolation: a component depends on its entity, on other components, on scene managers and on services, and all of them expect a running application with a window and a GPU. Test machines and build agents usually have neither.</p>
+<p><strong>Evergine.Mocks</strong> solves this. It is a NuGet package that runs a real Evergine application headless, inside a unit test, with a mock window, mock input devices and a mock GPU. Your components, behaviors and services run exactly as they do in the app, through their full <a href="lifecycle_elements.html">lifecycle</a>, and you advance the application one frame at a time from the test.</p>
+<p>Evergine.Mocks does not depend on a test framework. The examples on this page use <a href="https://xunit.net">xUnit</a>.</p>
+<h2 id="what-everginemocks-provides">What Evergine.Mocks Provides</h2>
+<table>
+<thead>
+<tr>
+<th>Type</th>
+<th>Namespace</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MockWindowsSystem</code></td>
+<td><code>Evergine.Mocks</code></td>
+<td>A window system without a real window. <code>Create(application, scene)</code> sets up the application with a mock window and a mock GPU, initializes it and navigates to your scene. <code>RunOneLoop(elapsedTime)</code> then runs one <code>UpdateFrame()</code> and <code>DrawFrame()</code>.</td>
+</tr>
+<tr>
+<td><code>MockScene</code></td>
+<td><code>Evergine.Mocks</code></td>
+<td>A scene you fill from the test with <code>Add(entity)</code>. The entities are added to the <code>EntityManager</code> when the scene is created.</td>
+</tr>
+<tr>
+<td><code>MockKeyboardDispatcher</code></td>
+<td><code>Evergine.Mocks</code></td>
+<td>Simulates the keyboard: <code>Press(key)</code>, <code>Release(key)</code> and <code>Type(text)</code>. Reached through <code>MockWindowsSystem.KeyboardDispatcher</code>.</td>
+</tr>
+<tr>
+<td><code>MockMouseDispatcher</code></td>
+<td><code>Evergine.Mocks</code></td>
+<td>Simulates the mouse: <code>Enter(x, y)</code>, <code>Move(x, y)</code>, <code>Press(button)</code>, <code>Release(button)</code>, <code>Scroll(direction)</code> and <code>Leave(x, y)</code>. Reached through <code>MockWindowsSystem.MouseDispatcher</code>.</td>
+</tr>
+<tr>
+<td><code>MockTouchDispatcher</code></td>
+<td><code>Evergine.Mocks</code></td>
+<td>Simulates touch: <code>TouchDown(id, position)</code>, <code>TouchMove(id, position)</code>, <code>TouchUp(id, position)</code> and <code>ResetTouches()</code>. Reached through <code>MockWindowsSystem.TouchDispatcher</code>.</td>
+</tr>
+<tr>
+<td><code>MockGPUGraphicsContext</code></td>
+<td><code>Evergine.Mocks.Rendering</code></td>
+<td>A <code>GraphicsContext</code> that needs no GPU. See <a href="#the-mock-gpu">The Mock GPU</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prepare-your-application">Prepare Your Application</h2>
+<p><code>MockWindowsSystem.Create()</code> calls <code>Initialize()</code> on your application and then navigates to the scene you give it. If <code>Initialize()</code> also navigates to your main scene, as the one in the project template does, both scenes would be loaded. Move the navigation out of <code>Initialize()</code> into its own method:</p>
+<pre><code class="lang-csharp">public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        // ... the services registered by the project template ...
+    }
+
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        // No navigation here, so tests can choose the scene.
+    }
+
+    public void NavigateToMainScene()
+    {
+        var screenContextManager = this.Container.Resolve&lt;ScreenContextManager&gt;();
+        var assetsService = this.Container.Resolve&lt;AssetsService&gt;();
+
+        var scene = assetsService.Load&lt;MyScene&gt;(EvergineContent.Scenes.MyScene_wescene);
+        screenContextManager.To(new ScreenContext(scene));
+    }
+}
+</code></pre>
+<p>Then call it from the launcher of every profile, right after <code>Initialize()</code>. In the Windows launcher:</p>
+<pre><code class="lang-csharp">windowsSystem.Run(
+    () =&gt;
+    {
+        application.Initialize();
+        application.NavigateToMainScene();
+    },
+    () =&gt;
+    {
+        var gameTime = clockTimer.Elapsed;
+        clockTimer.Restart();
+
+        application.UpdateFrame(gameTime);
+        application.DrawFrame(gameTime);
+    });
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>If you prefer not to touch the launchers, give the test project an application class of its own that registers the same services and leaves <code>Initialize()</code> without navigation.</p>
+</div>
+<h2 id="create-the-test-project">Create the Test Project</h2>
+<ol>
+<li>Add a test project to the solution, named after your project with a <code>.Tests</code> suffix (for example <code>MyProject.Tests</code>). Target the same .NET version as the base project, <code>net10.0</code> in the current templates. The <strong>xUnit Test Project</strong> template of Visual Studio is a good starting point.</li>
+<li>Add a project reference to the base project of your application.</li>
+<li>Add a package reference to <code>Evergine.Mocks</code>, with the same version as the other Evergine packages of your project.</li>
+</ol>
+<p>The project file ends up like this:</p>
+<pre><code class="lang-xml">&lt;Project Sdk=&quot;Microsoft.NET.Sdk&quot;&gt;
+  &lt;PropertyGroup&gt;
+    &lt;TargetFramework&gt;net10.0&lt;/TargetFramework&gt;
+    &lt;IsPackable&gt;false&lt;/IsPackable&gt;
+    &lt;IsTestProject&gt;true&lt;/IsTestProject&gt;
+  &lt;/PropertyGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;PackageReference Include=&quot;Microsoft.NET.Test.Sdk&quot; Version=&quot;18.3.0&quot; /&gt;
+    &lt;PackageReference Include=&quot;xunit&quot; Version=&quot;2.9.3&quot; /&gt;
+    &lt;PackageReference Include=&quot;xunit.runner.visualstudio&quot; Version=&quot;3.1.5&quot; /&gt;
+    &lt;!-- Use the Evergine version of the rest of your project. --&gt;
+    &lt;PackageReference Include=&quot;Evergine.Mocks&quot; Version=&quot;x.x.x.x&quot; /&gt;
+  &lt;/ItemGroup&gt;
+  &lt;ItemGroup&gt;
+    &lt;ProjectReference Include=&quot;..\MyProject\MyProject.csproj&quot; /&gt;
+  &lt;/ItemGroup&gt;
+&lt;/Project&gt;
+</code></pre>
+<ol start="4">
+<li>Run the tests one at a time. <code>Application.Current</code> is static, so two tests running in parallel would share it. With xUnit, add a file such as <code>AssemblyInfo.cs</code> with this line:</li>
+</ol>
+<pre><code class="lang-csharp">[assembly: Xunit.CollectionBehavior(DisableTestParallelization = true)]
+</code></pre>
+<h2 id="test-a-component">Test a Component</h2>
+<p>This component, in the base project, sets a flag when it starts:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+
+namespace MyProject
+{
+    public class MyComponent : Component
+    {
+        public bool IsReady { get; private set; }
+
+        protected override void Start()
+        {
+            base.Start();
+            this.IsReady = true;
+        }
+    }
+}
+</code></pre>
+<p>The test builds an entity with the component, puts it in a <code>MockScene</code>, and creates the application. Nothing runs until the test calls <code>RunOneLoop()</code>, so it can check the state before and after the first frame:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.Mocks;
+using Xunit;
+
+namespace MyProject.Tests
+{
+    public class MyComponentShould
+    {
+        private static readonly TimeSpan OneFrame = TimeSpan.FromSeconds(1d / 60);
+
+        private readonly MyComponent component;
+
+        private readonly MockWindowsSystem windowsSystem;
+
+        public MyComponentShould()
+        {
+            this.component = new MyComponent();
+
+            var entity = new Entity()
+                .AddComponent(this.component);
+
+            var scene = new MockScene();
+            scene.Add(entity);
+
+            var application = new MyApplication();
+            this.windowsSystem = MockWindowsSystem.Create(application, scene);
+        }
+
+        [Fact]
+        public void NotBeReadyBeforeTheFirstFrame()
+        {
+            Assert.False(this.component.IsReady);
+        }
+
+        [Fact]
+        public void BeReadyAfterTheFirstFrame()
+        {
+            this.windowsSystem.RunOneLoop(OneFrame);
+
+            Assert.True(this.component.IsReady);
+        }
+    }
+}
+</code></pre>
+<p>xUnit creates a new instance of the test class for every test, so each test gets a fresh application and scene.</p>
+<p>Run the tests from the <strong>Test Explorer</strong> panel (<strong>View &gt; Test Explorer</strong>) by clicking the run button:</p>
+<p><img src="images/testExplorer.png" alt="Two passing tests in the Visual Studio Test Explorer"></p>
+<h2 id="test-input">Test Input</h2>
+<p>Behaviors that read the keyboard, the mouse or touch get their input from the mock dispatchers, which you drive from the test. This behavior moves its entity up while the up arrow is held:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+
+namespace MyProject
+{
+    public class Elevator : Behavior
+    {
+        [BindService]
+        private GraphicsPresenter graphicsPresenter;
+
+        [BindComponent]
+        private Transform3D transform;
+
+        // Units per second.
+        public float Speed { get; set; } = 1;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            var keyboard = this.graphicsPresenter.FocusedDisplay?.KeyboardDispatcher;
+
+            if (keyboard?.IsKeyDown(Keys.Up) == true)
+            {
+                var position = this.transform.Position;
+                position.Y += this.Speed * (float)gameTime.TotalSeconds;
+                this.transform.Position = position;
+            }
+        }
+    }
+}
+</code></pre>
+<p>The test presses the key between two frames and checks the result. A fixed frame time makes the expected movement exact:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mocks;
+using Xunit;
+
+namespace MyProject.Tests
+{
+    public class ElevatorShould
+    {
+        private static readonly TimeSpan OneSecond = TimeSpan.FromSeconds(1);
+
+        private readonly Transform3D transform;
+
+        private readonly MockWindowsSystem windowsSystem;
+
+        public ElevatorShould()
+        {
+            this.transform = new Transform3D();
+
+            var entity = new Entity()
+                .AddComponent(this.transform)
+                .AddComponent(new Elevator() { Speed = 2 });
+
+            var scene = new MockScene();
+            scene.Add(entity);
+
+            this.windowsSystem = MockWindowsSystem.Create(new MyApplication(), scene);
+
+            // The first frame starts the scene and its behaviors.
+            this.windowsSystem.RunOneLoop(OneSecond);
+        }
+
+        [Fact]
+        public void StayStillWithoutInput()
+        {
+            this.windowsSystem.RunOneLoop(OneSecond);
+
+            Assert.Equal(0, this.transform.Position.Y);
+        }
+
+        [Fact]
+        public void RiseWhileUpIsHeld()
+        {
+            this.windowsSystem.KeyboardDispatcher.Press(Keys.Up);
+            this.windowsSystem.RunOneLoop(OneSecond);
+
+            Assert.Equal(2, this.transform.Position.Y, precision: 3);
+        }
+    }
+}
+</code></pre>
+<p>The mouse works the same way. Call <code>Enter()</code> first: it puts the pointer over the window, which is what <code>MouseDispatcher.IsMouseOver</code> reports to behaviors that check it:</p>
+<pre><code class="lang-csharp">var mouse = this.windowsSystem.MouseDispatcher;
+
+mouse.Enter(0, 0);
+mouse.Press(MouseButtons.Left);
+mouse.Move(100, 0);
+
+this.windowsSystem.RunOneLoop(OneSecond);
+</code></pre>
+<h2 id="the-mock-gpu">The Mock GPU</h2>
+<p><code>MockWindowsSystem.Create()</code> registers a <code>MockGPUGraphicsContext</code> as the application's <code>GraphicsContext</code>, together with a mock swap chain and a display named <code>DefaultDisplay</code> of 1280 × 720 pixels. The mock context creates buffers, textures, shaders, pipeline states and command buffers that accept every call and do nothing with it.</p>
+<p>That is enough for the whole render path to run: cameras compute their projection for the display, renderers submit their meshes, and drawables receive their <code>Draw()</code> calls, so rendering components can be part of a test instead of being left out. What you can assert on is state, such as the aspect ratio of a <code>Camera3D</code> or the objects a drawable created, not the pixels on screen: nothing is ever rasterized.</p>
+<pre><code class="lang-csharp">[Fact]
+public void ComputeTheAspectRatioOfTheDisplay()
+{
+    var camera = new Camera3D();
+    var scene = new MockScene();
+    scene.Add(new Entity().AddComponent(new Transform3D()).AddComponent(camera));
+
+    var windowsSystem = MockWindowsSystem.Create(new MyApplication(), scene);
+    windowsSystem.RunOneLoop(TimeSpan.FromSeconds(1d / 60));
+
+    Assert.Equal(1280f / 720f, camera.AspectRatio, precision: 3);
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>MockGPUGraphicsContext</code> reports <code>GraphicsBackend.DirectX11</code> as its backend, so code that branches on <code>GraphicsContext.BackendType</code> follows the DirectX 11 path in tests.</p>
+</div>
+<p>You can also create a <code>MockGPUGraphicsContext</code> yourself to test code that works directly with the <a href="../graphics/low_level_api/index.html">Low-level API</a>, without an application at all.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

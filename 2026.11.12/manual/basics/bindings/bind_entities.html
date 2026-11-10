@@ -1,0 +1,247 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bind Entities | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Bind Entities | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="bind-entities">Bind Entities</h1>
+
+<hr>
+<p>The <strong>[BindEntity]</strong> attribute gives a component a reference to an <a href="../component_arch/entities/index.html">entity</a>, found by its <code>Tag</code>. Use it when a component needs a whole entity rather than one of its components: the player to follow, the spawn points of a level, the pickups under a group.</p>
+<pre><code class="lang-csharp">// The first entity in the scene tagged &quot;Player&quot;.
+[BindEntity(tag: &quot;Player&quot;)]
+private Entity player;
+
+// Every entity in the scene tagged &quot;Item&quot;.
+[BindEntity(tag: &quot;Item&quot;)]
+private List&lt;Entity&gt; items;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>[BindEntity]</code> only works inside components, because the search starts from the owner entity of the component.</p>
+</div>
+<h2 id="parameters">Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>tag</code></td>
+<td><code>null</code></td>
+<td>The tag of the entities to find. Always set it: entities are matched by tag, and the default <code>Scene</code> source fails without one.</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td><code>BindEntitySource.Scene</code></td>
+<td>Where to search. See <a href="#source">source</a>.</td>
+</tr>
+<tr>
+<td><code>isRequired</code></td>
+<td><code>true</code></td>
+<td>When <code>true</code>, the component does not attach unless an entity is found. When <code>false</code>, the member is left <code>null</code> if nothing matches.</td>
+</tr>
+<tr>
+<td><code>isRecursive</code></td>
+<td><code>true</code></td>
+<td>For the <code>Children</code> and <code>Parents</code> sources, <code>true</code> searches all descendants or ancestors, and <code>false</code> only the direct children or the direct parent.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="source">source</h3>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Searches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Scene</code> (default)</td>
+<td>Every entity of the scene.</td>
+</tr>
+<tr>
+<td><code>Owner</code></td>
+<td>The owner entity only: the binding matches when the owner itself has the tag.</td>
+</tr>
+<tr>
+<td><code>Children</code></td>
+<td>The owner entity and its descendants.</td>
+</tr>
+<tr>
+<td><code>ChildrenSkipOwner</code></td>
+<td>The descendants of the owner entity, <strong>without</strong> the owner.</td>
+</tr>
+<tr>
+<td><code>Parents</code></td>
+<td>The owner entity and its ancestors.</td>
+</tr>
+<tr>
+<td><code>ParentsSkipOwner</code></td>
+<td>The ancestors of the owner entity, <strong>without</strong> the owner.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Children</code> sources search level by level, and the <code>Parents</code> sources from the nearest ancestor up. A single member gets the first match.</p>
+<h3 id="isrequired">isRequired</h3>
+<p>Works as in <a href="bind_components.html#isrequired">Bind Components</a>: a missing required entity keeps the component from attaching.</p>
+<h2 id="example">Example</h2>
+<p>This behavior makes its entity look at the player, and collects the waypoints placed as its own children:</p>
+<pre><code class="lang-csharp">using System;
+using System.Collections.Generic;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+
+namespace MyProject
+{
+    public class Sentry : Behavior
+    {
+        [BindComponent]
+        private Transform3D transform;
+
+        // Anywhere in the scene.
+        [BindEntity(tag: &quot;Player&quot;)]
+        private Entity player;
+
+        // Only below this entity, so each sentry gets its own patrol route.
+        [BindEntity(tag: &quot;Waypoint&quot;, source: BindEntitySource.ChildrenSkipOwner)]
+        private List&lt;Entity&gt; waypoints;
+
+        private Transform3D playerTransform;
+
+        protected override void Start()
+        {
+            base.Start();
+            this.playerTransform = this.player.FindComponent&lt;Transform3D&gt;();
+        }
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            this.transform.LookAt(this.playerTransform.Position);
+        }
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A list binding is filled once, when the component attaches. To follow entities that are added or retagged later, use an <a href="../component_arch/entities/entity_manager.html#entity-tag-collections">entity tag collection</a>.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

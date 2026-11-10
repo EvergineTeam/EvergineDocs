@@ -1,0 +1,258 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Behaviors | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Behaviors | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="behaviors">Behaviors</h1>
+
+<hr>
+<p>A <strong>behavior</strong> is a component that runs code every frame. <code>Behavior</code> derives from <a href="index.html"><code>Component</code></a> and adds an abstract <code>Update(TimeSpan gameTime)</code> method, which is where movement, input handling, game rules and any other per-frame logic go. Every behavior of a scene is driven by the scene's <code>BehaviorManager</code>.</p>
+<h2 id="create-a-behavior">Create a Behavior</h2>
+<p>Add a class to the base project that derives from <code>Behavior</code> and implement <code>Update()</code>:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+
+namespace MyProject
+{
+    public class MyBehavior : Behavior
+    {
+        protected override void Update(TimeSpan gameTime)
+        {
+            // gameTime is the time elapsed since the previous frame.
+        }
+    }
+}
+</code></pre>
+<p><code>Update()</code> is only called once the behavior has started and while it is activated, so a disabled behavior, or a behavior on a disabled entity, costs nothing. See <a href="../../lifecycle_elements.html">Lifecycle of Elements</a>.</p>
+<h2 id="example-rotate-an-entity">Example: Rotate an Entity</h2>
+<p>This behavior turns its entity around the Y axis at a configurable speed. Because it uses <code>gameTime</code>, the rotation speed does not depend on the frame rate:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+namespace MyProject
+{
+    public class Rotator : Behavior
+    {
+        // Resolved before OnAttached(); the behavior does not attach without a Transform3D.
+        [BindComponent]
+        private Transform3D transform;
+
+        // Radians per second. Public properties are editable in Evergine Studio.
+        public float Speed { get; set; } = 1;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            var step = Quaternion.CreateFromYawPitchRoll(this.Speed * (float)gameTime.TotalSeconds, 0, 0);
+            this.transform.LocalOrientation *= step;
+        }
+    }
+}
+</code></pre>
+<pre><code class="lang-csharp">var teapot = new Entity(&quot;Teapot&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(new TeapotMesh())
+    .AddComponent(new MaterialComponent())
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new Rotator() { Speed = 2 });
+
+this.Managers.EntityManager.Add(teapot);
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>[BindComponent]</code> gives the behavior its dependencies without any lookup code. See <a href="../../bindings/index.html">Bindings</a>.</p>
+</div>
+<p>Evergine ships ready-made behaviors that work the same way, such as <code>Spinner</code> (in <code>Evergine.Components.Graphics3D</code>) for constant rotation and <code>FreeCamera3D</code> (in <code>Evergine.Components.Cameras</code>) for a fly camera.</p>
+<h2 id="update-order">Update Order</h2>
+<p>All behaviors of a scene run one after another, in the order given by their <code>UpdateOrder</code> property:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>UpdateOrder</strong></td>
+<td><code>0.5</code></td>
+<td>A value between <code>0</code> and <code>1</code>. Behaviors with lower values are updated first. Values outside that range throw an exception.</td>
+</tr>
+</tbody>
+</table>
+<p>Use it when one behavior must see the result of another in the same frame. For example, a camera that follows a character should run after the behavior that moves the character, so give the camera behavior a higher value:</p>
+<pre><code class="lang-csharp">// Runs after every behavior left at the default 0.5.
+entity.AddComponent(new Rotator() { UpdateOrder = 0.9f });
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Behaviors are sorted when they are added to the scene. Changing <code>UpdateOrder</code> on a behavior that is already running does not move it in the order.</p>
+</div>
+<h2 id="behavior-families">Behavior Families</h2>
+<p>Every behavior belongs to a family, set through the base constructor with a <code>FamilyType</code> value. The family decides where the behavior runs:</p>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>FamilyType.DefaultBehavior</code></td>
+<td>The default. The behavior runs in your application, but not while the scene is being edited in Evergine Studio.</td>
+</tr>
+<tr>
+<td><code>FamilyType.PriorityBehavior</code></td>
+<td>The behavior also runs inside Evergine Studio, so its effect is visible while you edit the scene.</td>
+</tr>
+<tr>
+<td><code>FamilyType.PhysicsBehavior</code></td>
+<td>Reserved for the physics bodies of the engine.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+
+namespace MyProject
+{
+    public class EditorVisibleBehavior : Behavior
+    {
+        public EditorVisibleBehavior()
+            : base(FamilyType.PriorityBehavior)
+        {
+        }
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            // Runs in Evergine Studio too: keep it cheap and free of side effects on the scene asset.
+        }
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Code that must behave differently inside Evergine Studio can check <code>Application.Current.IsEditor</code>. See <a href="../../application/using_application.html#check-whether-the-code-runs-in-evergine-studio">Using Application</a>.</p>
+</div>
+<h2 id="behaviormanager">BehaviorManager</h2>
+<p>The <strong>BehaviorManager</strong> is a <a href="../../scenes/scenemanagers.html">scene manager</a> registered in every scene. Behaviors register with it when they are attached and unregister when they are detached, so you never call it directly. Each frame it updates every started behavior in <code>UpdateOrder</code>.</p>
+<h2 id="add-or-remove-a-behavior">Add or Remove a Behavior</h2>
+<p>A behavior is a component, so you add it to and remove it from an entity exactly like any other component, in Evergine Studio or from code. See <a href="index.html#using-components">Components</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

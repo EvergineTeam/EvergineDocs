@@ -1,0 +1,291 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>USD Runtime | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="USD Runtime | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="usd-runtime">USD Runtime</h1>
+
+<hr>
+<p><img src="images/USD/usd-header.jpg" alt="Kitchen Set from the Pixar USD assets, loaded with the USD runtime">
+<em>Kitchen Set from Pixar Assets.</em></p>
+<p>The <strong>Evergine.Runtimes.USD</strong> package reads Universal Scene Description files (<code>.usd</code>, <code>.usda</code>, <code>.usdc</code> and <code>.usdz</code>) while the application runs and returns a <code>Model</code>. Use it to bring in scenes from USD pipelines, such as NVIDIA Omniverse or Apple Reality Composer, without converting them first.</p>
+<p>The runtime does not parse USD itself. It runs the official OpenUSD Python library (<code>usd-core</code>) in an embedded Python interpreter, extracts the meshes, transforms and materials, and builds the Evergine model in C#.</p>
+<table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Package</strong></td>
+<td><code>Evergine.Runtimes.USD</code></td>
+</tr>
+<tr>
+<td><strong>Namespace</strong></td>
+<td><code>Evergine.Runtimes.USD</code></td>
+</tr>
+<tr>
+<td><strong>Class</strong></td>
+<td><code>USDRuntime</code> (derives from <code>ModelRuntime</code>)</td>
+</tr>
+<tr>
+<td><strong>Formats</strong></td>
+<td><code>.usd</code>, <code>.usda</code>, <code>.usdc</code>, <code>.usdz</code></td>
+</tr>
+<tr>
+<td><strong>Returns</strong></td>
+<td><code>Task&lt;Model&gt;</code></td>
+</tr>
+<tr>
+<td><strong>Platforms</strong></td>
+<td>Windows desktop</td>
+</tr>
+<tr>
+<td><strong>Reads from</strong></td>
+<td>A file path only</td>
+</tr>
+</tbody>
+</table>
+<h2 id="requirements">Requirements</h2>
+<p>The package brings its Python environment with it, but that environment has three consequences for your application:</p>
+<ul>
+<li><strong>Windows only.</strong> The runtime uses <a href="https://github.com/tonybaloney/CSnakes">CSnakes</a> 1.2.1 to host Python 3.12.6 from the <code>python</code> NuGet package. That package, and the CSnakes locator that finds it, only exist for Windows.</li>
+<li><strong>Python comes from the NuGet packages folder.</strong> CSnakes looks for Python 3.12.6 in the NuGet package cache of the machine: <code>%NUGET_PACKAGES%</code> when that variable is set, <code>%USERPROFILE%\.nuget\packages</code> otherwise. A development machine that restored the project already has it. On any other machine the folder must exist before the first read.</li>
+<li><strong>The first read installs packages.</strong> The package copies its Python scripts to a <code>Python</code> folder next to the application and creates a virtual environment in <code>Python\.venv-Python</code>. The first time a file is read, it installs the packages listed in <code>requirements.txt</code> (<code>usd-core</code> and <code>orjson</code>) into that environment, which needs Internet access and takes a while. Later reads reuse the environment.</li>
+</ul>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Test the USD runtime on a clean machine before you ship it. A missing Python package cache or a blocked package download makes every read fail with the message <em>could not be read by Python OpenUSD API</em>.</p>
+</div>
+<h2 id="what-the-runtime-reads">What the runtime reads</h2>
+<p><strong>Scene</strong></p>
+<ul>
+<li>The transform hierarchy, converted to the Y-up convention of Evergine whatever the <code>upAxis</code> of the stage.</li>
+<li>The <code>metersPerUnit</code> of the stage, applied as the scale of the root node.</li>
+</ul>
+<p><strong>Geometry</strong></p>
+<ul>
+<li>Vertex positions, normals, texture coordinates and vertex colors, with vertex and face-varying interpolation.</li>
+<li>Triangles, quads and larger polygons. Polygons with more than four vertices are tessellated.</li>
+</ul>
+<p><strong>Materials</strong></p>
+<ul>
+<li><code>UsdPreviewSurface</code> materials: diffuse color, metallic, roughness, emissive color and opacity.</li>
+<li>Clearcoat, clearcoat roughness, and a reflectance derived from <code>ior</code> or the specular color when the material authors them.</li>
+<li>Base color, normal, metallic-roughness, emissive and occlusion textures, packed inside a <code>.usdz</code> or referenced as files, in any format the <a href="image_runtime.html">Image runtime</a> decodes.</li>
+<li>Double-sided rendering. A material with an opacity below 1 uses alpha blending, with the opacity as its alpha.</li>
+</ul>
+<p>Animation data (skeletal animation and animated transforms) is not read. The model loads in its rest pose.</p>
+<h2 id="load-a-model-from-a-file">Load a model from a file</h2>
+<p><code>Read(string filePath, Func&lt;MaterialData, Task&lt;Material&gt;&gt; materialAssigner = null)</code> combines the path with the <code>Content</code> folder of the running application, so a relative path is resolved inside <code>Content</code> and an absolute path is used as it is. Mark USD files that you ship in <code>Content</code> with <strong>Set to export as raw</strong> in the <a href="../evergine_studio/assets/edit.html">Assets Details panel</a> so they are copied unchanged.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Runtimes.USD;
+
+public class MyScene : Scene
+{
+    protected override async void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        try
+        {
+            Model model = await USDRuntime.Instance.Read(&quot;Models/Kitchen_set.usd&quot;);
+
+            Entity entity = model.InstantiateModelHierarchy(&quot;kitchen&quot;, assetsService);
+            this.Managers.EntityManager.Add(entity);
+        }
+        catch (Exception ex)
+        {
+            // Python environment problems surface here, wrapped by the runtime.
+            Console.WriteLine($&quot;USD load failed: {ex.InnerException?.Message ?? ex.Message}&quot;);
+        }
+    }
+}
+</code></pre>
+<h2 id="load-a-model-downloaded-from-the-internet">Load a model downloaded from the Internet</h2>
+<p><code>Read(Stream, ...)</code> exists because <code>USDRuntime</code> derives from <code>ModelRuntime</code>, but it always throws an <code>ArgumentException</code>: OpenUSD resolves layers, references and textures relative to a file on disk. To load a download, save it to a file and read that file by its absolute path.</p>
+<pre><code class="lang-csharp">using System;
+using System.IO;
+using System.Net.Http;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+using Evergine.Runtimes.USD;
+
+public class MyScene : Scene
+{
+    private static readonly HttpClient httpClient = new HttpClient();
+
+    protected override async void CreateScene()
+    {
+        // A .usdz packs the stage and its textures in one file, so a single download is enough.
+        string localPath = Path.Combine(Path.GetTempPath(), &quot;toy_biplane.usdz&quot;);
+
+        using (var response = await httpClient.GetAsync(&quot;https://example.com/models/toy_biplane.usdz&quot;))
+        {
+            response.EnsureSuccessStatusCode();
+            using var file = File.Create(localPath);
+            await response.Content.CopyToAsync(file);
+        }
+
+        Model model = await USDRuntime.Instance.Read(localPath);
+
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+        Entity entity = model.InstantiateModelHierarchy(&quot;biplane&quot;, assetsService);
+
+        // Scene changes must happen on the Evergine main thread.
+        await EvergineForegroundTask.Run(() =&gt; this.Managers.EntityManager.Add(entity));
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A <code>.usd</code> or <code>.usda</code> file that references other layers or textures needs those files next to it. Download them to the same folder, or prefer <code>.usdz</code> packages for anything you fetch at run time.</p>
+</div>
+<h2 id="custom-materials">Custom materials</h2>
+<p>Pass a material assigner as the second argument of <code>Read</code> to create the materials yourself. The runtime describes every material as a <code>USDMaterialData</code> and your function returns the <code>Material</code> to use. The <a href="glb_runtime.html#materials-and-the-material-assigner">GLB runtime page</a> describes <code>MaterialData</code> and has a complete assigner.</p>
+<pre><code class="lang-csharp">Model model = await USDRuntime.Instance.Read(&quot;Models/Kitchen_set.usd&quot;, this.AssignMaterial);
+</code></pre>
+<p><code>USDMaterialData</code> adds three values that <code>MaterialData</code> does not have: <code>ClearcoatFactor</code>, <code>ClearcoatRoughnessFactor</code> and <code>Reflectance</code>. Cast to it when your material needs them.</p>
+<h2 id="performance">Performance</h2>
+<ul>
+<li>Very large stages take a long time to read and use a lot of memory, because the whole scene passes through Python before Evergine builds it.</li>
+<li>Each call to <code>Read</code> starts a Python host. Load several files one after another rather than in parallel.</li>
+</ul>
+<h2 id="samples">Samples</h2>
+<p>The USD runtime has been tested with these public collections:</p>
+<ul>
+<li><a href="https://openusd.org/release/dl_downloads.html#assets">Pixar USD assets</a></li>
+<li><a href="https://developer.apple.com/augmented-reality/quick-look/">Apple AR Quick Look gallery</a></li>
+<li><a href="https://sketchfab.com/feed">Sketchfab</a></li>
+<li><a href="https://docs.omniverse.nvidia.com/usd/latest/usd_content_samples/downloadable_packs.html">NVIDIA Omniverse USD asset packs</a></li>
+</ul>
+<p><img src="images/USD/kitchen-set.png" alt="Kitchen Set from Pixar loaded with the USD runtime">
+<em>Kitchen Set from Pixar Assets.</em></p>
+<p><img src="images/USD/toy-plane.png" alt="Toy biplane from Apple loaded with the USD runtime">
+<em>Toy biplane, Copyright 2023 Apple Inc.</em></p>
+<p><img src="images/USD/armor.png" alt="Parade armour loaded with the USD runtime">
+<em>The Parade Armour of King Erik XIV of Sweden. The Royal Armoury (Livrustkammaren).</em></p>
+<p><img src="images/USD/Omniverse-robot-arm.jpg" alt="Robot arm from NVIDIA Omniverse loaded with the USD runtime">
+<em>Robot arm from the NVIDIA Omniverse USD asset packs.</em></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

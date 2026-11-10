@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Create a Texture from Code | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create a Texture from Code | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="create-a-texture-from-code">Create a Texture from Code</h1>
+
+<hr>
+<p>Textures are usually assets that you assign to materials and components in Evergine Studio. From code you can do two things with them: load a texture asset and use it, or create a texture at runtime from your own pixel data.</p>
+<h2 id="load-a-texture-asset-from-code">Load a texture asset from code</h2>
+<p>Load the asset through the scene's <code>AssetSceneManager</code> (or the <code>AssetsService</code>) with the id that <code>EvergineContent</code> generates for it, as explained in <a href="../../evergine_studio/assets/use.html">Using assets</a>. This example gives a teapot a material with a base color texture:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Managers;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        AssetSceneManager assets = this.Managers.AssetSceneManager;
+
+        // Content/Textures/Diffuse.png
+        Texture diffuseTexture = assets.Load&lt;Texture&gt;(EvergineContent.Textures.Diffuse_png);
+
+        var material = new StandardMaterial(assets.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assets.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorTexture = diffuseTexture,
+            BaseColorSampler = assets.Load&lt;SamplerState&gt;(DefaultResourcesIDs.LinearWrapSamplerID),
+        };
+
+        Entity teapot = new Entity(&quot;texturedTeapot&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new TeapotMesh())
+            .AddComponent(new MaterialComponent() { Material = material.Material })
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(teapot);
+    }
+}
+</code></pre>
+<h2 id="create-a-texture-from-pixel-data">Create a texture from pixel data</h2>
+<p>To create a texture at runtime you need two things: a <code>TextureDescription</code> that says what kind of texture it is, and one <code>DataBox</code> per subresource with the pixels. The <a href="../low_level_api/texture.html">Texture</a> page of the low-level API covers every option; this section shows the common case.</p>
+<h3 id="texturedescription">TextureDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Type</strong></td>
+<td><code>Texture2D</code></td>
+<td><code>Texture1D</code>, <code>Texture1DArray</code>, <code>Texture2D</code>, <code>Texture2DArray</code>, <code>TextureCube</code>, <code>TextureCubeArray</code> or <code>Texture3D</code>.</td>
+</tr>
+<tr>
+<td><strong>Format</strong></td>
+<td><code>R8G8B8A8_UNorm</code></td>
+<td>The <code>PixelFormat</code> of each texel.</td>
+</tr>
+<tr>
+<td><strong>Width</strong></td>
+<td>1</td>
+<td>Width in texels. The maximum depends on the device.</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>1</td>
+<td>Height in texels.</td>
+</tr>
+<tr>
+<td><strong>Depth</strong></td>
+<td>1</td>
+<td>Depth in texels, for <code>Texture3D</code> only.</td>
+</tr>
+<tr>
+<td><strong>ArraySize</strong></td>
+<td>1</td>
+<td>Number of textures in an array texture. A cube map counts its six faces as one element, so a single cube map has <code>ArraySize = 1</code>.</td>
+</tr>
+<tr>
+<td><strong>MipLevels</strong></td>
+<td>1</td>
+<td>Number of mipmap levels.</td>
+</tr>
+<tr>
+<td><strong>Flags</strong></td>
+<td><code>ShaderResource</code></td>
+<td>How the GPU uses it: <code>ShaderResource</code>, <code>RenderTarget</code>, <code>UnorderedAccess</code>, <code>DepthStencil</code>, <code>GenerateMipmaps</code>, combinable.</td>
+</tr>
+<tr>
+<td><strong>Usage</strong></td>
+<td><code>Default</code></td>
+<td><code>Default</code> (GPU reads and writes), <code>Immutable</code> (GPU reads only, contents fixed at creation), <code>Dynamic</code> (GPU reads, CPU writes) or <code>Staging</code> (copies between GPU and CPU).</td>
+</tr>
+<tr>
+<td><strong>CpuAccess</strong></td>
+<td><code>None</code></td>
+<td><code>None</code>, <code>Write</code> or <code>Read</code>. Only <code>Dynamic</code> and <code>Staging</code> textures can be accessed from the CPU.</td>
+</tr>
+<tr>
+<td><strong>SampleCount</strong></td>
+<td><code>None</code></td>
+<td>Multisampling: <code>None</code>, <code>Count2</code>, <code>Count4</code>, <code>Count8</code>, <code>Count16</code> or <code>Count32</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The static helpers <code>TextureDescription.CreateTexture1DDescription</code>, <code>CreateTexture2DDescription</code>, <code>CreateTexture3DDescription</code> and <code>CreateTextureCubeDescription</code> return a description with these defaults and the size and format you pass.</p>
+<h3 id="databox">DataBox</h3>
+<p>A <code>DataBox</code> points at the pixels of one subresource: one mip level of one array slice or cube face. It also carries the row pitch (bytes per row) and the slice pitch (bytes per 2D slice). A texture with several mip levels or slices takes an array of them, ordered slice by slice and, within each slice, mip by mip.</p>
+<h3 id="example">Example</h3>
+<p>This scene creates a 256 × 256 checkerboard and shows it on a plane:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Effects;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+
+public class CheckerScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        const uint size = 256;
+        const uint cell = 32;
+        byte[] pixels = new byte[size * size * 4];
+
+        for (uint y = 0; y &lt; size; y++)
+        {
+            for (uint x = 0; x &lt; size; x++)
+            {
+                byte value = (((x / cell) + (y / cell)) % 2 == 0) ? (byte)255 : (byte)40;
+                uint i = ((y * size) + x) * 4;
+                pixels[i] = value;
+                pixels[i + 1] = value;
+                pixels[i + 2] = value;
+                pixels[i + 3] = 255;
+            }
+        }
+
+        var description = TextureDescription.CreateTexture2DDescription(size, size, PixelFormat.R8G8B8A8_UNorm);
+
+        // One subresource: mip 0 of slice 0. The row pitch is the width in bytes.
+        var data = new DataBox[] { new DataBox(pixels, size * 4) };
+        Texture checker = graphicsContext.Factory.CreateTexture(data, ref description, &quot;Checker&quot;);
+
+        var material = new StandardMaterial(assetsService.Load&lt;Effect&gt;(DefaultResourcesIDs.StandardEffectID))
+        {
+            LayerDescription = assetsService.Load&lt;RenderLayerDescription&gt;(DefaultResourcesIDs.OpaqueRenderLayerID),
+            BaseColorTexture = checker,
+            BaseColorSampler = assetsService.Load&lt;SamplerState&gt;(DefaultResourcesIDs.LinearWrapSamplerID),
+        };
+
+        Entity plane = new Entity(&quot;checkerPlane&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new PlaneMesh())
+            .AddComponent(new MaterialComponent() { Material = material.Material })
+            .AddComponent(new MeshRenderer());
+
+        this.Managers.EntityManager.Add(plane);
+    }
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A texture you create yourself is not tracked by the asset system. Dispose it when you no longer need it.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

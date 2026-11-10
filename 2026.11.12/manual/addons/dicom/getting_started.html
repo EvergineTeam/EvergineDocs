@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting started with DICOM | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with DICOM | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-dicom">Getting started with DICOM</h1>
+
+<hr>
+<p><img src="images/density_range.gif" alt="DICOM demo"></p>
+<p>This page shows how to load a DICOM series and render it in 2D and 3D. You create an entity with a <code>DicomComponent</code> that loads the images into a 3D texture, then add a <code>DicomRenderer</code> to draw the volume and one <code>DicomRenderer2D</code> per slice plane. The 3D view needs a custom render path, which the add-on provides.</p>
+<p>The <a href="https://github.com/EvergineTeam/Dicom-Demo">DICOM demo</a> shows all of this working, with controls to change the density window and move the slice planes.</p>
+<h2 id="project-setup">Project setup</h2>
+<h3 id="1-install-the-add-on">1. Install the add-on</h3>
+<p>In Evergine Studio, open the <a href="../index.html#add-ons-manager">Add-ons Manager</a> and install <strong>Evergine.Dicom</strong>.</p>
+<p><img src="images/dicom_addon.jpg" alt="DICOM add-on"></p>
+<h3 id="2-set-the-dicom-render-path">2. Set the DICOM render path</h3>
+<p>Volume rendering needs extra passes, so the add-on provides <code>DicomRenderPath</code> (namespace <code>Evergine.Dicom</code>). Set it up in one of two ways:</p>
+<ul>
+<li>For one camera, assign it to the camera's <code>RenderPath</code>:</li>
+</ul>
+<pre><code class="lang-csharp">using Evergine.Dicom;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+
+// In your scene's CreateScene.
+var camera = this.Managers.EntityManager.FindFirstComponentOfType&lt;Camera&gt;(isExactType: false);
+camera.RenderPath = new DicomRenderPath((RenderManager)this.Managers.RenderManager);
+</code></pre>
+<ul>
+<li>For every camera, replace the default render path of the render pipeline with the helper extension methods:</li>
+</ul>
+<pre><code class="lang-csharp">// Replaces the default render path with DicomRenderPath and returns it.
+this.Managers.RenderManager.ReplaceDefaultRenderPathWithDicomRenderPath();
+
+// Restores the default render path.
+this.Managers.RenderManager.ReplaceDicomRenderPathWithDefaultRenderPath();
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The 2D slices do not need the DICOM render path. If your application only shows slices, skip this step.</p>
+</div>
+<h2 id="how-the-volume-is-rendered">How the volume is rendered</h2>
+<p><code>DicomRenderPath</code> renders three passes. The <strong>Default</strong> pass draws the rest of the scene as usual. The <strong>DicomFarDepth</strong> pass draws the back faces of the volume mesh and stores their depth. The <strong>Dicom</strong> pass draws the front faces and, for each pixel, marches a ray through the 3D texture from the front face to the stored far depth, accumulating the densities that fall inside the window range.</p>
+<p><img src="images/dicom_render_path.png" alt="Diagram: DicomRenderPath runs the Default pass for the scene, the DicomFarDepth pass that writes the depth of the volume back faces, and the Dicom pass that ray marches the DICOM 3D texture from the front faces to that depth"></p>
+<p><em>The far depth pass tells the ray marcher where each ray leaves the volume.</em></p>
+<h2 id="load-a-dicom-series">Load a DICOM series</h2>
+<p><code>DicomComponent</code> loads the images and keeps them in a 3D texture that the renderers share. Call <code>LoadFromFile</code> with the path of a <code>.zip</code> file. The loader reads every file in the archive as a DICOM image, whatever its folder or extension, so the files do not need the <code>.dcm</code> extension.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Every file inside the ZIP must be a valid DICOM file. Only 16-bit single-channel images are supported; <code>LoadFromFile</code> returns <code>false</code> for other formats.</p>
+</div>
+<p><code>LoadFromFile</code> is asynchronous and returns <code>true</code> when the texture is ready:</p>
+<pre><code class="lang-csharp">using System.Diagnostics;
+using Evergine.Common.IO;
+using Evergine.Dicom;
+using Evergine.Framework;
+
+public class DicomScene : Scene
+{
+    protected override async void CreateScene()
+    {
+        this.Managers.RenderManager.ReplaceDefaultRenderPathWithDicomRenderPath();
+
+        var dicomPath = new AssetsDirectory().RootPath + &quot;/Dicoms/sample.zip&quot;;
+        var entities = await this.CreateDicomEntities(dicomPath, create2D: true, create3D: true);
+        if (entities.Length == 0)
+        {
+            Trace.TraceError(&quot;The DICOM file could not be loaded.&quot;);
+        }
+    }
+}
+</code></pre>
+<p><code>CreateDicomEntities</code> is a helper, also available as <code>DicomHelpers.CreateDicomEntities</code>, that loads the file and creates all the entities described below in one call. It returns three disabled slice entities (X, Y, and Z) followed by the volume entity, or an empty array if the file cannot be loaded. The volume mesh is a cylinder by default; pass <code>cylinderMeshShape: false</code> to use a cube.</p>
+<h3 id="dicomcomponent">DicomComponent</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WindowRange</code></td>
+<td><code>(1800, 3000)</code></td>
+<td>Density window, minimum and maximum. Only densities inside it are visible. Loading a file resets it to <code>LimitWindowRange</code>.</td>
+</tr>
+<tr>
+<td><code>LimitWindowRange</code></td>
+<td><code>(-1000, 3500)</code></td>
+<td>Read-only. Density range of the loaded series.</td>
+</tr>
+<tr>
+<td><code>PixelsX</code>, <code>PixelsY</code>, <code>PixelsZ</code></td>
+<td><code>0</code></td>
+<td>Read-only. Size of the series in pixels: width, height, and number of slices.</td>
+</tr>
+<tr>
+<td><code>PixelSpacing</code></td>
+<td><code>(0, 0, 0)</code></td>
+<td>Read-only. Size of one pixel, in millimeters.</td>
+</tr>
+<tr>
+<td><code>SizeMM</code></td>
+<td><code>(0, 0, 0)</code></td>
+<td>Read-only. Size of the whole volume, in millimeters.</td>
+</tr>
+<tr>
+<td><code>Texture</code></td>
+<td><code>null</code></td>
+<td>Read-only. The 3D texture with the images.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>OnDicomLoadedEvent</code></td>
+<td>Raised when a series is loaded.</td>
+</tr>
+<tr>
+<td><code>OnWindowChangedEvent</code></td>
+<td>Raised when <code>WindowRange</code> changes, with the window normalized to the limit range.</td>
+</tr>
+</tbody>
+</table>
+<p>Change <code>WindowRange</code> at runtime to let the user pick what to see, for example bone or soft tissue:</p>
+<pre><code class="lang-csharp">// dicomComponent is the DicomComponent of your volume entity; Vector2 is in Evergine.Mathematics.
+// Show only the densest part of the loaded range.
+var limits = dicomComponent.LimitWindowRange;
+dicomComponent.WindowRange = new Vector2(limits.X + (limits.Y - limits.X) * 0.6f, limits.Y);
+</code></pre>
+<h2 id="3d-visualization">3D visualization</h2>
+<p>To render the volume, <a href="#2-set-the-dicom-render-path">set the DICOM render path</a> and create an entity with these components:</p>
+<ul>
+<li><code>Transform3D</code>: places the volume. <code>DicomRenderer</code> sets its scale to <code>SizeMM</code> when a series loads, so scale a parent entity to change the size.</li>
+<li><code>DicomComponent</code>.</li>
+<li>A mesh component, such as <code>CubeMesh</code> or <code>CylinderMesh</code>, that contains the volume. Its vertices must fit the box from (-0.5, -0.5, -0.5) to (0.5, 0.5, 0.5), which the renderer maps to the whole series.</li>
+<li><code>DicomRenderer</code>, which replaces <code>MeshRenderer</code>.</li>
+<li><code>MaterialComponent</code> with the <code>Dicom3DMaterial</code> material (<code>AssetIds.Materials.Dicom3DMaterial</code>).</li>
+</ul>
+<p><img src="images/components.jpg" alt="3D components"></p>
+<pre><code class="lang-csharp">using Evergine.Components.Graphics3D;
+using Evergine.Dicom;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+
+var dicomComponent = new DicomComponent();
+var volume = new Entity(&quot;DicomVolume&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(dicomComponent)
+    .AddComponent(new CubeMesh() { Size = 1 })
+    .AddComponent(new DicomRenderer())
+    .AddComponent(new MaterialComponent()
+    {
+        Material = this.Managers.AssetSceneManager.Load&lt;Material&gt;(AssetIds.Materials.Dicom3DMaterial),
+    });
+
+this.Managers.EntityManager.Add(volume);
+await dicomComponent.LoadFromFile(dicomPath);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th><code>DicomRenderer</code> property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>DitheringEnabled</code></td>
+<td><code>true</code></td>
+<td>Offsets the start of each ray randomly to remove the <a href="https://en.wikipedia.org/wiki/Colour_banding">banding</a> of the volume, at the cost of a little noise.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="choose-the-mesh">Choose the mesh</h3>
+<p>A cube of size 1 centered at the origin is the simplest volume. If you know how the images were captured, a mesh closer to the shape of the scanned data renders faster, because fewer rays cross empty space. Most <a href="https://en.wikipedia.org/wiki/CT_scan">CT scanners</a> are cylindrical, so their data fits in a cylinder, which is why <code>CreateDicomEntities</code> uses a <code>CylinderMesh</code> by default.</p>
+<h2 id="2d-visualization">2D visualization</h2>
+<p>Each slice is a separate entity with an axis-aligned plane. Create one entity per slice with these components:</p>
+<ul>
+<li><code>Transform3D</code>: the position of the plane. Move it to move the slice through the volume.</li>
+<li><code>PlaneMesh</code> with an axis-aligned <code>PlaneNormal</code> and a large <code>Width</code> and <code>Height</code>, for example 1000, so the plane crosses the whole volume. Outside the volume, the plane is drawn black.</li>
+<li><code>DicomRenderer2D</code>, with its <code>Dicom</code> property set to the <code>DicomComponent</code> of the volume entity.</li>
+<li><code>MaterialComponent</code> with the <code>Dicom2DMaterial</code> material (<code>AssetIds.Materials.Dicom2DMaterial</code>).</li>
+</ul>
+<p><img src="images/components_2d.png" alt="2D components"></p>
+<pre><code class="lang-csharp">var slice = new Entity(&quot;DicomSliceZ&quot;)
+    .AddComponent(new Transform3D())
+    .AddComponent(new PlaneMesh() { PlaneNormal = PlaneMesh.NormalAxis.ZPositive, Width = 1000, Height = 1000 })
+    .AddComponent(new DicomRenderer2D() { Dicom = dicomComponent })
+    .AddComponent(new MaterialComponent()
+    {
+        Material = this.Managers.AssetSceneManager.Load&lt;Material&gt;(AssetIds.Materials.Dicom2DMaterial),
+    });
+
+this.Managers.EntityManager.Add(slice);
+</code></pre>
+<p>If your application only shows slices, the entity with the <code>DicomComponent</code> only needs a <code>Transform3D</code> and the <code>DicomComponent</code>, and you do not need the DICOM render path.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

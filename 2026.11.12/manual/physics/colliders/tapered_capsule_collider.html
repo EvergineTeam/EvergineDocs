@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tapered Capsule Collider | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tapered Capsule Collider | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tapered-capsule-collider">Tapered Capsule Collider</h1>
+
+<p><img src="images/tapered_capsule_collider.png" alt="Tapered Capsule Collider"></p>
+<p>A capsule with a different radius at each end: two spheres of different sizes with the surface stretched between them. Limbs, tapered bottles, pear-shaped props: anything that is broadly a capsule but thicker at one end.</p>
+<p>This shape had no equivalent in the previous API.</p>
+<h2 id="taperedcapsulecollider-component">TaperedCapsuleCollider Component</h2>
+<p><img src="images/taperedcapsulecollider_component.png" alt="TaperedCapsuleCollider component"></p>
+<pre><code class="lang-csharp">Entity limb = new Entity(&quot;limb&quot;)
+    .AddComponent(new Transform3D() { Position = position })
+    .AddComponent(new RigidBody())
+    .AddComponent(new TaperedCapsuleCollider()
+    {
+        BottomRadius = 0.45f,
+        TopRadius = 0.2f,
+        Height = 1.6f,
+    });
+
+this.Managers.EntityManager.Add(limb);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>BottomRadius</strong></td>
+<td>0.5</td>
+<td>The radius of the lower sphere.</td>
+</tr>
+<tr>
+<td><strong>TopRadius</strong></td>
+<td>0.25</td>
+<td>The radius of the upper sphere.<br><video width="600" height="340" autoplay="" loop="" muted="" playsinline=""><source src="images/tapered_capsule_collider_radii.mp4" type="video/mp4"></video></td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>2</td>
+<td>The <strong>total</strong> height along Y, both caps included, the same convention as <a href="capsule_collider.html"><code>CapsuleCollider</code></a>.</td>
+</tr>
+<tr>
+<td><strong>UseModelBounds</strong></td>
+<td>false</td>
+<td>Reads both radii as factors of the larger of the model's X and Z extents, and <code>Height</code> as a factor of its Y extent, instead of local units. See <a href="index.html#local-units-or-model-bounds">Local Units or Model Bounds</a>.</td>
+</tr>
+<tr>
+<td><strong>Offset</strong></td>
+<td>0,0,0</td>
+<td>Moves the shape relative to the entity.</td>
+</tr>
+<tr>
+<td><strong>RotationOffset</strong></td>
+<td>0,0,0</td>
+<td>Rotates the shape relative to the entity.</td>
+</tr>
+<tr>
+<td><strong>Density</strong></td>
+<td>1000</td>
+<td>Density in kg/m³, used to compute the body's mass when its <code>Mass</code> is 0.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>A tapered capsule is <strong>not symmetric about the entity's origin</strong>. Its two sphere centres sit at plus and minus half of the <em>straight</em> section, <code>(Height - TopRadius - BottomRadius) / 2</code>, so the shape reaches that plus <code>BottomRadius</code> downwards and only that plus <code>TopRadius</code> upwards. With a height of 1.6, a bottom radius of 0.45 and a top of 0.2, that is 0.925 down against 0.675 up, so the shape's middle sits 0.125 below the entity. Since every primitive mesh is centred, a drawn capsule placed on the same entity will look as though it is floating. Lifting the collider by half the difference of the radii, <code>Offset = (0, (BottomRadius - TopRadius) / 2, 0)</code>, puts the two back on top of each other.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>There is no tapered capsule primitive mesh, so the picture above is the collider's own wireframe from <a href="../debug_rendering.html">debug rendering</a>. To draw one, use a model, or a straight <code>CapsuleMesh</code> if the taper is slight.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

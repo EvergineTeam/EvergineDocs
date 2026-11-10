@@ -1,0 +1,198 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Open Your Project in Visual Studio | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Open Your Project in Visual Studio | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="open-your-project-in-visual-studio">Open Your Project in Visual Studio</h1>
+
+<p><img src="images/VisualStudio_1.JPG" alt="Evergine Studio File menu with Open C# editor selected"></p>
+<p>Evergine Studio edits scenes and assets; the game code lives in a regular .NET solution that you build and debug in <strong>Visual Studio 2026</strong>. This page shows how to open that solution from Evergine Studio, what each generated project contains, and how the solutions relate to the profiles of your project.</p>
+<h2 id="open-the-solution">Open the solution</h2>
+<p>In Evergine Studio, select <strong>File &gt; Open C# editor</strong>.</p>
+<ul>
+<li>If the project only has the required <strong>Windows</strong> profile, this opens <code>MyGame.Windows.sln</code> directly.</li>
+<li>If the project has more profiles, the menu shows one entry per profile, with <strong>Windows</strong> first. Pick the profile whose solution you want to open.</li>
+</ul>
+<p>Evergine Studio opens the <code>.sln</code> file with the application Windows associates with solutions, normally Visual Studio. You can also open the solution yourself: <strong>File &gt; Open project folder</strong> shows the project folder in the file explorer, and every <code>.sln</code> file sits at its root.</p>
+<p><img src="images/visual_studio_2026_solution.png" alt="Visual Studio 2026 with the Windows solution of a project open: the shared project, the Editor project and the Windows launcher"></p>
+<h2 id="one-solution-per-profile">One solution per profile</h2>
+<p>Each profile of the project has its own solution file. All of them include the same shared project, so the code you write there runs on every platform. The Content folder with your assets is also shared.</p>
+<p><img src="images/solution_per_profile.png" alt="Diagram of a project folder with MyGame.weproj and Content, three solutions (MyGame.Windows.sln with MyGame.Windows and MyGame.Editor, MyGame.Windows.Vulkan.sln with MyGame.Windows.Vulkan, MyGame.Web.sln with MyGame.Web and MyGame.Web.Server), all referencing the shared MyGame project"></p>
+<p><em>Each profile adds a launcher project and a solution. Game code goes in the shared project, which every solution references.</em></p>
+<p>The Windows solution of a new project contains three projects:</p>
+<table>
+<thead>
+<tr>
+<th>Project</th>
+<th>Target framework</th>
+<th>Contents</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MyGame</strong></td>
+<td><code>net10.0</code></td>
+<td>The code shared by every platform: <code>MyApplication.cs</code>, <code>MyScene.cs</code>, and your components, behaviors, services and scene managers. The build generates <code>EvergineContent.cs</code>, with the ids of every asset in <code>Content</code>.</td>
+</tr>
+<tr>
+<td><strong>MyGame.Editor</strong></td>
+<td><code>net10.0</code></td>
+<td>Extensions for Evergine Studio, such as custom property editors (see <code>MyCustomClassEditor.cs</code>). It references <code>Evergine.Editor.Extension</code> and is only built into the Windows launcher when Evergine Studio builds the project, which defines <code>EVERGINE_EDITOR</code>.</td>
+</tr>
+<tr>
+<td><strong>MyGame.Windows</strong></td>
+<td><code>net10.0-windows</code></td>
+<td>The Windows launcher. <code>Program.cs</code> creates the window, a <code>DX12GraphicsContext</code>, the swap chain and the XAudio2 audio device, then runs the application loop.</td>
+</tr>
+</tbody>
+</table>
+<p>The solutions of other profiles contain their own launcher project (for example <code>MyGame.Windows.Vulkan</code>, or <code>MyGame.Web</code> and <code>MyGame.Web.Server</code>) plus the shared project. Only the Windows solution includes the Editor project.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>New projects render on <strong>DirectX 12</strong> by default. If you need DirectX 11, add the <strong>Windows (DirectX11)</strong> platform in <strong>Settings &gt; Project Settings</strong>. It creates a <code>Windows.DirectX11</code> profile with its own <code>MyGame.Windows.DirectX11.sln</code>. See <a href="../evergine_studio/settings/project_profiles.html">Manage profiles</a>.</p>
+</div>
+<h2 id="build-and-debug">Build and debug</h2>
+<p><code>MyGame.Windows</code> is the first project of the Windows solution, so Visual Studio uses it as the startup project. Press <strong>F5</strong> to build it and start debugging; breakpoints in the shared project and in your components work as in any .NET application.</p>
+<p>The Windows launcher accepts a few command-line options, which you can set in the debug profile of the project:</p>
+<table>
+<thead>
+<tr>
+<th>Option</th>
+<th>Effect</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-Width &lt;pixels&gt;</code>, <code>-Height &lt;pixels&gt;</code></td>
+<td>Window size. The default is 1280 x 720.</td>
+</tr>
+<tr>
+<td><code>-Vsync</code>, <code>-NoVsync</code></td>
+<td>Enable or disable vertical sync. It is enabled by default.</td>
+</tr>
+<tr>
+<td><code>-Windowed</code>, <code>-FullScreen</code></td>
+<td>Run in a window (the default) or full screen.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="next-steps">Next steps</h2>
+<ul>
+<li>Read <a href="../basics/project_structure.html">Project Structure</a> for the rest of the files in the project folder.</li>
+<li>Learn how to <a href="../evergine_launcher/manage_versions.html">manage Evergine versions</a> and update a project.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,355 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Vehicle Wheel | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Vehicle Wheel | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="vehicle-wheel">Vehicle Wheel</h1>
+
+<p><img src="images/wheelAxies.png" alt="Wheel axes"></p>
+<p><code>VehicleWheel</code> is one wheel of a <a href="index.html">vehicle</a>. It goes on a <strong>child entity</strong> of the chassis, and the entity's local position is where the wheel is mounted.</p>
+<p>A wheel is <strong>not a body and has no collider</strong>. It is a probe: a ray or a shape cast sent down the suspension direction, looking for the ground, with a spring between what it found and the chassis. That is what makes a vehicle stable at speed where four bolted-on bodies would shake themselves apart.</p>
+<p>The controller finds its wheels by walking its descendants, and the order it finds them in is the index its properties refer to.</p>
+<h2 id="wheel-properties">Wheel Properties</h2>
+<p><img src="images/vehiclewheel_component.png" alt="VehicleWheel component"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Radius</strong></td>
+<td>0.35</td>
+<td>The wheel's radius, in metres. It decides where the chassis rides and how far one turn carries the vehicle.</td>
+</tr>
+<tr>
+<td><strong>UseModelBounds</strong></td>
+<td>false</td>
+<td>Reads <code>Radius</code> as a factor of the <strong>largest dimension</strong> of the model on the wheel entity, scale included, instead of in metres: a radius of 0.5 is a wheel that fits its own mesh. This is the convention the previous <code>PhysicWheel3D</code> used, and what the <a href="../migrating_from_bullet.html#migration-tool">migration tool</a> sets on migrated wheels; new vehicles are simpler in metres. The result is never smaller than 0.01.</td>
+</tr>
+<tr>
+<td><strong>Width</strong></td>
+<td>0.25</td>
+<td>Its width. Used by the sphere and cylinder collision testers.</td>
+</tr>
+<tr>
+<td><strong>MaxSteerAngle</strong></td>
+<td>0</td>
+<td>The furthest this wheel steers, in radians. <strong>Zero means it does not steer</strong>, which is what a rear wheel wants.</td>
+</tr>
+<tr>
+<td><strong>SteeringAxis</strong></td>
+<td>0,1,0</td>
+<td>The axis it steers about, in the chassis's space.</td>
+</tr>
+<tr>
+<td><strong>Inertia</strong></td>
+<td>0.9</td>
+<td>The wheel's rotational inertia. Higher takes longer to spin up and longer to lock under braking.</td>
+</tr>
+<tr>
+<td><strong>AngularDamping</strong></td>
+<td>0.2</td>
+<td>How quickly a free-spinning wheel slows down.</td>
+</tr>
+<tr>
+<td><strong>UpdateEntityTransform</strong></td>
+<td>true</td>
+<td>Whether the controller writes the wheel's pose back onto its entity, so the drawn wheel steers and spins.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="suspension">Suspension</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SuspensionDirection</strong></td>
+<td>0,-1,0</td>
+<td>Which way the suspension travels, in the chassis's space.</td>
+</tr>
+<tr>
+<td><strong>SuspensionMinLength</strong></td>
+<td>0.15</td>
+<td>Fully compressed.</td>
+</tr>
+<tr>
+<td><strong>SuspensionMaxLength</strong></td>
+<td>0.45</td>
+<td>Fully extended. The difference between the two is the wheel's travel.</td>
+</tr>
+<tr>
+<td><strong>SuspensionPreloadLength</strong></td>
+<td>0</td>
+<td>How much the spring is already compressed at rest.</td>
+</tr>
+<tr>
+<td><strong>SuspensionSpring</strong></td>
+<td>1.5 Hz, damping 0.5</td>
+<td>The spring itself. See <a href="../constraints/index.html#springs">Springs</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>The spring's <strong>frequency</strong> is how many times a second the vehicle wants to bounce, and it is the number to reach for first: around 1 Hz is a soft saloon, 2 Hz is sporty, 3 Hz and above is a racing car. <strong>Damping</strong> near 0.5 lets it settle in a bounce or two; near 1 it settles dead.</p>
+<pre><code class="lang-csharp">// A stiff, well-damped car: it stays flat in corners and does not float over crests.
+wheel.SuspensionSpring = SpringParameters.FromFrequency(2.4f, 0.7f);
+wheel.SuspensionMinLength = 0.1f;
+wheel.SuspensionMaxLength = 0.3f;
+</code></pre>
+<h2 id="braking">Braking</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MaxBrakeTorque</strong></td>
+<td>1500</td>
+<td>The strongest braking torque this wheel can apply, in newton-metres.</td>
+</tr>
+<tr>
+<td><strong>MaxHandBrakeTorque</strong></td>
+<td>0</td>
+<td>The same for the hand brake. Zero on the front wheels and high on the rear is what makes a hand brake turn the car.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="grip">Grip</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LongitudinalFrictionScale</strong></td>
+<td>1</td>
+<td>Scales grip along the wheel's rolling direction: acceleration and braking.</td>
+</tr>
+<tr>
+<td><strong>LateralFrictionScale</strong></td>
+<td>1</td>
+<td>Scales grip sideways: cornering.</td>
+</tr>
+</tbody>
+</table>
+<p>These two are the handling dials. More lateral grip at the rear than the front gives understeer, where the car pushes wide. More at the front gives oversteer, where the back steps out.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>On a wheeled vehicle the two scales reshape the tyre's friction <strong>curves</strong>, grip against slip. On a <a href="tracked_vehicles.html">tracked</a> one a track's grip is a single number rather than a curve, so the same two properties just multiply it. Either way, <code>1</code> leaves the simulation's own model untouched.</p>
+</div>
+<h2 id="telemetry">Telemetry</h2>
+<p>Read-only, and updated every step. Everything a HUD, a tyre-smoke effect or a suspension animation needs:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>HasContact</strong></td>
+<td>Whether the wheel is touching anything.</td>
+</tr>
+<tr>
+<td><strong>SuspensionLength</strong></td>
+<td>How far the suspension is currently extended.</td>
+</tr>
+<tr>
+<td><strong>SteerAngle</strong></td>
+<td>The angle it is currently steered to.</td>
+</tr>
+<tr>
+<td><strong>AngularVelocity</strong></td>
+<td>How fast it is spinning.</td>
+</tr>
+<tr>
+<td><strong>ContactNormal</strong></td>
+<td>The normal of the surface under it.</td>
+</tr>
+<tr>
+<td><strong>ContactPosition</strong></td>
+<td>Where it touches.</td>
+</tr>
+<tr>
+<td><strong>LongitudinalSlip</strong></td>
+<td>How much it is spinning up or locking, from 0 to 1.</td>
+</tr>
+<tr>
+<td><strong>LateralSlip</strong></td>
+<td>How much it is sliding sideways.</td>
+</tr>
+<tr>
+<td><strong>CombinedLongitudinalFriction</strong></td>
+<td>The grip actually available along the rolling direction.</td>
+</tr>
+<tr>
+<td><strong>CombinedLateralFriction</strong></td>
+<td>And sideways.</td>
+</tr>
+<tr>
+<td><strong>BrakeImpulse</strong></td>
+<td>The braking impulse applied last step.</td>
+</tr>
+<tr>
+<td><strong>Index</strong></td>
+<td>This wheel's index on its controller, or <code>-1</code> if it has not been assigned.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The five tyre values (the two slips and the two frictions, plus <code>BrakeImpulse</code>) are only meaningful on a <strong>wheeled</strong> vehicle. On a <a href="tracked_vehicles.html">tracked</a> one they read zero, because a track's grip is not modelled per wheel.</p>
+</div>
+<pre><code class="lang-csharp">public class TyreSmoke : Behavior
+{
+    [BindComponent]
+    private VehicleWheel wheel = null;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // Slip, not speed: a wheel spinning up on the spot and a wheel sliding sideways in a corner
+        // both smoke, and neither of them is about how fast the car is going.
+        float slip = Math.Max(Math.Abs(this.wheel.LongitudinalSlip), Math.Abs(this.wheel.LateralSlip));
+
+        this.emitter.IsEnabled = this.wheel.HasContact &amp;&amp; slip &gt; 0.35f;
+        this.emitter.Position = this.wheel.ContactPosition;
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Leave <code>UpdateEntityTransform</code> on and make the wheel's visual a <strong>child</strong> of the wheel entity, not the wheel entity itself. The controller owns that entity's pose, so any rotation authored on it, laying a <code>CylinderMesh</code> on its side for instance, is overwritten every step. The one thing the wheel does keep is the local orientation it had when it started: that is treated as a visual offset and combined with the steering and the spin, which is what lets a mirrored wheel model on the left side of the car keep facing the right way.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,171 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Prefabs | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Prefabs | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="prefabs">Prefabs</h1>
+
+<hr>
+<p><img src="images/prefabs-init.jpg" alt="A hierarchy of entities ready to become a prefab"></p>
+<p>A <strong>prefab</strong> is an asset that stores an entity together with its components and its descendants, so that you can place the same object many times, in one scene or in several. Every placed copy is a <strong>prefab instance</strong> linked to the asset: change the prefab and every instance changes with it. Use prefabs instead of copying and pasting entities, which leaves you with many independent copies to keep in sync by hand.</p>
+<p><img src="images/prefab_instance.png" alt="A prefab instance in a scene: Entity Details shows the Prefab Instance bar above its components"></p>
+<p><img src="images/prefab_editor.png" alt="The same prefab open in the Prefab Editor, with its own Prefab Hierarchy"></p>
+<h2 id="create-a-prefab">Create a Prefab</h2>
+<p>First build the entity hierarchy and give it its components. For example, an entity with a teapot and a plane as children, and a <code>Spinner</code> component on the top entity so that the whole group rotates.</p>
+<p>To turn it into a prefab, right-click the top entity of the hierarchy and select <strong>Create prefab</strong>.</p>
+<p><img src="images/prefabs-create.jpg" alt="Prefab creation"></p>
+<p>Evergine Studio creates an asset with the <code>.weprefab</code> extension in the folder selected in the <strong>Project Explorer</strong> panel. Like any other asset, you can move it to another folder afterwards.</p>
+<p><img src="images/prefabs-folder.jpg" alt="The new prefab asset in the Project Explorer"></p>
+<p>The entities you selected become the first instance of the new prefab, and they are marked with a <code>(Prefab)</code> suffix once you save and reload the scene. To place more instances, drag the prefab asset from the <strong>Assets Details</strong> panel into the scene.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Creating a prefab cannot be undone once you save the scene.</p>
+</div>
+<h2 id="edit-a-prefab">Edit a Prefab</h2>
+<p>Changing the entities of an instance in the scene does not change the prefab or its other instances. To add, remove or modify the entities and components of the prefab itself, open it in the prefab editor by double-clicking the asset:</p>
+<p><img src="images/prefabs-editor.jpg" alt="Prefab editor"></p>
+<p>Prefabs can be nested: a prefab can contain instances of other prefabs. Cycles are not allowed; if a change would make a prefab contain itself, directly or through other prefabs, Evergine Studio rejects it and shows a warning in the <strong>Output</strong> panel.</p>
+<h2 id="instantiate-a-prefab-from-code">Instantiate a Prefab from Code</h2>
+<p>Load the prefab with the <code>AssetsService</code>, create an instance, and add it to the scene like any other entity:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Prefabs;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+namespace MyProject
+{
+    public class TeapotSpawner : Component
+    {
+        [BindService]
+        private AssetsService assetsService;
+
+        public void Spawn(Vector3 position)
+        {
+            var prefab = this.assetsService.Load&lt;Prefab&gt;(EvergineContent.Prefabs.SpinningTeapot_weprefab);
+
+            // Every call creates a new, independent entity hierarchy.
+            Entity instance = prefab.Instantiate();
+            instance.FindComponent&lt;Transform3D&gt;().Position = position;
+
+            this.Managers.EntityManager.Add(instance);
+        }
+    }
+}
+</code></pre>
+<p><code>EvergineContent.Prefabs.SpinningTeapot_weprefab</code> is the ID that the generated <code>EvergineContent</code> class gives to a prefab named <code>SpinningTeapot.weprefab</code> in a <code>Content/Prefabs</code> folder.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

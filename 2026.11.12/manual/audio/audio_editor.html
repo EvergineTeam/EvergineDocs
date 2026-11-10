@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Audio Editor | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Audio Editor | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="audio-editor">Audio Editor</h1>
+
+<hr>
+<p><img src="images/audio_editor.png" alt="The Audio Editor with a sound asset open: waveform and playback toolbox on the left, export profiles on the right"></p>
+<p>The <strong>Audio Editor</strong> is where you listen to a sound asset and choose the format it is exported with. Double-click a sound asset in <a href="../evergine_studio/interface.html">Assets Details</a> to open it. The editor has two parts: the <strong>viewport</strong>, with the waveform and a playback toolbox, and the <strong>properties</strong> panel, with the asset profiles.</p>
+<h2 id="viewport">Viewport</h2>
+<p>The viewport draws the waveform of the audio. The line at the top describes the <strong>original file</strong>: bit rate, bits per sample, channels, encoding, sample rate and duration. The line above the toolbox describes the <strong>exported asset</strong> as the current profile produces it, so you can see the effect of a profile change straight away.</p>
+<p>The toolbox plays the exported asset:</p>
+<table>
+<thead>
+<tr>
+<th>Icon</th>
+<th>Control</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="images/playIcon.jpg" alt="Play"></td>
+<td><strong>Play / Stop</strong></td>
+<td>Starts playback. Click again to stop.</td>
+</tr>
+<tr>
+<td><img src="images/loopIcon.jpg" alt="Loop"></td>
+<td><strong>Loop</strong></td>
+<td>Plays the sound in a loop.</td>
+</tr>
+<tr>
+<td><img src="images/volumeIcon.jpg" alt="Volume"></td>
+<td><strong>Volume</strong></td>
+<td>Playback volume, from 0 to 100%.</td>
+</tr>
+<tr>
+<td><img src="images/panIcon.jpg" alt="Panning"></td>
+<td><strong>Pan</strong></td>
+<td>Moves the sound between the left (-100) and right (100) speakers. Double-click the slider to center it.</td>
+</tr>
+<tr>
+<td><img src="images/velocityIcon.jpg" alt="Speed"></td>
+<td><strong>Speed</strong></td>
+<td>Playback pitch and speed, from 10% to 100% of the original.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The toolbox settings are for listening only. They are not saved in the asset. To set the volume or pitch a sound plays at in your scene, use the properties of <a href="using_audio_from_editor.html"><code>SoundEmitter3D</code></a> or of an <code>AudioSource</code>.</p>
+</div>
+<h2 id="properties">Properties</h2>
+<p>The properties panel has one tab per profile. The first tab is the default profile, which every platform uses unless it has a profile of its own. Each remaining tab overrides the default for one platform, so you can, for example, export smaller 8-bit sounds for a mobile profile only.</p>
+<p>These are the <code>SoundProfile</code> properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ChannelFormat</strong></td>
+<td><code>Mono</code></td>
+<td><code>Mono</code> or <code>Stereo</code>. The audio is mixed down or up to this channel count on export. Sounds played by <code>SoundEmitter3D</code> must be <code>Mono</code>.</td>
+</tr>
+<tr>
+<td><strong>SampleRateMode</strong></td>
+<td><code>Low</code></td>
+<td><code>Low</code> exports at 22050 Hz and <code>High</code> at 44100 Hz. A higher rate keeps more of the high frequencies but doubles the size of the data.</td>
+</tr>
+<tr>
+<td><strong>Encoding</strong></td>
+<td><code>PCM8</code></td>
+<td><code>PCM8</code> stores 8 bits per sample and <code>PCM16</code> 16 bits. <code>PCM16</code> has much less background noise, at twice the size.</td>
+</tr>
+<tr>
+<td><strong>ExcludeAsset</strong></td>
+<td>false</td>
+<td>Leaves this asset out of the exported content for the profile, for sounds a platform never plays.</td>
+</tr>
+</tbody>
+</table>
+<p><code>SoundProfile</code> also exposes a read-only <strong>Frequency</strong> value: the sample rate in hertz that the exporter uses, 22050 for <code>Low</code> and 44100 for <code>High</code>. At run time the same value appears as <code>WaveFormat.SampleRate</code> of the loaded <code>AudioBuffer</code>.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The defaults favour small files. For music, or for any sound where quality matters, set <strong>SampleRateMode</strong> to <code>High</code> and <strong>Encoding</strong> to <code>PCM16</code>.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,194 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Subsurface Scattering (SSS) | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Subsurface Scattering (SSS) | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="subsurface-scattering-sss">Subsurface Scattering (SSS)</h1>
+
+<hr>
+<p>In materials such as skin, marble, wax or leaves, light enters the surface, scatters inside and comes out somewhere else. That is what gives skin its soft look and makes ears glow red against the light. <strong>Subsurface scattering</strong> reproduces it in screen space: it blurs the lighting of the marked materials along their surface, with a profile that lets red light travel farther than green and blue.</p>
+<p>It works together with a material that uses the <strong>SSS effect</strong> (<code>SSSEffect</code>) of the Evergine.Core package. The material marks its pixels in the GBuffer; the post-processing effect then blurs only those pixels, following the depth of the surface so the blur does not bleed onto the background.</p>
+<h2 id="set-it-up">Set it up</h2>
+<ol>
+<li>Create a material with the <strong>SSSEffect</strong> effect and enable its <strong>SSSScatter</strong> directive in the <a href="../../materials/material_editor.html">Material Editor</a>. Enable <strong>SSSTranslucency</strong> too if light should shine through thin parts.</li>
+<li>In the post-processing volume, enable <strong>SSS</strong> in the default graph.</li>
+</ol>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The SSS mask is written in the GBuffer pass, so the effect only works where that pass runs: on Windows, for cameras with an intermediate buffer.</p>
+</div>
+<h2 id="material-parameters">Material parameters</h2>
+<p>These belong to materials created from <code>SSSEffect</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SSSScatter</strong></td>
+<td>0.03</td>
+<td>How far light scatters under the surface.</td>
+</tr>
+<tr>
+<td><strong>SSSIntensity</strong></td>
+<td>0.1</td>
+<td>Strength of the scattering.</td>
+</tr>
+<tr>
+<td><strong>SSSTranslucency</strong></td>
+<td>(0.64, 0.094, 0.063)</td>
+<td>Color of the light that goes through thin parts, with the <code>SSSTranslucency</code> directive. The default is a skin red.</td>
+</tr>
+<tr>
+<td><strong>SSSBias</strong></td>
+<td>0.005</td>
+<td>Depth bias used to estimate thickness for translucency.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="post-processing-parameters">Post-processing parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Enabled</strong></td>
+<td>Off</td>
+<td>Turns the effect on.</td>
+</tr>
+<tr>
+<td><strong>Quality</strong></td>
+<td><code>SSS_QUALITY_2</code></td>
+<td>Number of blur samples: <code>SSS_QUALITY_OFF</code>, <code>SSS_QUALITY_1</code> or <code>SSS_QUALITY_2</code>.</td>
+</tr>
+<tr>
+<td><strong>SSSWidthFactor</strong></td>
+<td>0.15</td>
+<td>Width of the blur in world space. Larger values give a softer, waxier look.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,240 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Samplers | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Samplers | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="samplers">Samplers</h1>
+
+<hr>
+<p>A <strong>sampler</strong> tells the GPU how to read a texture: how to filter between texels and mip levels, and what to do with texture coordinates outside the 0 to 1 range. The same texture can look sharp or smooth, tiled or stretched, depending on the sampler it is read with.</p>
+<p>In Evergine a sampler is an asset (<code>.wesp</code>) that wraps a <code>SamplerStateDescription</code>. Materials reference samplers next to their textures, and textures can have a default sampler of their own.</p>
+<p><img src="images/sampler_editor.png" alt="The Sampler Editor previewing a sampler that wraps on U and V"></p>
+<h2 id="built-in-samplers">Built-in samplers</h2>
+<p>The Evergine.Core package includes two sampler assets, which the default materials use:</p>
+<table>
+<thead>
+<tr>
+<th>Asset</th>
+<th>Id in <code>DefaultResourcesIDs</code></th>
+<th>Filter</th>
+<th>Address mode</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LinearWrapSampler</strong></td>
+<td><code>LinearWrapSamplerID</code></td>
+<td>Trilinear</td>
+<td><code>Wrap</code> on U, V and W</td>
+</tr>
+<tr>
+<td><strong>LinearClampSampler</strong></td>
+<td><code>LinearClampSamplerID</code></td>
+<td>Trilinear</td>
+<td><code>Clamp</code> on U, V and W</td>
+</tr>
+</tbody>
+</table>
+<p>Use the wrap sampler for textures that tile, such as floors and fabrics, and the clamp sampler for textures that must not bleed at the edges, such as decals, UI and render targets.</p>
+<h2 id="create-a-sampler-in-evergine-studio">Create a sampler in Evergine Studio</h2>
+<p>Click the <img src="images/plusIcon.jpg" alt="Plus Icon"> button in the <strong>Assets Details</strong> panel and choose <strong>Create sampler</strong>. Double-click the new asset to open the <strong>Sampler Editor</strong>, which previews the sampler on a tiled checker texture. Its toolbar lets you change the background, preview with one of your own textures instead of the checker, and capture a frame with <a href="../evergine_studio/renderdoc.html">RenderDoc</a>. Like other assets, a sampler can have different settings per <a href="../evergine_studio/settings/project_profiles.html">profile</a>.</p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Filter</strong></td>
+<td><code>MinLinear_MagLinear_MipLinear</code></td>
+<td>How texels are combined. <code>Point</code> picks the nearest texel (pixel art, data textures), <code>Linear</code> blends the nearest ones. The three parts choose it separately for minification, magnification and between mip levels. <code>Anisotropic</code> keeps textures sharp on surfaces seen at a grazing angle.</td>
+</tr>
+<tr>
+<td><strong>AddressU</strong>, <strong>AddressV</strong>, <strong>AddressW</strong></td>
+<td><code>Clamp</code></td>
+<td>What happens outside the 0 to 1 range on each axis: <code>Wrap</code> repeats, <code>Mirror</code> repeats flipping every other copy, <code>Clamp</code> stretches the edge texels, <code>Border</code> uses <code>BorderColor</code>, <code>Mirror_One</code> mirrors once and then clamps.</td>
+</tr>
+<tr>
+<td><strong>MaxAnisotropy</strong></td>
+<td>1</td>
+<td>Number of samples used by <code>Anisotropic</code> filtering, from 1 to 16. Higher is sharper and more expensive.</td>
+</tr>
+<tr>
+<td><strong>MipLODBias</strong></td>
+<td>0</td>
+<td>Offset added to the mip level the GPU picks. Negative values sharpen, positive values blur.</td>
+</tr>
+<tr>
+<td><strong>MinLOD</strong></td>
+<td>-1000</td>
+<td>Lowest mip level that can be used.</td>
+</tr>
+<tr>
+<td><strong>MaxLOD</strong></td>
+<td>1000</td>
+<td>Highest mip level that can be used.</td>
+</tr>
+<tr>
+<td><strong>ComparisonFunc</strong></td>
+<td><code>Never</code></td>
+<td>Comparison for comparison samplers (<code>SamplerComparisonState</code> in HLSL), used to read shadow maps.</td>
+</tr>
+<tr>
+<td><strong>BorderColor</strong></td>
+<td><code>OpaqueWhite</code></td>
+<td>Color returned with the <code>Border</code> address mode: <code>TransparentBlack</code>, <code>OpaqueBlack</code> or <code>OpaqueWhite</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The defaults above are those of <code>SamplerStateDescription.Default</code>. A new sampler asset starts from them, so remember to switch the address modes to <code>Wrap</code> for tiling textures.</p>
+<h2 id="use-samplers-from-code">Use samplers from code</h2>
+<p>Load a sampler asset like any other asset and assign it to a material:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Graphics.Materials;
+using Evergine.Framework.Services;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+
+        var material = new StandardMaterial(assetsService.Load&lt;Material&gt;(DefaultResourcesIDs.DefaultMaterialID).Clone())
+        {
+            // Tile the texture four times; only a wrapping sampler repeats it.
+            TextureTiling = new Evergine.Mathematics.Vector2(4, 4),
+            BaseColorSampler = assetsService.Load&lt;SamplerState&gt;(DefaultResourcesIDs.LinearWrapSamplerID),
+        };
+    }
+}
+</code></pre>
+<p>To create a sampler at runtime, fill a <code>SamplerStateDescription</code>, or start from one of the presets in <code>SamplerStates</code> (<code>PointClamp</code>, <code>PointWrap</code>, <code>PointMirror</code>, <code>LinearClamp</code>, <code>LinearWrap</code>, <code>LinearMirror</code>, <code>AnisotropicClamp</code>, <code>AnisotropicWrap</code> and <code>AnisotropicMirror</code>), and create it with the graphics context factory:</p>
+<pre><code class="lang-csharp">var graphicsContext = Application.Current.Container.Resolve&lt;GraphicsContext&gt;();
+
+SamplerStateDescription description = SamplerStates.AnisotropicWrap;
+description.MaxAnisotropy = 8;
+
+SamplerState sampler = graphicsContext.Factory.CreateSamplerState(ref description);
+</code></pre>
+<p><a href="low_level_api/sampler.html">Sampler</a> in the low-level API section covers the <code>SamplerState</code> object in detail.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

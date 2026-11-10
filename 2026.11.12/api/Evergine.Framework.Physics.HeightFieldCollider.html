@@ -1,0 +1,643 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class HeightFieldCollider | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class HeightFieldCollider | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.HeightFieldCollider">
+
+
+
+  <h1 id="Evergine_Framework_Physics_HeightFieldCollider" data-uid="Evergine.Framework.Physics.HeightFieldCollider" class="text-break">Class HeightFieldCollider</h1>
+  <div class="markdown level0 summary"><p>A terrain built from a square grid of heights. Far cheaper than a triangle mesh for the same ground, both
+in memory and in query cost.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Physics.Collider.html">Collider</a></div>
+    <div class="level7"><span class="xref">HeightFieldCollider</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_MinSize">Collider.MinSize</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_Transform3D">Collider.Transform3D</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_ShapeChanged">Collider.ShapeChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_Offset">Collider.Offset</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_RotationOffset">Collider.RotationOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_Density">Collider.Density</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_Body">Collider.Body</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_OffsetOrientation">Collider.OffsetOrientation</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_AuthoredOffset">Collider.AuthoredOffset</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_NotifyShapeChanged">Collider.NotifyShapeChanged()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_OnAttached">Collider.OnAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_HeightFieldCollider_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class HeightFieldCollider : Collider, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_HeightFieldCollider_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>Heights are provided from code with <a class="xref" href="Evergine.Framework.Physics.HeightFieldCollider.html#Evergine_Framework_Physics_HeightFieldCollider_SetHeights_System_Single___System_UInt32_">SetHeights(float[], uint)</a>. The sample count must be a power of two,
+which is what the acceleration structure is built around. Only static and kinematic bodies can use it.</p>
+</div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_GridOrigin_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.GridOrigin*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_GridOrigin" data-uid="Evergine.Framework.Physics.HeightFieldCollider.GridOrigin">GridOrigin</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the position of the first sample, relative to the collider. This is the corner the grid
+grows from, and is separate from the <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_Offset">Offset</a> of the shape as a whole.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Position of the first grid sample, relative to the collider.&quot;)]
+public Vector3 GridOrigin { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_IsConvex_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.IsConvex*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_IsConvex" data-uid="Evergine.Framework.Physics.HeightFieldCollider.IsConvex">IsConvex</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the shape is convex, and therefore has a volume the simulation can use
+to derive mass from <a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_Density">Density</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool IsConvex { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_IsConvex">Collider.IsConvex</a></div>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_IsStaticOnly_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.IsStaticOnly*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_IsStaticOnly" data-uid="Evergine.Framework.Physics.HeightFieldCollider.IsStaticOnly">IsStaticOnly</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether this shape can only be used by static or kinematic bodies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public override bool IsStaticOnly { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_IsStaticOnly">Collider.IsStaticOnly</a></div>
+  <h5 id="Evergine_Framework_Physics_HeightFieldCollider_IsStaticOnly_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Triangle meshes, height fields and planes have no volume the solver can use, so they cannot back a
+dynamic body.</p>
+</div>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_SampleCount_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.SampleCount*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_SampleCount" data-uid="Evergine.Framework.Physics.HeightFieldCollider.SampleCount">SampleCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of samples along each side of the grid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint SampleCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_Scale_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.Scale*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_Scale" data-uid="Evergine.Framework.Physics.HeightFieldCollider.Scale">Scale</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the size of one grid cell along X and Z, and the vertical scale applied to the heights.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Size of a grid cell on X and Z, and the vertical scale applied to the heights.&quot;)]
+public Vector3 Scale { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_GetHeight_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.GetHeight*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_GetHeight_System_UInt32_System_UInt32_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.GetHeight(System.UInt32,System.UInt32)">GetHeight(uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Gets the height stored at a grid point.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float GetHeight(uint x, uint z)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The column.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">z</span></td>
+        <td><p>The row.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The height, before the vertical scale is applied.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_GetHeights_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.GetHeights*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_GetHeights_System_UInt32_System_UInt32_System_UInt32_System_UInt32_System_Single___" data-uid="Evergine.Framework.Physics.HeightFieldCollider.GetHeights(System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.Single[])">GetHeights(uint, uint, uint, uint, float[])</h4>
+  <div class="markdown level1 summary"><p>Reads heights back from the simulation itself, quantization included, which is what a ray actually
+hits. Falls back to the stored grid while no body exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void GetHeights(uint x, uint z, uint sizeX, uint sizeZ, float[] destination)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The first column to read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">z</span></td>
+        <td><p>The first row to read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sizeX</span></td>
+        <td><p>How many columns to read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sizeZ</span></td>
+        <td><p>How many rows to read.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</td>
+        <td><span class="parametername">destination</span></td>
+        <td><p>Receives the heights, row major, <code class="paramref">sizeX</code> times <code class="paramref">sizeZ</code> entries.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_OnDetached_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.OnDetached*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_OnDetached" data-uid="Evergine.Framework.Physics.HeightFieldCollider.OnDetached">OnDetached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetached()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Collider.html#Evergine_Framework_Physics_Collider_OnDetached">Collider.OnDetached()</a></div>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_SetHeights_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.SetHeights*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_SetHeights_System_Single___System_UInt32_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.SetHeights(System.Single[],System.UInt32)">SetHeights(float[], uint)</h4>
+  <div class="markdown level1 summary"><p>Replaces the height grid.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetHeights(float[] samples, uint sampleCount)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</td>
+        <td><span class="parametername">samples</span></td>
+        <td><p>One height per grid point, row major, holding <code class="paramref">sampleCount</code> squared entries.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sampleCount</span></td>
+        <td><p>The number of samples along each side. Must be a power of two.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_HeightFieldCollider_SetHeights_" data-uid="Evergine.Framework.Physics.HeightFieldCollider.SetHeights*"></a>
+  <h4 id="Evergine_Framework_Physics_HeightFieldCollider_SetHeights_System_UInt32_System_UInt32_System_UInt32_System_UInt32_System_Single___" data-uid="Evergine.Framework.Physics.HeightFieldCollider.SetHeights(System.UInt32,System.UInt32,System.UInt32,System.UInt32,System.Single[])">SetHeights(uint, uint, uint, uint, float[])</h4>
+  <div class="markdown level1 summary"><p>Deforms a rectangle of the terrain in place, without rebuilding the shape or the body: craters,
+tracks and excavation while the simulation keeps running.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SetHeights(uint x, uint z, uint sizeX, uint sizeZ, float[] regionHeights)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">x</span></td>
+        <td><p>The first column of the rectangle.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">z</span></td>
+        <td><p>The first row of the rectangle.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sizeX</span></td>
+        <td><p>How many columns the rectangle spans.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">sizeZ</span></td>
+        <td><p>How many rows the rectangle spans.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a>[]</td>
+        <td><span class="parametername">regionHeights</span></td>
+        <td><p>The new heights, row major, <code class="paramref">sizeX</code> times <code class="paramref">sizeZ</code> entries, before
+the vertical scale is applied.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the deformation reached the simulation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_HeightFieldCollider_SetHeights_System_UInt32_System_UInt32_System_UInt32_System_UInt32_System_Single____remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The rectangle must be aligned to the internal block size, position and size both multiples of it.
+Heights are quantized into the range the shape was built with, so terrain meant to be raised later
+needs that headroom in the grid it was created with. Before the body exists the region is folded into
+the stored grid and the shape is built with it later.</p>
+</div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

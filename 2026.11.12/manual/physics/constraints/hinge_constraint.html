@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Hinge Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Hinge Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hinge-constraint">Hinge Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/hinge_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>hinge constraint</strong> lets a body rotate about one axis and nothing else. Doors, lids, levers, wheels, pendulums, drawbridges: anything that swings.</p>
+<p><img src="images/hinge_constraint_diagram.png" alt="Hinge constraint"></p>
+<h2 id="hingeconstraint-component">HingeConstraint Component</h2>
+<p><img src="images/hingeconstraint_component.png" alt="HingeConstraint component"></p>
+<pre><code class="lang-csharp">Entity door = new Entity(&quot;door&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(1f, 1f, 0f) })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new CubeMesh())
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody() { Mass = 30f })
+    .AddComponent(new BoxCollider() { Size = new Vector3(1f, 2f, 0.1f) })
+    .AddComponent(new HingeConstraint()
+    {
+        ConnectedEntityPath = &quot;frame&quot;,
+
+        // Hung on its left edge, turning about the vertical.
+        Anchor = new Vector3(-0.5f, 0f, 0f),
+        Axis = Vector3.UnitY,
+        NormalAxis = Vector3.UnitX,
+
+        // A door that opens one way, ninety degrees, and stops.
+        MinAngle = 0f,
+        MaxAngle = MathHelper.PiOver2,
+    });
+
+this.Managers.EntityManager.Add(door);
+</code></pre>
+<h2 id="axis-properties">Axis Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Axis</strong></td>
+<td>0,1,0</td>
+<td>The axis the body turns about, in its local space.</td>
+</tr>
+<tr>
+<td><strong>NormalAxis</strong></td>
+<td>1,0,0</td>
+<td>A reference direction perpendicular to <code>Axis</code>. It is what <strong>zero degrees</strong> means, so the limits below are measured from it.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="limit-properties">Limit Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MinAngle</strong></td>
+<td>-π</td>
+<td>The lowest angle, in radians, measured from <code>NormalAxis</code>.</td>
+</tr>
+<tr>
+<td><strong>MaxAngle</strong></td>
+<td>π</td>
+<td>The highest angle. Leaving both at ±π lets the hinge spin freely.</td>
+</tr>
+<tr>
+<td><strong>LimitsSpring</strong></td>
+<td><em>hard</em></td>
+<td>Makes the limits soft, so the hinge can be forced past them and springs back. See <a href="index.html#springs">Springs</a>.</td>
+</tr>
+<tr>
+<td><strong>MaxFrictionTorque</strong></td>
+<td>0</td>
+<td>Friction in the hinge, in newton-metres. This is how a door stays where it is put instead of swinging shut.</td>
+</tr>
+<tr>
+<td><strong>CurrentAngle</strong></td>
+<td><em>read-only</em></td>
+<td>The hinge's angle right now, in radians.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="motor-properties">Motor Properties</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/hinge_constraint_motor.mp4" type="video/mp4">
+</video>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MotorMode</strong></td>
+<td><code>Off</code></td>
+<td><code>Velocity</code> drives towards <code>TargetAngularVelocity</code>; <code>Position</code> drives towards <code>TargetAngle</code> and holds there.</td>
+</tr>
+<tr>
+<td><strong>TargetAngularVelocity</strong></td>
+<td>0</td>
+<td>The speed the velocity motor aims for, in radians per second.</td>
+</tr>
+<tr>
+<td><strong>TargetAngle</strong></td>
+<td>0</td>
+<td>The angle the position motor aims for, in radians.</td>
+</tr>
+<tr>
+<td><strong>MaxMotorTorque</strong></td>
+<td>1000</td>
+<td>The strongest torque the motor may apply. A motor that cannot reach its target falls short.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus the <a href="index.html#common-properties">common properties</a>.</p>
+<h2 id="using-hinge-constraint">Using Hinge Constraint</h2>
+<h3 id="a-powered-door">A powered door</h3>
+<pre><code class="lang-csharp">public class PoweredDoor : Behavior
+{
+    [BindComponent]
+    private HingeConstraint hinge = null;
+
+    public float OpenAngleDegrees { get; set; } = 95f;
+
+    protected override void Start()
+    {
+        // A position motor: it drives to an angle and holds there, which is what a powered door does.
+        // Velocity mode would open the door and then keep pushing against the limit for ever.
+        this.hinge.MotorMode = MotorMode.Position;
+        this.hinge.MaxMotorTorque = 250f;
+        this.hinge.TargetAngle = 0f;
+    }
+
+    public void SetOpen(bool open)
+    {
+        this.hinge.TargetAngle = open ? MathHelper.ToRadians(this.OpenAngleDegrees) : 0f;
+    }
+}
+</code></pre>
+<h3 id="a-driven-wheel">A driven wheel</h3>
+<pre><code class="lang-csharp">hinge.Axis = Vector3.UnitZ;
+hinge.MinAngle = -MathHelper.Pi;   // Free to spin: the limits are opened right up...
+hinge.MaxAngle = MathHelper.Pi;
+hinge.MotorMode = MotorMode.Velocity;
+hinge.TargetAngularVelocity = 6f;  // ...and the motor sets the speed.
+hinge.MaxMotorTorque = 400f;
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>MaxMotorTorque</code> is what makes a motor feel physical. A door with a low limit can be held shut by hand; a winch with a high one lifts whatever is on the end of it. Setting it very high makes the motor effectively unstoppable, which usually reads as the rest of the scene being pushed around by it.</p>
+</div>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>A hinge with <code>MinAngle</code> and <code>MaxAngle</code> set to the same value is not the same thing as a <a href="fixed_constraint.html">fixed constraint</a>: it is a hinge continually correcting itself towards one angle. If nothing should ever turn, weld it.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

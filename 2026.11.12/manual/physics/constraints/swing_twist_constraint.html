@@ -1,0 +1,288 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Swing Twist Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Swing Twist Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="swing-twist-constraint">Swing Twist Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/swing_twist_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>swing twist constraint</strong> is the anatomical joint: a ball joint that limits how far it may bend (<strong>swing</strong>) and how far it may rotate about its own axis (<strong>twist</strong>), each separately, and with a different limit in each swing direction.</p>
+<p>It is what ragdolls are built from. Shoulders, hips, necks and wrists all bend further one way than another and all have a limit to how far they may screw round, and a swing twist constraint is the only one that can express all of that at once.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This replaces the <code>ConeTwistJoint3D</code> of the previous API, with the two swing directions now limited independently.</p>
+</div>
+<h2 id="swingtwistconstraint-component">SwingTwistConstraint Component</h2>
+<p><img src="images/swingtwistconstraint_component.png" alt="SwingTwistConstraint component"></p>
+<pre><code class="lang-csharp">Entity upperArm = new Entity(&quot;upperArm&quot;)
+    .AddComponent(new Transform3D() { Position = shoulder })
+    .AddComponent(new RigidBody())
+    .AddComponent(new CapsuleCollider() { Radius = 0.08f, Height = 0.34f })
+    .AddComponent(new SwingTwistConstraint()
+    {
+        ConnectedEntityPath = &quot;torso&quot;,
+        Anchor = new Vector3(0f, 0.17f, 0f),
+
+        TwistAxis = Vector3.UnitY,
+        PlaneAxis = Vector3.UnitX,
+
+        // A shoulder: a wide swing forwards and back, less to the side, and very little screw.
+        NormalHalfConeAngle = MathHelper.ToRadians(75f),
+        PlaneHalfConeAngle = MathHelper.ToRadians(45f),
+        TwistMinAngle = MathHelper.ToRadians(-30f),
+        TwistMaxAngle = MathHelper.ToRadians(30f),
+    });
+
+this.Managers.EntityManager.Add(upperArm);
+</code></pre>
+<h2 id="axis-and-limit-properties">Axis and Limit Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TwistAxis</strong></td>
+<td>0,1,0</td>
+<td>The axis the joint twists about, and the centre of the swing cone. For a limb, this points down the bone.</td>
+</tr>
+<tr>
+<td><strong>PlaneAxis</strong></td>
+<td>1,0,0</td>
+<td>A reference direction perpendicular to <code>TwistAxis</code>, which fixes which way &quot;plane&quot; means.</td>
+</tr>
+<tr>
+<td><strong>NormalHalfConeAngle</strong></td>
+<td>π/4</td>
+<td>How far the joint may swing perpendicular to the plane axis, in radians.</td>
+</tr>
+<tr>
+<td><strong>PlaneHalfConeAngle</strong></td>
+<td>π/4</td>
+<td>How far it may swing in the plane, in radians. Two different half angles are what make the swing limit an <strong>ellipse</strong> rather than a circle.</td>
+</tr>
+<tr>
+<td><strong>TwistMinAngle</strong></td>
+<td>-π/4</td>
+<td>How far it may twist one way, in radians.</td>
+</tr>
+<tr>
+<td><strong>TwistMaxAngle</strong></td>
+<td>π/4</td>
+<td>How far the other way.</td>
+</tr>
+<tr>
+<td><strong>MaxFrictionTorque</strong></td>
+<td>0</td>
+<td>Friction in the joint. A little of it is what stops a ragdoll's limbs swinging for ever.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="motor-properties">Motor Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SwingMotorMode</strong></td>
+<td><code>Off</code></td>
+<td>Drives the swing towards <code>TargetOrientation</code> or <code>TargetAngularVelocity</code>.</td>
+</tr>
+<tr>
+<td><strong>TwistMotorMode</strong></td>
+<td><code>Off</code></td>
+<td>Drives the twist the same way. The two are set separately.</td>
+</tr>
+<tr>
+<td><strong>TargetOrientation</strong></td>
+<td>identity</td>
+<td>The orientation a position motor drives towards.</td>
+</tr>
+<tr>
+<td><strong>TargetAngularVelocity</strong></td>
+<td>0,0,0</td>
+<td>The angular velocity a velocity motor drives towards.</td>
+</tr>
+<tr>
+<td><strong>MaxSwingTorque</strong></td>
+<td>1000</td>
+<td>The strongest torque the swing motor may apply.</td>
+</tr>
+<tr>
+<td><strong>MaxTwistTorque</strong></td>
+<td>1000</td>
+<td>The strongest torque the twist motor may apply.</td>
+</tr>
+<tr>
+<td><strong>MotorSpring</strong></td>
+<td>20 Hz, damping 1</td>
+<td>How the position motor approaches its target. See <a href="index.html#springs">Springs</a>.</td>
+</tr>
+<tr>
+<td><strong>MotorTorque</strong></td>
+<td><em>read-only</em></td>
+<td>How hard the motors are working right now.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus the <a href="index.html#common-properties">common properties</a>.</p>
+<h2 id="building-a-ragdoll">Building a Ragdoll</h2>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="../images/ragdoll_joints.mp4" type="video/mp4">
+</video>
+<p>This is the constraint a ragdoll is mostly made of: a swing twist at every hip, shoulder, waist and
+neck, with a <a href="hinge_constraint.html">hinge</a> at the elbows and knees. The anchor goes in the child limb's
+own space, at the point where the two bones meet:</p>
+<pre><code class="lang-csharp">var shoulder = new SwingTwistConstraint()
+{
+    ConnectedBody = torso.FindComponent&lt;RigidBody&gt;(),
+    Anchor = new Vector3(0f, 0.15f, 0f),
+    TwistAxis = Vector3.UnitY,
+    PlaneAxis = Vector3.UnitX,
+    PlaneHalfConeAngle = MathHelper.ToRadians(80f),
+    NormalHalfConeAngle = MathHelper.ToRadians(60f),
+    TwistMinAngle = MathHelper.ToRadians(-30f),
+    TwistMaxAngle = MathHelper.ToRadians(30f),
+
+    // Neighbouring bones overlap at the joint by design, so they must not collide: letting them means
+    // every joint fights a contact every step, and the figure blows itself apart on the first frame.
+    CollideConnected = false,
+
+    // A little friction everywhere. Without it a ragdoll dropped on the floor keeps twitching: every
+    // joint is a frictionless bearing, so nothing ever quite comes to rest.
+    MaxFrictionTorque = 0.5f,
+};
+</code></pre>
+<p>See <a href="../ragdolls.html">Ragdolls</a> for the whole figure: the eleven bodies, their masses, the rules that
+decide whether it holds together, and how to switch a character from its animation to a ragdoll at
+run time.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Turn on <code>RenderManager.DebugLines</code> with <code>PhysicsDebugFlags.Constraints</code> while tuning a ragdoll. The swing cones and twist arcs are drawn in place, so a limit that is wrong is visible rather than merely suspicious. See <a href="../debug_rendering.html">Debug Rendering</a>.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

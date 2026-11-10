@@ -1,0 +1,269 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Manage Services | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Manage Services | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="manage-services">Manage Services</h1>
+
+<p><img src="images/services_manage.png" alt="The Services tab of Project Settings with a service and its properties"></p>
+<p>An application <strong>service</strong> is a class that inherits from <code>Service</code> and lives as long as the application: settings, a score keeper, a connection to a backend. You usually register services in code, in the constructor of your <code>Application</code> class. The <strong>Services</strong> tab of <strong>Project Settings</strong> lets you do the same from Evergine Studio: pick the service types, edit their properties with the usual property editors, and let Evergine create and register them when the application starts.</p>
+<h2 id="add-and-remove-services">Add and remove services</h2>
+<ul>
+<li>Click <strong>Add</strong> to open the <strong>Add Application Service</strong> dialog. It lists every non-abstract class that inherits from <code>Service</code> in the project and its references. Type in <strong>Search service types...</strong> to filter them, and select one to add it.</li>
+<li>Select one or more services and click <strong>Remove</strong> to delete them from the list. Evergine Studio asks for confirmation.</li>
+</ul>
+<p>Each service type can appear only once in the list.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>If the dialog shows <em>No application Service types are available</em>, build the project first. Evergine Studio finds services in the compiled assemblies of the project.</p>
+</div>
+<h2 id="configure-a-service">Configure a service</h2>
+<p>Select a service in <strong>Current project services</strong> to show its properties on the right. Public properties with a getter and a setter are shown with the same editors as component properties, and the same attributes control how they look. Every change is saved immediately.</p>
+<p>This service exposes four settings. The attributes limit the numeric values and add tooltips in Evergine Studio.</p>
+<pre><code class="lang-csharp">using Evergine.Common.Attributes;
+using Evergine.Framework.Services;
+
+namespace MyProject.Services
+{
+    public class GameSettingsService : Service
+    {
+        [RenderPropertyAsInput(MinLimit = 1, MaxLimit = 9, Tooltip = &quot;Lives at the start of a game&quot;)]
+        public int StartingLives { get; set; } = 3;
+
+        [RenderPropertyAsFInput(MinLimit = 0.5f, MaxLimit = 3f, Tooltip = &quot;Multiplies enemy speed and damage&quot;)]
+        public float Difficulty { get; set; } = 1f;
+
+        public bool ShowTutorial { get; set; } = true;
+
+        public string PlayerName { get; set; } = &quot;Player&quot;;
+    }
+}
+</code></pre>
+<p><img src="images/services_game_settings.png" alt="GameSettingsService in the Services tab, with the properties it exposes"></p>
+<p>Components and other services get the configured instance like any other service, for example with <code>[BindService]</code>:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using MyProject.Services;
+
+namespace MyProject.Components
+{
+    public class LivesCounter : Component
+    {
+        [BindService]
+        private GameSettingsService settings = null;
+
+        private int lives;
+
+        protected override void Start()
+        {
+            base.Start();
+
+            // The value edited in Project Settings, or the one registered from code.
+            this.lives = this.settings.StartingLives;
+        }
+    }
+}
+</code></pre>
+<h2 id="how-services-are-registered">How services are registered</h2>
+<p>The list is stored next to the project file, in <code>&lt;ProjectName&gt;.weservices</code>: a YAML file with one entry per service, tagged with its type, and the property values you set. Keep it under version control with the rest of the project.</p>
+<pre><code class="lang-yaml">- !MyProject.Services.GameSettingsService,MyProject
+  IsEnabled: true
+  StartingLives: 5
+  Difficulty: 1.5
+  ShowTutorial: false
+  PlayerName: Ada
+</code></pre>
+<p>When you build, a source generator of the <code>Evergine.CodeScenes</code> package reads the file and adds a <code>RegisterApplicationServices</code> override to your application class. For the file above, the generated code is equivalent to:</p>
+<pre><code class="lang-csharp">public partial class MyApplication
+{
+    protected override void RegisterApplicationServices()
+    {
+        if (!this.Container.IsRegistered(typeof(global::MyProject.Services.GameSettingsService)))
+        {
+            var svc0 = new global::MyProject.Services.GameSettingsService();
+            svc0.IsEnabled = true;
+            svc0.StartingLives = 5;
+            svc0.Difficulty = 1.5F;
+            svc0.ShowTutorial = false;
+            svc0.PlayerName = &quot;Ada&quot;;
+            this.Container.RegisterInstance&lt;global::MyProject.Services.GameSettingsService&gt;(svc0);
+        }
+    }
+}
+</code></pre>
+<p><code>Application.Initialize()</code> calls <code>RegisterApplicationServices()</code> before it initializes the services, so the configured services go through the normal service lifecycle.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Your application class must be <code>partial</code>, as it is in the project templates, so the generator can extend it. If it is not, the build reports error <code>WASP008</code>.</p>
+</div>
+<h2 id="registration-from-code-takes-precedence">Registration from code takes precedence</h2>
+<p><img src="images/service_registration.png" alt="Service registration at build time and at startup"></p>
+<p><em>The generated code only registers a service that is not registered yet, so a registration made in code always wins.</em></p>
+<p>The generated code checks <code>Container.IsRegistered</code> first. If you register the same service type yourself before <code>Initialize()</code> runs, typically in the constructor of your application class, Evergine keeps your registration and ignores the one from Project Settings:</p>
+<pre><code class="lang-csharp">public MyApplication()
+{
+    // ...default registrations of the template...
+
+    // Overrides the GameSettingsService configured in Project Settings.
+    this.Container.RegisterInstance(new GameSettingsService
+    {
+        StartingLives = 1,
+        Difficulty = 3f,
+    });
+}
+</code></pre>
+<p>Use this when a service needs constructor arguments, values that are only known at runtime, or a different setup per launcher.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The check uses the concrete service type. A registration made after <code>base.Initialize()</code> returns is too late to replace the configured service.</p>
+</div>
+<h2 id="troubleshooting">Troubleshooting</h2>
+<p>The generator reports problems as build diagnostics:</p>
+<table>
+<thead>
+<tr>
+<th>Code</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>WASP002</code></td>
+<td>An entry of the <code>.weservices</code> file has no valid type tag.</td>
+</tr>
+<tr>
+<td><code>WASP003</code></td>
+<td>The service type cannot be found in the compilation, or it does not inherit from <code>Service</code>. Add the missing reference or remove the entry.</td>
+</tr>
+<tr>
+<td><code>WASP004</code></td>
+<td>The same service type is configured twice. Only the first entry is used.</td>
+</tr>
+<tr>
+<td><code>WASP005</code></td>
+<td>The code for the properties of a service could not be generated.</td>
+</tr>
+<tr>
+<td><code>WASP007</code></td>
+<td>The <code>.weservices</code> file is not valid YAML.</td>
+</tr>
+<tr>
+<td><code>WASP008</code></td>
+<td>No <code>partial</code> class that inherits from <code>Application</code> was found.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

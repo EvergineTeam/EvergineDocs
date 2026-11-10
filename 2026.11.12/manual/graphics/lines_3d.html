@@ -1,0 +1,426 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Lines 3D | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lines 3D | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lines-3d">Lines 3D</h1>
+
+<hr>
+<p><img src="images/lines_3d.png" alt="The six line primitives of the Lines3D menu, camera aligned"></p>
+<p><strong>Line meshes</strong> draw lines as real geometry: each segment is a strip of triangles with its own thickness, color and texture coordinates. Use them for paths, trajectories, measurements, wireframes and outlines that are part of the scene. For thousands of one-pixel debug lines, the <a href="linebatch/index.html">line batch</a> is cheaper.</p>
+<p>A line entity has two components: a <strong>line mesh</strong> that generates the geometry (<code>LineMesh</code>, <code>LineBezierMesh</code>, <code>LineRectangleMesh</code>, <code>LinePolygonMesh</code>, <code>LineArcMesh</code> or <code>LineCubeMesh</code>, in <code>Evergine.Components.Primitives</code>) and a <code>LineMeshRenderer3D</code> that draws it.</p>
+<h2 id="create-a-line-in-evergine-studio">Create a line in Evergine Studio</h2>
+<p>In the <strong>Entities Hierarchy</strong> panel, click <strong>Add Entity</strong>, open <strong>Lines3D</strong> and choose <strong>Line3D</strong>, <strong>Bezier3D</strong>, <strong>Rectangle3D</strong>, <strong>Polygon3D</strong>, <strong>Arc3D</strong> or <strong>Cube3D</strong>. Evergine Studio creates an entity with a <code>Transform3D</code>, the line mesh and a <code>LineMeshRenderer3D</code>.</p>
+<h2 id="create-a-line-from-code">Create a line from code</h2>
+<pre><code class="lang-csharp">using System.Collections.Generic;
+using Evergine.Common.Graphics;
+using Evergine.Components.Graphics3D;
+using Evergine.Components.Primitives;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        // A path through three points that gets thinner and changes color along the way.
+        var path = new LineMesh()
+        {
+            LineType = LineType.LineStrip,
+            IsCameraAligned = true,
+            LinePoints = new List&lt;LinePointInfo&gt;()
+            {
+                new LinePointInfo() { Position = new Vector3(0, 0, 0), Thickness = 0.2f, Color = Color.Red },
+                new LinePointInfo() { Position = new Vector3(1, 1, 0), Thickness = 0.1f, Color = Color.Yellow },
+                new LinePointInfo() { Position = new Vector3(2, 0, 0), Thickness = 0.05f, Color = Color.Green },
+            },
+        };
+
+        Entity line = new Entity(&quot;path&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(path)
+            .AddComponent(new LineMeshRenderer3D());
+
+        this.Managers.EntityManager.Add(line);
+    }
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Assigning <code>LinePoints</code> rebuilds the mesh. Changing a point inside the list does not, so assign the list again after editing its points.</p>
+</div>
+<h2 id="common-properties">Common properties</h2>
+<p>Every line mesh derives from <code>LineMeshBase</code> and has these properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsCameraAligned</strong></td>
+<td>false (true for <code>LineCubeMesh</code>)</td>
+<td>Turns each segment to face the camera, so the line keeps its apparent thickness from any angle. When false, the strip lies flat in the plane of the points and can disappear when seen edge-on.</td>
+</tr>
+<tr>
+<td><strong>UseWorldSpace</strong></td>
+<td>false</td>
+<td>Treat the point positions as world coordinates, ignoring the entity's transform.</td>
+</tr>
+<tr>
+<td><strong>DiffuseTexture</strong></td>
+<td>null</td>
+<td>Texture applied along the line. Without one the line uses its vertex colors only.</td>
+</tr>
+<tr>
+<td><strong>DiffuseSampler</strong></td>
+<td>null</td>
+<td>Sampler used to read <code>DiffuseTexture</code>.</td>
+</tr>
+<tr>
+<td><strong>TextureTiling</strong></td>
+<td>(1, 1)</td>
+<td>How many times the texture repeats along (U) and across (V) the line.</td>
+</tr>
+<tr>
+<td><strong>TexcoordOffset</strong></td>
+<td>(0, 0)</td>
+<td>Offset added to the texture coordinates. Animate it to make a texture flow along the line.</td>
+</tr>
+</tbody>
+</table>
+<p><code>LineMeshRenderer3D</code> has one property of its own:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Layer</strong></td>
+<td>Alpha</td>
+<td>The render layer the line is drawn in. Alpha lets semi-transparent colors and textures blend.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="line-primitives">Line primitives</h2>
+<h3 id="linemesh-line3d">LineMesh (Line3D)</h3>
+<p>A line through an explicit list of points.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LinePoints</strong></td>
+<td>empty</td>
+<td>The points: each <code>LinePointInfo</code> has a <code>Position</code>, a <code>Thickness</code> and a <code>Color</code>. The line interpolates thickness and color between points.</td>
+</tr>
+<tr>
+<td><strong>LineType</strong></td>
+<td><code>LineList</code></td>
+<td><code>LineStrip</code> joins every point to the next one. <code>LineList</code> takes the points in pairs, each pair an isolated segment.</td>
+</tr>
+<tr>
+<td><strong>IsLoop</strong></td>
+<td>false</td>
+<td>For a strip, also joins the last point to the first.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="linebeziermesh-bezier3d">LineBezierMesh (Bezier3D)</h3>
+<p>A smooth curve through a list of points, shaped by their handles.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LinePoints</strong></td>
+<td>empty</td>
+<td>The points: each <code>BezierPointInfo</code> has a <code>Position</code>, a <code>Thickness</code>, a <code>Color</code> and the <code>InboundHandle</code> and <code>OutboundHandle</code> that shape the curve on either side of it.</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td><code>Quadratic</code></td>
+<td><code>Quadratic</code> segments are shaped by the <code>InboundHandle</code> of the point they end at. <code>Cubic</code> segments also use the <code>OutboundHandle</code> of the point they start from.</td>
+</tr>
+<tr>
+<td><strong>Resolution</strong></td>
+<td>10</td>
+<td>Segments generated between two points, from 3 to 50. More is smoother.</td>
+</tr>
+</tbody>
+</table>
+<p>With <strong>Debug Lines</strong> enabled in the scene, the handles are drawn as yellow points.</p>
+<h3 id="linerectanglemesh-rectangle3d">LineRectangleMesh (Rectangle3D)</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Width</strong></td>
+<td>1</td>
+<td>Width of the rectangle.</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>1</td>
+<td>Height of the rectangle.</td>
+</tr>
+<tr>
+<td><strong>Origin</strong></td>
+<td>(0.5, 0.5)</td>
+<td>Pivot of the rectangle as a fraction of its size; (0, 0) is the top-left corner.</td>
+</tr>
+<tr>
+<td><strong>Thickness</strong></td>
+<td>0.1</td>
+<td>Line thickness.</td>
+</tr>
+<tr>
+<td><strong>Color</strong></td>
+<td>White</td>
+<td>Line color, or tint of the texture.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="linepolygonmesh-polygon3d">LinePolygonMesh (Polygon3D)</h3>
+<p>A regular polygon.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Vertices</strong></td>
+<td>3</td>
+<td>Number of sides, from 3 to 50.</td>
+</tr>
+<tr>
+<td><strong>Radius</strong></td>
+<td>(1, 1)</td>
+<td>Radius on each axis. Different values give an elongated polygon.</td>
+</tr>
+<tr>
+<td><strong>Thickness</strong></td>
+<td>0.1</td>
+<td>Line thickness.</td>
+</tr>
+<tr>
+<td><strong>Color</strong></td>
+<td>White</td>
+<td>Line color, or tint of the texture.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="linearcmesh-arc3d">LineArcMesh (Arc3D)</h3>
+<p>An arc or a full circle.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Angle</strong></td>
+<td>2π (360°)</td>
+<td>Angle of the arc, in radians in code and in degrees in Evergine Studio. 360° closes the circle.</td>
+</tr>
+<tr>
+<td><strong>Tessellation</strong></td>
+<td>16</td>
+<td>Segments used to draw the arc, from 3 to 50.</td>
+</tr>
+<tr>
+<td><strong>Radius</strong></td>
+<td>(1, 1)</td>
+<td>Radius on each axis; different values give an ellipse.</td>
+</tr>
+<tr>
+<td><strong>Thickness</strong></td>
+<td>0.1</td>
+<td>Line thickness.</td>
+</tr>
+<tr>
+<td><strong>Color</strong></td>
+<td>White</td>
+<td>Line color, or tint of the texture.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="linecubemesh-cube3d">LineCubeMesh (Cube3D)</h3>
+<p>The twelve edges of a box.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Size</strong></td>
+<td>(1, 1, 1)</td>
+<td>Size of the box.</td>
+</tr>
+<tr>
+<td><strong>Origin</strong></td>
+<td>(0.5, 0.5, 0.5)</td>
+<td>Pivot of the box as a fraction of its size.</td>
+</tr>
+<tr>
+<td><strong>Thickness</strong></td>
+<td>0.1</td>
+<td>Line thickness.</td>
+</tr>
+<tr>
+<td><strong>Color</strong></td>
+<td>White</td>
+<td>Line color, or tint of the texture.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

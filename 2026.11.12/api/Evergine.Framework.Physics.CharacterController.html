@@ -1,0 +1,1175 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class CharacterController | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class CharacterController | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.CharacterController">
+
+
+
+  <h1 id="Evergine_Framework_Physics_CharacterController" data-uid="Evergine.Framework.Physics.CharacterController" class="text-break">Class CharacterController</h1>
+  <div class="markdown level0 summary"><p>A player or creature that walks around the world without being thrown about by it.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><span class="xref">CharacterController</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_CharacterController_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class CharacterController : Component, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_CharacterController_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+This is not a rigid body. A character is moved by setting the velocity it wants, and the simulation slides
+it along walls, up steps and down slopes instead of applying forces to it. That is what makes character
+motion feel deliberate rather than physical, and it is why a body cannot be used for the job.
+</p>
+<p>
+The character is stepped inside the fixed physics step, before the bodies, so what it pushes reacts on the
+same step. It carries an optional inner body so that queries, contacts and other bodies can see it: without
+one it is invisible to everything except its own collision checks.
+</p>
+</div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Transform3D" data-uid="Evergine.Framework.Physics.CharacterController.Transform3D">Transform3D</h4>
+  <div class="markdown level1 summary"><p>The transform of the entity this character drives.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(true, true, BindComponentSource.Owner, null, true)]
+public Transform3D Transform3D</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_CharacterController_ApplyGravity_" data-uid="Evergine.Framework.Physics.CharacterController.ApplyGravity*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_ApplyGravity" data-uid="Evergine.Framework.Physics.CharacterController.ApplyGravity">ApplyGravity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether gravity is applied to the character.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Apply gravity to the character. Turn off for flying or swimming.&quot;)]
+public bool ApplyGravity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_CharacterPadding_" data-uid="Evergine.Framework.Physics.CharacterController.CharacterPadding*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_CharacterPadding" data-uid="Evergine.Framework.Physics.CharacterController.CharacterPadding">CharacterPadding</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the gap kept between the character and what it touches, which stops it from getting
+wedged in corners.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;Gap kept between the character and what it touches.&quot;)]
+public float CharacterPadding { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_CollisionCategory_" data-uid="Evergine.Framework.Physics.CharacterController.CollisionCategory*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_CollisionCategory" data-uid="Evergine.Framework.Physics.CharacterController.CollisionCategory">CollisionCategory</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the collision category of the inner body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CollisionCategory CollisionCategory { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_EnableInnerBody_" data-uid="Evergine.Framework.Physics.CharacterController.EnableInnerBody*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_EnableInnerBody" data-uid="Evergine.Framework.Physics.CharacterController.EnableInnerBody">EnableInnerBody</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the character carries a body that other bodies, contacts and
+queries can see. Without it the character is invisible to everything but itself.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Give the character a body so queries and other bodies can see it.&quot;)]
+public bool EnableInnerBody { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_EnhancedInternalEdgeRemoval_" data-uid="Evergine.Framework.Physics.CharacterController.EnhancedInternalEdgeRemoval*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_EnhancedInternalEdgeRemoval" data-uid="Evergine.Framework.Physics.CharacterController.EnhancedInternalEdgeRemoval">EnhancedInternalEdgeRemoval</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the character ignores the inner edges of the geometry it walks
+on, which stops it from catching on the seams between triangles.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Ignore inner edges of walkable geometry, so the character does not catch on seams.&quot;)]
+public bool EnhancedInternalEdgeRemoval { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_GroundBody_" data-uid="Evergine.Framework.Physics.CharacterController.GroundBody*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_GroundBody" data-uid="Evergine.Framework.Physics.CharacterController.GroundBody">GroundBody</h4>
+  <div class="markdown level1 summary"><p>Gets the body the character is standing on, when there is one.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public PhysicsBody GroundBody { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.PhysicsBody.html">PhysicsBody</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_GroundNormal_" data-uid="Evergine.Framework.Physics.CharacterController.GroundNormal*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_GroundNormal" data-uid="Evergine.Framework.Physics.CharacterController.GroundNormal">GroundNormal</h4>
+  <div class="markdown level1 summary"><p>Gets the normal of the ground under the character.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 GroundNormal { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_GroundState_" data-uid="Evergine.Framework.Physics.CharacterController.GroundState*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_GroundState" data-uid="Evergine.Framework.Physics.CharacterController.GroundState">GroundState</h4>
+  <div class="markdown level1 summary"><p>Gets where the character is standing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CharacterGroundState GroundState { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CharacterGroundState.html">CharacterGroundState</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_GroundVelocity_" data-uid="Evergine.Framework.Physics.CharacterController.GroundVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_GroundVelocity" data-uid="Evergine.Framework.Physics.CharacterController.GroundVelocity">GroundVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets the velocity of the ground under the character, which is what lets it ride a moving platform.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 GroundVelocity { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_Height_" data-uid="Evergine.Framework.Physics.CharacterController.Height*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Height" data-uid="Evergine.Framework.Physics.CharacterController.Height">Height</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the total height of the character, caps included.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.02, Tooltip = &quot;Total height of the character, caps included.&quot;)]
+public float Height { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_IsCrouching_" data-uid="Evergine.Framework.Physics.CharacterController.IsCrouching*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_IsCrouching" data-uid="Evergine.Framework.Physics.CharacterController.IsCrouching">IsCrouching</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the character is crouching.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsCrouching { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_IsOnGround_" data-uid="Evergine.Framework.Physics.CharacterController.IsOnGround*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_IsOnGround" data-uid="Evergine.Framework.Physics.CharacterController.IsOnGround">IsOnGround</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the character is standing on ground it can walk on.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsOnGround { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_LinearVelocity_" data-uid="Evergine.Framework.Physics.CharacterController.LinearVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_LinearVelocity" data-uid="Evergine.Framework.Physics.CharacterController.LinearVelocity">LinearVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the velocity the character wants to move at. Unlike a body, this is a request rather than
+a state: the simulation slides the character along whatever is in the way.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 LinearVelocity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_CharacterController_LinearVelocity_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Only the horizontal part needs setting. The component owns the vertical part, because gravity, landing
+and riding moving ground all have to be resolved together, and a caller that overwrote it would have to
+reimplement all three.</p>
+</div>
+  <a id="Evergine_Framework_Physics_CharacterController_Mass_" data-uid="Evergine.Framework.Physics.CharacterController.Mass*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Mass" data-uid="Evergine.Framework.Physics.CharacterController.Mass">Mass</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the mass of the character, in kilograms, which decides how hard it pushes bodies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;Mass in kilograms, which decides how hard the character pushes bodies.&quot;)]
+public float Mass { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_MaxSlopeAngle_" data-uid="Evergine.Framework.Physics.CharacterController.MaxSlopeAngle*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_MaxSlopeAngle" data-uid="Evergine.Framework.Physics.CharacterController.MaxSlopeAngle">MaxSlopeAngle</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the steepest ground the character can stand on, in radians. Anything steeper is slid down.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(typeof(FloatRadianToDegreeConverter), 0, 90, Tooltip = &quot;Steepest ground the character can stand on.&quot;)]
+public float MaxSlopeAngle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_MaxStrength_" data-uid="Evergine.Framework.Physics.CharacterController.MaxStrength*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_MaxStrength" data-uid="Evergine.Framework.Physics.CharacterController.MaxStrength">MaxStrength</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the strongest force the character may apply to push bodies out of the way, in newtons.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;Strongest force the character may use to push bodies aside.&quot;)]
+public float MaxStrength { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_NativeCharacter_" data-uid="Evergine.Framework.Physics.CharacterController.NativeCharacter*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_NativeCharacter" data-uid="Evergine.Framework.Physics.CharacterController.NativeCharacter">NativeCharacter</h4>
+  <div class="markdown level1 summary"><p>Gets the native character handle, or zero when it does not exist.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public nint NativeCharacter { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_Orientation_" data-uid="Evergine.Framework.Physics.CharacterController.Orientation*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Orientation" data-uid="Evergine.Framework.Physics.CharacterController.Orientation">Orientation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets which way the character faces.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion Orientation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_CharacterController_Orientation_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>
+This turns the character's own shape, which matters as soon as that shape is not a capsule: a box or a
+tapered shape shoulders through a gap differently depending on which way it points. For a plain capsule
+it changes nothing, since a capsule looks the same from every side.
+</p>
+<p>
+It is not the same as <a class="xref" href="Evergine.Framework.Physics.CharacterController.html#Evergine_Framework_Physics_CharacterController_Up">Up</a>, which says which way the character stands rather than which way
+it looks, and it does not touch the orientation of the entity's transform: what the character faces and
+what its visual faces are left as two separate decisions, since game code usually drives the second one
+from a camera.
+</p>
+</div>
+  <a id="Evergine_Framework_Physics_CharacterController_PenetrationRecoverySpeed_" data-uid="Evergine.Framework.Physics.CharacterController.PenetrationRecoverySpeed*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_PenetrationRecoverySpeed" data-uid="Evergine.Framework.Physics.CharacterController.PenetrationRecoverySpeed">PenetrationRecoverySpeed</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how quickly the character pushes itself out of geometry it ended up inside.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;How quickly the character pushes itself out of geometry.&quot;)]
+public float PenetrationRecoverySpeed { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_PredictiveContactDistance_" data-uid="Evergine.Framework.Physics.CharacterController.PredictiveContactDistance*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_PredictiveContactDistance" data-uid="Evergine.Framework.Physics.CharacterController.PredictiveContactDistance">PredictiveContactDistance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how far ahead contacts are looked for, which keeps fast characters from clipping corners.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;How far ahead contacts are looked for.&quot;)]
+public float PredictiveContactDistance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_Radius_" data-uid="Evergine.Framework.Physics.CharacterController.Radius*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Radius" data-uid="Evergine.Framework.Physics.CharacterController.Radius">Radius</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the radius of the capsule the character is shaped like.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.01, Tooltip = &quot;Radius of the capsule the character is shaped like.&quot;)]
+public float Radius { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_StepHeight_" data-uid="Evergine.Framework.Physics.CharacterController.StepHeight*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_StepHeight" data-uid="Evergine.Framework.Physics.CharacterController.StepHeight">StepHeight</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the tallest step the character walks up without jumping.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;Tallest step the character walks up without jumping.&quot;)]
+public float StepHeight { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_StickToFloorDistance_" data-uid="Evergine.Framework.Physics.CharacterController.StickToFloorDistance*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_StickToFloorDistance" data-uid="Evergine.Framework.Physics.CharacterController.StickToFloorDistance">StickToFloorDistance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how far down the character reaches to stay attached to the floor when walking off a
+ledge or down a slope. Zero makes it leave the ground at every bump.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;How far down the character reaches to stay attached to the floor.&quot;)]
+public float StickToFloorDistance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_SupportingVolumeOffset_" data-uid="Evergine.Framework.Physics.CharacterController.SupportingVolumeOffset*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_SupportingVolumeOffset" data-uid="Evergine.Framework.Physics.CharacterController.SupportingVolumeOffset">SupportingVolumeOffset</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the height above the feet below which a contact can support the character.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(Tooltip = &quot;Height above the feet below which a contact can support the character. The large default accepts every contact.&quot;)]
+public float SupportingVolumeOffset { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_CharacterController_SupportingVolumeOffset_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Contacts above it still collide but never count as ground, which stops a capsule standing on a wall
+it brushes with its side. A little above the bottom sphere of the capsule, around the radius, is the
+usual setting. The very large default accepts every contact, as the simulation's own default does.</p>
+</div>
+  <a id="Evergine_Framework_Physics_CharacterController_Up_" data-uid="Evergine.Framework.Physics.CharacterController.Up*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Up" data-uid="Evergine.Framework.Physics.CharacterController.Up">Up</h4>
+  <div class="markdown level1 summary"><p>Gets or sets which way is up for this character.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Which way is up for this character.&quot;)]
+public Vector3 Up { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_CharacterController_Jump_" data-uid="Evergine.Framework.Physics.CharacterController.Jump*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Jump_System_Single_" data-uid="Evergine.Framework.Physics.CharacterController.Jump(System.Single)">Jump(float)</h4>
+  <div class="markdown level1 summary"><p>Gives the character an upwards velocity, which is how a jump is started. Does nothing while the
+character is not standing on anything.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Jump(float speed)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">speed</span></td>
+        <td><p>The upwards speed, in meters per second.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the jump was started.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_OnActivated_" data-uid="Evergine.Framework.Physics.CharacterController.OnActivated*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_OnActivated" data-uid="Evergine.Framework.Physics.CharacterController.OnActivated">OnActivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is activated once it is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnActivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a></div>
+  <a id="Evergine_Framework_Physics_CharacterController_OnAttached_" data-uid="Evergine.Framework.Physics.CharacterController.OnAttached*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_OnAttached" data-uid="Evergine.Framework.Physics.CharacterController.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a></div>
+  <a id="Evergine_Framework_Physics_CharacterController_OnDeactivated_" data-uid="Evergine.Framework.Physics.CharacterController.OnDeactivated*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_OnDeactivated" data-uid="Evergine.Framework.Physics.CharacterController.OnDeactivated">OnDeactivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is deactivated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDeactivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a></div>
+  <a id="Evergine_Framework_Physics_CharacterController_OnDetached_" data-uid="Evergine.Framework.Physics.CharacterController.OnDetached*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_OnDetached" data-uid="Evergine.Framework.Physics.CharacterController.OnDetached">OnDetached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetached()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetached">Component.OnDetached()</a></div>
+  <a id="Evergine_Framework_Physics_CharacterController_Resize_" data-uid="Evergine.Framework.Physics.CharacterController.Resize*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Resize_System_Single_" data-uid="Evergine.Framework.Physics.CharacterController.Resize(System.Single)">Resize(float)</h4>
+  <div class="markdown level1 summary"><p>Changes the height of the character, which is how crouching is done.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool Resize(float newHeight)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">newHeight</span></td>
+        <td><p>The new total height, caps included.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the new shape fits where the character is standing.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_SetCrouching_" data-uid="Evergine.Framework.Physics.CharacterController.SetCrouching*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_SetCrouching_System_Boolean_System_Single_" data-uid="Evergine.Framework.Physics.CharacterController.SetCrouching(System.Boolean,System.Single)">SetCrouching(bool, float)</h4>
+  <div class="markdown level1 summary"><p>Crouches or stands the character up.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool SetCrouching(bool crouching, float crouchHeight = 0.9)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><span class="parametername">crouching</span></td>
+        <td><p>Whether the character should crouch.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">crouchHeight</span></td>
+        <td><p>The height to crouch to.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p><code>true</code> when the change was possible.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_CharacterController_Teleport_" data-uid="Evergine.Framework.Physics.CharacterController.Teleport*"></a>
+  <h4 id="Evergine_Framework_Physics_CharacterController_Teleport_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.CharacterController.Teleport(Evergine.Mathematics.Vector3)">Teleport(Vector3)</h4>
+  <div class="markdown level1 summary"><p>Moves the character somewhere else outright, ignoring anything in between.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void Teleport(Vector3 position)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">position</span></td>
+        <td><p>The new position.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Physics_CharacterController_ContactAdded" data-uid="Evergine.Framework.Physics.CharacterController.ContactAdded">ContactAdded</h4>
+  <div class="markdown level1 summary"><p>Raised when the character starts touching a body, once per body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler&lt;CharacterContact&gt; ContactAdded</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler-1">EventHandler</a>&lt;<a class="xref" href="Evergine.Framework.Physics.CharacterContact.html">CharacterContact</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

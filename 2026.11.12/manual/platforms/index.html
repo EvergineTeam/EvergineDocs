@@ -1,0 +1,433 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Platforms | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Platforms | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="platforms">Platforms</h1>
+
+<hr>
+<p><img src="images/platform_matrix.png" alt="Evergine project templates grouped by platform family, with the graphics backend of each one"></p>
+<p><em>Every template is a launcher project: it hosts the same application project with a different window system, graphics backend and audio device.</em></p>
+<p>An Evergine project is one shared application project plus one small <strong>launcher project per platform</strong>. The launcher creates the window or surface, the graphics context and the audio device, and then runs your <code>MyApplication</code> class. Your scenes, components and assets stay the same everywhere; only the launcher changes.</p>
+<p>Each launcher comes from a template. You pick templates when you create the project in Evergine Launcher, or later from <strong>Settings &gt; Project Settings</strong> in Evergine Studio. Each template adds one or more <strong>profiles</strong>, and each profile has its own export settings for textures and shaders.</p>
+<p><img src="images/launcher_platform_templates.png" alt="The Initial platforms list of the Evergine Launcher new project dialog"></p>
+<h2 id="platform-matrix">Platform matrix</h2>
+<p>These are the templates that ship with Evergine, as defined in the project tool's <code>templates.json</code>. The window system, graphics context and audio device are the ones each template's launcher code creates.</p>
+<table>
+<thead>
+<tr>
+<th>Template</th>
+<th>Profile</th>
+<th>Window system</th>
+<th>Graphics backend</th>
+<th>Audio device</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Windows (DirectX12)</td>
+<td><code>Windows</code></td>
+<td><code>FormsWindowsSystem</code></td>
+<td>DirectX 12 (<code>DX12GraphicsContext</code>)</td>
+<td><code>XAudioDevice</code></td>
+</tr>
+<tr>
+<td>Windows (DirectX11)</td>
+<td><code>Windows.DirectX11</code></td>
+<td><code>FormsWindowsSystem</code></td>
+<td>DirectX 11 (<code>DX11GraphicsContext</code>)</td>
+<td><code>XAudioDevice</code></td>
+</tr>
+<tr>
+<td>Windows (Vulkan)</td>
+<td><code>Windows.Vulkan</code></td>
+<td><code>FormsWindowsSystem</code></td>
+<td>Vulkan (<code>VKGraphicsContext</code>)</td>
+<td><code>XAudioDevice</code></td>
+</tr>
+<tr>
+<td>Windows (OpenGL)</td>
+<td><code>Windows.OpenGL</code></td>
+<td><code>FormsWindowsSystem</code></td>
+<td>OpenGL (<code>GLGraphicsContext</code>)</td>
+<td><code>XAudioDevice</code></td>
+</tr>
+<tr>
+<td>Windows OpenXR (DirectX11)</td>
+<td><code>Windows.OpenXR</code></td>
+<td><code>FormsWindowsSystem</code> + <code>OpenXRPlatform</code></td>
+<td>DirectX 11 (<code>DX11GraphicsContext</code>)</td>
+<td><code>XAudioDevice</code></td>
+</tr>
+<tr>
+<td>WinUI (DirectX11)</td>
+<td><code>WinUI</code></td>
+<td><code>WinUIWindowsSystem</code></td>
+<td>DirectX 11 (<code>DX11GraphicsContext</code>)</td>
+<td><code>XAudioDevice</code></td>
+</tr>
+<tr>
+<td>Avalonia</td>
+<td><code>Avalonia</code></td>
+<td><code>AvaloniaWindowsSystem</code></td>
+<td>DirectX 11 (<code>DX11GraphicsContext</code>)</td>
+<td><code>XAudioDevice</code></td>
+</tr>
+<tr>
+<td>Web (WebGL2.0)</td>
+<td><code>Web</code></td>
+<td><code>WebWindowsSystem</code></td>
+<td>WebGL 2.0 (<code>GLGraphicsContext</code>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>React SPA (WebGL2.0)</td>
+<td><code>WebReact</code></td>
+<td><code>WebWindowsSystem</code></td>
+<td>WebGL 2.0 (<code>GLGraphicsContext</code>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Web (Experimental WebGPU)</td>
+<td><code>WebGPU</code></td>
+<td><code>WebWindowsSystem</code></td>
+<td>WebGPU (<code>WGPUGraphicsContext</code>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>WebXR (Experimental AR)</td>
+<td><code>WebXR</code></td>
+<td><code>WebXRWindowsSystem</code> + <code>WebXRPlatform</code></td>
+<td>WebGL 2.0 (<code>GLGraphicsContext</code>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>Android</td>
+<td><code>Android</code></td>
+<td><code>AndroidWindowsSystem</code></td>
+<td>Vulkan (<code>VKGraphicsContext</code>)</td>
+<td><code>ALAudioDevice</code></td>
+</tr>
+<tr>
+<td>Android Meta Quest (OpenXR)</td>
+<td><code>Quest</code></td>
+<td><code>AndroidWindowsSystem</code> + <code>OpenXRPlatform</code></td>
+<td>Vulkan (<code>VKGraphicsContext</code>)</td>
+<td><code>ALAudioDevice</code></td>
+</tr>
+<tr>
+<td>Android Pico (OpenXR)</td>
+<td><code>Pico</code></td>
+<td><code>AndroidWindowsSystem</code> + <code>OpenXRPlatform</code></td>
+<td>Vulkan (<code>VKGraphicsContext</code>)</td>
+<td><code>ALAudioDevice</code></td>
+</tr>
+<tr>
+<td>iOS .NET 10</td>
+<td><code>iOS</code></td>
+<td><code>IOSWindowsSystem</code></td>
+<td>Metal (<code>MTLGraphicsContext</code>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td>MAUI</td>
+<td><code>Windows</code></td>
+<td><code>WinUIWindowsSystem</code></td>
+<td>DirectX 11 (<code>DX11GraphicsContext</code>)</td>
+<td>None</td>
+</tr>
+<tr>
+<td></td>
+<td><code>Android</code></td>
+<td><code>AndroidWindowsSystem</code></td>
+<td>Vulkan (<code>VKGraphicsContext</code>)</td>
+<td><code>ALAudioDevice</code></td>
+</tr>
+<tr>
+<td></td>
+<td><code>iOS</code></td>
+<td><code>IOSWindowsSystem</code></td>
+<td>Metal (<code>MTLGraphicsContext</code>)</td>
+<td>None</td>
+</tr>
+</tbody>
+</table>
+<p>&quot;None&quot; means the template does not register an audio device, so audio components have nothing to play through until you register one. <code>XAudioDevice</code> comes from the <code>Evergine.XAudio2</code> package and <code>ALAudioDevice</code> from <code>Evergine.OpenAL</code>. See <a href="../audio/index.html">Audio</a>.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Every project must include <strong>Windows (DirectX12)</strong> or <strong>Windows OpenXR (DirectX11)</strong>. Evergine Studio runs your project through a Windows launcher, so the Launcher does not let you create a project without one of them. Windows (DirectX12) is selected by default.</p>
+</div>
+<h2 id="export-settings-per-profile">Export settings per profile</h2>
+<p>Each profile stores how its assets are exported: the texture compression formats and whether shaders are compiled ahead of time. The template sets these defaults, and you can change them in <a href="../evergine_studio/settings/project_profiles.html">Project Settings &gt; Profiles</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Profile</th>
+<th>Target framework</th>
+<th>Alpha compression</th>
+<th>Non-alpha compression</th>
+<th>Compile effects</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Windows</code>, <code>Windows.DirectX11</code>, <code>Windows.OpenXR</code></td>
+<td><code>net10.0-windows</code></td>
+<td><code>BC3_UNorm</code></td>
+<td><code>BC3_UNorm</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>Windows.Vulkan</code>, <code>Windows.OpenGL</code></td>
+<td><code>net10.0-windows</code></td>
+<td><code>R8G8B8A8_UNorm</code></td>
+<td><code>R8G8B8A8_UNorm</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>WinUI</code></td>
+<td><code>net10.0-windows10.0.19041.0</code></td>
+<td><code>BC3_UNorm</code></td>
+<td><code>BC3_UNorm</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>Avalonia</code></td>
+<td><code>net10.0</code></td>
+<td><code>BC3_UNorm</code></td>
+<td><code>BC3_UNorm</code></td>
+<td>No</td>
+</tr>
+<tr>
+<td><code>Web</code>, <code>WebReact</code>, <code>WebGPU</code>, <code>WebXR</code></td>
+<td><code>net10.0</code> (Blazor WebAssembly)</td>
+<td><code>R8G8B8A8_UNorm</code></td>
+<td><code>R8G8B8A8_UNorm</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Android</code>, <code>Quest</code>, <code>Pico</code></td>
+<td><code>net10.0-android</code></td>
+<td><code>R4G4B4A4</code></td>
+<td><code>ETC1_RGB8</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>iOS</code> (iOS .NET 10)</td>
+<td><code>net10.0-ios</code></td>
+<td><code>BC3_UNorm</code></td>
+<td><code>BC3_UNorm</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td>MAUI <code>Windows</code> / <code>Android</code> / <code>iOS</code></td>
+<td>one multi-targeted project</td>
+<td><code>BC3_UNorm</code> / <code>R4G4B4A4</code> / <code>R4G4B4A4</code></td>
+<td><code>BC3_UNorm</code> / <code>ETC1_RGB8</code> / <code>ETC1_RGB8</code></td>
+<td>No / Yes / Yes</td>
+</tr>
+</tbody>
+</table>
+<p>When <strong>Compile effects</strong> is off, effects are compiled at runtime the first time a material needs them, which is fine on a desktop GPU. When it is on, the exporter compiles every directive combination that your materials use, plus the ones listed in the profile, and ships the compiled bytecode. Mobile and web profiles also add <code>LOW_PROFILE</code> and <code>GAMMA_COLORSPACE</code> combinations, and the XR profiles add <code>MULTIVIEW_VI</code> for single-pass stereo rendering.</p>
+<p><img src="images/project_settings_profiles.png" alt="The profiles of a project in Evergine Studio: Settings &gt; Project Settings &gt; Profiles"></p>
+<h2 id="how-a-launcher-starts-your-application">How a launcher starts your application</h2>
+<p>All launchers follow the same four steps, whatever the platform: create the application, register a window system, create the graphics context and display, and run the loop. This is the Windows (DirectX12) launcher, without its command-line parsing:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using System.Diagnostics;
+
+namespace MyProject.Windows
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // 1. The shared application, defined in the MyProject project.
+            MyApplication application = new MyApplication();
+
+            // 2. The window system owns the native window and the message loop.
+            WindowsSystem windowsSystem = new Evergine.Forms.FormsWindowsSystem();
+            application.Container.RegisterInstance(windowsSystem);
+            var window = windowsSystem.CreateWindow(&quot;MyProject - DX12&quot;, 1280, 720);
+
+            // 3. Graphics and audio. Swapping these two lines is most of what
+            //    distinguishes one Windows template from another.
+            ConfigureGraphicsContext(application, window);
+            application.Container.RegisterInstance(new Evergine.XAudio2.XAudioDevice());
+
+            // 4. Initialize once, then update and draw every frame.
+            Stopwatch clockTimer = Stopwatch.StartNew();
+            windowsSystem.Run(
+                () =&gt; application.Initialize(),
+                () =&gt;
+                {
+                    var gameTime = clockTimer.Elapsed;
+                    clockTimer.Restart();
+
+                    application.UpdateFrame(gameTime);
+                    application.DrawFrame(gameTime);
+                });
+
+            application.Dispose();
+        }
+
+        private static void ConfigureGraphicsContext(Application application, Window window)
+        {
+            GraphicsContext graphicsContext = new Evergine.DirectX12.DX12GraphicsContext();
+            graphicsContext.CreateDevice();
+
+            SwapChainDescription swapChainDescription = new SwapChainDescription()
+            {
+                SurfaceInfo = window.SurfaceInfo,
+                Width = window.Width,
+                Height = window.Height,
+                ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm_SRgb,
+                ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+                DepthStencilTargetFormat = PixelFormat.D32_Float_S8X24_UInt,
+                DepthStencilTargetFlags = TextureFlags.DepthStencil,
+                SampleCount = TextureSampleCount.None,
+                IsWindowed = true,
+                RefreshRate = 60,
+            };
+            var swapChain = graphicsContext.CreateSwapChain(swapChainDescription);
+            swapChain.VerticalSync = true;
+
+            // A camera with an empty DisplayTag renders to the first registered display.
+            var graphicsPresenter = application.Container.Resolve&lt;GraphicsPresenter&gt;();
+            graphicsPresenter.AddDisplay(&quot;DefaultDisplay&quot;, new Display(window, swapChain));
+
+            application.Container.RegisterInstance(graphicsContext);
+        }
+    }
+}
+</code></pre>
+<p>The other templates swap the window system (<code>AndroidWindowsSystem</code>, <code>WebWindowsSystem</code>, <code>IOSWindowsSystem</code> and so on) and the <code>GraphicsContext</code> class, but keep this shape. The platform pages walk through each launcher in detail.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="android/index.html">Android</a>: Android phones and tablets, Meta Quest, Pico and Android XR headsets.</li>
+<li><a href="ios/index.html">iOS</a>: iPhone and iPad with Metal.</li>
+<li><a href="web/index.html">Web</a>: browsers with Blazor WebAssembly and WebGL 2.0 or WebGPU.</li>
+</ul>
+<p>Related pages elsewhere in the manual:</p>
+<ul>
+<li><a href="../graphics/supported_backends/index.html">Supported graphics backends</a></li>
+<li><a href="../xr/openxr/metaquest.html">OpenXR on Meta Quest</a>, <a href="../xr/openxr/pico.html">Pico</a> and <a href="../xr/openxr/androidxr.html">Android XR</a></li>
+<li><a href="../evergine_studio/settings/project_profiles.html">Manage profiles</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

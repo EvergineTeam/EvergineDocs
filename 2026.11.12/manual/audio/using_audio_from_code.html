@@ -1,0 +1,610 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Audio from Code | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Audio from Code | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-audio-from-code">Using Audio from Code</h1>
+
+<hr>
+<p><img src="images/createAudioHeader.jpg" alt="Create audio"></p>
+<p>Everything the audio components do is built on a small API in <code>Evergine.Common.Audio</code> that you can use directly. Use it for sounds that do not belong to a place in the scene, such as interface clicks and music, for fine control over a queue of sounds, or to play audio you generate at run time.</p>
+<p>This page starts with the component route and then goes down a level:</p>
+<ul>
+<li>The <strong>AudioDevice</strong> is the output. The platform launcher creates it, and it creates everything else.</li>
+<li>A <strong>WaveFormat</strong> describes PCM data: channels, sample rate and bits per sample.</li>
+<li>An <strong>AudioBuffer</strong> holds a block of PCM data in one format. Sound assets load as buffers.</li>
+<li>An <strong>AudioSource</strong> plays a queue of buffers that share its format.</li>
+</ul>
+<h2 id="play-a-sound-with-soundemitter3d">Play a sound with SoundEmitter3D</h2>
+<p>The components described in <a href="using_audio_from_editor.html">Using Audio from Evergine Studio</a> can be created from code like any other. Load the sound asset, give it to a <code>SoundEmitter3D</code>, and put a <code>SoundListener3D</code> on the camera. If your scene already has a camera, add the listener to that entity instead of creating a new one:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Audio;
+using Evergine.Components.Sound;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        // The listener rides on the camera, so what you hear matches what you see.
+        Entity camera = new Entity(&quot;camera&quot;)
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 1.5f, 6) })
+            .AddComponent(new Camera3D())
+            .AddComponent(new SoundListener3D());
+
+        // The sound asset must be exported as Mono to play in 3D.
+        AudioBuffer engineSound = this.Managers.AssetSceneManager.Load&lt;AudioBuffer&gt;(EvergineContent.Sounds.Engine_wav);
+
+        Entity generator = new Entity(&quot;generator&quot;)
+            .AddComponent(new Transform3D() { Position = new Vector3(4, 0, 0) })
+            .AddComponent(new SoundEmitter3D()
+            {
+                Audio = engineSound,
+
+                // Loop is read when the emitter creates its audio source, so set it before the entity is added.
+                Loop = true,
+                PlayAutomatically = true,
+
+                // Full volume within 3 units of the generator, half at 6, a quarter at 12.
+                DistanceScaleFactor = 3,
+            });
+
+        this.Managers.EntityManager.Add(camera);
+        this.Managers.EntityManager.Add(generator);
+    }
+}
+</code></pre>
+<p><code>EvergineContent</code> is the class Evergine Studio generates with the id of every asset in your <code>Content</code> folder. <code>EvergineContent.Sounds.Engine_wav</code> stands for a file <code>Content/Sounds/Engine.wav</code>.</p>
+<h2 id="audio-device">Audio device</h2>
+<p>An <code>AudioDevice</code> is the audio output of the application. Evergine has two implementations:</p>
+<table>
+<thead>
+<tr>
+<th>Implementation</th>
+<th>Package</th>
+<th>Backend</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Evergine.XAudio2.XAudioDevice</code></td>
+<td><code>Evergine.XAudio2</code></td>
+<td>XAudio2 with X3DAudio for 3D sound</td>
+<td>Windows templates</td>
+</tr>
+<tr>
+<td><code>Evergine.OpenAL.ALAudioDevice</code></td>
+<td><code>Evergine.OpenAL</code></td>
+<td>OpenAL Soft. The package includes the native libraries for Android and a WebAssembly build.</td>
+<td>Android templates</td>
+</tr>
+</tbody>
+</table>
+<p>The launcher of each profile creates the device and registers it in the application container. This is how the Windows launcher (<code>Program.cs</code>) does it:</p>
+<pre><code class="lang-csharp">// Creates XAudio device
+var xaudio = new global::Evergine.XAudio2.XAudioDevice();
+application.Container.RegisterInstance(xaudio);
+</code></pre>
+<p>The Android launchers (<code>MainActivity.cs</code>) do the same with <code>new global::Evergine.OpenAL.ALAudioDevice()</code>. See <a href="index.html#platform-support">Platform support</a> for the device each template registers.</p>
+<p>Get the device from a component with <code>[BindService]</code>, or from anywhere with <code>Application.Current.Container.Resolve&lt;AudioDevice&gt;()</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MasterVolume</strong></td>
+<td>1</td>
+<td>Volume applied to everything the device plays, clamped to [0, 1].</td>
+</tr>
+<tr>
+<td><strong>DefaultListener</strong></td>
+<td></td>
+<td>The <code>AudioListener</code> used for 3D sound. It has <code>WorldTransform</code>, <code>Velocity</code> and <code>DopplerFactor</code> (default 1). <code>SoundListener3D</code> updates it every frame.</td>
+</tr>
+<tr>
+<td><strong>CreateAudioSource(WaveFormat)</strong></td>
+<td></td>
+<td>Creates an <code>AudioSource</code> that plays buffers in that format.</td>
+</tr>
+<tr>
+<td><strong>CreateAudioBuffer()</strong></td>
+<td></td>
+<td>Creates an empty <code>AudioBuffer</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>CreateAudioSource</code> and <code>CreateAudioBuffer</code> return <code>null</code> when the backend has no output device to play on, for example a machine without a sound card. Check the result if your application can run on such a machine.</p>
+</div>
+<h2 id="wave-format">Wave format</h2>
+<p><code>WaveFormat</code> describes uncompressed PCM data. Create one with:</p>
+<pre><code class="lang-csharp">// Mono, 44100 Hz, 16 bits per sample: the defaults for the last two arguments.
+var format = new WaveFormat(isMono: true, sampleRate: 44100, encoding: WaveFormatEncodings.PCM16);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Channels</strong></td>
+<td>1 for mono, 2 for stereo. Stereo samples are interleaved, left first.</td>
+</tr>
+<tr>
+<td><strong>SampleRate</strong></td>
+<td>Samples per second. Only 8000, 11025, 12000, 16000, 22050, 24000, 32000, 44100 and 48000 are valid; any other value throws. <code>WaveFormat.IsValidSampleRate</code> checks a value.</td>
+</tr>
+<tr>
+<td><strong>Encoding</strong></td>
+<td><code>PCM8</code> (unsigned 8-bit samples) or <code>PCM16</code> (signed 16-bit little-endian samples).</td>
+</tr>
+<tr>
+<td><strong>BitsPerSample</strong></td>
+<td>8 or 16, from <code>Encoding</code>.</td>
+</tr>
+<tr>
+<td><strong>BlockAlign</strong></td>
+<td>Bytes per sample frame: <code>Channels × BitsPerSample / 8</code>. Buffer sizes must be a multiple of it.</td>
+</tr>
+<tr>
+<td><strong>AverageBytesPerSecond</strong></td>
+<td><code>SampleRate × BlockAlign</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Convert...</code> methods move between durations, sample counts and byte sizes, for example <code>ConvertDurationToByteSize(TimeSpan)</code> to size a buffer for 100 ms of audio. The byte sizes they return are already block aligned.</p>
+<p>Two formats are equal when their channels, sample rate and encoding match. That is the test an <code>AudioSource</code> applies to every buffer you enqueue.</p>
+<h2 id="audio-buffer">Audio buffer</h2>
+<p>An <code>AudioBuffer</code> is one block of PCM data with its <code>WaveFormat</code>. Sound assets load as buffers, through the <a href="../evergine_studio/assets/use.html">assets service</a> or the scene's <code>AssetSceneManager</code>:</p>
+<pre><code class="lang-csharp">AudioBuffer click = this.assetsService.Load&lt;AudioBuffer&gt;(EvergineContent.Sounds.Click_wav);
+</code></pre>
+<p>A buffer loaded from an asset is shared by everything that loads the same asset. Several sources can play it at once. Do not fill it with other data or dispose it: the assets service owns it.</p>
+<p>To create a buffer of your own, ask the device for an empty one and fill it:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Fill(TBuffer[], int offset, int count, WaveFormat)</strong></td>
+<td>Copies data from an array. Pass a <code>byte[]</code> so that <code>count</code> is a byte count; it must be a multiple of <code>format.BlockAlign</code>.</td>
+</tr>
+<tr>
+<td><strong>Fill(Stream, int byteCount, WaveFormat)</strong></td>
+<td>Reads <code>byteCount</code> bytes of raw PCM from a stream.</td>
+</tr>
+<tr>
+<td><strong>FillAsync(Stream, int bufferSize, WaveFormat)</strong></td>
+<td>The same, asynchronously. The stream must provide exactly <code>bufferSize</code> bytes of raw PCM, with no file header.</td>
+</tr>
+<tr>
+<td><strong>Format</strong>, <strong>Length</strong>, <strong>Duration</strong>, <strong>SampleCount</strong></td>
+<td>The format and size of the data last filled in.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td><code>Unused</code>, <code>Pending</code> while a source has it queued, or <code>Disposed</code>. A buffer can only be filled while <code>Unused</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>FillAsync</code> suits data that arrives from a file or the network, since the copy does not block the update loop:</p>
+<pre><code class="lang-csharp">using System.IO;
+using System.Threading.Tasks;
+using Evergine.Common.Audio;
+
+public static class RawPcmLoader
+{
+    // The file holds raw 16-bit mono PCM at 22050 Hz, and its length is a multiple of format.BlockAlign.
+    public static async Task&lt;AudioBuffer&gt; LoadAsync(AudioDevice audioDevice, string path)
+    {
+        var format = new WaveFormat(isMono: true, sampleRate: 22050);
+        AudioBuffer buffer = audioDevice.CreateAudioBuffer();
+        using (var stream = File.OpenRead(path))
+        {
+            await buffer.FillAsync(stream, (int)stream.Length, format);
+        }
+
+        // The caller owns this buffer and disposes it when no source needs it any more.
+        return buffer;
+    }
+}
+</code></pre>
+<h2 id="audio-source">Audio source</h2>
+<p>An <code>AudioSource</code> plays a queue of buffers, one after another, and raises an event as each one starts and ends. All buffers in the queue must have the format the source was created with.</p>
+<p><img src="images/AudioSource.png" alt="An AudioSource queue: buffers are filled, enqueued at the tail, played from the head, and come back Unused through BufferEnded"></p>
+<p><em>A buffer is <code>Pending</code> from <code>EnqueueBuffer</code> until the source has played it. <code>BufferEnded</code> hands it back <code>Unused</code>, ready to be filled again, which is how audio is streamed through a fixed set of buffers.</em></p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Volume</strong></td>
+<td>1</td>
+<td>Volume of this source, clamped to [0, 1].</td>
+</tr>
+<tr>
+<td><strong>Pan</strong></td>
+<td>0</td>
+<td>Balance between the left (-1) and right (1) speakers. It is meant for sounds that are not spatialized.</td>
+</tr>
+<tr>
+<td><strong>Pitch</strong></td>
+<td>1</td>
+<td>Playback rate. 0.5 plays an octave lower at half speed. On XAudio2 values above 1 are clamped to 1.</td>
+</tr>
+<tr>
+<td><strong>IsLooped</strong></td>
+<td>false</td>
+<td>When on, each finished buffer goes back to the tail of the queue, so the whole queue repeats.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td><code>Stopped</code></td>
+<td><code>Playing</code>, <code>Paused</code> or <code>Stopped</code> (<code>Evergine.Common.Media.PlayState</code>).</td>
+</tr>
+<tr>
+<td><strong>Format</strong></td>
+<td></td>
+<td>The <code>WaveFormat</code> given to <code>CreateAudioSource</code>.</td>
+</tr>
+<tr>
+<td><strong>PendingBuffersCount</strong></td>
+<td>0</td>
+<td>Buffers still in the queue, including the one playing. <code>PendingBuffers</code> and <code>CurrentBuffer</code> return the buffers themselves.</td>
+</tr>
+<tr>
+<td><strong>PlayPosition</strong>, <strong>QueuePlayPosition</strong>, <strong>QueueDuration</strong></td>
+<td></td>
+<td>Position in the current buffer, position in the whole queue (settable, to seek), and the total duration queued.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Method or event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>EnqueueBuffer(AudioBuffer)</strong></td>
+<td>Adds a buffer to the tail of the queue. Throws if the buffer is empty, disposed, already in this queue, or in another format.</td>
+</tr>
+<tr>
+<td><strong>Play()</strong></td>
+<td>Starts playing, or resumes after <code>Pause()</code>.</td>
+</tr>
+<tr>
+<td><strong>Pause()</strong></td>
+<td>Pauses where it is.</td>
+</tr>
+<tr>
+<td><strong>Stop()</strong></td>
+<td>Stops and rewinds to the start of the queue. The buffers stay queued.</td>
+</tr>
+<tr>
+<td><strong>FlushBuffers()</strong></td>
+<td>Removes every buffer from the queue.</td>
+</tr>
+<tr>
+<td><strong>Apply3D(AudioEmitter)</strong></td>
+<td>Positions the source relative to <code>DefaultListener</code>. <code>SoundEmitter3D</code> calls it every frame.</td>
+</tr>
+<tr>
+<td><strong>BufferStarted</strong></td>
+<td>Raised when a buffer starts playing.</td>
+</tr>
+<tr>
+<td><strong>BufferEnded</strong></td>
+<td>Raised when a buffer has been played, or flushed. Unless the source is looped, the buffer has left the queue and is <code>Unused</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>BufferStarted</code> and <code>BufferEnded</code> are raised on the audio backend's thread: an XAudio2 callback on Windows, and the OpenAL device's polling task on Android. Keep the handlers short, and do not touch entities or components from them.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A source keeps reporting <code>Playing</code> after its last buffer has ended, ready to continue as soon as you enqueue more. To make <code>State</code> return to <code>Stopped</code> when a sound is over, call <code>Stop()</code> from <code>BufferEnded</code>, as <code>SoundEmitter3D</code> does.</p>
+</div>
+<h3 id="example-play-a-sound-asset">Example: play a sound asset</h3>
+<p>This component plays a sound asset that is not tied to a position, such as an interface click. It creates one source for the asset's format and enqueues the asset each time it plays:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Audio;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+
+public class ClickSound : Component
+{
+    [BindService]
+    private AudioDevice audioDevice = null;
+
+    [BindService]
+    private AssetsService assetsService = null;
+
+    public float Volume = 0.8f;
+
+    private AudioBuffer clip;
+    private AudioSource source;
+
+    public void Play()
+    {
+        // Stop() keeps the buffer queued, so only enqueue it when the queue is empty.
+        if (this.source.PendingBuffersCount == 0)
+        {
+            this.source.EnqueueBuffer(this.clip);
+        }
+
+        this.source.Play();
+    }
+
+    protected override bool OnAttached()
+    {
+        this.clip = this.assetsService.Load&lt;AudioBuffer&gt;(EvergineContent.Sounds.Click_wav);
+
+        // A source only accepts buffers in the format it was created with.
+        this.source = this.audioDevice.CreateAudioSource(this.clip.Format);
+        this.source.Volume = this.Volume;
+        this.source.BufferEnded += this.OnBufferEnded;
+        return base.OnAttached();
+    }
+
+    protected override void OnDetached()
+    {
+        this.source.BufferEnded -= this.OnBufferEnded;
+
+        // The source is ours to dispose. The clip belongs to the assets service.
+        this.source.Dispose();
+        base.OnDetached();
+    }
+
+    private void OnBufferEnded(object sender, AudioBufferEventArgs e)
+    {
+        // Brings State back to Stopped once the click is over.
+        this.source.Stop();
+    }
+}
+</code></pre>
+<p>Unlike <code>SoundEmitter3D</code>, this plays stereo assets as well as mono ones, and the listener position has no effect on it.</p>
+<h3 id="example-generate-a-tone">Example: generate a tone</h3>
+<p>This component synthesizes a sine wave and streams it through three small buffers. Each time the source finishes a buffer, <code>BufferEnded</code> hands it back, and the component fills it with the next piece of the wave and enqueues it again. The queue never runs dry, and a change to <code>Frequency</code> is heard within a buffer or two.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Audio;
+using Evergine.Framework;
+
+public class ToneGenerator : Component
+{
+    private const int BufferCount = 3;
+
+    [BindService]
+    private AudioDevice audioDevice = null;
+
+    // Read on the audio thread each time a buffer is refilled.
+    public volatile float Frequency = 440.0f;
+
+    public float Amplitude = 0.25f;
+
+    private WaveFormat format;
+    private AudioSource source;
+    private AudioBuffer[] buffers;
+    private byte[] samples;
+    private double phase;
+
+    protected override bool OnAttached()
+    {
+        this.format = new WaveFormat(isMono: true, sampleRate: 44100, encoding: WaveFormatEncodings.PCM16);
+        this.source = this.audioDevice.CreateAudioSource(this.format);
+        this.source.BufferEnded += this.OnBufferEnded;
+
+        // 50 ms per buffer: short enough to react quickly to Frequency, long enough not to starve the queue.
+        this.samples = new byte[this.format.ConvertDurationToByteSize(TimeSpan.FromMilliseconds(50))];
+        this.buffers = new AudioBuffer[BufferCount];
+        for (int i = 0; i &lt; BufferCount; i++)
+        {
+            this.buffers[i] = this.audioDevice.CreateAudioBuffer();
+        }
+
+        return base.OnAttached();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        // Evergine Studio runs Start too. Keep the scene quiet while it is being edited.
+        if (Application.Current.IsEditor)
+        {
+            return;
+        }
+
+        foreach (AudioBuffer buffer in this.buffers)
+        {
+            this.FillAndEnqueue(buffer);
+        }
+
+        this.source.Play();
+    }
+
+    protected override void OnDetached()
+    {
+        // Unsubscribe first, so that stopping the source does not refill anything.
+        this.source.BufferEnded -= this.OnBufferEnded;
+        this.source.Dispose();
+        foreach (AudioBuffer buffer in this.buffers)
+        {
+            buffer.Dispose();
+        }
+
+        base.OnDetached();
+    }
+
+    private void OnBufferEnded(object sender, AudioBufferEventArgs e)
+    {
+        // A buffer that is still Pending was only rewound by Stop(); it is still queued.
+        if (e.Buffer.State == AudioBufferStates.Unused)
+        {
+            this.FillAndEnqueue(e.Buffer);
+        }
+    }
+
+    private void FillAndEnqueue(AudioBuffer buffer)
+    {
+        double step = 2 * Math.PI * this.Frequency / this.format.SampleRate;
+        for (int i = 0; i &lt; this.samples.Length; i += this.format.BlockAlign)
+        {
+            short sample = (short)(Math.Sin(this.phase) * this.Amplitude * short.MaxValue);
+
+            // PCM16 samples are little-endian.
+            this.samples[i] = (byte)sample;
+            this.samples[i + 1] = (byte)(sample &gt;&gt; 8);
+
+            // Carrying the phase from one buffer to the next avoids a click at every join.
+            this.phase = (this.phase + step) % (2 * Math.PI);
+        }
+
+        buffer.Fill(this.samples, 0, this.samples.Length, this.format);
+        this.source.EnqueueBuffer(buffer);
+    }
+}
+</code></pre>
+<p>Add it to any entity with <code>entity.AddComponent(new ToneGenerator())</code>, and change <code>Frequency</code> from a behavior to play a melody.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Buffer size is a trade-off. Small buffers make the sound react quickly to changes, but give the backend less time to swap them; a queue that runs dry is heard as a gap. Three buffers of 20-100 ms work well for most generated audio.</p>
+</div>
+<p>For the full list of members, see the <a class="xref" href="../../api/Evergine.Common.Audio.AudioBuffer.html">AudioBuffer</a> and <a class="xref" href="../../api/Evergine.Common.Audio.AudioSource.html">AudioSource</a> API reference.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

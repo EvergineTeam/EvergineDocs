@@ -1,0 +1,149 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>DirectX 12 | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="DirectX 12 | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="directx-12">DirectX 12</h1>
+
+<hr>
+<p><img src="images/directx12.jpg" alt="Microsoft DirectX 12 API"></p>
+<p><strong>DirectX 12</strong> is Microsoft's explicit, low-overhead graphics API for Windows 10 and 11. It is the <strong>default backend of Evergine on Windows</strong>: new projects use the <strong>Windows (DirectX12)</strong> template, and Evergine Studio renders with it unless you start it with another backend.</p>
+<p>Being an explicit API, DirectX 12 lets Evergine record work on several threads, run graphics, compute and copy work on separate queues, and use the newest GPU features: DirectX Raytracing through the low-level <a href="../low_level_api/raytracingpipeline.html">ray tracing pipeline</a>, mesh and amplification shaders, and shader model 6 through the DXC compiler (effect profiles <code>12_0</code> to <code>12_7</code>).</p>
+<h2 id="supported-devices">Supported devices</h2>
+<ul>
+<li>Windows 10 and 11 PCs.</li>
+</ul>
+<p>Ray tracing and mesh shaders need a GPU and driver that support them. Check <code>graphicsContext.Capabilities.IsRaytracingSupported</code> and <code>IsMeshShaderSupported</code> at runtime.</p>
+<h2 id="check-your-directx-version">Check your DirectX version</h2>
+<p>Run <code>dxdiag</code> to see the DirectX version and the feature levels of your GPU. DirectX 12 is updated through Windows Update and the graphics driver. See <a href="https://support.microsoft.com/windows/checking-your-version-of-directx-7b71e74f-02e8-456f-72c7-9a1c1bbf0e9a">Microsoft support</a> for details.</p>
+<h2 id="create-a-graphics-context">Create a graphics context</h2>
+<pre><code class="lang-csharp">GraphicsContext graphicsContext = new Evergine.DirectX12.DX12GraphicsContext();
+graphicsContext.CreateDevice();
+</code></pre>
+<p>To render in software, with no GPU at all, pass <code>useWarpAdapter: true</code>. The <a href="https://learn.microsoft.com/windows/win32/direct3darticles/directx-warp">WARP</a> adapter is slow, but it runs anywhere, which makes it useful on build servers and virtual machines for automated tests:</p>
+<pre><code class="lang-csharp">GraphicsContext graphicsContext = new Evergine.DirectX12.DX12GraphicsContext(useWarpAdapter: true);
+graphicsContext.CreateDevice();
+</code></pre>
+<h2 id="build--run">Build &amp; Run</h2>
+<p>New projects already have a Windows profile with DirectX 12. To add it to an existing project, open <strong>Settings &gt; Project Settings</strong> in Evergine Studio:</p>
+<p><img src="images/dx12_support_0.JPG" alt="Project settings"></p>
+<p>Add a profile with the <strong>Windows (DirectX12)</strong> template:</p>
+<p><img src="images/dx12_support_1.JPG" alt="Adding the DirectX 12 template"></p>
+<p><img src="images/dx12_support_2.JPG" alt="The new profile"></p>
+<p>Then run it from <strong>File &gt; Build &amp; Run &gt; Windows.DirectX12</strong>:</p>
+<p><img src="images/dx12_support_3.JPG" alt="Build and run on DirectX 12"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

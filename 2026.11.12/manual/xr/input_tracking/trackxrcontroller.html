@@ -1,0 +1,372 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>TrackXRController | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="TrackXRController | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="trackxrcontroller">TrackXRController</h1>
+
+<p><img src="images/trackxrcontroller.jpg" alt="Motion controllers tracked in an XR scene"></p>
+<p><code>TrackXRController</code> makes an entity follow a left or right motion controller, such as the Meta Quest Touch controllers, the Pico controllers, the Vive wands or the Valve Index controllers, and exposes the state of its trigger, grip, thumbstick and buttons.</p>
+<p>Use it for anything held in the hand: a rendered controller, a tool, a laser pointer, or a behavior that reacts to the buttons.</p>
+<h2 id="properties">Properties</h2>
+<p>When you add the component to an entity in Evergine Studio, it shows these properties:</p>
+<p><img src="images/trackxrcontroller.png" alt="TrackXRController in Evergine Studio"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Handedness</strong></td>
+<td><code>LeftHand</code></td>
+<td>The controller to track: <code>LeftHand</code> or <code>RightHand</code>.</td>
+</tr>
+<tr>
+<td><strong>TrackingLostMode</strong></td>
+<td><code>DisableEntityOnPoseInvalid</code></td>
+<td>What happens to the entity when tracking fails. See <a href="index.html#common-properties">common properties</a>.</td>
+</tr>
+<tr>
+<td><strong>ControllerState</strong></td>
+<td>Read-only</td>
+<td>The input state of this frame, as an <code>XRControllerGenericState</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The component also has the members every tracking component shares, listed in <a href="index.html#common-properties">common properties</a>: <code>IsConnected</code>, <code>PoseIsValid</code>, <code>Pose</code>, <code>Pointer</code>, <code>Velocity</code>, <code>AngularVelocity</code>, <code>TrackedDevice</code> and the <code>OnTrackedDeviceChanged</code> event.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>On OpenXR a controller only connects when one of the <a href="../openxr/openxr_platform.html#interaction-profiles">interaction profiles</a> registered in the launcher matches it. If <code>IsConnected</code> stays <code>false</code> with the controller in your hand, add its profile.</p>
+</div>
+<h2 id="controller-state">Controller state</h2>
+<p><code>ControllerState</code> is an <code>XRControllerGenericState</code> structure:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsConnected</strong></td>
+<td><code>bool</code></td>
+<td>Whether the controller is connected.</td>
+</tr>
+<tr>
+<td><strong>Trigger</strong></td>
+<td><code>float</code></td>
+<td>Analog value of the trigger, from 0 (released) to 1 (fully pressed).</td>
+</tr>
+<tr>
+<td><strong>TriggerButton</strong></td>
+<td><code>ButtonState</code></td>
+<td>The trigger as a button.</td>
+</tr>
+<tr>
+<td><strong>Grip</strong></td>
+<td><code>ButtonState</code></td>
+<td>The grip (squeeze) button.</td>
+</tr>
+<tr>
+<td><strong>ThumbStick</strong></td>
+<td><code>Vector2</code></td>
+<td>Position of the thumbstick, from -1 to 1 on each axis. On Vive wands, the touchpad.</td>
+</tr>
+<tr>
+<td><strong>ThumbStickButton</strong></td>
+<td><code>ButtonState</code></td>
+<td>Thumbstick click.</td>
+</tr>
+<tr>
+<td><strong>Menu</strong></td>
+<td><code>ButtonState</code></td>
+<td>The menu button. On Meta Touch controllers, only the left controller has one.</td>
+</tr>
+<tr>
+<td><strong>Button1</strong></td>
+<td><code>ButtonState</code></td>
+<td>The first face button: A on the right controller, X on the left.</td>
+</tr>
+<tr>
+<td><strong>Button2</strong></td>
+<td><code>ButtonState</code></td>
+<td>The second face button: B on the right controller, Y on the left. Not mapped on OpenVR.</td>
+</tr>
+<tr>
+<td><strong>Touchpad</strong></td>
+<td><code>Vector2</code></td>
+<td>Declared for touchpad controllers. No platform in this release fills it: touchpads report through <code>ThumbStick</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>A <code>ButtonState</code> goes through four values: <code>Released</code>, then <code>Pressing</code> for exactly one frame, then <code>Pressed</code> while held, then <code>Releasing</code> for one frame. Compare with <code>Pressing</code> to react once per press. The structure also has two helpers:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>IsButtonPressed(XRButtons button)</code></td>
+<td><code>true</code> while the button is <code>Pressed</code>, that is held, from the second frame on. It is <code>false</code> on the <code>Pressing</code> frame.</td>
+</tr>
+<tr>
+<td><code>IsButtonReleased(XRButtons button)</code></td>
+<td><code>!IsButtonPressed(button)</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>XRButtons</code> has the values <code>ThumbStick</code>, <code>Trigger</code>, <code>Menu</code>, <code>Grip</code>, <code>Button1</code> and <code>Button2</code>.</p>
+<h2 id="using-trackxrcontroller">Using TrackXRController</h2>
+<h3 id="create-a-tracked-controller-from-code">Create a tracked controller from code</h3>
+<p>This scene puts a teapot in the left hand and scales it with the trigger:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.Graphics3D;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.XR;
+using Evergine.Mathematics;
+
+public class ControllerScene : Scene
+{
+    protected override void CreateScene()
+    {
+        base.CreateScene();
+
+        var material = this.Managers.AssetSceneManager.Load&lt;Material&gt;(DefaultResourcesIDs.DefaultMaterialID);
+
+        // A teapot that follows the left controller.
+        var leftController = new Entity(&quot;LeftController&quot;)
+            .AddComponent(new Transform3D())
+            .AddComponent(new MaterialComponent() { Material = material })
+            .AddComponent(new TeapotMesh() { Size = 0.15f })
+            .AddComponent(new MeshRenderer())
+            .AddComponent(new TrackXRController()
+            {
+                Handedness = XRHandedness.LeftHand,
+            })
+            .AddComponent(new ScaleWithTrigger());
+
+        this.Managers.EntityManager.Add(leftController);
+    }
+}
+
+public class ScaleWithTrigger : Behavior
+{
+    [BindComponent]
+    private Transform3D transform = null;
+
+    [BindComponent]
+    private TrackXRController controller = null;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (!this.controller.IsConnected)
+        {
+            return;
+        }
+
+        // Trigger is an analog value from 0 to 1, so the teapot grows from 1x to 2x.
+        this.transform.LocalScale = Vector3.One * (1 + this.controller.ControllerState.Trigger);
+    }
+}
+</code></pre>
+<h3 id="react-to-buttons-and-draw-a-pointer">React to buttons and draw a pointer</h3>
+<p>This behavior hides the entity's mesh with a press of the first face button, and draws the controller's pointer ray while the grip is held:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Graphics;
+using Evergine.Common.Input;
+using Evergine.Components.Graphics3D;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.Managers;
+using Evergine.Framework.XR;
+
+public class ControllerButtons : Behavior
+{
+    [BindComponent]
+    private TrackXRController controller = null;
+
+    [BindComponent]
+    private MeshRenderer meshRenderer = null;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        var state = this.controller.ControllerState;
+
+        // Pressing lasts exactly one frame, so this toggles once per press.
+        if (state.Button1 == ButtonState.Pressing)
+        {
+            this.meshRenderer.IsEnabled = !this.meshRenderer.IsEnabled;
+        }
+
+        // IsButtonPressed is true while the button is held.
+        if (state.IsButtonPressed(XRButtons.Grip))
+        {
+            // Pointer is already in world space: draw two metres of it.
+            var pointer = this.controller.Pointer;
+            var lineBatch = ((RenderManager)this.Managers.RenderManager).LineBatch3D;
+            lineBatch.DrawLine(pointer.Position, pointer.GetPoint(2), Color.Yellow);
+        }
+    }
+}
+</code></pre>
+<h3 id="know-when-the-device-changes">Know when the device changes</h3>
+<p><code>OnTrackedDeviceChanged</code> fires when the component picks up a different device. It is the place to reset anything tied to the previous one:</p>
+<pre><code class="lang-csharp">using System.Diagnostics;
+using Evergine.Components.XR;
+using Evergine.Framework;
+using Evergine.Framework.XR.TrackedDevices;
+
+public class ControllerWatcher : Component
+{
+    [BindComponent]
+    private TrackXRController controller = null;
+
+    protected override bool OnAttached()
+    {
+        this.controller.OnTrackedDeviceChanged += this.OnDeviceChanged;
+        return base.OnAttached();
+    }
+
+    protected override void OnDetached()
+    {
+        this.controller.OnTrackedDeviceChanged -= this.OnDeviceChanged;
+        base.OnDetached();
+    }
+
+    private void OnDeviceChanged(object sender, XRTrackedDevice device)
+    {
+        Trace.TraceInformation($&quot;Now tracking {device?.Name ?? &quot;no device&quot;}&quot;);
+    }
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="trackxrarticulatedhand.html">TrackXRArticulatedHand</a>: tracking hands, and rendering device models with <code>XRDeviceRenderableModel</code>.</li>
+<li><a href="../../input/index.html">Button states</a>: the same <code>ButtonState</code> values used by keyboard, mouse and gamepad input.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

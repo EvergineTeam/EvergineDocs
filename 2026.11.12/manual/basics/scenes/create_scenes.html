@@ -1,0 +1,252 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Create Scenes | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Create Scenes | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="create-scenes">Create Scenes</h1>
+
+<hr>
+<p>Every new project contains a scene, <code>Content/Scenes/MyScene.wescene</code>, and a matching <code>MyScene</code> class in the base project. You add more scenes in the same two ways: as an asset that you edit in Evergine Studio, and optionally as a class that adds code to it.</p>
+<h2 id="create-a-scene-in-evergine-studio">Create a Scene in Evergine Studio</h2>
+<p>Scenes are assets, and they are created like any other asset:</p>
+<ul>
+<li>In the <strong>Assets Details</strong> panel, right-click and select <strong>Create scene</strong>.</li>
+</ul>
+<p><img src="images/createScene.png" alt="Create Scene"></p>
+<ul>
+<li>Or, in the main menu, select <strong>Assets &gt; Create scene</strong>.</li>
+</ul>
+<p><img src="images/createSceneMenu.png" alt="Create Scene"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The new scene is created in the asset folder selected in the <strong>Project Explorer</strong> panel, which is also the folder shown in the <strong>Assets Details</strong> panel.</p>
+</div>
+<p>Double-click the new asset to open it in the <a href="scene_editor.html">Scene Editor</a>.</p>
+<h2 id="create-a-scene-class">Create a Scene Class</h2>
+<p>A scene asset only contains data: entities, components and scene manager settings. To run code of your own when the scene is built, create a class that derives from <code>Scene</code> and load the asset as that class:</p>
+<ol>
+<li>Add a class to the base project of your solution, for example <code>LevelScene.cs</code>.</li>
+<li>Make it derive from <code>Scene</code>.</li>
+<li>Override the methods you need.</li>
+<li>Load the asset with <code>assetsService.Load&lt;LevelScene&gt;(...)</code> (see <a href="../application/screen_context_manager.html#load-a-scene-and-play-it">ScreenContext Manager</a>).</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RegisterManagers()</strong></td>
+<td>Registers the <a href="scenemanagers.html">scene managers</a>. The base implementation adds <code>EntityManager</code>, <code>AssetSceneManager</code>, <code>BehaviorManager</code>, <code>RenderManager</code> and <code>EnvironmentManager</code> if they are not present. Call it, then add your own managers.</td>
+</tr>
+<tr>
+<td><strong>CreateScene()</strong></td>
+<td>Called once, while the scene is initialized, after its managers are attached. Create and add entities from code here.</td>
+</tr>
+<tr>
+<td><strong>Start()</strong></td>
+<td>Called when the scene starts playing, after its managers have started.</td>
+</tr>
+<tr>
+<td><strong>End()</strong></td>
+<td>Called when the scene stops playing because its screen context left the stack.</td>
+</tr>
+<tr>
+<td><strong>Pause()</strong></td>
+<td>Called when the scene is paused, for example when another screen context is pushed on top of it. A paused scene is not updated. Call the base implementation.</td>
+</tr>
+<tr>
+<td><strong>Resume()</strong></td>
+<td>Called when a paused scene plays again. Call the base implementation.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Loading a scene asset creates your class with its parameterless constructor, adds the scene managers and entities saved in the asset, and only then calls <code>RegisterManagers()</code> and <code>CreateScene()</code> when the scene is initialized. Keep a public parameterless constructor, and let the base <code>RegisterManagers()</code> skip the managers the asset already added.</p>
+</div>
+<p>The <code>Started</code>, <code>Paused</code>, <code>Resumed</code> and <code>Closed</code> events let other objects react to the same moments without deriving from <code>Scene</code>.</p>
+<p>This is the pattern of the template scene, extended to create a camera from code:</p>
+<pre><code class="lang-csharp">using Evergine.Components.Cameras;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+
+namespace MyProject
+{
+    public class MyScene : Scene
+    {
+        public override void RegisterManagers()
+        {
+            base.RegisterManagers();
+            this.Managers.AddManager(new Evergine.Framework.Physics.PhysicsManager());
+        }
+
+        protected override void CreateScene()
+        {
+            // Entities saved in the scene asset are already here.
+            // Anything added now exists only at runtime and is not shown in Evergine Studio.
+            var cameraEntity = new Entity(&quot;camera&quot;)
+                .AddComponent(new Transform3D())
+                .AddComponent(new Camera3D())
+                .AddComponent(new FreeCamera3D());
+
+            this.Managers.EntityManager.Add(cameraEntity);
+        }
+    }
+}
+</code></pre>
+<h2 id="scene-properties">Scene Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Managers</strong></td>
+<td>The default scene managers</td>
+<td>The <a href="scenemanagers.html">scene managers</a> of the scene. <code>Managers.EntityManager</code> is how you add and find entities.</td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td><code>null</code></td>
+<td>A name for the scene, useful for logs and debugging.</td>
+</tr>
+<tr>
+<td><strong>Speed</strong></td>
+<td><code>1</code></td>
+<td>Scales the time the scene passes to its managers and behaviors. <code>0.5</code> runs the scene at half speed. It must be greater than <code>0</code>.</td>
+</tr>
+<tr>
+<td><strong>IsVisible</strong></td>
+<td><code>true</code></td>
+<td>When <code>false</code>, the scene is still updated but not drawn.</td>
+</tr>
+<tr>
+<td><strong>IsPaused</strong></td>
+<td><code>false</code></td>
+<td><code>true</code> while the scene is paused. Read only.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

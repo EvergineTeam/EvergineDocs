@@ -1,0 +1,246 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using prefabs and customization | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using prefabs and customization | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-prefabs-and-customization">Using prefabs and customization</h1>
+
+<hr>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Buttons" src="images/buttons.png" height="200"></th>
+<th style="text-align: center;"><img alt="Sliders" src="images/sliders.png" height="200"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Buttons</strong></td>
+<td style="text-align: center;"><strong>Sliders</strong></td>
+</tr>
+</tbody>
+</table>
+<p>MRTK ships its controls as ready-made prefabs, so you can drag a button or a slider into a scene and use it right away. You find them under <strong>Dependencies &gt; Evergine.MRTK &gt; MRTK &gt; Prefabs</strong> in the Project Explorer.</p>
+<table>
+<thead>
+<tr>
+<th>Prefab</th>
+<th>What it contains</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PressableButtonPlated.weprefab</code></td>
+<td>Standard button with a back plate, icon, and text.</td>
+</tr>
+<tr>
+<td><code>PressableToggleButtonPlated.weprefab</code></td>
+<td>Toggle button with on and off states.</td>
+</tr>
+<tr>
+<td><code>PinchSlider.weprefab</code></td>
+<td>Slider that the user drags with near or far interaction.</td>
+</tr>
+<tr>
+<td><code>CheckBox.weprefab</code>, <code>ComboBox.weprefab</code>, <code>ListView.weprefab</code>, <code>ScrollView.weprefab</code></td>
+<td>The <a href="user_controls/index.html">built-in user controls</a>.</td>
+</tr>
+<tr>
+<td><code>Loading.weprefab</code></td>
+<td>Spinner used as the default loading indicator of the list view.</td>
+</tr>
+<tr>
+<td><code>DefaultLeftController.weprefab</code>, <code>DefaultRightController.weprefab</code></td>
+<td>Controller models used by <code>XRScene</code> for physical controllers.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="customization">Customization</h2>
+<p>When you add a prefab to a scene, its entity hierarchy becomes visible in Evergine Studio. You can change the look and feel of each instance in the editor without touching the other instances.</p>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Button hierarchy" src="images/button_hierarchy.png" height="200"></th>
+<th style="text-align: center;"><img alt="Button customization" src="images/button_customization.png" height="200"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Button prefab hierarchy</strong></td>
+<td style="text-align: center;"><strong>Button before and after customization</strong></td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th style="text-align: center;"><img alt="Slider hierarchy" src="images/slider_hierarchy.png" height="200"></th>
+<th style="text-align: center;"><img alt="Slider customization" src="images/slider_customization.png" height="200"></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align: center;"><strong>Slider prefab hierarchy</strong></td>
+<td style="text-align: center;"><strong>Slider before and after customization</strong></td>
+</tr>
+</tbody>
+</table>
+<p>For the most common changes, such as the text, the icon, or the plate color, use the <a href="configurators.html">configurator components</a> on the prefab root instead of editing child entities by hand.</p>
+<h2 id="react-to-controls-from-code">React to controls from code</h2>
+<p>Buttons raise <code>ButtonPressed</code> and <code>ButtonReleased</code> from their <code>PressableButton</code> component, and sliders raise <code>ValueUpdated</code> from their <code>PinchSlider</code> component. Bind them from a component on the prefab root and subscribe while the component is active.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.MRTK.SDK.Features.UX.Components.PressableButtons;
+using Evergine.MRTK.SDK.Features.UX.Components.Sliders;
+
+public class VolumePanel : Component
+{
+    [BindComponent(source: BindComponentSource.Children, tag: &quot;MuteButton&quot;)]
+    private PressableButton muteButton = null;
+
+    [BindComponent(source: BindComponentSource.Children, tag: &quot;VolumeSlider&quot;)]
+    private PinchSlider volumeSlider = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+        this.muteButton.ButtonPressed += this.OnMutePressed;
+        this.volumeSlider.ValueUpdated += this.OnVolumeUpdated;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+
+        // Unsubscribe so a disabled panel does not keep reacting to its controls.
+        this.muteButton.ButtonPressed -= this.OnMutePressed;
+        this.volumeSlider.ValueUpdated -= this.OnVolumeUpdated;
+    }
+
+    private void OnMutePressed(object sender, EventArgs e)
+    {
+        this.volumeSlider.SliderValue = 0f;
+    }
+
+    private void OnVolumeUpdated(object sender, SliderEventData e)
+    {
+        // SliderValue goes from 0 to 1.
+        float volume = e.NewValue;
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

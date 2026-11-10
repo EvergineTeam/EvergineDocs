@@ -1,0 +1,351 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>iOS | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="iOS | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="ios">iOS</h1>
+
+<hr>
+<p><img src="images/iOS.png" alt="An Evergine scene running on an iPhone"></p>
+<p>Evergine runs on iPhone and iPad through <strong>.NET for iOS</strong> (<code>net10.0-ios</code>) and renders with <strong>Metal</strong>. The <strong>iOS .NET 10</strong> template creates a native iOS launcher that hosts an Evergine view in a storyboard, so you can combine it with your own UIKit interface. If you also need Android and Windows from one project with a shared UI, use the <strong>MAUI</strong> template instead (see <a href="#alternative-net-maui">Alternative: .NET MAUI</a>).</p>
+<h2 id="create-the-ios-profile">Create the iOS profile</h2>
+<p>Select <strong>iOS .NET 10</strong> when you create the project in Evergine Launcher, or add it later from <strong>Settings &gt; Project Settings</strong> in Evergine Studio (see <a href="../../evergine_studio/settings/project_profiles.html">Manage profiles</a>). The template adds a launcher project named <code>&lt;Project&gt;.iOS</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Setting</th>
+<th>Value in the template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Target framework</td>
+<td><code>net10.0-ios</code></td>
+</tr>
+<tr>
+<td>Minimum iOS version</td>
+<td>15.4 (<code>SupportedOSPlatformVersion</code> in the project, <code>MinimumOSVersion</code> in <code>Info.plist</code>)</td>
+</tr>
+<tr>
+<td>Devices</td>
+<td>iPhone and iPad (<code>UIDeviceFamily</code> 1 and 2)</td>
+</tr>
+<tr>
+<td>Graphics</td>
+<td>Metal (<code>MTLGraphicsContext</code>, package <code>Evergine.Metal</code>)</td>
+</tr>
+<tr>
+<td>Window system</td>
+<td><code>IOSWindowsSystem</code> (package <code>Evergine.iOS</code>)</td>
+</tr>
+<tr>
+<td>Audio</td>
+<td>None registered by the template</td>
+</tr>
+<tr>
+<td>Compile effects</td>
+<td>Yes</td>
+</tr>
+</tbody>
+</table>
+<h2 id="prerequisites">Prerequisites</h2>
+<ul>
+<li><p><strong>Visual Studio 2026 on Windows.</strong> The launcher project is set up to be built from Visual Studio for Windows. Opening the solution on a Mac is not supported.</p>
+</li>
+<li><p><strong>The iOS workload for .NET 10:</strong></p>
+<pre><code class="lang-powershell">dotnet workload install ios
+</code></pre>
+</li>
+<li><p><strong>A Mac build host.</strong> Apple's tools only run on macOS, so Visual Studio compiles and signs the app on a paired Mac with Xcode installed. Microsoft's <a href="https://learn.microsoft.com/en-us/dotnet/maui/ios/pair-to-mac">Pair to Mac guide</a> lists the Xcode and remote login requirements.</p>
+</li>
+</ul>
+<h2 id="project-structure">Project structure</h2>
+<p><img src="images/project-structure.jpg" alt="Solution Explorer with the MyEvergineProject and MyEvergineProject.iOS projects"></p>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Main.cs</code></td>
+<td>Entry point. Calls <code>UIApplication.Main</code> with <code>AppDelegate</code>.</td>
+</tr>
+<tr>
+<td><code>AppDelegate.cs</code></td>
+<td>Standard iOS application delegate. Handle app lifecycle events (background, foreground) here.</td>
+</tr>
+<tr>
+<td><code>Main.storyboard</code></td>
+<td>Main storyboard. Its root view controller is <code>EvergineAppViewController</code>.</td>
+</tr>
+<tr>
+<td><code>EvergineAppViewController.cs</code></td>
+<td>Creates the Evergine application, the Metal context and the display, and runs the loop.</td>
+</tr>
+<tr>
+<td><code>LaunchScreen.storyboard</code></td>
+<td>Launch screen shown while the app loads.</td>
+</tr>
+<tr>
+<td><code>Info.plist</code></td>
+<td>Bundle identifier, minimum OS version, supported orientations and storyboards.</td>
+</tr>
+<tr>
+<td><code>Entitlements.plist</code></td>
+<td>App capabilities. Empty by default.</td>
+</tr>
+</tbody>
+</table>
+<p><code>EvergineAppViewController</code> derives from <code>EvergineViewController</code> (in <code>Evergine.iOS</code>), which provides the Metal-backed view. Its <code>ViewDidLoad</code> follows the same steps as every other launcher:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.iOS;
+using System.Diagnostics;
+
+namespace MyProject.iOS
+{
+    public partial class EvergineAppViewController : EvergineViewController
+    {
+        private IOSWindowsSystem windowsSystem;
+
+        public EvergineAppViewController(ObjCRuntime.NativeHandle handle)
+            : base(handle)
+        {
+        }
+
+        public override void ViewDidLoad()
+        {
+            base.ViewDidLoad();
+
+            MyApplication application = new MyApplication();
+
+            // The window system is registered as the base WindowsSystem type so that
+            // platform-agnostic code can resolve it.
+            this.windowsSystem = new IOSWindowsSystem(this);
+            application.Container.RegisterInstance(this.windowsSystem as WindowsSystem);
+            var surface = this.windowsSystem.CreateSurface(0, 0);
+
+            ConfigureGraphicsContext(application, surface);
+
+            Stopwatch clockTimer = Stopwatch.StartNew();
+            this.windowsSystem.Run(
+                () =&gt; application.Initialize(),
+                () =&gt;
+                {
+                    var gameTime = clockTimer.Elapsed;
+                    clockTimer.Restart();
+
+                    application.UpdateFrame(gameTime);
+                    application.DrawFrame(gameTime);
+                });
+
+            this.LoadAction?.Invoke();
+        }
+
+        private static void ConfigureGraphicsContext(MyApplication application, Surface surface)
+        {
+            GraphicsContext graphicsContext = new global::Evergine.Metal.MTLGraphicsContext();
+            graphicsContext.CreateDevice();
+            SwapChainDescription swapChainDescription = new SwapChainDescription()
+            {
+                SurfaceInfo = surface.SurfaceInfo,
+                Width = surface.Width,
+                Height = surface.Height,
+                ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm_SRgb,
+                ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+                DepthStencilTargetFormat = PixelFormat.D32_Float,
+                DepthStencilTargetFlags = TextureFlags.DepthStencil,
+                SampleCount = TextureSampleCount.None,
+                IsWindowed = true,
+                RefreshRate = 60
+            };
+            var swapChain = graphicsContext.CreateSwapChain(swapChainDescription);
+            swapChain.VerticalSync = true;
+            swapChain.FrameBuffer.IntermediateBufferAssociated = false;
+
+            var graphicsPresenter = application.Container.Resolve&lt;GraphicsPresenter&gt;();
+            graphicsPresenter.AddDisplay(&quot;DefaultDisplay&quot;, new Display(surface, swapChain));
+
+            application.Container.RegisterInstance(graphicsContext);
+        }
+    }
+}
+</code></pre>
+<p>Notice that the Metal swap chain uses a <code>D32_Float</code> depth buffer, where the desktop and Android launchers use <code>D32_Float_S8X24_UInt</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The template does not register an audio device, so audio components are silent on iOS unless you register one yourself. See <a href="../../audio/index.html">Audio</a>.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The iOS .NET 10 profile exports textures as <code>BC3_UNorm</code>, while the iOS profile of the MAUI template uses <code>ETC1_RGB8</code> and <code>R4G4B4A4</code>. BC formats are only available on Apple GPUs that support BC texture compression. If textures fail to load or look wrong on your target devices, change the compression formats of the profile in <a href="../../evergine_studio/settings/project_profiles.html">Project Settings &gt; Profiles</a>.</p>
+</div>
+<h2 id="connect-visual-studio-to-a-mac">Connect Visual Studio to a Mac</h2>
+<ol>
+<li><p>Open the iOS solution in Visual Studio and press the <strong>Pair to Mac</strong> button on the iOS toolbar:</p>
+<p><img src="images/ios-toolbar.png" alt="Visual Studio toolbar with the Pair to Mac button"></p>
+</li>
+<li><p>The <strong>Pair to Mac</strong> dialog lists the Mac build hosts it finds on your network. Select one and press <strong>Connect</strong>. Visual Studio asks for the Mac user credentials the first time.</p>
+<p><img src="images/pairtomac.png" alt="Pair to Mac dialog with a Mac build host selected"></p>
+</li>
+</ol>
+<h2 id="deploy-to-the-ios-simulator">Deploy to the iOS Simulator</h2>
+<p>With a Mac paired, the run target list shows the simulators available on the Mac:</p>
+<p><img src="images/simulators.png" alt="Visual Studio run target list with iOS simulators"></p>
+<p>Pick one and press F5. Visual Studio builds on the Mac, starts the simulator and mirrors it in a window on your Windows desktop, where you can debug the app as usual.</p>
+<p><img src="images/iosSimulator.png" alt="An Evergine application running in the iOS Simulator window on Windows"></p>
+<h2 id="deploy-to-a-device">Deploy to a device</h2>
+<p>Running on a physical iPhone or iPad needs an Apple developer account and a provisioning profile that matches the bundle identifier. Change <code>ApplicationId</code> in the project file (it defaults to <code>com.companyname.&lt;Project&gt;.iOS</code>) to an identifier you own, then set up provisioning following <a href="https://learn.microsoft.com/en-us/dotnet/maui/ios/device-provisioning/">Device provisioning for iOS</a>. The <a href="https://learn.microsoft.com/en-us/dotnet/maui/ios/device-provisioning/automatic-provisioning">automatic provisioning</a> option is the quickest way to start.</p>
+<p>Once provisioning is set up, connect the device, select it in the run target list and run. To distribute the app, see <a href="https://learn.microsoft.com/en-us/dotnet/maui/ios/deployment/">Publish an iOS app</a>.</p>
+<h2 id="alternative-net-maui">Alternative: .NET MAUI</h2>
+<p>The <strong>MAUI</strong> template creates one multi-targeted .NET MAUI project that builds for <code>net10.0-android</code>, <code>net10.0-ios</code> and, on Windows, <code>net10.0-windows10.0.19041.0</code>. It adds an <code>EvergineView</code> control you place in XAML pages, with one handler per platform:</p>
+<table>
+<thead>
+<tr>
+<th>MAUI profile</th>
+<th>Handler</th>
+<th>Window system</th>
+<th>Graphics</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Windows</code></td>
+<td><code>EvergineViewHandler.Windows.cs</code></td>
+<td><code>WinUIWindowsSystem</code></td>
+<td>DirectX 11</td>
+</tr>
+<tr>
+<td><code>Android</code></td>
+<td><code>EvergineViewHandler.Android.cs</code></td>
+<td><code>AndroidWindowsSystem</code></td>
+<td>Vulkan</td>
+</tr>
+<tr>
+<td><code>iOS</code></td>
+<td><code>EvergineViewHandler.iOS.cs</code></td>
+<td><code>IOSWindowsSystem</code></td>
+<td>Metal</td>
+</tr>
+</tbody>
+</table>
+<p>Choose MAUI when your application is mostly native UI with a 3D view inside it, and you want to write that UI once. Choose the iOS .NET 10 template when you need full control of the iOS app or only target Apple devices. The MAUI template sets its minimum iOS version to 12.2. See the <a href="https://learn.microsoft.com/en-us/dotnet/maui/">.NET MAUI documentation</a> and the <a href="https://learn.microsoft.com/en-us/dotnet/ios/">.NET for iOS documentation</a> for platform setup.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

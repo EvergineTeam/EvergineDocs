@@ -1,0 +1,381 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>XR Platform | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="XR Platform | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="xr-platform">XR Platform</h1>
+
+<p><img src="images/xrsample.jpg" alt="A scene rendered in an XR headset"></p>
+<p><code>XRPlatform</code> is the service that connects an Evergine application to an XR runtime. It creates and runs the XR session, allocates the render targets the headset needs, moves the scene camera with the user's head, and exposes the subsystems the runtime offers, such as input tracking and passthrough.</p>
+<p><code>XRPlatform</code> is abstract. You never create it directly: the launcher project of an XR profile creates one of its implementations, <a href="openxr/openxr_platform.html"><code>OpenXRPlatform</code></a>, <a href="openvr.html"><code>OpenVRPlatform</code></a> or <a href="webxr.html"><code>WebXRPlatform</code></a>, and registers it in the application container. Scene code then reaches it as <code>XRPlatform</code>, so the same scene runs on any of them.</p>
+<p><img src="images/xr_architecture.png" alt="Scene components bind to the XRPlatform service, which OpenXRPlatform, OpenVRPlatform and WebXRPlatform implement"></p>
+<p><em>Components ask for <code>XRPlatform</code>, never for a concrete platform. Which implementation they get is decided by the launcher project of the profile you run.</em></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Not every platform implements every subsystem. A subsystem the platform does not provide is <code>null</code>, so check it before use. The <a href="index.html#feature-support">feature support</a> table lists what each platform offers.</p>
+</div>
+<h2 id="creating-and-registering-a-platform">Creating and registering a platform</h2>
+<p>The launcher project of each XR profile does four things, in this order:</p>
+<ol>
+<li>Create the <code>GraphicsContext</code> and register it. The XR platform binds to it to create its swapchains. On Vulkan, OpenXR creates the platform first and calls <a href="openxr/openxr_platform.html#vulkan-graphics-context"><code>InitializeForVulkan</code></a> before it creates the graphics context, so the runtime takes part in it.</li>
+<li>Create the platform, set its properties, and register it with <code>Container.RegisterInstance</code>. The container registers it under every base class, so <code>[BindService] XRPlatform</code> resolves to it.</li>
+<li>Register the platform's <code>Display</code> as <code>DefaultDisplay</code>, so that cameras render into the headset. A window, if there is one, is registered as a second display that shows a mirror of the headset image.</li>
+<li>Call <code>Update()</code> on the platform every frame, <strong>before</strong> <code>UpdateFrame</code>, so that every behavior in the frame sees the current head pose.</li>
+</ol>
+<p>This is the relevant part of the <strong>Windows OpenXR (DirectX11)</strong> template (<code>Program.cs</code>):</p>
+<pre><code class="lang-csharp">private static OpenXRPlatform openXRPlatform;
+
+private static void ConfigureGraphicsContext(Application application, Window window)
+{
+    GraphicsContext graphicsContext = new global::Evergine.DirectX11.DX11GraphicsContext();
+    graphicsContext.CreateDevice();
+    SwapChainDescription swapChainDescription = new SwapChainDescription()
+    {
+        SurfaceInfo = window.SurfaceInfo,
+        Width = window.Width,
+        Height = window.Height,
+        ColorTargetFormat = PixelFormat.R8G8B8A8_UNorm_SRgb,
+        ColorTargetFlags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+        DepthStencilTargetFormat = PixelFormat.D32_Float_S8X24_UInt,
+        DepthStencilTargetFlags = TextureFlags.DepthStencil,
+        SampleCount = TextureSampleCount.None,
+        IsWindowed = Windowed,
+        RefreshRate = 60
+    };
+    var swapChain = graphicsContext.CreateSwapChain(swapChainDescription);
+    swapChain.VerticalSync = VSync;
+    application.Container.RegisterInstance(graphicsContext);
+
+    // Create mirror display...
+    var mirrorDisplay = new Display(window, swapChain);
+
+    // Create OpenXR Platform
+    openXRPlatform = new OpenXRPlatform(
+        new string[]
+        {
+            // OpenXR extensions to enable...
+            //&quot;XR_EXT_hand_tracking&quot;,         // Enable hand tracking in OpenXR application
+            //&quot;XR_FB_hand_tracking_aim&quot;,      // Allow to use hand gestures in Meta Quest devices
+            //&quot;XR_FB_hand_tracking_mesh&quot;,     // Obtain hand mesh in Meta Quest devices
+        }
+        ,
+        new OpenXRInteractionProfile[]
+        {
+                // Interaction profile to use...
+                DefaultInteractionProfiles.OculusTouchProfile,
+                DefaultInteractionProfiles.HTCViveControllerProfile,
+                DefaultInteractionProfiles.MixedRealityMotionControllerProfile,
+                DefaultInteractionProfiles.ValveIndexControllerProfile,
+                DefaultInteractionProfiles.OculusGoProfile,
+        })
+    {
+        RenderMirrorTexture = true,
+        ReferenceSpace = ReferenceSpaceType.Stage,
+        MirrorDisplay = mirrorDisplay
+    };
+
+    application.Container.RegisterInstance(openXRPlatform);
+
+    // Register the displays...
+    var graphicsPresenter = application.Container.Resolve&lt;GraphicsPresenter&gt;();
+    graphicsPresenter.AddDisplay(&quot;DefaultDisplay&quot;, openXRPlatform.Display);
+    graphicsPresenter.AddDisplay(&quot;MirrorDisplay&quot;, mirrorDisplay);
+}
+</code></pre>
+<p>And its frame loop:</p>
+<pre><code class="lang-csharp">windowsSystem.Run(
+() =&gt;
+{
+    application.Initialize();
+},
+() =&gt;
+{
+    var gameTime = clockTimer.Elapsed;
+    clockTimer.Restart();
+
+    openXRPlatform.Update();
+    application.UpdateFrame(gameTime);
+    application.DrawFrame(gameTime);
+});
+</code></pre>
+<p>The <a href="openxr/metaquest.html">Meta Quest</a>, <a href="openxr/pico.html">Pico</a>, <a href="openxr/androidxr.html">Android XR</a> and <a href="webxr.html">WebXR</a> templates follow the same steps. <a href="openvr.html">OpenVR</a> differs in one detail: its display only exists after the service attaches.</p>
+<h2 id="the-camera-and-the-headset">The camera and the headset</h2>
+<p>You do not need a special XR camera. Add a regular <a href="../graphics/cameras.html">Camera 3D</a> to the scene, and every frame <code>Update()</code> overwrites what the headset controls on the <strong>active</strong> <code>Camera3D</code> of each scene in the current screen context:</p>
+<ul>
+<li>On a stereo platform (<code>EyeCount</code> is 2), it hands the camera the pose and projection of both eyes. The camera renders both views and ignores its own field of view and clip settings.</li>
+<li>On a single-view platform (<code>EyeCount</code> is 1, WebXR), it sets the camera's position, orientation and projection.</li>
+</ul>
+<p>Because the camera is ordinary, the same scene also runs on a desktop profile with no XR platform registered.</p>
+<p>The eye poses are relative to the <strong>parent</strong> of the camera entity. That parent is your tracking space: move or rotate it to teleport the user or turn them around, and the head keeps moving freely inside it.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Put tracked controllers and hands under the same parent as the camera. <a href="input_tracking/index.html"><code>TrackXRDevice</code></a> components write the device pose into the local transform, so they then stay aligned with the head when you move the tracking space.</p>
+</div>
+<h2 id="properties">Properties</h2>
+<h3 id="general">General</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Display</strong></td>
+<td>Created by the platform</td>
+<td>The <code>Display</code> that renders into the headset. Register it as <code>DefaultDisplay</code>. It is <code>null</code> on <code>WebXRPlatform</code>, which renders into the canvas display instead.</td>
+</tr>
+<tr>
+<td><strong>MirrorDisplay</strong></td>
+<td><code>null</code></td>
+<td>A second display, usually the application window, that receives a copy of the headset image. Set it before you register the platform: the platform reads it while it starts. Its window also hosts the keyboard and mouse <a href="../input/index.html">input dispatchers</a>.</td>
+</tr>
+<tr>
+<td><strong>RenderMirrorTexture</strong></td>
+<td><code>true</code></td>
+<td>Copies the headset image into <code>MirrorDisplay</code> every frame. The Android templates set it to <code>false</code>, because nobody looks at the phone surface and the copy costs GPU time.</td>
+</tr>
+<tr>
+<td><strong>MirrorHMDTexture</strong></td>
+<td><code>true</code></td>
+<td>Declared on the base class. No platform in this release reads it; use <code>RenderMirrorTexture</code>.</td>
+</tr>
+<tr>
+<td><strong>MSAASampleCount</strong></td>
+<td><code>None</code> (<code>Count4</code> on <code>OpenVRPlatform</code>)</td>
+<td>Multisampling of the headset render targets. Changing it while the platform runs recreates them.</td>
+</tr>
+<tr>
+<td><strong>NearClipDistance</strong></td>
+<td>0.1</td>
+<td>Distance to the near plane of the headset projection, in metres. It replaces the near plane of the camera.</td>
+</tr>
+<tr>
+<td><strong>FarClipDistance</strong></td>
+<td>1000</td>
+<td>Distance to the far plane of the headset projection, in metres. It is always kept above <code>NearClipDistance</code>.</td>
+</tr>
+<tr>
+<td><strong>EyeCount</strong></td>
+<td>2 (1 on <code>WebXRPlatform</code>)</td>
+<td>Number of views the platform renders. Read-only.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="head-tracking">Head tracking</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>TrackingState</strong></td>
+<td><code>Uninitialized</code></td>
+<td>Tracking status of the headset (<code>Running_OK</code>, <code>Running_OutOfRange</code>, <code>Calibrating_InProgress</code>...). Only <code>OpenVRPlatform</code> updates it. On OpenXR, read <code>TrackingState</code> from an <a href="input_tracking/advancedtrackxrdevice.html"><code>AdvancedTrackXRDevice</code></a> that tracks the HMD.</td>
+</tr>
+<tr>
+<td><strong>HeadGaze</strong></td>
+<td>Empty ray</td>
+<td>Ray from the head along the view direction. No platform in this release updates it. To follow the head, track the HMD with an <a href="input_tracking/advancedtrackxrdevice.html#attach-content-to-the-head"><code>AdvancedTrackXRDevice</code></a> whose <code>DeviceType</code> is <code>HMD</code>.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="subsystems">Subsystems</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Implemented by</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>InputTracking</strong></td>
+<td>OpenXR, OpenVR</td>
+<td>The <a href="input_tracking/index.html"><code>XRInputTracking</code></a> subsystem, which finds tracked devices by type, handedness or index. <code>null</code> on WebXR.</td>
+</tr>
+<tr>
+<td><strong>RenderableModels</strong></td>
+<td>OpenXR (hand meshes), OpenVR (device models)</td>
+<td>The <code>XRRenderableModels</code> subsystem, which provides 3D models of tracked devices. The <a href="input_tracking/trackxrarticulatedhand.html#render-the-hands"><code>XRDeviceRenderableModel</code></a> component uses it.</td>
+</tr>
+<tr>
+<td><strong>Passthrough</strong></td>
+<td>OpenXR with <code>XR_FB_passthrough</code></td>
+<td>The <code>XRPassthrough</code> subsystem, which creates <a href="passthrough.html">passthrough layers</a>.</td>
+</tr>
+<tr>
+<td><strong>SpatialInputManager</strong></td>
+<td>None</td>
+<td>Declared for gesture input (tap, hold, manipulation, navigation). No platform in this release provides it, so it is always <code>null</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>XRPlatform</code> also declares <code>SpatialAnchorStore</code>, <code>TrackableItems</code>, <code>LightEstimation</code>, <code>FeaturePoints</code>, <code>EyeGaze</code>, <code>RequestEyeGazePermission()</code> and <code>CreateSpatialMappingObserver()</code>. They belong to platforms that are no longer part of Evergine, and return <code>null</code> or <code>false</code> on every current platform.</p>
+<h2 id="using-xrplatform-from-a-component">Using XRPlatform from a component</h2>
+<p>Ask for the service with <code>[BindService]</code>. The binding is required by default, and a component whose required service is missing does not attach. Mark it as optional when the component must also work in profiles without XR:</p>
+<pre><code class="lang-csharp">using System.Diagnostics;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+
+public class XRSettings : Component
+{
+    // Not required: in a desktop profile there is no XR platform and the field stays null.
+    [BindService(isRequired: false)]
+    private XRPlatform xrPlatform = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        if (this.xrPlatform == null)
+        {
+            return;
+        }
+
+        // Keep the near plane close enough to see your own hands and controllers.
+        this.xrPlatform.NearClipDistance = 0.05f;
+        this.xrPlatform.FarClipDistance = 200;
+
+        // Subsystems depend on the platform and the device: test before use.
+        if (this.xrPlatform.Passthrough == null)
+        {
+            Trace.TraceWarning(&quot;Passthrough is not available on this device.&quot;);
+        }
+    }
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The tracking components (<code>TrackXRController</code>, <code>TrackXRArticulatedHand</code>, <code>AdvancedTrackXRDevice</code>) and <code>XRPassthroughLayerComponent</code> require <code>XRPlatform</code>. In a profile without an XR platform they do not attach, and the rest of the scene runs as usual.</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="openxr/index.html">OpenXR</a></li>
+<li><a href="openvr.html">OpenVR</a></li>
+<li><a href="webxr.html">WebXR</a></li>
+<li><a href="input_tracking/index.html">Input Devices</a></li>
+<li><a href="passthrough.html">Passthrough</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

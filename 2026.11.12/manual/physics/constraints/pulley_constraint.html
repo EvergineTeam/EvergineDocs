@@ -1,0 +1,212 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Pulley Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Pulley Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="pulley-constraint">Pulley Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/pulley_constraint.mp4" type="video/mp4">
+</video>
+<p>A <strong>pulley constraint</strong> runs a rope of fixed length from one body, up over a fixed point, across to a second fixed point and down to another body. As one end goes down the other comes up. Counterweights, lifts, drawbridges, a bucket in a well.</p>
+<p>This constraint had no equivalent in the previous API.</p>
+<h2 id="what-it-holds">What it holds</h2>
+<p>The rope's total length is what stays constant:</p>
+<pre><code>distance(bodyA, fixedPoint) + Ratio * distance(bodyB, connectedFixedPoint) = constant
+</code></pre>
+<p>The two fixed points are the pulley wheels, in <strong>world space</strong>. They are not bodies and nothing has to exist at them, but putting something visible there is usually worth doing, since a rope going over nothing is hard to read.</p>
+<h2 id="pulleyconstraint-component">PulleyConstraint Component</h2>
+<p><img src="images/pulleyconstraint_component.png" alt="PulleyConstraint component"></p>
+<pre><code class="lang-csharp">Entity counterweight = new Entity(&quot;counterweight&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(-1f, 4f, 0f) })
+    .AddComponent(new RigidBody() { Mass = 40f })
+    .AddComponent(new BoxCollider())
+    .AddComponent(new PulleyConstraint()
+    {
+        ConnectedEntityPath = &quot;platform&quot;,
+
+        // The two pulley wheels, in world space, up at the top of the shaft.
+        FixedPoint = new Vector3(-1f, 8f, 0f),
+        ConnectedFixedPoint = new Vector3(1f, 8f, 0f),
+
+        Ratio = 1f,
+        MinLength = 0.5f,
+    });
+
+this.Managers.EntityManager.Add(counterweight);
+</code></pre>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FixedPoint</strong></td>
+<td>0,0,0</td>
+<td>The pulley wheel this body's end of the rope runs over, <strong>in world space</strong>.</td>
+</tr>
+<tr>
+<td><strong>ConnectedFixedPoint</strong></td>
+<td>0,0,0</td>
+<td>The pulley wheel the other body's end runs over, in world space.</td>
+</tr>
+<tr>
+<td><strong>Ratio</strong></td>
+<td>1</td>
+<td>How much rope the other side takes up for each unit this side takes up. Above 1 <strong>this</strong> body moves further than the other one and pulls with correspondingly less force: the hauling end of a block and tackle.</td>
+</tr>
+<tr>
+<td><strong>MinLength</strong></td>
+<td>0</td>
+<td>The shortest the rope may become.</td>
+</tr>
+<tr>
+<td><strong>MaxLength</strong></td>
+<td>-1</td>
+<td>The longest. <strong>Negative means &quot;the length it has when the constraint is created&quot;</strong>, which is the usual case.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus the <a href="index.html#common-properties">common properties</a>.</p>
+<h2 id="using-pulley-constraint">Using Pulley Constraint</h2>
+<h3 id="a-counterweighted-lift">A counterweighted lift</h3>
+<pre><code class="lang-csharp">// The platform and its counterweight, over two wheels at the top of the shaft. Matched masses make
+// the lift neutral: it stays wherever it is left, and a small push moves it.
+pulley.FixedPoint = new Vector3(platformX, shaftTop, 0f);
+pulley.ConnectedFixedPoint = new Vector3(counterweightX, shaftTop, 0f);
+pulley.Ratio = 1f;
+</code></pre>
+<p>Give the counterweight slightly less mass than the platform and the lift settles down; give it slightly more and it rises on its own.</p>
+<h3 id="a-block-and-tackle">A block and tackle</h3>
+<pre><code class="lang-csharp">// Two to one, with the component on the hauling end: this body travels twice as far as the load on
+// the other side, and needs half the force to move it.
+pulley.Ratio = 2f;
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The fixed points are in <strong>world space</strong> and are captured when the constraint is created. Moving the entity that represents the pulley wheel afterwards does not move the constraint's idea of where the rope runs. Update <code>FixedPoint</code> and call <code>Recreate()</code>.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A pulley is a length limit, not a rope: it stops the two ends going too far apart and does nothing to hold them up. A body whose end of the rope goes slack just falls, which is correct, and is why <code>MinLength</code> is worth setting on anything that could otherwise be pulled all the way into its wheel.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

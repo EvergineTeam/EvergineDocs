@@ -1,0 +1,207 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Application | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Application | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="application">Application</h1>
+
+<hr>
+<p><img src="images/evergine_overall.png" alt="The Application owns the Container, the Container holds the services, and the ScreenContextManager plays scenes made of scene managers, entities and components"></p>
+<p><em>Everything hangs from the application: services live in its container, and one of them, the ScreenContextManager, owns the scenes that are playing.</em></p>
+<p>The <strong>Application</strong> class is the entry point of every Evergine project. It owns the <a href="container.html">Container</a> where all services are registered, and it exposes the frame loop through <code>UpdateFrame()</code> and <code>DrawFrame()</code>, which the launcher of each profile calls once per frame. Your project contains one class that derives from it, <code>MyApplication</code> in the project template.</p>
+<p>There is only one application per process. Once created, it is available everywhere through <code>Application.Current</code>.</p>
+<h2 id="members">Members</h2>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Current</strong> (static)</td>
+<td>The last application created</td>
+<td>The running application. It is the usual way to reach the container from code that is not an Evergine element.</td>
+</tr>
+<tr>
+<td><strong>Container</strong></td>
+<td>A new container</td>
+<td>The <a href="container.html">Application Container</a> with every registered service.</td>
+</tr>
+<tr>
+<td><strong>ExecutionMode</strong></td>
+<td><code>Standalone</code></td>
+<td>Where the application runs: <code>Standalone</code>, <code>Editor</code> (inside Evergine Studio) or <code>EditorSimulation</code> (playing inside Evergine Studio).</td>
+</tr>
+<tr>
+<td><strong>IsEditor</strong></td>
+<td><code>false</code></td>
+<td><code>true</code> when <code>ExecutionMode</code> is <code>Editor</code> or <code>EditorSimulation</code>.</td>
+</tr>
+<tr>
+<td><strong>IsLowProfile</strong></td>
+<td><code>true</code> on Android, iOS, Web, Arm and Arm64</td>
+<td>Tells the engine to favour cheaper rendering paths. It can only be changed before <code>Initialize()</code> runs, or through the <code>Application(bool isLowProfile)</code> constructor.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="methods">Methods</h3>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Initialize()</strong></td>
+<td>Registers the services configured in Evergine Studio, caches the core services and starts every service already created. Override it to navigate to your first scene, and call <code>base.Initialize()</code> first.</td>
+</tr>
+<tr>
+<td><strong>UpdateFrame(TimeSpan gameTime)</strong></td>
+<td>Runs the update half of a frame: clock, updatable services and the scenes that are playing.</td>
+</tr>
+<tr>
+<td><strong>DrawFrame(TimeSpan gameTime)</strong></td>
+<td>Runs the draw half of a frame: renders the scenes and presents the result on every display.</td>
+</tr>
+<tr>
+<td><strong>OnActivated()</strong></td>
+<td>Called by the launcher when the application returns to the foreground. It resumes updates and reactivates the services.</td>
+</tr>
+<tr>
+<td><strong>OnDeactivated()</strong></td>
+<td>Called by the launcher when the application goes to the background. It deactivates the services and stops updates until <code>OnActivated()</code>.</td>
+</tr>
+<tr>
+<td><strong>Dispose()</strong></td>
+<td>Destroys every service, then releases the container. The launcher calls it when the main loop ends.</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="using_application.html">Using Application</a> page shows how these methods fit together in a frame.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="container.html">Application Container</a></li>
+<li><a href="using_application.html">Using Application</a></li>
+<li><a href="screen_context_manager.html">ScreenContext Manager</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

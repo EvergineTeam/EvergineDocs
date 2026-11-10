@@ -1,0 +1,538 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Rigid Body | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Rigid Body | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="rigid-body">Rigid Body</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/body_types.mp4" type="video/mp4">
+</video>
+<p><code>RigidBody</code> is the component that puts a <strong>moving</strong> entity into the physics simulation. Everything the solver moves is one: the crates, and the platform carrying them. The floor they land on is a <a href="static_body.html"><code>StaticBody</code></a>.</p>
+<p>A <code>RigidBody</code> is <strong>dynamic</strong> by default, moved by gravity, collisions and forces. With <code>IsKinematic</code> set it is <strong>kinematic</strong> instead: moved by your code, pushing everything else out of the way. The two are one component with one flag, because a body can switch between them while the game runs.</p>
+<h2 id="rigidbody-component">RigidBody Component</h2>
+<p><img src="images/rigidbody_component.png" alt="RigidBody component"></p>
+<p>Add a <code>RigidBody</code> to an entity, then add at least one <a href="../colliders/index.html">collider</a> to give it a shape:</p>
+<pre><code class="lang-csharp">Entity crate = new Entity(&quot;crate&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 3f, 0f) })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new CubeMesh())
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider());
+
+this.Managers.EntityManager.Add(crate);
+</code></pre>
+<p>The shape is collected from the colliders on the entity <strong>and on its descendants</strong>, so a compound body is a hierarchy:</p>
+<p><img src="../colliders/images/compound_collider.png" alt="One body, one collider, and one body with five"></p>
+<p><em>On the left, the ordinary case: <code>RigidBody</code> and <code>BoxCollider</code> on the same entity. On the right, a table whose <code>RigidBody</code> is on the root and whose five <code>BoxCollider</code> components are on its children. The children carry no body of their own, and the five shapes are gathered into one compound shape for the body at the top.</em></p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="../colliders/images/compound_collider_drop.mp4" type="video/mp4">
+</video>
+<p><em>Which is what &quot;one body&quot; means in practice: shoved over, the table tips as a single object rather than coming apart into a top and four legs.</em></p>
+<h3 id="kinematic-or-dynamic">Kinematic or Dynamic</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsKinematic</strong></td>
+<td>false</td>
+<td>Off, the body is <strong>dynamic</strong>: the solver moves it through gravity, collisions and forces. On, it is <strong>kinematic</strong>: your code moves it through <code>MoveTo</code>, it pushes dynamic bodies and carries them, and nothing pushes it back.</td>
+</tr>
+</tbody>
+</table>
+<p>The flag can be changed at any time without recreating the body. A body that stops being kinematic simply falls from wherever it was; a body that becomes kinematic stops answering to gravity and contacts and goes where <code>MoveTo</code> sends it. This is how a <a href="../ragdolls.html">ragdoll</a> follows its animation and then drops.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>There is no static setting here. A body that never moves is a <a href="static_body.html"><code>StaticBody</code></a>, which is a different component with none of the motion properties below.</p>
+</div>
+<h3 id="mass-and-surface-properties">Mass and Surface Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Mass</strong></td>
+<td>0</td>
+<td>Mass in kilograms. <strong>Zero means work it out</strong> from the volume of the colliders and their <code>Density</code>, which is usually what you want. Reading the property back returns the mass the solver is actually using.</td>
+</tr>
+<tr>
+<td><strong>InertiaMultiplier</strong></td>
+<td>1</td>
+<td>Scales the inertia computed from the shape. Above 1 the body resists turning; below 1 it spins up easily. This replaces the explicit inertia tensor of the previous API.</td>
+</tr>
+<tr>
+<td><strong>CenterOfMassOffset</strong></td>
+<td>0,0,0</td>
+<td>Moves the centre of mass away from the shape's own. Lowering it is what keeps a vehicle from rolling over.</td>
+</tr>
+<tr>
+<td><strong>Friction</strong></td>
+<td>0.2</td>
+<td>Surface friction. The value used for a contact is combined from both bodies.</td>
+</tr>
+<tr>
+<td><strong>Restitution</strong></td>
+<td>0</td>
+<td>Bounciness, from 0 (all energy lost on impact) to 1 (none).</td>
+</tr>
+</tbody>
+</table>
+<p><code>Friction</code> and <code>Restitution</code> are shared with <code>StaticBody</code>; the rest only exist on a body that moves.</p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/rigidbody_restitution.mp4" type="video/mp4">
+</video>
+<p><em>Three spheres identical but for <code>Restitution</code>: 0, 0.4 and 0.8.</em></p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/rigidbody_friction.mp4" type="video/mp4">
+</video>
+<p><em>Three boxes given the same push, with <code>Friction</code> at 0.02, 0.3 and 0.9.</em></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>There is no physics material asset. Friction and restitution belong to the <strong>body</strong>, and density belongs to the <strong>collider</strong>.</p>
+</div>
+<h3 id="motion-properties">Motion Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LinearVelocity</strong></td>
+<td>0,0,0</td>
+<td>Velocity in metres per second. Set before the entity joins the scene, it becomes the body's initial velocity.</td>
+</tr>
+<tr>
+<td><strong>AngularVelocity</strong></td>
+<td>0,0,0</td>
+<td>Angular velocity in radians per second.</td>
+</tr>
+<tr>
+<td><strong>LinearDamping</strong></td>
+<td>0.05</td>
+<td>Slows movement down over time, whatever else is happening.</td>
+</tr>
+<tr>
+<td><strong>AngularDamping</strong></td>
+<td>0.05</td>
+<td>Slows rotation down over time.</td>
+</tr>
+<tr>
+<td><strong>GravityFactor</strong></td>
+<td>1</td>
+<td>Multiplies the world's gravity for this body. <code>0</code> makes it weightless; <code>2</code> makes it fall twice as hard.</td>
+</tr>
+<tr>
+<td><strong>MaxLinearVelocity</strong></td>
+<td>500</td>
+<td>A speed limit, in metres per second.</td>
+</tr>
+<tr>
+<td><strong>MaxAngularVelocity</strong></td>
+<td>47.12</td>
+<td>A spin limit, in radians per second: 15π, which is seven and a half turns a second.</td>
+</tr>
+<tr>
+<td><strong>AllowedDegreesOfFreedom</strong></td>
+<td><code>All</code></td>
+<td>Locks axes outright. <code>Plane2D</code> keeps a body in the XY plane turning only about Z, which is how a 2.5D game is built.</td>
+</tr>
+<tr>
+<td><strong>MotionQuality</strong></td>
+<td><code>Discrete</code></td>
+<td><code>LinearCast</code> sweeps the body's movement between steps instead of testing only where it lands, which is what stops a fast body passing through a thin wall.</td>
+</tr>
+</tbody>
+</table>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/ccd_motion_quality.mp4" type="video/mp4">
+</video>
+<p><em>The same shot at the same speed at two thin walls. The grey one is <code>Discrete</code> and goes straight through; the red one is <code>LinearCast</code> and stops.</em></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>AllowedDegreesOfFreedom</code> locks an axis exactly, rather than scaling it the way the old <code>LinearFactor</code> and <code>AngularFactor</code> did. A locked axis cannot drift.</p>
+</div>
+<h3 id="advanced-properties">Advanced Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CollisionCategory</strong></td>
+<td><code>Cat1</code></td>
+<td>Which of the 32 <a href="../collision_filtering.html">categories</a> this body belongs to. A body is in exactly one.</td>
+</tr>
+<tr>
+<td><strong>IsSensor</strong></td>
+<td>false</td>
+<td>Makes the body detect overlaps and report them without any physical response. See <a href="sensors.html">Sensors</a>.</td>
+</tr>
+<tr>
+<td><strong>SurfaceVelocity</strong></td>
+<td>0,0,0</td>
+<td>Tells contacts that the surface is moving even though the body is not. This is how a conveyor belt is built.</td>
+</tr>
+<tr>
+<td><strong>AllowSleeping</strong></td>
+<td>true</td>
+<td>Lets this body be put to sleep when it stops moving.</td>
+</tr>
+<tr>
+<td><strong>EnhancedInternalEdgeRemoval</strong></td>
+<td>false</td>
+<td>Stops bodies catching on the seams between the triangles of a mesh collider.</td>
+</tr>
+<tr>
+<td><strong>CollideKinematicVsNonDynamic</strong></td>
+<td>false</td>
+<td>Needed for a kinematic body to notice static and other kinematic bodies, a kinematic sensor for instance.</td>
+</tr>
+<tr>
+<td><strong>ApplyGyroscopicForce</strong></td>
+<td>false</td>
+<td>Simulates the gyroscopic effect, which matters for fast-spinning bodies.</td>
+</tr>
+<tr>
+<td><strong>SolverVelocityIterationsOverride</strong></td>
+<td>0</td>
+<td>Per-body override of the world's solver settings. <code>0</code> uses the world's.</td>
+</tr>
+<tr>
+<td><strong>SolverPositionIterationsOverride</strong></td>
+<td>0</td>
+<td>The same for position iterations.</td>
+</tr>
+</tbody>
+</table>
+<p><code>CollisionCategory</code>, <code>IsSensor</code>, <code>SurfaceVelocity</code> and <code>EnhancedInternalEdgeRemoval</code> are shared with <code>StaticBody</code>.</p>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/conveyor_surface_velocity.mp4" type="video/mp4">
+</video>
+<p><em><code>SurfaceVelocity</code> on a <code>StaticBody</code>. Nothing in the scene turns, and the parcels are carried anyway.</em></p>
+<h3 id="read-only-state">Read-only State</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsActive</strong></td>
+<td>Whether the body is awake.</td>
+</tr>
+<tr>
+<td><strong>CenterOfMassPosition</strong></td>
+<td>Where its centre of mass is in world space.</td>
+</tr>
+<tr>
+<td><strong>WorldBounds</strong></td>
+<td>Its axis-aligned bounding box.</td>
+</tr>
+<tr>
+<td><strong>IsInWorld</strong></td>
+<td>Whether the body has actually been created yet. Creation is deferred to a safe point in the step.</td>
+</tr>
+<tr>
+<td><strong>Colliders</strong></td>
+<td>The colliders its shape was built from.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="methods">Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ApplyForce(force)</strong></td>
+<td>Applies a force at the centre of mass, in newtons. Meant to be applied every step.</td>
+</tr>
+<tr>
+<td><strong>ApplyForce(force, worldPosition)</strong></td>
+<td>Applies it at a point, which also produces torque.</td>
+</tr>
+<tr>
+<td><strong>ApplyTorque(torque)</strong></td>
+<td>Applies a turning force.</td>
+</tr>
+<tr>
+<td><strong>ApplyImpulse(impulse)</strong></td>
+<td>Applies an instantaneous change of momentum. A one-off kick.</td>
+</tr>
+<tr>
+<td><strong>ApplyImpulse(impulse, worldPosition)</strong></td>
+<td>The same, at a point.</td>
+</tr>
+<tr>
+<td><strong>ApplyAngularImpulse(impulse)</strong></td>
+<td>An instantaneous change of angular momentum.</td>
+</tr>
+<tr>
+<td><strong>ApplyBuoyancy(surfacePosition, surfaceNormal, buoyancy, linearDrag, angularDrag, fluidVelocity, deltaTime)</strong></td>
+<td>Floats the body against a fluid surface. <code>buoyancy</code> is the ratio of the fluid's density to the body's, so above 1 it floats.</td>
+</tr>
+<tr>
+<td><strong>GetPointVelocity(worldPoint)</strong></td>
+<td>The velocity of one point of the body, rotation included.</td>
+</tr>
+<tr>
+<td><strong>MoveTo(position, orientation)</strong></td>
+<td>Moves a <strong>kinematic</strong> body by generating the velocity needed to get there this step, so it pushes and carries properly.</td>
+</tr>
+<tr>
+<td><strong>Teleport(position, orientation)</strong></td>
+<td>Puts the body somewhere immediately, discarding its contacts.</td>
+</tr>
+<tr>
+<td><strong>WakeUp()</strong> / <strong>Sleep()</strong></td>
+<td>Force the body awake or asleep.</td>
+</tr>
+<tr>
+<td><strong>InvalidateShape()</strong></td>
+<td>Rebuilds the shape now. Colliders added, removed or edited, and child colliders moved, rebuild it on their own; this is for the cases the body cannot observe.</td>
+</tr>
+</tbody>
+</table>
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/kinematic_platforms.mp4" type="video/mp4">
+</video>
+<p><em>Kinematic bodies driven with <code>MoveTo</code>: a platform carrying its riders, a turnstile shoving pucks out of the way, and a lift. None of them can be pushed back.</em></p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>To move a kinematic body use <code>MoveTo</code>, not the <code>Transform3D</code>. Writing the transform teleports the body every step: it arrives at the right place, but with no velocity, so it passes through whatever was in the way and drops whatever was standing on it.</p>
+</div>
+<h2 id="events">Events</h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>When it fires</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CollisionStarted</strong></td>
+<td>Two bodies began touching.</td>
+</tr>
+<tr>
+<td><strong>CollisionUpdated</strong></td>
+<td>Once per step while they stay in contact.</td>
+</tr>
+<tr>
+<td><strong>CollisionEnded</strong></td>
+<td>They stopped touching.</td>
+</tr>
+<tr>
+<td><strong>Activated</strong> / <strong>Slept</strong></td>
+<td>The body woke up or went to sleep.</td>
+</tr>
+</tbody>
+</table>
+<p>All of them are raised on the main thread after the step, and <strong>once per pair of bodies</strong> rather than per pair of sub-shapes. See <a href="collisions.html">Collisions</a>.</p>
+<h2 id="using-rigidbody-from-code">Using RigidBody from Code</h2>
+<h3 id="a-bouncing-ball">A bouncing ball</h3>
+<pre><code class="lang-csharp">Entity ball = new Entity(&quot;ball&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 6f, 0f) })
+    .AddComponent(new MaterialComponent() { Material = material })
+    .AddComponent(new SphereMesh() { Diameter = 1f })
+    .AddComponent(new MeshRenderer())
+    .AddComponent(new RigidBody()
+    {
+        Restitution = 0.8f,     // Keeps most of its energy on impact...
+        Friction = 0.2f,
+    })
+    .AddComponent(new SphereCollider() { Radius = 0.5f });
+
+this.Managers.EntityManager.Add(ball);
+</code></pre>
+<h3 id="pushing-a-body">Pushing a body</h3>
+<pre><code class="lang-csharp">public class Launcher : Behavior
+{
+    [BindComponent]
+    private RigidBody body = null;
+
+    public void Launch(Vector3 direction)
+    {
+        // An impulse rather than a force: this is a single kick, not something applied every step.
+        this.body.ApplyImpulse(direction * 12f);
+    }
+}
+</code></pre>
+<h3 id="a-moving-platform">A moving platform</h3>
+<pre><code class="lang-csharp">public class Platform : Behavior
+{
+    [BindComponent]
+    private RigidBody body = null;
+
+    [BindComponent]
+    private Transform3D transform = null;
+
+    private Vector3 origin;
+    private float elapsed;
+
+    protected override bool OnAttached()
+    {
+        if (!base.OnAttached())
+        {
+            return false;
+        }
+
+        this.origin = this.transform.Position;
+        this.body.IsKinematic = true;
+
+        return true;
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        this.elapsed += (float)gameTime.TotalSeconds;
+
+        Vector3 position = this.origin + (Vector3.UnitX * (float)Math.Sin(this.elapsed) * 4f);
+
+        // MoveTo and not transform.Position: this is what gives the platform a velocity, which is
+        // what carries anything standing on it and shoves anything in its way.
+        this.body.MoveTo(position, this.transform.Orientation);
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

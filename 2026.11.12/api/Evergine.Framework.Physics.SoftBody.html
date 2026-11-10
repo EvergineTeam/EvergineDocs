@@ -1,0 +1,1140 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SoftBody | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SoftBody | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.SoftBody">
+
+
+
+  <h1 id="Evergine_Framework_Physics_SoftBody" data-uid="Evergine.Framework.Physics.SoftBody" class="text-break">Class SoftBody</h1>
+  <div class="markdown level0 summary"><p>Makes the surface of a <a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_SoftBodyMesh">SoftBodyMesh</a> deformable: cloth, jelly or an inflated ball,
+depending on the shape the mesh generates and on what is set here.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><span class="xref">SoftBody</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_SoftBody_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SoftBody : Component, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_SoftBody_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+This is the behaviour half of a soft body. The shape lives next door in <a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_SoftBodyMesh">SoftBodyMesh</a>,
+which is also what draws it; this component reads that surface, hands it to the solver and gives it
+mass, stiffness and pressure. Without a mesh beside it there is nothing to simulate and no body is
+created.
+</p>
+<p>
+The entity transform provides the spawn pose, position and rotation both, and after creation the
+simulation owns the motion. When <a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_UpdatePosition">UpdatePosition</a> is enabled the transform follows the
+body without interpolation, because the vertices are read at step rate and interpolating the
+transform but not the vertices would make the mesh swim against itself. The transform scale is
+baked into the simulated surface, the way a rigid body bakes it into its shapes, because the pose
+Jolt keeps for a body has no scale of its own; changing the scale rebuilds the body from its rest
+shape. A negative scale mirrors the surface. The scale of a child entity is read from its world
+matrix, which cannot tell a mirrored parent from an unmirrored one.
+</p>
+<p>
+Soft bodies do not take part in collision events or queries in this version: contacts against them
+are silently discarded rather than resolved to a <a class="xref" href="Evergine.Framework.Physics.RigidBody.html">RigidBody</a>.
+</p>
+</div>
+  <h3 id="fields">Fields
+</h3>
+  <h4 id="Evergine_Framework_Physics_SoftBody_SoftBodyMesh" data-uid="Evergine.Framework.Physics.SoftBody.SoftBodyMesh">SoftBodyMesh</h4>
+  <div class="markdown level1 summary"><p>The surface this body simulates.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(true, false, BindComponentSource.Owner, null, true)]
+public SoftBodyMesh SoftBodyMesh</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.SoftBodyMesh.html">SoftBodyMesh</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h4 id="Evergine_Framework_Physics_SoftBody_Transform3D" data-uid="Evergine.Framework.Physics.SoftBody.Transform3D">Transform3D</h4>
+  <div class="markdown level1 summary"><p>The transform providing the spawn pose.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[BindComponent(true, true, BindComponentSource.Owner, null, true)]
+public Transform3D Transform3D</code></pre>
+  </div>
+  <h5 class="fieldValue">Field Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Graphics.Transform3D.html">Transform3D</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_SoftBody_AllowSleeping_" data-uid="Evergine.Framework.Physics.SoftBody.AllowSleeping*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_AllowSleeping" data-uid="Evergine.Framework.Physics.SoftBody.AllowSleeping">AllowSleeping</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the body may fall asleep when it stops moving. While it
+sleeps no vertices are read and <a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_VerticesUpdated">VerticesUpdated</a> stays quiet.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Let the body fall asleep when it stops moving.&quot;)]
+public bool AllowSleeping { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_BendCompliance_" data-uid="Evergine.Framework.Physics.SoftBody.BendCompliance*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_BendCompliance" data-uid="Evergine.Framework.Physics.SoftBody.BendCompliance">BendCompliance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the compliance of the bend constraints. Zero makes the surface an infinitely stiff
+plate, so cloth wants a clearly positive value here to drape at all.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.01, DesiredLargeChange = 0.25, Tooltip = &quot;Inverse stiffness of the bend constraints. Zero is a stiff plate; cloth wants a positive value.&quot;)]
+public float BendCompliance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_BendType_" data-uid="Evergine.Framework.Physics.SoftBody.BendType*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_BendType" data-uid="Evergine.Framework.Physics.SoftBody.BendType">BendType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how the surface resists folding. See <a class="xref" href="Evergine.Framework.Physics.SoftBodyBendType.html">SoftBodyBendType</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;How the surface resists folding across face edges.&quot;)]
+public SoftBodyBendType BendType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.SoftBodyBendType.html">SoftBodyBendType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_BodyId_" data-uid="Evergine.Framework.Physics.SoftBody.BodyId*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_BodyId" data-uid="Evergine.Framework.Physics.SoftBody.BodyId">BodyId</h4>
+  <div class="markdown level1 summary"><p>Gets the native body id, or the invalid id before creation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public uint BodyId { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_CollisionCategory_" data-uid="Evergine.Framework.Physics.SoftBody.CollisionCategory*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_CollisionCategory" data-uid="Evergine.Framework.Physics.SoftBody.CollisionCategory">CollisionCategory</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the collision category of this body, filtered through the same matrix as any other
+moving body.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public CollisionCategory CollisionCategory { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.CollisionCategory.html">CollisionCategory</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_Compliance_" data-uid="Evergine.Framework.Physics.SoftBody.Compliance*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_Compliance" data-uid="Evergine.Framework.Physics.SoftBody.Compliance">Compliance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the compliance of the structural edges. Compliance is inverse stiffness: zero keeps
+edges at their rest length exactly, larger values let them stretch.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.0001, DesiredLargeChange = 0.01, Tooltip = &quot;Inverse stiffness of the structural edges. Zero means inextensible.&quot;)]
+public float Compliance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_Friction_" data-uid="Evergine.Framework.Physics.SoftBody.Friction*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_Friction" data-uid="Evergine.Framework.Physics.SoftBody.Friction">Friction</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the friction against whatever the body touches.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, MaxLimit = 1, AsSlider = true, DesiredChange = 0.01, DesiredLargeChange = 0.1, Tooltip = &quot;Friction against whatever the body touches.&quot;)]
+public float Friction { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_GravityFactor_" data-uid="Evergine.Framework.Physics.SoftBody.GravityFactor*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_GravityFactor" data-uid="Evergine.Framework.Physics.SoftBody.GravityFactor">GravityFactor</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how much of the world gravity this body feels.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.1, DesiredLargeChange = 0.5, Tooltip = &quot;How much of the world gravity this body feels.&quot;)]
+public float GravityFactor { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_IsInWorld_" data-uid="Evergine.Framework.Physics.SoftBody.IsInWorld*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_IsInWorld" data-uid="Evergine.Framework.Physics.SoftBody.IsInWorld">IsInWorld</h4>
+  <div class="markdown level1 summary"><p>Gets a value indicating whether the native body exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public bool IsInWorld { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_LRAConstraintCount_" data-uid="Evergine.Framework.Physics.SoftBody.LRAConstraintCount*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_LRAConstraintCount" data-uid="Evergine.Framework.Physics.SoftBody.LRAConstraintCount">LRAConstraintCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of long range attachments the native body was built with. Zero when
+<a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_LRAType">LRAType</a> found no pinned vertex to anchor to.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int LRAConstraintCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_LRAMaxDistanceMultiplier_" data-uid="Evergine.Framework.Physics.SoftBody.LRAMaxDistanceMultiplier*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_LRAMaxDistanceMultiplier" data-uid="Evergine.Framework.Physics.SoftBody.LRAMaxDistanceMultiplier">LRAMaxDistanceMultiplier</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the slack of the long range attachments: 1 caps each vertex at exactly its rest
+distance from its anchor, 1.05 allows five percent more.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 1, DesiredChange = 0.01, DesiredLargeChange = 0.1, Tooltip = &quot;Slack of the attachments: 1 is the rest distance, 1.05 allows five percent more.&quot;)]
+public float LRAMaxDistanceMultiplier { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_LRAType_" data-uid="Evergine.Framework.Physics.SoftBody.LRAType*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_LRAType" data-uid="Evergine.Framework.Physics.SoftBody.LRAType">LRAType</h4>
+  <div class="markdown level1 summary"><p>Gets or sets whether every free vertex is tied back to its nearest pinned vertex with a long
+range attachment. The attachment caps how far the vertex can get from its anchor regardless of
+how soft the springs are, which is what keeps a compliant hanging cloth from stretching without
+bound. It needs pinned vertices to anchor to: on a body without any, nothing is created.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Ties free vertices to their nearest pinned vertex, capping stretch. Needs pinned vertices.&quot;)]
+public SoftBodyLRAType LRAType { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.SoftBodyLRAType.html">SoftBodyLRAType</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_LinearDamping_" data-uid="Evergine.Framework.Physics.SoftBody.LinearDamping*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_LinearDamping" data-uid="Evergine.Framework.Physics.SoftBody.LinearDamping">LinearDamping</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how quickly vertex motion bleeds away on its own.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.01, DesiredLargeChange = 0.1, Tooltip = &quot;How quickly vertex motion bleeds away on its own.&quot;)]
+public float LinearDamping { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_Mass_" data-uid="Evergine.Framework.Physics.SoftBody.Mass*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_Mass" data-uid="Evergine.Framework.Physics.SoftBody.Mass">Mass</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the total mass in kilograms, spread uniformly over the vertices. Pinned vertices
+carry none of it.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0.001, DesiredChange = 0.1, DesiredLargeChange = 1, Tooltip = &quot;Total mass in kilograms, spread uniformly over the vertices.&quot;)]
+public float Mass { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_NumIterations_" data-uid="Evergine.Framework.Physics.SoftBody.NumIterations*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_NumIterations" data-uid="Evergine.Framework.Physics.SoftBody.NumIterations">NumIterations</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the solver iterations per step for this body. More iterations make the constraints
+stiffer at a linear cost.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsInput(MinLimit = 1, MaxLimit = 64, AsSlider = true, DesiredChange = 1, DesiredLargeChange = 4, Tooltip = &quot;Solver iterations per step for this body. More is stiffer and slower.&quot;)]
+public uint NumIterations { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_PinGroups_" data-uid="Evergine.Framework.Physics.SoftBody.PinGroups*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_PinGroups" data-uid="Evergine.Framework.Physics.SoftBody.PinGroups">PinGroups</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the sets of vertices held in place, and what carries each set.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public List&lt;SoftBodyPinGroup&gt; PinGroups { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.collections.generic.list-1">List</a>&lt;<a class="xref" href="Evergine.Framework.Physics.SoftBodyPinGroup.html">SoftBodyPinGroup</a>&gt;</td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SoftBody_PinGroups_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Not rendered by the generic inspector: a list of groups of indices is unreadable as numbered
+rows, and <code>SoftBodyPanelEditor</code> presents it as one line per group instead, built by
+selecting vertices in the viewport.</p>
+<p>Editing the list in place needs a <a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_NotifyPinsChanged">NotifyPinsChanged()</a> afterwards for the body to be
+rebuilt around it.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SoftBody_Pressure_" data-uid="Evergine.Framework.Physics.SoftBody.Pressure*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_Pressure" data-uid="Evergine.Framework.Physics.SoftBody.Pressure">Pressure</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the internal pressure, as the n of the gas law n·R·T. It pushes outward against the
+faces, so it only does something on a closed shape like the sphere. This one applies live.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 100, DesiredLargeChange = 1000, Tooltip = &quot;Internal pressure pushing against the faces. Only meaningful on closed shapes.&quot;)]
+public float Pressure { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_Restitution_" data-uid="Evergine.Framework.Physics.SoftBody.Restitution*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_Restitution" data-uid="Evergine.Framework.Physics.SoftBody.Restitution">Restitution</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the restitution of the contacts, the fraction of impact speed kept on a bounce.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, MaxLimit = 1, AsSlider = true, DesiredChange = 0.01, DesiredLargeChange = 0.1, Tooltip = &quot;Fraction of impact speed kept on a bounce.&quot;)]
+public float Restitution { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_ShearCompliance_" data-uid="Evergine.Framework.Physics.SoftBody.ShearCompliance*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_ShearCompliance" data-uid="Evergine.Framework.Physics.SoftBody.ShearCompliance">ShearCompliance</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the compliance of the shear constraints, the diagonals of the surface. Zero makes
+the surface rigid against in-plane skewing.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.0001, DesiredLargeChange = 0.01, Tooltip = &quot;Inverse stiffness of the diagonal shear constraints.&quot;)]
+public float ShearCompliance { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_UpdatePosition_" data-uid="Evergine.Framework.Physics.SoftBody.UpdatePosition*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_UpdatePosition" data-uid="Evergine.Framework.Physics.SoftBody.UpdatePosition">UpdatePosition</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a value indicating whether the entity transform follows the simulated body. Turn it
+off for pinned cloth, whose origin should stay where it was hung.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Move the entity transform along with the simulated body.&quot;)]
+public bool UpdatePosition { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_VertexCount_" data-uid="Evergine.Framework.Physics.SoftBody.VertexCount*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_VertexCount" data-uid="Evergine.Framework.Physics.SoftBody.VertexCount">VertexCount</h4>
+  <div class="markdown level1 summary"><p>Gets the number of simulated vertices, or zero before creation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int VertexCount { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_VertexRadius_" data-uid="Evergine.Framework.Physics.SoftBody.VertexRadius*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_VertexRadius" data-uid="Evergine.Framework.Physics.SoftBody.VertexRadius">VertexRadius</h4>
+  <div class="markdown level1 summary"><p>Gets or sets a small collision radius around every vertex, which keeps thin cloth from slipping
+through edges at the cost of resting slightly above surfaces.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, DesiredChange = 0.005, DesiredLargeChange = 0.02, Tooltip = &quot;Collision radius around every vertex. Keeps thin cloth from slipping through edges.&quot;)]
+public float VertexRadius { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_Volume_" data-uid="Evergine.Framework.Physics.SoftBody.Volume*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_Volume" data-uid="Evergine.Framework.Physics.SoftBody.Volume">Volume</h4>
+  <div class="markdown level1 summary"><p>Gets the volume the surface currently encloses, in cubic metres. Zero before the body exists.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float Volume { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SoftBody_Volume_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Only meaningful on a closed surface. It is the number that says whether a pressurised body is
+holding its shape or quietly collapsing, which is otherwise a matter of opinion: a surface soft
+body with nothing inside it flattens on landing and stays flattened, and that reads as &quot;a bit
+squashed&quot; until something measures it.</p>
+</div>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_SoftBody_CopyVertexPositions_" data-uid="Evergine.Framework.Physics.SoftBody.CopyVertexPositions*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_CopyVertexPositions_Evergine_Mathematics_Vector3___" data-uid="Evergine.Framework.Physics.SoftBody.CopyVertexPositions(Evergine.Mathematics.Vector3[])">CopyVertexPositions(Vector3[])</h4>
+  <div class="markdown level1 summary"><p>Copies the latest simulated vertex positions into the given array, local to the entity: the body
+pose with the scale divided back out, so <a class="xref" href="Evergine.Framework.Graphics.Transform3D.html#Evergine_Framework_Graphics_Transform3D_WorldTransform">WorldTransform</a> places them
+where the mesh is drawn.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int CopyVertexPositions(Vector3[] destination)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a>[]</td>
+        <td><span class="parametername">destination</span></td>
+        <td><p>The array to copy into. Only as many entries as fit are written.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a></td>
+        <td><p>The number of positions written.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_GetFaceIndices_" data-uid="Evergine.Framework.Physics.SoftBody.GetFaceIndices*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_GetFaceIndices" data-uid="Evergine.Framework.Physics.SoftBody.GetFaceIndices">GetFaceIndices()</h4>
+  <div class="markdown level1 summary"><p>Gets a copy of the triangle indices of the simulated surface, wound counter-clockwise seen from
+outside, three per face. They never change while the body exists. Under a mirroring scale they
+are wound the other way round from <a class="xref" href="Evergine.Framework.Physics.SoftBodyMesh.html#Evergine_Framework_Physics_SoftBodyMesh_TriangleIndices">TriangleIndices</a>, so that they
+still face outwards once mirrored.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public int[] GetFaceIndices()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.int32">int</a>[]</td>
+        <td><p>The indices, or an empty array before creation.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_GetLocalBounds_" data-uid="Evergine.Framework.Physics.SoftBody.GetLocalBounds*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_GetLocalBounds" data-uid="Evergine.Framework.Physics.SoftBody.GetLocalBounds">GetLocalBounds()</h4>
+  <div class="markdown level1 summary"><p>Gets the box the simulated vertices currently fit in, local to the body pose and at simulated
+size: the entity scale is baked in, unlike in <a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_CopyVertexPositions_Evergine_Mathematics_Vector3___">CopyVertexPositions(Vector3[])</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BoundingBox? GetLocalBounds()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a>?</td>
+        <td><p>The bounds, or null before the body exists.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SoftBody_GetWorldBounds_" data-uid="Evergine.Framework.Physics.SoftBody.GetWorldBounds*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_GetWorldBounds" data-uid="Evergine.Framework.Physics.SoftBody.GetWorldBounds">GetWorldBounds()</h4>
+  <div class="markdown level1 summary"><p>Gets the box the simulated vertices currently fit in, in world space.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public BoundingBox? GetWorldBounds()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.BoundingBox.html">BoundingBox</a>?</td>
+        <td><p>The bounds, or null before the body exists.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SoftBody_GetWorldBounds_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Taken through the body's own pose rather than the entity's. They are the same thing only while
+<a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_UpdatePosition">UpdatePosition</a> is on; with it off the transform stays where the scene put it while
+the body travels, and reading the bounds through the transform puts them somewhere the body has
+not been for a while.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SoftBody_NotifyPinsChanged_" data-uid="Evergine.Framework.Physics.SoftBody.NotifyPinsChanged*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_NotifyPinsChanged" data-uid="Evergine.Framework.Physics.SoftBody.NotifyPinsChanged">NotifyPinsChanged()</h4>
+  <div class="markdown level1 summary"><p>Rebuilds the body after <a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_PinGroups">PinGroups</a> has been edited in place rather than replaced.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void NotifyPinsChanged()</code></pre>
+  </div>
+  <a id="Evergine_Framework_Physics_SoftBody_OnActivated_" data-uid="Evergine.Framework.Physics.SoftBody.OnActivated*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_OnActivated" data-uid="Evergine.Framework.Physics.SoftBody.OnActivated">OnActivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is activated once it is attached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnActivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnActivated">Component.OnActivated()</a></div>
+  <a id="Evergine_Framework_Physics_SoftBody_OnAttached_" data-uid="Evergine.Framework.Physics.SoftBody.OnAttached*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_OnAttached" data-uid="Evergine.Framework.Physics.SoftBody.OnAttached">OnAttached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is attached to the system.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override bool OnAttached()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.boolean">bool</a></td>
+        <td><p>True if everything is OK.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a></div>
+  <a id="Evergine_Framework_Physics_SoftBody_OnDeactivated_" data-uid="Evergine.Framework.Physics.SoftBody.OnDeactivated*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_OnDeactivated" data-uid="Evergine.Framework.Physics.SoftBody.OnDeactivated">OnDeactivated()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is deactivated.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDeactivated()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDeactivated">Component.OnDeactivated()</a></div>
+  <a id="Evergine_Framework_Physics_SoftBody_OnDetached_" data-uid="Evergine.Framework.Physics.SoftBody.OnDetached*"></a>
+  <h4 id="Evergine_Framework_Physics_SoftBody_OnDetached" data-uid="Evergine.Framework.Physics.SoftBody.OnDetached">OnDetached()</h4>
+  <div class="markdown level1 summary"><p>Invoked when the object is detached.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override void OnDetached()</code></pre>
+  </div>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDetached">Component.OnDetached()</a></div>
+  <h3 id="events">Events
+</h3>
+  <h4 id="Evergine_Framework_Physics_SoftBody_VerticesUpdated" data-uid="Evergine.Framework.Physics.SoftBody.VerticesUpdated">VerticesUpdated</h4>
+  <div class="markdown level1 summary"><p>Raised after every write-back with fresh vertex positions available through
+<a class="xref" href="Evergine.Framework.Physics.SoftBody.html#Evergine_Framework_Physics_SoftBody_CopyVertexPositions_Evergine_Mathematics_Vector3___">CopyVertexPositions(Vector3[])</a>. Not raised while the body sleeps.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public event EventHandler VerticesUpdated</code></pre>
+  </div>
+  <h5 class="eventType">Event Type</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.eventhandler">EventHandler</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

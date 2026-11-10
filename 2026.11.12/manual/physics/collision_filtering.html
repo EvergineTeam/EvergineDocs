@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Collision Filtering | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Collision Filtering | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="collision-filtering">Collision Filtering</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/filtering_matrix.mp4" type="video/mp4">
+</video>
+<p>Not everything should touch everything. Filtering is how a projectile passes through debris, how the player's own shots ignore the player, and how a trigger volume notices only what it is meant to.</p>
+<p>Evergine does it with <strong>32 categories</strong> and a <strong>matrix</strong> on the world saying which pairs of categories collide.</p>
+<h2 id="collision-categories">Collision Categories</h2>
+<p>Every <a href="physics_bodies/index.html">physics body</a>, <code>RigidBody</code> or <code>StaticBody</code>, belongs to exactly <strong>one</strong> category:</p>
+<pre><code class="lang-csharp">body.CollisionCategory = CollisionCategory.Cat3;
+</code></pre>
+<p><code>CollisionCategory</code> is a flags enum with <code>Cat1</code> through <code>Cat32</code>, plus <code>None</code> and <code>All</code>. A body takes a single one; the combinations are for query filters and for the matrix.</p>
+<p>Categories are numbers, and numbers are unreadable in an inspector six months later, so the world lets you name them:</p>
+<pre><code class="lang-csharp">public override void RegisterManagers()
+{
+    base.RegisterManagers();
+
+    var physics = new PhysicsManager();
+
+    physics.SetCategoryName(CollisionCategory.Cat1, &quot;Level&quot;);
+    physics.SetCategoryName(CollisionCategory.Cat2, &quot;Player&quot;);
+    physics.SetCategoryName(CollisionCategory.Cat3, &quot;Enemies&quot;);
+    physics.SetCategoryName(CollisionCategory.Cat4, &quot;Debris&quot;);
+    physics.SetCategoryName(CollisionCategory.Cat5, &quot;Projectiles&quot;);
+
+    this.Managers.AddManager(physics);
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CategoryNames</strong></td>
+<td>The 32 names, defaulting to <code>&quot;Category 1&quot;</code> through <code>&quot;Category 32&quot;</code>.</td>
+</tr>
+<tr>
+<td><strong>SetCategoryName(category, name)</strong></td>
+<td>Names one category.</td>
+</tr>
+<tr>
+<td><strong>GetCategoryName(category)</strong></td>
+<td>Reads one back.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="the-collision-matrix">The Collision Matrix</h2>
+<p>The matrix is a symmetric 32 × 32 table of which categories touch. Everything collides with everything by default; you switch off the pairs you do not want.</p>
+<pre><code class="lang-csharp">// Debris is scenery: it lands on the level and gets in the way visually, and nothing else has to
+// waste a contact on it.
+physics.SetCollisionEnabled(CollisionCategory.Cat4, CollisionCategory.Cat2, false);
+physics.SetCollisionEnabled(CollisionCategory.Cat4, CollisionCategory.Cat3, false);
+physics.SetCollisionEnabled(CollisionCategory.Cat4, CollisionCategory.Cat5, false);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CollisionMatrix</strong></td>
+<td>The raw table: 32 masks, one per category.</td>
+</tr>
+<tr>
+<td><strong>SetCollisionEnabled(a, b, enabled)</strong></td>
+<td>Switches one pair on or off. Symmetric, and takes effect immediately.</td>
+</tr>
+<tr>
+<td><strong>GetCollisionEnabled(a, b)</strong></td>
+<td>Reads one pair back.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Two <code>StaticBody</code> components never collide with each other, whatever the matrix says. That is what makes a level built from a thousand static bodies free rather than a million pair tests.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p>A scene that carries its own <code>PhysicsManager</code> in its <code>.wescene</code> file has its matrix editable from the inspector, which is much easier than maintaining it in code. Scenes without one get a default manager from <code>RegisterManagers</code> instead.</p>
+</div>
+<h2 id="ignoring-a-single-pair-of-bodies">Ignoring a Single Pair of Bodies</h2>
+<p>Categories are for kinds of thing. For two specific bodies that should ignore each other (the two halves of a hinge, a turret and the vehicle carrying it), there is a per-pair exclusion:</p>
+<pre><code class="lang-csharp">physics.SetPairCollisionEnabled(turretBody, hullBody, false);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SetPairCollisionEnabled(first, second, enabled)</strong></td>
+<td>Switches collision between two specific bodies. Both are <code>PhysicsBody</code>, so one of the pair can be static.</td>
+</tr>
+<tr>
+<td><strong>GetPairCollisionEnabled(first, second)</strong></td>
+<td>Reads it back.</td>
+</tr>
+<tr>
+<td><strong>WereBodiesInContact(first, second)</strong></td>
+<td>Whether the two touched in the last step.</td>
+</tr>
+</tbody>
+</table>
+<p>This is what <a href="constraints/index.html"><code>Constraint.CollideConnected</code></a> uses internally: a hinge whose two halves overlap would otherwise spend every step fighting its own contact.</p>
+<h2 id="filtering-beyond-the-matrix">Filtering Beyond the Matrix</h2>
+<p>Some rules cannot be expressed as &quot;these two kinds do or do not touch&quot;: a platform solid only from above, a shot that passes through its own team. For those the world takes a callback consulted for every candidate pair:</p>
+<pre><code class="lang-csharp">physics.ContactValidator = (first, second) =&gt; !this.SameTeam(first, second);
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>ContactValidator</code> runs on the solver's worker threads. It must be cheap, must not allocate, and must not touch the scene. Its two arguments are <code>PhysicsBody</code>, so anything that needs a velocity has to test for <code>RigidBody</code> first; see <a href="physics_bodies/collisions.html#contact-validation">Contact Validation</a>.</p>
+</div>
+<h2 id="filtering-queries">Filtering Queries</h2>
+<p><a href="queries.html">Queries</a> are filtered separately, and there a mask can name several categories at once:</p>
+<pre><code class="lang-csharp">// A shot that can hit enemies and the level, and passes through everything else.
+QueryFilter filter = QueryFilter.FromCategories(CollisionCategory.Cat1 | CollisionCategory.Cat3);
+
+if (this.physicsManager.RayCast(origin, direction, 200f, filter, out RayCastHit hit))
+{
+    this.Damage(hit.Entity);
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A <code>CategoryMask</code> of zero means <strong>every</strong> category, not none. The default <code>QueryFilter</code> is therefore &quot;everything solid&quot;, which is what a query usually wants.</p>
+</div>
+<h2 id="a-worked-example">A Worked Example</h2>
+<p><img src="images/filtering_matrix_still.png" alt="Collision filtering"></p>
+<p>Three columns of boxes, one per category, and three balls fired across them. Cat1 against Cat2 has been switched off in the matrix, so the Cat2 column falls straight through the Cat1 floor and through the Cat1 boxes, while Cat3 collides with everything.</p>
+<pre><code class="lang-csharp">var physics = new PhysicsManager();
+
+physics.SetCategoryName(CollisionCategory.Cat1, &quot;Ground and props&quot;);
+physics.SetCategoryName(CollisionCategory.Cat2, &quot;Passes through&quot;);
+physics.SetCategoryName(CollisionCategory.Cat3, &quot;Collides with all&quot;);
+
+physics.SetCollisionEnabled(CollisionCategory.Cat1, CollisionCategory.Cat2, false);
+
+this.Managers.AddManager(physics);
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

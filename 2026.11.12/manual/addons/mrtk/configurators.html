@@ -1,0 +1,270 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Configurators | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Configurators | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="configurators">Configurators</h1>
+
+<hr>
+<p><img src="images/standard_button_configurator.png" alt="Standard button configurator"></p>
+<p>Configurator components expose the settings you change most often on a control, such as its text, icon, and colors, in one place. Add a configurator to the root entity of a prefab instance, and it applies its values to the child entities for you. Some configurators also extend the control, for example with per-state styles for toggle buttons.</p>
+<p>The test scenes of the <a href="demo_project.html">MRTK demo project</a> show every configurator in use.</p>
+<h2 id="standard-button-configurator">Standard button configurator</h2>
+<p><code>StandardButtonConfigurator</code> customizes the icon, text, and back plate of a button. By default, the materials are shared between all the buttons that use them. To change the color of one button without affecting the others, enable <code>CreatesNewBackPlateMaterialInstance</code> and <code>CreatesNewIconMaterialInstance</code>.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Plate</code></td>
+<td><code>null</code></td>
+<td>Material of the button's back plate.</td>
+</tr>
+<tr>
+<td><code>CreatesNewBackPlateMaterialInstance</code></td>
+<td><code>false</code></td>
+<td>Creates a material instance for the back plate, so runtime changes do not affect other controls that share the material.</td>
+</tr>
+<tr>
+<td><code>CreatesNewIconMaterialInstance</code></td>
+<td><code>false</code></td>
+<td>Creates a material instance for the icon, for the same reason.</td>
+</tr>
+<tr>
+<td><code>AllowBackPlateNullMaterial</code></td>
+<td><code>false</code></td>
+<td>Allows a <code>null</code> back plate material, which hides the plate.</td>
+</tr>
+<tr>
+<td><code>AllowIconNullMaterial</code></td>
+<td><code>false</code></td>
+<td>Allows a <code>null</code> icon material, which hides the icon.</td>
+</tr>
+<tr>
+<td><code>Icon</code></td>
+<td><code>null</code></td>
+<td>Material of the button icon.</td>
+</tr>
+<tr>
+<td><code>PrimaryColor</code></td>
+<td><code>Color.White</code></td>
+<td>Tints the icon and sets the text color.</td>
+</tr>
+<tr>
+<td><code>Text</code></td>
+<td><code>null</code></td>
+<td>Text displayed on the button.</td>
+</tr>
+<tr>
+<td><code>TextScale</code></td>
+<td><code>0.006</code></td>
+<td>Scale factor of the button text.</td>
+</tr>
+<tr>
+<td><code>Font</code></td>
+<td><code>null</code></td>
+<td>Font of the button text.</td>
+</tr>
+</tbody>
+</table>
+<p>The configurator is a regular component, so you can also set it from code:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.MRTK.SDK.Features.UX.Components.Configurators;
+
+public class ButtonLabel : Component
+{
+    [BindComponent]
+    private StandardButtonConfigurator configurator = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+        this.configurator.Text = &quot;Start&quot;;
+        this.configurator.PrimaryColor = Color.Yellow;
+    }
+}
+</code></pre>
+<h2 id="toggle-buttons">Toggle buttons</h2>
+<p>Adding a <code>ToggleButton</code> component to a button gives it two styles, one for the <em>on</em> state and one for the <em>off</em> state. <code>ToggleButton</code> adds a <code>ToggleStateManager</code> if the entity does not have one, and the state manager adds one <code>ToggleButtonConfigurator</code> per state. <code>ToggleButtonConfigurator</code> has the same properties as the standard button configurator, plus <code>TargetState</code>, which selects the state it styles.</p>
+<p><img src="images/toggle_button_configurator.png" alt="Toggle button configurator"></p>
+<p>Read or change the state with <code>ToggleButton.IsOn</code>, and subscribe to <code>ToggleButton.Toggled</code> to react when the user toggles it. To make a set of toggle buttons behave like radio buttons, add a <code>ToggleGroup</code> component to a common parent; only one button of the group can be on at a time.</p>
+<p>The <code>Buttons.wescene</code> scene of the <a href="https://github.com/EvergineTeam/MixedRealityToolkit/tree/main/Samples/Evergine.MRTK.Demo/Content/Scenes/Samples">demo project samples</a> shows standard and toggle buttons.</p>
+<h2 id="multi-state-buttons">Multi-state buttons</h2>
+<p>Toggle buttons are a two-state case of a general mechanism. Every state manager derives from <code>BaseStateManager&lt;TState&gt;</code>, where <code>TState</code> is an enum that lists the possible states, and each configurator styles one of those states.</p>
+<p>To create a button with more states, define an enum with the states you need, derive a state manager from <code>BaseStateManager&lt;TState&gt;</code>, and add one configurator per state. The demo project includes a three-state example, <code>MultiStateStateManager</code> with three <code>MultiStateButtonConfigurator</code> components, that you can use as a template.</p>
+<h2 id="slider-configurator">Slider configurator</h2>
+<p><code>SliderConfigurator</code> customizes the track, the thumb, and the labels of a slider.</p>
+<p><img src="images/slider_configurator.png" alt="Slider configurator"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Track</code></td>
+<td><code>null</code></td>
+<td>Material of the track mesh.</td>
+</tr>
+<tr>
+<td><code>Thumb</code></td>
+<td><code>null</code></td>
+<td>Material of the thumb mesh.</td>
+</tr>
+<tr>
+<td><code>CreatesNewTrackMaterialInstance</code></td>
+<td><code>false</code></td>
+<td>Creates a material instance for the track, so runtime changes do not affect other sliders.</td>
+</tr>
+<tr>
+<td><code>CreatesNewThumbMaterialInstance</code></td>
+<td><code>false</code></td>
+<td>Creates a material instance for the thumb, for the same reason.</td>
+</tr>
+<tr>
+<td><code>PrimaryColor</code></td>
+<td><code>Color.White</code></td>
+<td>Color of the title text.</td>
+</tr>
+<tr>
+<td><code>SecondaryColor</code></td>
+<td><code>Color.White</code></td>
+<td>Color of the value text.</td>
+</tr>
+<tr>
+<td><code>Title</code></td>
+<td><code>&quot;Title&quot;</code></td>
+<td>Title displayed on the slider.</td>
+</tr>
+<tr>
+<td><code>Font</code></td>
+<td><code>null</code></td>
+<td>Font of the slider texts.</td>
+</tr>
+</tbody>
+</table>
+<p>The <code>Sliders.wescene</code> scene of the <a href="https://github.com/EvergineTeam/MixedRealityToolkit/tree/main/Samples/Evergine.MRTK.Demo/Content/Scenes/Samples">demo project samples</a> shows several slider configurations.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,493 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Composing Work Actions | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Composing Work Actions | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="composing-work-actions">Composing Work Actions</h1>
+
+<p>Every work action implements <code>IWorkAction</code>: you start it with <code>Run()</code>, stop it with <code>Cancel()</code> or <code>TrySkip()</code>, and it raises <code>Completed</code> when it is done. On their own, work actions are small: wait a time, call a method, move an entity. The extension methods of <code>WorkActionFactory</code> compose them into sequences, parallel blocks, waits and loops, and every composition is itself an <code>IWorkAction</code> that you can compose again.</p>
+<h2 id="lifecycle">Lifecycle</h2>
+<p><img src="images/work_action_lifecycle.png" alt="The states of a work action: None or Waiting before it starts, Running after Run, then Finished when it completes or is skipped, or Aborted when it is canceled"></p>
+<p><em>A work action runs once. A first action starts in <code>None</code>; an action created after another one starts in <code>Waiting</code> and runs when its parent completes.</em></p>
+<table>
+<thead>
+<tr>
+<th>State</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>Created on its own and not started yet.</td>
+</tr>
+<tr>
+<td><strong>Waiting</strong></td>
+<td>Created after another work action, with <code>ContinueWith</code>, <code>Delay</code> or <code>AndWaitCondition</code>. It runs when that parent completes.</td>
+</tr>
+<tr>
+<td><strong>Running</strong></td>
+<td>Started. The <code>WorkActionScheduler</code> tracks it until it finishes.</td>
+</tr>
+<tr>
+<td><strong>Finished</strong></td>
+<td>Completed, or skipped with <code>TrySkip()</code>.</td>
+</tr>
+<tr>
+<td><strong>Aborted</strong></td>
+<td>Canceled with <code>Cancel()</code>, or because its <a href="#work-actions-and-scenes">scene was deactivated</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>A work action cannot run twice. <code>Run()</code> on an action that is <code>Running</code>, <code>Finished</code> or <code>Aborted</code> throws a <code>NotSupportedException</code>, so to play the same motion again, build new work actions: put the composition in a method and call it each time, or let a <a href="#create-work-actions-when-they-run">generator</a> build it.</p>
+<h2 id="run-cancel-and-skip">Run, cancel and skip</h2>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Run()</strong></td>
+<td>Starts the work action. On an action that is <code>Waiting</code>, it starts its parent instead, and so on up to the first action of the chain: running the last action of a chain runs the whole chain.</td>
+</tr>
+<tr>
+<td><strong>Cancel()</strong></td>
+<td>Stops a running work action and sets it to <code>Aborted</code>. On an action that is <code>Waiting</code>, it cancels its parent instead, which stops the chain at the step that is running.</td>
+</tr>
+<tr>
+<td><strong>TrySkip()</strong></td>
+<td>Finishes a running work action at once, as if it had completed, and returns whether it could. On an action that is <code>Waiting</code>, it skips the step of the chain that is running, and the chain continues with the next step.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>The current <code>WorkActionState</code>.</td>
+</tr>
+<tr>
+<td><strong>Scene</strong></td>
+<td>The scene the work action belongs to. Actions created after another one take the scene of their parent.</td>
+</tr>
+<tr>
+<td><strong>ChildActions</strong></td>
+<td>The work actions this one wraps or runs, if any.</td>
+</tr>
+<tr>
+<td><strong>IsSkippable</strong></td>
+<td>A public field of the <code>WorkAction</code> base class. <code>true</code> by default; when <code>false</code>, <code>TrySkip()</code> returns <code>false</code> and the action keeps running. <code>AsSkippableWorkAction()</code> sets it to <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Completed</strong></td>
+<td>Raised when the work action finishes, including when it is skipped. Subscribe to the last action of a chain to know when the whole chain is done.</td>
+</tr>
+<tr>
+<td><strong>Canceled</strong></td>
+<td>Raised when the work action is aborted.</td>
+</tr>
+<tr>
+<td><strong>Skipped</strong></td>
+<td>Raised when the work action is skipped, just before <code>Completed</code>.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>When you cancel a chain through its last action, the step that was running is aborted and raises <code>Canceled</code>, but the steps after it, including the last action, stay in <code>Waiting</code> and raise nothing. Keep your own record that you canceled it, for example by setting the field that holds the chain to <code>null</code>.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Release builds of the engine ignore <code>Cancel()</code> and <code>TrySkip()</code> on an action that never started, has already finished or was already canceled. Debug builds of the engine throw a <code>NotSupportedException</code> instead. Check <code>State</code> before you call them if the action may have ended on its own.</p>
+</div>
+<h2 id="create-work-actions">Create work actions</h2>
+<p><code>WorkActionFactory</code> adds two groups of extension methods. The first group, on <code>Scene</code>, creates the first action of a composition:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>CreateEmptyWorkAction()</strong></td>
+<td>An action that completes as soon as it runs. A neutral first step when you build a chain in a loop.</td>
+</tr>
+<tr>
+<td><strong>CreateDelayWorkAction(TimeSpan)</strong></td>
+<td>Waits for a time. <code>CreateWaitWorkAction</code> does the same.</td>
+</tr>
+<tr>
+<td><strong>CreateWorkActionFromAction(Action)</strong></td>
+<td>Calls a method and completes.</td>
+</tr>
+<tr>
+<td><strong>CreateWaitConditionWorkAction(Func&lt;bool&gt;, eventCount)</strong></td>
+<td>Waits until a condition holds. See <a href="#wait-for-a-condition">Wait for a condition</a>.</td>
+</tr>
+<tr>
+<td><strong>CreateWorkAction(Func&lt;IWorkAction&gt;)</strong></td>
+<td>Calls the function when it runs and runs the action it returns. See <a href="#create-work-actions-when-they-run">Create work actions when they run</a>.</td>
+</tr>
+<tr>
+<td><strong>CreateWorkAction(IWorkAction)</strong></td>
+<td>Wraps an existing action.</td>
+</tr>
+<tr>
+<td><strong>CreateParallelWorkActions(...)</strong></td>
+<td>Runs several actions at the same time. See <a href="#run-work-actions-in-parallel">Run work actions in parallel</a>.</td>
+</tr>
+<tr>
+<td><strong>CreateLoopWorkActionUntil(Func&lt;IWorkAction&gt;, Func&lt;bool&gt;)</strong></td>
+<td>Repeats a composition until a condition holds. See <a href="#loops">Loops</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>The <a href="animation_work_actions.html">animation work actions</a>, and any <a href="custom_work_actions.html">custom work action</a>, are also valid first actions: you create them with <code>new</code>.</p>
+<p>The second group, on <code>IWorkAction</code>, adds a step after an existing action and returns the new step, so the calls chain:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ContinueWith(IWorkAction)</strong></td>
+<td>Runs an action after this one. The action must not have run yet.</td>
+</tr>
+<tr>
+<td><strong>ContinueWith(Func&lt;IWorkAction&gt;)</strong></td>
+<td>When this action completes, calls the function and runs the action it returns.</td>
+</tr>
+<tr>
+<td><strong>ContinueWithAction(Action)</strong></td>
+<td>Calls a method after this action.</td>
+</tr>
+<tr>
+<td><strong>Delay(TimeSpan)</strong></td>
+<td>Waits for a time after this action.</td>
+</tr>
+<tr>
+<td><strong>AndWaitCondition(Func&lt;bool&gt;, eventCount)</strong></td>
+<td>Waits for a condition after this action.</td>
+</tr>
+<tr>
+<td><strong>ContinueWith(params IWorkAction[])</strong></td>
+<td>Runs several actions at the same time after this one. Returns an <code>IWorkActionSet</code>. <code>CreateParallelWorkActions(IEnumerable&lt;IWorkAction&gt;)</code> on an <code>IWorkAction</code> does the same.</td>
+</tr>
+<tr>
+<td><strong>AsSkippableWorkAction()</strong></td>
+<td>Sets <code>IsSkippable</code> to <code>true</code> and returns the same action.</td>
+</tr>
+</tbody>
+</table>
+<p>They are extension methods, so call them on a scene (<code>this.Owner.Scene.CreateDelayWorkAction(...)</code>) or on a work action, after adding <code>using Evergine.Components.WorkActions;</code>.</p>
+<h2 id="sequences">Sequences</h2>
+<p>Each <code>ContinueWith</code>, <code>ContinueWithAction</code>, <code>Delay</code> or <code>AndWaitCondition</code> call returns a new step that waits for the one before it. Keep the last step, and run it:</p>
+<pre><code class="lang-csharp">Scene scene = this.Owner.Scene;
+
+IWorkAction sequence = scene.CreateWorkActionFromAction(() =&gt; this.ShowMessage(&quot;Ready?&quot;))
+    .Delay(TimeSpan.FromSeconds(1))
+    .ContinueWithAction(() =&gt; this.ShowMessage(&quot;Go!&quot;))
+    .ContinueWith(new MoveTo3DWorkAction(this.Owner, this.target, TimeSpan.FromSeconds(2), EaseFunction.QuadraticInOutEase))
+    .ContinueWithAction(() =&gt; this.ShowMessage(&quot;Done&quot;));
+
+sequence.Completed += (action) =&gt; this.OnSequenceFinished();
+sequence.Run();
+</code></pre>
+<p><code>ContinueWith(IWorkAction)</code> wraps the action you pass into a new step, so the <code>IWorkAction</code> it returns is that step, not your action. The events of your action still fire, which is useful when you need to know when one particular step ends.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><code>TrySkip()</code> on a chain skips the step that is running. If that step is the first action of the chain, it is skipped itself: an <a href="animation_work_actions.html">animation work action</a> jumps to its end value. Every later step is a wrapper, and skipping a wrapper cancels the action inside it, so an animation in a later step stops where it is instead of jumping to its end value, and the wrapper raises <code>Canceled</code> before <code>Skipped</code> and <code>Completed</code>. The chain then continues with the next step either way.</p>
+</div>
+<h2 id="run-work-actions-in-parallel">Run work actions in parallel</h2>
+<p><code>ContinueWith</code> with several actions, or <code>CreateParallelWorkActions</code> on a scene, returns an <code>IWorkActionSet</code>. A set is not a work action yet: you choose when it counts as done, and that choice is the <code>IWorkAction</code> you continue from.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>WaitAll()</strong></td>
+<td>Completes when every action of the set has completed.</td>
+</tr>
+<tr>
+<td><strong>WaitAny()</strong></td>
+<td>Completes when the first action of the set completes. The others keep running.</td>
+</tr>
+<tr>
+<td><strong>WaitCount(int)</strong></td>
+<td>Completes when that many actions of the set have completed. After another work action, the count must be between 0 and the number of actions, or it throws an <code>ArgumentOutOfRangeException</code>.</td>
+</tr>
+<tr>
+<td><strong>WaitPredicate(...)</strong></td>
+<td>Not implemented; it throws a <code>NotImplementedException</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>When the set runs, it runs all of its actions at once. Canceling the set cancels the ones still running.</p>
+<pre><code class="lang-csharp">IWorkAction intro = new MoveTo3DWorkAction(panel, slotPosition, TimeSpan.FromSeconds(0.5), EaseFunction.QuadraticOutEase)
+    .Delay(TimeSpan.FromSeconds(0.2))
+    .ContinueWith(
+        new RotateTo3DWorkAction(panel, new Vector3(0, MathHelper.Pi, 0), TimeSpan.FromSeconds(1), EaseFunction.SineInOutEase),
+        new ScaleTo3DWorkAction(panel, new Vector3(1.5f), TimeSpan.FromSeconds(0.6), EaseFunction.BackOutEase))
+    .WaitAll()
+    .ContinueWithAction(() =&gt; this.EnableButtons());
+
+intro.Run();
+</code></pre>
+<p>This is the composition in the diagram on the <a href="index.html">Work Actions</a> page: the rotation and the scale start together, and <code>EnableButtons</code> runs after the longer of the two.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>On the current engine version a set only counts completed actions. If one of its actions is canceled, <code>WaitAll()</code> never completes, and neither does the rest of the chain. Cancel the set, not the actions inside it.</p>
+</div>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>On the current engine version the overloads that take generators, <code>ContinueWith(params Func&lt;IWorkAction&gt;[])</code> and <code>CreateParallelWorkActions</code> with <code>Func&lt;IWorkAction&gt;</code> arguments, throw a <code>NullReferenceException</code> when the set runs. To build the actions of a set when it runs, wrap each generator in <code>CreateWorkAction</code> and pass the resulting actions instead:</p>
+<pre><code class="lang-csharp">scene.CreateParallelWorkActions(
+        scene.CreateWorkAction(() =&gt; new MoveTo3DWorkAction(left, this.NextLeftSlot(), duration)),
+        scene.CreateWorkAction(() =&gt; new MoveTo3DWorkAction(right, this.NextRightSlot(), duration)))
+    .WaitAll()
+    .Run();
+</code></pre>
+</div>
+<h2 id="create-work-actions-when-they-run">Create work actions when they run</h2>
+<p>The overloads that take a <code>Func&lt;IWorkAction&gt;</code> call it when the step starts, not when you build the chain. Use them when the action depends on something that is only known by then, such as where an entity has moved to, or when you build a composition once and the step must be created again each time it runs:</p>
+<pre><code class="lang-csharp">IWorkAction delivery = new MoveTo3DWorkAction(drone, pickupPoint, TimeSpan.FromSeconds(3), EaseFunction.SineInOutEase)
+    .ContinueWithAction(() =&gt; this.AttachParcel())
+    // The destination is read when the drone has the parcel, not when the chain is built.
+    .ContinueWith(() =&gt; new MoveTo3DWorkAction(drone, this.GetDropPoint(), TimeSpan.FromSeconds(3), EaseFunction.SineInOutEase));
+
+delivery.Run();
+</code></pre>
+<p>The function must return a new action, never <code>null</code>, or the step throws a <code>NullReferenceException</code>.</p>
+<h2 id="wait-for-a-condition">Wait for a condition</h2>
+<p><code>CreateWaitConditionWorkAction</code> and <code>AndWaitCondition</code> wait until a predicate returns <code>true</code>. The <code>WorkActionScheduler</code> evaluates the predicate once per frame while the action runs, and the action completes on the frame where the predicate has returned <code>true</code> <code>eventCount</code> times, which by default is the first time. The frames do not have to be consecutive.</p>
+<pre><code class="lang-csharp">// Show the next hint once the user has picked up the key.
+IWorkAction tutorial = scene.CreateWorkActionFromAction(() =&gt; this.ShowHint(&quot;Pick up the key&quot;))
+    .AndWaitCondition(() =&gt; this.inventory.Contains(&quot;key&quot;))
+    .ContinueWithAction(() =&gt; this.ShowHint(&quot;Now open the door&quot;));
+
+tutorial.Run();
+</code></pre>
+<p>The predicate runs every frame, so keep it cheap.</p>
+<h2 id="loops">Loops</h2>
+<p><code>CreateLoopWorkActionUntil</code> repeats a composition until a condition holds. It takes a generator, because each iteration needs new work actions, and the condition, which it checks before each iteration:</p>
+<pre><code class="lang-csharp">IWorkAction patrol = scene.CreateLoopWorkActionUntil(
+    () =&gt; new MoveTo3DWorkAction(guard, pointA, TimeSpan.FromSeconds(4), EaseFunction.SineInOutEase)
+        .ContinueWith(new MoveTo3DWorkAction(guard, pointB, TimeSpan.FromSeconds(4), EaseFunction.SineInOutEase)),
+    () =&gt; this.alarmRaised);
+
+patrol.Run();
+</code></pre>
+<p>When the condition becomes <code>true</code>, the loop finishes the iteration in progress and completes. To stop it at once, call <code>Cancel()</code> on the loop. A condition that always returns <code>false</code> gives a loop that runs until you cancel it.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Each iteration runs inside the one before it, and stays running until the whole loop ends. A loop that runs for a long time therefore keeps a few work actions per iteration alive in the <code>WorkActionScheduler</code>, and when it finally completes, the completion travels back through every iteration at once. Use <code>CreateLoopWorkActionUntil</code> for loops with a bounded number of iterations. For a motion that repeats indefinitely, build one cycle and build it again from its <code>Completed</code> event, as the <a href="#example-an-automatic-door">example below</a> does.</p>
+</div>
+<h2 id="work-actions-and-scenes">Work actions and scenes</h2>
+<p>Every work action belongs to a scene, given by the <code>Scene</code> you call a factory method on, by the entity of an animation work action or by its parent. When the <code>ScreenContextManager</code> deactivates a scene, the <code>WorkActionScheduler</code> cancels the work actions of that scene that are running, so a chain does not outlive the scene that started it.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The <code>WorkActionScheduler</code> only follows the scenes that start after it has been created, and the container creates it the first time something asks for it, usually the first work action you run. If your first scene starts before that, its work actions are not canceled when you leave it. Ask for the scheduler in the <code>Initialize</code> method of your application, as shown in <a href="index.html#setup">Setup</a>.</p>
+</div>
+<p>An animation work action takes the scene of its entity when you construct it. Create work actions once the entity is in a scene, for example in <code>OnActivated</code> or <code>Start</code> of a component, not in its constructor; an action created without a scene keeps running when the scene is deactivated.</p>
+<h2 id="example-an-automatic-door">Example: an automatic door</h2>
+<p>This component opens a sliding door when the camera comes near and closes it after the camera leaves. It combines conditions and a delay into one cycle, and starts a new cycle each time one completes, until the component is deactivated:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.WorkActions;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class AutomaticDoor : Component
+{
+    [BindComponent]
+    private Transform3D transform = null;
+
+    private Vector3 closedPosition;
+    private Vector3 openPosition;
+    private IWorkAction cycle;
+
+    public float OpenDistance { get; set; } = 3f;
+
+    public float SlideHeight { get; set; } = 2.5f;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+
+        this.closedPosition = this.transform.LocalPosition;
+        this.openPosition = this.closedPosition + new Vector3(0, this.SlideHeight, 0);
+        this.StartCycle();
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+
+        IWorkAction current = this.cycle;
+        this.cycle = null;
+
+        // Canceling the last step stops the step that is running; the rest of the cycle never starts.
+        if (current?.State == WorkActionState.Waiting || current?.State == WorkActionState.Running)
+        {
+            current.Cancel();
+        }
+
+        // Leave the door closed, so OnActivated reads the right position next time.
+        this.transform.LocalPosition = this.closedPosition;
+    }
+
+    private void StartCycle()
+    {
+        this.cycle = this.Owner.Scene.CreateWaitConditionWorkAction(() =&gt; this.DistanceToCamera() &lt; this.OpenDistance)
+            .ContinueWith(new MoveTo3DWorkAction(this.Owner, this.openPosition, TimeSpan.FromSeconds(0.6), EaseFunction.CubicOutEase, local: true))
+            // A larger distance to close than to open, so the door does not flicker at the edge.
+            .AndWaitCondition(() =&gt; this.DistanceToCamera() &gt; this.OpenDistance + 1)
+            .Delay(TimeSpan.FromSeconds(1))
+            .ContinueWith(new MoveTo3DWorkAction(this.Owner, this.closedPosition, TimeSpan.FromSeconds(0.8), EaseFunction.QuadraticInOutEase, local: true));
+
+        // Build a new cycle when this one ends. A canceled cycle never completes, so this stops by itself.
+        this.cycle.Completed += (action) =&gt; this.StartCycle();
+        this.cycle.Run();
+    }
+
+    private float DistanceToCamera()
+    {
+        Camera3D camera = this.Managers.RenderManager.ActiveCamera3D;
+        return camera == null ? float.MaxValue : Vector3.Distance(camera.Transform.Position, this.transform.Position);
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

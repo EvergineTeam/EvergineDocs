@@ -1,0 +1,233 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Texture Editor | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Texture Editor | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="texture-editor">Texture Editor</h1>
+
+<hr>
+<p><img src="Images/textureEditor.png" alt="The Texture Editor with a cubemap open: viewport, toolbox with the channel, mip level and slice controls, and properties"></p>
+<p>The <strong>Texture Editor</strong> previews a texture and edits its import settings. Double-click a texture in <a href="../../evergine_studio/interface.html">Assets Details</a> to open it. It has three parts: the viewport, the toolbox and the properties.</p>
+<h2 id="viewport">Viewport</h2>
+<p>Shows the texture with the current settings, and a label with its type, size in pixels, pixel format and size on disk, for example <em>Texture2D 4096x4096 px R8G8B8A8_UNorm</em>.</p>
+<h2 id="toolbox">Toolbox</h2>
+<table>
+<thead>
+<tr>
+<th>Item</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><img src="Images/toolboxChannelSelector.png" alt="Channel buttons"></td>
+<td>Show or hide the red, green, blue and alpha channels.</td>
+</tr>
+<tr>
+<td><img src="Images/toolboxMipmapping.png" alt="Mip level slider"></td>
+<td>Mip level to show. Hidden for textures without mipmaps.</td>
+</tr>
+<tr>
+<td>Slice</td>
+<td>Array slice or depth slice to show, for array and 3D textures.</td>
+</tr>
+<tr>
+<td>Range</td>
+<td>Range of values mapped to black and white. Use it to inspect HDR textures, whose values go beyond 1, and data textures that use a small part of the range.</td>
+</tr>
+<tr>
+<td><img src="Images/toolboxBackground.png" alt="Background color"></td>
+<td>Background color of the viewport, to judge transparency.</td>
+</tr>
+<tr>
+<td>RenderDoc</td>
+<td>Capture a frame of the viewport with <a href="../../evergine_studio/renderdoc.html">RenderDoc</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="properties">Properties</h2>
+<p>These settings are the same for every profile:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>GenerateMipmaps</strong></td>
+<td>true</td>
+<td>Generate the mipmap chain on import. Turn it off for UI images and textures always shown at their full size.</td>
+</tr>
+<tr>
+<td><strong>PremultipliedAlpha</strong></td>
+<td>true</td>
+<td>Multiply the color channels by alpha on import, which gives correct filtering and blending at transparent edges.</td>
+</tr>
+<tr>
+<td><strong>Sampler</strong></td>
+<td></td>
+<td>The <a href="../samplers.html">sampler</a> the texture uses by default.</td>
+</tr>
+<tr>
+<td><strong>NinePatchType</strong></td>
+<td><code>None</code></td>
+<td><code>None</code> or <code>FromTexture</code>. Reserved for nine-patch scaling of UI images; the engine does not use it yet.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="profile-properties">Profile properties</h2>
+<p>These settings can differ per <a href="../../evergine_studio/settings/project_profiles.html">profile</a>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ScalingType</strong></td>
+<td><code>Original</code></td>
+<td>How the image is resized on export: <code>Original</code> keeps its size; <code>Percentage</code> scales it by <strong>ScaledPercentage</strong>; <code>Freeform</code> sets <strong>ScaledWidth</strong> and <strong>ScaledHeight</strong>; <code>PowerOfTwo</code> rounds each side to a power of two; <code>SquarePowerOfTwo</code> makes it a square power of two.</td>
+</tr>
+<tr>
+<td><strong>ScaledPercentage</strong></td>
+<td>1</td>
+<td>Scale factor for <code>Percentage</code>, from 0.1 to 2.</td>
+</tr>
+<tr>
+<td><strong>ScaledWidth</strong></td>
+<td>image width</td>
+<td>Width for <code>Freeform</code>.</td>
+</tr>
+<tr>
+<td><strong>ScaledHeight</strong></td>
+<td>image height</td>
+<td>Height for <code>Freeform</code>.</td>
+</tr>
+<tr>
+<td><strong>PixelFormat</strong></td>
+<td>from the image</td>
+<td>Pixel format of the exported texture, for example <code>R8G8B8A8_UNorm</code> or a block-compressed format. Choosing an sRGB format tells the GPU the texture holds gamma-encoded color.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

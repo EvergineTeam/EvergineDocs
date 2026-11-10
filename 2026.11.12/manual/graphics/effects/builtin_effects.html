@@ -1,0 +1,577 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Built-in Effects | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Built-in Effects | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="built-in-effects">Built-in Effects</h1>
+
+<hr>
+<p>The <a href="../evergine_core.html">Evergine.Core package</a>, which every project references, includes the effects the engine and its components need. You use most of them indirectly: the Standard effect through the default material, the particle effect through particle systems, the text effect through <code>Text3D</code>. This page describes what each one is for and the parameters you can set on its materials.</p>
+<table>
+<thead>
+<tr>
+<th>Effect</th>
+<th>Used by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#standard-effect">Standard</a></td>
+<td>The default material and most imported materials.</td>
+</tr>
+<tr>
+<td><a href="#sss-effect">SSS</a></td>
+<td>Skin and other translucent materials, with the <a href="../postprocessing_graph/default_postprocessing_graph/subsurface_scattering.html">SSS post-processing effect</a>.</td>
+</tr>
+<tr>
+<td><a href="#distortion-effect">Distortion</a></td>
+<td>Heat haze, glass and other refractive surfaces.</td>
+</tr>
+<tr>
+<td><a href="#skybox-effect">Skybox</a></td>
+<td>Skies from an equirectangular HDR image.</td>
+</tr>
+<tr>
+<td><a href="#atmospheric-effect">Atmospheric</a></td>
+<td>The procedural sky of the <a href="../environment/sky_atmosphere.html">sky atmosphere</a>.</td>
+</tr>
+<tr>
+<td><a href="#billboard-effect">Billboard</a></td>
+<td><a href="../billboard/index.html">Billboards</a>.</td>
+</tr>
+<tr>
+<td><a href="#particles-effect">Particles</a></td>
+<td><a href="../particles/index.html">Particle systems</a>.</td>
+</tr>
+<tr>
+<td><a href="#sdftext-effect">SDFText</a></td>
+<td><a href="../fonts/index.html">3D text</a>.</td>
+</tr>
+<tr>
+<td><a href="#line-effect">Line</a></td>
+<td><a href="../lines_3d.html">Line meshes</a>.</td>
+</tr>
+<tr>
+<td>LineBatch, RenderQuad, BackgroundImage</td>
+<td>Internal: the <a href="../linebatch/index.html">line batch</a>, the copy of each camera's image to its target, and texture previews in Evergine Studio.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="standard-effect">Standard Effect</h2>
+<p>The Standard effect is a physically based metallic-roughness shader. It is what the <strong>DefaultMaterial</strong> of Evergine.Core uses, and the defaults below are that material's values.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Lighting enabled</strong></td>
+<td>On</td>
+<td>Whether the material is lit by the scene's lights. Unlit materials show their base color as is. <br> <img src="images/DefaultMaterialLightOnOff.png" alt="A sphere unlit on the left and lit on the right"></td>
+</tr>
+<tr>
+<td><strong>IBL enabled</strong></td>
+<td>On</td>
+<td>Whether the material reflects the environment. <br> <img src="images/DefaultMaterialIBLOnOff.png" alt="A sphere without image-based lighting on the left and with it on the right"></td>
+</tr>
+<tr>
+<td><strong>Base Color</strong></td>
+<td>White</td>
+<td>Color of the surface.</td>
+</tr>
+<tr>
+<td><strong>Alpha</strong></td>
+<td>1</td>
+<td>Opacity. It only has an effect with a render layer that blends, such as <strong>Alpha</strong>. <br> <img src="images/DefaultMaterialAlphaOnOff.png" alt="Spheres with decreasing alpha"></td>
+</tr>
+<tr>
+<td><strong>Vertex Color</strong></td>
+<td>Off</td>
+<td>Multiply the base color by the vertex colors of the mesh.</td>
+</tr>
+<tr>
+<td><strong>Base Color Texture</strong></td>
+<td>none</td>
+<td>Albedo texture.</td>
+</tr>
+<tr>
+<td><strong>Base Color Sampler</strong></td>
+<td>none</td>
+<td>Sampler for the albedo texture.</td>
+</tr>
+<tr>
+<td><strong>UVOffset0</strong></td>
+<td>(0, 0)</td>
+<td>Offset added to the texture coordinates. Animate it to scroll a texture.</td>
+</tr>
+<tr>
+<td><strong>Texture Tiling</strong></td>
+<td>(1, 1)</td>
+<td>Scale of the texture coordinates: (2, 2) repeats textures twice in each direction. Use a wrapping <a href="../samplers.html">sampler</a> to tile.</td>
+</tr>
+<tr>
+<td><strong>Texture Rotation</strong></td>
+<td>0</td>
+<td>Rotation of the texture coordinates, in degrees in Evergine Studio and radians in code.</td>
+</tr>
+<tr>
+<td><strong>Metallic</strong></td>
+<td>0</td>
+<td>From 0 (dielectric: plastic, wood, stone) to 1 (metal). Real materials are almost always one or the other. <br> <img src="images/DefaultMaterialMetallic.png" alt="Spheres with increasing metallic"></td>
+</tr>
+<tr>
+<td><strong>Roughness</strong></td>
+<td>0</td>
+<td>From 0 (mirror-smooth) to 1 (fully rough). <br> <img src="images/DefaultMaterialRoughness.png" alt="Spheres with increasing roughness"></td>
+</tr>
+<tr>
+<td><strong>Reflectance</strong></td>
+<td>0.5</td>
+<td>Reflectance of dielectrics at normal incidence, in place of an index of refraction. 0.5 (4%) suits most materials. <br> <img src="images/DefaultMaterialReflectance.png" alt="Spheres with increasing reflectance"></td>
+</tr>
+<tr>
+<td><strong>Alpha Cutout</strong></td>
+<td>0</td>
+<td>Pixels with alpha below this value are discarded. Any value above 0 enables alpha testing, for foliage and fences. <strong>Reference Alpha</strong> edits the same value without switching alpha testing on.</td>
+</tr>
+<tr>
+<td><strong>AllowInstancing</strong></td>
+<td>Off</td>
+<td>Let meshes that share this material be drawn with instancing.</td>
+</tr>
+<tr>
+<td><strong>OrderBias</strong></td>
+<td>0</td>
+<td>Moves the material earlier or later within its render layer.</td>
+</tr>
+<tr>
+<td><strong>LayerDescription</strong></td>
+<td>Opaque</td>
+<td>The <a href="../renderlayers/index.html">render layer</a> the material is drawn in.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="metallic-and-roughness-map">Metallic and roughness map</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MetalRoughness Texture</strong></td>
+<td>Metallic in the blue channel and roughness in the green channel, per pixel, instead of the constant values above.</td>
+</tr>
+<tr>
+<td><strong>MetalRoughness Sampler</strong></td>
+<td>Sampler for the texture.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="normal-map">Normal map</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Normal Texture</strong></td>
+<td>Tangent-space normal map, which adds surface detail without more polygons.</td>
+</tr>
+<tr>
+<td><strong>Normal Sampler</strong></td>
+<td>Sampler for the texture.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="ambient-occlusion-map">Ambient occlusion map</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Occlusion Texture</strong></td>
+<td>How much ambient light reaches each point, in the red channel, from 0 (none) to 1 (all).</td>
+</tr>
+<tr>
+<td><strong>Occlusion Sampler</strong></td>
+<td>Sampler for the texture.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="emissive">Emissive</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Emissive Color</strong></td>
+<td>Color of the light the surface emits, for screens, neon and lamps. It is added on top of the lit color.</td>
+</tr>
+<tr>
+<td><strong>Emissive Compensation</strong></td>
+<td>Exposure compensation of the emission, in EV. Positive values make the surface brighter than the camera exposure would; negative values darker. With <a href="../postprocessing_graph/default_postprocessing_graph/bloom.html">bloom</a>, bright emission glows.</td>
+</tr>
+<tr>
+<td><strong>Emissive Texture</strong></td>
+<td>Per-pixel emission color.</td>
+</tr>
+<tr>
+<td><strong>Emissive Sampler</strong></td>
+<td>Sampler for the texture.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="clear-coat">Clear coat</h3>
+<p>A clear coat is a thin, transparent varnish over the base layer, as on car paint or lacquered wood.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ClearCoat</strong></td>
+<td>Strength of the clear coat, from 0 to 1.</td>
+</tr>
+<tr>
+<td><strong>ClearCoat Roughness</strong></td>
+<td>Roughness of the clear coat, from 0 to 1.</td>
+</tr>
+<tr>
+<td><strong>ClearCoat Normal Texture</strong></td>
+<td>Normal map for the clear coat, independent of the base layer's.</td>
+</tr>
+<tr>
+<td><strong>ClearCoat Normal Sampler</strong></td>
+<td>Sampler for the texture.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="sss-effect">SSS Effect</h2>
+<p>A variant of the Standard effect for materials where light scatters under the surface, such as skin, wax or marble. It has the same base parameters plus:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SSSScatter</strong></td>
+<td>0.03</td>
+<td>How far light scatters under the surface. Requires the <strong>SSSScatter</strong> directive.</td>
+</tr>
+<tr>
+<td><strong>SSSIntensity</strong></td>
+<td>0.1</td>
+<td>Strength of the scattering.</td>
+</tr>
+<tr>
+<td><strong>SSSTranslucency</strong></td>
+<td>(0.64, 0.094, 0.063)</td>
+<td>Color of light passing through thin parts. Requires the <strong>SSSTranslucency</strong> directive.</td>
+</tr>
+<tr>
+<td><strong>SSSBias</strong></td>
+<td>0.005</td>
+<td>Depth bias used to estimate thickness for translucency.</td>
+</tr>
+<tr>
+<td><strong>SSSScatterTexture</strong>, <strong>SSSTranslucencyTexture</strong></td>
+<td>none</td>
+<td>Per-pixel versions of the two effects.</td>
+</tr>
+</tbody>
+</table>
+<p>The scattering itself is computed by the <a href="../postprocessing_graph/default_postprocessing_graph/subsurface_scattering.html">Subsurface Scattering</a> post-processing effect, which must be enabled.</p>
+<h2 id="distortion-effect">Distortion Effect</h2>
+<p>Offsets the image behind the surface, for heat haze, glass or water. The material writes the offset into the GBuffer, and the <strong>Distortion</strong> option of the <a href="../postprocessing_graph/default_postprocessing_graph/tonemapping.html#distortion">tone mapping</a> node applies it, so that option must be enabled. Evergine.Core includes a ready material, <strong>DistortionMat</strong>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Intensity</strong></td>
+<td>1</td>
+<td>Strength of the distortion.</td>
+</tr>
+<tr>
+<td><strong>Distortion Texture</strong></td>
+<td>none</td>
+<td>Texture that encodes how far each point offsets the image behind it.</td>
+</tr>
+<tr>
+<td><strong>Sampler</strong></td>
+<td>none</td>
+<td>Sampler for the texture.</td>
+</tr>
+<tr>
+<td><strong>LayerDescription</strong></td>
+<td></td>
+<td>The render layer of the material.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="skybox-effect">Skybox Effect</h2>
+<p>Draws an equirectangular (360°) texture as the sky, usually on a large sphere in the <strong>Skybox</strong> render layer. <a href="../environment/environment_textures.html">Environment Textures</a> shows how to use it for image-based lighting.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Texture</strong></td>
+<td>none</td>
+<td>The equirectangular texture, ideally HDR.</td>
+</tr>
+<tr>
+<td><strong>Intensity</strong></td>
+<td>1</td>
+<td>Brightness multiplier of the sky.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="atmospheric-effect">Atmospheric Effect</h2>
+<p>Renders the physically based sky of the <a href="../environment/sky_atmosphere.html">sky atmosphere</a>, with the sun disk.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SunDisk</strong></td>
+<td>directive</td>
+<td>Draw the sun disk.</td>
+</tr>
+<tr>
+<td><strong>SunSize</strong></td>
+<td>0.02</td>
+<td>Angular size of the sun disk.</td>
+</tr>
+<tr>
+<td><strong>SunSizeConvergence</strong></td>
+<td>500</td>
+<td>Sharpness of the sun disk's edge.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="billboard-effect">Billboard Effect</h2>
+<p>Draws <a href="../billboard/index.html">billboards</a>: textured quads that face the camera. Its only resource is the billboard texture.</p>
+<h2 id="particles-effect">Particles Effect</h2>
+<p>Draws <a href="../particles/index.html">particle systems</a>. Its directives are set by the particle system from its properties: a texture (<code>Diffuse</code>), rotation (<code>Angle</code>), local or world space (<code>Space</code>), GPU simulation (<code>SBuffer</code>) and highlight preservation for additive particles (<code>PreserveHighlights</code>).</p>
+<h2 id="sdftext-effect">SDFText Effect</h2>
+<p>Draws text from a signed distance field font atlas, which stays sharp at any size. <code>Text3D</code> uses it.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ForegroundColor</strong></td>
+<td>White</td>
+<td>Text color.</td>
+</tr>
+<tr>
+<td><strong>Thickness</strong></td>
+<td>0.7</td>
+<td>Distance threshold of the glyph edge, which sets the weight of the text.</td>
+</tr>
+<tr>
+<td><strong>PxRange</strong></td>
+<td>1</td>
+<td>Distance range of the atlas, in pixels.</td>
+</tr>
+<tr>
+<td><strong>TextureSize</strong></td>
+<td>(256, 256)</td>
+<td>Size of the atlas texture.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="line-effect">Line Effect</h2>
+<p>Draws <a href="../lines_3d.html">line meshes</a>.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DiffuseTexture</strong></td>
+<td>none</td>
+<td>Texture along the line, with the <code>Diffuse</code> directive.</td>
+</tr>
+<tr>
+<td><strong>TextureOffset</strong></td>
+<td>(0, 0)</td>
+<td>Offset of the texture coordinates.</td>
+</tr>
+<tr>
+<td><strong>TextureTiling</strong></td>
+<td>(1, 1)</td>
+<td>Tiling of the texture coordinates.</td>
+</tr>
+<tr>
+<td><strong>Align</strong></td>
+<td>directive</td>
+<td>Orient the line towards the camera.</td>
+</tr>
+</tbody>
+</table>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

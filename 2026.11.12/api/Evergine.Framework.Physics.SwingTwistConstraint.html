@@ -1,0 +1,859 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SwingTwistConstraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SwingTwistConstraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.SwingTwistConstraint">
+
+
+
+  <h1 id="Evergine_Framework_Physics_SwingTwistConstraint" data-uid="Evergine.Framework.Physics.SwingTwistConstraint" class="text-break">Class SwingTwistConstraint</h1>
+  <div class="markdown level0 summary"><p>Holds two bodies at a point and limits how far one may swing away from an axis and how far it may twist
+around it. This is the joint a shoulder or a hip is built from, and what ragdolls are made of.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Physics.Constraint.html">Constraint</a></div>
+    <div class="level7"><span class="xref">SwingTwistConstraint</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Transform3D">Constraint.Transform3D</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Body">Constraint.Body</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Broken">Constraint.Broken</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedEntity">Constraint.ConnectedEntity</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedEntityPath">Constraint.ConnectedEntityPath</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedBody">Constraint.ConnectedBody</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Anchor">Constraint.Anchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_AutoConfigureConnectedAnchor">Constraint.AutoConfigureConnectedAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedAnchor">Constraint.ConnectedAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_CollideConnected">Constraint.CollideConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsBreakable">Constraint.IsBreakable</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_BreakForce">Constraint.BreakForce</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_BreakTorque">Constraint.BreakTorque</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsHolding">Constraint.IsHolding</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Priority">Constraint.Priority</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_SolverVelocityIterationsOverride">Constraint.SolverVelocityIterationsOverride</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_SolverPositionIterationsOverride">Constraint.SolverPositionIterationsOverride</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_AppliedForce">Constraint.AppliedForce</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_AppliedTorque">Constraint.AppliedTorque</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsBroken">Constraint.IsBroken</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_NativeConstraint">Constraint.NativeConstraint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsCreated">Constraint.IsCreated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_PhysicsManager">Constraint.PhysicsManager</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_WorldAnchor">Constraint.WorldAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_WorldConnectedAnchor">Constraint.WorldConnectedAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Recreate">Constraint.Recreate()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_OnActivated">Constraint.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_OnDeactivated">Constraint.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_OnDetached">Constraint.OnDetached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_WakeBodies">Constraint.WakeBodies()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ResolveConnectedBody">Constraint.ResolveConnectedBody()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_SwingTwistConstraint_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SwingTwistConstraint : Constraint, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_SwingTwistConstraint_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>The swing and the twist each have a motor, so the joint can be left to hang, spun at a speed, or held at a
+pose. Holding it at a pose is what turns a ragdoll from something that only falls over into something that
+can be driven towards an animation.</p>
+</div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_MaxFrictionTorque_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MaxFrictionTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_MaxFrictionTorque" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MaxFrictionTorque">MaxFrictionTorque</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the friction torque resisting the joint, in newton meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, Tooltip = &quot;Friction torque resisting the joint, in newton meters.&quot;)]
+public float MaxFrictionTorque { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_MaxSwingTorque_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MaxSwingTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_MaxSwingTorque" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MaxSwingTorque">MaxSwingTorque</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the strongest torque the swing motor may apply, in newton meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, ShowConditionFunction = &quot;IsSwingMotorEnabled&quot;, Tooltip = &quot;Strongest torque the swing motor may apply, in newton meters.&quot;)]
+public float MaxSwingTorque { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SwingTwistConstraint_MaxSwingTorque_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Jolt has no way to change a swing twist motor once the joint exists, so setting this rebuilds it.
+Tune it while nothing is moving rather than every frame.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_MaxTwistTorque_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MaxTwistTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_MaxTwistTorque" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MaxTwistTorque">MaxTwistTorque</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the strongest torque the twist motor may apply, in newton meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, ShowConditionFunction = &quot;IsTwistMotorEnabled&quot;, Tooltip = &quot;Strongest torque the twist motor may apply, in newton meters.&quot;)]
+public float MaxTwistTorque { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SwingTwistConstraint_MaxTwistTorque_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>As with <a class="xref" href="Evergine.Framework.Physics.SwingTwistConstraint.html#Evergine_Framework_Physics_SwingTwistConstraint_MaxSwingTorque">MaxSwingTorque</a>, setting this rebuilds the joint.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_MotorSpring_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MotorSpring*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_MotorSpring" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MotorSpring">MotorSpring</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring the motors pull towards their target with. A higher frequency holds the pose
+more firmly and a lower one lets it sag.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(ShowConditionFunction = &quot;IsAnyMotorEnabled&quot;, Tooltip = &quot;Spring the motors pull towards their target with.&quot;)]
+public SpringParameters MotorSpring { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.SpringParameters.html">SpringParameters</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SwingTwistConstraint_MotorSpring_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is the knob worth turning per joint when a driven figure looks either stiff or floppy, and it also
+rebuilds the joint when it changes.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_MotorTorque_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MotorTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_MotorTorque" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.MotorTorque">MotorTorque</h4>
+  <div class="markdown level1 summary"><p>Gets how hard the motors are pulling, in newton meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float MotorTorque { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_NormalHalfConeAngle_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.NormalHalfConeAngle*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_NormalHalfConeAngle" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.NormalHalfConeAngle">NormalHalfConeAngle</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how far the body may swing out of the plane, in radians.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(FloatRadianToDegreeConverter), Tooltip = &quot;How far the body may swing out of the plane.&quot;)]
+public float NormalHalfConeAngle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_PlaneAxis_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.PlaneAxis*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_PlaneAxis" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.PlaneAxis">PlaneAxis</h4>
+  <div class="markdown level1 summary"><p>Gets or sets an axis perpendicular to <a class="xref" href="Evergine.Framework.Physics.SwingTwistConstraint.html#Evergine_Framework_Physics_SwingTwistConstraint_TwistAxis">TwistAxis</a>, which separates the two swing limits.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Axis perpendicular to the twist axis, separating the two swing limits.&quot;)]
+public Vector3 PlaneAxis { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_PlaneHalfConeAngle_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.PlaneHalfConeAngle*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_PlaneHalfConeAngle" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.PlaneHalfConeAngle">PlaneHalfConeAngle</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how far the body may swing within the plane, in radians.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(FloatRadianToDegreeConverter), Tooltip = &quot;How far the body may swing within the plane.&quot;)]
+public float PlaneHalfConeAngle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_SwingMotorMode_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.SwingMotorMode*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_SwingMotorMode" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.SwingMotorMode">SwingMotorMode</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how the motor drives the swing, which is where the joint points.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Off leaves the swing free, Velocity turns it, Position drives it to the target orientation.&quot;)]
+public MotorMode SwingMotorMode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.MotorMode.html">MotorMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SwingTwistConstraint_SwingMotorMode_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>The swing and the twist are driven by two separate motors, so an arm can be held out while the
+forearm is left to hang. Both read their target from <a class="xref" href="Evergine.Framework.Physics.SwingTwistConstraint.html#Evergine_Framework_Physics_SwingTwistConstraint_TargetOrientation">TargetOrientation</a> and
+<a class="xref" href="Evergine.Framework.Physics.SwingTwistConstraint.html#Evergine_Framework_Physics_SwingTwistConstraint_TargetAngularVelocity">TargetAngularVelocity</a>, each taking the part of it that belongs to them.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_TargetAngularVelocity_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TargetAngularVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_TargetAngularVelocity" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TargetAngularVelocity">TargetAngularVelocity</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the angular velocity the motors aim for while in <a class="xref" href="Evergine.Framework.Physics.MotorMode.html#Evergine_Framework_Physics_MotorMode_Velocity">Velocity</a>, in
+radians per second, in the space of the constraint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(ShowConditionFunction = &quot;IsAnyMotorEnabled&quot;, Tooltip = &quot;Angular velocity the motors aim for, in radians per second.&quot;)]
+public Vector3 TargetAngularVelocity { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_TargetOrientation_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TargetOrientation*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_TargetOrientation" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TargetOrientation">TargetOrientation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the orientation the motors drive towards while in <a class="xref" href="Evergine.Framework.Physics.MotorMode.html#Evergine_Framework_Physics_MotorMode_Position">Position</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion TargetOrientation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SwingTwistConstraint_TargetOrientation_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>This is the rotation of the connected body relative to this one, measured in the space of the
+constraint rather than in the space of either entity: the identity holds the joint at the pose it was
+created in, whatever way its axes happen to point in the world. Driving a whole figure to an animated
+pose means writing one of these per joint, which is what makes a ragdoll follow an animation instead of
+only falling over.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_TwistAxis_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TwistAxis*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_TwistAxis" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TwistAxis">TwistAxis</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the axis the body twists around, in the local space of its entity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Axis the body twists around, relative to its entity.&quot;)]
+public Vector3 TwistAxis { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_TwistMaxAngle_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TwistMaxAngle*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_TwistMaxAngle" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TwistMaxAngle">TwistMaxAngle</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the highest twist angle, in radians.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(FloatRadianToDegreeConverter), Tooltip = &quot;Highest twist angle around the twist axis.&quot;)]
+public float TwistMaxAngle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_TwistMinAngle_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TwistMinAngle*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_TwistMinAngle" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TwistMinAngle">TwistMinAngle</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the lowest twist angle, in radians.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(FloatRadianToDegreeConverter), Tooltip = &quot;Lowest twist angle around the twist axis.&quot;)]
+public float TwistMinAngle { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_TwistMotorMode_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TwistMotorMode*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_TwistMotorMode" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.TwistMotorMode">TwistMotorMode</h4>
+  <div class="markdown level1 summary"><p>Gets or sets how the motor drives the twist around <a class="xref" href="Evergine.Framework.Physics.SwingTwistConstraint.html#Evergine_Framework_Physics_SwingTwistConstraint_TwistAxis">TwistAxis</a>.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Off leaves the twist free, Velocity turns it, Position drives it to the target orientation.&quot;)]
+public MotorMode TwistMotorMode { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.MotorMode.html">MotorMode</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_CreateNativeConstraint_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.CreateNativeConstraint*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_CreateNativeConstraint_System_IntPtr_System_UInt32_System_UInt32_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.CreateNativeConstraint(System.IntPtr,System.UInt32,System.UInt32)">CreateNativeConstraint(nint, uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Creates the native constraint between two bodies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override nint CreateNativeConstraint(nint system, uint body1, uint body2)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><span class="parametername">system</span></td>
+        <td><p>The native physics system.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">body1</span></td>
+        <td><p>The identifier of this body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">body2</span></td>
+        <td><p>The identifier of the other body, or an invalid identifier for the world.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><p>The native constraint, or zero when it could not be created.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_CreateNativeConstraint_System_IntPtr_System_UInt32_System_UInt32_">Constraint.CreateNativeConstraint(nint, uint, uint)</a></div>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_GetAppliedAngularImpulse_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.GetAppliedAngularImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_GetAppliedAngularImpulse" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.GetAppliedAngularImpulse">GetAppliedAngularImpulse()</h4>
+  <div class="markdown level1 summary"><p>Gets the magnitude of the angular impulse the solver applied on the last step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override float GetAppliedAngularImpulse()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The impulse magnitude, in newton meter seconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_GetAppliedAngularImpulse">Constraint.GetAppliedAngularImpulse()</a></div>
+  <a id="Evergine_Framework_Physics_SwingTwistConstraint_GetAppliedLinearImpulse_" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.GetAppliedLinearImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_SwingTwistConstraint_GetAppliedLinearImpulse" data-uid="Evergine.Framework.Physics.SwingTwistConstraint.GetAppliedLinearImpulse">GetAppliedLinearImpulse()</h4>
+  <div class="markdown level1 summary"><p>Gets the magnitude of the linear impulse the solver applied on the last step, used to decide whether a
+breakable constraint gives way.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override float GetAppliedLinearImpulse()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The impulse magnitude, in newton seconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_GetAppliedLinearImpulse">Constraint.GetAppliedLinearImpulse()</a></div>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

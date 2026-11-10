@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>HLSLEverywhere | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="HLSLEverywhere | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="hlsleverywhere">HLSLEverywhere</h1>
+
+<hr>
+<p><img src="images/hlsl_translation.png" alt="HLSL source translated to the shading language of each graphics backend"></p>
+<p>Evergine effects are written once, in HLSL, and run on DirectX, Vulkan, OpenGL, OpenGL ES, WebGL, Metal and WebGPU. <strong>HLSLEverywhere</strong> is the library that makes that possible: it translates HLSL source into the shading language, or the bytecode, that each of those backends expects. You rarely call it yourself, because Evergine does it for you when an effect is exported or compiled, but it is a public library you can use in your own tools.</p>
+<h2 id="what-it-translates-to">What it translates to</h2>
+<table>
+<thead>
+<tr>
+<th>Graphics backend</th>
+<th>Target</th>
+<th><code>ShadingLanguage</code></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DirectX 11, DirectX 12</td>
+<td>HLSL, unchanged. The DirectX compiler consumes it directly.</td>
+<td></td>
+</tr>
+<tr>
+<td>Vulkan</td>
+<td>SPIR-V bytecode</td>
+<td><code>SpirV</code></td>
+</tr>
+<tr>
+<td>OpenGL</td>
+<td>GLSL 4.50</td>
+<td><code>Glsl</code></td>
+</tr>
+<tr>
+<td>OpenGL ES</td>
+<td>ESSL 3.10</td>
+<td><code>Essl</code></td>
+</tr>
+<tr>
+<td>WebGL 2</td>
+<td>ESSL 3.00</td>
+<td><code>Essl</code></td>
+</tr>
+<tr>
+<td>WebGL 1</td>
+<td>ESSL 1.00</td>
+<td><code>Essl</code></td>
+</tr>
+<tr>
+<td>Metal</td>
+<td>Metal Shading Language</td>
+<td><code>Msl_macOS</code></td>
+</tr>
+<tr>
+<td>WebGPU</td>
+<td>WGSL</td>
+<td><code>Wgsl</code></td>
+</tr>
+</tbody>
+</table>
+<p>Under the hood, HLSLEverywhere wraps <a href="https://github.com/microsoft/ShaderConductor">ShaderConductor</a>. The DirectX Shader Compiler (DXC) compiles the HLSL to SPIR-V, and SPIRV-Cross turns that SPIR-V into GLSL, ESSL or MSL. For WebGPU, the SPIR-V is converted to WGSL by a separate native library built on <a href="https://github.com/gfx-rs/wgpu/tree/trunk/naga">naga</a>. The package ships these native libraries for Windows (x64 and ARM64), Linux (x64 and ARM64) and macOS (ARM64), which are the machines that build and export Evergine projects.</p>
+<h2 id="how-evergine-uses-it">How Evergine uses it</h2>
+<p>HLSLEverywhere runs in two places:</p>
+<ul>
+<li><strong>When assets are exported.</strong> The effect exporter translates each effect for the graphics backend of the profile being built, so the exported asset already contains GLSL, ESSL, MSL, SPIR-V or WGSL.</li>
+<li><strong>When an effect is compiled while the application runs</strong>, for example while you edit an effect in Evergine Studio. The engine's shader compiler translates the source for the active backend before handing it to the graphics context.</li>
+</ul>
+<p>The platform templates already reference the <code>Evergine.HLSLEverywhere</code> package, so a new project needs no setup. Your effects need nothing special: write standard HLSL, and review the <a href="../graphics/effects/index.html">effects documentation</a> for the Evergine-specific metadata blocks.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>HLSLEverywhere compiles with DXC, and HLSL 2021 is its default language version. Code that relied on older HLSL behaviour may need small changes; see the <a href="../get_started/migrations/upgrade_project_2025.3.18.html">2025.3.18 upgrade notes</a>.</p>
+</div>
+<h2 id="use-it-from-your-own-code">Use it from your own code</h2>
+<p>The <code>HLSLTranslator</code> class, in the <code>Evergine.HLSLEverywhere</code> namespace, is static:</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Returns</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>HLSLTo(hlslSource, stage, profile, entryPoint, language, version = 450)</code></td>
+<td>The translated source as a string. <code>version</code> is the GLSL or ESSL version number, such as <code>450</code>, <code>310</code>, <code>300</code> or <code>100</code>; Evergine leaves the default for the other languages.</td>
+</tr>
+<tr>
+<td><code>HLSLToBinarySPIRV(hlslSource, stage, profile, entryPoint, enableDebugInfo = false)</code></td>
+<td>SPIR-V bytecode, padded to a multiple of 4 bytes.</td>
+</tr>
+<tr>
+<td><code>HLSLToWGSL(hlslSource, stage, profile, entryPoint)</code></td>
+<td>WGSL source. <code>HLSLTo</code> with <code>ShadingLanguage.Wgsl</code> calls it.</td>
+</tr>
+<tr>
+<td><code>DisassemblySPIRV(bytecode)</code></td>
+<td>A readable listing of SPIR-V bytecode.</td>
+</tr>
+</tbody>
+</table>
+<p><code>stage</code> is a value of <code>ShaderStages</code> and <code>profile</code> a <code>GraphicsProfile</code>, both from <code>Evergine.Common.Graphics</code>. A translation error throws an <code>Exception</code> whose message contains the compiler output.</p>
+<p>This console snippet prints the GLSL and WGSL versions of a small pixel shader:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.HLSLEverywhere;
+using System;
+
+public static class TranslateShader
+{
+    private const string PixelShader = @&quot;
+struct PSInput
+{
+    float4 Position : SV_Position;
+    float4 Color : COLOR;
+};
+
+float4 main(PSInput input) : SV_Target
+{
+    return input.Color;
+}&quot;;
+
+    public static void Main()
+    {
+        string glsl = HLSLTranslator.HLSLTo(PixelShader, ShaderStages.Pixel, GraphicsProfile.Level_12_0, &quot;main&quot;, ShadingLanguage.Glsl, 450);
+        Console.WriteLine(glsl);
+
+        string wgsl = HLSLTranslator.HLSLTo(PixelShader, ShaderStages.Pixel, GraphicsProfile.Level_12_0, &quot;main&quot;, ShadingLanguage.Wgsl);
+        Console.WriteLine(wgsl);
+    }
+}
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The translator follows Evergine's conventions, not a neutral default. Matrices are packed row-major, and for SPIR-V and Metal the register numbers of textures, samplers and read-write buffers are shifted so they do not collide in a single binding space. Keep that in mind if you feed the output to a renderer other than Evergine's.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

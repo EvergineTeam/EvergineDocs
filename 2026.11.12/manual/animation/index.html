@@ -1,0 +1,161 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Animation | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation">Animation</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/animation.mp4" type="video/mp4">
+</video>
+<p>Evergine plays the animations that come with your 3D models. The importer reads every animation track of a model file into an animation clip, and the <code>Animation3D</code> component plays those clips on the entities of the model, whether they move the bones of a skinned character, the nodes of a machine or the morph target weights of a face.</p>
+<p>On top of playing one clip at a time, the animation system crossfades between clips, blends them by a weight you control, adds one on top of another and plays several at once in layers.</p>
+<p>For motion that is not authored in a model, such as a panel that slides in or a door that opens when the player arrives, work actions animate any value from code and chain those animations into sequences.</p>
+<h2 id="the-parts">The parts</h2>
+<ul>
+<li><strong><a href="animation_clip.html">Animation Clip</a></strong>: the data. A clip is a set of channels, each animating one property of one node through a curve of keyframes, plus the keyframe events that mark points of the clip.</li>
+<li><strong><a href="animation3d_component.html">Animation3D Component</a></strong>: the player. It lives on the root entity of the model, plays clips by name, raises the keyframe events and holds the animation layers.</li>
+<li><strong><a href="animation_blend_tree.html">Animation Blend Tree</a></strong>: the combinations. Clip nodes such as <code>TransitionClip</code>, <code>SynchronizedTransitionClip</code> and <code>AdditiveBlendingClip</code> blend other clips into one pose, and layers apply several of those poses in order.</li>
+<li><strong><a href="work_actions/index.html">Work Actions</a></strong>: the code. Steps that interpolate a value, wait or call a method, chained into sequences and parallel blocks from a component.</li>
+</ul>
+<h2 id="quick-start">Quick start</h2>
+<p>Drag an animated model into a scene in Evergine Studio: its root entity gets an <code>Animation3D</code> component. Then play a clip from a component on that entity:</p>
+<pre><code class="lang-csharp">using Evergine.Components.Animation;
+using Evergine.Framework;
+
+public class PlayWalk : Component
+{
+    [BindComponent]
+    private Animation3D animation3D = null;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        // Clip names are the ones listed in the Model Editor.
+        this.animation3D.PlayAnimation(&quot;walk&quot;, loop: true);
+    }
+}
+</code></pre>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="animation_clip.html">Animation Clip</a></li>
+<li><a href="animation3d_component.html">Animation3D Component</a></li>
+<li><a href="animation_blend_tree.html">Animation Blend Tree</a></li>
+<li><a href="work_actions/index.html">Work Actions</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

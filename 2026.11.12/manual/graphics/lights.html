@@ -1,0 +1,477 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Lights | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Lights | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="lights">Lights</h1>
+
+<hr>
+<p><img src="images/lights.jpg" alt="Lights"></p>
+<p><strong>Lights</strong> illuminate the objects of a scene and make them cast shadows. Evergine uses physically based shading, so the same light model works for everything from a desk lamp to the sun, and a scene can contain many lights of different kinds at once.</p>
+<p>Each light is a component on an entity. The entity's <code>Transform3D</code> gives the light its position and, for lights that have one, its direction: lights shine along the transform's <strong>forward</strong> vector.</p>
+<h2 id="create-a-light-in-evergine-studio">Create a light in Evergine Studio</h2>
+<p>In the <strong>Entities Hierarchy</strong> panel of the scene editor, click <strong>Add Entity</strong>, open <strong>Lights 3D</strong> and choose the kind of light:</p>
+<ul>
+<li>Point Light</li>
+<li>Directional Light</li>
+<li>Spot Light</li>
+<li>Sphere Light</li>
+<li>Disk Light</li>
+<li>Rectangle Light</li>
+<li>Tube Light</li>
+</ul>
+<p><img src="images/addLight.png" alt="Create light menu"></p>
+<p><strong>Photometric Lights 3D</strong> has the same seven kinds, configured in physical units:</p>
+<p><img src="images/addPhotometricLight.png" alt="Create photometric light menu"></p>
+<p>The <strong>Environment</strong> menu also has a <strong>Sun Light</strong>, a directional light that drives the sky; see <a href="environment/index.html">Environment</a>.</p>
+<h2 id="create-a-light-from-code">Create a light from code</h2>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        Entity lamp = new Entity(&quot;lamp&quot;)
+            .AddComponent(new Transform3D() { Position = new Vector3(0, 3, 0) })
+            .AddComponent(new PointLight()
+            {
+                Color = Color.Orange,
+                Intensity = 3,
+                LightRange = 10,
+                IsShadowEnabled = true,
+            });
+
+        // Directional lights ignore position; only the orientation of the transform matters.
+        Entity sun = new Entity(&quot;sun&quot;)
+            .AddComponent(new Transform3D() { LocalRotation = new Vector3(-MathHelper.PiOver4, MathHelper.PiOver4, 0) })
+            .AddComponent(new DirectionalLight()
+            {
+                Intensity = 2,
+                IsShadowEnabled = true,
+            });
+
+        this.Managers.EntityManager.Add(lamp);
+        this.Managers.EntityManager.Add(sun);
+    }
+}
+</code></pre>
+<h2 id="common-properties">Common properties</h2>
+<p>Every light has these properties:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsEnabled</strong></td>
+<td>true</td>
+<td>Turns the light on or off.</td>
+</tr>
+<tr>
+<td><strong>Color</strong></td>
+<td>White</td>
+<td>Color of the light. Photometric lights can derive it from a temperature instead.</td>
+</tr>
+<tr>
+<td><strong>Intensity</strong></td>
+<td>1</td>
+<td>Brightness in an arbitrary unit. Photometric lights hide it and expose a physical unit instead.</td>
+</tr>
+<tr>
+<td><strong>IsShadowEnabled</strong></td>
+<td>false</td>
+<td>Whether the light casts shadows. Shown as <strong>Shadow enabled</strong> in Evergine Studio.</td>
+</tr>
+<tr>
+<td><strong>ShadowBias</strong></td>
+<td>0.004 (0.005 for directional lights)</td>
+<td>Depth offset applied when comparing against the shadow map. Raise it if surfaces shadow themselves in stripes (&quot;shadow acne&quot;); lower it if shadows detach from their casters (&quot;peter panning&quot;).</td>
+</tr>
+<tr>
+<td><strong>ShadowOpacity</strong></td>
+<td>1</td>
+<td>How dark the shadow is, from 0 (invisible) to 1 (fully dark).</td>
+</tr>
+</tbody>
+</table>
+<h2 id="photometric-and-non-photometric-lights">Photometric and non-photometric lights</h2>
+<p><strong>Non-photometric</strong> lights use <code>Color</code> and <code>Intensity</code>: simple and easy to tune by eye. <strong>Photometric</strong> lights are the same lights configured in physical units, so an 800 lm bulb or a 100,000 lux sun look right next to each other and next to a camera with <a href="cameras.html#exposure">physical exposure</a>.</p>
+<p>Each photometric light class derives from its non-photometric counterpart (<code>PhotometricPointLight</code> from <code>PointLight</code>, and so on) and adds:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorByTemperature</strong></td>
+<td>true</td>
+<td>Derive the color from <code>Temperature</code> instead of <code>Color</code>.</td>
+</tr>
+<tr>
+<td><strong>Temperature</strong></td>
+<td>6500</td>
+<td><a href="https://en.wikipedia.org/wiki/Color_temperature">Color temperature</a> in kelvin. 6500 K is daylight white; lower values are warmer, higher values bluer.</td>
+</tr>
+</tbody>
+</table>
+<p>The intensity is set in the unit that suits each kind of light:</p>
+<table>
+<thead>
+<tr>
+<th>Light</th>
+<th>Property</th>
+<th>Unit</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PhotometricDirectionalLight</code></td>
+<td><strong>Illuminance</strong></td>
+<td>lux, the light arriving per square meter of surface</td>
+</tr>
+<tr>
+<td><code>PhotometricPointLight</code>, <code>PhotometricSpotLight</code> and the four photometric area lights</td>
+<td><strong>LuminousPower</strong></td>
+<td>lumens, the total light the source emits</td>
+</tr>
+</tbody>
+</table>
+<p><code>PhotometricSpotLight</code> also has <strong>IsFocusedSpot</strong>. When it is on, the luminous power is concentrated in the cone, so narrowing the cone makes the light brighter, like a real focused spot. When it is off (the default), the intensity is the same as that of a point light with the same power.</p>
+<h2 id="types-of-lights">Types of lights</h2>
+<p><img src="images/light_shapes.png" alt="The seven light shapes and the parameters that define each one"></p>
+<p><em>Directional lights have only a direction. Every other light has a position and a range; spot lights add a cone, and area lights add a shape that emits.</em></p>
+<p>Lights fall into three groups:</p>
+<ul>
+<li><strong>Directional</strong> lights have a direction but no position, and reach every object.</li>
+<li><strong>Punctual</strong> lights (point and spot) emit from a single point and fade out at <code>LightRange</code>.</li>
+<li><strong>Area</strong> lights (sphere, disk, rectangle and tube) emit from a surface. They give softer highlights and more realistic reflections, at a higher shading cost.</li>
+</ul>
+<h3 id="directional-light">Directional light</h3>
+<p><img src="images/directionalLight.jpg" alt="Directional light"></p>
+<p>A <strong>directional light</strong> comes from infinitely far away along one direction, like sunlight. It lights every object in the scene the same way, whatever its position.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ShadowDistance</strong></td>
+<td>80</td>
+<td>How far from the camera, in meters, directional shadows are drawn.</td>
+</tr>
+<tr>
+<td><strong>GammaDistribution</strong></td>
+<td>0.8</td>
+<td>How the shadow cascades are spread over that distance, from 0 (evenly) to 1 (logarithmically, with more detail near the camera).</td>
+</tr>
+<tr>
+<td><strong>DebugMode</strong></td>
+<td>false</td>
+<td>Tints each shadow cascade with its own color, to tune the two properties above.</td>
+</tr>
+</tbody>
+</table>
+<p>Directional shadows use <strong>cascaded shadow maps</strong>: the part of the camera's view within <code>ShadowDistance</code> is cut into four slices, and each slice gets its own shadow map. Slices close to the camera cover little space and give sharp shadows; distant slices cover more and are coarser.</p>
+<p><img src="images/shadow_cascades.png" alt="A camera frustum cut into four shadow cascades up to the shadow distance"></p>
+<p><em>The first cascade covers the few meters in front of the camera at full resolution. Lowering <code>ShadowDistance</code> makes every cascade smaller and every shadow sharper.</em></p>
+<h3 id="point-light">Point light</h3>
+<p><img src="images/pointLight.jpg" alt="Point light"></p>
+<p>A <strong>point light</strong> shines equally in all directions from its position and fades to zero at its range. Use it for bulbs, candles and other small local sources.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LightRange</strong></td>
+<td>20</td>
+<td>Distance in meters at which the light reaches zero. Keep it as small as the scene allows: objects outside the range skip this light entirely.</td>
+</tr>
+<tr>
+<td><strong>ShadowNearPlane</strong></td>
+<td>0.1</td>
+<td>Near plane of the shadow map cameras.</td>
+</tr>
+<tr>
+<td><strong>DebugMode</strong></td>
+<td>false</td>
+<td>Tints the six faces of the shadow cube map.</td>
+</tr>
+</tbody>
+</table>
+<p>A point light renders its shadows into a cube map: six shadow maps, one per face.</p>
+<h3 id="spot-light">Spot light</h3>
+<p><img src="images/spotLight.jpg" alt="Spot light"></p>
+<p>A <strong>spot light</strong> shines from its position in a cone around its forward direction, like a flashlight or a stage light.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LightRange</strong></td>
+<td>20</td>
+<td>Distance in meters at which the light reaches zero.</td>
+</tr>
+<tr>
+<td><strong>OuterConeAngle</strong></td>
+<td>π/4 (45°)</td>
+<td>Full angle of the cone, in radians. Nothing outside it is lit.</td>
+</tr>
+<tr>
+<td><strong>InnerConeAngle</strong></td>
+<td>0</td>
+<td>Full angle, in radians, of the inner cone at full intensity. Between the inner and outer cones the light fades. Equal angles give a hard edge.</td>
+</tr>
+<tr>
+<td><strong>ShadowNearPlane</strong></td>
+<td>0.1</td>
+<td>Near plane of the shadow map camera.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="area-lights">Area lights</h3>
+<p>Area lights emit from a shape instead of a point. They are all cube-map lights with <code>LightRange</code> (default 20), <code>ShadowNearPlane</code> and <code>DebugMode</code>, plus the dimensions of their shape:</p>
+<table>
+<thead>
+<tr>
+<th>Light</th>
+<th>Shape</th>
+<th>Properties (defaults)</th>
+<th>Typical use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sphere light</strong></td>
+<td><img src="images/sphereAreaLight.jpg" alt="Sphere light"></td>
+<td><code>Radius</code> (2)</td>
+<td>Large round lamps and glowing orbs.</td>
+</tr>
+<tr>
+<td><strong>Disk light</strong></td>
+<td><img src="images/discAreaLight.jpg" alt="Disk light"></td>
+<td><code>Radius</code> (2)</td>
+<td>Ceiling lights and soft spots. It emits from one side, along its forward direction.</td>
+</tr>
+<tr>
+<td><strong>Rectangle light</strong></td>
+<td><img src="images/rectangleAreaLight.jpg" alt="Rectangle light"></td>
+<td><code>Width</code> (3), <code>Height</code> (3)</td>
+<td>Windows, screens and softboxes. It emits from one side, along its forward direction.</td>
+</tr>
+<tr>
+<td><strong>Tube light</strong></td>
+<td><img src="images/tubeAreaLight.jpg" alt="Tube light"></td>
+<td><code>Length</code> (6), <code>Radius</code> (0.2)</td>
+<td>Fluorescent tubes and neon. The tube lies along the entity's left-right axis.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Area lights evaluate their shape for every shaded pixel, so they cost noticeably more than point and spot lights. Use them where the soft, shaped highlights are visible.</p>
+</div>
+<h2 id="how-many-lights">How many lights</h2>
+<p>The forward render path assigns each object only the lights whose range touches its bounding box. A camera handles up to 64 visible lights at a time, and only materials with lighting enabled receive them. Materials created with lighting disabled are not affected by lights at all.</p>
+<h2 id="shadows">Shadows</h2>
+<p>To make a light cast shadows, turn on <strong>IsShadowEnabled</strong>. Every shadow-casting light renders the scene again from its own point of view each frame (four times for a directional light, six for point and area lights), so enable shadows only on the lights that need them.</p>
+<p>Objects cast shadows through the <code>RenderFlags.CastShadows</code> flag of their drawable, which is on by default.</p>
+<h3 id="shadowmapmanager">ShadowMapManager</h3>
+<p>The quality of every shadow in a scene is set on the <code>ShadowMapManager</code> scene manager, which the default scene template already includes. Select it in the <strong>Scene Managers</strong> list of the scene to change it.</p>
+<p><img src="images/shadowmapmanager.png" alt="The Scene Managers panel with the ShadowMapManager properties"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DirectionalResolution</strong></td>
+<td><code>Size_2048</code></td>
+<td>Size of each directional cascade shadow map: <code>Size_256</code> to <code>Size_4096</code>.</td>
+</tr>
+<tr>
+<td><strong>SpotResolution</strong></td>
+<td><code>Size_512</code></td>
+<td>Size of each spot light shadow map.</td>
+</tr>
+<tr>
+<td><strong>PunctualResolution</strong></td>
+<td><code>Size_512</code></td>
+<td>Size of each cube face for point and area lights.</td>
+</tr>
+<tr>
+<td><strong>ShadowFilter</strong></td>
+<td><code>PCF3x3</code></td>
+<td>Percentage-closer filtering kernel that softens shadow edges: <code>PCF2x2</code>, <code>PCF3x3</code>, <code>PCF5x5</code> or <code>PCF7x7</code>. Larger kernels are softer and more expensive. In low profile mode it is always <code>PCF3x3</code>.</td>
+</tr>
+<tr>
+<td><strong>AutoDepthBounds</strong></td>
+<td>false</td>
+<td>Measures on the GPU how deep the visible scene really is and fits the directional cascades to that range instead of to <code>ShadowDistance</code>. It gives sharper shadows when the camera looks at nearby geometry, at the cost of a small compute pass per camera.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+
+public class MyScene : Scene
+{
+    protected override void CreateScene()
+    {
+        var shadowMapManager = this.Managers.FindManager&lt;ShadowMapManager&gt;();
+        if (shadowMapManager != null)
+        {
+            shadowMapManager.DirectionalResolution = ShadowMapProvider.ShadowMapSize.Size_4096;
+            shadowMapManager.ShadowFilter = ShadowMapProvider.Filter.PCF5x5;
+        }
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>If directional shadows look blocky, lower <code>ShadowDistance</code> on the light before raising <code>DirectionalResolution</code>. Halving the distance sharpens shadows about as much as doubling the resolution, and costs nothing.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

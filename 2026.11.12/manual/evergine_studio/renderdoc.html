@@ -1,0 +1,218 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Profile with RenderDoc | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Profile with RenderDoc | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="profile-with-renderdoc">Profile with RenderDoc</h1>
+
+<p><img src="Images/RenderDoc_0.JPG" alt="A frame of an Evergine scene captured in RenderDoc"></p>
+<p><a href="https://renderdoc.org/">RenderDoc</a> is a free frame debugger for Direct3D 11, Direct3D 12, Vulkan and OpenGL. Evergine Studio integrates it, so you can capture a frame of any scene viewport and inspect every draw call, resource and shader that produced it. Use it to find out why an object does not render, why a material looks wrong, or which pass takes the most GPU time.</p>
+<p>Evergine Studio renders with <strong>DirectX 12</strong> by default (see the <strong>Editor backend</strong> option in <a href="interface.html#preferences">Preferences</a>), and RenderDoc captures it directly.</p>
+<h2 id="enable-renderdoc">Enable RenderDoc</h2>
+<ol>
+<li>Install RenderDoc from <a href="https://renderdoc.org/">renderdoc.org</a>. Evergine Studio looks for it in <code>Program Files\RenderDoc</code>, or through the file association RenderDoc registers. The menu item stays disabled while RenderDoc is not installed.</li>
+<li>Select <strong>Settings &gt; Enable RenderDoc</strong>.</li>
+<li>Confirm the dialog. Evergine Studio saves your changes and reloads the project, so that RenderDoc is loaded before the graphics device is created.</li>
+</ol>
+<p><img src="Images/RenderDoc_1.JPG" alt="The Enable RenderDoc item of the Settings menu"></p>
+<p>Select <strong>Settings &gt; Disable RenderDoc</strong> to turn it off again. It also reloads the project.</p>
+<h2 id="capture-a-frame">Capture a frame</h2>
+<p>With RenderDoc enabled, the toolbar of the Scene Editor viewport shows <strong>Capture next frame with RenderDoc</strong> on its right side.</p>
+<p><img src="Images/RenderDoc_2.JPG" alt="The capture button on the right of the viewport toolbar"></p>
+<p>Click it to capture the next frame of that viewport. When the capture finishes, Evergine Studio starts the RenderDoc user interface with the capture open, ready to inspect.</p>
+<p><img src="Images/RenderDoc_3.JPG" alt="The capture opened in RenderDoc"></p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>To capture your running application instead of the editor, start the launcher from RenderDoc with <strong>Launch Application</strong> and press F12 or Print Screen to capture a frame.</p>
+</div>
+<h2 id="name-graphics-objects">Name graphics objects</h2>
+<p>Every object of the Evergine <a href="../graphics/low_level_api/index.html">low-level API</a>, such as buffers, textures, pipelines and command buffers, has a <code>Name</code> property. RenderDoc shows those names instead of generic identifiers, which makes a capture much easier to read. Give the name when you create the resource, or set it afterwards:</p>
+<pre><code class="lang-csharp">// 64 bytes: one 4x4 float matrix.
+var description = new BufferDescription(64, BufferFlags.ConstantBuffer, ResourceUsage.Default);
+
+// The last argument of the factory methods is the debug name.
+var constantBuffer = graphicsContext.Factory.CreateBuffer(ref description, &quot;Outline_ConstantBuffer&quot;);
+
+// The name can also be changed later, for example when a pooled buffer is reused.
+constantBuffer.Name = &quot;Outline_ConstantBuffer_Selected&quot;;
+</code></pre>
+<p><img src="Images/RenderDoc_4.JPG" alt="A named buffer in the RenderDoc resource inspector"></p>
+<h2 id="debug-markers-and-regions">Debug markers and regions</h2>
+<p>Debug markers group the commands of a command buffer into named regions of the RenderDoc <strong>Event Browser</strong>, or mark a single point of interest. Evergine already adds regions for its own passes (<code>Render</code>, <code>DirectionalLight</code>, <code>Camera</code>, <code>ForwardPass</code> and so on), and you can add yours around custom rendering code.</p>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>BeginDebugMarker(string label)</code></td>
+<td>Opens a named region. Regions can be nested.</td>
+</tr>
+<tr>
+<td><code>EndDebugMarker()</code></td>
+<td>Closes the last region opened.</td>
+</tr>
+<tr>
+<td><code>InsertDebugMarker(string label)</code></td>
+<td>Adds a single named event at the current position.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">commandBuffer.Begin();
+
+commandBuffer.BeginDebugMarker(&quot;Outline&quot;);
+{
+    // Everything recorded until EndDebugMarker appears under &quot;Outline&quot; in RenderDoc.
+    commandBuffer.BeginRenderPass(ref renderPassDescription);
+    commandBuffer.InsertDebugMarker(&quot;Outline: after clear&quot;);
+    // ...draws...
+    commandBuffer.EndRenderPass();
+}
+commandBuffer.EndDebugMarker();
+
+commandBuffer.End();
+</code></pre>
+<p><img src="Images/RenderDoc_5.JPG" alt="Evergine regions in the RenderDoc Event Browser"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Unlike names, markers are commands: record them while the command buffer is between <code>Begin()</code> and <code>End()</code>. They have no effect when no graphics debugger is attached, so you can leave them in release code.</p>
+</div>
+<h2 id="include-shader-debug-information">Include shader debug information</h2>
+<p>By default, Evergine strips the debug information from compiled shaders to keep them small. RenderDoc then shows constants and resources without names, and cannot show the HLSL source. To keep the debug information in one effect, add <code>[Mode Debug]</code> to its pass:</p>
+<pre><code class="lang-hlsl">[Begin_Pass:Default]
+
+    [Mode Debug]
+    [Profile 11_0]
+    [Entrypoints VS=VS PS=PS]
+
+    // ...
+[End_Pass]
+</code></pre>
+<p>To keep it for every effect compiled at runtime, enable <code>EnableShaderDebugInfo</code> on the graphics context in the launcher, before the application is initialized:</p>
+<pre><code class="lang-csharp">GraphicsContext graphicsContext = new global::Evergine.DirectX12.DX12GraphicsContext();
+graphicsContext.CreateDevice();
+
+// Compile runtime shaders with debug information, for graphics debugging only.
+graphicsContext.EnableShaderDebugInfo = true;
+</code></pre>
+<p>Remove <code>[Mode Debug]</code> and <code>EnableShaderDebugInfo</code> when you finish debugging, because debug shaders are larger and slower.</p>
+<h2 id="other-graphics-debuggers">Other graphics debuggers</h2>
+<p>On Windows you can also capture and debug frames of a DirectX build of your application with <a href="https://devblogs.microsoft.com/pix/introduction/">PIX on Windows</a>, <a href="https://developer.nvidia.com/nsight-graphics">NVIDIA Nsight Graphics</a> or the <a href="https://learn.microsoft.com/visualstudio/debugger/graphics/visual-studio-graphics-diagnostics">Visual Studio Graphics Diagnostics</a>. The object names and debug markers described above show up in those tools too.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

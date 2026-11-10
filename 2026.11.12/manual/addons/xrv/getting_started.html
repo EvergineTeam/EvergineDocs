@@ -1,0 +1,251 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Getting started with XRV | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Getting started with XRV | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="getting-started-with-xrv">Getting started with XRV</h1>
+
+<hr>
+<p><img src="images/getting-started-menu.JPG" alt="Hand menu example"></p>
+<p>This page prepares an Evergine project to run XRV on a headset. You install the MRTK and XRV add-ons, register <code>XrvService</code> in your application, and initialize it from an MRTK scene. When you finish, the hand menu opens with the default <strong>Settings</strong> and <strong>Help</strong> buttons.</p>
+<h2 id="project-setup">Project setup</h2>
+<h3 id="1-create-a-project">1. Create a project</h3>
+<p>Create a project with <a href="../../evergine_launcher/create_project.html">Evergine Launcher</a>. Along with Windows, add the profile for your target device: Meta Quest or Pico.</p>
+<h3 id="2-install-the-mrtk-add-on">2. Install the MRTK add-on</h3>
+<p>Open the project in Evergine Studio and install the <strong>Evergine.MRTK</strong> add-on from the <a href="../index.html#add-ons-manager">Add-ons Manager</a>.</p>
+<p><img src="images/getting-started-mrtk.png" alt="Installing the MRTK add-on"></p>
+<h3 id="3-install-the-xrv-core-add-on">3. Install the XRV core add-on</h3>
+<p>With MRTK installed, install the <strong>Evergine.Xrv.Core</strong> add-on in the same way.</p>
+<p><img src="images/getting-started-xrv.png" alt="Installing the XRV add-on"></p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The XRV add-ons reference NuGet packages. To use nightly builds, add the Evergine nightly feed to your <code>nuget.config</code>:</p>
+<pre><code class="lang-xml">&lt;?xml version=&quot;1.0&quot; encoding=&quot;utf-8&quot;?&gt;
+&lt;configuration&gt;
+  &lt;packageSources&gt;
+    &lt;add key=&quot;nuget.org&quot; value=&quot;https://api.nuget.org/v3/index.json&quot; /&gt;
+    &lt;add key=&quot;Evergine Nightly&quot; value=&quot;https://pkgs.dev.azure.com/plainconcepts/Evergine.Nightly/_packaging/Evergine.NightlyBuilds/nuget/v3/index.json&quot; /&gt;
+  &lt;/packageSources&gt;
+&lt;/configuration&gt;
+</code></pre>
+</div>
+<h3 id="4-adjust-the-sun-light">4. Adjust the sun light</h3>
+<p>In your default scene, set the <strong>Illuminance</strong> of the <strong>SunLight</strong> entity to 1, so XRV materials are not overexposed.</p>
+<p><img src="images/getting-started-scene-settings.png" alt="Configuring scene settings"></p>
+<h3 id="5-add-the-microsoftbclasyncinterfaces-package">5. Add the Microsoft.Bcl.AsyncInterfaces package</h3>
+<p>Add this package reference to your shared project (the one that contains your scenes):</p>
+<pre><code class="lang-xml">&lt;PackageReference Include=&quot;Microsoft.Bcl.AsyncInterfaces&quot; Version=&quot;7.0.0&quot; /&gt;
+</code></pre>
+<h2 id="code-setup">Code setup</h2>
+<h3 id="1-configure-the-background-scheduler">1. Configure the background scheduler</h3>
+<p>XRV runs part of its work in background tasks. Configure the background scheduler at the end of your <code>Application</code> constructor:</p>
+<pre><code class="lang-csharp">using Evergine.Common.IO;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+using Evergine.Framework.Threading;
+
+public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        this.Container.Register&lt;Settings&gt;();
+        this.Container.Register&lt;Clock&gt;();
+        this.Container.Register&lt;TimerFactory&gt;();
+        this.Container.Register&lt;Random&gt;();
+        this.Container.Register&lt;ErrorHandler&gt;();
+        this.Container.Register&lt;ScreenContextManager&gt;();
+        this.Container.Register&lt;GraphicsPresenter&gt;();
+        this.Container.Register&lt;AssetsDirectory&gt;();
+        this.Container.Register&lt;AssetsService&gt;();
+        this.Container.Register&lt;ForegroundTaskSchedulerService&gt;();
+        this.Container.Register&lt;WorkActionScheduler&gt;();
+
+        // Required by XRV: lets it schedule work on background threads.
+        BackgroundTaskScheduler.Background.Configure(this.Container);
+    }
+}
+</code></pre>
+<h3 id="2-register-xrvservice">2. Register XrvService</h3>
+<p>Create the <code>XrvService</code> in <code>Initialize</code>, add the modules you want, and register the instance in the container so scenes and components can resolve it.</p>
+<pre><code class="lang-csharp">using Evergine.Xrv.Core;
+
+public partial class MyApplication : Application
+{
+    public override void Initialize()
+    {
+        base.Initialize();
+
+        var xrv = new XrvService();
+        // Add modules here, for example: xrv.AddModule(new RulerModule());
+        this.Container.RegisterInstance(xrv);
+
+        // ... navigate to your scene
+    }
+}
+</code></pre>
+<h3 id="3-inherit-your-scene-from-xrscene-and-initialize-xrv">3. Inherit your scene from XRScene and initialize XRV</h3>
+<p>Your scene must inherit from MRTK's <code>XRScene</code>, as described in <a href="../mrtk/getting_started.html">Getting started with MRTK</a>. Initialize XRV in <code>OnPostCreateXRScene</code>, when the MRTK cursors and the camera already exist:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+using Evergine.MRTK.Scenes;
+using Evergine.Xrv.Core;
+
+public class MyScene : XRScene
+{
+    protected override Guid CursorMatPressed =&gt; EvergineContent.MRTK.Materials.Cursor.CursorPinch;
+
+    protected override Guid CursorMatReleased =&gt; EvergineContent.MRTK.Materials.Cursor.CursorBase;
+
+    protected override Guid HoloHandsMat =&gt; EvergineContent.MRTK.Materials.Hands.QuestHands;
+
+    protected override Guid SpatialMappingMat =&gt; Guid.Empty;
+
+    protected override Guid HandRayTexture =&gt; EvergineContent.MRTK.Textures.line_dots_png;
+
+    protected override Guid HandRaySampler =&gt; EvergineContent.MRTK.Samplers.LinearWrapSampler;
+
+    protected override Guid LeftControllerModelPrefab =&gt; EvergineContent.MRTK.Prefabs.DefaultLeftController_weprefab;
+
+    protected override Guid RightControllerModelPrefab =&gt; EvergineContent.MRTK.Prefabs.DefaultRightController_weprefab;
+
+    protected override float MaxFarCursorLength =&gt; 0.5f;
+
+    protected override void OnPostCreateXRScene()
+    {
+        base.OnPostCreateXRScene();
+
+        // Creates the hand menu, windows, settings, help and themes, and initializes every module.
+        var xrv = Application.Current.Container.Resolve&lt;XrvService&gt;();
+        xrv.Initialize(this);
+    }
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>XrvService.Initialize</code> sets the background color of the scene camera to transparent, so passthrough can show the real world behind your content. Enable passthrough with <code>xrv.Services.Passthrough.EnablePassthrough = true</code> after initialization.</p>
+</div>
+<h2 id="platform-setup">Platform setup</h2>
+<h3 id="android">Android</h3>
+<p>If the Android build fails with an error like this one:</p>
+<pre><code>error XA2002: Cannot resolve reference: `Evergine.Editor.Extension`, referenced by `Evergine.MRTK.Editor`. Please add a NuGet package or assembly reference for `Evergine.Editor.Extension`, or remove the reference to `Evergine.MRTK.Editor`.
+</code></pre>
+<p>add the <code>Evergine.Editor.Extension</code> NuGet package to your Android project.</p>
+<p>To use passthrough on Meta Quest or Pico, uncomment the passthrough code in <code>MainActivity.cs</code> and the related entries in the Android manifest of your project.</p>
+<h2 id="next-steps">Next steps</h2>
+<p>The hand menu now shows the default <strong>Settings</strong> and <strong>Help</strong> buttons. To add features, install one of the <a href="modules/index.html">XRV modules</a>, <a href="modules/customModule/index.html">create your own module</a>, or use the XRV API directly, for example to <a href="ui/windows_system.html">open windows</a>.</p>
+<p>The <a href="https://github.com/EvergineTeam/XRV/tree/develop/samples">XRV samples</a> project shows all the public modules working together.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,283 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Example: Camera Controller | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Example: Camera Controller | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="example-camera-controller">Example: Camera Controller</h1>
+
+<p><img src="images/camera_controls.png" alt="WASD keys move the camera along its LocalTransform Forward, Backward, Left and Right vectors, LeftShift doubles the speed, and while the right mouse button is held PositionDelta.X turns LocalRotation.Y and PositionDelta.Y turns LocalRotation.X"></p>
+<p><em>Keys move the camera, the mouse turns it. Each input is scaled by the quantity that makes it frame-rate independent.</em></p>
+<p>This example builds a first-person camera controller: W, A, S and D move the camera, Left Shift makes it faster, and dragging with the right mouse button turns it. It is short enough to read in one go, and it uses the pieces of the input API that most games need: <code>IsKeyDown</code> for continuous actions, <code>Pressing</code> and <code>Releasing</code> for one-off ones, and <code>PositionDelta</code> for mouse-look.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Evergine ships a complete controller, <code>FreeCamera3D</code> in <code>Evergine.Components.Cameras</code>, with keyboard, mouse and touch support. Use it when you need a camera that just works, and use this example when you want to write your own.</p>
+</div>
+<h2 id="the-behavior">The behavior</h2>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Common.Input.Mouse;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+public class CameraController : Behavior
+{
+    [BindComponent]
+    private Transform3D transform = null;
+
+    // isExactType: false accepts any Camera subclass, such as Camera3D.
+    [BindComponent(isExactType: false)]
+    private Camera camera = null;
+
+    public float MoveSpeed { get; set; } = 3f;
+
+    public float Sensitivity { get; set; } = 0.005f;
+
+    public float MaxPitch { get; set; } = MathHelper.PiOver2 * 0.95f;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        // The camera's own display: with several windows, each camera listens to the window it renders to.
+        Display display = this.camera.Display;
+        if (display == null)
+        {
+            return;
+        }
+
+        KeyboardDispatcher keyboard = display.KeyboardDispatcher;
+        if (keyboard != null)
+        {
+            Matrix4x4 local = this.transform.LocalTransform;
+            Vector3 direction = Vector3.Zero;
+
+            if (keyboard.IsKeyDown(Keys.W))
+            {
+                direction += local.Forward;
+            }
+
+            if (keyboard.IsKeyDown(Keys.S))
+            {
+                direction += local.Backward;
+            }
+
+            if (keyboard.IsKeyDown(Keys.A))
+            {
+                direction += local.Left;
+            }
+
+            if (keyboard.IsKeyDown(Keys.D))
+            {
+                direction += local.Right;
+            }
+
+            if (direction != Vector3.Zero)
+            {
+                // Normalized so that moving diagonally is not faster than moving straight.
+                direction = Vector3.Normalize(direction);
+                float speed = keyboard.IsKeyDown(Keys.LeftShift) ? this.MoveSpeed * 2f : this.MoveSpeed;
+
+                // Scaled by the elapsed time: the speed is in units per second at any frame rate.
+                this.transform.LocalPosition += direction * speed * (float)gameTime.TotalSeconds;
+            }
+        }
+
+        MouseDispatcher mouse = display.MouseDispatcher;
+        if (mouse != null)
+        {
+            // The edges fire once each, so the cursor is hidden and shown once per drag.
+            ButtonState right = mouse.ReadButtonState(MouseButtons.Right);
+            if (right == ButtonState.Pressing)
+            {
+                mouse.TrySetCursorType(CursorTypes.None);
+            }
+            else if (right == ButtonState.Releasing)
+            {
+                mouse.TrySetCursorType(CursorTypes.Arrow);
+            }
+
+            if (mouse.IsButtonDown(MouseButtons.Right))
+            {
+                // PositionDelta is the movement of this frame, so it is not scaled by the elapsed time.
+                Point delta = mouse.PositionDelta;
+                Vector3 rotation = this.transform.LocalRotation;
+
+                rotation.Y -= delta.X * this.Sensitivity;
+
+                // Screen Y grows downward: moving the mouse up gives a negative delta and pitches up.
+                // The clamp stops the camera just short of looking straight up or down, where it would flip.
+                rotation.X = MathHelper.Clamp(rotation.X - (delta.Y * this.Sensitivity), -this.MaxPitch, this.MaxPitch);
+
+                this.transform.LocalRotation = rotation;
+            }
+        }
+    }
+}
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MoveSpeed</strong></td>
+<td>3</td>
+<td>Movement speed in units per second. Left Shift doubles it.</td>
+</tr>
+<tr>
+<td><strong>Sensitivity</strong></td>
+<td>0.005</td>
+<td>Radians of rotation per pixel of mouse movement.</td>
+</tr>
+<tr>
+<td><strong>MaxPitch</strong></td>
+<td>0.95 × π/2</td>
+<td>Largest angle, in radians, that the camera can look up or down.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="add-it-to-a-camera">Add it to a camera</h2>
+<p>In code, add the behavior to the entity that holds the camera:</p>
+<pre><code class="lang-csharp">Entity cameraEntity = new Entity(&quot;camera&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 2f, 6f) })
+    .AddComponent(new Camera3D())
+    .AddComponent(new CameraController());
+
+this.Managers.EntityManager.Add(cameraEntity);
+</code></pre>
+<p>In Evergine Studio, build the project so the new behavior is available, select the camera entity in the scene and add <code>CameraController</code> to it. If the camera already has a <code>FreeCamera3D</code>, remove it, or both controllers will move the camera at the same time.</p>
+<h2 id="why-it-is-written-this-way">Why it is written this way</h2>
+<ul>
+<li><strong><code>IsKeyDown</code> for movement.</strong> Movement continues for as long as the key is held, so the controller asks every frame whether the key is down. It does not use <code>KeyDown</code> events, which only arrive when the key goes down and on auto-repeat.</li>
+<li><strong><code>Pressing</code> and <code>Releasing</code> for the cursor.</strong> Hiding the cursor is a one-off action at the start of the drag, and showing it is a one-off action at the end. The one-frame edges of the <a href="button_states.html">button states</a> make that a simple comparison.</li>
+<li><strong>The drag always ends.</strong> When the cursor leaves the window, the mouse dispatcher releases the buttons that are still down, so the <code>Releasing</code> frame arrives and the cursor comes back even if the user lets go outside the window.</li>
+<li><strong>Local vectors from <code>LocalTransform</code>.</strong> <code>Forward</code>, <code>Right</code> and the others follow the camera's rotation, so W always moves where the camera is looking. This assumes the camera entity has no rotated parent; for a child camera, use the vectors of <code>WorldTransform</code> instead.</li>
+</ul>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A hidden cursor still moves and still stops at the edge of the screen, where <code>PositionDelta</code> becomes zero. Games that need unlimited mouse-look usually move the cursor back to the centre of the surface every frame with <code>TrySetCursorPosition</code>. The dispatcher applies that jump to <code>Position</code> and <code>PositionDelta</code> immediately, so recentre after you have read the delta for the frame.</p>
+</div>
+<h2 id="beyond-keyboard-and-mouse">Beyond keyboard and mouse</h2>
+<ul>
+<li><a href="touch.html">Touch</a> shows how to read fingers and pinches, for the same controller on a tablet.</li>
+<li>In XR the headset moves the camera for you, and the hands and motion controllers are read through tracking components rather than dispatchers. See <a href="../xr/input_tracking/index.html">XR input tracking</a>.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

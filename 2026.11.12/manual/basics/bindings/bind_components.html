@@ -1,0 +1,287 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Bind Components | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Bind Components | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="bind-components">Bind Components</h1>
+
+<hr>
+<p>The <strong>[BindComponent]</strong> attribute gives a <a href="../component_arch/components/index.html">component</a> a reference to another component: one on the same entity, on its children or parents, or anywhere in the scene. It is the usual way for a component to reach the <code>Transform3D</code> of its entity or the camera it works with.</p>
+<pre><code class="lang-csharp">// The Transform3D of the owner entity.
+[BindComponent]
+private Transform3D transform;
+
+// Every Camera3D of the scene.
+[BindComponent(source: BindComponentSource.Scene)]
+private List&lt;Camera3D&gt; sceneCameras;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>[BindComponent]</code> only works inside components, because every search starts from the owner entity of the component.</p>
+</div>
+<h2 id="parameters">Parameters</h2>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>isExactType</code></td>
+<td><code>true</code></td>
+<td>When <code>true</code>, only components of exactly the member type match. When <code>false</code>, components of derived types match too.</td>
+</tr>
+<tr>
+<td><code>isRequired</code></td>
+<td><code>true</code></td>
+<td>When <code>true</code>, the component does not attach unless a match is found. When <code>false</code>, the member is left <code>null</code> if nothing matches.</td>
+</tr>
+<tr>
+<td><code>source</code></td>
+<td><code>BindComponentSource.Owner</code></td>
+<td>Where to search. See <a href="#source">source</a>.</td>
+</tr>
+<tr>
+<td><code>tag</code></td>
+<td><code>null</code></td>
+<td>When set, only entities with this tag are searched.</td>
+</tr>
+<tr>
+<td><code>isRecursive</code></td>
+<td><code>true</code></td>
+<td>For the <code>Children</code> and <code>Parents</code> sources, <code>true</code> searches all descendants or ancestors, and <code>false</code> only the direct children or the direct parent.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="isrequired">isRequired</h3>
+<p>This component needs a <code>Transform3D</code> but can live without a <code>Camera3D</code>:</p>
+<pre><code class="lang-csharp">using Evergine.Framework;
+using Evergine.Framework.Graphics;
+
+namespace MyProject
+{
+    public class MyComponent : Component
+    {
+        [BindComponent(isRequired: true)]
+        private Transform3D transform;
+
+        [BindComponent(isRequired: false)]
+        private Camera3D camera;
+    }
+}
+</code></pre>
+<p>On this entity, <code>MyComponent</code> attaches: <code>transform</code> gets the entity's <code>Transform3D</code>, and <code>camera</code> stays <code>null</code> because it is optional.</p>
+<pre><code class="lang-csharp">Entity entity = new Entity()
+    .AddComponent(new Transform3D())
+    .AddComponent(new MyComponent());
+</code></pre>
+<p>On this other entity, <code>MyComponent</code> does not attach, because its required <code>Transform3D</code> is missing (see <a href="index.html#binding-errors">Binding Errors</a>):</p>
+<pre><code class="lang-csharp">Entity anotherEntity = new Entity()
+    .AddComponent(new MyComponent());
+</code></pre>
+<h3 id="isexacttype">isExactType</h3>
+<p><code>Camera3D</code> derives from <code>Camera</code>. With the default <code>isExactType: true</code>, this binding does not match a <code>Camera3D</code>, because the member type is <code>Camera</code>:</p>
+<pre><code class="lang-csharp">[BindComponent]
+private Camera camera;
+</code></pre>
+<p>Set <code>isExactType: false</code> to accept any component that is a <code>Camera</code>, including a <code>Camera3D</code>:</p>
+<pre><code class="lang-csharp">[BindComponent(isExactType: false)]
+private Camera camera;
+</code></pre>
+<h3 id="source">source</h3>
+<p>The <code>BindComponentSource</code> value says where the search starts and how far it goes:</p>
+<table>
+<thead>
+<tr>
+<th>Source</th>
+<th>Searches</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Owner</code> (default)</td>
+<td>The owner entity only.</td>
+</tr>
+<tr>
+<td><code>Scene</code></td>
+<td>Every entity of the scene.</td>
+</tr>
+<tr>
+<td><code>Children</code></td>
+<td>The owner entity and its descendants.</td>
+</tr>
+<tr>
+<td><code>ChildrenSkipOwner</code></td>
+<td>The descendants of the owner entity, <strong>without</strong> the owner.</td>
+</tr>
+<tr>
+<td><code>Parents</code></td>
+<td>The owner entity and its ancestors.</td>
+</tr>
+<tr>
+<td><code>ParentsSkipOwner</code></td>
+<td>The ancestors of the owner entity, <strong>without</strong> the owner.</td>
+</tr>
+</tbody>
+</table>
+<p>For a single member, the first match wins. The <code>Children</code> sources check the owner first (unless skipped) and then each child with its whole branch, in the order the children were added. The <code>Parents</code> sources go from the nearest ancestor up.</p>
+<pre><code class="lang-csharp">using System.Collections.Generic;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+
+namespace MyProject
+{
+    public class MyComponent : Component
+    {
+        // The first Camera3D found in the scene.
+        [BindComponent(source: BindComponentSource.Scene)]
+        private Camera3D firstCamera;
+
+        // Every Camera3D in the scene.
+        [BindComponent(source: BindComponentSource.Scene)]
+        private List&lt;Camera3D&gt; sceneCameras;
+
+        // The Transform3D of the nearest ancestor, which is how Transform3D itself finds its parent.
+        [BindComponent(isRequired: false, source: BindComponentSource.ParentsSkipOwner)]
+        private Transform3D parentTransform;
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>Scene</code> searches every entity when the component attaches. It is fine for a handful of components, but prefer <code>Owner</code>, <code>Children</code> or <code>Parents</code> for components that are created in large numbers.</p>
+</div>
+<h3 id="tag">tag</h3>
+<p><code>tag</code> narrows the search to entities with that <code>Tag</code>:</p>
+<pre><code class="lang-csharp">// Every Camera3D on entities tagged &quot;Minimap&quot;.
+[BindComponent(source: BindComponentSource.Scene, tag: &quot;Minimap&quot;)]
+private List&lt;Camera3D&gt; minimapCameras;
+</code></pre>
+<h3 id="isrecursive">isRecursive</h3>
+<p>With <code>isRecursive: false</code>, the <code>Children</code> sources only look at the direct children, and the <code>Parents</code> sources only at the direct parent:</p>
+<pre><code class="lang-csharp">// A MeshRenderer on the owner or one of its direct children, but not on grandchildren.
+[BindComponent(source: BindComponentSource.Children, isRecursive: false)]
+private MeshRenderer renderer;
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>isRecursive</code> applies to single members. A <code>List&lt;T&gt;</code> member with a <code>Children</code> or <code>Parents</code> source always searches the whole branch.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

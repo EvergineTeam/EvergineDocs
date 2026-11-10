@@ -1,0 +1,175 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Textures | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Textures | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="textures">Textures</h1>
+
+<hr>
+<p><img src="Images/textures.jpg" alt="Textures"></p>
+<p>A <strong>texture</strong> is an image the GPU can read: the color of a surface, its normals, its roughness, a light's cookie, a sprite, or data for a shader. Most textures are assets imported from image files and assigned to <a href="../materials/index.html">materials</a>; you can also <a href="create_texture_from_code.html">create textures from code</a> and render into them.</p>
+<h2 id="mipmapping">Mipmapping</h2>
+<p>A <strong>mipmap</strong> chain stores the texture at successively halved sizes. When a textured surface is far away or seen at an angle, the GPU reads the smaller levels, which avoids shimmering and reads less memory. Evergine can generate the chain on import or load it from <code>.dds</code> and <code>.ktx</code> files.</p>
+<p><img src="Images/mipmapping.jpg" alt="Mip levels of a texture"></p>
+<h2 id="texture-types">Texture types</h2>
+<p>Evergine supports every basic GPU texture type, detailed in <a href="textureTypes.html">Texture Types</a>:</p>
+<ul>
+<li>Texture1D and Texture1DArray</li>
+<li>Texture2D and Texture2DArray</li>
+<li>TextureCube and TextureCubeArray</li>
+<li>Texture3D</li>
+</ul>
+<h2 id="supported-file-types">Supported file types</h2>
+<table>
+<thead>
+<tr>
+<th>Extension</th>
+<th>Notes</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>.png</code>, <code>.jpg</code>, <code>.jpeg</code>, <code>.bmp</code>, <code>.webp</code></td>
+<td>Common images, imported as Texture2D.</td>
+</tr>
+<tr>
+<td><code>.tga</code></td>
+<td>Truevision TGA, imported as Texture2D.</td>
+</tr>
+<tr>
+<td><code>.hdr</code></td>
+<td>Radiance HDR images, imported as floating point Texture2D. Use them for environment lighting.</td>
+</tr>
+<tr>
+<td><code>.dds</code></td>
+<td>DirectDraw Surface. Can hold any texture type, mipmaps and block-compressed formats.</td>
+</tr>
+<tr>
+<td><code>.ktx</code>, <code>.ktx2</code></td>
+<td>Khronos texture containers. Can hold any texture type, mipmaps and compressed formats.</td>
+</tr>
+</tbody>
+</table>
+<p>See <a href="import_textures.html">Import Textures</a> for details.</p>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="textureTypes.html">Texture Types</a></li>
+<li><a href="import_textures.html">Import Textures</a></li>
+<li><a href="create_texture_from_code.html">Create a Texture from Code</a></li>
+<li><a href="texture_editor.html">Texture Editor</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

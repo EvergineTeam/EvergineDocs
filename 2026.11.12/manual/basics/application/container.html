@@ -1,0 +1,305 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Application Container | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Application Container | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="application-container">Application Container</h1>
+
+<hr>
+<p><img src="images/application_container.png" alt="How registrations are stored and resolved by the Application Container"></p>
+<p><em>A registration by type is created lazily on the first resolve; an instance is stored as it is. Both are also reachable through their base classes and interfaces.</em></p>
+<p>The <strong>Application Container</strong> is the dependency injection container of an Evergine application. It stores the objects that must be reachable from everywhere: the <a href="../services.html">services</a> of your project and the ones Evergine needs to run, such as the <a href="../../graphics/low_level_api/graphicscontext.html">GraphicsContext</a>, the <code>AssetsService</code> and the <a href="screen_context_manager.html">ScreenContextManager</a>. The application itself has almost no logic; it asks the container for these objects and drives them every frame.</p>
+<p>You reach the container through the <code>Container</code> property of the <code>Application</code> class, usually as <code>this.Container</code> inside your application class or <code>Application.Current.Container</code> anywhere else.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Every registration is keyed by type, and there can only be one registration per type. Registering the same type twice throws an <code>InvalidOperationException</code>.</p>
+</div>
+<h2 id="register">Register</h2>
+<h3 id="register-a-type">Register a Type</h3>
+<p><code>Register&lt;T&gt;()</code> tells the container which type to create, but creates nothing yet. The instance is built the first time someone resolves it, and the same instance is returned from then on:</p>
+<pre><code class="lang-csharp">public partial class MyApplication : Application
+{
+    public MyApplication()
+    {
+        // ... the services registered by the project template ...
+
+        this.Container.Register&lt;ScoreService&gt;();
+    }
+}
+</code></pre>
+<p>To create the instance, the container picks the public constructor with the most parameters that it can fill with registered objects. A service that needs another one can simply ask for it in its constructor:</p>
+<pre><code class="lang-csharp">public class LeaderboardUploader
+{
+    private readonly ScoreService scores;
+
+    // ScoreService is registered, so the container can call this constructor.
+    public LeaderboardUploader(ScoreService scores)
+    {
+        this.scores = scores;
+    }
+}
+</code></pre>
+<h3 id="register-an-implementation-of-an-abstraction">Register an Implementation of an Abstraction</h3>
+<p><code>Register&lt;T, TImplementation&gt;()</code> registers <code>TImplementation</code> so that it is resolved when someone asks for <code>T</code>. Code that depends on the interface does not need to know which implementation the profile chose:</p>
+<pre><code class="lang-csharp">public interface ILeaderboard
+{
+    void Submit(int score);
+}
+
+public class LocalLeaderboard : ILeaderboard
+{
+    public void Submit(int score)
+    {
+        // Store the score on the device...
+    }
+}
+</code></pre>
+<pre><code class="lang-csharp">this.Container.Register&lt;ILeaderboard, LocalLeaderboard&gt;();
+
+// Anywhere in the application:
+var leaderboard = Application.Current.Container.Resolve&lt;ILeaderboard&gt;();
+</code></pre>
+<h3 id="register-an-instance">Register an Instance</h3>
+<p><code>RegisterInstance(instance)</code> stores an object that you have already created. Use it when the object needs configuration before anyone uses it, or when only the launcher project knows which implementation to create. This is how every profile registers its graphics context:</p>
+<pre><code class="lang-csharp">GraphicsContext graphicsContext = new DX12GraphicsContext();
+graphicsContext.CreateDevice();
+
+// The registration key is the static type of the argument: GraphicsContext.
+application.Container.RegisterInstance(graphicsContext);
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>The key is the generic type argument, which C# infers from the declared type of the variable. In the example above, <code>Resolve&lt;GraphicsContext&gt;()</code> finds the context but <code>Resolve&lt;DX12GraphicsContext&gt;()</code> does not. Write <code>RegisterInstance&lt;GraphicsContext&gt;(new DX12GraphicsContext())</code> to make the key explicit.</p>
+</div>
+<h3 id="singletons-and-factories">Singletons and Factories</h3>
+<p>Every <code>Register</code> overload accepts two optional parameters:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>factoryDelegate</code></td>
+<td><code>null</code></td>
+<td>A function that the container calls <strong>every time</strong> the type is resolved, instead of calling a constructor. When it is set, <code>reuse</code> is ignored.</td>
+</tr>
+<tr>
+<td><code>reuse</code></td>
+<td><code>true</code></td>
+<td><code>true</code> creates one instance on the first resolve and returns it from then on. <code>false</code> creates a new instance on every resolve.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// A new, independent uploader every time it is resolved.
+this.Container.Register&lt;LeaderboardUploader&gt;(reuse: false);
+
+// Built by your code every time it is resolved.
+this.Container.Register&lt;ILeaderboard&gt;(() =&gt; new LocalLeaderboard());
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Keep <code>Service</code> classes as singletons, registered by type with the default <code>reuse</code> or registered as an instance. The service lifecycle tracks one instance per service type, and objects returned by a factory delegate never join it. Factories and <code>reuse: false</code> are meant for plain objects.</p>
+</div>
+<h3 id="base-classes-and-interfaces">Base Classes and Interfaces</h3>
+<p>A registration is also stored under every base class and interface of its key type. <code>Resolve&lt;Service&gt;()</code> or <code>Resolve&lt;IDisposable&gt;()</code> would therefore match many registrations at once, which makes them ambiguous: <code>Resolve</code> throws an <code>InvalidOperationException</code> in that case. Use <code>ResolveMany</code> to get all of them instead.</p>
+<h2 id="resolve">Resolve</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>T Resolve&lt;T&gt;()</code></td>
+<td>Returns the object registered for <code>T</code>, creating it if needed. Returns <code>null</code> if nothing is registered for <code>T</code>.</td>
+</tr>
+<tr>
+<td><code>object Resolve(Type type)</code></td>
+<td>The same, without generics.</td>
+</tr>
+<tr>
+<td><code>IEnumerable&lt;T&gt; ResolveMany&lt;T&gt;()</code></td>
+<td>Returns every object registered for <code>T</code> or for a type that derives from it. Returns <code>null</code> if there is none.</td>
+</tr>
+<tr>
+<td><code>IEnumerable&lt;object&gt; ResolveMany(Type type)</code></td>
+<td>The same, without generics. Returns an empty collection if there is none.</td>
+</tr>
+<tr>
+<td><code>bool IsRegistered&lt;T&gt;()</code></td>
+<td>Returns <code>true</code> if something is registered for <code>T</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Inside components, scene managers and services, prefer the <a href="../bindings/bind_services.html"><code>[BindService]</code></a> attribute to calling <code>Resolve</code> yourself:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Framework;
+
+namespace MyProject
+{
+    public class PickupBehavior : Behavior
+    {
+        // Resolved from the container before OnAttached() runs.
+        [BindService]
+        private ScoreService scoreService;
+
+        // Interfaces work too, as long as exactly one registration matches.
+        [BindService(isRequired: false)]
+        private ILeaderboard leaderboard;
+
+        protected override void Update(TimeSpan gameTime)
+        {
+            this.scoreService.Add(1);
+        }
+    }
+}
+</code></pre>
+<p><code>Resolve</code> is the right tool outside Evergine elements, or where the dependency is only known at runtime:</p>
+<pre><code class="lang-csharp">var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+</code></pre>
+<h2 id="unregister">Unregister</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Unregister&lt;T&gt;()</code></td>
+<td>Removes the registration for <code>T</code>.</td>
+</tr>
+<tr>
+<td><code>Unregister(Type type)</code></td>
+<td>The same, without generics.</td>
+</tr>
+</tbody>
+</table>
+<p>Unregistering a <code>Service</code> also destroys it: it runs <code>OnDeactivated()</code>, <code>OnDetached()</code> and <code>OnDestroy()</code>, and the instance cannot be used again.</p>
+<pre><code class="lang-csharp">// The player left the online mode: stop and release the service.
+this.Container.Unregister&lt;SessionTimerService&gt;();
+</code></pre>
+<h2 id="what-cannot-be-registered">What Cannot Be Registered</h2>
+<p>Scenes, entities and components belong to a scene, not to the application. Registering a <code>Scene</code>, <code>Entity</code> or <code>Component</code> (or any subclass) throws an <code>InvalidOperationException</code>. Reach entities and components through the <a href="../component_arch/entities/entity_manager.html">EntityManager</a> and the <a href="../bindings/index.html">bindings</a> instead.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

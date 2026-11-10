@@ -1,0 +1,296 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Button States | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Button States | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="button-states">Button States</h1>
+
+<p><img src="images/button_states_diagram.png" alt="Timeline of a key press over ten frames: Released, one frame of Pressing, Pressed while held, one frame of Releasing, then Released again; IsKeyDown is true during Pressing and Pressed"></p>
+<p><em><code>Pressing</code> and <code>Releasing</code> are one-frame edges between the two resting states.</em></p>
+<p>Every key, mouse button and touch point in Evergine reports its state as a <code>ButtonState</code>. Besides telling you whether something is down, the state tells you whether it went down or up <strong>this frame</strong>, which is what you need to fire an action once per press instead of once per frame. The rules are the same on every platform, because a single class, <code>ButtonStateTracker&lt;TButton&gt;</code>, computes the states for all of them.</p>
+<h2 id="buttonstate">ButtonState</h2>
+<p><code>ButtonState</code> (namespace <code>Evergine.Common.Input</code>) is a <code>[Flags]</code> enumeration:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Undefined</strong></td>
+<td>0</td>
+<td>No state. The trackers never return it; it is the default value of a <code>ButtonState</code> field that has not been assigned.</td>
+</tr>
+<tr>
+<td><strong>Released</strong></td>
+<td>1</td>
+<td>Up, and it was already up in the previous frame. This is what you get for any key or button that has never been touched.</td>
+</tr>
+<tr>
+<td><strong>Pressing</strong></td>
+<td>2</td>
+<td>Went down this frame. Lasts exactly one frame (rising edge).</td>
+</tr>
+<tr>
+<td><strong>Pressed</strong></td>
+<td>4</td>
+<td>Down, and it was already down in the previous frame.</td>
+</tr>
+<tr>
+<td><strong>Releasing</strong></td>
+<td>8</td>
+<td>Went up this frame. Lasts exactly one frame (falling edge).</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>You want to know</th>
+<th>Read</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Is it down right now?</td>
+<td><code>IsKeyDown(key)</code> / <code>IsButtonDown(button)</code>, true for <code>Pressing</code> or <code>Pressed</code>.</td>
+</tr>
+<tr>
+<td>Did it go down this frame?</td>
+<td><code>ReadKeyState(key) == ButtonState.Pressing</code></td>
+</tr>
+<tr>
+<td>Did it go up this frame?</td>
+<td><code>ReadKeyState(key) == ButtonState.Releasing</code></td>
+</tr>
+<tr>
+<td>Is it held since an earlier frame?</td>
+<td><code>ReadKeyState(key) == ButtonState.Pressed</code></td>
+</tr>
+</tbody>
+</table>
+<p>Because the values are flags, you can test several states at once with a mask. This is exactly how <code>IsKeyDown</code> is implemented:</p>
+<pre><code class="lang-csharp">ButtonState state = keyboard.ReadKeyState(Keys.Space);
+bool isDown = (state &amp; (ButtonState.Pressing | ButtonState.Pressed)) != 0;
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Use <code>Pressing</code> for anything that should happen once per press: jumping, firing, toggling a menu. Use <code>IsKeyDown</code> for anything that should continue while the key is held: moving, zooming, charging.</p>
+</div>
+<h2 id="how-the-states-change">How the states change</h2>
+<p>The dispatchers feed every down and up event to a <code>ButtonStateTracker&lt;TButton&gt;</code> while they empty their queues, and call <code>Commit()</code> once per frame (see <a href="index.html#one-frame-of-input">One frame of input</a>). The tracker follows these rules:</p>
+<ul>
+<li><strong>A down event</strong> on something <code>Released</code> or <code>Releasing</code> makes it <code>Pressing</code>. Down events on something already down are ignored, so keyboard auto-repeat never produces a second <code>Pressing</code>.</li>
+<li><strong>An up event</strong> on something <code>Pressing</code> or <code>Pressed</code> makes it <code>Releasing</code>.</li>
+<li><strong>Only one change per frame.</strong> If a key goes down and up between two frames, the frame sees <code>Pressing</code> and the next frame sees <code>Releasing</code>. A tap shorter than a frame is never lost, it just never reaches <code>Pressed</code>.</li>
+<li><strong>On <code>Commit()</code>,</strong> anything that did not change this frame moves on: <code>Pressing</code> becomes <code>Pressed</code> if it is still held (or <code>Releasing</code> if it was released in the same frame it was pressed), and <code>Releasing</code> becomes <code>Released</code>.</li>
+</ul>
+<p>The tracker is public, so you can use it to give a custom device the same semantics:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ButtonStateTracker(Action&lt;TButton&gt; onReleasing = null)</strong></td>
+<td>Creates a tracker. The optional callback runs for each button that moves from <code>Releasing</code> to <code>Released</code> during <code>Commit()</code>.</td>
+</tr>
+<tr>
+<td><strong>ButtonDown(TButton button)</strong></td>
+<td>Reports that the button went down.</td>
+</tr>
+<tr>
+<td><strong>ButtonUp(TButton button)</strong></td>
+<td>Reports that the button went up.</td>
+</tr>
+<tr>
+<td><strong>Commit()</strong></td>
+<td>Advances the states for the next frame. Call it once per frame, after reporting the events.</td>
+</tr>
+<tr>
+<td><strong>ReadButtonState(TButton button)</strong></td>
+<td>Returns the current state. Unknown buttons return <code>Released</code>.</td>
+</tr>
+<tr>
+<td><strong>IsButtonDown(TButton button)</strong></td>
+<td>Returns true if the state is <code>Pressing</code> or <code>Pressed</code>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="example-charge-and-release">Example: charge and release</h2>
+<p>This behavior uses all three edges of the Space key. Pressing starts a charge, holding it grows the entity, and releasing it reports how long it was held and resets the scale.</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Keyboard;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class ChargeOnSpace : Behavior
+{
+    [BindService]
+    private GraphicsPresenter graphicsPresenter = null;
+
+    [BindComponent]
+    private Transform3D transform = null;
+
+    private float chargeSeconds;
+
+    public float MaxChargeSeconds { get; set; } = 2f;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        KeyboardDispatcher keyboard = this.graphicsPresenter.FocusedDisplay?.KeyboardDispatcher;
+        if (keyboard == null)
+        {
+            return;
+        }
+
+        switch (keyboard.ReadKeyState(Keys.Space))
+        {
+            case ButtonState.Pressing:
+                this.chargeSeconds = 0f;
+                break;
+
+            case ButtonState.Pressed:
+                // Pressed is reported every frame the key is held, so it accumulates elapsed time.
+                this.chargeSeconds = Math.Min(this.chargeSeconds + (float)gameTime.TotalSeconds, this.MaxChargeSeconds);
+                this.transform.LocalScale = Vector3.One * (1f + this.chargeSeconds);
+                break;
+
+            case ButtonState.Releasing:
+                System.Diagnostics.Debug.WriteLine($&quot;Released after {this.chargeSeconds:0.00} s of charge&quot;);
+                this.transform.LocalScale = Vector3.One;
+                break;
+        }
+    }
+}
+</code></pre>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="keyboard.html">Keyboard</a>: <code>ReadKeyState</code> and <code>IsKeyDown</code>.</li>
+<li><a href="mouse.html">Mouse</a>: <code>ReadButtonState</code> and <code>IsButtonDown</code>.</li>
+<li><a href="touch.html">Touch</a>: <code>PointerPoint.State</code>.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

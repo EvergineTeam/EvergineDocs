@@ -1,0 +1,444 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Animation3D Component | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation3D Component | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation3d-component">Animation3D Component</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/rhino.mp4" type="video/mp4">
+</video>
+<p><code>Animation3D</code> is the component that plays the <a href="animation_clip.html">animation clips</a> of a model on the entities of that model. It starts and stops clips, crossfades from one to the next, plays several clips at once in layers, and raises an event when playback reaches a keyframe event.</p>
+<p>Use it for anything a model brings its own animation for: a character's walk cycle, a machine's moving parts, a door that opens. It is a <code>Behavior</code>, so it advances the animation every frame.</p>
+<h2 id="getting-the-component">Getting the component</h2>
+<p>When a model with animations is instantiated, the root entity of the new hierarchy already has an <code>Animation3D</code> with its <code>Model</code> set. That applies to a model dragged into a scene in Evergine Studio and to <code>Model.InstantiateModelHierarchy</code> in code:</p>
+<pre><code class="lang-csharp">protected override void CreateScene()
+{
+    var assetsService = Application.Current.Container.Resolve&lt;AssetsService&gt;();
+    Model model = assetsService.Load&lt;Model&gt;(EvergineContent.Models.Character_glb);
+
+    Entity character = model.InstantiateModelHierarchy(&quot;character&quot;, assetsService);
+
+    // Nothing plays by default. The component is not attached yet, so choose the clip
+    // and let it start by itself when the entity joins the scene.
+    var animation3D = character.FindComponent&lt;Animation3D&gt;();
+    animation3D.CurrentAnimation = &quot;walk&quot;;
+    animation3D.PlayAutomatically = true;
+
+    this.Managers.EntityManager.Add(character);
+}
+</code></pre>
+<p>In Evergine Studio, set <strong>Current Animation</strong> and <strong>Play Automatically</strong> in the inspector of the root entity instead. In a component on the same entity, bind it with <code>[BindComponent]</code> and call its methods from <code>Start</code> or later, as in the examples below.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>PlayAnimation</code> and <code>AddAnimationLayer</code> need the component to be attached, because that is when it maps the model nodes to entities. Before that, use <code>CurrentAnimation</code> and <code>PlayAutomatically</code>, and set <code>CurrentAnimation</code> first: with <code>PlayAutomatically</code> already on, setting it calls <code>PlayAnimation</code> straight away, which fails before the component is attached.</p>
+</div>
+<p>If you add one yourself, add it to the <strong>root entity</strong> of the model hierarchy. The component finds the entity of every animated node by following the node names down from its own entity, so on any other entity the channels have nothing to drive.</p>
+<p><img src="images/animation3d_inspector.png" alt="Animation3D in Entity Details, on the root entity of an animated model"></p>
+<h2 id="properties">Properties</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Model</strong></td>
+<td>null</td>
+<td>The model asset that holds the clips. Set automatically when the model is instantiated.</td>
+</tr>
+<tr>
+<td><strong>CurrentAnimation</strong></td>
+<td>first clip</td>
+<td>Name of the clip to play automatically. If it is empty when the component is attached, it takes the name of the first clip in the model. Setting it plays that clip when <code>PlayAutomatically</code> is on. <code>PlayAnimation</code> does <strong>not</strong> change it.</td>
+</tr>
+<tr>
+<td><strong>PlayAutomatically</strong></td>
+<td>false</td>
+<td>Plays <code>CurrentAnimation</code> when the component is attached and whenever <code>CurrentAnimation</code> changes.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>true</td>
+<td>Whether the clip in the first layer restarts when it ends.</td>
+</tr>
+<tr>
+<td><strong>PlaybackRate</strong></td>
+<td>1</td>
+<td>Speed of the clip in the first layer. 2 plays twice as fast; a negative value plays backwards. Setting it only affects a clip that is already playing, so a value set before playback (including in the Evergine Studio inspector) is not kept: pass <code>playbackRate</code> to <code>PlayAnimation</code> instead.</td>
+</tr>
+<tr>
+<td><strong>ApplyRootMotion</strong></td>
+<td>true</td>
+<td>Adds the root motion of the clip to this entity's <code>Transform3D</code>, so the character travels with its animation. It has an effect only for clips with root motion channels (see <a href="animation_clip.html#animationclip">AnimationClip</a>).</td>
+</tr>
+<tr>
+<td><strong>SmoothTransitions</strong></td>
+<td>false</td>
+<td>Makes the transitions created by <code>PlayAnimation</code> ease in and out instead of blending linearly.</td>
+</tr>
+</tbody>
+</table>
+<p>These are read-only, or meant for code only:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AnimationNames</strong></td>
+<td>Names of all the clips in <code>Model</code>.</td>
+</tr>
+<tr>
+<td><strong>Clip</strong></td>
+<td>The <code>AnimationBlendClip</code> of the first layer: the clip or blend tree that <code>PlayAnimation</code> started.</td>
+</tr>
+<tr>
+<td><strong>AnimationLayers</strong></td>
+<td>All the layers, in the order they are applied. See <a href="#animation-layers">Animation layers</a>.</td>
+</tr>
+<tr>
+<td><strong>CurrentAnimationTrack</strong></td>
+<td>The <code>AnimationClip</code> that <code>CurrentAnimation</code> named when the component was attached.</td>
+</tr>
+<tr>
+<td><strong>AnimationState</strong></td>
+<td><code>Playing</code> or <code>Stopped</code>, for the first layer.</td>
+</tr>
+<tr>
+<td><strong>PlayTime</strong></td>
+<td>Time of the first layer, in seconds since it started. Setting it seeks, and updates the pose even while the animation is stopped.</td>
+</tr>
+<tr>
+<td><strong>Frame</strong></td>
+<td><code>PlayTime</code> expressed in frames, using the clip's <code>Framerate</code>. It is 0 for clips loaded from a model asset (see the note in <a href="animation_clip.html#animationclip">AnimationClip</a>).</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td>Length of the first layer's clip, in seconds.</td>
+</tr>
+<tr>
+<td><strong>StartAnimationTime</strong> / <strong>EndAnimationTime</strong></td>
+<td>The time range of the first layer's clip when it is an <code>AnimationTrackClip</code>, in seconds.</td>
+</tr>
+<tr>
+<td><strong>BoundingBoxRefreshed</strong></td>
+<td>Set to true by every <code>PlayAnimation</code> call.</td>
+</tr>
+</tbody>
+</table>
+<p>The properties that describe playback (<code>Loop</code>, <code>PlaybackRate</code>, <code>AnimationState</code>, <code>PlayTime</code>, <code>Duration</code>...) always refer to the <strong>first layer</strong>. The other layers are controlled through their own <code>AnimationBlendClip</code>.</p>
+<h2 id="methods">Methods</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PlayAnimation(string name, bool loop = true, float transitionTime = 0, float playbackRate = 1, float? startTime = null, float? endTime = null)</strong></td>
+<td>Plays a clip of the model by name, optionally only the range between <code>startTime</code> and <code>endTime</code>. With a <code>transitionTime</code> above 0 it blends from what was playing to the new clip over that many seconds. An unknown name is ignored.</td>
+</tr>
+<tr>
+<td><strong>PlayAnimation(AnimationBlendClip clip, float transitionTime = 0)</strong></td>
+<td>Plays a clip object: an <code>AnimationTrackClip</code> you built, or the root of a <a href="animation_blend_tree.html">blend tree</a>. Also blends over <code>transitionTime</code> seconds.</td>
+</tr>
+<tr>
+<td><strong>PlayAnimation(string name, int? startTime, int? endTime, bool loop = true, float playbackRate = 1)</strong></td>
+<td>Plays a range of a clip, without transition. See the note below.</td>
+</tr>
+<tr>
+<td><strong>StopAnimation()</strong></td>
+<td>Pauses the first layer. The model keeps its current pose and <code>PlayTime</code> is kept.</td>
+</tr>
+<tr>
+<td><strong>ResumeAnimation()</strong></td>
+<td>Continues the first layer from where <code>StopAnimation</code> left it.</td>
+</tr>
+<tr>
+<td><strong>GetDuration(string name)</strong></td>
+<td>Length of a clip in seconds, or 0 if the model has no clip with that name.</td>
+</tr>
+<tr>
+<td><strong>AddAnimationLayer(AnimationBlendClip clip)</strong></td>
+<td>Adds a layer that plays on top of the others.</td>
+</tr>
+<tr>
+<td><strong>RemoveAnimationLayer(AnimationBlendClip clip)</strong></td>
+<td>Removes a layer. The nodes it animated keep their last pose.</td>
+</tr>
+</tbody>
+</table>
+<p><code>PlayAnimation</code> always replaces the <strong>first layer</strong>. The other layers keep playing.</p>
+<h2 id="events">Events</h2>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Arguments</th>
+<th>Raised</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>OnKeyFrameEvent</strong></td>
+<td><code>AnimationKeyframeEvent</code></td>
+<td>When playback crosses a <a href="animation_clip.html#keyframe-events">keyframe event</a> of a playing clip.</td>
+</tr>
+<tr>
+<td><strong>AnimationUpdated</strong></td>
+<td><code>AnimationSample</code></td>
+<td>Every update, once per playing layer, right after the layer has written its pose to the entities.</td>
+</tr>
+</tbody>
+</table>
+<p>Because <code>AnimationUpdated</code> comes after the pose is written, a handler can adjust a bone and the change stays visible until the next update: that is the place for a head that turns towards a target on top of the walk cycle.</p>
+<h2 id="play-an-animation">Play an animation</h2>
+<pre><code class="lang-csharp">// Loop the walk at its authored speed.
+animation3D.PlayAnimation(&quot;walk&quot;);
+
+// Play the jump once, 50% faster.
+animation3D.PlayAnimation(&quot;jump&quot;, loop: false, playbackRate: 1.5f);
+
+// Loop only the part of a long clip between second 1 and second 5.
+animation3D.PlayAnimation(&quot;full_track&quot;, loop: true, startTime: 1f, endTime: 5f);
+
+// Pause on the current pose, then continue.
+animation3D.StopAnimation();
+animation3D.ResumeAnimation();
+
+// Jump to half a second into the clip. This works while stopped too, to scrub through a clip.
+animation3D.PlayTime = 0.5f;
+</code></pre>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Write the range as <code>float</code> values (<code>1f</code>, <code>5f</code>). With <code>int</code> literals, <code>PlayAnimation(&quot;full_track&quot;, loop: true, startTime: 1, endTime: 5)</code> binds to the <code>int?</code> overload instead, because <code>int</code> to <code>int?</code> is a better conversion than <code>int</code> to <code>float?</code>. Its reference documentation calls the values frames, but they are used as <strong>seconds</strong>, exactly as in the <code>float</code> overload, and it cannot transition from the previous clip. If you know a range in frames, divide by the frame rate the clip was authored at: frames 30 to 150 of a 30 fps clip are <code>startTime: 1f, endTime: 5f</code>.</p>
+</div>
+<h2 id="crossfade-from-one-clip-to-another">Crossfade from one clip to another</h2>
+<p>Switching clips with a plain <code>PlayAnimation</code> call snaps the model to the first pose of the new clip. Pass a <code>transitionTime</code> and <code>Animation3D</code> builds a <a href="animation_blend_tree.html#transitionclip"><code>TransitionClip</code></a> that blends the old pose into the new one over that time:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.Animation;
+using Evergine.Framework;
+
+public class WalkRunController : Behavior
+{
+    [BindComponent]
+    private Animation3D animation3D = null;
+
+    private bool isRunning;
+
+    // Set by your input or AI code.
+    public bool Run { get; set; }
+
+    protected override void Start()
+    {
+        base.Start();
+
+        // Transitions created by PlayAnimation ease in and out instead of blending linearly.
+        this.animation3D.SmoothTransitions = true;
+        this.animation3D.PlayAnimation(&quot;walk&quot;);
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (this.Run == this.isRunning)
+        {
+            return;
+        }
+
+        this.isRunning = this.Run;
+
+        // A quarter of a second hides the change of pose without making the switch feel slow.
+        this.animation3D.PlayAnimation(this.isRunning ? &quot;run&quot; : &quot;walk&quot;, transitionTime: 0.25f);
+    }
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>On the current engine version a finished transition is never removed. Each <code>PlayAnimation</code> call with a <code>transitionTime</code> wraps whatever the first layer holds, finished transitions included, in a new <code>TransitionClip</code>, and every clip in that chain keeps being updated. For a character that switches clips many times, build the transition yourself from the clip it should start from, as in the <a href="animation_blend_tree.html#example-crossfade-from-walk-to-run">crossfade example</a>, so the chain never grows.</p>
+</div>
+<p>A plain transition starts the new clip at its beginning. When the two clips are cycles of the same movement, such as walk and run, a <a href="animation_blend_tree.html#synchronizedtransitionclip"><code>SynchronizedTransitionClip</code></a> keeps the feet in step during the blend.</p>
+<h2 id="keyframe-events">Keyframe events</h2>
+<p>Subscribe to <code>OnKeyFrameEvent</code> to run code at a point of a clip. The events come from the clip: they are authored in the <a href="../graphics/models/model_editor.html">Model Editor</a> or added in code, as described in <a href="animation_clip.html#keyframe-events">Keyframe events</a>.</p>
+<p>This component plays a footstep sound every time the walk or run clip reaches an event tagged <code>Footstep</code>:</p>
+<pre><code class="lang-csharp">using Evergine.Components.Animation;
+using Evergine.Components.Sound;
+using Evergine.Framework;
+using Evergine.Framework.Animation;
+
+public class FootstepSounds : Component
+{
+    [BindComponent]
+    private Animation3D animation3D = null;
+
+    // A mono sound on the same entity, with its Audio set to the footstep.
+    [BindComponent]
+    private SoundEmitter3D footstep = null;
+
+    protected override void OnActivated()
+    {
+        base.OnActivated();
+        this.animation3D.OnKeyFrameEvent += this.OnKeyFrameEvent;
+    }
+
+    protected override void OnDeactivated()
+    {
+        base.OnDeactivated();
+
+        // Unsubscribe, or a disabled component would keep playing sounds.
+        this.animation3D.OnKeyFrameEvent -= this.OnKeyFrameEvent;
+    }
+
+    private void OnKeyFrameEvent(object sender, AnimationKeyframeEvent keyframeEvent)
+    {
+        if (keyframeEvent.Tag != &quot;Footstep&quot;)
+        {
+            return;
+        }
+
+        // Restart the sound so fast steps are not swallowed by the previous one.
+        this.footstep.Stop();
+        this.footstep.Play();
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>Animation3D</code> only collects events while <code>OnKeyFrameEvent</code> has a handler, so a model with events costs nothing extra until you subscribe.</p>
+</div>
+<p>During a crossfade both clips are playing, so both raise their events. To take events only from the clip that dominates the blend, set <code>ListenAnimationThreshold</code> on the transition, as shown in <a href="animation_blend_tree.html#keyframe-events-in-a-blend-tree">Keyframe events in a blend tree</a>.</p>
+<h2 id="animation-layers">Animation layers</h2>
+<p><code>Animation3D</code> holds a list of layers. Each layer is an <code>AnimationBlendClip</code>, from a single clip to a whole blend tree. Every update, the layers are applied in order and each one writes the channels it animates, so a later layer wins over an earlier one on the nodes they share, and leaves the others alone.</p>
+<ul>
+<li>The first layer is the one <code>PlayAnimation</code> starts and replaces. <code>Clip</code> returns it, and the playback properties of the component refer to it.</li>
+<li><code>AddAnimationLayer</code> adds a layer after the existing ones. Add layers once the component is attached, for example in <code>Start</code>.</li>
+<li><code>RemoveAnimationLayer</code> takes one out.</li>
+</ul>
+<p>The typical use is a clip that animates only part of the body, such as waving or aiming while the legs keep walking. The <a href="animation_blend_tree.html#animation-layers">Animation Blend Tree</a> page explains how layers are combined and builds an upper-body layer step by step.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Every layer raises its own keyframe events and <code>AnimationUpdated</code> call, and every layer adds its root motion when <code>ApplyRootMotion</code> is on. Keep root motion in one layer only.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,254 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>ResourceFactory | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="ResourceFactory | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="resourcefactory">ResourceFactory</h1>
+
+<p>The <code>ResourceFactory</code> creates every GPU object. You reach it through the <a href="graphicscontext.html">GraphicsContext</a>, and from then on it is the only allocator you use:</p>
+<pre><code class="lang-csharp">var vertexBufferDescription = new BufferDescription(
+    (uint)Unsafe.SizeOf&lt;VertexPositionNormalTexture&gt;() * (uint)vertexData.Length,
+    BufferFlags.VertexBuffer,
+    ResourceUsage.Default);
+
+var vertexBuffer = this.graphicsContext.Factory.CreateBuffer(vertexData, ref vertexBufferDescription);
+</code></pre>
+<p>Every object it returns is an abstract type, and the concrete class matches the backend the context was created for. The factory of a <code>DX11GraphicsContext</code> always returns DirectX 11 resources (<code>DX11Texture</code>, <code>DX11Buffer</code>, and so on), and your code never names them. That is what lets one set of resource creation calls run on every backend.</p>
+<h2 id="what-it-creates">What it creates</h2>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Returns</th>
+<th>Page</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CreateBuffer</code></td>
+<td><code>Buffer</code></td>
+<td><a href="buffer.html">Buffer</a></td>
+</tr>
+<tr>
+<td><code>CreateTexture</code></td>
+<td><code>Texture</code></td>
+<td><a href="texture.html">Texture</a></td>
+</tr>
+<tr>
+<td><code>CreateTextureView</code></td>
+<td><code>TextureView</code></td>
+<td><a href="texture.html">Texture</a></td>
+</tr>
+<tr>
+<td><code>CreateSamplerState</code></td>
+<td><code>SamplerState</code></td>
+<td><a href="sampler.html">Sampler</a></td>
+</tr>
+<tr>
+<td><code>CreateShader</code></td>
+<td><code>Shader</code></td>
+<td><a href="shader.html">Shader</a></td>
+</tr>
+<tr>
+<td><code>CreateResourceLayout</code></td>
+<td><code>ResourceLayout</code></td>
+<td><a href="resourcelayout.html">ResourceLayout</a></td>
+</tr>
+<tr>
+<td><code>CreateResourceSet</code></td>
+<td><code>ResourceSet</code></td>
+<td><a href="resourceset.html">ResourceSet</a></td>
+</tr>
+<tr>
+<td><code>CreateFrameBuffer</code></td>
+<td><code>FrameBuffer</code></td>
+<td><a href="framebuffer.html">Framebuffer</a></td>
+</tr>
+<tr>
+<td><code>CreateGraphicsPipeline</code></td>
+<td><code>GraphicsPipelineState</code></td>
+<td><a href="graphicspipeline.html">GraphicsPipeline</a></td>
+</tr>
+<tr>
+<td><code>CreateComputePipeline</code></td>
+<td><code>ComputePipelineState</code></td>
+<td><a href="computepipeline.html">ComputePipeline</a></td>
+</tr>
+<tr>
+<td><code>CreateRaytracingPipeline</code></td>
+<td><code>RaytracingPipelineState</code></td>
+<td><a href="raytracingpipeline.html">RaytracingPipeline</a></td>
+</tr>
+<tr>
+<td><code>CreateMeshShaderPipeline</code></td>
+<td><code>MeshShaderPipelineState</code></td>
+<td></td>
+</tr>
+<tr>
+<td><code>CreateCommandQueue</code></td>
+<td><code>CommandQueue</code></td>
+<td><a href="commandqueue.html">CommandQueue</a></td>
+</tr>
+<tr>
+<td><code>CreateQueryHeap</code></td>
+<td><code>QueryHeap</code></td>
+<td><a href="queryheap.html">QueryHeap</a></td>
+</tr>
+</tbody>
+</table>
+<h2 id="two-objects-the-factory-does-not-create">Two objects the factory does not create</h2>
+<table>
+<thead>
+<tr>
+<th>Object</th>
+<th>Where it comes from</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CommandBuffer</code></td>
+<td><code>commandQueue.CommandBuffer()</code>. See <a href="commandbuffer.html">CommandBuffer</a>.</td>
+</tr>
+<tr>
+<td><code>SwapChain</code></td>
+<td><code>graphicsContext.CreateSwapChain(description)</code>. See <a href="swapchain.html">Swapchain</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>A command buffer is drawn from its queue's pool rather than allocated, which is what makes it single use. A swapchain is tied to a surface rather than to the device alone, so it is created from the context.</p>
+<h2 id="descriptions-are-passed-by-reference">Descriptions are passed by reference</h2>
+<p>Most <code>Create</code> methods take their description with <code>ref</code>:</p>
+<pre><code class="lang-csharp">var textureDescription = new TextureDescription() { /* ... */ };
+var texture = this.graphicsContext.Factory.CreateTexture(ref textureDescription);
+</code></pre>
+<p>The description is a struct, and <code>ref</code> avoids copying it. It is not modified, so the same description can create several resources.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This means you cannot pass a description inline as <code>CreateTexture(ref new TextureDescription())</code>. Assign it to a local first.</p>
+</div>
+<h2 id="validation">Validation</h2>
+<p>Every <code>Create</code> method has a validation step that runs when the device was created with a <code>ValidationLayer</code>. It checks descriptions for combinations the backend would reject later, at a point where the error still names what you asked for:</p>
+<pre><code class="lang-csharp">graphicsContext.CreateDevice(new ValidationLayer());
+</code></pre>
+<p>Turn it on during development. See <a href="graphicscontext.html">GraphicsContext</a> for the ways it can report.</p>
+<h2 id="disposing">Disposing</h2>
+<p>Every object the factory returns implements <code>IDisposable</code>, and none of them is collected for you. Dispose in reverse order of dependency: pipelines before the shaders they were built from, resource sets before the layouts they fill, and everything before the context.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Wait for the GPU before disposing anything it may still be reading, with <code>commandQueue.WaitIdle()</code>. Freeing a resource that is still in flight is a use after free on the GPU, and it usually shows up as a device removed error rather than as anything that names the resource.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

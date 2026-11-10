@@ -1,0 +1,380 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Animation Work Actions | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation Work Actions | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation-work-actions">Animation Work Actions</h1>
+
+<p><img src="images/ease_functions.png" alt="The easing functions of EaseFunction, one curve per family and mode, from the start value at the bottom of each plot to the end value at the top"></p>
+<p>An animation work action changes a value from a start value to an end value over a time, a technique also called tweening. Every frame it computes the value for the time elapsed, shaped by an <a href="#easing-functions">easing function</a>, and hands it to a method of yours that applies it: to the position of an entity, the intensity of a light, the field of view of a camera, or anything else you can set from code. When the time is up it applies the end value and completes, so the next work action of the <a href="composing_work_actions.html">chain</a> can start.</p>
+<p>There are generic animation work actions for <code>float</code>, <code>Vector2</code>, <code>Vector3</code> and <code>Quaternion</code> values, and three ready-made ones that move, rotate and scale an entity.</p>
+<h2 id="animate-a-value">Animate a value</h2>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Value</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FloatAnimationWorkAction</strong></td>
+<td><code>float</code></td>
+</tr>
+<tr>
+<td><strong>Vector2AnimationWorkAction</strong></td>
+<td><code>Vector2</code></td>
+</tr>
+<tr>
+<td><strong>Vector3AnimationWorkAction</strong></td>
+<td><code>Vector3</code></td>
+</tr>
+<tr>
+<td><strong>QuaternionAnimationWorkAction</strong></td>
+<td><code>Quaternion</code>. See the <a href="#rotations-with-quaternions">note on rotations</a>.</td>
+</tr>
+</tbody>
+</table>
+<p>All four take the same arguments:</p>
+<pre><code class="lang-csharp">new FloatAnimationWorkAction(Entity entity, float from, float to, TimeSpan time, EaseFunction ease, Action&lt;float&gt; updateAction)
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>entity</strong></td>
+<td>The entity that hosts the animation. It does not have to be the entity you animate, but it must be in the scene: the work action belongs to the <a href="composing_work_actions.html#work-actions-and-scenes">scene of this entity</a>, and runs with its updates. It cannot be <code>null</code>.</td>
+</tr>
+<tr>
+<td><strong>from</strong></td>
+<td>The value at the start.</td>
+</tr>
+<tr>
+<td><strong>to</strong></td>
+<td>The value at the end.</td>
+</tr>
+<tr>
+<td><strong>time</strong></td>
+<td>How long the animation lasts.</td>
+</tr>
+<tr>
+<td><strong>ease</strong></td>
+<td>The <a href="#easing-functions">easing function</a>. <code>EaseFunction.None</code> is a linear interpolation.</td>
+</tr>
+<tr>
+<td><strong>updateAction</strong></td>
+<td>Called every frame with the new value. Set your property here.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// Fade a light in over a second.
+var fadeIn = new FloatAnimationWorkAction(
+    this.Owner,
+    0f,
+    5f,
+    TimeSpan.FromSeconds(1),
+    EaseFunction.QuadraticOutEase,
+    intensity =&gt; this.light.Intensity = intensity);
+
+fadeIn.Run();
+</code></pre>
+<p>The start and end values are fixed when you create the action. If the start value must be whatever the property holds when the step begins, read it in a <a href="composing_work_actions.html#create-work-actions-when-they-run">generator</a>, or use the ready-made actions below, which read it themselves.</p>
+<h3 id="drive-anything-with-a-value-from-0-to-1">Drive anything with a value from 0 to 1</h3>
+<p>A <code>FloatAnimationWorkAction</code> from <code>0</code> to <code>1</code> gives you an eased progress that you can turn into any other value: interpolate colors, slerp rotations, or walk along a curve.</p>
+<pre><code class="lang-csharp">Color from = Color.White;
+Color to = Color.Red;
+
+new FloatAnimationWorkAction(this.Owner, 0f, 1f, TimeSpan.FromSeconds(0.5), EaseFunction.SineInOutEase,
+    t =&gt; this.material.BaseColor = Color.Lerp(from, to, t))
+    .Run();
+</code></pre>
+<h2 id="move-rotate-and-scale-an-entity">Move, rotate and scale an entity</h2>
+<p>Three animation work actions animate the <a href="../../basics/transform.html">Transform3D</a> of an entity directly. They read the start value from the transform when they start running, so in a chain each one continues from where the previous step left the entity.</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>Animates</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>MoveTo3DWorkAction</strong></td>
+<td><code>Position</code>, or <code>LocalPosition</code> when <code>local</code> is <code>true</code>.</td>
+</tr>
+<tr>
+<td><strong>RotateTo3DWorkAction</strong></td>
+<td><code>Rotation</code>, or <code>LocalRotation</code> when <code>local</code> is <code>true</code>: Euler angles in radians, with the pitch in <code>X</code>, the yaw in <code>Y</code> and the roll in <code>Z</code>.</td>
+</tr>
+<tr>
+<td><strong>ScaleTo3DWorkAction</strong></td>
+<td><code>Scale</code>, or <code>LocalScale</code> when <code>local</code> is <code>true</code>.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">new MoveTo3DWorkAction(Entity entity, Vector3 to, TimeSpan time, EaseFunction ease = EaseFunction.None, bool local = false)
+new RotateTo3DWorkAction(Entity entity, Vector3 to, TimeSpan time, EaseFunction ease = EaseFunction.None, bool local = false, bool shorterPath = false)
+new ScaleTo3DWorkAction(Entity entity, Vector3 to, TimeSpan time, EaseFunction ease = EaseFunction.None, bool local = false)
+</code></pre>
+<p>The entity must have a <code>Transform3D</code>. The end value is in world space by default; pass <code>local: true</code> to animate relative to the parent, which is what you usually want for a part of a model, such as a door in a building.</p>
+<p><code>RotateTo3DWorkAction</code> interpolates each Euler angle on its own. With <code>shorterPath: true</code>, it adds or removes a full turn to each target angle that is more than half a turn away from the current one, so the entity turns the short way round. Interpolating Euler angles works well for turns about one axis; for a rotation between two arbitrary orientations, slerp a <code>Quaternion</code> instead, as in the <a href="#example-fly-the-camera-to-a-point-of-interest">example below</a>.</p>
+<pre><code class="lang-csharp">// Turn a quarter turn to the left about the vertical axis, taking the short way.
+var turn = new RotateTo3DWorkAction(
+    this.Owner,
+    this.transform.LocalRotation + new Vector3(0, MathHelper.PiOver2, 0),
+    TimeSpan.FromSeconds(0.4),
+    EaseFunction.CubicInOutEase,
+    local: true,
+    shorterPath: true);
+</code></pre>
+<h2 id="easing-functions">Easing functions</h2>
+<p>The <code>EaseFunction</code> enum selects how the value moves from start to end over time. <code>None</code> is linear: the value advances at a constant speed. The other values combine a family, which sets the shape of the curve, with a mode:</p>
+<ul>
+<li><strong>In</strong>: starts slowly and speeds up towards the end.</li>
+<li><strong>Out</strong>: starts fast and slows down towards the end.</li>
+<li><strong>InOut</strong>: starts slowly, speeds up in the middle and slows down at the end.</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>Family</th>
+<th>Values</th>
+<th>Shape</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Sine</strong></td>
+<td><code>SineInEase</code>, <code>SineOutEase</code>, <code>SineInOutEase</code></td>
+<td>The gentlest acceleration.</td>
+</tr>
+<tr>
+<td><strong>Quadratic</strong></td>
+<td><code>QuadraticInEase</code>, <code>QuadraticOutEase</code>, <code>QuadraticInOutEase</code></td>
+<td>The value changes with the square of the time.</td>
+</tr>
+<tr>
+<td><strong>Cubic</strong></td>
+<td><code>CubicInEase</code>, <code>CubicOutEase</code>, <code>CubicInOutEase</code></td>
+<td>The cube: a stronger acceleration.</td>
+</tr>
+<tr>
+<td><strong>Quartic</strong></td>
+<td><code>QuarticInEase</code>, <code>QuarticOutEase</code>, <code>QuarticInOutEase</code></td>
+<td>The fourth power.</td>
+</tr>
+<tr>
+<td><strong>Quintic</strong></td>
+<td><code>QuinticInEase</code>, <code>QuinticOutEase</code>, <code>QuinticInOutEase</code></td>
+<td>The fifth power, the strongest of the polynomial curves.</td>
+</tr>
+<tr>
+<td><strong>Exponential</strong></td>
+<td><code>ExponentialInEase</code>, <code>ExponentialOutEase</code>, <code>ExponentialInOutEase</code></td>
+<td>Almost still at one end and almost instant at the other.</td>
+</tr>
+<tr>
+<td><strong>Circle</strong></td>
+<td><code>CircleInEase</code>, <code>CircleOutEase</code>, <code>CircleInOutEase</code></td>
+<td>A quarter circle: a very sharp change at one end.</td>
+</tr>
+<tr>
+<td><strong>Back</strong></td>
+<td><code>BackInEase</code>, <code>BackOutEase</code>, <code>BackInOutEase</code></td>
+<td>Pulls back before it starts, or overshoots before it settles.</td>
+</tr>
+<tr>
+<td><strong>Elastic</strong></td>
+<td><code>ElasticInEase</code>, <code>ElasticOutEase</code>, <code>ElasticInOutEase</code></td>
+<td>Oscillates around the start or the end value, like a spring.</td>
+</tr>
+<tr>
+<td><strong>Bounce</strong></td>
+<td><code>BounceInEase</code>, <code>BounceOutEase</code>, <code>BounceInOutEase</code></td>
+<td>Bounces against the start or the end value, like a dropped ball.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Back</code> and <code>Elastic</code> go beyond the start and end values for a moment. That is the point of them, but check that your property accepts those values: a scale that eases from 0 with <code>BackInEase</code> goes negative first, and an <code>ElasticOutEase</code> to an alpha of 1 goes above 1. <code>Bounce</code> stays between the start and end values.</p>
+<h2 id="cancel-and-skip">Cancel and skip</h2>
+<p><code>Cancel()</code> stops the animation where it is: the property keeps the last value applied. <code>TrySkip()</code> applies the end value at once and completes the work action, so the chain continues as if the animation had played to the end. In a chain, only the first step jumps to its end value when skipped; see the <a href="composing_work_actions.html#sequences">note on skipping a chain</a>.</p>
+<h2 id="how-they-run">How they run</h2>
+<p>The first time an animation work action runs, it adds a <code>WorkActionUpdaterBehavior</code> to its entity, if the entity does not have one already. That behavior updates every animation work action hosted by the entity, once per frame and in the update of the entity's behaviors. Each frame the animation adds the frame time to its elapsed time and calls the update action with the new value. On the first frame past its duration, it calls the update action with the exact end value and completes.</p>
+<p>Because the behavior lives on the entity, removing the entity from the scene stops its animations: they no longer advance and never complete. Cancel the work actions an entity hosts before you remove it, or host them on an entity that stays.</p>
+<h2 id="rotations-with-quaternions">Rotations with quaternions</h2>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>On the current engine version <code>QuaternionAnimationWorkAction</code> interpolates the four components of the quaternion one by one, like four separate numbers. The values in between are not normalized, which scales and shears the entity if you assign them to an orientation, and the rotation does not follow the shortest arc. For orientations, animate a <code>float</code> from 0 to 1 and slerp:</p>
+<pre><code class="lang-csharp">Quaternion from = this.transform.Orientation;
+Quaternion to = targetOrientation;
+
+new FloatAnimationWorkAction(this.Owner, 0f, 1f, TimeSpan.FromSeconds(1), EaseFunction.SineInOutEase,
+    t =&gt; this.transform.Orientation = Quaternion.Slerp(from, to, t))
+    .Run();
+</code></pre>
+</div>
+<h2 id="example-fly-the-camera-to-a-point-of-interest">Example: fly the camera to a point of interest</h2>
+<p>This component, on the camera entity, flies the camera to a position and turns it to look at a target. The position and the orientation animate in parallel, and the flight can be interrupted by a new one at any time:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Components.WorkActions;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class CameraFlight : Component
+{
+    [BindComponent]
+    private Transform3D transform = null;
+
+    private IWorkAction flight;
+
+    public event EventHandler Arrived;
+
+    public void FlyTo(Vector3 position, Vector3 lookAt, TimeSpan duration)
+    {
+        // A new flight replaces the one in progress, starting from wherever the camera is now.
+        if (this.flight?.State == WorkActionState.Running)
+        {
+            this.flight.Cancel();
+        }
+
+        Quaternion fromOrientation = this.transform.Orientation;
+
+        // The orientation that looks at the target from the destination, as Transform3D.LookAt computes it.
+        Vector3 direction = position - lookAt;
+        Vector3 up = Vector3.Up;
+        Quaternion.CreateFromLookAt(ref direction, ref up, out Quaternion toOrientation);
+
+        this.flight = this.Owner.Scene.CreateParallelWorkActions(
+                new MoveTo3DWorkAction(this.Owner, position, duration, EaseFunction.CubicInOutEase),
+                new FloatAnimationWorkAction(this.Owner, 0f, 1f, duration, EaseFunction.CubicInOutEase,
+                    t =&gt; this.transform.Orientation = Quaternion.Slerp(fromOrientation, toOrientation, t)))
+            .WaitAll();
+
+        this.flight.Completed += (action) =&gt; this.Arrived?.Invoke(this, EventArgs.Empty);
+        this.flight.Run();
+    }
+}
+</code></pre>
+<p>Canceling the set cancels the two animations inside it, so a new <code>FlyTo</code> call takes over from the current position and orientation without a jump.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

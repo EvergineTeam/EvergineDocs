@@ -1,0 +1,183 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Physics | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Physics | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="physics">Physics</h1>
+
+<hr>
+<p><img src="images/physics.png" alt="Physics"></p>
+<p>Evergine provides <strong>real-time physics simulation</strong>: rigid bodies that fall, collide and rest, constraints that hold them together, characters that walk up steps, vehicles that drive, and soft bodies that deform. This section explains how the simulation is put together, how to add it to a scene, and how to drive it from your own components.</p>
+<h2 id="built-in-physics-engine">Built-in Physics Engine</h2>
+<p>Evergine is built on <strong><a href="https://github.com/jrouwe/JoltPhysics">Jolt Physics</a></strong>, a multicore-friendly rigid body engine written for games. Its <a href="https://jrouwe.github.io/JoltPhysics/">architecture documentation</a> is the reference for how the solver itself behaves; everything in this section describes the Evergine components that sit on top of it.</p>
+<p>Everything lives in the <code>Evergine.Framework.Physics</code> namespace and ships with <code>Evergine.Framework</code>, so there is no extra package to install.</p>
+<h2 id="key-concepts">Key concepts</h2>
+<table>
+<thead>
+<tr>
+<th>Concept</th>
+<th>What it is</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Physics world</strong></td>
+<td>One <a href="physics_manager.html"><code>PhysicsManager</code></a> per scene. It owns gravity, the fixed time step, the collision matrix and every query.</td>
+</tr>
+<tr>
+<td><strong>Body</strong></td>
+<td>A <a href="physics_bodies/index.html">physics body</a> turns an entity into something the simulation knows about. A <a href="physics_bodies/rigid_body.html"><code>RigidBody</code></a> moves, either simulated or driven by code with <code>IsKinematic</code>; a <a href="physics_bodies/static_body.html"><code>StaticBody</code></a> never moves. Both share the <code>PhysicsBody</code> base class.</td>
+</tr>
+<tr>
+<td><strong>Collider</strong></td>
+<td>A <a href="colliders/index.html"><code>Collider</code></a> gives a body its shape. A body collects the colliders on its own entity <em>and on its descendants</em>, so a compound shape is just a hierarchy.</td>
+</tr>
+<tr>
+<td><strong>Constraint</strong></td>
+<td>A <a href="constraints/index.html"><code>Constraint</code></a> ties two bodies together: a hinge, a slider, a rope, a gear train.</td>
+</tr>
+<tr>
+<td><strong>Category</strong></td>
+<td>Every body belongs to one of 32 <a href="collision_filtering.html">collision categories</a>, and a matrix on the world says which pairs of categories touch.</td>
+</tr>
+<tr>
+<td><strong>Query</strong></td>
+<td>A <a href="queries.html">ray cast, shape cast or overlap test</a> asks the world what is there without moving anything.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Coming from the previous Bullet-based API? Every component has been renamed and several have been merged. See <a href="migrating_from_bullet.html">Migrating from Bullet</a> for the full table of equivalences.</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="physics_manager.html">Physics Manager</a></li>
+<li><a href="physics_bodies/index.html">Physics Bodies</a></li>
+<li><a href="colliders/index.html">Colliders</a></li>
+<li><a href="collision_filtering.html">Collision Filtering</a></li>
+<li><a href="queries.html">Queries</a></li>
+<li><a href="constraints/index.html">Constraints</a></li>
+<li><a href="ragdolls.html">Ragdolls</a></li>
+<li><a href="character_controller.html">Character Controller</a></li>
+<li><a href="vehicles/index.html">Vehicles</a></li>
+<li><a href="buoyancy.html">Buoyancy and Water</a></li>
+<li><a href="soft_bodies/index.html">Soft Bodies</a></li>
+<li><a href="debug_rendering.html">Debug Rendering</a></li>
+<li><a href="migrating_from_bullet.html">Migrating from Bullet</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,222 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Drawables | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Drawables | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../../favicon.ico">
+    <link rel="stylesheet" href="../../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../../toc.html">
+    <meta property="docfx:tocrel" content="../../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../../index.html">
+                <img id="logo" class="svg" src="../../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="drawables">Drawables</h1>
+
+<hr>
+<p>A <strong>drawable</strong> is a component that takes part in rendering. <code>Drawable</code> derives from <a href="index.html"><code>Component</code></a> and adds an abstract <code>Draw(DrawContext drawContext)</code> method that the render pipeline calls while it renders the scene. Drawables register with the scene's render manager when they are attached; see the <a href="../../../graphics/rendering_overview.html">Render Overview</a> for how that manager works.</p>
+<h2 id="drawable3d">Drawable3D</h2>
+<p><img src="../../../graphics/images/teapot.png" alt="A teapot rendered by a MeshRenderer, which is a Drawable3D"></p>
+<p><code>Drawable3D</code> is the base class for drawables that produce 3D content, and the one you derive from in almost every case. <code>MeshRenderer</code>, <code>SkinnedMeshRenderer</code>, <code>ParticlesRenderer</code>, <code>BillboardRenderer</code> and <code>Text3DRenderer</code> are all drawables of this kind. Its <code>Draw()</code> method runs <strong>once for each camera</strong> that renders the scene, which is where it creates or updates the objects that camera will draw.</p>
+<p><code>Drawable3D</code> adds this property:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>RenderFlags</strong></td>
+<td><code>RenderFlags.CastShadows</code></td>
+<td>Flags that describe how the drawable is rendered. With <code>CastShadows</code> set, the objects of this drawable cast shadows; set it to <code>RenderFlags.None</code> to disable them.</td>
+</tr>
+</tbody>
+</table>
+<p>Every drawable also inherits these properties from <code>Drawable</code>:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>IsCullingEnabled</strong></td>
+<td><code>true</code></td>
+<td>Lets the renderer skip the drawable when it is outside the view of the camera.</td>
+</tr>
+<tr>
+<td><strong>OrderBias</strong></td>
+<td><code>0</code></td>
+<td>Shifts the drawable in the render order, from <code>-512</code> to <code>511</code>. Useful to force the order of transparent objects.</td>
+</tr>
+<tr>
+<td><strong>Transform</strong></td>
+<td>The <code>Transform3D</code> of the entity</td>
+<td>Bound automatically when the entity has one; <code>null</code> otherwise.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="create-a-drawable3d">Create a Drawable3D</h2>
+<p>This drawable outlines an oriented box around its entity, which is handy to visualize a volume while you debug. It draws with the <code>LineBatch3D</code> of the scene's <code>RenderManager</code>:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Managers;
+using Evergine.Mathematics;
+
+namespace MyProject
+{
+    public class BoxOutline : Drawable3D
+    {
+        // LineBatch3D belongs to RenderManager, not to the BaseRenderManager
+        // exposed by the inherited RenderManager property, so bind the concrete class.
+        [BindSceneManager]
+        private RenderManager renderManager;
+
+        [BindComponent]
+        private Transform3D transform;
+
+        public Vector3 Size { get; set; } = Vector3.One;
+
+        public Color Color { get; set; } = Color.Red;
+
+        public override void Draw(DrawContext drawContext)
+        {
+            // BoundingOrientedBox takes half extents, so halve the full size.
+            var box = new BoundingOrientedBox(
+                this.transform.Position,
+                this.Size * 0.5f,
+                this.transform.Orientation);
+
+            this.renderManager.LineBatch3D.DrawBoundingOrientedBox(box, this.Color);
+        }
+    }
+}
+</code></pre>
+<pre><code class="lang-csharp">var volume = new Entity(&quot;TriggerVolume&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0, 1, 0) })
+    .AddComponent(new BoxOutline() { Size = new Vector3(2, 2, 2), Color = Color.Yellow });
+
+this.Managers.EntityManager.Add(volume);
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Besides boxes, <code>LineBatch3D</code> draws lines, rays, spheres, circles, cones and more. The <a href="../../../graphics/linebatch/index.html">LineBatch</a> section shows every shape.</p>
+</div>
+<h2 id="graphics-content">Graphics Content</h2>
+<p>Most drawables do not draw anything directly. They add render objects (meshes, sprites, particles) to the render manager, which sorts, culls and draws them for each camera. Read the <a href="../../../graphics/rendering_overview.html">Render Overview</a> for details.</p>
+<h2 id="add-or-remove-a-drawable">Add or Remove a Drawable</h2>
+<p>A drawable is a component, so you add it to and remove it from an entity exactly like any other component, in Evergine Studio or from code. See <a href="index.html#using-components">Components</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../../styles/main.js"></script>
+  </body>
+</html>

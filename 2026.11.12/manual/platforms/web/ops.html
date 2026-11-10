@@ -1,0 +1,293 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Build, debug and publish a web application | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Build, debug and publish a web application | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="build-debug-and-publish-a-web-application">Build, debug and publish a web application</h1>
+
+<hr>
+<p><img src="images/explorer.png" alt="Solution Explorer with the Sample.Web client project and the Sample.Web.Server project"></p>
+<p>A web profile produces two kinds of output: a <strong>static client</strong> (the WebAssembly runtime, your assemblies, the exported assets and the page) and, optionally, an <strong>ASP.NET Core server</strong> that hosts it. This page shows how to build and run both during development, how to debug the C# code in the browser, and how to publish, with an explanation of every setting the templates put in the project files.</p>
+<p>The commands use the HTML5 template with a project named <code>MyProject</code>: the client is <code>MyProject.Web</code> and the server <code>MyProject.Web.Server</code>. For the React template, the client is <code>MyProject.WebReact</code> and the server <code>MyProject.Host</code>.</p>
+<h2 id="build">Build</h2>
+<p>Build the client project. The server project references it, so building the server builds both.</p>
+<pre><code class="lang-powershell">dotnet build -c Debug .\MyProject.Web\MyProject.Web.csproj
+dotnet build -c Release .\MyProject.Web.Server\MyProject.Web.Server.csproj
+</code></pre>
+<p>Each build of the client also exports the project assets for the web profile (shaders compiled, textures converted) and regenerates <code>assets.js</code>.</p>
+<h2 id="run">Run</h2>
+<p>From Visual Studio 2026, set <code>MyProject.Web.Server</code> or <code>MyProject.Web</code> as the startup project and press F5. Both launch profiles open the browser at <code>https://localhost:5001</code> (and <code>http://localhost:5000</code>). Each project also has an <strong>IIS Express</strong> profile, which is usually slower.</p>
+<p>From a terminal:</p>
+<pre><code class="lang-powershell">dotnet run --project .\MyProject.Web.Server\MyProject.Web.Server.csproj
+</code></pre>
+<p>Running the client project alone uses the Blazor development server. That is enough while you work on the scene; use the server project to check compression and production behavior.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Opening <code>index.html</code> from disk does not work: the browser blocks the <code>file://</code> requests for the WebAssembly files and the assets. Always serve the files over HTTP.</p>
+</div>
+<h2 id="debug">Debug</h2>
+<p>The launch profiles include the Blazor debugging proxy (<code>inspectUri</code>), so you can set breakpoints in your C# code and hit them while the app runs in the browser. Debug from Visual Studio with a Chromium-based browser (Microsoft Edge or Google Chrome) selected as the target. See <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/debug">Debug ASP.NET Core Blazor apps</a> for the options and limitations.</p>
+<p>For TypeScript, <code>tsconfig.json</code> compiles <code>ts/</code> into <code>wwwroot/evergine.js</code>; use the browser developer tools to step through it. <code>Program.Run</code> sends <code>Trace</code> output to <code>Console.Out</code>, so engine traces appear in the browser console.</p>
+<h2 id="publish">Publish</h2>
+<h3 id="static-files-only">Static files only</h3>
+<p>Publish the client to get a folder you can copy to any static web host:</p>
+<pre><code class="lang-powershell">dotnet publish -c Release .\MyProject.Web\MyProject.Web.csproj
+</code></pre>
+<p>The site is in <code>MyProject.Web\bin\Release\net10.0\publish\wwwroot</code>. The host must:</p>
+<ul>
+<li>Serve the Evergine asset extensions (<code>.weptx</code>, <code>.wepsn</code>, <code>.wepsc</code>, <code>.wepsp</code>, <code>.weprl</code>, <code>.weprp</code>, <code>.weppp</code>, <code>.wepmd</code>, <code>.wepmt</code>, <code>.wepfb</code>, <code>.wepfx</code>, <code>.wepprf</code>) as <code>application/octet-stream</code>. Many hosts refuse to serve unknown extensions.</li>
+<li>Serve the precompressed <code>.br</code> and <code>.gz</code> files that the Release publish produces, if you want compressed downloads. See <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/host-and-deploy/webassembly/">Host and deploy Blazor WebAssembly</a> for configurations for common hosts.</li>
+</ul>
+<h3 id="with-the-aspnet-core-server">With the ASP.NET Core server</h3>
+<p>Publish the server project to get a host that already does both:</p>
+<pre><code class="lang-powershell">dotnet publish -c Release .\MyProject.Web.Server\MyProject.Web.Server.csproj
+</code></pre>
+<p>Add a runtime identifier to publish a self-contained server that does not need .NET installed on the machine, for example <code>-r win-x64 --self-contained</code>. The output folder is <code>MyProject.Web.Server\bin\Release\net10.0\publish</code> (with the runtime identifier in the path when you use one).</p>
+<p>The server's <code>Program.cs</code> is what makes it production ready:</p>
+<pre><code class="lang-csharp">using Microsoft.AspNetCore.ResponseCompression;
+using Microsoft.AspNetCore.StaticFiles;
+
+var builder = WebApplication.CreateBuilder(args);
+
+builder.Services.AddRazorPages();
+builder.Services.AddServerSideBlazor();
+
+// Compress responses, including the binary Evergine assets, also over HTTPS.
+builder.Services.AddResponseCompression(options =&gt;
+{
+    options.EnableForHttps = true;
+    options.MimeTypes = ResponseCompressionDefaults.MimeTypes.Concat(
+        new[] { &quot;application/octet-stream&quot; });
+});
+
+var app = builder.Build();
+
+if (!app.Environment.IsDevelopment())
+{
+    app.UseExceptionHandler(&quot;/Error&quot;);
+    app.UseHsts();
+}
+else
+{
+    app.UseDeveloperExceptionPage();
+    app.UseWebAssemblyDebugging();
+}
+
+app.UseHttpsRedirection();
+app.UseResponseCompression();
+
+// Serve the Blazor client files under _framework.
+app.UseBlazorFrameworkFiles();
+
+// Map every Evergine asset extension to application/octet-stream.
+var contentTypeProvider = new FileExtensionContentTypeProvider();
+var evergineExtensions = new[] { &quot;.weptx&quot;, &quot;.wepsn&quot;, &quot;.wepsc&quot;, &quot;.wepsp&quot;, &quot;.weprl&quot;, &quot;.weprp&quot;, &quot;.weppp&quot;, &quot;.wepmd&quot;, &quot;.wepmt&quot;, &quot;.wepfb&quot;, &quot;.wepfx&quot;, &quot;.wepprf&quot; };
+foreach (var evergineExtension in evergineExtensions)
+{
+    contentTypeProvider.Mappings.Add(evergineExtension, &quot;application/octet-stream&quot;);
+}
+
+app.UseStaticFiles(new StaticFileOptions
+{
+    ServeUnknownFileTypes = true,
+    ContentTypeProvider = contentTypeProvider
+});
+
+app.UseRouting();
+app.MapRazorPages();
+app.MapFallbackToFile(&quot;index.html&quot;);
+
+app.Run();
+</code></pre>
+<p>The React template's <code>MyProject.Host</code> does the same without Razor Pages: response compression with <code>application/octet-stream</code>, the same extension mappings, static files and a fallback to <code>index.html</code>. Its project sets <code>EnableDefaultCompressionFormats</code> to <code>false</code>.</p>
+<h2 id="client-project-settings">Client project settings</h2>
+<p>These are the properties the templates set in the client project (<code>MyProject.Web.csproj</code> or <code>MyProject.WebReact.csproj</code>):</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Debug</th>
+<th>Release</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PublishTrimmed</code></td>
+<td><code>false</code></td>
+<td><code>true</code></td>
+<td>Removes unused code from the published assemblies. <code>Evergine.Targets.Web</code> also sets it to <code>true</code> when the project leaves it empty.</td>
+</tr>
+<tr>
+<td><code>TrimmerRootDescriptor</code></td>
+<td><code>link-descriptor.xml</code></td>
+<td><code>link-descriptor.xml</code></td>
+<td>Lists the types the trimmer must keep. See <a href="tips.html#keep-types-the-trimmer-cannot-see">Tips</a>.</td>
+</tr>
+<tr>
+<td><code>BlazorEnableCompression</code></td>
+<td><code>false</code></td>
+<td>Not set (Blazor default, <code>true</code>)</td>
+<td>Produces precompressed Brotli (<code>.br</code>) and Gzip (<code>.gz</code>) copies of the published files. Disabled in Debug to keep builds fast.</td>
+</tr>
+<tr>
+<td><code>RunAOTCompilation</code></td>
+<td>Commented out</td>
+<td>Commented out</td>
+<td>Compiles .NET code to WebAssembly ahead of time on publish. See <a href="tips.html#compile-ahead-of-time">Tips</a>.</td>
+</tr>
+<tr>
+<td><code>DefineConstants</code></td>
+<td><code>WASM</code></td>
+<td><code>WASM</code></td>
+<td>Lets shared code use <code>#if WASM</code> for web-only paths.</td>
+</tr>
+<tr>
+<td><code>GenerateEvergineContent</code></td>
+<td><code>False</code></td>
+<td><code>False</code></td>
+<td>The shared application project already generates the <code>EvergineContent</code> class with the asset IDs, so the launcher does not generate a second one.</td>
+</tr>
+<tr>
+<td><code>GenerateEvergineAssets</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td>Exports the project assets for this profile during the build.</td>
+</tr>
+<tr>
+<td><code>WasmAllowUndefinedSymbols</code></td>
+<td><code>True</code></td>
+<td><code>True</code></td>
+<td>Lets the WebAssembly native link finish when native libraries reference symbols that are not defined at link time.</td>
+</tr>
+<tr>
+<td><code>WasmEnableHotReload</code></td>
+<td></td>
+<td><code>false</code></td>
+<td>React template only. Disables .NET hot reload for the WebAssembly project.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="serve-the-app-from-a-subfolder">Serve the app from a subfolder</h3>
+<p><code>assets.js</code> requests every asset with an absolute URL that starts at the site root (<code>/Content/...</code>). To host the app under a path such as <code>https://example.com/viewer/</code>, set the prefix in the client project:</p>
+<pre><code class="lang-xml">&lt;PropertyGroup&gt;
+  &lt;EvergineWebAssetsOverrideUrlPrefix&gt;true&lt;/EvergineWebAssetsOverrideUrlPrefix&gt;
+  &lt;EvergineWebAssetsUrlPrefix&gt;/viewer/&lt;/EvergineWebAssetsUrlPrefix&gt;
+&lt;/PropertyGroup&gt;
+</code></pre>
+<p>You also need to configure the Blazor base path for the rest of the files; see <a href="https://learn.microsoft.com/en-us/aspnet/core/blazor/host-and-deploy/webassembly/">Host and deploy Blazor WebAssembly</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

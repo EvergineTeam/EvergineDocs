@@ -1,0 +1,482 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Animation Clip | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Animation Clip | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="animation-clip">Animation Clip</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/AnimationSample.mp4" type="video/mp4">
+</video>
+<p>An <code>AnimationClip</code> is one animation track of a <a href="../graphics/models/index.html">Model</a> asset: a walk, a jump, a door opening. It stores, for every animated node, how a property of that node changes over time as a list of keyframes, plus the keyframe events that fire while the clip plays.</p>
+<p>You rarely create clips yourself. The model importer builds them from the animations in the source file, and the <a href="animation3d_component.html">Animation3D</a> component plays them by name. Reading a clip is useful when you need its duration, want to inspect or react to its keyframe events, or build a new clip from part of an existing one.</p>
+<h2 id="where-clips-come-from">Where clips come from</h2>
+<p>Every animated model asset exposes its clips in <code>Model.Animations</code>, a dictionary keyed by clip name. The names are the ones shown in the <a href="../graphics/models/model_editor.html">Model Editor</a>, and they are the names you pass to <code>Animation3D.PlayAnimation</code>.</p>
+<p><img src="images/model_editor_animation_clips.png" alt="The Model Editor with an animated character: the clip list, and a keyframe event on the selected clip"></p>
+<pre><code class="lang-csharp">using Evergine.Components.Animation;
+using Evergine.Framework;
+using Evergine.Framework.Animation;
+
+public class ClipLookup : Component
+{
+    // Instantiating an animated model adds Animation3D to the root entity.
+    [BindComponent]
+    private Animation3D animation3D = null;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        // The clips live in the Model asset, so every entity that uses this model shares them.
+        AnimationClip walk = this.animation3D.Model.Animations[&quot;walk&quot;];
+        float seconds = walk.Duration;
+    }
+}
+</code></pre>
+<h2 id="structure">Structure</h2>
+<p><img src="images/AnimationClip.png" alt="AnimationClip owns a list of AnimationChannel objects; each channel targets one property of one model node and owns an AnimationCurve; each curve holds an array of AnimationKeyframe values with a time and a value"></p>
+<p><em>A clip is a set of channels. Each channel animates one property of one node through a curve, and the curve is interpolated between its keyframes.</em></p>
+<ul>
+<li><strong>AnimationClip</strong>: the track. It owns the channels and the keyframe events.</li>
+<li><strong>AnimationChannel</strong>: the target. It names a node of the model and a property of a component on that node.</li>
+<li><strong>AnimationCurve</strong>: the data. It holds the keyframes of that property and interpolates between them.</li>
+<li><strong>AnimationKeyframe</strong>: one value of the property at one moment.</li>
+</ul>
+<h2 id="animationclip">AnimationClip</h2>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Name</strong></td>
+<td></td>
+<td>The clip name. It is also the key of the clip in <code>Model.Animations</code>.</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td></td>
+<td>Length of the clip in seconds.</td>
+</tr>
+<tr>
+<td><strong>Framerate</strong></td>
+<td>0</td>
+<td>Frames per second the clip was sampled at. Used to convert between seconds and frames.</td>
+</tr>
+<tr>
+<td><strong>Channels</strong></td>
+<td>empty</td>
+<td>The <code>AnimationChannel</code> list.</td>
+</tr>
+<tr>
+<td><strong>ChannelsByKey</strong></td>
+<td>empty</td>
+<td>The same channels indexed by their <code>ChannelKey</code>, for example <code>[Transform3D#12].LocalOrientation</code>. <code>AddChannel</code> ignores a channel whose key is already present.</td>
+</tr>
+<tr>
+<td><strong>Events</strong></td>
+<td>empty</td>
+<td>The keyframe events of the clip, as a <code>SortedList&lt;float, AnimationKeyframeEvent&gt;</code> keyed by time. See <a href="#keyframe-events">Keyframe events</a>.</td>
+</tr>
+<tr>
+<td><strong>Type</strong></td>
+<td><code>Default</code></td>
+<td>An <code>AnimationClipType</code>: <code>Default</code> for an ordinary clip, <code>Difference</code> for a clip that stores offsets from a reference pose, which is what an <a href="animation_blend_tree.html#additiveblendingclip">additive blend</a> needs.</td>
+</tr>
+<tr>
+<td><strong>InPlaceMode</strong></td>
+<td><code>None</code></td>
+<td>An <code>AnimationInPlaceMode</code> that removes the root node's travel from the clip: <code>None</code>, <code>CenterOnlyPosition</code>, <code>CenterOnlyRotation</code> or <code>Center</code> (both). <code>ComputeRootMotion</code> uses it to build the root motion channels.</td>
+</tr>
+<tr>
+<td><strong>RootMotionNodeIndex</strong></td>
+<td>0</td>
+<td>Index in <code>Model.AllNodes</code> of the node whose motion is extracted as root motion.</td>
+</tr>
+<tr>
+<td><strong>RootMotionPositionChannel</strong></td>
+<td>null</td>
+<td>Channel with the position that <code>ComputeRootMotion</code> extracted from the root node. <code>Animation3D</code> applies it to the entity when <code>ApplyRootMotion</code> is set.</td>
+</tr>
+<tr>
+<td><strong>RootMotionRotationChannel</strong></td>
+<td>null</td>
+<td>The same for rotation.</td>
+</tr>
+<tr>
+<td><strong>IsInitialized</strong></td>
+<td>false</td>
+<td>Whether <code>Initialize()</code> has resolved the property updaters of the channels. Playing the clip initializes it.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>On the current engine version the model loader fills <code>Name</code>, <code>Duration</code>, <code>Channels</code> and <code>Events</code>, but not <code>Framerate</code>, <code>Type</code>, <code>InPlaceMode</code> or the root motion channels. Clips read from a model asset therefore report a <code>Framerate</code> of 0, so anything expressed in frames returns 0 for them: work in seconds. <code>Type</code> is always <code>Default</code> and there is no root motion to apply. The <a href="../physics/ragdolls.html">Ragdolls</a> page shows how to remove the root translation of a clip at run time.</p>
+</div>
+<table>
+<thead>
+<tr>
+<th>Method</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>AddChannel(AnimationChannel)</strong></td>
+<td>Adds a channel and sets its <code>Track</code> to this clip.</td>
+</tr>
+<tr>
+<td><strong>RemoveChannel(AnimationChannel)</strong></td>
+<td>Removes a channel. Returns <code>false</code> if it was not in the clip.</td>
+</tr>
+<tr>
+<td><strong>GetSubAnimation(name, startTime, endTime)</strong></td>
+<td>Returns a new clip with the keyframes between two times, in seconds, shifted to start at 0. The range is clamped to the clip.</td>
+</tr>
+<tr>
+<td><strong>GetSample(time, sample, ...)</strong></td>
+<td>Evaluates every channel at a time and writes the values into an <code>AnimationSample</code>. The blend clips call it; you do not need to.</td>
+</tr>
+<tr>
+<td><strong>ComputeRootMotion(Matrix4x4)</strong></td>
+<td>Moves the root node's travel, as selected by <code>InPlaceMode</code>, into the root motion channels.</td>
+</tr>
+<tr>
+<td><strong>SubstractSample(AnimationSample)</strong></td>
+<td>Subtracts a reference pose from every channel, which turns the clip into a difference clip.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>GetSubAnimation</code> copies keyframes into new curves, and on the current engine version those curves are created without their <code>StartTime</code> and <code>EndTime</code>, so sampling one returns its last keyframe at any time after 0. To play part of a clip, pass <code>startTime</code> and <code>endTime</code> to <a href="animation3d_component.html#play-an-animation"><code>PlayAnimation</code></a> or to an <a href="animation_blend_tree.html#animationtrackclip"><code>AnimationTrackClip</code></a> instead: they play the same range without copying anything.</p>
+</div>
+<h2 id="keyframe-events">Keyframe events</h2>
+<p>A keyframe event is a marker at a point in a clip. When playback crosses that point, <code>Animation3D</code> raises <code>OnKeyFrameEvent</code> with the event, which is how you play a footstep sound when a foot touches the floor or spawn a projectile on the frame the arm releases it.</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Time</strong></td>
+<td>Position of the event in the clip, in seconds.</td>
+</tr>
+<tr>
+<td><strong>Tag</strong></td>
+<td>The name you test for in the handler, for example <code>Footstep</code>. The Model Editor names new events <code>Event0</code>, <code>Event1</code> and so on.</td>
+</tr>
+<tr>
+<td><strong>Value</strong></td>
+<td>An optional string payload, for example <code>Left</code> or <code>Right</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Events are normally authored in the <a href="../graphics/models/model_editor.html">Model Editor</a>: each clip lists its events with their time, tag and value, and they are stored with the model asset. You can also add them from code. The list is sorted by time and keyed by it, so the key must match <code>Time</code> and two events cannot share the same time:</p>
+<pre><code class="lang-csharp">AnimationClip walk = this.animation3D.Model.Animations[&quot;walk&quot;];
+
+// The clip belongs to the Model asset: these events fire for every entity that plays it.
+walk.Events.Add(0.12f, new AnimationKeyframeEvent() { Time = 0.12f, Tag = &quot;Footstep&quot;, Value = &quot;Left&quot; });
+walk.Events.Add(0.62f, new AnimationKeyframeEvent() { Time = 0.62f, Tag = &quot;Footstep&quot;, Value = &quot;Right&quot; });
+</code></pre>
+<p>An event fires in the update where the playback crosses its time, in either direction.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>On the current engine version, the update in which a looping clip wraps around from its end to its start raises the wrong set of events: events that were not crossed fire, some of them twice. Keep this in mind for looping clips with events, such as a walk cycle with footsteps.</p>
+</div>
+<p>The <a href="animation3d_component.html#keyframe-events">Animation3D</a> page shows how to handle them, and the <a href="animation_blend_tree.html#keyframe-events-in-a-blend-tree">Animation Blend Tree</a> page how to choose which clips of a blend raise them.</p>
+<h2 id="animationchannel">AnimationChannel</h2>
+<p>A channel connects a curve to the thing it animates. The target is a node of the model, by its index in <code>Model.AllNodes</code>, and a property of a component on the entity created for that node.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>NodeIndex</strong></td>
+<td>Index of the target node in <code>Model.AllNodes</code>.</td>
+</tr>
+<tr>
+<td><strong>ComponentType</strong></td>
+<td>Type of the target component: <code>Transform3D</code> for node transforms, <code>SkinnedMeshRenderer</code> for morph target weights.</td>
+</tr>
+<tr>
+<td><strong>PropertyName</strong></td>
+<td>Name of the animated property: <code>LocalPosition</code>, <code>LocalOrientation</code> or <code>LocalScale</code> on <code>Transform3D</code>, or <code>MorphTargetWeights</code> on <code>SkinnedMeshRenderer</code>.</td>
+</tr>
+<tr>
+<td><strong>ChannelKey</strong></td>
+<td>Read-only key built from the three values above, used by <code>ChannelsByKey</code> and to match channels when two clips are blended.</td>
+</tr>
+<tr>
+<td><strong>Curve</strong></td>
+<td>The <code>AnimationCurve</code> with the keyframes.</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td>Time of the last keyframe of the channel, in seconds.</td>
+</tr>
+<tr>
+<td><strong>Track</strong></td>
+<td>The <code>AnimationClip</code> that owns the channel.</td>
+</tr>
+</tbody>
+</table>
+<p>A channel does not need to cover the whole clip: a curve that ends early holds its last value until the end.</p>
+<h2 id="animationcurve">AnimationCurve</h2>
+<p><code>AnimationCurve</code> is the abstract base of the curves. The concrete type depends on the type of the animated property:</p>
+<table>
+<thead>
+<tr>
+<th>Curve</th>
+<th>Value type</th>
+<th>Used for</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>AnimationCurveVector3</code></td>
+<td><code>Vector3</code></td>
+<td><code>LocalPosition</code>, <code>LocalScale</code></td>
+</tr>
+<tr>
+<td><code>AnimationCurveQuaternion</code></td>
+<td><code>Quaternion</code></td>
+<td><code>LocalOrientation</code></td>
+</tr>
+<tr>
+<td><code>AnimationCurveFloatArray</code></td>
+<td><code>float[]</code></td>
+<td><code>MorphTargetWeights</code></td>
+</tr>
+<tr>
+<td><code>AnimationCurveFloat</code></td>
+<td><code>float</code></td>
+<td>Any <code>float</code> property</td>
+</tr>
+<tr>
+<td><code>AnimationCurveVector2</code></td>
+<td><code>Vector2</code></td>
+<td>Any <code>Vector2</code> property</td>
+</tr>
+<tr>
+<td><code>AnimationCurveVector4</code></td>
+<td><code>Vector4</code></td>
+<td>Any <code>Vector4</code> property</td>
+</tr>
+</tbody>
+</table>
+<p>All of them derive from <code>AnimationCurve&lt;T&gt;</code>, which holds the keyframes:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>KeyCount</strong></td>
+<td>Number of keyframes.</td>
+</tr>
+<tr>
+<td><strong>Keyframes</strong></td>
+<td>The <code>AnimationKeyframe&lt;T&gt;</code> array, sorted by time.</td>
+</tr>
+<tr>
+<td><strong>StartTime</strong></td>
+<td>Time of the first keyframe. Before it, the curve returns the first value.</td>
+</tr>
+<tr>
+<td><strong>EndTime</strong></td>
+<td>Time of the last keyframe. After it, the curve returns the last value.</td>
+</tr>
+<tr>
+<td><strong>Duration</strong></td>
+<td>Length of the clip, in seconds.</td>
+</tr>
+<tr>
+<td><strong>DefaultValue</strong></td>
+<td>Value used for the property when a reference pose has none, for example when <code>SubstractSample</code> turns the clip into a difference clip. Identity for rotation curves.</td>
+</tr>
+<tr>
+<td><strong>EvaluatedType</strong></td>
+<td>The value type <code>T</code>.</td>
+</tr>
+</tbody>
+</table>
+<p><code>GetValue(time, ref value)</code> returns the curve at any time, interpolating linearly between the two keyframes around it.</p>
+<h2 id="animationkeyframe">AnimationKeyframe</h2>
+<p><code>AnimationKeyframe&lt;T&gt;</code> is a struct with two fields:</p>
+<ul>
+<li><strong>Time</strong>: when the keyframe happens, in seconds from the start of the clip.</li>
+<li><strong>Value</strong>: the value of the property at that time.</li>
+</ul>
+<h2 id="example-inspect-a-clip">Example: inspect a clip</h2>
+<p>This component lists what every clip of a model animates and reads one channel at a given time. It is a quick way to find the node indices and channel keys you need for <a href="animation_blend_tree.html#animation-layers">animation layers</a>.</p>
+<pre><code class="lang-csharp">using System.Diagnostics;
+using Evergine.Components.Animation;
+using Evergine.Framework;
+using Evergine.Framework.Animation;
+using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+public class ClipInspector : Component
+{
+    [BindComponent]
+    private Animation3D animation3D = null;
+
+    protected override void Start()
+    {
+        base.Start();
+
+        Model model = this.animation3D.Model;
+
+        foreach (AnimationClip clip in model.Animations.Values)
+        {
+            Debug.WriteLine($&quot;{clip.Name}: {clip.Duration:0.00} s, {clip.Channels.Count} channels, {clip.Events.Count} events&quot;);
+
+            foreach (AnimationChannel channel in clip.Channels)
+            {
+                // NodeIndex points into AllNodes, which gives the bone name to look for.
+                string node = model.AllNodes[channel.NodeIndex].Name;
+                Debug.WriteLine($&quot;  {channel.ChannelKey} ({node}): {channel.Curve.EvaluatedType.Name}&quot;);
+            }
+        }
+
+        // Sample the rotation of node 0 half a second into the walk.
+        AnimationClip walk = model.Animations[&quot;walk&quot;];
+        if (walk.ChannelsByKey.TryGetValue(&quot;[Transform3D#0].LocalOrientation&quot;, out AnimationChannel rotation))
+        {
+            Quaternion value = Quaternion.Identity;
+            ((AnimationCurve&lt;Quaternion&gt;)rotation.Curve).GetValue(0.5f, ref value);
+        }
+    }
+}
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

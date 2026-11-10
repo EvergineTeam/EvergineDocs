@@ -1,0 +1,226 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Edit Assets | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Edit Assets | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="edit-assets">Edit Assets</h1>
+
+<p><img src="Images/editAssets.png" alt="The Texture Editor with its viewer, global properties and profile properties"></p>
+<p>Each asset type has properties you can change in Evergine Studio, and most of them can take different values per <strong>profile</strong>. For example, you can halve the resolution of a texture or pick a different <code>PixelFormat</code> for the <em>Android</em> profile while keeping the full-size texture on <em>Windows</em>.</p>
+<p>This page covers the actions common to all assets and the parts every asset editor shares. The editor of each asset type is described in its own section; see the <a href="../interface.html#asset-editors">list of asset editors</a>.</p>
+<h2 id="context-menu-actions">Context menu actions</h2>
+<p>Right-click an asset in the <strong>Assets Details</strong> panel to open its context menu.</p>
+<p><img src="Images/assetContextualMenu.png" alt="Asset context menu"></p>
+<table>
+<thead>
+<tr>
+<th>Action</th>
+<th>Shortcut</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Rename</strong></td>
+<td>F2</td>
+<td>Renames the asset. Its metafile is renamed with it and the ID does not change.</td>
+</tr>
+<tr>
+<td><strong>Cut</strong></td>
+<td>Ctrl+X</td>
+<td>Marks the asset to be moved with <strong>Paste</strong>.</td>
+</tr>
+<tr>
+<td><strong>Copy</strong></td>
+<td>Ctrl+C</td>
+<td>Marks the asset to be copied with <strong>Paste</strong>.</td>
+</tr>
+<tr>
+<td><strong>Paste</strong></td>
+<td>Ctrl+V</td>
+<td>Available on folders. Moves or copies the cut or copied assets into the folder.</td>
+</tr>
+<tr>
+<td><strong>Duplicate</strong></td>
+<td>Ctrl+D</td>
+<td>Creates a copy of the asset in the same folder, with a new ID.</td>
+</tr>
+<tr>
+<td><strong>Delete</strong></td>
+<td>Del</td>
+<td>Deletes the asset, its metafile and its source file.</td>
+</tr>
+<tr>
+<td><strong>Create Asset</strong></td>
+<td></td>
+<td>Available on folders. Opens the same import and create items as the <strong>Assets</strong> menu.</td>
+</tr>
+<tr>
+<td><strong>Set to export as raw</strong></td>
+<td></td>
+<td>Copies the source file to the application output as is, instead of exporting the processed version. Load it with <code>LoadRaw&lt;T&gt;</code> (see <a href="use.html#load-raw-assets">Use Assets</a>). The item changes to <strong>Unset to export as raw</strong> on raw assets.</td>
+</tr>
+<tr>
+<td><strong>Open folder location</strong></td>
+<td></td>
+<td>Opens <em>File Explorer</em> in the folder that contains the asset.</td>
+</tr>
+<tr>
+<td><strong>Copy path to clipboard</strong></td>
+<td></td>
+<td>Copies the full path of the asset metafile.</td>
+</tr>
+<tr>
+<td><strong>Copy id to clipboard</strong></td>
+<td></td>
+<td>Copies the asset ID, the same <code>Guid</code> that <code>EvergineContent</code> exposes.</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Assets that belong to a dependency, such as the ones in <strong>Evergine.Core</strong>, are read-only. You can use them in your scenes and assets, but you cannot rename, move or modify them.</p>
+</div>
+<h2 id="open-an-asset-editor">Open an asset editor</h2>
+<p>Double-click an asset in the <strong>Assets Details</strong> panel, or select it and press <strong>Enter</strong>, to open its editor as a new tab in the document area. Assets marked to export as raw do not have an editor.</p>
+<p><img src="Images/assetEditorParts.png" alt="The three areas of an asset editor"></p>
+<p>Editors differ by asset type, but most of them share three areas:</p>
+<ul>
+<li>The <strong>viewer area</strong>.</li>
+<li>The <strong>global properties</strong>.</li>
+<li>The <strong>profile properties</strong>.</li>
+</ul>
+<p>Save your changes with <strong>File &gt; Save</strong> (Ctrl+S), or <strong>File &gt; Save All</strong> (Ctrl+Shift+S) to save every open editor.</p>
+<h3 id="viewer-area">Viewer area</h3>
+<p>The viewer shows a live preview of the asset, often with a toolbar to change how it is displayed. For example:</p>
+<ul>
+<li>Show or hide the red, green, blue and alpha channels of a texture, or pick its mipmap level.</li>
+<li>Play and pause an animation of a model, or show its wireframe, normals and bounding box.</li>
+<li>Choose the geometry and background used to preview a material.</li>
+</ul>
+<h3 id="global-properties">Global properties</h3>
+<p>Global properties apply to the asset in every profile. This is the <strong>Render Layer</strong> editor, for example:</p>
+<p><img src="Images/globalParameters.png" alt="Global properties of a render layer"></p>
+<h3 id="profile-properties">Profile properties</h3>
+<p>Assets whose export can change per platform, such as textures, models and effects, have a <strong>profile properties</strong> area:</p>
+<p><img src="Images/profileParameters.png" alt="Profile properties of a texture"></p>
+<ul>
+<li><strong>Profile tabs</strong>: <img src="Images/profileTabs.png" alt="Profile tabs"> The first tab <img src="Images/defaultProfile.png" alt="Default profile tab"> holds the default values. Then there is one tab per <a href="../settings/project_profiles.html">project profile</a>, with the icon of its platform.</li>
+<li><strong>OverridesDefaultProperty</strong>: in a profile tab, enable it to give that profile its own values. While it is disabled, the profile uses the default values.</li>
+<li><strong>ExcludeAsset</strong>: skips the asset when exporting that profile, so it is not included in the application. Use it for content that only makes sense on some platforms.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

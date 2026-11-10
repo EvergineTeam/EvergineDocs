@@ -1,0 +1,422 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Barriers | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Barriers | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="barriers">Barriers</h1>
+
+<p>At any moment a GPU resource sits in a state that reflects what it is being used for: a render target, a shader resource, the source of a copy, the image being presented. Changing that use requires telling the backend, and the call that does it is a barrier.</p>
+<p>Some backends track that state for you and accept the call without doing anything. Others need it, and render incorrectly when it is missing. Record a barrier every time a resource changes use, whichever backend you happen to be running: one that is not needed costs nothing, and one that is missing stays invisible until the code reaches a machine that does need it.</p>
+<h2 id="the-model">The model</h2>
+<p>You declare only the state you want next. There is no source state parameter anywhere in the API, because each backend already knows where the resource is and skips the transition when it already matches.</p>
+<p><img src="images/barrier_timeline.png" alt="A texture and a swapchain target moving through states, with the barriers that move them"></p>
+<p>Barriers are recorded on a <a href="commandbuffer.html">CommandBuffer</a>, outside any render pass, and take effect in the order they were recorded relative to the rest of that buffer.</p>
+<h2 id="buffer-barriers">Buffer barriers</h2>
+<p><code>Buffer.Barrier</code> names a buffer and the state to move it into.</p>
+<pre><code class="lang-csharp">commandBuffer.Barrier(new Buffer.Barrier(this.constantBuffer, Buffer.StateFlags.UniformBuffer));
+</code></pre>
+<h3 id="bufferstateflags">Buffer.StateFlags</h3>
+<table>
+<thead>
+<tr>
+<th>Buffer.StateFlags</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>0</td>
+<td>No state.</td>
+</tr>
+<tr>
+<td><strong>CopySrc</strong></td>
+<td>1</td>
+<td>Source of a copy.</td>
+</tr>
+<tr>
+<td><strong>CopyDst</strong></td>
+<td>2</td>
+<td>Destination of a copy.</td>
+</tr>
+<tr>
+<td><strong>VertexBuffer</strong></td>
+<td>4</td>
+<td>Read by the input assembler as vertices.</td>
+</tr>
+<tr>
+<td><strong>IndexBuffer</strong></td>
+<td>8</td>
+<td>Read by the input assembler as indices.</td>
+</tr>
+<tr>
+<td><strong>UniformBuffer</strong></td>
+<td>16</td>
+<td>Read as a constant buffer.</td>
+</tr>
+<tr>
+<td><strong>ShaderResource</strong></td>
+<td>32</td>
+<td>Read by a shader.</td>
+</tr>
+<tr>
+<td><strong>UnorderedAccess</strong></td>
+<td>64</td>
+<td>Written by a shader, usually a compute shader.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="texture-barriers">Texture barriers</h2>
+<p><code>Texture.Barrier</code> works the same way, and its constructor defaults the subresource range to the whole texture.</p>
+<pre><code class="lang-csharp">commandBuffer.Barrier(new Texture.Barrier(this.texture, Texture.StateFlags.PixelShaderResource));
+</code></pre>
+<h3 id="texturestateflags">Texture.StateFlags</h3>
+<table>
+<thead>
+<tr>
+<th>Texture.StateFlags</th>
+<th>Value</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>None</strong></td>
+<td>0</td>
+<td>No state.</td>
+</tr>
+<tr>
+<td><strong>CopySrc</strong></td>
+<td>1</td>
+<td>Source of a copy.</td>
+</tr>
+<tr>
+<td><strong>CopyDst</strong></td>
+<td>2</td>
+<td>Destination of a copy.</td>
+</tr>
+<tr>
+<td><strong>PixelShaderResource</strong></td>
+<td>4</td>
+<td>Sampled by a pixel shader.</td>
+</tr>
+<tr>
+<td><strong>NonPixelShaderResource</strong></td>
+<td>8</td>
+<td>Sampled by any other stage.</td>
+</tr>
+<tr>
+<td><strong>RenderTarget</strong></td>
+<td>16</td>
+<td>Drawn into as a colour attachment.</td>
+</tr>
+<tr>
+<td><strong>UnorderedAccess</strong></td>
+<td>32</td>
+<td>Written by a shader.</td>
+</tr>
+<tr>
+<td><strong>DepthRead</strong></td>
+<td>64</td>
+<td>Used as a depth buffer for reads.</td>
+</tr>
+<tr>
+<td><strong>DepthWrite</strong></td>
+<td>128</td>
+<td>Used as a depth buffer for writes.</td>
+</tr>
+<tr>
+<td><strong>ResolveSrc</strong></td>
+<td>256</td>
+<td>Source of a multisample resolve.</td>
+</tr>
+<tr>
+<td><strong>ResolveDst</strong></td>
+<td>512</td>
+<td>Destination of a multisample resolve.</td>
+</tr>
+<tr>
+<td><strong>PresentSrc</strong></td>
+<td>1024</td>
+<td>Handed to the swapchain for presentation.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="subresources">Subresources</h3>
+<p><code>Texture.Barrier</code> carries four extra fields that narrow the transition to part of the texture:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>firstMip</strong></td>
+<td><code>uint</code></td>
+<td>First mip level to transition.</td>
+</tr>
+<tr>
+<td><strong>numMips</strong></td>
+<td><code>uint</code></td>
+<td>Number of mip levels.</td>
+</tr>
+<tr>
+<td><strong>firstLayer</strong></td>
+<td><code>uint</code></td>
+<td>First array layer to transition.</td>
+</tr>
+<tr>
+<td><strong>numLayers</strong></td>
+<td><code>uint</code></td>
+<td>Number of array layers.</td>
+</tr>
+</tbody>
+</table>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>The constructor sets <code>numMips</code> and <code>numLayers</code> to the whole texture. Building the struct with an object initializer instead leaves both at <code>0</code>, and a barrier covering zero subresources transitions nothing. Use the constructor, then narrow the range if you need to:</p>
+<pre><code class="lang-csharp">var barrier = new Texture.Barrier(this.texture, Texture.StateFlags.PixelShaderResource);
+barrier.firstMip = 2;
+barrier.numMips = 1;
+commandBuffer.Barrier(barrier);
+</code></pre>
+</div>
+<p>The range narrows what you are asking for, not what you are guaranteed. A backend may transition more of the resource than you named, so write the range you need and do not rely on the rest of the texture keeping its previous state.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The state values are bit flags and combine with <code>|</code>, which is what the engine does internally when a texture is read by both pixel and non-pixel stages.</p>
+</div>
+<h2 id="batching">Batching</h2>
+<p>Every overload of <code>Barrier</code> ends at the same two-span method, and each call becomes one native barrier command. Transitioning several resources at one point belongs in one call:</p>
+<pre><code class="lang-csharp">graphicsCommandBuffer.Barrier(new[]
+{
+    new Texture.Barrier(this.writeableDepthTexture, Texture.StateFlags.NonPixelShaderResource),
+    new Texture.Barrier(this.writeableColorTexture, Texture.StateFlags.UnorderedAccess),
+});
+</code></pre>
+<p>The five overloads are:</p>
+<table>
+<thead>
+<tr>
+<th>Overload</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Barrier(Buffer.Barrier)</code></td>
+<td>One buffer.</td>
+</tr>
+<tr>
+<td><code>Barrier(Texture.Barrier)</code></td>
+<td>One texture.</td>
+</tr>
+<tr>
+<td><code>Barrier(ReadOnlySpan&lt;Buffer.Barrier&gt;)</code></td>
+<td>Several buffers.</td>
+</tr>
+<tr>
+<td><code>Barrier(ReadOnlySpan&lt;Texture.Barrier&gt;)</code></td>
+<td>Several textures.</td>
+</tr>
+<tr>
+<td><code>Barrier(ReadOnlySpan&lt;Buffer.Barrier&gt;, ReadOnlySpan&lt;Texture.Barrier&gt;)</code></td>
+<td>Both at once.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="when-you-need-one">When you need one</h2>
+<table>
+<thead>
+<tr>
+<th>Situation</th>
+<th>Transition to</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Before a compute shader writes a texture</td>
+<td><code>Texture.StateFlags.UnorderedAccess</code></td>
+</tr>
+<tr>
+<td>Before a pixel shader samples it</td>
+<td><code>Texture.StateFlags.PixelShaderResource</code></td>
+</tr>
+<tr>
+<td>Before a vertex or compute shader samples it</td>
+<td><code>Texture.StateFlags.NonPixelShaderResource</code></td>
+</tr>
+<tr>
+<td>Before a copy or a blit</td>
+<td><code>CopySrc</code> on the source, <code>CopyDst</code> on the destination</td>
+</tr>
+<tr>
+<td>Before presenting a swapchain texture you wrote yourself</td>
+<td><code>Texture.StateFlags.PresentSrc</code></td>
+</tr>
+<tr>
+<td>After updating a constant buffer that a shader will read</td>
+<td><code>Buffer.StateFlags.UniformBuffer</code></td>
+</tr>
+<tr>
+<td>Before a compute shader writes a buffer</td>
+<td><code>Buffer.StateFlags.UnorderedAccess</code></td>
+</tr>
+</tbody>
+</table>
+<p>A full pass, from <code>CopyToDepthTextureTest</code>:</p>
+<pre><code class="lang-csharp">// Compute writes both textures...
+graphicsCommandBuffer.Barrier(new[]
+{
+    new Texture.Barrier(this.writeableDepthTexture, Texture.StateFlags.NonPixelShaderResource),
+    new Texture.Barrier(this.writeableColorTexture, Texture.StateFlags.UnorderedAccess),
+});
+
+// ...then the result is copied into the swapchain...
+graphicsCommandBuffer.Barrier(new Texture.Barrier(this.writeableColorTexture, Texture.StateFlags.CopySrc));
+graphicsCommandBuffer.Barrier(new Texture.Barrier(swapchainColor, Texture.StateFlags.CopyDst));
+
+// ...and the swapchain is handed over for presentation.
+graphicsCommandBuffer.Barrier(new Texture.Barrier(swapchainColor, Texture.StateFlags.PresentSrc));
+</code></pre>
+<h2 id="a-resourceset-already-knows-its-barriers">A ResourceSet already knows its barriers</h2>
+<p>Creating a <a href="resourceset.html">ResourceSet</a> works out, from the layout, the state each resource has to be in. You do not repeat that by hand for resources bound through a set. <code>CollectBarriers</code> returns the list when you are writing your own submission code:</p>
+<pre><code class="lang-csharp">var bufferBarriers = new List&lt;Buffer.Barrier&gt;();
+var textureBarriers = new List&lt;Texture.Barrier&gt;();
+resourceSet.CollectBarriers(bufferBarriers, textureBarriers);
+</code></pre>
+<h2 id="the-other-barrier">The other barrier</h2>
+<p><code>ResourceBarrierUnorderedAccessView</code> shares part of its name with <code>Barrier</code> and does something different. It is not a state transition. It says that two pieces of work using a resource in the same way have to be ordered against each other.</p>
+<p><img src="images/barrier_vs_uav.png" alt="The difference between a state transition and a hazard barrier"></p>
+<pre><code class="lang-csharp">commandBuffer.Dispatch2D(width, height);
+commandBuffer.ResourceBarrierUnorderedAccessView(this.buffer);
+commandBuffer.Dispatch2D(width, height);
+</code></pre>
+<p>Without it, the second dispatch is free to begin before the first has finished writing, and each reads whatever happens to be there. There is one overload for a <code>Buffer</code> and one for a <code>Texture</code>.</p>
+<p>Record it for the same reason you record a state transition: the backends that need the ordering get it, and the ones that already guarantee it ignore the call.</p>
+<h2 id="getting-it-wrong">Getting it wrong</h2>
+<p>A missing barrier fails quietly. Where the backend does not need one, everything draws as though the code were correct, so the defect travels undetected until it reaches a machine that does.</p>
+<p>Two habits catch it early:</p>
+<ul>
+<li>Create the device with a <code>ValidationLayer</code>. A resource left in the wrong state is then reported as an error naming the resource, rather than as a picture that looks slightly wrong. See <a href="graphicscontext.html">GraphicsContext</a>.</li>
+<li>Run the application on more than one backend before shipping. The backend is decided by the <code>GraphicsContext</code> class you instantiate, so trying another is a one-line change.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,948 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Class SixDOFConstraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Class SixDOFConstraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../favicon.ico">
+    <link rel="stylesheet" href="../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../styles/docfx.css">
+    <link rel="stylesheet" href="../styles/main.css">
+    <meta property="docfx:navrel" content="../toc.html">
+    <meta property="docfx:tocrel" content="toc.html">
+  
+  <meta property="docfx:rel" content="../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../index.html">
+                <img id="logo" class="svg" src="../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="Evergine.Framework.Physics.SixDOFConstraint">
+
+
+
+  <h1 id="Evergine_Framework_Physics_SixDOFConstraint" data-uid="Evergine.Framework.Physics.SixDOFConstraint" class="text-break">Class SixDOFConstraint</h1>
+  <div class="markdown level0 summary"><p>The general constraint: every one of the six degrees of freedom can be left free, locked, or limited to a
+range, and each one can be driven by its own motor.</p>
+</div>
+  <div class="markdown level0 conceptual"></div>
+  <div class="inheritance">
+    <h5>Inheritance</h5>
+    <div class="level0"><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.object">object</a></div>
+    <div class="level1"><a class="xref" href="Evergine.Common.IdentifiableObject.html">IdentifiableObject</a></div>
+    <div class="level2"><a class="xref" href="Evergine.Framework.DependencyObject.html">DependencyObject</a></div>
+    <div class="level3"><a class="xref" href="Evergine.Framework.AttachableObject.html">AttachableObject</a></div>
+    <div class="level4"><a class="xref" href="Evergine.Framework.PrefabInstanceObject.html">PrefabInstanceObject</a></div>
+    <div class="level5"><a class="xref" href="Evergine.Framework.Component.html">Component</a></div>
+    <div class="level6"><a class="xref" href="Evergine.Framework.Physics.Constraint.html">Constraint</a></div>
+    <div class="level7"><span class="xref">SixDOFConstraint</span></div>
+  </div>
+  <div class="implements">
+    <h5>Implements</h5>
+    <div><a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a></div>
+  </div>
+  <div class="inheritedMembers">
+    <h5>Inherited Members</h5>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Transform3D">Constraint.Transform3D</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Body">Constraint.Body</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Broken">Constraint.Broken</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedEntity">Constraint.ConnectedEntity</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedEntityPath">Constraint.ConnectedEntityPath</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedBody">Constraint.ConnectedBody</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Anchor">Constraint.Anchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_AutoConfigureConnectedAnchor">Constraint.AutoConfigureConnectedAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ConnectedAnchor">Constraint.ConnectedAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_CollideConnected">Constraint.CollideConnected</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsBreakable">Constraint.IsBreakable</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_BreakForce">Constraint.BreakForce</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_BreakTorque">Constraint.BreakTorque</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsHolding">Constraint.IsHolding</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Priority">Constraint.Priority</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_SolverVelocityIterationsOverride">Constraint.SolverVelocityIterationsOverride</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_SolverPositionIterationsOverride">Constraint.SolverPositionIterationsOverride</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_AppliedForce">Constraint.AppliedForce</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_AppliedTorque">Constraint.AppliedTorque</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsBroken">Constraint.IsBroken</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_NativeConstraint">Constraint.NativeConstraint</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_IsCreated">Constraint.IsCreated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_PhysicsManager">Constraint.PhysicsManager</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_WorldAnchor">Constraint.WorldAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_WorldConnectedAnchor">Constraint.WorldConnectedAnchor</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_Recreate">Constraint.Recreate()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_OnActivated">Constraint.OnActivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_OnDeactivated">Constraint.OnDeactivated()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_OnDetached">Constraint.OnDetached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_WakeBodies">Constraint.WakeBodies()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_ResolveConnectedBody">Constraint.ResolveConnectedBody()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Owner">Component.Owner</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Managers">Component.Managers</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_ShouldBeActivated">Component.ShouldBeActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Clone">Component.Clone()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Attach_Evergine_Framework_Entity_">Component.Attach(Entity)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnLoaded">Component.OnLoaded()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnAttached">Component.OnAttached()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_Start">Component.Start()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.Component.html#Evergine_Framework_Component_OnDestroy">Component.OnDestroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabSource">PrefabInstanceObject.PrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_RefreshPrefab_Evergine_Framework_Prefabs_Prefab_">PrefabInstanceObject.RefreshPrefab(Prefab)</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_PrefabElementId">PrefabInstanceObject.PrefabElementId</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsPrefabInstance">PrefabInstanceObject.IsPrefabInstance</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.PrefabInstanceObject.html#Evergine_Framework_PrefabInstanceObject_IsMissingPrefabSource">PrefabInstanceObject.IsMissingPrefabSource</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_AttachableStateChanged">AttachableObject.AttachableStateChanged</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsEnabled">AttachableObject.IsEnabled</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_State">AttachableObject.State</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsLoaded">AttachableObject.IsLoaded</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsAttached">AttachableObject.IsAttached</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsActivated">AttachableObject.IsActivated</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsStarted">AttachableObject.IsStarted</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_IsDestroyed">AttachableObject.IsDestroyed</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_Destroy">AttachableObject.Destroy()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.AttachableObject.html#Evergine_Framework_AttachableObject_DependencyBroken">AttachableObject.DependencyBroken()</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_Dependencies">DependencyObject.Dependencies</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Framework.DependencyObject.html#Evergine_Framework_DependencyObject_OnDependencyRemoved">DependencyObject.OnDependencyRemoved</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_Id">IdentifiableObject.Id</a>
+    </div>
+    <div>
+      <a class="xref" href="Evergine.Common.IdentifiableObject.html#Evergine_Common_IdentifiableObject_IdHasChanged_System_Guid_">IdentifiableObject.IdHasChanged(Guid)</a>
+    </div>
+  </div>
+  <h6><strong>Namespace</strong>: <a class="xref" href="Evergine.html">Evergine</a>.<a class="xref" href="Evergine.Framework.html">Framework</a>.<a class="xref" href="Evergine.Framework.Physics.html">Physics</a></h6>
+  <h6><strong>Assembly</strong>: Evergine.Framework.dll</h6>
+  <h5 id="Evergine_Framework_Physics_SixDOFConstraint_syntax">Syntax</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public class SixDOFConstraint : Constraint, IDependencyObject</code></pre>
+  </div>
+  <h5 id="Evergine_Framework_Physics_SixDOFConstraint_remarks"><strong>Remarks</strong></h5>
+  <div class="markdown level0 remarks"><p>
+Anything the other constraints do can be expressed here, at the cost of being harder to set up and a
+little more expensive to solve. Reach for it when a joint does not fit any of the specific ones, and for
+the joints a Bullet generic six degrees of freedom constraint used to build.
+</p>
+<p>
+Every limit and every target on this component says where the body it lives on goes. The simulation
+underneath states the same things the other way round, as where the other body sits relative to this one,
+so every value crossing that boundary is negated and every pair of limits is swapped. Without that, asking
+this joint to move two metres to the right would move it two metres to the left, which is what it did
+before the mirroring was put in. The slider constraint carries the same note for the same reason.
+</p>
+</div>
+  <h3 id="properties">Properties
+</h3>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_FreeAxes_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.FreeAxes*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_FreeAxes" data-uid="Evergine.Framework.Physics.SixDOFConstraint.FreeAxes">FreeAxes</h4>
+  <div class="markdown level1 summary"><p>Gets or sets which degrees of freedom are unconstrained. Anything not listed here is limited to the
+ranges below, and a range of zero width locks the axis outright.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Degrees of freedom left completely free. The rest are limited to the ranges below.&quot;)]
+public DegreesOfFreedom FreeAxes { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.DegreesOfFreedom.html">DegreesOfFreedom</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_LimitsSpring_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.LimitsSpring*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_LimitsSpring" data-uid="Evergine.Framework.Physics.SixDOFConstraint.LimitsSpring">LimitsSpring</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring every limited axis pulls back with. A zero frequency keeps the limits hard.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Spring applied at every limit. A zero frequency keeps the limits hard.&quot;)]
+public SpringParameters LimitsSpring { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.SpringParameters.html">SpringParameters</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_MaxMotorForce_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MaxMotorForce*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_MaxMotorForce" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MaxMotorForce">MaxMotorForce</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the strongest force the three translation motors may apply, in newtons.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, ShowConditionFunction = &quot;IsAnyMotorEnabled&quot;, Tooltip = &quot;Strongest force the translation motors may apply, in newtons.&quot;)]
+public float MaxMotorForce { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SixDOFConstraint_MaxMotorForce_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Jolt has no way to change a six degrees of freedom motor once the joint exists, so setting this
+rebuilds it. Tune it while nothing is moving rather than every frame.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_MaxMotorTorque_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MaxMotorTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_MaxMotorTorque" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MaxMotorTorque">MaxMotorTorque</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the strongest torque the three rotation motors may apply, in newton metres.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderPropertyAsFInput(MinLimit = 0, ShowConditionFunction = &quot;IsAnyMotorEnabled&quot;, Tooltip = &quot;Strongest torque the rotation motors may apply, in newton metres.&quot;)]
+public float MaxMotorTorque { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SixDOFConstraint_MaxMotorTorque_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>As with <a class="xref" href="Evergine.Framework.Physics.SixDOFConstraint.html#Evergine_Framework_Physics_SixDOFConstraint_MaxMotorForce">MaxMotorForce</a>, setting this rebuilds the joint.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_MotorForce_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MotorForce*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_MotorForce" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MotorForce">MotorForce</h4>
+  <div class="markdown level1 summary"><p>Gets how hard the translation motors are pulling, in newtons.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float MotorForce { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_MotorSpring_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MotorSpring*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_MotorSpring" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MotorSpring">MotorSpring</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the spring the motors pull towards their target with, and rebuilds the joint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(ShowConditionFunction = &quot;IsAnyMotorEnabled&quot;, Tooltip = &quot;Spring the motors pull towards their target with.&quot;)]
+public SpringParameters MotorSpring { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.SpringParameters.html">SpringParameters</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_MotorTorque_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MotorTorque*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_MotorTorque" data-uid="Evergine.Framework.Physics.SixDOFConstraint.MotorTorque">MotorTorque</h4>
+  <div class="markdown level1 summary"><p>Gets how hard the rotation motors are pulling, in newton metres.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public float MotorTorque { get; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_RotationMax_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.RotationMax*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_RotationMax" data-uid="Evergine.Framework.Physics.SixDOFConstraint.RotationMax">RotationMax</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the highest rotation allowed around each axis, in radians.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(Vector3RadianToDegreeConverter), Tooltip = &quot;Highest rotation allowed around each axis.&quot;)]
+public Vector3 RotationMax { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_RotationMin_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.RotationMin*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_RotationMin" data-uid="Evergine.Framework.Physics.SixDOFConstraint.RotationMin">RotationMin</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the lowest rotation allowed around each axis, in radians.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(typeof(Vector3RadianToDegreeConverter), Tooltip = &quot;Lowest rotation allowed around each axis.&quot;)]
+public Vector3 RotationMin { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_TargetOrientation_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.TargetOrientation*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_TargetOrientation" data-uid="Evergine.Framework.Physics.SixDOFConstraint.TargetOrientation">TargetOrientation</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the orientation the rotation motors drive towards while in
+<a class="xref" href="Evergine.Framework.Physics.MotorMode.html#Evergine_Framework_Physics_MotorMode_Position">Position</a>, in the space of the constraint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Quaternion TargetOrientation { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Quaternion.html">Quaternion</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_TargetPosition_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.TargetPosition*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_TargetPosition" data-uid="Evergine.Framework.Physics.SixDOFConstraint.TargetPosition">TargetPosition</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the position the translation motors drive towards while in
+<a class="xref" href="Evergine.Framework.Physics.MotorMode.html#Evergine_Framework_Physics_MotorMode_Position">Position</a>, in metres, in the space of the constraint.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public Vector3 TargetPosition { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 id="Evergine_Framework_Physics_SixDOFConstraint_TargetPosition_remarks">Remarks</h5>
+  <div class="markdown level1 remarks"><p>Zero is the pose the constraint was created in. This and <a class="xref" href="Evergine.Framework.Physics.SixDOFConstraint.html#Evergine_Framework_Physics_SixDOFConstraint_TargetOrientation">TargetOrientation</a> are what make
+a six degrees of freedom joint into something that can be commanded rather than only limited: a lift
+told which floor to stop at, a door told how far to open.</p>
+</div>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_TranslationMax_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.TranslationMax*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_TranslationMax" data-uid="Evergine.Framework.Physics.SixDOFConstraint.TranslationMax">TranslationMax</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the highest translation allowed on each axis, in meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Highest translation allowed on each axis.&quot;)]
+public Vector3 TranslationMax { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_TranslationMin_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.TranslationMin*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_TranslationMin" data-uid="Evergine.Framework.Physics.SixDOFConstraint.TranslationMin">TranslationMin</h4>
+  <div class="markdown level1 summary"><p>Gets or sets the lowest translation allowed on each axis, in meters.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">[RenderProperty(Tooltip = &quot;Lowest translation allowed on each axis.&quot;)]
+public Vector3 TranslationMin { get; set; }</code></pre>
+  </div>
+  <h5 class="propertyValue">Property Value</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td></td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="methods">Methods
+</h3>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_CreateNativeConstraint_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.CreateNativeConstraint*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_CreateNativeConstraint_System_IntPtr_System_UInt32_System_UInt32_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.CreateNativeConstraint(System.IntPtr,System.UInt32,System.UInt32)">CreateNativeConstraint(nint, uint, uint)</h4>
+  <div class="markdown level1 summary"><p>Creates the native constraint between two bodies.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override nint CreateNativeConstraint(nint system, uint body1, uint body2)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><span class="parametername">system</span></td>
+        <td><p>The native physics system.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">body1</span></td>
+        <td><p>The identifier of this body.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.uint32">uint</a></td>
+        <td><span class="parametername">body2</span></td>
+        <td><p>The identifier of the other body, or an invalid identifier for the world.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.intptr">nint</a></td>
+        <td><p>The native constraint, or zero when it could not be created.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_CreateNativeConstraint_System_IntPtr_System_UInt32_System_UInt32_">Constraint.CreateNativeConstraint(nint, uint, uint)</a></div>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_GetAppliedAngularImpulse_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.GetAppliedAngularImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_GetAppliedAngularImpulse" data-uid="Evergine.Framework.Physics.SixDOFConstraint.GetAppliedAngularImpulse">GetAppliedAngularImpulse()</h4>
+  <div class="markdown level1 summary"><p>Gets the magnitude of the angular impulse the solver applied on the last step.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override float GetAppliedAngularImpulse()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The impulse magnitude, in newton meter seconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_GetAppliedAngularImpulse">Constraint.GetAppliedAngularImpulse()</a></div>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_GetAppliedLinearImpulse_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.GetAppliedLinearImpulse*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_GetAppliedLinearImpulse" data-uid="Evergine.Framework.Physics.SixDOFConstraint.GetAppliedLinearImpulse">GetAppliedLinearImpulse()</h4>
+  <div class="markdown level1 summary"><p>Gets the magnitude of the linear impulse the solver applied on the last step, used to decide whether a
+breakable constraint gives way.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">protected override float GetAppliedLinearImpulse()</code></pre>
+  </div>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><p>The impulse magnitude, in newton seconds.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="overrides">Overrides</h5>
+  <div><a class="xref" href="Evergine.Framework.Physics.Constraint.html#Evergine_Framework_Physics_Constraint_GetAppliedLinearImpulse">Constraint.GetAppliedLinearImpulse()</a></div>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_GetMotorMode_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.GetMotorMode*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_GetMotorMode_Evergine_Framework_Physics_DegreesOfFreedom_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.GetMotorMode(Evergine.Framework.Physics.DegreesOfFreedom)">GetMotorMode(DegreesOfFreedom)</h4>
+  <div class="markdown level1 summary"><p>Gets how an axis is being driven.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public MotorMode GetMotorMode(DegreesOfFreedom axis)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.DegreesOfFreedom.html">DegreesOfFreedom</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis. Use the single flag values of <a class="xref" href="Evergine.Framework.Physics.DegreesOfFreedom.html">DegreesOfFreedom</a>.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h5 class="returns">Returns</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.MotorMode.html">MotorMode</a></td>
+        <td><p>The mode that axis is in.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_SetMaxFriction_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.SetMaxFriction*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_SetMaxFriction_Evergine_Framework_Physics_DegreesOfFreedom_System_Single_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.SetMaxFriction(Evergine.Framework.Physics.DegreesOfFreedom,System.Single)">SetMaxFriction(DegreesOfFreedom, float)</h4>
+  <div class="markdown level1 summary"><p>Sets the friction resisting one axis, in newtons for a translation and newton metres for a rotation.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetMaxFriction(DegreesOfFreedom axis, float friction)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.DegreesOfFreedom.html">DegreesOfFreedom</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis. Use the single flag values of <a class="xref" href="Evergine.Framework.Physics.DegreesOfFreedom.html">DegreesOfFreedom</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="https://learn.microsoft.com/dotnet/api/system.single">float</a></td>
+        <td><span class="parametername">friction</span></td>
+        <td><p>How hard the axis resists being moved.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_SetMotorMode_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.SetMotorMode*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_SetMotorMode_Evergine_Framework_Physics_DegreesOfFreedom_Evergine_Framework_Physics_MotorMode_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.SetMotorMode(Evergine.Framework.Physics.DegreesOfFreedom,Evergine.Framework.Physics.MotorMode)">SetMotorMode(DegreesOfFreedom, MotorMode)</h4>
+  <div class="markdown level1 summary"><p>Sets how an axis is driven.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetMotorMode(DegreesOfFreedom axis, MotorMode mode)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.DegreesOfFreedom.html">DegreesOfFreedom</a></td>
+        <td><span class="parametername">axis</span></td>
+        <td><p>The axis to drive. Use the single flag values of <a class="xref" href="Evergine.Framework.Physics.DegreesOfFreedom.html">DegreesOfFreedom</a>.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Framework.Physics.MotorMode.html">MotorMode</a></td>
+        <td><span class="parametername">mode</span></td>
+        <td><p>How the motor drives it.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <a id="Evergine_Framework_Physics_SixDOFConstraint_SetTargetVelocity_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.SetTargetVelocity*"></a>
+  <h4 id="Evergine_Framework_Physics_SixDOFConstraint_SetTargetVelocity_Evergine_Mathematics_Vector3_Evergine_Mathematics_Vector3_" data-uid="Evergine.Framework.Physics.SixDOFConstraint.SetTargetVelocity(Evergine.Mathematics.Vector3,Evergine.Mathematics.Vector3)">SetTargetVelocity(Vector3, Vector3)</h4>
+  <div class="markdown level1 summary"><p>Drives one axis towards a velocity.</p>
+</div>
+  <div class="markdown level1 conceptual"></div>
+  <h5 class="declaration">Declaration</h5>
+  <div class="codewrapper">
+    <pre><code class="lang-csharp hljs">public void SetTargetVelocity(Vector3 linearVelocity, Vector3 angularVelocity)</code></pre>
+  </div>
+  <h5 class="parameters">Parameters</h5>
+  <table class="table table-bordered table-condensed">
+    <thead>
+      <tr>
+        <th>Type</th>
+        <th>Name</th>
+        <th>Description</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">linearVelocity</span></td>
+        <td><p>The linear velocity target, in constraint space.</p>
+</td>
+      </tr>
+      <tr>
+        <td><a class="xref" href="Evergine.Mathematics.Vector3.html">Vector3</a></td>
+        <td><span class="parametername">angularVelocity</span></td>
+        <td><p>The angular velocity target, in constraint space.</p>
+</td>
+      </tr>
+    </tbody>
+  </table>
+  <h3 id="implements">Implements</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.IDependencyObject.html">IDependencyObject</a>
+  </div>
+  <h3 id="extensionmethods">Extension Methods</h3>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetMemberAssembly_System_Object_">ReflectionHelper.GetMemberAssembly(object)</a>
+  </div>
+  <div>
+      <a class="xref" href="Evergine.Common.Helpers.ReflectionHelper.html#Evergine_Common_Helpers_ReflectionHelper_GetTypeName_System_Object_">ReflectionHelper.GetTypeName(object)</a>
+  </div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../styles/docfx.js"></script>
+    <script type="text/javascript" src="../styles/main.js"></script>
+  </body>
+</html>

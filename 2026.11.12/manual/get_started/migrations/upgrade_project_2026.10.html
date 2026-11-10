@@ -1,0 +1,370 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Update from Evergine 2026.5.26 to Evergine 2026.10 | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Update from Evergine 2026.5.26 to Evergine 2026.10 | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="update-from-evergine-2026526-to-evergine-202610">Update from Evergine 2026.5.26 to Evergine 2026.10</h1>
+
+<p>Evergine 2026.10 makes <strong>DirectX 12 the default graphics backend</strong> and tightens the behavior of a few low-level graphics APIs. Most projects update without code changes. This guide lists what changes for existing projects, what you may want to change by hand, and the new features you can start using.</p>
+<p>If your project is older than 2026.5.26, first follow <a href="upgrade_project_2026.5.26.html">Update from Evergine 2025.10.21 to Evergine 2026.5.26</a>. That release moved the engine to .NET 10 and Reverse-Z, and this guide assumes both.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Affects</th>
+<th>Action</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>DirectX 12 is the default backend</td>
+<td>Evergine Studio, new projects</td>
+<td>None for existing projects. Optionally move your Windows profile to DirectX 12.</td>
+</tr>
+<tr>
+<td>Vulkan <code>QueryHeap.ReadData</code> writes at absolute slot indices</td>
+<td>Code that reads query results on Vulkan</td>
+<td>Size the results array to <code>startIndex + count</code>.</td>
+</tr>
+<tr>
+<td>New <code>IsTimestampQuerySupported</code> capability</td>
+<td>Code that creates timestamp query heaps</td>
+<td>Check the capability before creating the heap.</td>
+</tr>
+<tr>
+<td>Quest and Pico launchers render outside the UI thread</td>
+<td>Meta Quest and Pico projects</td>
+<td>Optional one-line change in <code>MainActivity.cs</code>.</td>
+</tr>
+<tr>
+<td>WebGPU template limits the frames in flight</td>
+<td>Web (Experimental WebGPU) projects</td>
+<td>Optional update of <code>ts/app.ts</code> and <code>ts/helper.ts</code>.</td>
+</tr>
+<tr>
+<td>Custom graphics backends have new abstract members</td>
+<td>Only if you implement your own backend</td>
+<td>Implement the new members.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="update-the-project">Update the project</h2>
+<ol>
+<li>Install the new version from the <strong>Evergine Launcher</strong> and select it for your project, as described in <a href="index.html#general-upgrade-steps">General upgrade steps</a>.</li>
+<li>Let the Launcher update the Evergine packages of the project.</li>
+<li>Open the project in Evergine Studio and in Visual Studio, rebuild, and review the sections below.</li>
+</ol>
+<h2 id="directx-12-is-the-default-backend">DirectX 12 is the default backend</h2>
+<p>DirectX 12 replaces DirectX 11 as the default on Windows, in three places:</p>
+<ul>
+<li><strong>Evergine Studio</strong> starts on DirectX 12. When you update, an installation that was using DirectX 11 moves to DirectX 12. An installation where you had explicitly chosen Vulkan keeps Vulkan.</li>
+<li><strong>New projects</strong> use the <strong>Windows (DirectX12)</strong> template as the required platform. Its <code>Windows</code> profile runs on <code>DX12GraphicsContext</code> and references the <code>Evergine.DirectX12</code> package.</li>
+<li><strong>DirectX 11</strong> is still available as the optional <strong>Windows (DirectX11)</strong> platform, which adds a <code>Windows.DirectX11</code> profile.</li>
+</ul>
+<p>You can change the backend Evergine Studio renders with in <strong>Settings &gt; Preferences &gt; Editor backend (Experimental)</strong>. The change applies after you restart Evergine Studio.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The DirectX 12 backend requires a GPU that supports Direct3D feature level 12_2. On older GPUs <code>DX12GraphicsContext.CreateDevice()</code> throws <code>Couldn't find GPU device that supports feature level 12.2</code>. If that happens in Evergine Studio, set <strong>Editor backend</strong> to DirectX11 or Vulkan. If it happens in your application, keep the Windows profile on DirectX 11 (see below) or add the Windows (Vulkan) platform.</p>
+</div>
+<h3 id="what-happens-to-existing-projects">What happens to existing projects</h3>
+<p>Nothing changes on its own. The <code>Windows</code> profile of an existing project keeps the backend recorded in its <code>.weproj</code> file and the launcher code already on disk, so a project created with DirectX 11 still builds and runs on DirectX 11. Projects that already have a <code>Windows.DirectX12</code> profile are not affected either.</p>
+<h3 id="move-the-windows-profile-to-directx-12-optional">Move the Windows profile to DirectX 12 (optional)</h3>
+<p>To make an existing project match the new template, change three files.</p>
+<p>In the <code>.weproj</code> file, set the backend of the <code>Windows</code> profile:</p>
+<pre><code class="lang-yaml"># Before
+    GraphicsBackend: DirectX11
+    LauncherType: Default
+    Name: Windows
+
+# After
+    GraphicsBackend: DirectX12
+    LauncherType: Default
+    Name: Windows
+</code></pre>
+<p>In <code>MyGame.Windows/MyGame.Windows.csproj</code>, replace the backend package:</p>
+<pre><code class="lang-xml">&lt;!-- Before --&gt;
+&lt;PackageReference Include=&quot;Evergine.DirectX11&quot; Version=&quot;2026.10.x.x&quot; /&gt;
+
+&lt;!-- After --&gt;
+&lt;PackageReference Include=&quot;Evergine.DirectX12&quot; Version=&quot;2026.10.x.x&quot; /&gt;
+</code></pre>
+<p>Use the same version as the other Evergine packages of the project.</p>
+<p>In <code>MyGame.Windows/Program.cs</code>, create a DirectX 12 context instead of a DirectX 11 one:</p>
+<pre><code class="lang-csharp">// Before
+GraphicsContext graphicsContext = new global::Evergine.DirectX11.DX11GraphicsContext();
+
+// After
+GraphicsContext graphicsContext = new global::Evergine.DirectX12.DX12GraphicsContext();
+</code></pre>
+<p>The rest of <code>ConfigureGraphicsContext</code> (swap chain description, presenter and container registration) stays the same. The template also changes the window title from <code>- DX11</code> to <code>- DX12</code>, which is cosmetic.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>To test on a machine without a suitable GPU, such as a build agent, create the context with <code>new DX12GraphicsContext(useWarpAdapter: true)</code>. It runs DirectX 12 on the WARP software rasterizer, which is slow but needs no GPU.</p>
+</div>
+<h2 id="vulkan-queryheapreaddata-writes-at-absolute-slot-indices">Vulkan: <code>QueryHeap.ReadData</code> writes at absolute slot indices</h2>
+<p><code>QueryHeap.ReadData(startIndex, count, results)</code> now writes the result of query <code>i</code> at <code>results[i]</code> on Vulkan, as it already did on every other backend. Before this release, the Vulkan backend packed the results from the start of the array, so <code>results[0]</code> held query <code>startIndex</code>.</p>
+<p>This is a breaking change for code that reads a range that does not start at 0. The results array must hold at least <code>startIndex + count</code> elements. A shorter array now throws <code>ArgumentException</code> on every backend.</p>
+<p>Before (only correct on Vulkan):</p>
+<pre><code class="lang-csharp">// Queries 2 and 3 hold the timestamps around the second pass.
+ulong[] results = new ulong[2];
+this.queryHeap.ReadData(2, 2, results);
+double passMs = (results[1] - results[0]) * 1000.0 / this.graphicsContext.TimestampFrequency;
+</code></pre>
+<p>After (correct on every backend):</p>
+<pre><code class="lang-csharp">// The array is indexed by query slot, so it needs startIndex + count elements.
+ulong[] results = new ulong[4];
+this.queryHeap.ReadData(2, 2, results);
+double passMs = (results[3] - results[2]) * 1000.0 / this.graphicsContext.TimestampFrequency;
+</code></pre>
+<p>If you always read from slot 0 with an array of <code>QueryCount</code> elements, as in <a href="../../graphics/low_level_api/queryheap.html">QueryHeap</a>, you do not need to change anything.</p>
+<h2 id="timestamp-query-support-is-now-reported">Timestamp query support is now reported</h2>
+<p><code>GraphicsContextCapabilities</code> has a new <code>IsTimestampQuerySupported</code> property. It is <code>false</code> by default, and each backend reports <code>true</code> only when it implements timestamp queries. Before this release there was no way to ask, and a backend without timestamp queries failed the first time you used them.</p>
+<ul>
+<li><strong>DirectX 12, DirectX 11 and Vulkan</strong> report <code>true</code>.</li>
+<li><strong>WebGPU</strong> reports <code>true</code> when the browser exposes the <code>timestamp-query</code> feature.</li>
+<li><strong>Metal</strong> reports <code>false</code>, because its <code>QueryHeap</code> and <code>WriteTimestamp</code> are not implemented.</li>
+<li><strong>OpenGL</strong> reports support only when the driver exposes <code>ARB_timer_query</code>. OpenGL ES and WebGL do not have it, so they report <code>false</code>.</li>
+</ul>
+<p>If you create timestamp query heaps, check the capability first:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+
+public class GpuTimer
+{
+    private readonly GraphicsContext graphicsContext;
+    private QueryHeap queryHeap;
+
+    public GpuTimer(GraphicsContext graphicsContext)
+    {
+        this.graphicsContext = graphicsContext;
+
+        // Metal, OpenGL ES and WebGL report false: skip GPU timing there instead of failing.
+        if (graphicsContext.Capabilities.IsTimestampQuerySupported)
+        {
+            var description = new QueryHeapDescription()
+            {
+                Type = QueryType.Timestamp,
+                QueryCount = 2,
+            };
+
+            this.queryHeap = graphicsContext.Factory.CreateQueryHeap(ref description);
+        }
+    }
+
+    public bool IsAvailable =&gt; this.queryHeap != null;
+}
+</code></pre>
+<h2 id="meta-quest-and-pico-surface-created-outside-the-ui-thread-optional">Meta Quest and Pico: surface created outside the UI thread (optional)</h2>
+<p>The <strong>Android Meta Quest (OpenXR)</strong> and <strong>Android Pico (OpenXR)</strong> templates now create the Android surface with <code>runInUIThread</code> set to <code>false</code>, so the graphics loop does not run on the Android UI thread. To apply the same change to an existing project, edit <code>MainActivity.cs</code> in the Quest or Pico launcher:</p>
+<pre><code class="lang-csharp">// Before
+var surface = this.windowsSystem.CreateSurface(0, 0) as global::Evergine.Android.AndroidSurface;
+
+// After
+var surface = this.windowsSystem.CreateSurface(false) as global::Evergine.Android.AndroidSurface;
+</code></pre>
+<p><code>CreateSurface(0, 0)</code> still works and keeps the previous behavior, because it calls <code>CreateSurface(true)</code>.</p>
+<h2 id="webgpu-frames-in-flight-optional">WebGPU: frames in flight (optional)</h2>
+<p>The <strong>Web (Experimental WebGPU)</strong> template now limits how many frames the GPU can have queued. Without a limit, <code>requestAnimationFrame</code> keeps submitting frames at display rate even when the GPU cannot keep up, which adds input lag and reports a frame rate higher than what is presented.</p>
+<p>The limit lives in <code>ts/app.ts</code> (<code>App.maxFramesInFlight</code>, 2 by default; set it to 0 to disable it), and <code>ts/helper.ts</code> skips a tick while the limit is reached. To get the change in an existing project, create a new project with the WebGPU template and copy its <code>ts/app.ts</code> and <code>ts/helper.ts</code> over yours. Merge by hand if you had edited those files.</p>
+<h2 id="custom-graphics-backends">Custom graphics backends</h2>
+<p>Skip this section unless you implement your own <code>GraphicsContext</code>. The abstract classes of the low-level API gained members that every backend must implement:</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>New member</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CommandQueue</code></td>
+<td><code>Submit(Fence fence = null)</code> replaces <code>Submit()</code>.</td>
+</tr>
+<tr>
+<td><code>CommandQueue</code></td>
+<td><code>GetClockCalibration(out ulong gpuTimestamp, out long cpuTimestamp)</code></td>
+</tr>
+<tr>
+<td><code>ResourceFactory</code></td>
+<td><code>CreateFence()</code> and <code>CreateBufferViewInternal(...)</code></td>
+</tr>
+<tr>
+<td><code>CommandBuffer</code></td>
+<td><code>UpdateTextureData(Texture texture, IntPtr source, uint sourceSizeInBytes, uint subResource = 0)</code></td>
+</tr>
+<tr>
+<td><code>GraphicsContextCapabilities</code></td>
+<td><code>IsTimestampQuerySupported</code> and <code>IsClockCalibrationSupported</code> (virtual, <code>false</code> by default, so override them to report support)</td>
+</tr>
+</tbody>
+</table>
+<p>Code that only calls <code>CommandQueue.Submit()</code> keeps compiling, because the fence parameter is optional.</p>
+<h2 id="new-features-you-can-adopt">New features you can adopt</h2>
+<p>These features are optional. Existing projects keep working without them.</p>
+<h3 id="fence">Fence</h3>
+<p><code>Fence</code> tells the CPU when one particular submission has finished on the GPU, instead of waiting for the whole queue with <code>WaitIdle()</code>. Create one with <code>Factory.CreateFence()</code>, pass it to <code>CommandQueue.Submit(fence)</code>, and use <code>IsSignaled</code>, <code>Wait</code> and <code>Reset</code>. It is implemented on DirectX 12, DirectX 11, Vulkan, OpenGL, Metal and WebGPU. See <a href="../../graphics/low_level_api/commandqueue.html">CommandQueue</a> for how submission works.</p>
+<p><code>GraphicsContext.FramesInFlight</code> (0 by default, which disables it) builds on fences: when it is greater than zero, <code>GraphicsPresenter</code> creates one fence per frame and lets that many frames be in progress at once.</p>
+<h3 id="gpu-and-cpu-clock-calibration">GPU and CPU clock calibration</h3>
+<p><code>CommandQueue.GetClockCalibration(out ulong gpuTimestamp, out long cpuTimestamp)</code> samples the GPU timestamp counter and the CPU <code>Stopwatch</code> clock at the same instant, so you can place GPU timestamps on a CPU profiler timeline. Check <code>Capabilities.IsClockCalibrationSupported</code> first: DirectX 12, Vulkan and desktop OpenGL support it; DirectX 11, WebGPU and Metal do not.</p>
+<h3 id="buffer-views">Buffer views</h3>
+<p><code>ResourceFactory.CreateBufferView(buffer, offset, size, format, structStride)</code> creates a <code>BufferView</code> over a range of a <code>Buffer</code>. Buffer views can be bound as formatted (texel) buffers through the new <code>ResourceType.TexelBuffer</code> and <code>ResourceType.TexelBufferReadWrite</code> layout entries:</p>
+<pre><code class="lang-csharp">// View the first 1024 bytes of an existing buffer as an array of float4 values.
+BufferView view = this.graphicsContext.Factory.CreateBufferView(
+    this.dataBuffer,
+    offset: 0,
+    size: 1024,
+    format: PixelFormat.R32G32B32A32_Float);
+</code></pre>
+<h3 id="raw-assets">Raw assets</h3>
+<p><code>AssetsService.LoadRaw&lt;T&gt;(Guid id, Func&lt;Stream, T&gt; loader)</code> loads files that Evergine includes in the application without converting them, such as JSON or plain text. You provide the function that reads the stream:</p>
+<pre><code class="lang-csharp">using System;
+using System.IO;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+
+public class LoadTextFile : Component
+{
+    [BindService]
+    private AssetsService assetsService = null;
+
+    // Id of a raw asset, usually taken from the generated EvergineContent class.
+    public Guid TextFileId { get; set; }
+
+    public string Text { get; private set; }
+
+    protected override void Start()
+    {
+        // LoadRaw does not cache: keep the result if you need it again.
+        this.Text = this.assetsService.LoadRaw(this.TextFileId, stream =&gt;
+        {
+            using var reader = new StreamReader(stream, leaveOpen: true);
+            return reader.ReadToEnd();
+        });
+    }
+}
+</code></pre>
+<p>See <a href="../../evergine_studio/assets/use.html#load-raw-assets">Raw assets loading</a> for details.</p>
+<h3 id="application-services-in-evergine-studio">Application services in Evergine Studio</h3>
+<p><strong>Project Settings &gt; Services</strong> lets you add, remove and configure application services from Evergine Studio. The configuration is saved in the project's <code>.weservices</code> file and the services are registered automatically when the application starts. A service you register from code takes precedence over the one configured in Studio. See <a href="../../evergine_studio/settings/project_services.html">Manage services</a>.</p>
+<h3 id="other-improvements">Other improvements</h3>
+<ul>
+<li><strong>Evergine Studio:</strong> close opened documents from their context menu, reset profile textures and shader values to the originals, choose the HDR range in the Texture Viewer, and edit multiline string properties.</li>
+<li><strong>Evergine Launcher:</strong> remove several installed versions at once.</li>
+<li><strong>MAUI:</strong> better Android, Windows and iOS lifecycle handling in the MAUI template.</li>
+</ul>
+<p>The full list of changes and bug fixes is in the release notes shown by the installer.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

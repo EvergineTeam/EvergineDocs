@@ -1,0 +1,278 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Custom Post-Processing Graph | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Custom Post-Processing Graph | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="custom-post-processing-graph">Custom Post-Processing Graph</h1>
+
+<hr>
+<p>This page walks through building a post-processing graph of your own, with a new effect that the default graph does not have, and explains the special nodes, tags and decorators custom graphs use.</p>
+<h2 id="example">Example</h2>
+<p>The example builds a simple filter that keeps only the red channel of the image.</p>
+<p>First, create a compute effect from the <a href="../../evergine_studio/interface.html"><strong>Assets Details panel</strong></a>:</p>
+<p><img src="images/createComputeEffect.jpg" alt="Create a compute effect"></p>
+<p>Write the filter in the <a href="../effects/effect_editor.html"><strong>Effect Editor</strong></a>:</p>
+<pre><code class="lang-hlsl">[Begin_ResourceLayout]
+
+    Texture2D input : register(t0);
+    RWTexture2D&lt;float4&gt; Output : register(u0);
+
+    SamplerState Sampler : register(s0);
+
+[End_ResourceLayout]
+
+[Begin_Pass:Default]
+
+    [Profile 11_0]
+    [Entrypoints CS = CS]
+
+    [numthreads(8, 8, 1)]
+    void CS(uint3 threadID : SV_DispatchThreadID)
+    {
+        float2 outputSize;
+        Output.GetDimensions(outputSize.x, outputSize.y);
+        float2 uv = (threadID.xy + 0.5) / outputSize;		
+
+        float4 color = input.SampleLevel(Sampler, uv, 0);
+
+        Output[threadID.xy] = float4(color.x, 0, 0, 1);	
+    }
+
+[End_Pass]
+</code></pre>
+<p>Create a new Postprocessing graph asset from the <a href="../../evergine_studio/interface.html"><strong>Assets Details panel</strong></a>:</p>
+<p><img src="images/AssetsDetailsMenu.jpg" alt="Create postprocessing graph asset"></p>
+<p>After creating the postprocessing graph asset, double-click on the asset to open the Postprocessing Graph Editor. You will see an empty postprocessing graph where the render node connects directly with the Screen node.</p>
+<p><img src="images/EmptyPostprocessingGraph.jpg" alt="Empty Postprocessing graph"></p>
+<p>Drag our compute effect from the Available Effects panel to the graph editor to create a new node. Then connect the render node's <em>Color texture</em> port with the Custom node's <em>Input</em> port and the Custom node's <em>Output</em> port with the Screen node's <em>Color Texture</em> port.</p>
+<p><img src="images/customGraph.jpg" alt="Custom graph"></p>
+<p>After saving the graph, you can see the result in the viewport panel.</p>
+<p><img src="images/customGraphResult.jpg" alt="Custom Graph Result"></p>
+<p>To use your custom postprocessing graph in your scene, read more details in the <a href="using_postprocessing_graphs.html">using postprocessing graph section</a>.</p>
+<h2 id="special-nodes">Special Nodes</h2>
+<p>The <strong>Enabled</strong> node switches an effect on and off without editing the graph. Connect <code>Input0</code> to the image without the effect and <code>Input1</code> to the image with it; the node's <code>Enabled</code> parameter selects which one reaches its output. Before running the graph, Evergine discards the branch that is not selected, so a disabled effect costs nothing. The default graph wraps every effect in one. Here it is added to the example:</p>
+<p><img src="images/EnableNode.jpg" alt="Enable node"></p>
+<h2 id="output-metatags">Output metatags</h2>
+<p>The graph creates the texture each node writes to. By default it copies the size and format of the node's first input texture. An <code>[Output(...)]</code> tag after a <code>RWTexture</code> in the compute effect sets the size and format instead (see <a href="../effects/effect_metatags.html#output-textures">Effect Metatags</a>).</p>
+<p><strong>Output Overloading</strong></p>
+<p><code>[Output(ReferencedInput)]</code></p>
+<p><code>[Output(ReferencedInput, ScaleFactor)]</code></p>
+<p><code>[Output(ReferencedInput, ScaleFactor, PixelFormat)]</code></p>
+<p><code>[Output(Width, Height, PixelFormat)]</code></p>
+<p>The metatag parameters are:</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ReferencedInput</strong></td>
+<td>Input name used to get width, height, and pixel format of the output texture.</td>
+</tr>
+<tr>
+<td><strong>ScaleFactor</strong></td>
+<td>Defines the scale factor applied to the width and height of the ReferencedInput to get the output width and height dimensions.</td>
+</tr>
+<tr>
+<td><strong>PixelFormat</strong></td>
+<td>Defines the pixel format of the output texture.</td>
+</tr>
+<tr>
+<td><strong>Width</strong></td>
+<td>Defines the width dimension of the output texture.</td>
+</tr>
+<tr>
+<td><strong>Height</strong></td>
+<td>Defines the height dimension of the output texture.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="example-1">Example</h3>
+<p>In the following example, the <code>Depth</code> input texture is 1920x1080 with the <code>D24_UNorm_S8_UInt</code> format.</p>
+<pre><code class="lang-hlsl">Texture2D&lt;float&gt; Depth : register(t0);
+
+RWTexture2D&lt;float4&gt; PositionOutput : register(u0);   [Output(Depth, 1, R16G16B16A16_Float)]
+RWTexture2D&lt;float2&gt; VelocityOutput : register(u1);   [Output(Depth, 0.5, R16G16_Float)]
+RWTexture2D&lt;float&gt; LinealDepthOutput : register(u2); [Output(500, 500, R32_Float)]
+</code></pre>
+<p>The result of the resolved output tags will be:</p>
+<table>
+<thead>
+<tr>
+<th>Output Texture</th>
+<th>Dimensions</th>
+<th>Pixel Format</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>PositionOutput</td>
+<td>1920x1080</td>
+<td>R16G16B16A16_Float</td>
+</tr>
+<tr>
+<td>VelocityOutput</td>
+<td>960x540</td>
+<td>R16G16_Float</td>
+</tr>
+<tr>
+<td>LinealDepthOutput</td>
+<td>500x500</td>
+<td>R32_Float</td>
+</tr>
+</tbody>
+</table>
+<h2 id="post-processing-graph-decorator">Post-processing graph decorator</h2>
+<p>By default, the <code>PostProcessingGraphRenderer</code> component lists every input of every node in the graph. A <strong>decorator</strong> replaces that list with a panel designed for the graph, the way the default graph shows one section per effect.</p>
+<p>A decorator is a class in the <code>.Editor</code> project of your solution that derives from <code>PostProcessingGraphDecorator</code>, carries the <code>PostProcessingGraphDecorator</code> attribute with the id of the graph asset, and builds its panel in <code>GenerateUI</code>. This one exposes the switch of the example's <strong>Enabled</strong> node:</p>
+<pre><code class="lang-csharp">using System.Linq;
+using Evergine.Editor.Extension;
+using Evergine.Framework.Graphics;
+
+// The id of the .wepp asset this decorator applies to.
+[PostProcessingGraphDecorator(&quot;2f7a4c0e-8a0e-4b8e-9d6b-3c1f5e6a7b8c&quot;)]
+public class RedFilterGraphDecorator : PostProcessingGraphDecorator
+{
+    public RedFilterGraphDecorator(PostProcessingGraphDescription graphDesc)
+        : base(graphDesc)
+    {
+    }
+
+    public override void GenerateUI(IPanelPropertyContainer panel)
+    {
+        var enabledNode = this.graphDesc.Nodes.First(n =&gt; n.Name == &quot;Enabled&quot;);
+        var enabled = enabledNode.Inputs[0].Type as PostProcessingNodePortDirectiveType;
+
+        // The directive's first value is &quot;off&quot; and its second &quot;on&quot;.
+        var off = enabled.Directives[0];
+        var on = enabled.Directives[1];
+
+        var redFilter = panel.AddSubPanel(&quot;RedFilter&quot;, &quot;Red filter&quot;).Properties;
+        redFilter.AddBoolean(
+            &quot;RedFilterEnabled&quot;,
+            &quot;Enabled&quot;,
+            enabled.Value == on,
+            getValue: () =&gt; enabled.Value == on,
+            setValue: (value) =&gt; enabled.Value = value ? on : off);
+    }
+}
+</code></pre>
+<p>Replace the GUID with the id of your graph, which you can copy from its <code>.wepp</code> file.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

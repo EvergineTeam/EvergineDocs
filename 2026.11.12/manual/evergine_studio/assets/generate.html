@@ -1,0 +1,187 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Generate AI-Driven Assets | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Generate AI-Driven Assets | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="generate-ai-driven-assets">Generate AI-Driven Assets</h1>
+
+<p><img src="Images/generateGallery.jpg" alt="The Generative assets gallery"></p>
+<p>Evergine Studio can create 3D models with generative AI and add them to your project as regular <strong>Model</strong> assets. You describe the model with a text prompt, a reference image, or several pictures of the same object, and the generation service returns textured models you can preview, save to a personal gallery, and use in your scenes.</p>
+<p>The current generation provider is <a href="https://platform.tripo3d.ai/">Tripo AI</a>. Generating models requires a Tripo AI account and API key, and each generation consumes credits from that account.</p>
+<h2 id="open-the-generative-assets-view">Open the generative assets view</h2>
+<p>Select <strong>Assets &gt; Generative assets</strong> in the main menu. The item is also available from the <img src="Images/plusIcon.jpg" alt="Plus icon"> button and the context menu of the <strong>Assets Details</strong> panel. The view opens as a new tab.</p>
+<p><img src="Images/generativeAssets.png" alt="The Generative assets menu item"></p>
+<h2 id="gallery">Gallery</h2>
+<p>The view starts on the <strong>gallery</strong>, which lists the models you saved on this computer.</p>
+<ul>
+<li>Use <strong>Search assets</strong> and <strong>Sort by</strong> (name or creation date, ascending or descending) at the top to find a model.</li>
+<li>The button at the top left of a card reuses its prompt: it opens the generation view with the same text or images filled in.</li>
+<li>The <strong>+</strong> button at the top right of a card copies the model into the folder currently selected in the <strong>Assets Details</strong> panel.</li>
+<li>Right-click a card to rename or remove it.</li>
+</ul>
+<p>Click <strong>Create asset</strong> to open the generation view.</p>
+<h2 id="generate-a-model">Generate a model</h2>
+<p><img src="Images/generateCreate.jpg" alt="The generation view with four proposals"></p>
+<h3 id="set-up-the-api-key">Set up the API key</h3>
+<ol>
+<li>Create an API key on the <a href="https://platform.tripo3d.ai/api-keys">Tripo AI platform</a>.</li>
+<li>In the generation view, click <strong>Manage API key</strong>.</li>
+<li>Paste the key and click <strong>Save key</strong>. <strong>Remove key</strong> removes the stored key.</li>
+</ol>
+<p><img src="Images/generateTripoAI.png" alt="The Manage API key panel"></p>
+<p>Once the key is valid, the view shows the balance of your Tripo AI account next to the button, so you can check the available credits before you generate.</p>
+<h3 id="choose-the-input">Choose the input</h3>
+<p><img src="Images/generateTripoAI2.png" alt="The Text, Image and Multiview input tabs"></p>
+<p>Pick the model version in the <strong>Models</strong> list, then choose one of the three input tabs:</p>
+<table>
+<thead>
+<tr>
+<th>Tab</th>
+<th>Input</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Text</strong></td>
+<td>A <strong>Prompt</strong> that describes the model. Open <strong>More options</strong> to add a <strong>Negative prompt</strong> with features the model must not have.</td>
+</tr>
+<tr>
+<td><strong>Image</strong></td>
+<td>One reference image (<code>.jpg</code>, <code>.jpeg</code> or <code>.png</code>). Drop it on the area or click <strong>Select image</strong>.</td>
+</tr>
+<tr>
+<td><strong>Multiview</strong></td>
+<td>Up to four pictures of the same object: a front image, plus optional left, back and right images.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="additional-options">Additional options</h3>
+<ul>
+<li><strong>HD Texture</strong> requests detailed textures. It is available with the three inputs.</li>
+<li><strong>Style</strong> applies a preset look, such as Cartoon, Clay, SteamPunk, Alien, Barbie, Christmas, Gold or Bronze.</li>
+</ul>
+<h3 id="generate-several-proposals">Generate several proposals</h3>
+<p><img src="Images/generateProposals.png" alt="Four proposals generated in parallel"></p>
+<p><strong>Number of proposals to be generated</strong> lets you ask for 1, 2 or 4 models from the same input. Evergine Studio runs them in parallel, and each proposal shows its own status and progress (<em>Not started</em>, <em>Queued</em>, <em>In progress</em>, <em>Finished</em> or <em>Failed</em>).</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Each proposal is a separate generation and consumes its own credits. Four proposals cost four times as much as one.</p>
+</div>
+<p>If the service rejects a request, Evergine Studio shows the reason: an invalid API key, a rate limit, exhausted credits, or a prompt that the content policy does not allow.</p>
+<h2 id="save-a-model">Save a model</h2>
+<p>Click <strong>Save asset</strong> under a finished proposal and enter a name. You can save the model <strong>in the gallery</strong>, <strong>in the project</strong>, or both. Saving in the project copies the model into the folder selected in the <strong>Assets Details</strong> panel, where it becomes a regular Model asset that you can drag into a scene.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

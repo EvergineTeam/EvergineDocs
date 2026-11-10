@@ -1,0 +1,317 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>XR (Extended Reality) | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="XR (Extended Reality) | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="xr-extended-reality">XR (Extended Reality)</h1>
+
+<hr>
+<p><img src="images/xr.png" alt="Evergine XR"></p>
+<p><strong>XR</strong> (Extended Reality) covers every application that mixes the user's view with computer-generated content, from fully virtual worlds to digital objects placed in a real room. Evergine gives all of them one API: a scene written for a desktop window runs in a headset by changing the launcher project, not the scene.</p>
+<p>This section explains that API, the XR runtimes Evergine integrates with, and the components that bring headsets, controllers and hands into your entities.</p>
+<h2 id="types-of-xr-experience">Types of XR experience</h2>
+<h3 id="virtual-reality-vr">Virtual Reality (VR)</h3>
+<p>The application replaces the user's surroundings with a completely virtual environment.</p>
+<p><img src="images/vr.jpg" alt="A virtual reality experience"></p>
+<h3 id="mixed-reality-mr">Mixed Reality (MR)</h3>
+<p>The application combines its virtual content with the user's real environment, and lets both interact. On Meta Quest this is built on <a href="passthrough.html">passthrough</a>.</p>
+<p><img src="images/mr.jpg" alt="A mixed reality experience"></p>
+<h3 id="augmented-reality-ar">Augmented Reality (AR)</h3>
+<p>The application draws its content over a live view of the real world, usually through a phone camera. In Evergine this is what the <a href="webxr.html">WebXR</a> integration provides.</p>
+<p><img src="images/ar.jpg" alt="An augmented reality experience"></p>
+<h2 id="how-evergine-xr-works">How Evergine XR works</h2>
+<p>XR support is built into the <strong>Evergine.Framework</strong> and <strong>Evergine.Components</strong> packages. The framework defines one abstract service, <a href="xrplatform.html"><code>XRPlatform</code></a>. Each XR runtime integration is a separate package that implements it:</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Service</th>
+<th>Runtime</th>
+<th>Project template</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Evergine.OpenXR</strong></td>
+<td><a href="openxr/openxr_platform.html"><code>OpenXRPlatform</code></a></td>
+<td>Any OpenXR runtime: Meta Quest, Pico, Android XR, and PC headsets through their OpenXR runtime</td>
+<td><a href="openxr/metaquest.html">Android Meta Quest</a>, <a href="openxr/pico.html">Android Pico</a>, <a href="openxr/androidxr.html">Android XR</a>, <a href="openxr/windows.html">Windows OpenXR</a></td>
+</tr>
+<tr>
+<td><strong>Evergine.OpenVR</strong></td>
+<td><a href="openvr.html"><code>OpenVRPlatform</code></a></td>
+<td>SteamVR on Windows</td>
+<td>None</td>
+</tr>
+<tr>
+<td><strong>Evergine.WebXR</strong></td>
+<td><a href="webxr.html"><code>WebXRPlatform</code></a></td>
+<td>Browsers that implement the WebXR Device API</td>
+<td>WebXR (Experimental AR)</td>
+</tr>
+</tbody>
+</table>
+<p><img src="images/xr_architecture.png" alt="Scene components bind to the XRPlatform service, which OpenXRPlatform, OpenVRPlatform and WebXRPlatform implement"></p>
+<p><em>Your scene only depends on <code>XRPlatform</code>. The launcher project of each profile creates one implementation and registers it, and the platform moves the active <code>Camera3D</code> with the headset every frame.</em></p>
+<h2 id="feature-support">Feature support</h2>
+<p>What each platform implements in this release. A cell with an extension name means the feature works when that OpenXR extension is in the list passed to the <code>OpenXRPlatform</code> constructor. <strong>Runtime-dependent</strong> means the template does not request the extension: you can add it to the list, and the feature then works only if the headset's OpenXR runtime supports it.</p>
+<table>
+<thead>
+<tr>
+<th>Feature</th>
+<th>OpenXR · Meta Quest</th>
+<th>OpenXR · Pico</th>
+<th>OpenXR · Android XR</th>
+<th>OpenXR · Windows PC</th>
+<th>OpenVR (SteamVR)</th>
+<th>WebXR</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Head tracking and stereo rendering</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Single view (<code>EyeCount</code> is 1)</td>
+</tr>
+<tr>
+<td>Mirror window on the desktop</td>
+<td>Off in the template</td>
+<td>Off in the template</td>
+<td>Off in the template</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Controllers (<a href="input_tracking/trackxrcontroller.html"><code>TrackXRController</code></a>)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>Select and menu (simple controller profile)</td>
+<td>Yes</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Generic trackers and base stations (<a href="input_tracking/advancedtrackxrdevice.html"><code>AdvancedTrackXRDevice</code></a>)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Articulated hands (<a href="input_tracking/trackxrarticulatedhand.html"><code>TrackXRArticulatedHand</code></a>)</td>
+<td><code>XR_EXT_hand_tracking</code></td>
+<td><code>XR_EXT_hand_tracking</code></td>
+<td><code>XR_EXT_hand_tracking</code>, with the hand tracking permission</td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Pinch and aim gestures on hands</td>
+<td><code>XR_FB_hand_tracking_aim</code></td>
+<td>Runtime-dependent</td>
+<td><code>XR_FB_hand_tracking_aim</code></td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Hand meshes (<a href="input_tracking/trackxrarticulatedhand.html#render-the-hands"><code>XRDeviceRenderableModel</code></a>)</td>
+<td><code>XR_FB_hand_tracking_mesh</code></td>
+<td>Runtime-dependent</td>
+<td><code>XR_FB_hand_tracking_mesh</code></td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Controller models (<code>XRDeviceRenderableModel</code>)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Yes</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Hands and controllers at the same time</td>
+<td><code>XR_META_simultaneous_hands_and_controllers</code></td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="passthrough.html">Passthrough</a></td>
+<td><code>XR_FB_passthrough</code></td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Passthrough projected on meshes</td>
+<td><code>XR_FB_triangle_mesh</code></td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Real world view through the <a href="openxr/openxr_platform.html#environment-blend-modes">environment blend mode</a></td>
+<td>Runtime-dependent</td>
+<td>Runtime-dependent</td>
+<td><code>AlphaBlend</code> or <code>Additive</code></td>
+<td>Runtime-dependent</td>
+<td>No</td>
+<td>No</td>
+</tr>
+<tr>
+<td>Camera see-through on a phone (AR)</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>No</td>
+<td>Yes (<code>immersive-ar</code>)</td>
+</tr>
+</tbody>
+</table>
+<div class="NOTE">
+<h5>Note</h5>
+<p><code>XRPlatform</code> also declares spatial mapping, spatial anchors, trackable items, light estimation, feature points and eye gaze members. No platform in this release implements them, so they return <code>null</code> (or <code>false</code>) everywhere.</p>
+</div>
+<h2 id="in-this-section">In this section</h2>
+<ul>
+<li><a href="xrplatform.html">XR Platform</a></li>
+<li><a href="openxr/index.html">OpenXR</a></li>
+<li><a href="openvr.html">OpenVR</a></li>
+<li><a href="webxr.html">WebXR</a></li>
+<li><a href="input_tracking/index.html">Input Devices</a></li>
+<li><a href="passthrough.html">Passthrough</a></li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

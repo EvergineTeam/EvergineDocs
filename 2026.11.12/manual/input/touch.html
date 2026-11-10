@@ -1,0 +1,314 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Touch | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Touch | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="touch">Touch</h1>
+
+<p><img src="images/touch_points.png" alt="Two fingers over nine frames: each goes Pressing, Pressed, Releasing, and the Points list holds Id 12, then 12 and 13, then only 13, then nothing"></p>
+<p><em>Each finger is one <code>PointerPoint</code> in <code>Points</code>, from the frame it goes down until the frame after it lifts.</em></p>
+<p>Touch is the main input on phones and tablets, and many desktop screens support it too. Every finger on the surface is a <strong>pointer</strong> with its own Id, position and <a href="button_states.html">button state</a>, so multi-touch gestures come down to reading a list of points every frame. The touch dispatcher is a <code>PointerDispatcher</code>, the same base class the <a href="mouse.html">mouse</a> uses for its left button.</p>
+<h2 id="touchdispatcher">TouchDispatcher</h2>
+<p>Get it from <code>display.TouchDispatcher</code> (see <a href="index.html#where-input-comes-from">Where input comes from</a>). The property is of type <code>PointerDispatcher</code>, in the <code>Evergine.Common.Input.Pointer</code> namespace, together with <code>PointerPoint</code> and <code>PointerEventArgs</code>. It is <code>null</code> on macOS, which has no touch screen support.</p>
+<h3 id="properties">Properties</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Points</strong></td>
+<td><code>IList&lt;PointerPoint&gt;</code> with every pointer tracked in this frame, including the ones in their <code>Releasing</code> frame. Empty when nothing touches the surface.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="events">Events</h3>
+<table>
+<thead>
+<tr>
+<th>Event</th>
+<th>Arguments</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>PointerDown</strong></td>
+<td><code>PointerEventArgs</code></td>
+<td>A new pointer touched the surface.</td>
+</tr>
+<tr>
+<td><strong>PointerMove</strong></td>
+<td><code>PointerEventArgs</code></td>
+<td>A pointer changed position. Not raised when the position is the same.</td>
+</tr>
+<tr>
+<td><strong>PointerUp</strong></td>
+<td><code>PointerEventArgs</code></td>
+<td>A pointer left the surface.</td>
+</tr>
+</tbody>
+</table>
+<table>
+<thead>
+<tr>
+<th>Event argument</th>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>PointerEventArgs</code></td>
+<td><strong>Id</strong></td>
+<td>The Id of the pointer, as in <code>PointerPoint.Id</code>.</td>
+</tr>
+<tr>
+<td><code>PointerEventArgs</code></td>
+<td><strong>Position</strong></td>
+<td>Position of the pointer, in pixels from the top-left corner of the surface.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="pointerpoint">PointerPoint</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Id</strong></td>
+<td>A <code>long</code> that identifies the contact while it lasts. It comes from the platform.</td>
+</tr>
+<tr>
+<td><strong>Position</strong></td>
+<td>Position in this frame, as a <code>Point</code> in pixels from the top-left corner of the surface.</td>
+</tr>
+<tr>
+<td><strong>State</strong></td>
+<td>The <a href="button_states.html">button state</a> of the contact: <code>Pressing</code> in its first frame, <code>Pressed</code> while it stays down, <code>Releasing</code> in the frame it lifts.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="how-points-come-and-go">How points come and go</h2>
+<ul>
+<li>A new contact joins <code>Points</code> in the frame its down event is dispatched, with the state <code>Pressing</code>.</li>
+<li>It stays in the list as <code>Pressed</code> while the finger is down, and its <code>Position</code> follows the finger.</li>
+<li>In the frame it lifts it is still listed, as <code>Releasing</code>, so you can react to the end of a touch. It leaves the list at the next frame.</li>
+<li>The same <code>PointerPoint</code> object represents the contact for its whole life. You can keep a reference to it, or use it as a dictionary key, from one frame to the next.</li>
+</ul>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Ids come from the platform. They are unique among the contacts that are down at the same time, but they are not guaranteed to start at 0, to be consecutive, or to stay unused after a finger lifts. Match points by Id or by reference across frames, never by their index in <code>Points</code>.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The mouse reports its left button as pointer <code>0</code> in <code>display.MouseDispatcher.Points</code>, a separate list (see <a href="mouse.html#the-mouse-as-a-pointer">The mouse as a pointer</a>). The WinUI and Android window systems only pass genuine mouse input to the mouse dispatcher. On other window systems the operating system may also report a touch as mouse input, so one finger can show up in both lists. Code that accepts clicks and taps should prefer the touch list and fall back to the mouse one.</p>
+</div>
+<h2 id="example-drag-and-pinch">Example: drag and pinch</h2>
+<p>This behavior turns its entity with a one-finger drag and scales it with a two-finger pinch. It reads the touch points, or the mouse pointer when nothing touches the screen, so a left-button drag turns the entity on desktop too.</p>
+<pre><code class="lang-csharp">using System;
+using System.Collections.Generic;
+using Evergine.Common.Input;
+using Evergine.Common.Input.Pointer;
+using Evergine.Framework;
+using Evergine.Framework.Graphics;
+using Evergine.Framework.Services;
+using Evergine.Mathematics;
+
+public class DragAndPinch : Behavior
+{
+    [BindService]
+    private GraphicsPresenter graphicsPresenter = null;
+
+    [BindComponent]
+    private Transform3D transform = null;
+
+    private readonly List&lt;PointerPoint&gt; points = new List&lt;PointerPoint&gt;();
+
+    // Keyed by the PointerPoint itself, which represents one contact for its whole life.
+    private readonly Dictionary&lt;PointerPoint, Point&gt; previousPositions = new Dictionary&lt;PointerPoint, Point&gt;();
+
+    public float RadiansPerPixel { get; set; } = 0.01f;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        Display display = this.graphicsPresenter.FocusedDisplay;
+        if (display == null)
+        {
+            return;
+        }
+
+        // Prefer touch: some platforms also report a finger as the mouse pointer.
+        IList&lt;PointerPoint&gt; source = display.TouchDispatcher?.Points.Count &gt; 0
+            ? display.TouchDispatcher.Points
+            : display.MouseDispatcher?.Points;
+
+        this.points.Clear();
+        if (source != null)
+        {
+            this.points.AddRange(source);
+        }
+
+        // A Releasing point is still listed for one frame, but it no longer touches the surface.
+        this.points.RemoveAll(p =&gt; p.State == ButtonState.Releasing);
+
+        if (this.points.Count == 1 &amp;&amp;
+            this.previousPositions.TryGetValue(this.points[0], out Point last))
+        {
+            Vector3 rotation = this.transform.LocalRotation;
+            rotation.Y += (this.points[0].Position.X - last.X) * this.RadiansPerPixel;
+            this.transform.LocalRotation = rotation;
+        }
+        else if (this.points.Count &gt;= 2 &amp;&amp;
+                 this.previousPositions.TryGetValue(this.points[0], out Point last0) &amp;&amp;
+                 this.previousPositions.TryGetValue(this.points[1], out Point last1))
+        {
+            Point p0 = this.points[0].Position;
+            Point p1 = this.points[1].Position;
+            float distance = Vector2.Distance(new Vector2(p0.X, p0.Y), new Vector2(p1.X, p1.Y));
+            float lastDistance = Vector2.Distance(new Vector2(last0.X, last0.Y), new Vector2(last1.X, last1.Y));
+
+            // Scaling by the ratio of distances makes the pinch feel the same at any screen size.
+            if (lastDistance &gt; 0f)
+            {
+                this.transform.LocalScale *= distance / lastDistance;
+            }
+        }
+
+        this.previousPositions.Clear();
+        foreach (PointerPoint point in this.points)
+        {
+            this.previousPositions[point] = point.Position;
+        }
+    }
+}
+</code></pre>
+<p>A point that is new this frame has no previous position, so the gesture starts on the next frame instead of jumping. When one finger of a pinch lifts, the other one already has a previous position and the drag continues smoothly.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="button_states.html">Button states</a>: what <code>PointerPoint.State</code> means and when it changes.</li>
+<li><a href="mouse.html">Mouse</a>: the left button as pointer <code>0</code>.</li>
+<li><a href="../xr/input_tracking/index.html">XR input tracking</a>: hands and controllers in XR.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

@@ -1,0 +1,289 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Six DOF Constraint | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Six DOF Constraint | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="six-dof-constraint">Six DOF Constraint</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/six_dof_constraint.mp4" type="video/mp4">
+</video>
+<p>The <strong>six degrees of freedom constraint</strong> is the general case. Every other constraint is a special case of it: three translation axes and three rotation axes, each of which can be free, limited or locked, each with its own motor and its own spring.</p>
+<p><img src="images/six_dof_constraint_diagram.png" alt="Six DOF constraint"></p>
+<p>Reach for it when nothing more specific fits. A <a href="hinge_constraint.html">hinge</a> or a <a href="slider_constraint.html">slider</a> says what it is at a glance and is cheaper to solve, so prefer those where they apply.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>This replaces both <code>Generic6DofJoint3D</code> and <code>Generic6DofSpringJoint3D</code> of the previous API: the springs are built in rather than being a separate component.</p>
+</div>
+<h2 id="sixdofconstraint-component">SixDOFConstraint Component</h2>
+<p><img src="images/sixdofconstraint_component.png" alt="SixDOFConstraint component"></p>
+<pre><code class="lang-csharp">Entity carriage = new Entity(&quot;carriage&quot;)
+    .AddComponent(new Transform3D() { Position = new Vector3(0f, 2f, 0f) })
+    .AddComponent(new RigidBody())
+    .AddComponent(new BoxCollider())
+    .AddComponent(new SixDOFConstraint()
+    {
+        ConnectedEntityPath = &quot;rail&quot;,
+
+        // Free to slide along X and to turn about Y; locked in every other direction.
+        FreeAxes = DegreesOfFreedom.TranslationX | DegreesOfFreedom.RotationY,
+
+        TranslationMin = new Vector3(-2f, 0f, 0f),
+        TranslationMax = new Vector3(2f, 0f, 0f),
+    });
+
+this.Managers.EntityManager.Add(carriage);
+</code></pre>
+<h2 id="degrees-of-freedom">Degrees of Freedom</h2>
+<p><code>DegreesOfFreedom</code> is a flags enum: <code>TranslationX</code>, <code>TranslationY</code>, <code>TranslationZ</code>, <code>RotationX</code>, <code>RotationY</code>, <code>RotationZ</code>, plus <code>None</code>, <code>All</code>, and <code>Plane2D</code>, which is <code>TranslationX | TranslationY | RotationZ</code>: everything a body needs to live in a flat world.</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>FreeAxes</strong></td>
+<td><code>All</code></td>
+<td>Which axes are not locked outright. An axis absent from this set is fixed and its limits are ignored.</td>
+</tr>
+<tr>
+<td><strong>TranslationMin</strong></td>
+<td>-1,-1,-1</td>
+<td>The lowest each free translation axis may reach, in metres.</td>
+</tr>
+<tr>
+<td><strong>TranslationMax</strong></td>
+<td>1,1,1</td>
+<td>The highest.</td>
+</tr>
+<tr>
+<td><strong>RotationMin</strong></td>
+<td>-π/4 each</td>
+<td>The lowest each free rotation axis may reach, in radians.</td>
+</tr>
+<tr>
+<td><strong>RotationMax</strong></td>
+<td>π/4 each</td>
+<td>The highest.</td>
+</tr>
+<tr>
+<td><strong>LimitsSpring</strong></td>
+<td><em>hard</em></td>
+<td>Makes every limit soft. See <a href="index.html#springs">Springs</a>.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="motor-properties">Motor Properties</h2>
+<p>Each axis has its own motor, set through methods rather than properties because there are six of them.</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SetMotorMode(axis, mode)</strong></td>
+<td>Sets one axis's motor to <code>Off</code>, <code>Velocity</code> or <code>Position</code>.</td>
+</tr>
+<tr>
+<td><strong>GetMotorMode(axis)</strong></td>
+<td>Reads it back.</td>
+</tr>
+<tr>
+<td><strong>SetTargetVelocity(linear, angular)</strong></td>
+<td>The targets for every velocity motor at once.</td>
+</tr>
+<tr>
+<td><strong>SetMaxFriction(axis, value)</strong></td>
+<td>Friction on one axis.</td>
+</tr>
+<tr>
+<td><strong>TargetPosition</strong></td>
+<td>Where the linear position motors drive to.</td>
+</tr>
+<tr>
+<td><strong>TargetOrientation</strong></td>
+<td>Where the angular position motors drive to.</td>
+</tr>
+<tr>
+<td><strong>MaxMotorForce</strong></td>
+<td>The strongest force the linear motors may apply. Default 1000.</td>
+</tr>
+<tr>
+<td><strong>MaxMotorTorque</strong></td>
+<td>The strongest torque the angular motors may apply. Default 1000.</td>
+</tr>
+<tr>
+<td><strong>MotorSpring</strong></td>
+<td>How the position motors approach their targets. Default 20 Hz, damping 1.</td>
+</tr>
+<tr>
+<td><strong>MotorForce</strong> / <strong>MotorTorque</strong></td>
+<td><em>Read-only.</em> How hard the motors are working.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus the <a href="index.html#common-properties">common properties</a>.</p>
+<h2 id="replacing-the-old-spring-joint">Replacing the Old Spring Joint</h2>
+<p>There is no dedicated spring constraint. A sprung joint is a six DOF constraint with soft limits:</p>
+<pre><code class="lang-csharp">SixDOFConstraint spring = entity.FindComponent&lt;SixDOFConstraint&gt;();
+
+// Free along Y only, with half a metre of travel each way, held by a soft limit rather than a hard
+// one: the body bounces about the middle instead of stopping dead at the ends.
+spring.FreeAxes = DegreesOfFreedom.TranslationY;
+spring.TranslationMin = new Vector3(0f, -0.5f, 0f);
+spring.TranslationMax = new Vector3(0f, 0.5f, 0f);
+spring.LimitsSpring = SpringParameters.FromFrequency(2f, 0.3f);
+</code></pre>
+<p>For a spring between two points rather than along an axis, the <a href="distance_constraint.html">distance constraint</a> is simpler.</p>
+<h2 id="a-servo-on-one-axis">A Servo on One Axis</h2>
+<pre><code class="lang-csharp">public class TurretYaw : Behavior
+{
+    [BindComponent]
+    private SixDOFConstraint constraint = null;
+
+    protected override void Start()
+    {
+        this.constraint.FreeAxes = DegreesOfFreedom.RotationY;
+        this.constraint.RotationMin = new Vector3(0f, -MathHelper.Pi, 0f);
+        this.constraint.RotationMax = new Vector3(0f, MathHelper.Pi, 0f);
+
+        this.constraint.SetMotorMode(DegreesOfFreedom.RotationY, MotorMode.Position);
+        this.constraint.MaxMotorTorque = 2000f;
+    }
+
+    public void AimAt(float yawRadians)
+    {
+        this.constraint.TargetOrientation = Quaternion.CreateFromAxisAngle(Vector3.Up, yawRadians);
+    }
+}
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Like the slider, a six DOF constraint's values are expressed <strong>from the point of view of the body carrying the component</strong>. A positive <code>TranslationMax.X</code> is a metre along this body's own X.</p>
+</div>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Locking an axis through <code>FreeAxes</code> is not the same as giving it a zero-width limit. A locked axis is removed from the problem; a limit of zero is a constraint the solver has to keep satisfying every step, which is both slower and slightly springy.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

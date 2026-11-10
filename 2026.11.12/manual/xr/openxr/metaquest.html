@@ -1,0 +1,220 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Meta Quest | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Meta Quest | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="meta-quest">Meta Quest</h1>
+
+<p><img src="images/metaquest.png" alt="Meta Quest headset"></p>
+<p>Meta Quest headsets are standalone Android devices with inside-out tracking, Touch controllers and hand tracking. Evergine targets them through <a href="openxr_platform.html">OpenXR</a>, with Vulkan as the graphics backend, and adds the Meta extensions for hand meshes, pinch gestures, <a href="../passthrough.html">passthrough</a> and simultaneous hands and controllers.</p>
+<h2 id="create-a-meta-quest-project">Create a Meta Quest project</h2>
+<p>Select the <strong>Android Meta Quest (OpenXR)</strong> template when you create a project:</p>
+<p><img src="images/openxr_template.png" alt="The Android Meta Quest template in the new project dialog"></p>
+<p>To add Meta Quest to an existing project, open <strong>Project Settings</strong>, add a profile and choose the same template. The profile is named <strong>Quest</strong> by default.</p>
+<p><img src="images/openxr_addprofile.png" alt="Adding the Meta Quest profile in Project Settings"></p>
+<p><img src="images/openxr_project_setup.png" alt="The four steps from choosing a profile to running the frame loop"></p>
+<p><em>The profile adds a launcher project. Everything headset-specific is in it, and the scene is shared with the other profiles.</em></p>
+<h2 id="what-the-template-contains">What the template contains</h2>
+<table>
+<thead>
+<tr>
+<th>File</th>
+<th>Purpose</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>MainActivity.cs</code></td>
+<td>Creates <code>OpenXRPlatform</code>, calls <a href="openxr_platform.html#vulkan-graphics-context"><code>InitializeForVulkan</code></a> so the runtime takes part in the creation of the Vulkan graphics context, adds the multiview and external memory extensions, registers both, and runs the frame loop.</td>
+</tr>
+<tr>
+<td><code>AndroidManifest.xml</code></td>
+<td>Declares a VR-only application (<code>com.oculus.intent.category.VR</code>), the head tracking and hand tracking features, and the hand tracking permission.</td>
+</tr>
+<tr>
+<td><code>*.csproj</code></td>
+<td>References <code>Evergine.OpenXR</code> and <code>Evergine.OpenXR.Natives.Quest</code>, the Meta OpenXR loader.</td>
+</tr>
+</tbody>
+</table>
+<p>The template creates the platform with hand tracking, the Meta hand gestures and hand meshes already enabled, and with the Touch controller profile:</p>
+<pre><code class="lang-csharp">openXRPlatform = new OpenXRPlatform(
+    new string[]
+    {
+            &quot;XR_EXT_hand_tracking&quot;,         // Enable hand tracking in OpenXR application
+            &quot;XR_FB_hand_tracking_aim&quot;,      // Allow to use hand gestures in Meta Quest devices
+            &quot;XR_FB_hand_tracking_mesh&quot;,     // Obtain hand mesh in Meta Quest devices
+
+        // &quot;XR_FB_passthrough&quot;,         // Enable Passthrough in Meta Quest devices
+        // &quot;XR_FB_triangle_mesh&quot;,       // Allow to project Passthrough on Meshes
+
+        // &quot;XR_META_simultaneous_hands_and_controllers&quot;, // Allow to use hands and controllers simultaneously
+    },
+    new OpenXRInteractionProfile[]
+    {
+            DefaultInteractionProfiles.OculusTouchProfile
+    })
+{
+    // UseSimultaneousHandsAndControllers = true, // Enable using simultaneously the hands and controllers
+    RenderMirrorTexture = false,
+    ReferenceSpace = ReferenceSpaceType.Stage,
+    MirrorDisplay = mirrorDisplay,
+};
+</code></pre>
+<p><code>RenderMirrorTexture</code> is <code>false</code> because nothing shows the Android surface while the headset is on, so copying the image there would only cost GPU time.</p>
+<h2 id="run-on-the-headset">Run on the headset</h2>
+<ol>
+<li>Enable developer mode on the headset. Meta does this from the Meta Horizon app on the phone paired with it.</li>
+<li>Connect the headset to the PC with a USB cable and accept the USB debugging prompt inside the headset.</li>
+<li>Open the solution of the Quest profile in Visual Studio, select the headset as the target device, and start debugging.</li>
+</ol>
+<h2 id="optional-features">Optional features</h2>
+<p>Each of these features is one or two commented lines in the template. Uncomment them and rebuild.</p>
+<h3 id="passthrough">Passthrough</h3>
+<p>Passthrough shows the real room around the user, behind or in front of the scene. It needs two changes:</p>
+<ol>
+<li><p>In <code>MainActivity.cs</code>, enable <code>XR_FB_passthrough</code>, and <code>XR_FB_triangle_mesh</code> if you want to <a href="../passthrough.html#project-passthrough-on-a-mesh">project passthrough on your own meshes</a>:</p>
+<pre><code class="lang-csharp">&quot;XR_FB_passthrough&quot;,         // Enable Passthrough in Meta Quest devices
+&quot;XR_FB_triangle_mesh&quot;,       // Allow to project Passthrough on Meshes
+</code></pre>
+</li>
+<li><p>In <code>AndroidManifest.xml</code>, uncomment the passthrough feature. The Meta runtime requires it, and without it no passthrough layer is created:</p>
+<pre><code class="lang-xml">&lt;uses-feature android:name=&quot;com.oculus.feature.PASSTHROUGH&quot; android:required=&quot;true&quot; /&gt;
+</code></pre>
+</li>
+</ol>
+<p>Then add an <code>XRPassthroughLayerComponent</code> to the scene, as described in <a href="../passthrough.html">Passthrough</a>.</p>
+<h3 id="simultaneous-hands-and-controllers">Simultaneous hands and controllers</h3>
+<p><img src="images/simultaneous-hands-controllers.png" alt="Hands and controllers tracked at the same time"></p>
+<p>By default a Quest tracks either the controllers or the hands. With multimodal input it tracks both at once, and reports a hand while the other holds a controller. Users get the immersion of hands and the precision and haptics of controllers. Meta describes the feature in its <a href="https://developers.meta.com/horizon/documentation/native/android/native-multimodal/">multimodal input documentation</a>.</p>
+<ol>
+<li><p>In <code>MainActivity.cs</code>, enable the extension:</p>
+<pre><code class="lang-csharp">&quot;XR_META_simultaneous_hands_and_controllers&quot;, // Allow to use hands and controllers simultaneously
+</code></pre>
+</li>
+<li><p>In the same file, turn the feature on in the object initializer:</p>
+<pre><code class="lang-csharp">UseSimultaneousHandsAndControllers = true, // Enable using simultaneously the hands and controllers
+</code></pre>
+</li>
+</ol>
+<p><code>UseSimultaneousHandsAndControllers</code> can also be changed at run time, from launcher code that keeps a reference to the <code>OpenXRPlatform</code>.</p>
+<h2 id="see-also">See also</h2>
+<ul>
+<li><a href="openxr_platform.html">OpenXR Platform</a>: every <code>OpenXRPlatform</code> property, reference spaces and interaction profiles.</li>
+<li><a href="../input_tracking/index.html">Input Devices</a>: tracking controllers and hands in the scene.</li>
+</ul>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

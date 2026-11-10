@@ -1,0 +1,155 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>OpenGL | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="OpenGL | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="opengl">OpenGL</h1>
+
+<hr>
+<p><img src="images/opengl.jpg" alt="OpenGL API"></p>
+<p><strong>OpenGL</strong> is the veteran cross-platform graphics API of the <strong>Khronos Group</strong>. Evergine uses it in two forms:</p>
+<ul>
+<li><strong>WebGL 2</strong>, the OpenGL ES 3.0 based API of web browsers, is the <strong>default backend for the web</strong>: the <strong>Web</strong>, <strong>React SPA</strong> and <strong>WebXR</strong> templates use it.</li>
+<li>Desktop <strong>OpenGL</strong> on Windows, through the <strong>Windows (OpenGL)</strong> template.</li>
+</ul>
+<p>OpenGL does not support compute shaders in Evergine, so features built on them, such as GPU particles and most post-processing effects, are not available. For new desktop work prefer <a href="directx12.html">DirectX 12</a> or <a href="vulkan.html">Vulkan</a>; for the web, consider <a href="webgpu.html">WebGPU</a>.</p>
+<h2 id="supported-devices">Supported devices</h2>
+<ul>
+<li>Current Chrome, Edge, Firefox and Safari browsers on desktop and mobile (WebGL 2).</li>
+<li>Windows 10 and 11 PCs (OpenGL).</li>
+</ul>
+<h2 id="check-your-opengl-version">Check your OpenGL version</h2>
+<p>On Windows, OpenGL comes with the graphics driver; the <a href="https://opengl.gpuinfo.org/download.php">OpenGL Hardware Capability Viewer</a> shows the version it supports. For browsers, <a href="https://caniuse.com/webgl2">caniuse.com/webgl2</a> shows WebGL 2 support.</p>
+<h2 id="create-a-graphics-context">Create a graphics context</h2>
+<pre><code class="lang-csharp">GraphicsContext graphicsContext = new Evergine.OpenGL.GLGraphicsContext();
+graphicsContext.CreateDevice();
+</code></pre>
+<p>For WebGL 2, pass the backend explicitly:</p>
+<pre><code class="lang-csharp">GraphicsContext graphicsContext = new Evergine.OpenGL.GLGraphicsContext(GraphicsBackend.WebGL2);
+graphicsContext.CreateDevice();
+</code></pre>
+<h2 id="build--run">Build &amp; Run</h2>
+<h3 id="desktop">Desktop</h3>
+<p>Add a profile with the <strong>Windows (OpenGL)</strong> template from <strong>Settings &gt; Project Settings</strong> (see <a href="directx12.html#build--run">DirectX 12</a> for the steps):</p>
+<p><img src="images/gl_support_1.JPG" alt="Adding the OpenGL template"></p>
+<p><img src="images/gl_support_2.JPG" alt="The new profile"></p>
+<p>Then run it from <strong>File &gt; Build &amp; Run &gt; Windows.OpenGL</strong>:</p>
+<p><img src="images/gl_support_3.JPG" alt="Build and run on OpenGL"></p>
+<h3 id="web">Web</h3>
+<p>Add a profile with the <strong>Web (WebGL2.0)</strong> template to target browsers with WebGL 2:</p>
+<p><img src="images/gl_support_4.JPG" alt="Adding the web template"></p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

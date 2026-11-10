@@ -1,0 +1,313 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Tracked Vehicles | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Tracked Vehicles | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="tracked-vehicles">Tracked Vehicles</h1>
+
+<video autoplay="" loop="" muted="" playsinline="" width="100%" height="auto">
+  <source src="images/tracked_drive.mp4" type="video/mp4">
+</video>
+<p><code>TrackedVehicleController</code> drives anything that steers by running two tracks at different speeds: tanks, excavators, bulldozers, snow groomers.</p>
+<p>It is built exactly like a <a href="wheeled_vehicles.html">wheeled vehicle</a>, with one dynamic chassis body, one controller and a child entity per road wheel, and everything in <a href="index.html">Vehicles</a> about the engine, the gearbox and the collision testers applies unchanged. What differs is how the wheels are driven and how the vehicle turns.</p>
+<p><img src="images/tracked_still.png" alt="Tracked vehicle"></p>
+<p><em>Six road wheels, none of which steers. What turns it is the two tracks running at different speeds.</em></p>
+<h2 id="how-a-tracked-vehicle-differs">How a tracked vehicle differs</h2>
+<ul>
+<li><strong>No wheel steers.</strong> Every <code>MaxSteerAngle</code> stays at zero. Turning comes from driving one track faster than the other, or from running them in opposite directions to spin on the spot.</li>
+<li><strong>Each track is one differential.</strong> Every wheel on a side turns together at the speed its track is running, rather than each being driven separately.</li>
+<li><strong>Two tracks, not four corners.</strong> There are no front-left and rear-right indices, only which wheels belong to the left track and which to the right.</li>
+</ul>
+<h2 id="trackedvehiclecontroller-component">TrackedVehicleController Component</h2>
+<pre><code class="lang-csharp">Entity tank = new Entity(&quot;tank&quot;)
+    .AddComponent(new Transform3D() { Position = start })
+    .AddComponent(new RigidBody()
+    {
+        Mass = 4000f,
+        CenterOfMassOffset = new Vector3(0f, -0.4f, 0f),
+    })
+    .AddComponent(new BoxCollider() { Size = new Vector3(2.2f, 0.9f, 4.4f) })
+    .AddComponent(new TrackedVehicleController()
+    {
+        EngineMaxTorque = 2000f,
+        GearRatios = new[] { 2.66f, 1.78f, 1.3f, 1.0f },
+        ReverseGearRatios = new[] { -2.9f },
+    });
+
+// Three road wheels a side. None of them steers.
+foreach (var (name, offset) in roadWheels)
+{
+    tank.AddChild(new Entity(name)
+        .AddComponent(new Transform3D() { LocalPosition = offset })
+        .AddComponent(new VehicleWheel()
+        {
+            Radius = 0.4f,
+            Width = 0.35f,
+            MaxSteerAngle = 0f,
+            SuspensionMinLength = 0.1f,
+            SuspensionMaxLength = 0.3f,
+        }));
+}
+
+this.Managers.EntityManager.Add(tank);
+</code></pre>
+<h2 id="track-properties">Track Properties</h2>
+<p><img src="images/trackedvehicle_component.png" alt="TrackedVehicleController component"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>LeftTrackWheels</strong></td>
+<td><em>empty</em></td>
+<td>The indices of the wheels the left track drives. Left empty, the wheels are split between the two tracks by where they are mounted.</td>
+</tr>
+<tr>
+<td><strong>RightTrackWheels</strong></td>
+<td><em>empty</em></td>
+<td>The same for the right track.</td>
+</tr>
+<tr>
+<td><strong>TrackInertia</strong></td>
+<td>10</td>
+<td>The rotational inertia of each track. A heavy track takes longer to spin up and longer to stop.</td>
+</tr>
+<tr>
+<td><strong>TrackAngularDamping</strong></td>
+<td>0.5</td>
+<td>How quickly a free-running track slows down.</td>
+</tr>
+<tr>
+<td><strong>TrackMaxBrakeTorque</strong></td>
+<td>15000</td>
+<td>The strongest braking torque a track can apply.</td>
+</tr>
+</tbody>
+</table>
+<p>Plus everything in <a href="index.html">Vehicles</a>: the engine, the gearbox, the chassis axes and the collision tester.</p>
+<h2 id="driving-the-vehicle">Driving the Vehicle</h2>
+<pre><code class="lang-csharp">tank.FindComponent&lt;TrackedVehicleController&gt;().SetDriverInput(forward, leftRatio, rightRatio, brake);
+</code></pre>
+<table>
+<thead>
+<tr>
+<th>Argument</th>
+<th>Range</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>forward</strong></td>
+<td>-1 to 1</td>
+<td>Throttle. Negative is reverse.</td>
+</tr>
+<tr>
+<td><strong>leftRatio</strong></td>
+<td>-1 to 1</td>
+<td>How much of the throttle the left track gets.</td>
+</tr>
+<tr>
+<td><strong>rightRatio</strong></td>
+<td>-1 to 1</td>
+<td>How much the right track gets.</td>
+</tr>
+<tr>
+<td><strong>brake</strong></td>
+<td>0 to 1</td>
+<td>The brake.</td>
+</tr>
+</tbody>
+</table>
+<p>The two ratios are the steering:</p>
+<table>
+<thead>
+<tr>
+<th>Left</th>
+<th>Right</th>
+<th>Result</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>1</td>
+<td>1</td>
+<td>Straight ahead.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0.5</td>
+<td>A gentle turn to the right.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>0</td>
+<td>A tight turn about the stopped track.</td>
+</tr>
+<tr>
+<td>1</td>
+<td>-1</td>
+<td>A neutral turn: spinning on the spot.</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">public class TankInput : Behavior
+{
+    [BindComponent]
+    private TrackedVehicleController tank = null;
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        KeyboardDispatcher keyboard = this.Managers.RenderManager.ActiveCamera3D?.Display?.KeyboardDispatcher;
+
+        if (keyboard == null)
+        {
+            return;
+        }
+
+        float forward = (keyboard.IsKeyDown(Keys.W) ? 1f : 0f) - (keyboard.IsKeyDown(Keys.S) ? 1f : 0f);
+        float steer = (keyboard.IsKeyDown(Keys.D) ? 1f : 0f) - (keyboard.IsKeyDown(Keys.A) ? 1f : 0f);
+
+        // Steering by taking speed off one track and adding it to the other. Held at full lock with no
+        // throttle, the two ratios end up opposite and the vehicle spins on the spot, which is the
+        // manoeuvre nothing on wheels can do.
+        float left = MathHelper.Clamp(1f + steer, -1f, 1f);
+        float right = MathHelper.Clamp(1f - steer, -1f, 1f);
+
+        if (forward == 0f &amp;&amp; steer != 0f)
+        {
+            forward = 1f;
+        }
+
+        this.tank.SetDriverInput(forward, left, right, 0f);
+    }
+}
+</code></pre>
+<div class="TIP">
+<h5>Tip</h5>
+<p>Tracked vehicles are heavy and drive over things rather than around them, so <code>CastCylinder</code> is worth the extra cost as a collision tester: it puts the road wheels on top of kerbs and rubble instead of dropping them into every gap.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>A track's grip is not modelled per wheel, so the tyre telemetry on <a href="vehicle_wheel.html"><code>VehicleWheel</code></a>, the slip and friction values and <code>BrakeImpulse</code>, reads zero on a tracked vehicle. <code>HasContact</code>, <code>SuspensionLength</code> and <code>AngularVelocity</code> all work as usual.</p>
+</div>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

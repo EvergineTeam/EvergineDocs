@@ -1,0 +1,330 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Using Audio from Evergine Studio | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Using Audio from Evergine Studio | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../favicon.ico">
+    <link rel="stylesheet" href="../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../styles/docfx.css">
+    <link rel="stylesheet" href="../../styles/main.css">
+    <meta property="docfx:navrel" content="../../toc.html">
+    <meta property="docfx:tocrel" content="../toc.html">
+  
+  <meta property="docfx:rel" content="../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../index.html">
+                <img id="logo" class="svg" src="../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="using-audio-from-evergine-studio">Using Audio from Evergine Studio</h1>
+
+<hr>
+<p><img src="images/3dAudioHeader.jpg" alt="Spatial sounds"></p>
+<p>Spatial audio places each sound at a point in the scene. A sound gets quieter as you walk away from it, comes from the left or the right depending on where you face, and changes pitch when its source rushes past. This matters most in virtual and augmented reality, where the ears are expected to agree with the eyes.</p>
+<p>Two components do the work:</p>
+<table>
+<thead>
+<tr>
+<th>Component</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>SoundListener3D</strong></td>
+<td>The ears. It moves the audio device's listener with its entity. Add it to the camera.</td>
+</tr>
+<tr>
+<td><strong>SoundEmitter3D</strong></td>
+<td>A sound source. It plays one sound asset from the position of its entity.</td>
+</tr>
+</tbody>
+</table>
+<p>Both need a <code>Transform3D</code> on the same entity and an audio device registered by the platform launcher. See <a href="index.html#platform-support">Platform support</a>.</p>
+<p><img src="images/spatial_audio.png" alt="A listener and an emitter, the rings where the emitter's volume halves, and the attenuation curve"></p>
+<p><em>Inside <code>DistanceScaleFactor</code> a sound plays at full volume. Beyond it, the gain is <code>DistanceScaleFactor</code> divided by the distance, so the volume halves every time the distance doubles. Movement between frames adds the Doppler shift.</em></p>
+<h2 id="sound-listener">Sound Listener</h2>
+<p>Select the camera entity, click <img src="images/plusIcon.jpg" alt="plus icon"> in the <strong>Entity Details</strong> panel, and search for <code>SoundListener3D</code>.</p>
+<p><img src="images/AddSoundListener.jpg" alt="Add listener component"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>DopplerFactor</strong></td>
+<td>1</td>
+<td>Scales the Doppler effect. <code>0</code> turns it off, and values above 1 exaggerate it. Negative values are made positive.</td>
+</tr>
+</tbody>
+</table>
+<p>Every frame, the listener copies the world transform of its entity to the device's <code>DefaultListener</code>, along with a velocity and the <code>DopplerFactor</code>.</p>
+<div class="NOTE">
+<h5>Note</h5>
+<p>An audio device has a single listener, <code>AudioDevice.DefaultListener</code>. If a scene has more than one <code>SoundListener3D</code>, they all write to it and the last one updated wins. Keep one per scene.</p>
+</div>
+<h2 id="sound-emitter">Sound Emitter</h2>
+<p>Select an entity, click <img src="images/plusIcon.jpg" alt="plus icon"> in the <strong>Entity Details</strong> panel, and search for <code>SoundEmitter3D</code>.</p>
+<p><img src="images/add_component_sound.png" alt="The Add Component dialog filtered by &quot;Sound&quot;, listing SoundEmitter3D and SoundListener3D"></p>
+<p><img src="images/soundemitter3d_inspector.png" alt="SoundEmitter3D in Entity Details, with a sound asset assigned"></p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Audio</strong></td>
+<td>none</td>
+<td>The sound asset to play. It must be <strong>mono</strong>: <code>Play()</code> logs a warning and plays nothing for a stereo sound. Set <strong>ChannelFormat</strong> to <code>Mono</code> in the <a href="audio_editor.html">Audio Editor</a>.</td>
+</tr>
+<tr>
+<td><strong>Volume</strong></td>
+<td>1</td>
+<td>Volume of this emitter. The slider in Evergine Studio goes from 0.01 to 1.</td>
+</tr>
+<tr>
+<td><strong>Pitch</strong></td>
+<td>1</td>
+<td>Playback rate. Lower values play the sound lower and slower. The slider goes from 0.01 to 1.</td>
+</tr>
+<tr>
+<td><strong>IsMuted</strong></td>
+<td>false</td>
+<td>Silences the emitter without stopping it, so it can be unmuted where it left off.</td>
+</tr>
+<tr>
+<td><strong>DistanceScaleFactor</strong></td>
+<td>1</td>
+<td>The distance, in scene units, up to which the sound plays at full volume. Beyond it, the volume falls in inverse proportion to the distance. Raise it for loud sources, such as an engine, that should carry far.</td>
+</tr>
+<tr>
+<td><strong>PlayAutomatically</strong></td>
+<td>false</td>
+<td>Starts playing when the scene starts. It has no effect while you edit the scene in Evergine Studio.</td>
+</tr>
+<tr>
+<td><strong>Loop</strong></td>
+<td>false</td>
+<td>Plays the sound in a loop.</td>
+</tr>
+<tr>
+<td><strong>Apply3D</strong></td>
+<td>true</td>
+<td>Sends the position and velocity of the entity to the audio backend every frame while the sound plays. When off, the emitter sends neither. On XAudio2 the sound then plays without spatialization.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p><strong>Loop</strong> is applied when the emitter creates its audio source, which happens when it is attached or when <strong>Audio</strong> changes to a sound with a different format. Set it before the entity is added to the scene. Changing it on a running emitter has no effect.</p>
+</div>
+<div class="NOTE">
+<h5>Note</h5>
+<p>On Windows, the XAudio2 device creates its voices with a maximum frequency ratio of 1. Pitch values above 1, and the rise in pitch of a sound moving towards the listener, are clamped there, so the Doppler effect is only heard on sounds moving away. The OpenAL device used on Android has no such limit.</p>
+</div>
+<p>The velocity used for the Doppler effect is the change in the entity's <code>Transform3D.Position</code> since the previous frame. It is measured per frame, not per second, and <code>Position</code> is local to the parent entity, so an emitter carried along by its parent reports no velocity of its own.</p>
+<h3 id="controlling-an-emitter">Controlling an emitter</h3>
+<p><code>SoundEmitter3D</code> also has members that the inspector does not show:</p>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>Play()</strong></td>
+<td>Starts the sound, or resumes it after <code>Pause()</code>. Does nothing while it is already playing.</td>
+</tr>
+<tr>
+<td><strong>Pause()</strong></td>
+<td>Pauses the sound where it is.</td>
+</tr>
+<tr>
+<td><strong>Stop()</strong></td>
+<td>Stops the sound. The next <code>Play()</code> starts it from the beginning.</td>
+</tr>
+<tr>
+<td><strong>PlayState</strong></td>
+<td><code>Playing</code>, <code>Paused</code> or <code>Stopped</code> (the <code>PlayState</code> enum in <code>Evergine.Common.Media</code>).</td>
+</tr>
+<tr>
+<td><strong>OnAudioEnd</strong></td>
+<td>Raised when a sound that is not looping reaches its end, and also when <code>Stop()</code> interrupts it. The second argument is the emitter's <code>Audio</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>Deactivating the entity pauses its emitter, and activating it again resumes the sound if it was playing.</p>
+<p>The following behavior rings a bell a fixed number of times, restarting the emitter each time the sound ends:</p>
+<pre><code class="lang-csharp">using System;
+using Evergine.Common.Audio;
+using Evergine.Common.Media;
+using Evergine.Components.Sound;
+using Evergine.Framework;
+
+public class Doorbell : Behavior
+{
+    [BindComponent]
+    private SoundEmitter3D emitter = null;
+
+    public int Rings = 3;
+
+    private int ringsLeft;
+
+    // Written from the audio thread, read from Update.
+    private volatile bool ended;
+
+    public void Ring()
+    {
+        this.ringsLeft = this.Rings - 1;
+        this.emitter.Play();
+    }
+
+    protected override bool OnAttached()
+    {
+        this.emitter.OnAudioEnd += this.OnAudioEnd;
+        return base.OnAttached();
+    }
+
+    protected override void OnDetached()
+    {
+        this.emitter.OnAudioEnd -= this.OnAudioEnd;
+        base.OnDetached();
+    }
+
+    protected override void Update(TimeSpan gameTime)
+    {
+        if (!this.ended)
+        {
+            return;
+        }
+
+        this.ended = false;
+        if (this.ringsLeft &gt; 0 &amp;&amp; this.emitter.PlayState == PlayState.Stopped)
+        {
+            this.ringsLeft--;
+            this.emitter.Play();
+        }
+    }
+
+    private void OnAudioEnd(object sender, AudioBuffer audio)
+    {
+        // OnAudioEnd is raised by the audio backend, not by the update loop.
+        // Only set a flag here and leave the scene to Update.
+        this.ended = true;
+    }
+}
+</code></pre>
+<p>Add it to the entity that has the <code>SoundEmitter3D</code>, leave <strong>Loop</strong> off, and call <code>Ring()</code> from your game logic.</p>
+<p>To create emitters and listeners from code instead of in Evergine Studio, see <a href="using_audio_from_code.html#play-a-sound-with-soundemitter3d">Using Audio from Code</a>.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../styles/main.js"></script>
+  </body>
+</html>

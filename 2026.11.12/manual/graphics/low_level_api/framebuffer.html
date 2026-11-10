@@ -1,0 +1,322 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Framebuffer | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Framebuffer | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="framebuffer">Framebuffer</h1>
+
+<p>A <code>FrameBuffer</code> is the set of textures a render pass draws into: one or more colour attachments and, usually, a depth attachment. It says where the output goes, and its <code>OutputDescription</code> says what format that output is in.</p>
+<p>Every application already has one without creating it. <code>swapChain.FrameBuffer</code> is the framebuffer whose contents reach the screen. You create your own when drawing somewhere else: a shadow map, a G-buffer, an offscreen target you will sample later.</p>
+<h2 id="why-it-appears-in-two-places">Why it appears in two places</h2>
+<p><img src="images/render_pass.png" alt="A framebuffer feeding both the render pass and the pipeline's output description"></p>
+<p>A framebuffer is named by the render pass that draws into it, and its <code>OutputDescription</code> is named by the pipeline that draws. Both have to agree on formats, sample count and attachment count, which is why you take the pipeline's <code>Outputs</code> from the framebuffer rather than describing it separately.</p>
+<h2 id="creation">Creation</h2>
+<p>Create the textures first. A colour attachment needs <code>TextureFlags.RenderTarget</code>, plus <code>ShaderResource</code> if you intend to sample it afterwards. A depth attachment needs <code>TextureFlags.DepthStencil</code>:</p>
+<pre><code class="lang-csharp">var colorTargetDescription = new TextureDescription()
+{
+    Format = PixelFormat.R8G8B8A8_UNorm,
+    Width = rtSize,
+    Height = rtSize,
+    Depth = 1,
+    Layers = 1,
+    Flags = TextureFlags.RenderTarget | TextureFlags.ShaderResource,
+    CpuAccess = ResourceCpuAccess.None,
+    MipLevels = 1,
+    Type = TextureType.Texture2D,
+    Usage = ResourceUsage.Default,
+    SampleCount = TextureSampleCount.None,
+};
+var colorTarget = this.graphicsContext.Factory.CreateTexture(ref colorTargetDescription);
+
+var depthTargetDescription = colorTargetDescription;
+depthTargetDescription.Format = PixelFormat.D24_UNorm_S8_UInt;
+depthTargetDescription.Flags = TextureFlags.DepthStencil;
+var depthTarget = this.graphicsContext.Factory.CreateTexture(ref depthTargetDescription);
+
+// Wrap each texture in an attachment, then build the framebuffer...
+var depthAttachment = new FrameBufferAttachment(depthTarget, 0, 1);
+var colorAttachments = new[] { new FrameBufferAttachment(colorTarget, 0, 1) };
+
+this.frameBuffer = this.graphicsContext.Factory.CreateFrameBuffer(depthAttachment, colorAttachments);
+</code></pre>
+<p>See <a href="texture.html">Texture</a> for the full set of description properties.</p>
+<h3 id="framebufferattachment">FrameBufferAttachment</h3>
+<p>An attachment is a texture plus the slice of it being drawn into:</p>
+<pre><code class="lang-csharp">new FrameBufferAttachment(texture, arraySlice, sliceCount);
+</code></pre>
+<p><code>arraySlice</code> and <code>sliceCount</code> select part of a texture array or a cubemap. Pass <code>0, 1</code> for an ordinary 2D texture. Rendering into all six faces of a cubemap in one pass, for instance, uses <code>0, 6</code>.</p>
+<h3 id="framebuffer-members">FrameBuffer members</h3>
+<table>
+<thead>
+<tr>
+<th>Member</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorTargets</strong></td>
+<td><code>FrameBufferAttachment[]</code></td>
+<td>The colour attachments, in the order the pixel shader writes them.</td>
+</tr>
+<tr>
+<td><strong>DepthStencilTarget</strong></td>
+<td><code>FrameBufferAttachment?</code></td>
+<td>The depth attachment, or <code>null</code> for a colour only pass.</td>
+</tr>
+<tr>
+<td><strong>OutputDescription</strong></td>
+<td><code>OutputDescription</code></td>
+<td>The formats and sample count, for a pipeline to compile against.</td>
+</tr>
+<tr>
+<td><strong>Width</strong>, <strong>Height</strong></td>
+<td><code>uint</code></td>
+<td>Dimensions, taken from the attachments.</td>
+</tr>
+<tr>
+<td><strong>ArraySize</strong></td>
+<td><code>uint</code></td>
+<td>Number of array slices rendered at once. <code>1</code> by default.</td>
+</tr>
+<tr>
+<td><strong>SampleCount</strong></td>
+<td><code>TextureSampleCount</code></td>
+<td>Multisample count shared by every attachment.</td>
+</tr>
+<tr>
+<td><strong>RequireFlipProjection</strong></td>
+<td><code>bool</code></td>
+<td>Whether the backend needs the projection flipped vertically when drawing into this target.</td>
+</tr>
+<tr>
+<td><strong>BelongsToSwapChain</strong></td>
+<td><code>bool</code></td>
+<td><code>true</code> for the framebuffer a swapchain owns.</td>
+</tr>
+<tr>
+<td><strong>Name</strong></td>
+<td><code>string</code></td>
+<td>Debug name, shown in graphics debugging tools.</td>
+</tr>
+</tbody>
+</table>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>Every attachment has to share the same width, height and sample count. Multiple render targets also need the backend to support them, which <code>graphicsContext.Capabilities.IsMRTSupported</code> reports.</p>
+</div>
+<h3 id="outputdescription">OutputDescription</h3>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Type</th>
+<th>Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><strong>ColorAttachments</strong></td>
+<td><code>OutputAttachmentDescription[]</code></td>
+<td>One entry per colour attachment, carrying its format.</td>
+</tr>
+<tr>
+<td><strong>DepthAttachment</strong></td>
+<td><code>OutputAttachmentDescription?</code></td>
+<td>The depth format, or <code>null</code>.</td>
+</tr>
+<tr>
+<td><strong>SampleCount</strong></td>
+<td><code>TextureSampleCount</code></td>
+<td>Samples per attachment.</td>
+</tr>
+<tr>
+<td><strong>ArraySliceCount</strong></td>
+<td><code>uint</code></td>
+<td>Number of views rendered.</td>
+</tr>
+<tr>
+<td><strong>CachedHashCode</strong></td>
+<td><code>int</code></td>
+<td>Precomputed hash, so pipeline compatibility checks are cheap.</td>
+</tr>
+</tbody>
+</table>
+<h2 id="drawing-into-it">Drawing into it</h2>
+<p>Build the pipeline against the framebuffer's output description:</p>
+<pre><code class="lang-csharp">var pipelineDescription = new GraphicsPipelineDescription()
+{
+    PrimitiveTopology = PrimitiveTopology.TriangleList,
+    InputLayouts = triangleVertexLayouts,
+    ResourceLayouts = new[] { triangleResourceLayout },
+    Shaders = new GraphicsShaderStateDescription()
+    {
+        VertexShader = triangleVertexShader,
+        PixelShader = trianglePixelShader,
+    },
+    RenderStates = new RenderStateDescription()
+    {
+        RasterizerState = RasterizerStates.None,
+        BlendState = BlendStates.Opaque,
+        DepthStencilState = DepthStencilStates.None,
+    },
+    Outputs = this.frameBuffer.OutputDescription,
+};
+
+this.trianglePipelineState = this.graphicsContext.Factory.CreateGraphicsPipeline(ref pipelineDescription);
+</code></pre>
+<p>Then open a render pass on it:</p>
+<pre><code class="lang-csharp">var commandBuffer = this.commandQueue.CommandBuffer();
+
+commandBuffer.Begin();
+
+RenderPassDescription renderPassDescription = new RenderPassDescription(this.frameBuffer, new ClearValue(ClearFlags.Target, Color.CornflowerBlue));
+commandBuffer.BeginRenderPass(ref renderPassDescription);
+
+commandBuffer.SetViewports(this.rTViewports);
+commandBuffer.SetScissorRectangles(this.scissors);
+commandBuffer.SetGraphicsPipelineState(this.trianglePipelineState);
+commandBuffer.SetResourceSet(this.triangleResourceSet);
+commandBuffer.SetVertexBuffers(this.triangleVertexBuffers);
+
+commandBuffer.Draw((uint)this.triangleVertexData.Length);
+
+commandBuffer.EndRenderPass();
+commandBuffer.End();
+commandBuffer.Commit();
+
+this.commandQueue.Submit();
+this.commandQueue.WaitIdle();
+</code></pre>
+<div class="NOTE">
+<h5>Note</h5>
+<p>The viewport is not part of the framebuffer or of the pipeline, so it has to be set inside every pass. Drawing into a 512 by 512 target with a viewport still sized for the window renders into the corner of it.</p>
+</div>
+<h2 id="sampling-the-result">Sampling the result</h2>
+<p>To read a render target afterwards, transition it out of <code>RenderTarget</code> and into a shader resource state, outside the render pass:</p>
+<pre><code class="lang-csharp">commandBuffer.EndRenderPass();
+commandBuffer.Barrier(new Texture.Barrier(colorTarget, Texture.StateFlags.PixelShaderResource));
+</code></pre>
+<p>The texture also needs <code>TextureFlags.ShaderResource</code> at creation, and a slot declared as <code>ResourceType.TextureView</code> in the <a href="resourcelayout.html">ResourceLayout</a> of whatever samples it. See <a href="barriers.html">Barriers</a>.</p>
+<h2 id="cleaning-up">Cleaning up</h2>
+<p>A framebuffer does not own its attachments, so disposing it leaves the textures alive:</p>
+<pre><code class="lang-csharp">frameBuffer.Dispose();
+colorTarget.Dispose();
+depthTarget.Dispose();
+</code></pre>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>
