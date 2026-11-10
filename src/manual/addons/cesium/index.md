@@ -10,13 +10,15 @@ The **Evergine Cesium** add-on streams real-world geospatial content from [Cesiu
 
 | Category | Capabilities |
 | --- | --- |
-| **Tilesets** | Streams Cesium ion tilesets: terrain with an imagery overlay, such as Cesium World Terrain, and geometry-only tilesets, such as 3D buildings. |
+| **Tilesets** | Streams Cesium ion tilesets with `AddTileset`: terrain with an imagery overlay, such as Cesium World Terrain, and tilesets with their own textures, such as 3D buildings. Each one has its own screen space error. |
+| **Rendering** | GPU-driven rendering: all the tiles share vertex and index buffers and a texture atlas, and they are drawn with indirect draw calls. Tiles cast and receive shadows. |
+| **Streaming** | A dedicated worker thread updates the tilesets and samples the terrain height without blocking the scene update. |
 | **Imagery** | Switchable overlays: Bing aerial and roads, and several Google Maps styles. |
-| **Camera** | `WorldCamera` navigates by latitude, longitude, and height, and `FlyTo` animates the camera to a place. |
+| **Camera** | `WorldCamera` navigates by latitude, longitude, and height, with an optional custom zoom controller, and `FlyTo` animates the camera to a place. |
 | **Placement** | `CesiumPlacerComponent` places any entity at geodetic coordinates, optionally relative to the terrain height. |
 | **Geocoding** | Address search, reverse geocoding, and autocomplete through Azure Maps or Google Maps (requires a key for the service). |
-| **Lighting** | `SunLightDirection` orients a directional light like the sun for a day of the year and an hour. |
-| **Diagnostics** | Tile and streaming counters, and native memory allocation counters. |
+| **Lighting** | `SunLightDirection` orients a directional light like the sun for a day of the year and an hour, and adjusts its color and intensity to the height of the sun. |
+| **Diagnostics** | Visible and resident tile counters, and the GPU memory usage of the vertex and index buffers and the texture atlas. |
 
 ## Requirements
 

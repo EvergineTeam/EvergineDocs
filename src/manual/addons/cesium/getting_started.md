@@ -57,20 +57,40 @@ public class MyScene : Scene
         };
 
         // Cesium World Terrain (asset 1) with Bing aerial imagery.
-        cesium.AddOverlayedTileset(1, RasterOverlayProvider.BingAerial, "Terrain");
+        // It is also the tileset used to sample the terrain height.
+        cesium.AddTileset(1, "Terrain", maxScreenSpaceError: 4,
+            overlayProvider: RasterOverlayProvider.BingAerial, preferredForHeightSampling: true);
 
         // Cesium OSM Buildings (asset 96188), geometry only.
-        cesium.AddGeometryTileset(96188, "Buildings");
+        cesium.AddTileset(96188, "Buildings", maxScreenSpaceError: 1);
 
         this.Managers.AddManager(cesium);
     }
 }
 ```
 
-When the scene starts, the coordinator checks the internet connection and the token, finds the active camera, adds a `WorldCamera` component to it if it has none, and creates a `CesiumRoot` entity that holds the tiles.
+When the scene starts, the coordinator checks the internet connection and the token, finds the active camera, adds a `WorldCamera` component to it if it has none, and creates a `CesiumRoot` entity that holds the tiles. It also registers the render feature that draws the tiles, and starts a dedicated worker thread that streams and updates the tilesets.
 
 > [!IMPORTANT]
 > The scene must have an active camera with a `Camera3D` component. The token needs the `assets:read` scope.
+
+### Rendering setup
+
+The add-on draws all the tiles with a single GPU-driven pipeline: the geometry of every tile lives in shared vertex and index buffers, the imagery in a shared texture atlas, and the draw calls are generated on the GPU with indirect draws. The materials, effects, and compute shaders it needs are installed with the add-on, so you do not have to create them.
+
+The tiles are rendered by the forward render path, and they are included in the shadow maps of directional lights, so they cast and receive shadows. The add-on sample enables the G-buffer pass and the Z pre-pass of the `ForwardRenderPath`, which is the recommended setup:
+
+```csharp
+protected override void CreateScene()
+{
+    var renderPath = this.Managers.RenderManager.RenderPipeline.DefaultRenderPath as ForwardRenderPath;
+    renderPath.GBufferPassIsEnabled = true;
+    renderPath.ZPrePassIsEnabled = true;
+}
+```
+
+> [!NOTE]
+> The compute shaders and the C# code of the add-on must come from the same version. When you reference the add-on sources instead of the NuGet package, point the Cesium package `LocalPath` of your `.weproj` to the `Source\Evergine.Cesium.Assets` folder, and rebuild your Windows launchers.
 
 ## CesiumCoordinator
 
@@ -82,7 +102,9 @@ Find the coordinator from any component or manager with `this.Managers.FindManag
 | --- | --- | --- |
 | `AccessToken` | `""` | Cesium ion access token. It can only be set when the coordinator is created. |
 | `GeocodingService` | `null` | Service used for geocoding: `AzureMapsGeocodingService`, `GoogleMapsGeocodingService`, or your own `IGeocodingService`. |
-| `OverlayProvider` | `RasterOverlayProvider.BingAerial` | Imagery of the overlayed tilesets. Changing it reloads their imagery. |
+| `OverlayProvider` | `RasterOverlayProvider.BingAerial` | Imagery of the tilesets that have an overlay. Changing it reloads their imagery. |
+| `UseCPUDrawCalls` | `false` | When `true`, the draw calls are issued from the CPU instead of using GPU indirect draws. |
+| `TextureAtlas` | | Read-only. The `Texture` atlas that holds the imagery of the tiles. |
 | `CurrentStatus` | `Status.Uninitialized` | Read-only. Connection state: `Ready`, `ReadyWithErrors`, `NoInternetConnection`, `CantReachEndpoint`, `CantAuthenticate`, `MissingTokenPermissions`, and others. |
 | `IsInitialized` | `false` | Read-only. `true` when `CurrentStatus` is `Ready` or `ReadyWithErrors`. |
 | `IsGeocodingConfigured` | `false` | Read-only. `true` when `GeocodingService` is set. |
@@ -95,13 +117,23 @@ Find the coordinator from any component or manager with `this.Managers.FindManag
 
 | Method | Description |
 | --- | --- |
-| `AddOverlayedTileset(int assetId, RasterOverlayProvider overlayProvider, string name = "Overlayed")` | Adds a Cesium ion tileset, usually terrain, drawn with an imagery overlay. |
-| `AddGeometryTileset(int assetId, string name = "Geometry")` | Adds a tileset that is drawn with its own materials, such as 3D buildings. |
-| `RemoveTileset(string name)` | Removes a configured tileset by name. |
+| `AddTileset(int assetId, string name = "Tileset", uint maxScreenSpaceError = 4, RasterOverlayProvider overlayProvider = RasterOverlayProvider.None, bool preferredForHeightSampling = false)` | Adds a Cesium ion tileset. With an `overlayProvider`, the tileset is drawn with that imagery, as terrain usually is; with `RasterOverlayProvider.None`, it is drawn with its own textures, such as 3D buildings. |
+| `AddTileset(TilesetConfig config)` | The same, from a `TilesetConfig` record with the same parameters. |
+| `RemoveTilesetByName(string name)` | Removes a configured tileset by name. Returns `true` if one was removed. |
+| `RemoveTilesetByAssetId(int assetId)` | Removes a configured tileset by Cesium ion asset ID. Returns `true` if one was removed. |
 
 These methods configure the tilesets that the coordinator creates when it initializes, so call them before the scene starts.
 
-`RasterOverlayProvider` values: `BingAerial`, `BingAerialWithLabels`, `BingRoads`, `GoogleMapsSatellite`, `GoogleMapsSatelliteWithLabels`, `GoogleMapsRoads`, `GoogleMapsLabelsOnly`, and `GoogleMapsContours`.
+| Parameter | Description |
+| --- | --- |
+| `maxScreenSpaceError` | Maximum screen space error, in pixels, before a tile is refined. Lower values load more detailed tiles at a higher cost. |
+| `overlayProvider` | Imagery drawn over the tileset. |
+| `preferredForHeightSampling` | Marks the tileset used by `QueryTerrainMinHeight`. If none is marked, the coordinator uses the first tileset with an overlay, and then the first tileset. |
+
+`RasterOverlayProvider` values: `None`, `BingAerial`, `BingAerialWithLabels`, `BingRoads`, `GoogleMapsSatellite`, `GoogleMapsSatelliteWithLabels`, `GoogleMapsRoads`, `GoogleMapsLabelsOnly`, and `GoogleMapsContours`.
+
+> [!NOTE]
+> `AddOverlayedTileset` is obsolete. Use `AddTileset` with an `overlayProvider` and `preferredForHeightSampling: true` instead. `AddGeometryTileset` no longer exists: use `AddTileset` without an overlay.
 
 ### Camera and terrain
 
@@ -109,6 +141,8 @@ These methods configure the tilesets that the coordinator creates when it initia
 | --- | --- |
 | `FlyTo(double latitude, double longitude, double seconds)` | Animates the camera to a latitude and longitude, in degrees, over the given time. |
 | `QueryTerrainMinHeight(double latitude, double longitude, Action<double?> callback)` | Samples the terrain height at a latitude and longitude, in degrees, and calls the callback with the result, or `null` if it is not available yet. |
+
+`QueryTerrainMinHeight` does not block: the request is processed on the Cesium worker thread together with the tileset updates, and the callback is called later from the scene update, so it is safe to use Evergine objects in it. It needs at least one configured tileset.
 
 `FlyTo` needs the `WorldCamera`, which exists once the coordinator is initialized. For example, from a component:
 
@@ -155,12 +189,22 @@ if (result.Status == GeocodingStatus.Success && result.FirstResult is { } place)
 
 | Member | Description |
 | --- | --- |
-| `Diagnostics` | `CesiumDiagnostics` with the loaded, visible, and newly loaded tiles per tileset, and the queued entities and textures. |
-| `UnmanagedDiagnostics` | `UnmanagedAllocationDiagnostics` with the native memory allocation counters per tileset. |
+| `Diagnostics` | `CesiumDiagnostics` snapshot of the streaming and GPU memory state. It is empty until the coordinator is initialized. |
+
+`CesiumDiagnostics` contains:
+
+| Member | Description |
+| --- | --- |
+| `IsInitialized` | `true` when the snapshot has data. |
+| `Tilesets` | `TilesetDiagnostics` per tileset, with its `Name` and `VisibleTileCount`. |
+| `VisibleTileCount` | Visible tiles of all the tilesets. |
+| `ResidentTileCount`, `TileCapacity` | Tiles loaded in the GPU buffers, and the maximum number of tiles they can hold. |
+| `VertexBuffer`, `IndexBuffer`, `TextureAtlas` | `GpuBufferDiagnostics` of each shared GPU resource, with its `Name`, `CapacityBytes`, `UsedBytes`, `FreeBytes`, and `UsedRatio`. |
+| `GpuCapacityBytes`, `GpuUsedBytes` | Total capacity and usage of the three resources. |
 
 ## WorldCamera
 
-`WorldCamera` moves the camera around the globe. With the mouse, drag with the left button to pan, drag with the middle button to tilt, and use the wheel to change the height. When the camera is low, it keeps a minimum height above the terrain.
+`WorldCamera` moves the camera around the globe. With the mouse, drag with the left button to pan, drag with the middle button to tilt (up to 60 degrees from the vertical), and use the wheel to change the height. When the camera is low, it keeps a minimum height above the terrain. The mouse speed does not depend on the frame rate.
 
 | Member | Default | Description |
 | --- | --- | --- |
@@ -169,6 +213,34 @@ if (result.Status == GeocodingStatus.Success && result.FirstResult is { } place)
 | `height` | `1000` | Height of the camera above the ellipsoid, in meters. |
 | `Heading`, `Tilt` | `0` | Read-only. Orientation of the camera, in radians. |
 | `UIHasFocus` | `false` | Set it to `true` while your UI uses the mouse, so the camera ignores it. |
+| `ZoomHeightUpdater` | `null` | Optional callback that replaces the default mouse wheel zoom. |
+
+The camera adjusts its near and far planes to its height, so you do not need to configure them.
+
+### Customize the zoom
+
+By default, the mouse wheel changes the height immediately. To change it, for example to smooth the zoom, assign `ZoomHeightUpdater`. It is called every frame with the current height, the wheel delta, the elapsed time, the minimum height allowed over the terrain, and whether the wheel zoom is enabled, and returns the new height. It is also called while the zoom is disabled, because `UIHasFocus` is `true` or a `FlyTo` is running, so that your controller can cancel any pending movement.
+
+```csharp
+// WorldCamera is available once the coordinator is initialized.
+var worldCamera = cesium.WorldCamera;
+double targetHeight = worldCamera.height;
+
+worldCamera.ZoomHeightUpdater = (height, wheelDelta, elapsed, minHeight, enabled) =>
+{
+    if (!enabled)
+    {
+        // A FlyTo or your UI took control: drop the pending zoom.
+        targetHeight = height;
+        return height;
+    }
+
+    // Change the target with the wheel and approach it smoothly.
+    targetHeight = Math.Clamp(targetHeight - wheelDelta * targetHeight * 0.1, minHeight, 10_000_000);
+    double blend = 1 - Math.Exp(-8 * elapsed.TotalSeconds);
+    return height + (targetHeight - height) * blend;
+};
+```
 
 ## Place entities on the globe
 
@@ -210,6 +282,29 @@ var marker = new Entity("EiffelTower")
 this.Managers.EntityManager.Add(marker);
 ```
 
+## Light the scene like the sun
+
+Add a `SunLightDirection` component (namespace `Evergine.Cesium.Components`) to the entity of a `DirectionalLight`. It orients the light from the position of the sun for a day of the year, an hour, and a place on the Earth, and it adjusts the color temperature and the intensity of the light to the height of the sun over the horizon: warm and dim at sunrise and sunset, and white and bright at midday.
+
+| Member | Default | Description |
+| --- | --- | --- |
+| `DayOfYear` | `80` | Day of the year, from `0` to `364`. |
+| `HourOfDay` | `17` | Hour of the day in UTC, from `0` to `24`. |
+| `TimeScale` | `0` | Simulated hours per real second. With `0`, the sun does not move. |
+| `latitude`, `longitude` | `0` | Position of the observer, in degrees. Use them to feed the position of your `WorldCamera`. |
+| `LocalHourOfDay` | | Read-only. The solar hour at the longitude of the observer. |
+| `SunAltitudeDegrees` | | Read-only. Height of the sun over the horizon, in degrees. It is negative at night. |
+
+```csharp
+var sun = this.Owner.FindComponent<SunLightDirection>();
+var worldCamera = this.Managers.FindManager<CesiumCoordinator>().WorldCamera;
+
+sun.latitude = worldCamera.latitude;
+sun.longitude = worldCamera.longitude;
+sun.DayOfYear = 172;   // Around the summer solstice.
+sun.HourOfDay = 12;
+```
+
 ## FAQ
 
 **Can I change the imagery at runtime?**
@@ -218,7 +313,11 @@ Yes. Set `CesiumCoordinator.OverlayProvider` to another `RasterOverlayProvider` 
 
 **Do I have to manage tile or texture memory?**
 
-No. The add-on loads, caches, and evicts tiles automatically.
+No. The add-on loads, caches, and evicts tiles automatically, and it stores them in shared GPU buffers and a texture atlas. You can check how full they are with `CesiumCoordinator.Diagnostics`.
+
+**Does streaming affect my frame rate?**
+
+The tilesets are updated on a dedicated worker thread, so streaming does not block your scene update. The worker runs with a lower priority than the render thread. To tune how many tiles are loaded, lower or raise the `maxScreenSpaceError` of each tileset.
 
 **What happens without a geocoding service?**
 
@@ -227,6 +326,6 @@ The geocoding methods return results with the `NotConfigured` status. Terrain, b
 **The scene loads but there is no terrain. What should I check?**
 
 1. `CesiumCoordinator.CurrentStatus`: it tells you whether the connection or the token failed.
-2. That you added at least one tileset with `AddOverlayedTileset` or `AddGeometryTileset` before the scene started.
+2. That you added at least one tileset with `AddTileset` before the scene started.
 3. That your Cesium ion token has the `assets:read` scope and access to those assets.
 4. That the scene has an active camera with a `Camera3D` component.
