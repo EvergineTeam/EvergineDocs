@@ -168,9 +168,14 @@ public class MyScene : Scene
 <td>Whether the light casts shadows. Shown as <strong>Shadow enabled</strong> in Evergine Studio.</td>
 </tr>
 <tr>
-<td><strong>ShadowBias</strong></td>
-<td>0.004 (0.005 for directional lights)</td>
-<td>Depth offset applied when comparing against the shadow map. Raise it if surfaces shadow themselves in stripes (&quot;shadow acne&quot;); lower it if shadows detach from their casters (&quot;peter panning&quot;).</td>
+<td><strong>ShadowDepthBias</strong></td>
+<td>0.5</td>
+<td>Moves the shaded point towards the light before it is compared against the shadow map, in shadow map texels. Shown as <strong>Depth Bias</strong> in Evergine Studio. See <a href="#shadow-bias">Shadow bias</a>.</td>
+</tr>
+<tr>
+<td><strong>ShadowNormalBias</strong></td>
+<td>1</td>
+<td>Moves the shaded point along its surface normal, in shadow map texels. Shown as <strong>Normal Bias</strong> in Evergine Studio. See <a href="#shadow-bias">Shadow bias</a>.</td>
 </tr>
 <tr>
 <td><strong>ShadowOpacity</strong></td>
@@ -179,6 +184,10 @@ public class MyScene : Scene
 </tr>
 </tbody>
 </table>
+<div class="NOTE">
+<h5>Note</h5>
+<p>Before Evergine 2026.11.12, lights had a single <code>ShadowBias</code> depth offset. <code>ShadowBias</code> is now obsolete and ignored: setting it compiles with a warning and has no effect. Use <code>ShadowDepthBias</code> and <code>ShadowNormalBias</code> instead, starting from their defaults, because the units are different. See the <a href="../get_started/migrations/upgrade_project_2026.11.12.html#breaking-change-shadow-bias">2026.11.12 upgrade guide</a>.</p>
+</div>
 <h2 id="photometric-and-non-photometric-lights">Photometric and non-photometric lights</h2>
 <p><strong>Non-photometric</strong> lights use <code>Color</code> and <code>Intensity</code>: simple and easy to tune by eye. <strong>Photometric</strong> lights are the same lights configured in physical units, so an 800 lm bulb or a 100,000 lux sun look right next to each other and next to a camera with <a href="cameras.html#exposure">physical exposure</a>.</p>
 <p>Each photometric light class derives from its non-photometric counterpart (<code>PhotometricPointLight</code> from <code>PointLight</code>, and so on) and adds:</p>
@@ -238,6 +247,7 @@ public class MyScene : Scene
 <h3 id="directional-light">Directional light</h3>
 <p><img src="images/directionalLight.jpg" alt="Directional light"></p>
 <p>A <strong>directional light</strong> comes from infinitely far away along one direction, like sunlight. It lights every object in the scene the same way, whatever its position.</p>
+<p>Its shadow properties are:</p>
 <table>
 <thead>
 <tr>
@@ -253,20 +263,88 @@ public class MyScene : Scene
 <td>How far from the camera, in meters, directional shadows are drawn.</td>
 </tr>
 <tr>
+<td><strong>ShadowCascadeCount</strong></td>
+<td>4</td>
+<td>Number of shadow cascades, from 1 to 4.</td>
+</tr>
+<tr>
+<td><strong>CascadeSplitMode</strong></td>
+<td><code>Automatic</code></td>
+<td>How the distance is divided between the cascades: <code>Automatic</code> uses <code>GammaDistribution</code>, <code>Manual</code> uses <code>ManualCascadeSplits</code>.</td>
+</tr>
+<tr>
 <td><strong>GammaDistribution</strong></td>
 <td>0.8</td>
-<td>How the shadow cascades are spread over that distance, from 0 (evenly) to 1 (logarithmically, with more detail near the camera).</td>
+<td>With automatic splits, how the cascades are spread over the shadow distance, from 0 (evenly) to 1 (logarithmically, with more detail near the camera).</td>
+</tr>
+<tr>
+<td><strong>ManualCascadeSplits</strong></td>
+<td>(0.067, 0.2, 0.467)</td>
+<td>With manual splits, where the first, second and third cascades end, as fractions (0 to 1) of the shadow distance.</td>
+</tr>
+<tr>
+<td><strong>CascadeFitMode</strong></td>
+<td><code>Stable</code></td>
+<td>How each cascade is fitted to its part of the view: <code>Stable</code> or <code>Tight</code>.</td>
+</tr>
+<tr>
+<td><strong>CascadeSelectionMode</strong></td>
+<td><code>Depth</code></td>
+<td>How each pixel picks its cascade: <code>Depth</code> or <code>Map</code>.</td>
+</tr>
+<tr>
+<td><strong>CascadeBlendFraction</strong></td>
+<td>0.1</td>
+<td>Fraction of each cascade, from 0 to 0.5, that is blended with the next one to hide the seam between them. 0 turns blending off.</td>
+</tr>
+<tr>
+<td><strong>ShadowFadeFraction</strong></td>
+<td>0.1</td>
+<td>Fraction of the shadow distance, from 0 to 1, over which shadows fade out before they end. 0 makes them end in a hard line.</td>
+</tr>
+<tr>
+<td><strong>FarCascadesUpdateInterval</strong></td>
+<td>1</td>
+<td>How often, in frames, the far cascades are rendered, from 1 (every frame) to 8.</td>
 </tr>
 <tr>
 <td><strong>DebugMode</strong></td>
 <td>false</td>
-<td>Tints each shadow cascade with its own color, to tune the two properties above.</td>
+<td>Tints each shadow cascade with its own color and draws its shadow map texels as a grid, to tune the properties above.</td>
 </tr>
 </tbody>
 </table>
-<p>Directional shadows use <strong>cascaded shadow maps</strong>: the part of the camera's view within <code>ShadowDistance</code> is cut into four slices, and each slice gets its own shadow map. Slices close to the camera cover little space and give sharp shadows; distant slices cover more and are coarser.</p>
+<p>Evergine Studio shows most of them with shorter names, such as <strong>Cascade Count</strong>, <strong>Cascade Splits</strong>, <strong>Cascade Blend</strong> or <strong>Shadow Fade</strong>.</p>
+<h4 id="shadow-cascades">Shadow cascades</h4>
+<p>Directional shadows use <strong>cascaded shadow maps</strong>: the part of the camera's view within <code>ShadowDistance</code> is cut into <code>ShadowCascadeCount</code> slices (four by default), and each slice gets its own shadow map. Slices close to the camera cover little space and give sharp shadows; distant slices cover more and are coarser.</p>
 <p><img src="images/shadow_cascades.png" alt="A camera frustum cut into four shadow cascades up to the shadow distance"></p>
 <p><em>The first cascade covers the few meters in front of the camera at full resolution. Lowering <code>ShadowDistance</code> makes every cascade smaller and every shadow sharper.</em></p>
+<p><strong>Splits.</strong> With <code>CascadeSplitMode</code> set to <code>Automatic</code>, <code>GammaDistribution</code> decides where each cascade ends. With <code>Manual</code>, <code>ManualCascadeSplits</code> sets it directly: X is the end of the first cascade, Y of the second and Z of the third, as fractions of the shadow distance. Only the first <code>ShadowCascadeCount</code> - 1 values are used, because the last cascade always ends at <code>ShadowDistance</code>. The default manual splits end the cascades at about 5, 16, 37 and 80 meters.</p>
+<p><strong>Fit.</strong> <code>CascadeFitMode</code> decides how each shadow map is placed over its slice:</p>
+<ul>
+<li><code>Stable</code> (the default) fits each cascade to a sphere around its slice. The size of a shadow map texel never changes while the camera moves or rotates, so shadow edges stay still instead of shimmering. Part of each shadow map is left unused.</li>
+<li><code>Tight</code> fits each cascade to the box that encloses its slice, as seen from the light. It uses the shadow map better and gives sharper shadows, but shadow edges shimmer when the camera rotates.</li>
+</ul>
+<p><strong>Selection.</strong> <code>CascadeSelectionMode</code> decides which cascade shades each pixel:</p>
+<ul>
+<li><code>Depth</code> (the default) picks the cascade by the distance from the camera to the pixel.</li>
+<li><code>Map</code> picks the first cascade whose shadow map contains the pixel. More pixels get the sharpest cascade, at the cost of testing the pixel against several cascades.</li>
+</ul>
+<p><strong>Blending and fade-out.</strong> The last <code>CascadeBlendFraction</code> of each cascade is blended with the next cascade, so there is no visible line where the shadow resolution changes. Pixels in that band read two shadow maps. In the same way, shadows fade out over the last <code>ShadowFadeFraction</code> of the shadow distance instead of ending abruptly at <code>ShadowDistance</code>.</p>
+<p><strong>Far cascade updates.</strong> When <code>FarCascadesUpdateInterval</code> is greater than 1, the far half of the cascades (the last two of four) is rendered only once every that many frames, and the far cascades take turns, which reduces the cost of the shadow pass. A cached cascade is rendered again as soon as the camera moves too far from where it was rendered, so static shadows stay correct, but the shadows of moving objects in the distance update less often. It has no effect when several cameras render the same light.</p>
+<pre><code class="lang-csharp">using Evergine.Framework.Graphics;
+using Evergine.Mathematics;
+
+var sun = new DirectionalLight()
+{
+    IsShadowEnabled = true,
+    ShadowDistance = 40,
+    ShadowCascadeCount = 3,
+    CascadeSplitMode = DirectionalLight.CascadeSplitModes.Manual,
+    ManualCascadeSplits = new Vector3(0.1f, 0.35f, 0), // Z is ignored with three cascades.
+    FarCascadesUpdateInterval = 2,
+};
+</code></pre>
 <h3 id="point-light">Point light</h3>
 <p><img src="images/pointLight.jpg" alt="Point light"></p>
 <p>A <strong>point light</strong> shines equally in all directions from its position and fades to zero at its range. Use it for bulbs, candles and other small local sources.</p>
@@ -292,7 +370,7 @@ public class MyScene : Scene
 <tr>
 <td><strong>DebugMode</strong></td>
 <td>false</td>
-<td>Tints the six faces of the shadow cube map.</td>
+<td>Tints the six faces of the shadow cube map and draws their texels as a grid.</td>
 </tr>
 </tbody>
 </table>
@@ -328,6 +406,11 @@ public class MyScene : Scene
 <td><strong>ShadowNearPlane</strong></td>
 <td>0.1</td>
 <td>Near plane of the shadow map camera.</td>
+</tr>
+<tr>
+<td><strong>DebugMode</strong></td>
+<td>false</td>
+<td>Draws the shadow map texels as a colored grid on the lit surfaces, to check the shadow resolution.</td>
 </tr>
 </tbody>
 </table>
@@ -376,8 +459,16 @@ public class MyScene : Scene
 <h2 id="how-many-lights">How many lights</h2>
 <p>The forward render path assigns each object only the lights whose range touches its bounding box. A camera handles up to 64 visible lights at a time, and only materials with lighting enabled receive them. Materials created with lighting disabled are not affected by lights at all.</p>
 <h2 id="shadows">Shadows</h2>
-<p>To make a light cast shadows, turn on <strong>IsShadowEnabled</strong>. Every shadow-casting light renders the scene again from its own point of view each frame (four times for a directional light, six for point and area lights), so enable shadows only on the lights that need them.</p>
+<p>To make a light cast shadows, turn on <strong>IsShadowEnabled</strong>. Every shadow-casting light renders the scene again from its own point of view each frame (once per cascade for a directional light, six times for point and area lights), so enable shadows only on the lights that need them.</p>
 <p>Objects cast shadows through the <code>RenderFlags.CastShadows</code> flag of their drawable, which is on by default.</p>
+<h3 id="shadow-bias">Shadow bias</h3>
+<p>A shadow map stores depth at a limited resolution, so a surface compared against its own shadow map can shadow itself in stripes (&quot;shadow acne&quot;). To avoid it, Evergine moves the point being shaded before the comparison:</p>
+<ul>
+<li><code>ShadowDepthBias</code> moves it towards the light.</li>
+<li><code>ShadowNormalBias</code> moves it along the surface normal. The offset grows with the slope of the surface relative to the light and with the size of the <code>ShadowFilter</code> kernel, and is zero on surfaces that face the light head-on.</li>
+</ul>
+<p>Both are measured in shadow map texels: in each cascade for directional lights, and at the distance of the shaded point for spot, point and area lights. The same values therefore work in every cascade, and you do not need to retune them after changing the shadow resolution, the <code>ShadowDistance</code> or the number of cascades.</p>
+<p>The defaults suit most scenes. If surfaces still shadow themselves in stripes, raise <code>ShadowNormalBias</code> (or <code>ShadowDepthBias</code> for surfaces that face the light). If shadows detach from their casters (&quot;peter panning&quot;) or light leaks where objects touch the ground, lower them, starting with <code>ShadowDepthBias</code>.</p>
 <h3 id="shadowmapmanager">ShadowMapManager</h3>
 <p>The quality of every shadow in a scene is set on the <code>ShadowMapManager</code> scene manager, which the default scene template already includes. Select it in the <strong>Scene Managers</strong> list of the scene to change it.</p>
 <p><img src="images/shadowmapmanager.png" alt="The Scene Managers panel with the ShadowMapManager properties"></p>
@@ -413,7 +504,7 @@ public class MyScene : Scene
 <tr>
 <td><strong>AutoDepthBounds</strong></td>
 <td>false</td>
-<td>Measures on the GPU how deep the visible scene really is and fits the directional cascades to that range instead of to <code>ShadowDistance</code>. It gives sharper shadows when the camera looks at nearby geometry, at the cost of a small compute pass per camera.</td>
+<td>Measures on the GPU how deep the visible scene really is and fits the directional cascades to that range, never beyond <code>ShadowDistance</code>. It gives sharper shadows when the camera looks at nearby geometry, at the cost of a small compute pass per camera.</td>
 </tr>
 </tbody>
 </table>

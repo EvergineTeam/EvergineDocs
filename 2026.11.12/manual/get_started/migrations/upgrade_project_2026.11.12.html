@@ -1,0 +1,893 @@
+﻿<!DOCTYPE html>
+<!--[if IE]><![endif]-->
+<html>
+
+  <head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
+    <title>Update from Evergine 2026.5.26 to Evergine 2026.11.12 | Evergine Doc </title>
+    <meta name="viewport" content="width=device-width">
+    <meta name="title" content="Update from Evergine 2026.5.26 to Evergine 2026.11.12 | Evergine Doc ">
+    <meta name="generator" content="docfx ">
+  
+    <link rel="shortcut icon" href="../../../favicon.ico">
+    <link rel="stylesheet" href="../../../styles/docfx.vendor.min.css">
+    <link rel="stylesheet" href="../../../styles/docfx.css">
+    <link rel="stylesheet" href="../../../styles/main.css">
+    <meta property="docfx:navrel" content="../../../toc.html">
+    <meta property="docfx:tocrel" content="../../toc.html">
+  
+  <meta property="docfx:rel" content="../../../">
+  
+  </head>  <body data-spy="scroll" data-target="#affix" data-offset="120">
+    <div id="wrapper">
+      <header>
+
+        <nav id="autocollapse" class="navbar navbar-inverse ng-scope" role="navigation">
+          <div class="container">
+            <div class="navbar-header">
+              <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar">
+                <span class="sr-only">Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+              </button>
+
+              <a class="navbar-brand" href="../../../index.html">
+                <img id="logo" class="svg" src="../../../logo.svg" alt="">
+              </a>
+            </div>
+            <div class="collapse navbar-collapse" id="navbar">
+              <form class="navbar-form navbar-right" role="search" id="search">
+                <div class="form-group">
+                  <input type="text" class="form-control" id="search-query" placeholder="Search" autocomplete="off">
+                </div>
+              </form>
+            </div>
+          </div>
+        </nav>
+
+        <div class="subnav navbar navbar-default">
+          <div class="container flex-container">
+            <label for="version" class="select-label">Version:</label>
+            <select id="select-version" class="select-version" name="version" title="version">
+            </select>
+            <div class="hide-when-search" id="breadcrumb">
+              <ul class="breadcrumb">
+                <li></li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </header>
+      <div class="container body-content">
+
+        <div id="search-results">
+          <div class="search-list">Search Results for <span></span></div>
+          <div class="sr-items">
+            <p><i class="glyphicon glyphicon-refresh index-loading"></i></p>
+          </div>
+          <ul id="pagination" data-first="First" data-prev="Previous" data-next="Next" data-last="Last"></ul>
+        </div>
+      </div>
+      <div role="main" class="container body-content hide-when-search">
+
+        <div class="sidenav hide-when-search">
+          <a class="btn toc-toggle collapse" data-toggle="collapse" href="#sidetoggle" aria-expanded="false" aria-controls="sidetoggle">Show / Hide Table of Contents</a>
+          <div class="sidetoggle collapse" id="sidetoggle">
+            <div id="sidetoc"></div>
+          </div>
+        </div>
+        <div class="article row grid-right">
+          <div class="col-md-10">
+            <article class="content wrap" id="_content" data-uid="">
+<h1 id="update-from-evergine-2026526-to-evergine-20261112">Update from Evergine 2026.5.26 to Evergine 2026.11.12</h1>
+
+<p>Evergine 2026.11.12 replaces the <strong>Bullet physics engine with Jolt</strong>, reworks <strong>shadows</strong>, moves ImGui to <strong>Dear ImGui 1.92.9b</strong> and makes <strong>DirectX 12 the default backend</strong> on Windows. The physics change touches every project that referenced <code>Evergine.Bullet</code>, which every project template did, so most projects need at least a small change. This guide lists every breaking change, what the migration script does for you, and what you have to change by hand.</p>
+<p>If your project is older than 2026.5.26, first follow <a href="upgrade_project_2026.5.26.html">Update from Evergine 2025.10.21 to Evergine 2026.5.26</a>. That release moved the engine to .NET 10 and Reverse-Z, and this guide assumes both.</p>
+<h2 id="summary">Summary</h2>
+<table>
+<thead>
+<tr>
+<th>Change</th>
+<th>Affects</th>
+<th>Action</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><a href="#breaking-change-physics-now-runs-on-jolt">Physics: Bullet replaced by Jolt</a></td>
+<td>Every project created from a template</td>
+<td>Remove <code>Evergine.Bullet</code>; migrate physics code and assets.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#breaking-change-shadow-bias">Shadow bias</a></td>
+<td>Lights with a tuned <code>ShadowBias</code>, custom shadow shaders</td>
+<td>Tune <code>ShadowDepthBias</code> and <code>ShadowNormalBias</code>.</td>
+<td>Removes the old key</td>
+</tr>
+<tr>
+<td><a href="#breaking-change-imgui-1929b">ImGui 1.92.9b</a></td>
+<td>Code that calls ImGui directly</td>
+<td>Fix argument order and enum literals.</td>
+<td>Mostly</td>
+</tr>
+<tr>
+<td><a href="#other-api-changes">Other API changes</a></td>
+<td>Code that uses the changed members</td>
+<td>Rename or replace.</td>
+<td>Mostly</td>
+</tr>
+<tr>
+<td><a href="#third-party-package-updates">Third-party packages</a></td>
+<td>Web, Avalonia, WinUI and SkiaSharp projects</td>
+<td>Raise the versions.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><a href="#directx-12-is-the-default-backend">DirectX 12 is the default backend</a></td>
+<td>New projects</td>
+<td>Optionally move the Windows profile to DirectX 12.</td>
+<td>Optional switch</td>
+</tr>
+<tr>
+<td><a href="#vulkan-queryheapreaddata-writes-at-absolute-slot-indices">Vulkan <code>QueryHeap.ReadData</code></a></td>
+<td>Code that reads query results on Vulkan</td>
+<td>Size the results array to <code>startIndex + count</code>.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#timestamp-query-support-is-now-reported">Timestamp query capability</a></td>
+<td>Code that creates timestamp query heaps</td>
+<td>Check <code>IsTimestampQuerySupported</code>.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#meta-quest-and-pico-surface-created-outside-the-ui-thread-optional">Quest and Pico launchers</a></td>
+<td>Meta Quest and Pico projects</td>
+<td>Create Vulkan through OpenXR; optionally move the surface off the UI thread.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#webgpu-frames-in-flight-optional">WebGPU frames in flight</a></td>
+<td>Web (WebGPU) projects</td>
+<td>Optional template update.</td>
+<td>No</td>
+</tr>
+<tr>
+<td><a href="#custom-graphics-backends">Custom graphics backends</a></td>
+<td>Only if you implement your own backend</td>
+<td>Implement the new members.</td>
+<td>No</td>
+</tr>
+</tbody>
+</table>
+<h2 id="migration-script">Migration script</h2>
+<p>A PowerShell script applies most of the changes in this guide, including the whole Bullet to Jolt physics migration.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The script modifies the files of your project in place. Commit your project to a version control system such as Git, or make a backup, before you run it. That way you can review every change and revert it if needed.</p>
+</div>
+<p>Download <a href="https://github.com/EvergineTeam/EvergineDocs/raw/main/src/manual/get_started/migrations/migration-2026.11.12.zip">migration-2026.11.12.zip</a>. It contains two scripts that must stay in the same folder:</p>
+<ul>
+<li><code>Update-EvergineProject.ps1</code> updates the whole project. This is the one you run.</li>
+<li><code>Migrate-BulletToJolt.ps1</code> migrates the physics. <code>Update-EvergineProject.ps1</code> runs it for you when the project uses physics. It is the same script described in <a href="../../physics/migrating_from_bullet.html#migration-tool">Migrating from Bullet</a>.</li>
+</ul>
+<p>The scripts need <strong>PowerShell 7</strong> (<code>pwsh</code>). Windows marks downloaded files as coming from the internet and the default execution policy refuses to run them, so unblock the zip before you extract it:</p>
+<pre><code class="lang-powershell">Unblock-File .\migration-2026.11.12.zip
+</code></pre>
+<p>If you already extracted it, unblock both scripts with <code>Get-ChildItem *.ps1 | Unblock-File</code>. When only the first script is unblocked, the physics migration does not run and the report shows a <code>jolt-no-report</code> warning.</p>
+<h3 id="run-it">Run it</h3>
+<p>The script is a <strong>dry run unless you add <code>-Apply</code></strong>: the first run lists what it would change and writes nothing.</p>
+<pre><code class="lang-powershell"># 1. Preview the changes
+pwsh -File .\Update-EvergineProject.ps1 -ProjectPath C:\Projects\MyGame -TargetVersion 2026.11.12.8
+
+# 2. Apply them and keep the report
+pwsh -File .\Update-EvergineProject.ps1 -ProjectPath C:\Projects\MyGame -TargetVersion 2026.11.12.8 -Apply -ReportPath port-report.json
+</code></pre>
+<p><code>-ProjectPath</code> accepts the project folder, the <code>.weproj</code> file, a <code>.sln</code> or a <code>.csproj</code>. The script prints a table of findings with the file and line of everything it changed or could not change. It exits with code 0 when there is nothing to review, 2 when there are warnings, and 1 on error. Running it again on an updated project changes nothing.</p>
+<table>
+<thead>
+<tr>
+<th>Parameter</th>
+<th>Use</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>-TargetVersion</code></td>
+<td>The Evergine version to move to, <code>2026.11.12.8</code>.</td>
+</tr>
+<tr>
+<td><code>-Apply</code></td>
+<td>Writes the changes.</td>
+</tr>
+<tr>
+<td><code>-NoBackup</code></td>
+<td>Skips the copies of the original files. By default they are kept in <code>.evergine-update-backup\&lt;timestamp&gt;\</code> and, for the physics files, <code>.bullet-to-jolt-backup\&lt;timestamp&gt;\</code>.</td>
+</tr>
+<tr>
+<td><code>-ReportPath &lt;file&gt;</code></td>
+<td>Writes the JSON report with every change and finding.</td>
+</tr>
+<tr>
+<td><code>-SwitchWindowsProfileToDirectX12</code></td>
+<td>Moves the <code>Windows</code> profile to DirectX 12, as described in <a href="#move-the-windows-profile-to-directx-12-optional">Move the Windows profile to DirectX 12</a>. An existing <code>Windows.DirectX12</code> profile becomes <code>Windows.DirectX11</code>, so the project keeps one launcher per backend.</td>
+</tr>
+<tr>
+<td><code>-AddOnVersions @{ 'Evergine.Cesium' = '&lt;version&gt;' }</code></td>
+<td>Versions of add-ons that are not part of the engine. Add-ons not listed keep their version and are reported.</td>
+</tr>
+<tr>
+<td><code>-StabilizeConstraintChains</code>, <code>-TuneVehicleChassis</code></td>
+<td>Passed to the physics migration. See <a href="../../physics/migrating_from_bullet.html#recommended-process">Migrating from Bullet</a>.</td>
+</tr>
+<tr>
+<td><code>-SkipPhysicsMigration</code></td>
+<td>Does not run the physics migration.</td>
+</tr>
+<tr>
+<td><code>-CleanObsoleteYaml:$false</code></td>
+<td>Keeps obsolete keys such as <code>ShadowBias</code> in scenes and prefabs.</td>
+</tr>
+</tbody>
+</table>
+<h3 id="what-the-script-does">What the script does</h3>
+<ul>
+<li>Updates every Evergine engine package reference in <code>.csproj</code>, <code>.props</code> and <code>.targets</code> files, the <code>Evergine.Core</code> entry of the <code>.weproj</code> file and the engine line of <code>.wespec</code> files.</li>
+<li>Removes the <code>Evergine.Bullet</code>, <code>Evergine.LibBulletc.Natives</code>, <code>Evergine.LibBulletc.Natives.Wasm</code> and <code>Evergine.BulletSharpPInvoke</code> references, and any <code>Evergine.Bullet</code> project left in a solution.</li>
+<li>If the project only had the <code>BulletPhysicManager3D</code> line of the template, removes it. If it really uses physics, runs <code>Migrate-BulletToJolt.ps1</code> on the code, scenes and prefabs, and adds a <code>PhysicsManager</code> to the scenes that need one.</li>
+<li>Rewrites the API changes that can be rewritten safely, listed in <a href="#other-api-changes">Other API changes</a> and <a href="#breaking-change-imgui-1929b">ImGui</a>, and reports the rest with their file and line.</li>
+<li>Removes the obsolete <code>ShadowBias</code> key from lights and <code>MaskBits</code> from <code>SpatialMapping</code> in <code>.wescene</code> and <code>.weprefab</code> files.</li>
+<li>Raises the third-party packages listed in <a href="#third-party-package-updates">Third-party package updates</a> when they are below the version the new Evergine packages need, and removes <code>Avalonia.Diagnostics</code> from projects that move to Avalonia 12.</li>
+<li>Reports every custom effect (<code>.fx</code>, <code>.fxh</code>, <code>.hlsl</code>) that calls the shadow library functions that changed.</li>
+<li>Drops package sources of <code>nuget.config</code> and <code>Evergine.config</code> that point at folders that do not exist on your machine.</li>
+</ul>
+<p>It does <strong>not</strong> rebuild your content, retune physics behavior, rewrite custom shaders or move shadow bias values. The sections below explain those changes.</p>
+<h2 id="update-the-project">Update the project</h2>
+<ol>
+<li>Install Evergine 2026.11.12 from the <strong>Evergine Launcher</strong>.</li>
+<li>Run the migration script as shown above, or apply the changes of this guide by hand. If you prefer the Launcher's <strong>Update</strong> button, run the script afterwards anyway: the Launcher updates the engine packages but leaves <code>Evergine.Bullet</code> behind, and the project does not build until it is removed.</li>
+<li>Open the project in Evergine Studio so it rebuilds the content, then build the solution in Visual Studio.</li>
+<li>Work through the warnings in the report and the manual steps of the sections below.</li>
+<li>If the project uses physics, run it with <a href="../../physics/debug_rendering.html">physics debug rendering</a> on and check colliders, sensors, constraints and vehicles.</li>
+</ol>
+<h2 id="breaking-change-physics-now-runs-on-jolt">Breaking change: physics now runs on Jolt</h2>
+<p>Evergine's physics has been rebuilt on <strong><a href="https://github.com/jrouwe/JoltPhysics">Jolt Physics</a></strong>. The new engine is built into <code>Evergine.Framework</code>, uses several cores, runs on the web too, and adds soft bodies, tracked vehicles, height field terrain, buoyancy and new constraints. The previous <code>Evergine.Bullet</code> package and the <code>Evergine.Framework.Physics3D</code> namespace are removed.</p>
+<p>This section summarizes the migration. <a href="../../physics/migrating_from_bullet.html">Migrating from Bullet</a> has the complete table of equivalences for every component, property, method and query.</p>
+<h3 id="every-project-remove-everginebullet">Every project: remove <code>Evergine.Bullet</code></h3>
+<p>Every project template referenced <code>Evergine.Bullet</code> and registered its manager, even in projects that never use physics. There is no 2026.11.12 version of that package, so the reference has to go.</p>
+<p>In the shared project <code>.csproj</code>:</p>
+<pre><code class="lang-xml">&lt;!-- Remove --&gt;
+&lt;PackageReference Include=&quot;Evergine.Bullet&quot; Version=&quot;2026.5.26.x&quot; /&gt;
+</code></pre>
+<p>Remove <code>Evergine.LibBulletc.Natives</code> from the Android launcher and <code>Evergine.LibBulletc.Natives.Wasm</code> from the web launchers too, if they reference them. Then update the scene's <code>RegisterManagers</code> (<code>MyScene.cs</code> in the templates):</p>
+<pre><code class="lang-csharp">// Before
+this.Managers.AddManager(new global::Evergine.Bullet.BulletPhysicManager3D());
+
+// After: delete the line if the scene has no physics, or register the new manager
+this.Managers.AddManager(new global::Evergine.Framework.Physics.PhysicsManager());
+</code></pre>
+<p>The new physics ships with <code>Evergine.Framework</code>, so there is nothing to install in its place.</p>
+<h3 id="projects-that-use-physics">Projects that use physics</h3>
+<p>The API keeps the same concepts with new names, plus a few real differences in behavior.</p>
+<table>
+<thead>
+<tr>
+<th>Before (Bullet)</th>
+<th>Now (Jolt)</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Evergine.Framework.Physics3D</code> namespace</td>
+<td><code>Evergine.Framework.Physics</code></td>
+</tr>
+<tr>
+<td><code>BulletPhysicManager3D</code>, <code>SceneManagers.PhysicManager3D</code></td>
+<td><code>PhysicsManager</code>, bound with <code>[BindSceneManager]</code></td>
+</tr>
+<tr>
+<td><code>RigidBody3D</code> with <code>PhysicBodyType</code></td>
+<td><code>RigidBody</code> with <code>IsKinematic</code></td>
+</tr>
+<tr>
+<td><code>StaticBody3D</code></td>
+<td><code>StaticBody</code></td>
+</tr>
+<tr>
+<td><code>BoxCollider3D</code>, <code>SphereCollider3D</code>, <code>MeshCollider3D</code>...</td>
+<td><code>BoxCollider</code>, <code>SphereCollider</code>, <code>MeshCollider</code>...</td>
+</tr>
+<tr>
+<td><code>HingeJoint3D</code>, <code>SliderJoint3D</code>, <code>ConeTwistJoint3D</code>...</td>
+<td><code>HingeConstraint</code>, <code>SliderConstraint</code>, <code>SwingTwistConstraint</code>...</td>
+</tr>
+<tr>
+<td><code>CharacterController3D</code></td>
+<td><code>CharacterController</code></td>
+</tr>
+<tr>
+<td><code>PhysicVehicle3D</code>, <code>PhysicWheel3D</code></td>
+<td><code>WheeledVehicleController</code>, <code>VehicleWheel</code></td>
+</tr>
+<tr>
+<td><code>BeginCollision</code>, <code>UpdateCollision</code>, <code>EndCollision</code></td>
+<td><code>CollisionStarted</code>, <code>CollisionUpdated</code>, <code>CollisionEnded</code></td>
+</tr>
+<tr>
+<td><code>RayCast(ref from, ref to, mask)</code></td>
+<td><code>RayCast(origin, direction, maxDistance, in filter, out hit)</code></td>
+</tr>
+<tr>
+<td><code>MaskBits</code> per body</td>
+<td>One <a href="../../physics/collision_filtering.html">collision matrix</a> on the <code>PhysicsManager</code></td>
+</tr>
+<tr>
+<td><code>ContactTestBehavior</code>, <code>SetCollisionEvents</code>, <code>RayStep</code></td>
+<td>Removed. Use the collision events and the <a href="../../physics/queries.html">queries</a> of <code>PhysicsManager</code>.</td>
+</tr>
+</tbody>
+</table>
+<p>The differences that change how a migrated scene behaves:</p>
+<ul>
+<li><strong>Collider sizes.</strong> Bullet colliders were factors of the model's bounds; Jolt colliders are in local units. <a href="../../physics/colliders/index.html#local-units-or-model-bounds"><code>UseModelBounds</code></a> restores the old convention, and the migration script switches it on for every migrated collider and vehicle wheel.</li>
+<li><strong>Collision filtering.</strong> There is no per-body mask any more. The script builds a collision matrix from every category and mask pair it finds and writes it on the <code>PhysicsManager</code>.</li>
+<li><strong>Defaults.</strong> Friction is 0.2 instead of 0.5, damping is 0.05 instead of 0, and <code>Mass = 0</code> means &quot;compute it from the colliders' density&quot;.</li>
+<li><strong>Sensors.</strong> A static sensor that moves, such as one that follows a cursor or a hand, has to be a kinematic <code>RigidBody</code>, because Jolt never reports contacts between two static bodies. Ray casts skip sensors unless the <code>QueryFilter</code> sets <code>IncludeSensors</code>.</li>
+<li><strong>Kinematic bodies</strong> move with <code>MoveTo(position, orientation)</code>. Writing the <code>Transform3D</code> teleports them.</li>
+</ul>
+<p>The migration script converts the component types and properties in code, scenes and prefabs, and reports each place where both engines do not mean the same thing: vehicles to retune, constraint limits without an exact equivalent, masks it cannot evaluate and custom query code. Read <a href="../../physics/migrating_from_bullet.html#what-it-leaves-to-you">What it leaves to you</a> before you start, and run the physics checks of <a href="../../physics/migrating_from_bullet.html#migration-checklist">Migration Checklist</a> after it.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p><code>Migrate-BulletToJolt.ps1</code> also works on its own, for example on a library or add-on that is not an Evergine project. <code>Update-EvergineProject.ps1</code> runs it with the same options for you.</p>
+</div>
+<h2 id="breaking-change-shadow-bias">Breaking change: shadow bias</h2>
+<p>Shadows have been reworked: cascades no longer shimmer when the camera moves, cascades blend into each other and fade out at the shadow distance, and point light cube faces no longer show seams. Shadows are biased with two values, both measured in shadow map texels, that replace the single depth offset used before:</p>
+<table>
+<thead>
+<tr>
+<th>Property</th>
+<th>Default</th>
+<th>What it does</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ShadowDepthBias</code></td>
+<td>0.5</td>
+<td>Moves the shadow receiver towards the light.</td>
+</tr>
+<tr>
+<td><code>ShadowNormalBias</code></td>
+<td>1.0</td>
+<td>Moves the shadow receiver along its normal, scaled by the slope with respect to the light.</td>
+</tr>
+</tbody>
+</table>
+<p><code>Light.ShadowBias</code> and <code>DirectionalLight.ShadowBias</code> are <strong>obsolete and ignored</strong>. Code that sets them compiles with a warning and has no effect. Do not copy the old value to the new properties: the units are different. Start from the defaults, and raise <code>ShadowNormalBias</code> if surfaces shadow themselves in stripes or lower <code>ShadowDepthBias</code> if shadows detach from their casters. The migration script removes the <code>ShadowBias</code> key from scenes and prefabs and reports every use in code.</p>
+<p><code>DirectionalLight</code> has new options to tune the cascades: <code>ShadowCascadeCount</code> (1 to 4), <code>CascadeSplitMode</code>, <code>CascadeFitMode</code>, <code>CascadeSelectionMode</code> and <code>FarCascadesUpdateInterval</code>. <a href="../../graphics/lights.html#shadow-bias">Lights</a> explains how to tune the two biases and describes every cascade option.</p>
+<h3 id="custom-effects-that-sample-shadows">Custom effects that sample shadows</h3>
+<p>Skip this part unless you wrote your own effect that calls the engine shadow library. The migration script lists every call it finds in your <code>.fx</code> files, but it does not rewrite them.</p>
+<p>The <code>DirectionalLightShadow</code>, <code>PointLightShadow</code> and <code>SpotLightShadow</code> functions take the <strong>geometric normal</strong> of the surface, in world space, instead of the <code>NoL</code> term, and the new parameter goes right after <code>position</code>:</p>
+<pre><code class="lang-hlsl">// Before
+float3 shadow = DirectionalLightShadow(lightProperties, position, depthVS, NoL,
+    ShadowViewProjectionArray, DirectionalShadowMap, DirectionalShadowMapSampler);
+
+// After
+float3 shadow = DirectionalLightShadow(lightProperties, position, geometricNormal, depthVS,
+    ShadowViewProjectionArray, DirectionalShadowMap, DirectionalShadowMapSampler);
+</code></pre>
+<div class="WARNING">
+<h5>Warning</h5>
+<p>An old call with the arguments in the old order can still compile, because HLSL silently turns a <code>float</code> into a <code>float3</code>, and then it renders wrong shadows. Check every call, not only the ones that fail to compile.</p>
+</div>
+<p><code>PointLightShadow(lightProperties, position, positionToLight, NoL, ...)</code> becomes <code>PointLightShadow(lightProperties, position, geometricNormal, positionToLight, ...)</code>, and <code>SpotLightShadow(lightProperties, position, NoL, ...)</code> becomes <code>SpotLightShadow(lightProperties, position, geometricNormal, ...)</code>. The geometric normal is the interpolated vertex normal, normalized, not the normal-mapped one. The engine's standard effect passes <code>shading.tangentToWorld[2]</code>.</p>
+<p>The cascade helpers changed too:</p>
+<ul>
+<li><code>GetCascadeFromDepth</code> and <code>ShadowCascade</code> are removed. <code>SelectDirectionalCascade(lightProperties, position, depthVS, ShadowViewProjectionArray, out blend)</code> returns the cascade and the blend factor with the next one.</li>
+<li>The <code>DirectionalLightShadow</code> overload that takes an explicit cascade now takes <code>cascade</code> and <code>blend</code> as its last two arguments.</li>
+<li><code>LightProperties.CascadeSplits</code> is a <code>float4</code> with the bounds of up to four cascades, and <code>LightProperties</code> has new fields for the normal bias, cascade blending and shadow fade-out.</li>
+</ul>
+<p>Rebuild the effect in Evergine Studio after the changes.</p>
+<h2 id="breaking-change-imgui-1929b">Breaking change: ImGui 1.92.9b</h2>
+<p><code>Evergine.ImGui</code> now uses Dear ImGui 1.92.9b. Code that only uses <code>ImGuiManager</code> and the usual widgets keeps working. Code that calls the native API directly may need these changes:</p>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>Now</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>ImDrawList_AddRect(..., rounding, flags, thickness)</code></td>
+<td><code>ImDrawList_AddRect(..., rounding, thickness, flags)</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>ImDrawList_AddPolyline(..., col, flags, thickness)</code></td>
+<td><code>ImDrawList_AddPolyline(..., col, thickness, flags)</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>ImDrawList_PathStroke(..., col, flags, thickness)</code></td>
+<td><code>ImDrawList_PathStroke(..., col, thickness, flags)</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>(ImDrawFlags)1</code></td>
+<td><code>ImDrawFlags.Closed</code>, whose value is now 512</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>ImDrawData.CmdListsCount</code></td>
+<td><code>ImDrawData.CmdLists.Size</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>igSetColorEditOptions(flags)</code></td>
+<td>Set <code>ImGuiIO.ConfigColorEditFlags</code>.</td>
+<td>Reported</td>
+</tr>
+<tr>
+<td><code>ImGuiCol</code>, <code>ImGuiStyleVar</code> or <code>ImPlotProp</code> values written as numbers</td>
+<td>The named members. New values were inserted, so the numbers moved: for example <code>ImGuiCol.CheckboxSelectedBg</code> is now 19, which shifts <code>SliderGrab</code> and every later color by one.</td>
+<td>Reported for casts</td>
+</tr>
+</tbody>
+</table>
+<pre><code class="lang-csharp">// Before
+ImguiNative.ImDrawList_AddRect(drawList, min, max, color, 4.0f, ImDrawFlags.None, 2.0f);
+
+// After: thickness comes before flags
+ImguiNative.ImDrawList_AddRect(drawList, min, max, color, 4.0f, 2.0f, ImDrawFlags.None);
+</code></pre>
+<p>Two behavior changes affect every ImGui interface:</p>
+<ul>
+<li><strong>Drag, Slider and InputScalar widgets</strong> apply a typed value when you press Enter or Tab or when the widget loses focus, not on every keystroke. Push <code>ImGuiItemFlags.LiveEditOnInputScalar</code> to restore the previous behavior.</li>
+<li><strong><code>Separator()</code></strong> now reserves 1 pixel of height, so tightly packed layouts can move by a pixel per separator.</li>
+</ul>
+<p>If your project references <code>Evergine.Bindings.Imgui</code> directly, it must use version 2026.10.1.34 or later.</p>
+<h2 id="other-api-changes">Other API changes</h2>
+<p>Members that were already obsolete in 2026.5.26 have been removed, along with a few others. The script rewrites the ones marked <strong>Yes</strong> and reports the rest with their file and line.</p>
+<table>
+<thead>
+<tr>
+<th>Before</th>
+<th>Now</th>
+<th>Script</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>override void OnDetach()</code> in components, behaviors, services and scene managers</td>
+<td><code>override void OnDetached()</code>. <code>OnDetach</code> no longer exists and is no longer called.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Container.RegisterType&lt;T&gt;(bool singleton = true)</code></td>
+<td><code>Container.Register&lt;T&gt;(reuse: true)</code>. The first parameter of <code>Register&lt;T&gt;</code> is the factory, so a positional <code>bool</code> must become <code>reuse:</code>.</td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>Container.RegisterFactoryDelegate&lt;T&gt;(factory)</code></td>
+<td><code>Container.Register&lt;T&gt;(factory)</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>BoundingOrientedBox.Minimum</code>, <code>Maximum</code></td>
+<td><code>Min</code>, <code>Max</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>WavFileWriter.WriteData(samples, offset, count)</code></td>
+<td><code>WriteSamples(samples, offset, count)</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>TouchPanelState.AddTouchLocation(id, state, x, y)</code></td>
+<td><code>AddTouchLocation(id, x, y)</code></td>
+<td>Yes</td>
+</tr>
+<tr>
+<td><code>EnvironmentComponent</code></td>
+<td>The scene's <code>EnvironmentManager</code>. See below.</td>
+<td>Reported</td>
+</tr>
+<tr>
+<td><code>ShadowMapComponent</code></td>
+<td>The scene's <code>ShadowMapManager</code>, which has the same properties. See below.</td>
+<td>Reported</td>
+</tr>
+<tr>
+<td><code>ParticlesComponent.SourceEntityId</code> (a <code>Guid</code>)</td>
+<td><code>ParticlesComponent.SourceEntity</code> (an <code>Entity</code>). Scenes keep loading: the serialized key is the same.</td>
+<td>Reported</td>
+</tr>
+<tr>
+<td><code>AtmosphericMaterial.SkyTint</code>, <code>AtmosphericMaterial.GroundColor</code>, <code>SkyboxMaterial.PerObject_WorldViewProj</code></td>
+<td>Removed. Setting them corrupted memory.</td>
+<td>Reported</td>
+</tr>
+<tr>
+<td><code>RayStep</code>, <code>RayStepJsonConverter</code></td>
+<td>A <code>Ray</code> plus a distance, or <code>PhysicsManager.RayCast</code>.</td>
+<td>Reported</td>
+</tr>
+<tr>
+<td><code>SpatialMapping.MaskBits</code></td>
+<td>Removed: filtering goes through the <code>PhysicsManager</code> collision matrix. <code>SpatialMapping.CollisionCategories</code> is now a <code>CollisionCategory</code>.</td>
+<td>Yes, in scenes</td>
+</tr>
+<tr>
+<td><code>HitResult3D</code> in <code>GazeBehavior.AirTapEvent</code>, <code>GazeBehavior.GazeHitResult</code> and <code>GazeCollision.HitResult</code></td>
+<td><code>RayCastHit</code></td>
+<td>Through the physics migration</td>
+</tr>
+<tr>
+<td><code>ParticlesEmitter.ForcesCategory</code>, <code>BaseForce.ForceCategory</code> (a <code>CollisionCategory3D</code>)</td>
+<td>A <code>CollisionCategory</code></td>
+<td>Through the physics migration</td>
+</tr>
+<tr>
+<td><code>AccelerationStructureFlags</code> values 0 to 5</td>
+<td>Bit flags (<code>None = 0</code>, <code>AllowUpdate = 1</code>, ...). The names are the same, so source code compiles, but numeric values stored or compared by hand change meaning.</td>
+<td>Reported in projects without <code>.weproj</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>EnvironmentComponent</code> and <code>ShadowMapComponent</code> were already marked obsolete in favor of the scene managers, which you can configure in the <strong>Scene Managers</strong> panel of Evergine Studio. The script reports the blocks left in your scenes; move their values to the managers and delete the blocks. In code:</p>
+<pre><code class="lang-csharp">// Before: an EnvironmentComponent on an entity
+environment.ReflectionProbe = probe;
+environment.IntensityMultiplier = 1.5f;
+
+// After: the scene's EnvironmentManager
+this.Managers.EnvironmentManager.IBLReflectionProbe = probe;
+this.Managers.EnvironmentManager.IntensityMultiplier = 1.5f;
+
+// Before: shadowMapComponent.DirectionalResolution = ...
+// After: the scene's ShadowMapManager
+var shadowMaps = this.Managers.FindManager&lt;ShadowMapManager&gt;();
+shadowMaps.DirectionalResolution = ShadowMapProvider.ShadowMapSize.Size_2048;
+</code></pre>
+<h3 id="behavior-changes">Behavior changes</h3>
+<p>These changes compile without errors but can change how an existing project looks or behaves:</p>
+<ul>
+<li><strong><code>BackgroundImage.OrderBias</code></strong> now defaults to 1 and the value you set is honored. Before, it was always forced to 1, so a scene saved with <code>OrderBias: 0</code> now renders with 0.</li>
+<li><strong>Particles that spawn by distance</strong> are now frame rate independent. Retune <code>DistanceRate</code> if they emit more or fewer particles than before.</li>
+<li><strong><code>FreeCamera3D</code></strong> turns at the same speed at any frame rate, so the keyboard turn speed may feel different.</li>
+<li><strong><code>ConstantBuffer.SetBufferData</code> and <code>GetBufferData</code></strong> throw <code>ArgumentOutOfRangeException</code> when the data does not fit in the buffer, instead of writing out of bounds.</li>
+<li><strong><code>Ray.Intersects(BoundingSphere)</code></strong> returns <code>null</code> on a miss instead of 0.</li>
+<li><strong>Entity references.</strong> Public <code>Entity</code> properties and fields of your components are now serialized as references to the entity's id.</li>
+</ul>
+<h3 id="rebuild-add-ons-and-libraries">Rebuild add-ons and libraries</h3>
+<p>Some changes break binary compatibility without changing source code: <code>OpenXRGraphicBackend.GraphicsContext</code> and <code>OpenXRRuntimePlatform.GraphicsContext</code> are now properties, <code>CommandQueue.Submit()</code> takes an optional <code>Fence</code>, <code>BaseMaterialDecorator</code> implements <code>IDisposable</code>, and <code>AccelerationStructureFlags</code> has new values. Rebuild every library and add-on against 2026.11.12. A DLL compiled against 2026.5.26 can fail at run time with <code>MissingFieldException</code> or <code>MissingMethodException</code>.</p>
+<h2 id="third-party-package-updates">Third-party package updates</h2>
+<p>The new Evergine packages depend on newer versions of some third-party packages. If your project pins one of them to a lower version, restore fails with a package downgrade error (NU1605). The script raises them to these minimums:</p>
+<table>
+<thead>
+<tr>
+<th>Package</th>
+<th>Minimum version</th>
+<th>Needed by</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>Microsoft.AspNetCore.Components.WebAssembly</code>, <code>.Server</code>, <code>.DevServer</code></td>
+<td>10.0.13</td>
+<td><code>Evergine.Web</code> (the web templates use 10.0.14)</td>
+</tr>
+<tr>
+<td><code>SkiaSharp</code> and its <code>NativeAssets</code> packages</td>
+<td>4.153.1</td>
+<td><code>Evergine.Assets</code>, <code>Evergine.Runtimes.Image</code>, <code>Evergine.ImGui</code></td>
+</tr>
+<tr>
+<td><code>Avalonia</code>, <code>Avalonia.Desktop</code>, <code>Avalonia.Themes.Fluent</code>, <code>Avalonia.Fonts.Inter</code></td>
+<td>12.1.4</td>
+<td><code>Evergine.Avalonia</code></td>
+</tr>
+<tr>
+<td><code>Microsoft.WindowsAppSDK</code></td>
+<td>2.5.1</td>
+<td><code>Evergine.WinUI</code></td>
+</tr>
+<tr>
+<td><code>Evergine.Bindings.Imgui</code></td>
+<td>2026.10.1.34</td>
+<td><code>Evergine.ImGui</code></td>
+</tr>
+<tr>
+<td><code>Evergine.Bindings.Vulkan</code></td>
+<td>2026.10.1.27</td>
+<td><code>Evergine.Vulkan</code></td>
+</tr>
+<tr>
+<td><code>Evergine.Bindings.OpenXR</code></td>
+<td>2026.11.4.23</td>
+<td><code>Evergine.OpenXR</code></td>
+</tr>
+</tbody>
+</table>
+<p><code>Evergine.Framework</code> also depends on the new <code>Evergine.Bindings.JoltPhysics</code> package, which NuGet restores for you.</p>
+<p>SkiaSharp 4, Avalonia 12 and Windows App SDK 2 are major versions with breaking changes of their own. If your own code uses those libraries directly, check their release notes.</p>
+<h3 id="avalonia-projects">Avalonia projects</h3>
+<p>The Avalonia template sets <code>AvaloniaVersion</code> to 12.1.4 and no longer references <code>Avalonia.Diagnostics</code>, which has no Avalonia 12 release. The script does both. If your code calls <code>AttachDevTools()</code>, remove the call.</p>
+<h3 id="winui-projects">WinUI projects</h3>
+<p>Besides <code>Microsoft.WindowsAppSDK</code> 2.5.1 in both the launcher project and the packaging (<code>.wapproj</code>) project, the WinUI template changes:</p>
+<ul>
+<li><code>TargetPlatformVersion</code> 10.0.26100.0 in the <code>.wapproj</code> file.</li>
+<li><code>&lt;RuntimeIdentifier&gt;win-x64&lt;/RuntimeIdentifier&gt;</code> instead of <code>win10-x64</code> in the publish profiles (<code>.pubxml</code>).</li>
+<li><code>UndefineProperties=&quot;RuntimeIdentifier;SelfContained&quot;</code> on the <code>ProjectReference</code> from the packaging project to the launcher.</li>
+</ul>
+<p>The script updates the package version only. Apply the other three changes by hand, or compare with a new project created from the WinUI template.</p>
+<h2 id="directx-12-is-the-default-backend">DirectX 12 is the default backend</h2>
+<p>DirectX 12 replaces DirectX 11 as the default on Windows, in three places:</p>
+<ul>
+<li><strong>Evergine Studio</strong> starts on DirectX 12. When you update, an installation that was using DirectX 11 moves to DirectX 12. An installation where you had explicitly chosen Vulkan keeps Vulkan.</li>
+<li><strong>New projects</strong> use the <strong>Windows (DirectX12)</strong> template as the required platform. Its <code>Windows</code> profile runs on <code>DX12GraphicsContext</code> and references the <code>Evergine.DirectX12</code> package.</li>
+<li><strong>DirectX 11</strong> is still available as the optional <strong>Windows (DirectX11)</strong> platform, which adds a <code>Windows.DirectX11</code> profile.</li>
+</ul>
+<p>You can change the backend Evergine Studio renders with in <strong>Settings &gt; Preferences &gt; Editor backend (Experimental)</strong>. The change applies after you restart Evergine Studio.</p>
+<div class="IMPORTANT">
+<h5>Important</h5>
+<p>The DirectX 12 backend works best on GPUs that support Direct3D feature level 12_2, and now falls back to lower feature levels on older GPUs. If Evergine Studio fails to start on your machine, set <strong>Editor backend</strong> to DirectX11 or Vulkan.</p>
+</div>
+<h3 id="what-happens-to-existing-projects">What happens to existing projects</h3>
+<p>Nothing changes on its own. The <code>Windows</code> profile of an existing project keeps the backend recorded in its <code>.weproj</code> file and the launcher code already on disk, so a project created with DirectX 11 still builds and runs on DirectX 11. Projects that already have a <code>Windows.DirectX12</code> profile are not affected either.</p>
+<h3 id="move-the-windows-profile-to-directx-12-optional">Move the Windows profile to DirectX 12 (optional)</h3>
+<p>The migration script does this with <code>-SwitchWindowsProfileToDirectX12</code>. To do it by hand, change three files.</p>
+<p>In the <code>.weproj</code> file, set the backend of the <code>Windows</code> profile:</p>
+<pre><code class="lang-yaml"># Before
+    GraphicsBackend: DirectX11
+    LauncherType: Default
+    Name: Windows
+
+# After
+    GraphicsBackend: DirectX12
+    LauncherType: Default
+    Name: Windows
+</code></pre>
+<p>In <code>MyGame.Windows/MyGame.Windows.csproj</code>, replace the backend package:</p>
+<pre><code class="lang-xml">&lt;!-- Before --&gt;
+&lt;PackageReference Include=&quot;Evergine.DirectX11&quot; Version=&quot;2026.11.12.8&quot; /&gt;
+
+&lt;!-- After --&gt;
+&lt;PackageReference Include=&quot;Evergine.DirectX12&quot; Version=&quot;2026.11.12.8&quot; /&gt;
+</code></pre>
+<p>In <code>MyGame.Windows/Program.cs</code>, create a DirectX 12 context instead of a DirectX 11 one:</p>
+<pre><code class="lang-csharp">// Before
+GraphicsContext graphicsContext = new global::Evergine.DirectX11.DX11GraphicsContext();
+
+// After
+GraphicsContext graphicsContext = new global::Evergine.DirectX12.DX12GraphicsContext();
+</code></pre>
+<p>The rest of <code>ConfigureGraphicsContext</code> (swap chain description, presenter and container registration) stays the same. The template also changes the window title from <code>- DX11</code> to <code>- DX12</code>, which is cosmetic.</p>
+<p>If the project also has a <code>Windows.DirectX12</code> profile, you now have two launchers on DirectX 12. Turn that profile into <code>Windows.DirectX11</code> (rename the profile, its folder, project and solution, and switch its package and context to DirectX 11), or remove it.</p>
+<div class="TIP">
+<h5>Tip</h5>
+<p>To test on a machine without a suitable GPU, such as a build agent, create the context with <code>new DX12GraphicsContext(useWarpAdapter: true)</code>. It runs DirectX 12 on the WARP software rasterizer, which is slow but needs no GPU.</p>
+</div>
+<h2 id="vulkan-queryheapreaddata-writes-at-absolute-slot-indices">Vulkan: <code>QueryHeap.ReadData</code> writes at absolute slot indices</h2>
+<p><code>QueryHeap.ReadData(startIndex, count, results)</code> now writes the result of query <code>i</code> at <code>results[i]</code> on Vulkan, as it already did on every other backend. Before this release, the Vulkan backend packed the results from the start of the array, so <code>results[0]</code> held query <code>startIndex</code>.</p>
+<p>This is a breaking change for code that reads a range that does not start at 0. The results array must hold at least <code>startIndex + count</code> elements. A shorter array now throws <code>ArgumentException</code> on every backend.</p>
+<p>Before (only correct on Vulkan):</p>
+<pre><code class="lang-csharp">// Queries 2 and 3 hold the timestamps around the second pass.
+ulong[] results = new ulong[2];
+this.queryHeap.ReadData(2, 2, results);
+double passMs = (results[1] - results[0]) * 1000.0 / this.graphicsContext.TimestampFrequency;
+</code></pre>
+<p>After (correct on every backend):</p>
+<pre><code class="lang-csharp">// The array is indexed by query slot, so it needs startIndex + count elements.
+ulong[] results = new ulong[4];
+this.queryHeap.ReadData(2, 2, results);
+double passMs = (results[3] - results[2]) * 1000.0 / this.graphicsContext.TimestampFrequency;
+</code></pre>
+<p>If you always read from slot 0 with an array of <code>QueryCount</code> elements, as in <a href="../../graphics/low_level_api/queryheap.html">QueryHeap</a>, you do not need to change anything.</p>
+<h2 id="timestamp-query-support-is-now-reported">Timestamp query support is now reported</h2>
+<p><code>GraphicsContextCapabilities</code> has a new <code>IsTimestampQuerySupported</code> property. It is <code>false</code> by default, and each backend reports <code>true</code> only when it implements timestamp queries. Before this release there was no way to ask, and a backend without timestamp queries failed the first time you used them.</p>
+<ul>
+<li><strong>DirectX 12, DirectX 11 and Vulkan</strong> report <code>true</code>.</li>
+<li><strong>WebGPU</strong> reports <code>true</code> when the browser exposes the <code>timestamp-query</code> feature.</li>
+<li><strong>Metal</strong> reports <code>false</code>, because its <code>QueryHeap</code> and <code>WriteTimestamp</code> are not implemented.</li>
+<li><strong>OpenGL</strong> reports support only when the driver exposes <code>ARB_timer_query</code>. OpenGL ES and WebGL do not have it, so they report <code>false</code>.</li>
+</ul>
+<p>If you create timestamp query heaps, check the capability first:</p>
+<pre><code class="lang-csharp">using Evergine.Common.Graphics;
+
+public class GpuTimer
+{
+    private readonly GraphicsContext graphicsContext;
+    private QueryHeap queryHeap;
+
+    public GpuTimer(GraphicsContext graphicsContext)
+    {
+        this.graphicsContext = graphicsContext;
+
+        // Metal, OpenGL ES and WebGL report false: skip GPU timing there instead of failing.
+        if (graphicsContext.Capabilities.IsTimestampQuerySupported)
+        {
+            var description = new QueryHeapDescription()
+            {
+                Type = QueryType.Timestamp,
+                QueryCount = 2,
+            };
+
+            this.queryHeap = graphicsContext.Factory.CreateQueryHeap(ref description);
+        }
+    }
+
+    public bool IsAvailable =&gt; this.queryHeap != null;
+}
+</code></pre>
+<h2 id="meta-quest-and-pico-surface-created-outside-the-ui-thread-optional">Meta Quest and Pico: surface created outside the UI thread (optional)</h2>
+<p>The <strong>Android Meta Quest (OpenXR)</strong> and <strong>Android Pico (OpenXR)</strong> templates now create the Android surface with <code>runInUIThread</code> set to <code>false</code>, so the graphics loop does not run on the Android UI thread. To apply the same change to an existing project, edit <code>MainActivity.cs</code> in the Quest or Pico launcher:</p>
+<pre><code class="lang-csharp">// Before
+var surface = this.windowsSystem.CreateSurface(0, 0) as global::Evergine.Android.AndroidSurface;
+
+// After
+var surface = this.windowsSystem.CreateSurface(false) as global::Evergine.Android.AndroidSurface;
+</code></pre>
+<p><code>CreateSurface(0, 0)</code> still works and keeps the previous behavior, because it calls <code>CreateSurface(true)</code>.</p>
+<h3 id="vulkan-created-through-openxr">Vulkan created through OpenXR</h3>
+<p>OpenXR can now take part in creating the Vulkan instance and device, which is how the OpenXR specification expects it to be done. The Meta Quest and Pico templates use it, and Android XR requires it. A launcher that creates the <code>VKGraphicsContext</code> on its own keeps working only on runtimes that expose the <code>XR_KHR_vulkan_enable</code> extension. On the others, OpenXR throws <code>This runtime requires Vulkan to be created through OpenXR</code>.</p>
+<p>To update an existing Quest or Pico launcher, move the creation of the graphics context in <code>ConfigureGraphicsContext</code> of <code>MainActivity.cs</code> after the creation of the <code>OpenXRPlatform</code>, and build it from <code>InitializeForVulkan()</code>:</p>
+<pre><code class="lang-csharp">// Before: at the start of ConfigureGraphicsContext
+GraphicsContext graphicsContext = new global::Evergine.Vulkan.VKGraphicsContext(
+    new[] { &quot;VK_KHR_multiview&quot;, &quot;VK_KHR_external_memory&quot;, &quot;VK_KHR_external_memory_fd&quot;, &quot;VK_KHR_get_memory_requirements2&quot; },
+    new[] { &quot;VK_KHR_get_physical_device_properties2&quot;, &quot;VK_KHR_external_memory_capabilities&quot; });
+graphicsContext.CreateDevice();
+application.Container.RegisterInstance(graphicsContext);
+
+// After: once openXRPlatform has been created, before registering it (add using System.Linq)
+var openXRVulkan = openXRPlatform.InitializeForVulkan();
+
+var graphicsContext = new global::Evergine.Vulkan.VKGraphicsContext(new global::Evergine.Vulkan.VKGraphicsContextOptions()
+{
+    DeviceExtensions = new[] { &quot;VK_KHR_multiview&quot;, &quot;VK_KHR_external_memory&quot;, &quot;VK_KHR_external_memory_fd&quot;, &quot;VK_KHR_get_memory_requirements2&quot; }
+        .Union(openXRVulkan.DeviceExtensions),
+    InstanceExtensions = new[] { &quot;VK_KHR_get_physical_device_properties2&quot;, &quot;VK_KHR_external_memory_capabilities&quot; }
+        .Union(openXRVulkan.InstanceExtensions),
+    CreateInstance = openXRVulkan.CreateInstance,
+    SelectPhysicalDevice = openXRVulkan.SelectPhysicalDevice,
+    CreateDevice = openXRVulkan.CreateDevice,
+});
+
+graphicsContext.CreateDevice();
+application.Container.RegisterInstance&lt;GraphicsContext&gt;(graphicsContext);
+application.Container.RegisterInstance(openXRPlatform);
+</code></pre>
+<p>The mirror display, which is created before the <code>OpenXRPlatform</code>, does not need the graphics context, so the rest of the method stays the same.</p>
+<h2 id="webgpu-frames-in-flight-optional">WebGPU: frames in flight (optional)</h2>
+<p>The <strong>Web (Experimental WebGPU)</strong> template now limits how many frames the GPU can have queued. Without a limit, <code>requestAnimationFrame</code> keeps submitting frames at display rate even when the GPU cannot keep up, which adds input lag and reports a frame rate higher than what is presented.</p>
+<p>The limit lives in <code>ts/app.ts</code> (<code>App.maxFramesInFlight</code>, 2 by default; set it to 0 to disable it), and <code>ts/helper.ts</code> skips a tick while the limit is reached. To get the change in an existing project, create a new project with the WebGPU template and copy its <code>ts/app.ts</code> and <code>ts/helper.ts</code> over yours. Merge by hand if you had edited those files.</p>
+<h2 id="custom-graphics-backends">Custom graphics backends</h2>
+<p>Skip this section unless you implement your own <code>GraphicsContext</code>. The abstract classes of the low-level API gained members that every backend must implement:</p>
+<table>
+<thead>
+<tr>
+<th>Class</th>
+<th>New member</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>CommandQueue</code></td>
+<td><code>Submit(Fence fence = null)</code> replaces <code>Submit()</code>.</td>
+</tr>
+<tr>
+<td><code>CommandQueue</code></td>
+<td><code>GetClockCalibration(out ulong gpuTimestamp, out long cpuTimestamp)</code></td>
+</tr>
+<tr>
+<td><code>ResourceFactory</code></td>
+<td><code>CreateFence()</code> and <code>CreateBufferViewInternal(...)</code></td>
+</tr>
+<tr>
+<td><code>CommandBuffer</code></td>
+<td><code>UpdateTextureData(Texture texture, IntPtr source, uint sourceSizeInBytes, uint subResource = 0)</code></td>
+</tr>
+<tr>
+<td><code>GraphicsContextCapabilities</code></td>
+<td><code>IsTimestampQuerySupported</code> and <code>IsClockCalibrationSupported</code> (virtual, <code>false</code> by default, so override them to report support)</td>
+</tr>
+</tbody>
+</table>
+<p>Code that only calls <code>CommandQueue.Submit()</code> keeps compiling, because the fence parameter is optional.</p>
+<h2 id="new-features-you-can-adopt">New features you can adopt</h2>
+<p>These features are optional. Existing projects keep working without them.</p>
+<h3 id="physics">Physics</h3>
+<p>Besides the features that come with Jolt itself, the physics section documents <a href="../../physics/soft_bodies/index.html">soft bodies</a> (cloth and deformable meshes, with pin editing in Evergine Studio), <a href="../../physics/vehicles/wheeled_vehicles.html">wheeled</a> and <a href="../../physics/vehicles/tracked_vehicles.html">tracked vehicles</a>, a virtual <a href="../../physics/character_controller.html">character controller</a>, <a href="../../physics/colliders/heightfield_collider.html">height field terrain</a> that deforms at run time, <a href="../../physics/buoyancy.html">buoyancy</a>, <a href="../../physics/physics_bodies/sensors.html">sensors</a>, continuous collision detection, per-axis degrees of freedom, new <a href="../../physics/constraints/index.html">constraints</a> and saving and restoring the world state.</p>
+<h3 id="android-xr">Android XR</h3>
+<p>The new <strong>Android XR (OpenXR)</strong> template and the <code>Evergine.OpenXR.Natives.AndroidXR</code> package add Android XR headsets and glasses as a platform. Optical see-through devices can select the environment blend mode for a transparent background. See <a href="../../xr/openxr/androidxr.html">Android XR</a>.</p>
+<h3 id="evergine-studio">Evergine Studio</h3>
+<ul>
+<li><strong>Play Mode</strong> in the Scene Viewer runs the scene inside the editor.</li>
+<li><strong>ImGuizmo</strong> manipulators, pixel perfect picking and a selection outline in the Scene Viewer.</li>
+<li><strong>Entity references.</strong> Component properties of type <code>Entity</code> are serialized by id, accept entities dropped from the Scene Hierarchy and are remapped when scenes load, prefabs are instanced or entities are duplicated.</li>
+<li>Drag and drop of folders in the Assets tree and of assets onto the Entity Details panel.</li>
+<li><strong>Project Settings &gt; Services</strong> adds, removes and configures application services. See <a href="../../evergine_studio/settings/project_services.html">Manage services</a>.</li>
+<li>Close opened documents from their context menu, reset profile textures and shader values to the originals, choose the HDR range in the Texture Viewer and edit multiline string properties.</li>
+</ul>
+<h3 id="graphics">Graphics</h3>
+<ul>
+<li><strong>Fence.</strong> <code>Fence</code> tells the CPU when one particular submission has finished on the GPU, instead of waiting for the whole queue with <code>WaitIdle()</code>. Create one with <code>Factory.CreateFence()</code>, pass it to <code>CommandQueue.Submit(fence)</code>, and use <code>IsSignaled</code>, <code>Wait</code> and <code>Reset</code>. <code>GraphicsContext.FramesInFlight</code> builds on fences: when it is greater than zero, <code>GraphicsPresenter</code> lets that many frames be in progress at once. See <a href="../../graphics/low_level_api/commandqueue.html">CommandQueue</a>.</li>
+<li><strong>GPU and CPU clock calibration.</strong> <code>CommandQueue.GetClockCalibration(out ulong gpuTimestamp, out long cpuTimestamp)</code> samples the GPU timestamp counter and the CPU <code>Stopwatch</code> clock at the same instant, so you can place GPU timestamps on a CPU profiler timeline. Check <code>Capabilities.IsClockCalibrationSupported</code> first: DirectX 12, Vulkan and desktop OpenGL support it.</li>
+<li><strong>Buffer views.</strong> <code>ResourceFactory.CreateBufferView(buffer, offset, size, format, structStride)</code> creates a <code>BufferView</code> over a range of a <code>Buffer</code>, which can be bound as a texel buffer through the new <code>ResourceType.TexelBuffer</code> and <code>ResourceType.TexelBufferReadWrite</code> layout entries.</li>
+<li><strong>Skinned mesh culling.</strong> <code>SkinnedMeshRenderer.SkinnedBoundsMode</code> culls a skinned mesh against its skeleton.</li>
+<li><code>Capabilities.IsDepthClampSupported</code>, and <code>VKGraphicsContextOptions</code> so another library, such as OpenXR, can create the Vulkan instance and device.</li>
+</ul>
+<h3 id="raw-assets">Raw assets</h3>
+<p><code>AssetsService.LoadRaw&lt;T&gt;(Guid id, Func&lt;Stream, T&gt; loader)</code> loads files that Evergine includes in the application without converting them, such as JSON or plain text. You provide the function that reads the stream:</p>
+<pre><code class="lang-csharp">using System;
+using System.IO;
+using Evergine.Framework;
+using Evergine.Framework.Services;
+
+public class LoadTextFile : Component
+{
+    [BindService]
+    private AssetsService assetsService = null;
+
+    // Id of a raw asset, usually taken from the generated EvergineContent class.
+    public Guid TextFileId { get; set; }
+
+    public string Text { get; private set; }
+
+    protected override void Start()
+    {
+        // LoadRaw does not cache: keep the result if you need it again.
+        this.Text = this.assetsService.LoadRaw(this.TextFileId, stream =&gt;
+        {
+            using var reader = new StreamReader(stream, leaveOpen: true);
+            return reader.ReadToEnd();
+        });
+    }
+}
+</code></pre>
+<p>See <a href="../../evergine_studio/assets/use.html#load-raw-assets">Raw assets loading</a> for details.</p>
+<h3 id="evergine-launcher">Evergine Launcher</h3>
+<p>Remove several installed versions at once, with better responsiveness and loading feedback.</p>
+<p>The full list of changes and bug fixes is in the release notes shown by the installer.</p>
+
+</article>
+          </div>
+
+          <div class="hidden-sm col-md-2" role="complementary">
+            <div class="sideaffix">
+
+              <nav class="bs-docs-sidebar hidden-print hidden-xs hidden-sm affix" id="affix">
+              <h5>In this article</h5>
+              <div></div>
+              <!-- <p><a class="back-to-top" href="#top">Back to top</a><p> -->
+              </nav>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <footer>
+        <div class="grad-bottom"></div>
+        <div class="footer">
+          <div class="container">
+            <span class="pull-right">
+              <a href="#top">Back to top</a>
+            </span>
+            <div class="pull-left">
+        
+        <span>Generated by <strong>DocFX</strong></span>
+            </div>      
+          </div>
+        </div>
+      </footer>    </div>
+
+    <script type="text/javascript" src="../../../styles/docfx.vendor.min.js"></script>
+    <script type="text/javascript" src="../../../styles/docfx.js"></script>
+    <script type="text/javascript" src="../../../styles/main.js"></script>
+  </body>
+</html>

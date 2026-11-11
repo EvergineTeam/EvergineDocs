@@ -3402,7 +3402,7 @@ function Convert-SourceContent {
 function Test-IsExcludedPath {
     param([string] $FullName)
     $normalized = $FullName.Replace('/', '\')
-    return $normalized -match '\\(?:\.git|\.vs|bin|obj|node_modules|\.bullet-to-jolt-backup)(?:\\|$)'
+    return $normalized -match '\\(?:\.git|\.vs|bin|obj|node_modules|\.bullet-to-jolt-backup|\.evergine-update-backup)(?:\\|$)'
 }
 
 function Get-CommonDirectoryPath {
