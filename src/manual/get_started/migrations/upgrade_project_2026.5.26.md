@@ -295,4 +295,4 @@ app.Run();
 
 ## Next steps
 
-Continue with [Update from Evergine 2026.5.26 to Evergine 2026.10](upgrade_project_2026.10.md) if you are moving to the next release.
+Continue with [Update from Evergine 2026.5.26 to Evergine 2026.11.12](upgrade_project_2026.11.12.md) if you are moving to the next release.

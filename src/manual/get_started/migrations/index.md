@@ -19,7 +19,7 @@ Each Evergine release brings new features, performance work and bug fixes. Most 
 
 | Guide | Main changes |
 | --- | --- |
-| [2026.5.26 to 2026.10](upgrade_project_2026.10.md) | DirectX 12 as the default backend, Vulkan query results, timestamp query capability. |
+| [2026.5.26 to 2026.11.12](upgrade_project_2026.11.12.md) | Physics moves from Bullet to Jolt, shadow bias, Dear ImGui 1.92.9b, DirectX 12 as the default backend. Migration script provided. |
 | [2025.10.21 to 2026.5.26](upgrade_project_2026.5.26.md) | .NET 10, Reverse-Z depth, `TextureDescription.Faces` removed. Migration script provided. |
 | [2025.3.18 to 2025.10.21](upgrade_project_2025.10.21.md) | sRGB textures and framebuffers, web template updates. Migration script provided. |
 | [2024.10.24 to 2025.3.18](upgrade_project_2025.3.18.md) | `RenderManager` binding, HLSL 2021. |
@@ -28,7 +28,7 @@ Each Evergine release brings new features, performance work and bug fixes. Most 
 
 ## In this section
 
-* [Update from Evergine 2026.5.26 to Evergine 2026.10](upgrade_project_2026.10.md)
+* [Update from Evergine 2026.5.26 to Evergine 2026.11.12](upgrade_project_2026.11.12.md)
 * [Update from Evergine 2025.10.21 to Evergine 2026.5.26](upgrade_project_2026.5.26.md)
 * [Update from Evergine 2025.3.18 to Evergine 2025.10.21](upgrade_project_2025.10.21.md)
 * [Update from Evergine 2024.10.24 to Evergine 2025.3.18](upgrade_project_2025.3.18.md)
